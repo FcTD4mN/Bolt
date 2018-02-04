@@ -13,10 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers sources\MainMenu">
+      <UniqueIdentifier>{dcc41c62-9c8b-4b18-9d68-fb05dd98c86d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\MainMenu\MenuItem">
+      <UniqueIdentifier>{4c8fd09a-275c-411c-930e-7605db518da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Math">
+      <UniqueIdentifier>{f6a9514b-0f3f-4f6f-a0d2-71faf71a4aee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.cpp">
+      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Math\Rectangle.cpp">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Math\Vector2d.cpp">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
+      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Math\Rectangle.h">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Math\Vector2d.h">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
