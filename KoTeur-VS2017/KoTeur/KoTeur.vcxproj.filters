@@ -22,6 +22,12 @@
     <Filter Include="Fichiers sources\Math">
       <UniqueIdentifier>{f6a9514b-0f3f-4f6f-a0d2-71faf71a4aee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Base">
+      <UniqueIdentifier>{69422064-0814-4d12-a7d2-43701b7f32c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Application">
+      <UniqueIdentifier>{232d7918-3cd6-4d59-b8b4-936c5f186440}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -36,6 +42,15 @@
     <ClCompile Include="..\..\src\Math\Vector2d.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Base\Drawable.cpp">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.cpp">
+      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Application\Application.cpp">
+      <Filter>Fichiers sources\Application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -46,6 +61,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Math\Vector2d.h">
       <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Base\Drawable.h">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.h">
+      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Application\Application.h">
+      <Filter>Fichiers sources\Application</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -160,13 +160,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Application\Application.cpp" />
+    <ClCompile Include="..\..\src\Base\Drawable.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.cpp" />
+    <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.cpp" />
     <ClCompile Include="..\..\src\Math\Rectangle.cpp" />
     <ClCompile Include="..\..\src\Math\Vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\Application\Application.h" />
+    <ClInclude Include="..\..\src\Base\Drawable.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h" />
+    <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.h" />
     <ClInclude Include="..\..\src\Math\Rectangle.h" />
     <ClInclude Include="..\..\src\Math\Vector2d.h" />
   </ItemGroup>
