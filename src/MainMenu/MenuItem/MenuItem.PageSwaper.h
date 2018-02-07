@@ -9,11 +9,11 @@ public:
     typedef cMenuItem tSuperClass;
 
 public:
-    cItemPageSwaper( const std::string& iText, const cRectangle& iBox, int iPage );
+    cItemPageSwaper( cMainMenu* iMasterMenu, const std::string& iText, const cRectangle& iBox, int iPage );
 
 public:
-    virtual  void ClickAction();
-    virtual  void Draw() const; 
+    virtual  void ClickAction() override;
+    virtual  void Draw() override; 
 
 private:
     int mPageToSwapTo;

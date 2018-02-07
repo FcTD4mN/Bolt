@@ -3,9 +3,8 @@
 
 cApplication::cApplication() : 
     mMainWindow( 0 )
-{
+{ 
 }
-
 
 
 //static 

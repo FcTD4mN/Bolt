@@ -5,11 +5,13 @@
 #include "Math/Rectangle.h"
 #include "Base/Drawable.h"
 
+class cMainMenu;
+
 class cMenuItem :
     public cDrawable
 {
 public:
-    cMenuItem( const std::string& iText, const cRectangle& iBox );
+    cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const cRectangle& iBox );
 
 public:
     // Access/Gets
@@ -22,8 +24,9 @@ public:
 public:
     virtual  void ClickAction() = 0;
 
-private:
+protected:
     sf::Text mText;
     cRectangle mRectangle;
+    cMainMenu* mMasterMenu;
 };
 

@@ -6,6 +6,6 @@ public:
     cDrawable();
 
 public:
-    virtual  void Draw() const = 0;
+    virtual  void Draw() = 0;
 };
 

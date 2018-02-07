@@ -1,11 +1,20 @@
 #include "MainMenu/MenuItem/MenuItem.h"
 
-cMenuItem::cMenuItem( const std::string& iText, const cRectangle& iBox ) :
-    mText(),
-    mRectangle( iBox )
+#define ITEM_COLOR sf::Color( 255, 0, 0 )
+#define ITEM_FONT "resources/Fonts/arial.ttf"
+#define ITEM_CHARACTER_SIZE 24
+
+cMenuItem::cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const cRectangle& iBox ) :
+    mRectangle( iBox ),
+    mMasterMenu( iMasterMenu )
 {
-    mText.setString( iText );
-    mText.setFont( sf::Font() );
+    //sf::Font font;
+    //font.loadFromFile( ITEM_FONT );
+
+    //mText.setString( iText );
+    //mText.setFont( font );
+    //mText.setCharacterSize( ITEM_CHARACTER_SIZE );
+    //mText.setFillColor( ITEM_COLOR ); 
 }
 
 

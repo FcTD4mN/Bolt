@@ -28,6 +28,9 @@
     <Filter Include="Fichiers sources\Application">
       <UniqueIdentifier>{232d7918-3cd6-4d59-b8b4-936c5f186440}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\MainMenu\MenuPage">
+      <UniqueIdentifier>{4d84369f-0a37-4cd7-b9fe-29d345e2d646}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -51,6 +54,12 @@
     <ClCompile Include="..\..\src\Application\Application.cpp">
       <Filter>Fichiers sources\Application</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\MainMenu\MenuPage\MenuPage.cpp">
+      <Filter>Fichiers sources\MainMenu\MenuPage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MainMenu\MainMenu.cpp">
+      <Filter>Fichiers sources\MainMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -70,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Application\Application.h">
       <Filter>Fichiers sources\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MainMenu\MenuPage\MenuPage.h">
+      <Filter>Fichiers sources\MainMenu\MenuPage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MainMenu\MainMenu.h">
+      <Filter>Fichiers sources\MainMenu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
