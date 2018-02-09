@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\src\MainMenu\MainMenu.cpp">
       <Filter>Fichiers sources\MainMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.Callback.cpp">
+      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -85,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\MainMenu\MainMenu.h">
       <Filter>Fichiers sources\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.Callback.h">
+      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Base\GeneralEnums.h">
+      <Filter>Fichiers sources\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

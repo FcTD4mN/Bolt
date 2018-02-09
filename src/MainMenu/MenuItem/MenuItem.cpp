@@ -16,15 +16,33 @@ cMenuItem::cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const sf
     mRectangle( iBox ),
     mMasterMenu( iMasterMenu )
 {  
+    Init( iText );
+}
+
+cMenuItem::cMenuItem( cMainMenu * iMasterMenu, const std::string & iText, float iX, float iY, float iW, float iH ) :
+    mText(),
+    mFont(),
+    mRectangle( sf::RectangleShape( sf::Vector2f( iX, iY ) ) ),
+    mMasterMenu( iMasterMenu )
+{
+    mRectangle.setSize( sf::Vector2f( iW, iH ) );
+    Init( iText );
+}
+
+void 
+cMenuItem::Init( const std::string & iText )
+{
     if( mFont.loadFromFile( ITEM_FONT ) )
     {
         mText.setString( iText );
         mText.setFont( mFont );
         mText.setCharacterSize( ITEM_CHARACTER_SIZE );
         mText.setFillColor( ITEM_COLOR );
-        mText.setPosition( iBox.getPosition() );
-    }
-    mRectangle.setSize( sf::Vector2f( mText.getGlobalBounds().width, mText.getGlobalBounds().height ) );
+
+        sf::Vector2f center( mRectangle.getPosition().x - mText.getGlobalBounds().width / 2 + mRectangle.getSize().x / 2,
+                             mRectangle.getPosition().y - mText.getGlobalBounds().height / 2 + mRectangle.getSize().y / 2 );
+        mText.setPosition( center );
+    } 
 }
 
 

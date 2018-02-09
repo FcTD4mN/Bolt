@@ -5,6 +5,7 @@
 #include "MainMenu/MainMenu.h"
 #include "MainMenu/MenuPage/MenuPage.h"
 #include "MainMenu/MenuItem/MenuItem.PageSwaper.h"
+#include "MainMenu/MenuItem/MenuItem.Callback.h"
 #include "Math/Rectangle.h"
 
 int main()
@@ -26,13 +27,26 @@ int main()
     cMenuPage pageOne( &menu );
     cMenuPage pageTwo( &menu );
 
-    sf::RectangleShape rect( sf::Vector2f( 50, 50 ) );
-    rect.setPosition( 50, 50 );
+    sf::RectangleShape rect( sf::Vector2f( 500, 50 ) );
+    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 - 60 );
 
     cItemPageSwaper itemOne( &menu, "FirstPage0", rect, 1 );
-    cItemPageSwaper itemTwo( &menu, "FirstPage1", rect, 0 );
+    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 );
+    cItemPageSwaper itemOne2( &menu, "FirstPage1", rect, 1 );
+    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 - 60 );
+    cItemPageSwaper itemTwo( &menu, "SecondPage0", rect, 0 );
+
+    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 - 0 );
+    cItemCallback itemTwo2( &menu, "SecondPage1", rect, []() {
+        cApplication::App()->Window()->setTitle( "CLICK" );
+    } );
+
+
     pageOne.AddItem( &itemOne );
+    pageOne.AddItem( &itemOne2 );
     pageTwo.AddItem( &itemTwo );
+    pageTwo.AddItem( &itemTwo2 );
+
 
     menu.AddPage( &pageOne );
     menu.AddPage( &pageTwo );
@@ -50,8 +64,7 @@ int main()
         }
          
         window->clear();
-        menu.Draw();
-        //window->draw( test );
+        menu.Draw(); 
         window->display();
     }
 

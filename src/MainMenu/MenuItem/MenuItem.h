@@ -12,6 +12,9 @@ class cMenuItem :
 {
 public:
     cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox );
+    cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, float iX, float iY, float iW, float iH );
+
+    void Init( const std::string& iText );
 
 public:
     // Access/Gets

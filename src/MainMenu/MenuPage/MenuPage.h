@@ -1,7 +1,9 @@
 #pragma once
 
-#include <vector> 
 #include "Base/Drawable.h"
+#include "Base/GeneralEnums.h"
+
+#include <vector> 
 
 class cMainMenu;
 class cMenuItem;
@@ -15,12 +17,14 @@ public:
 public:
     void  AddItem( cMenuItem* iItem );
     void  MouseClick( float iX, float iY );
+    void  SetFormat( eFormat iFormat );
 
 public:
     virtual  void Draw() override;
 
 protected:
-    cMainMenu* mMasterMenu;
-    std::vector< cMenuItem* > mItems;
+    cMainMenu*                  mMasterMenu;
+    std::vector< cMenuItem* >   mItems;
+    eFormat                     mFormat;
 };
 

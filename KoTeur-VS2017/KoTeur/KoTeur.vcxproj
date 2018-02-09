@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\src\Base\Drawable.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MainMenu.cpp" />
+    <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.Callback.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuPage\MenuPage.cpp" />
@@ -173,7 +174,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\Application\Application.h" />
     <ClInclude Include="..\..\src\Base\Drawable.h" />
+    <ClInclude Include="..\..\src\Base\GeneralEnums.h" />
     <ClInclude Include="..\..\src\MainMenu\MainMenu.h" />
+    <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.Callback.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuPage\MenuPage.h" />

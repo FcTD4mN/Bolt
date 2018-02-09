@@ -32,6 +32,13 @@ cMenuPage::MouseClick( float iX, float iY )
 
 
 void 
+cMenuPage::SetFormat( eFormat iFormat )
+{
+    mFormat = iFormat;
+}
+
+
+void 
 cMenuPage::Draw()
 {
     for( int i = 0; i < mItems.size() ; ++i )
