@@ -6,10 +6,10 @@ class cItemPageSwaper :
     public cMenuItem
 {
 public:
-    typedef cMenuItem tSuperClass;
+    typedef  cMenuItem  tSuperClass;
 
 public:
-    cItemPageSwaper( cMainMenu* iMasterMenu, const std::string& iText, const cRectangle& iBox, int iPage );
+    cItemPageSwaper( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, int iPage );
 
 public:
     virtual  void ClickAction() override;

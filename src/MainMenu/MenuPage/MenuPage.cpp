@@ -18,6 +18,20 @@ cMenuPage::AddItem( cMenuItem* iItem )
 
 
 void 
+cMenuPage::MouseClick( float iX, float iY )
+{
+    for( int i = 0; i < mItems.size(); ++i )
+    {
+        if( mItems[ i ]->ContainsCoordinates( iX, iY ) )
+        {
+            mItems[ i ]->ClickAction();
+            return;
+        }
+    }
+}
+
+
+void 
 cMenuPage::Draw()
 {
     for( int i = 0; i < mItems.size() ; ++i )

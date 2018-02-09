@@ -26,8 +26,11 @@ int main()
     cMenuPage pageOne( &menu );
     cMenuPage pageTwo( &menu );
 
-    cItemPageSwaper itemOne( &menu, "FirstPage0", cRectangle( 50, 50, 50, 50 ), 1 );
-    cItemPageSwaper itemTwo( &menu, "FirstPage1", cRectangle( 50, 50, 50, 50 ), 0 );
+    sf::RectangleShape rect( sf::Vector2f( 50, 50 ) );
+    rect.setPosition( 50, 50 );
+
+    cItemPageSwaper itemOne( &menu, "FirstPage0", rect, 1 );
+    cItemPageSwaper itemTwo( &menu, "FirstPage1", rect, 0 );
     pageOne.AddItem( &itemOne );
     pageTwo.AddItem( &itemTwo );
 
@@ -42,12 +45,14 @@ int main()
         {
             if( event.type == sf::Event::Closed )
                 window->close();
+            else if( event.type == sf::Event::MouseButtonReleased )
+                menu.MouseClick( event.mouseButton.x, event.mouseButton.y );
         }
          
+        window->clear();
         menu.Draw();
         //window->draw( test );
         window->display();
-        //window->clear();
     }
 
     return 0;

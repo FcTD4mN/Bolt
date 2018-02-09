@@ -13,7 +13,8 @@ public:
     cMenuPage( cMainMenu* iMasterMenu ); 
 
 public:
-    void AddItem( cMenuItem* iItem );
+    void  AddItem( cMenuItem* iItem );
+    void  MouseClick( float iX, float iY );
 
 public:
     virtual  void Draw() override;

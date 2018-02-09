@@ -22,6 +22,13 @@ cMainMenu::CurrentPage( int iPage )
 }
 
 
+void 
+cMainMenu::MouseClick( float iX, float iY )
+{
+    mPages[ mCurrentPage ]->MouseClick( iX, iY );
+}
+
+
 void
 cMainMenu::Draw()
 { 

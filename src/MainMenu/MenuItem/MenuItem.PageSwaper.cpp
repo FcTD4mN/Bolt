@@ -7,7 +7,7 @@
 #include <SFML/Graphics.hpp>
 
 
-cItemPageSwaper::cItemPageSwaper( cMainMenu* iMasterMenu, const std::string& iText, const cRectangle& iBox, int iPage ) :
+cItemPageSwaper::cItemPageSwaper( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, int iPage ) :
    tSuperClass( iMasterMenu, iText, iBox ),
     mPageToSwapTo( iPage )
 {
@@ -23,17 +23,7 @@ cItemPageSwaper::ClickAction()
 void 
 cItemPageSwaper::Draw()
 {
-    sf::Font font;
-    if( !font.loadFromFile( "resources/Fonts/arial.ttf" ) )
-        int a = 2;
-
-    mText.setString( "TEST" );
-    mText.setFont( font );
-    mText.setCharacterSize( 24 );
-    mText.setFillColor( sf::Color::Red );
-
-    sf::RenderWindow* window = cApplication::App()->Window();
-    window->draw( mText ); 
+    tSuperClass::Draw(); 
 }
 
 
