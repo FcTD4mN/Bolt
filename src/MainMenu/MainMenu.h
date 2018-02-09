@@ -14,7 +14,7 @@ public:
 public:
     void AddPage( cMenuPage* iPage );
     void CurrentPage( int iPage );
-    void  MouseClick( float iX, float iY );
+    void  MouseClick( int iX, int iY );
 
 public:
     virtual  void Draw() override;

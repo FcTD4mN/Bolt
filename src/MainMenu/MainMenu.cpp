@@ -23,7 +23,7 @@ cMainMenu::CurrentPage( int iPage )
 
 
 void 
-cMainMenu::MouseClick( float iX, float iY )
+cMainMenu::MouseClick( int iX, int iY )
 {
     mPages[ mCurrentPage ]->MouseClick( iX, iY );
 }

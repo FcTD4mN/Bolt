@@ -12,8 +12,7 @@ public:
     cItemPageSwaper( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, int iPage );
 
 public:
-    virtual  void ClickAction() override;
-    virtual  void Draw() override; 
+    virtual  void ClickAction() override; 
 
 private:
     int mPageToSwapTo;

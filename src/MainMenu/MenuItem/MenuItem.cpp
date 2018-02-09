@@ -58,7 +58,24 @@ void
 cMenuItem::Text( const std::string& iText )
 {
     mText.setString( iText );
-} 
+}
+
+
+const sf::RectangleShape& 
+cMenuItem::Rectangle() const
+{
+    return  mRectangle;
+}
+
+void
+cMenuItem::Position( const sf::Vector2f & iPosition )
+{
+    mRectangle.setPosition( iPosition );        
+    sf::Vector2f center( mRectangle.getPosition().x - mText.getGlobalBounds().width / 2 + mRectangle.getSize().x / 2,
+                                                                     mRectangle.getPosition().y - mText.getGlobalBounds().height / 2 + mRectangle.getSize().y / 2 );
+    mText.setPosition( center );
+}
+
 
 
 void 

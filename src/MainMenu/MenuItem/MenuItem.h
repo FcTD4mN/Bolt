@@ -21,6 +21,9 @@ public:
     const sf::Text& Text() const;
     void Text( const std::string& iText ); 
 
+    const sf::RectangleShape& Rectangle() const;
+    void Position( const sf::Vector2f&  iPosition );
+
 public:
     virtual  void ClickAction() = 0;
     virtual  void Draw() override;

@@ -27,16 +27,12 @@ int main()
     cMenuPage pageOne( &menu );
     cMenuPage pageTwo( &menu );
 
-    sf::RectangleShape rect( sf::Vector2f( 500, 50 ) );
-    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 - 60 );
+    sf::RectangleShape rect( sf::Vector2f( 500, 50 ) ); 
 
-    cItemPageSwaper itemOne( &menu, "FirstPage0", rect, 1 );
-    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 );
+    cItemPageSwaper itemOne( &menu, "FirstPage0", rect, 1 ); 
     cItemPageSwaper itemOne2( &menu, "FirstPage1", rect, 1 );
-    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 - 60 );
-    cItemPageSwaper itemTwo( &menu, "SecondPage0", rect, 0 );
 
-    rect.setPosition( window->getSize().x / 2 - 250, window->getSize().y / 2 - 0 );
+    cItemPageSwaper itemTwo( &menu, "SecondPage0", rect, 0 );
     cItemCallback itemTwo2( &menu, "SecondPage1", rect, []() {
         cApplication::App()->Window()->setTitle( "CLICK" );
     } );

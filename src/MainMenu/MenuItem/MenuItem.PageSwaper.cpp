@@ -17,13 +17,6 @@ void
 cItemPageSwaper::ClickAction()
 {
     mMasterMenu->CurrentPage( mPageToSwapTo );
-}
-
-
-void 
-cItemPageSwaper::Draw()
-{
-    tSuperClass::Draw(); 
-}
+} 
 
 

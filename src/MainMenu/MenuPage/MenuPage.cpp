@@ -1,11 +1,14 @@
 #include "MainMenu/MenuPage/MenuPage.h"
 
 
+#include "Application/Application.h" 
 #include "MainMenu/MenuItem/MenuItem.h"
 
 
 cMenuPage::cMenuPage( cMainMenu* iMasterMenu ) : 
-    mMasterMenu( iMasterMenu )
+    mMasterMenu( iMasterMenu ),
+    mFormat( kCenter ),
+    mSpacing( 5 )
 { 
 }
 
@@ -14,6 +17,24 @@ void
 cMenuPage::AddItem( cMenuItem* iItem )
 {
     mItems.push_back( iItem );
+
+    sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
+
+    float totalHeight = 0.0F; 
+    for( int i = 0; i < mItems.size(); ++i )
+    {
+        totalHeight += mItems[ i ]->Rectangle().getSize().y + mSpacing; 
+    }
+
+    float y = windowSize.y / 2 - totalHeight/2;
+
+    for( int i = 0; i < mItems.size(); ++i )
+    { 
+        sf::Vector2f itemSize = mItems[ i ]->Rectangle().getSize();
+        mItems[ i ]->Position( sf::Vector2f(  windowSize.x / 2 - itemSize.x / 2, y ) ); 
+
+        y += itemSize.y + mSpacing;
+    }
 }
 
 
@@ -32,9 +53,16 @@ cMenuPage::MouseClick( float iX, float iY )
 
 
 void 
-cMenuPage::SetFormat( eFormat iFormat )
+cMenuPage::Format( eFormat iFormat )
 {
     mFormat = iFormat;
+}
+
+
+void 
+cMenuPage::Spacing( float iSpacing )
+{
+    mSpacing = iSpacing;
 }
 
 

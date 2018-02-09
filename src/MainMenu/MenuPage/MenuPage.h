@@ -17,7 +17,8 @@ public:
 public:
     void  AddItem( cMenuItem* iItem );
     void  MouseClick( float iX, float iY );
-    void  SetFormat( eFormat iFormat );
+    void  Format( eFormat iFormat );
+    void  Spacing( float iSpacing );
 
 public:
     virtual  void Draw() override;
@@ -26,5 +27,6 @@ protected:
     cMainMenu*                  mMasterMenu;
     std::vector< cMenuItem* >   mItems;
     eFormat                     mFormat;
+    float                       mSpacing;
 };
 
