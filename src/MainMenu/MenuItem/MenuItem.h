@@ -23,6 +23,8 @@ public:
 
     const sf::RectangleShape& Rectangle() const;
     void Position( const sf::Vector2f&  iPosition );
+    void Size( const sf::Vector2f&  iSize );
+    void Size( float iW, float iH );
 
 public:
     virtual  void ClickAction() = 0;

@@ -77,6 +77,19 @@ cMenuItem::Position( const sf::Vector2f & iPosition )
 }
 
 
+void 
+cMenuItem::Size( const sf::Vector2f & iSize )
+{
+    mRectangle.setSize( iSize );
+}
+
+
+void
+cMenuItem::Size( float iW, float iH )
+{
+    mRectangle.setSize( sf::Vector2f( iW, iH ) );
+}
+
 
 void 
 cMenuItem::Draw()

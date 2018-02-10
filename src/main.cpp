@@ -24,10 +24,10 @@ int main()
     test.setFillColor( sf::Color::Red );
 
     cMainMenu menu;
-    cMenuPage pageOne( &menu );
+    cMenuPage pageOne( &menu ); 
     cMenuPage pageTwo( &menu );
 
-    sf::RectangleShape rect( sf::Vector2f( 500, 50 ) ); 
+    sf::RectangleShape rect( sf::Vector2f( 200, 50 ) ); 
 
     cItemPageSwaper itemOne( &menu, "FirstPage0", rect, 1 ); 
     cItemPageSwaper itemOne2( &menu, "FirstPage1", rect, 1 );

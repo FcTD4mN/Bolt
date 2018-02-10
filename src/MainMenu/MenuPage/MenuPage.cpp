@@ -5,12 +5,35 @@
 #include "MainMenu/MenuItem/MenuItem.h"
 
 
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------ Construction
+// -------------------------------------------------------------------------------------
+
+
 cMenuPage::cMenuPage( cMainMenu* iMasterMenu ) : 
     mMasterMenu( iMasterMenu ),
     mFormat( kCenter ),
-    mSpacing( 5 )
-{ 
+    mSpacing( 5 ),
+    mPageBounding()
+{
+    Init();
 }
+
+
+void 
+cMenuPage::Init()
+{
+    sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
+    mPageBounding.left = 0;
+    mPageBounding.top = 0;
+    mPageBounding.width = float(windowSize.x);
+    mPageBounding.height = float(windowSize.y);
+}
+
+
+// -------------------------------------------------------------------------------------
+// --------------------------------------------------------------------- Item management
+// -------------------------------------------------------------------------------------
 
 
 void 
@@ -18,38 +41,13 @@ cMenuPage::AddItem( cMenuItem* iItem )
 {
     mItems.push_back( iItem );
 
-    sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
-
-    float totalHeight = 0.0F; 
-    for( int i = 0; i < mItems.size(); ++i )
-    {
-        totalHeight += mItems[ i ]->Rectangle().getSize().y + mSpacing; 
-    }
-
-    float y = windowSize.y / 2 - totalHeight/2;
-
-    for( int i = 0; i < mItems.size(); ++i )
-    { 
-        sf::Vector2f itemSize = mItems[ i ]->Rectangle().getSize();
-        mItems[ i ]->Position( sf::Vector2f(  windowSize.x / 2 - itemSize.x / 2, y ) ); 
-
-        y += itemSize.y + mSpacing;
-    }
+    ComputeItemPositions();
 }
 
 
-void 
-cMenuPage::MouseClick( float iX, float iY )
-{
-    for( int i = 0; i < mItems.size(); ++i )
-    {
-        if( mItems[ i ]->ContainsCoordinates( iX, iY ) )
-        {
-            mItems[ i ]->ClickAction();
-            return;
-        }
-    }
-}
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------- Setup
+// -------------------------------------------------------------------------------------
 
 
 void 
@@ -66,12 +64,95 @@ cMenuPage::Spacing( float iSpacing )
 }
 
 
+void  
+cMenuPage::Rectangle( const sf::Rect< float >& iRectangle )
+{
+    mPageBounding = iRectangle;
+}
+
+
+void  
+cMenuPage::Position( float iX, float iY )
+{
+    mPageBounding.left = iX;
+    mPageBounding.top = iY;
+    ComputeItemPositions();
+}
+
+
+void  
+cMenuPage::Size( float iW, float iH )
+{
+    mPageBounding.width  = iW;
+    mPageBounding.height = iH;
+    ComputeItemPositions();
+}
+
+
+// -------------------------------------------------------------------------------------
+// --------------------------------------------------------------------- Computing stuff
+// -------------------------------------------------------------------------------------
+
+
+void 
+cMenuPage::ComputeItemPositions()
+{
+    sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
+
+    float totalHeight = 0.0F;
+    for( int i = 0; i < mItems.size(); ++i )
+    {
+        totalHeight += mItems[ i ]->Rectangle().getSize().y + mSpacing;
+    }
+
+    float y = mPageBounding.top + mPageBounding.height / 2 - totalHeight / 2;
+
+    for( int i = 0; i < mItems.size(); ++i )
+    {
+        cMenuItem* item = mItems[ i ];
+        sf::Vector2f itemSize = item->Rectangle().getSize();
+
+        if( itemSize.x > mPageBounding.width - mSpacing )
+            item->Size( mPageBounding.width - mSpacing, itemSize.y );
+
+        item->Position( sf::Vector2f( mPageBounding.left + mPageBounding.width / 2 - item->Rectangle().getSize().x / 2, y ) );
+
+
+        y += itemSize.y + mSpacing;
+    }
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------- Drawable override
+// -------------------------------------------------------------------------------------
+
+
 void 
 cMenuPage::Draw()
 {
     for( int i = 0; i < mItems.size() ; ++i )
     {
         mItems[ i ]->Draw();
+    }
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ Events
+// -------------------------------------------------------------------------------------
+
+
+void
+cMenuPage::MouseClick( int iX, int iY )
+{
+    for( int i = 0; i < mItems.size(); ++i )
+    {
+        if( mItems[ i ]->ContainsCoordinates( float( iX ), float( iY ) ) )
+        {
+            mItems[ i ]->ClickAction();
+            return;
+        }
     }
 }
 
