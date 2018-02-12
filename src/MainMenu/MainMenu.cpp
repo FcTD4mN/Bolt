@@ -4,7 +4,7 @@
 
 
 cMainMenu::cMainMenu()
-{ 
+{
 }
 
 
@@ -15,14 +15,14 @@ cMainMenu::AddPage( cMenuPage* iPage )
 }
 
 
-void 
+void
 cMainMenu::CurrentPage( int iPage )
 {
     mCurrentPage = iPage;
 }
 
 
-void 
+void
 cMainMenu::MouseClick( int iX, int iY )
 {
     mPages[ mCurrentPage ]->MouseClick( iX, iY );
@@ -31,8 +31,8 @@ cMainMenu::MouseClick( int iX, int iY )
 
 void
 cMainMenu::Draw()
-{ 
-    mPages[ mCurrentPage ]->Draw(); 
+{
+    mPages[ mCurrentPage ]->Draw();
 }
 
 

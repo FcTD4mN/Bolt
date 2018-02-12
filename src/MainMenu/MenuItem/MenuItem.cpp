@@ -1,7 +1,7 @@
 #include "MainMenu/MenuItem/MenuItem.h"
 
 
-#include "Application/Application.h" 
+#include "Application/Application.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -12,10 +12,10 @@
 
 cMenuItem::cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox ) :
     mText(),
-    mFont(), 
+    mFont(),
     mRectangle( iBox ),
     mMasterMenu( iMasterMenu )
-{  
+{
     Init( iText );
 }
 
@@ -29,7 +29,7 @@ cMenuItem::cMenuItem( cMainMenu * iMasterMenu, const std::string & iText, float 
     Init( iText );
 }
 
-void 
+void
 cMenuItem::Init( const std::string & iText )
 {
     if( mFont.loadFromFile( ITEM_FONT ) )
@@ -42,26 +42,26 @@ cMenuItem::Init( const std::string & iText )
         sf::Vector2f center( mRectangle.getPosition().x - mText.getGlobalBounds().width / 2 + mRectangle.getSize().x / 2,
                              mRectangle.getPosition().y - mText.getGlobalBounds().height / 2 + mRectangle.getSize().y / 2 );
         mText.setPosition( center );
-    } 
+    }
 }
 
 
 // ===============================================Access/Gets
-const sf::Text& 
+const sf::Text&
 cMenuItem::Text() const
 {
     return  mText;
 }
 
 
-void 
+void
 cMenuItem::Text( const std::string& iText )
 {
     mText.setString( iText );
 }
 
 
-const sf::RectangleShape& 
+const sf::RectangleShape&
 cMenuItem::Rectangle() const
 {
     return  mRectangle;
@@ -70,14 +70,14 @@ cMenuItem::Rectangle() const
 void
 cMenuItem::Position( const sf::Vector2f & iPosition )
 {
-    mRectangle.setPosition( iPosition );        
+    mRectangle.setPosition( iPosition );
     sf::Vector2f center( mRectangle.getPosition().x - mText.getGlobalBounds().width / 2 + mRectangle.getSize().x / 2,
                                                                      mRectangle.getPosition().y - mText.getGlobalBounds().height / 2 + mRectangle.getSize().y / 2 );
     mText.setPosition( center );
 }
 
 
-void 
+void
 cMenuItem::Size( const sf::Vector2f & iSize )
 {
     mRectangle.setSize( iSize );
@@ -91,7 +91,7 @@ cMenuItem::Size( float iW, float iH )
 }
 
 
-void 
+void
 cMenuItem::Draw()
 {
     cApplication::App()->Window()->draw( mRectangle );
@@ -99,7 +99,7 @@ cMenuItem::Draw()
 }
 
 
-bool 
+bool
 cMenuItem::ContainsCoordinates( float iX, float iY ) const
 {
     return  mRectangle.getGlobalBounds().contains( iX, iY );

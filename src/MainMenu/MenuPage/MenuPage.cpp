@@ -1,7 +1,7 @@
 #include "MainMenu/MenuPage/MenuPage.h"
 
 
-#include "Application/Application.h" 
+#include "Application/Application.h"
 #include "MainMenu/MenuItem/MenuItem.h"
 
 
@@ -10,7 +10,7 @@
 // -------------------------------------------------------------------------------------
 
 
-cMenuPage::cMenuPage( cMainMenu* iMasterMenu ) : 
+cMenuPage::cMenuPage( cMainMenu* iMasterMenu ) :
     mMasterMenu( iMasterMenu ),
     mFormat( kCenter ),
     mSpacing( 5 ),
@@ -20,7 +20,7 @@ cMenuPage::cMenuPage( cMainMenu* iMasterMenu ) :
 }
 
 
-void 
+void
 cMenuPage::Init()
 {
     sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
@@ -36,7 +36,7 @@ cMenuPage::Init()
 // -------------------------------------------------------------------------------------
 
 
-void 
+void
 cMenuPage::AddItem( cMenuItem* iItem )
 {
     mItems.push_back( iItem );
@@ -50,28 +50,28 @@ cMenuPage::AddItem( cMenuItem* iItem )
 // -------------------------------------------------------------------------------------
 
 
-void 
+void
 cMenuPage::Format( eFormat iFormat )
 {
     mFormat = iFormat;
 }
 
 
-void 
+void
 cMenuPage::Spacing( float iSpacing )
 {
     mSpacing = iSpacing;
 }
 
 
-void  
+void
 cMenuPage::Rectangle( const sf::Rect< float >& iRectangle )
 {
     mPageBounding = iRectangle;
 }
 
 
-void  
+void
 cMenuPage::Position( float iX, float iY )
 {
     mPageBounding.left = iX;
@@ -80,7 +80,7 @@ cMenuPage::Position( float iX, float iY )
 }
 
 
-void  
+void
 cMenuPage::Size( float iW, float iH )
 {
     mPageBounding.width  = iW;
@@ -94,7 +94,7 @@ cMenuPage::Size( float iW, float iH )
 // -------------------------------------------------------------------------------------
 
 
-void 
+void
 cMenuPage::ComputeItemPositions()
 {
     sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
@@ -128,7 +128,7 @@ cMenuPage::ComputeItemPositions()
 // -------------------------------------------------------------------------------------
 
 
-void 
+void
 cMenuPage::Draw()
 {
     for( int i = 0; i < mItems.size() ; ++i )

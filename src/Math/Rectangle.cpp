@@ -120,13 +120,13 @@ cRectangle::H( double  iH )
 bool
 cRectangle::ContainsPoint( double iX, double iY ) const
 {
-    if( iX < mX ) 
+    if( iX < mX )
         return  false;
-    if( iY < mY ) 
+    if( iY < mY )
         return  false;
-    if( iX > mX2) 
+    if( iX > mX2)
         return  false;
-    if( iY > mY2) 
+    if( iY > mY2)
         return  false;
 
     return  true;

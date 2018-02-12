@@ -1,12 +1,12 @@
 #pragma once
- 
+
 class cRectangle
 {
 
 public:
     // Contruction
     cRectangle();
-    cRectangle( double iX, double iY, double iW, double iH ); 
+    cRectangle( double iX, double iY, double iW, double iH );
 
 public:
     // Access/Get
@@ -28,7 +28,7 @@ public:
     double H() const;
     void H( double  iH );
 
-public: 
+public:
     // Computing
     bool ContainsPoint( double iX, double iY ) const;
     bool ContainsRectangleEntirely( const cRectangle& iRectangle ) const;

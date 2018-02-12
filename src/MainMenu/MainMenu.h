@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector> 
+#include <vector>
 #include "Base/Drawable.h"
 
 class cMenuPage;
@@ -9,7 +9,7 @@ class cMainMenu :
     public cDrawable
 {
 public:
-    cMainMenu(); 
+    cMainMenu();
 
 public:
     void AddPage( cMenuPage* iPage );

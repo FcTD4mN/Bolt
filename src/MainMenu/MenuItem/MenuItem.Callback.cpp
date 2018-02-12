@@ -13,10 +13,10 @@ cItemCallback::cItemCallback( cMainMenu* iMasterMenu, const std::string& iText, 
 {
 }
 
-void 
+void
 cItemCallback::ClickAction()
 {
     mFunction();
-} 
+}
 
 

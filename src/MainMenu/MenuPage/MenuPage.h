@@ -3,8 +3,8 @@
 #include "Base/Drawable.h"
 #include "Base/GeneralEnums.h"
 
-#include "SFML/Graphics.hpp" 
-#include <vector> 
+#include "SFML/Graphics.hpp"
+#include <vector>
 
 class cMainMenu;
 class cMenuItem;
@@ -13,7 +13,7 @@ class cMenuPage :
     public cDrawable
 {
 public:
-    cMenuPage( cMainMenu* iMasterMenu ); 
+    cMenuPage( cMainMenu* iMasterMenu );
     void  Init();
 
 public:

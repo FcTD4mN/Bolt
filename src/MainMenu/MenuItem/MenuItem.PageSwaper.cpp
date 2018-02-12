@@ -13,10 +13,10 @@ cItemPageSwaper::cItemPageSwaper( cMainMenu* iMasterMenu, const std::string& iTe
 {
 }
 
-void 
+void
 cItemPageSwaper::ClickAction()
 {
     mMasterMenu->CurrentPage( mPageToSwapTo );
-} 
+}
 
 

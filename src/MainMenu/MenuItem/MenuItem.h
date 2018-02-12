@@ -19,7 +19,7 @@ public:
 public:
     // Access/Gets
     const sf::Text& Text() const;
-    void Text( const std::string& iText ); 
+    void Text( const std::string& iText );
 
     const sf::RectangleShape& Rectangle() const;
     void Position( const sf::Vector2f&  iPosition );
@@ -33,7 +33,7 @@ public:
 
 protected:
     sf::Text            mText;
-    sf::Font            mFont; 
+    sf::Font            mFont;
     sf::RectangleShape  mRectangle;
     cMainMenu*          mMasterMenu;
 };

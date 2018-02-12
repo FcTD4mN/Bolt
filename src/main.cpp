@@ -24,12 +24,12 @@ int main()
     test.setFillColor( sf::Color::Red );
 
     cMainMenu menu;
-    cMenuPage pageOne( &menu ); 
+    cMenuPage pageOne( &menu );
     cMenuPage pageTwo( &menu );
 
-    sf::RectangleShape rect( sf::Vector2f( 200, 50 ) ); 
+    sf::RectangleShape rect( sf::Vector2f( 200, 50 ) );
 
-    cItemPageSwaper itemOne( &menu, "FirstPage0", rect, 1 ); 
+    cItemPageSwaper itemOne( &menu, "FirstPage0", rect, 1 );
     cItemPageSwaper itemOne2( &menu, "FirstPage1", rect, 1 );
 
     cItemPageSwaper itemTwo( &menu, "SecondPage0", rect, 0 );
@@ -58,9 +58,9 @@ int main()
             else if( event.type == sf::Event::MouseButtonReleased )
                 menu.MouseClick( event.mouseButton.x, event.mouseButton.y );
         }
-         
+
         window->clear();
-        menu.Draw(); 
+        menu.Draw();
         window->display();
     }
 

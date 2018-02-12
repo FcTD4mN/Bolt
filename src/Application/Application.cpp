@@ -1,14 +1,14 @@
 #include "Application/Application.h"
- 
 
-cApplication::cApplication() : 
+
+cApplication::cApplication() :
     mMainWindow( 0 )
-{ 
+{
 }
 
 
-//static 
-cApplication* 
+//static
+cApplication*
 cApplication::App()
 {
     static cApplication* gApplication = 0;
@@ -28,7 +28,7 @@ cApplication::Window()
 
 void
 cApplication::Initialize()
-{ 
+{
     mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Game Title" );
 }
 

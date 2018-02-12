@@ -6,7 +6,7 @@
 cVector2d::cVector2d() :
     mX( 0 ),
     mY ( 0 )
-{ 
+{
 }
 
 
@@ -18,36 +18,36 @@ cVector2d::cVector2d( double iX, double iY ) :
 
 
 // ==============================================Access/Get
-double 
+double
 cVector2d::X() const
 {
     return  mX;
 }
 
 
-void 
+void
 cVector2d::X( double  iX )
 {
     mX = iX;
 }
 
 
-double 
+double
 cVector2d::Y() const
 {
     return  mY;
 }
 
 
-void 
+void
 cVector2d::Y( double  iY )
-{  
+{
     mY = iY;
 }
 
 
 // ==============================================Computing
-cVector2d 
+cVector2d
 cVector2d::Normalized() const
 {
     cVector2d normalizedVector( mX, mY );
@@ -59,42 +59,42 @@ cVector2d::Normalized() const
 }
 
 
-cVector2d 
+cVector2d
 cVector2d::NormalCounterClockWise()
-{ 
+{
     double x = -mY;
     double y = mX;
     return  cVector2d( x, y );
 }
 
-double 
+double
 cVector2d::Length() const
 {
     return  sqrt( mX * mX + mY * mY );
 }
 
-double 
+double
 cVector2d::LengthSquared() const
 {
     return  mX * mX + mY * mY;
 }
 
 
-void 
+void
 cVector2d::operator+( const cVector2d& iRhs )
 {
     mX += iRhs.mX;
     mY += iRhs.mY;
 }
 
-void 
+void
 cVector2d::operator-( const cVector2d& iRhs )
 {
     mX -= iRhs.mX;
     mY -= iRhs.mY;
 }
 
-void 
+void
 cVector2d::operator*( double iRhs )
 {
     mX *= iRhs;
