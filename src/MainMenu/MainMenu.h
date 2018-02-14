@@ -12,8 +12,8 @@ public:
     cMainMenu();
 
 public:
-    void AddPage( cMenuPage* iPage );
-    void CurrentPage( int iPage );
+    void  AddPage( cMenuPage* iPage );
+    void  CurrentPage( int iPage );
     void  MouseClick( int iX, int iY );
 
 public:
