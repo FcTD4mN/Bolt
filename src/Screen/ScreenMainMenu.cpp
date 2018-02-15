@@ -12,7 +12,8 @@ cScreenMainMenu::~cScreenMainMenu()
 }
 
 
-cScreenMainMenu::cScreenMainMenu()
+cScreenMainMenu::cScreenMainMenu( cMainMenu* iMainMenu ) :
+    mMainMenu( iMainMenu )
 {
 }
 

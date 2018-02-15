@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Screen.h"
+#include "Screen/Screen.h"
 
 class cMainMenu;
 
@@ -10,8 +10,8 @@ class cScreenMainMenu :
 
 public:
     // Contruction/Destruction
-    virtual  ~cScreenMainMenu();
-    cScreenMainMenu();
+    virtual  ~cScreenMainMenu() override;
+    cScreenMainMenu( cMainMenu* iMainMenu );
 
 public:
     virtual  void  Initialize() override;
