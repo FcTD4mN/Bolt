@@ -34,6 +34,9 @@
     <Filter Include="Fichiers sources\Screen">
       <UniqueIdentifier>{0f703fee-c5a5-4e0b-83ec-37618d5aa7d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\ECS">
+      <UniqueIdentifier>{d8e5d294-2be5-4c3a-961f-861ce111568f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -72,6 +75,15 @@
     <ClCompile Include="..\..\src\Screen\ScreenMainMenu.cpp">
       <Filter>Fichiers sources\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ECS\Component.cpp">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\Entity.cpp">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\System.cpp">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -109,6 +121,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Screen\ScreenMainMenu.h">
       <Filter>Fichiers sources\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\Component.h">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\Entity.h">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\System.h">
+      <Filter>Fichiers sources\ECS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

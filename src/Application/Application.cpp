@@ -224,7 +224,6 @@ cApplication::HandleEvents( sf::Event & iEvent )
             break;
         default:
             break;
-
     }
 }
 
