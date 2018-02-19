@@ -23,23 +23,6 @@ cApplication::cApplication() :
 
 
 // -------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------- Instance
-// -------------------------------------------------------------------------------------
-
-
-//static
-cApplication*
-cApplication::App()
-{
-    static cApplication* gApplication = 0;
-    if( !gApplication )
-        gApplication = new cApplication();
-
-    return  gApplication;
-}
-
-
-// -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------- Getter/Setter
 // -------------------------------------------------------------------------------------
 
@@ -48,6 +31,20 @@ sf::RenderWindow*
 cApplication::Window()
 {
     return  mMainWindow;
+}
+
+
+void
+cApplication::SetAppTitle( const std::string & iTitle )
+{
+    mMainWindow->setTitle( iTitle );
+}
+
+
+void
+cApplication::SetAppDefaultResolution( int iW, int iH )
+{
+    mMainWindow->setSize( sf::Vector2u( iW, iH ) );
 }
 
 
@@ -60,37 +57,6 @@ void
 cApplication::Initialize()
 {
     mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Game Title" );
-
-    // Game.Application, not here, this is just for testing purposes
-    cMainMenu* menu = new cMainMenu();
-    cMenuPage* pageOne = new cMenuPage( menu );
-    cMenuPage* pageTwo = new cMenuPage( menu );
-
-    sf::RectangleShape rect( sf::Vector2f( 200, 50 ) );
-
-    cItemPageSwaper* itemOne  = new cItemPageSwaper( menu, "FirstPage0", rect, 1 );
-    cItemPageSwaper* itemOne2 = new cItemPageSwaper( menu, "FirstPage1", rect, 1 );
-
-    cItemPageSwaper* itemTwo  = new cItemPageSwaper( menu, "SecondPage0", rect, 0 );
-    cItemCallback*   itemTwo2 = new cItemCallback( menu, "SecondPage1", rect, []()
-    {
-        cApplication::App()->Window()->setTitle( "CLICK" );
-    } );
-
-
-    pageOne->AddItem( itemOne );
-    pageOne->AddItem( itemOne2 );
-    pageTwo->AddItem( itemTwo );
-    pageTwo->AddItem( itemTwo2 );
-
-
-    menu->AddPage( pageOne );
-    menu->AddPage( pageTwo );
-    menu->CurrentPage( 0 );
-
-    cScreenMainMenu* mainMenuScreen = new cScreenMainMenu( menu );
-    PushScreen( mainMenuScreen );
-    //-----------------------------------
 }
 
 
@@ -417,8 +383,3 @@ cApplication::SensorChanged( const sf::Event& iEvent )
     if( currentScreen )
         currentScreen->SensorChanged( iEvent );
 }
-
-
-
-
-

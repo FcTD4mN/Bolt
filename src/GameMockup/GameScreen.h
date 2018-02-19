@@ -1,41 +1,26 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include "Screen/Screen.h"
 
-class cScreen;
-
-class cApplication
+class cGameScreen :
+    public cScreen
 {
 public:
-    cApplication();
+    // Contruction/Destruction
+    virtual  ~cGameScreen();
+    cGameScreen();
 
 public:
-    sf::RenderWindow* Window();
-    void  SetAppTitle( const std::string& iTitle );
-    void  SetAppDefaultResolution( int iW, int iH );
+    virtual  void  Initialize();
+    virtual  void  Finalize();
 
 public:
-    void Initialize();
-    void Finalize();
-
-public:
-    void Update();
-    void Draw();
-
-public:
-    // Screen
-    void PushScreen( cScreen* iScreen );
-    void PopScreen();
+    virtual  void  Draw();
+    virtual  void  Update();
 
 public:
     // Events
-    void HandleEvents( sf::Event& iEvent );
-
-    virtual  void  Closed( const sf::Event& iEvent );                 ///< The window requested to be closed (no data)
     virtual  void  Resized( const sf::Event& iEvent );                ///< The window was resized (data in event.size)
-    virtual  void  LostFocus( const sf::Event& iEvent );              ///< The window lost the focus (no data)
-    virtual  void  GainedFocus( const sf::Event& iEvent );            ///< The window gained the focus (no data)
-    virtual  void  TextEntered( const sf::Event& iEvent );            ///< A character was entered (data in event.text)
     virtual  void  KeyPressed( const sf::Event& iEvent );             ///< A key was pressed (data in event.key)
     virtual  void  KeyReleased( const sf::Event& iEvent );            ///< A key was released (data in event.key)
     virtual  void  MouseWheelMoved( const sf::Event& iEvent );        ///< The mouse wheel was scrolled (data in event.mouseWheel) (deprecated)
@@ -54,8 +39,5 @@ public:
     virtual  void  TouchMoved( const sf::Event& iEvent );             ///< A touch moved (data in event.touch)
     virtual  void  TouchEnded( const sf::Event& iEvent );             ///< A touch event ended (data in event.touch)
     virtual  void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
-
-private:
-    sf::RenderWindow*       mMainWindow;
-    std::vector< cScreen* > mScreenStack;
 };
+

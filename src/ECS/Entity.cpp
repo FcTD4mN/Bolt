@@ -11,7 +11,14 @@ cEntity::~cEntity()
 }
 
 
-cEntity::cEntity()
+cEntity::cEntity( cWorld* iWorld ) :
+    mWorld( iWorld ),
+    mID( "idontknow" ),
+    mComponents(),
+    mTags(),
+    mObserverSystems(),
+    mLoaded( false ),
+    mDead( false )
 {
 }
 
@@ -73,4 +80,23 @@ cEntity::HasTag( const std::string & iTag )
 {
     auto found = mTags.find( iTag );
     return found != mTags.end();
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ Access
+// -------------------------------------------------------------------------------------
+
+
+bool
+cEntity::IsDead() const
+{
+    return mDead;
+}
+
+
+void
+cEntity::SetLoaded()
+{
+    mLoaded = true;
 }

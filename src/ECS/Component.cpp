@@ -15,7 +15,8 @@ cComponent::cComponent( const std::string& iName ):
 // -------------------------------------------------------------------------------------
 
 
-const std::string & cComponent::Name() const
+const std::string&
+cComponent::Name() const
 {
     return  mName;
 }

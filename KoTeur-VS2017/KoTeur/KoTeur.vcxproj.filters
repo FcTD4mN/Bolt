@@ -37,6 +37,9 @@
     <Filter Include="Fichiers sources\ECS">
       <UniqueIdentifier>{d8e5d294-2be5-4c3a-961f-861ce111568f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameMockup">
+      <UniqueIdentifier>{b50f1859-08f7-4914-884c-54e69f6291bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -84,6 +87,15 @@
     <ClCompile Include="..\..\src\ECS\System.cpp">
       <Filter>Fichiers sources\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ECS\World.cpp">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\GameScreen.cpp">
+      <Filter>Fichiers sources\GameMockup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp">
+      <Filter>Fichiers sources\GameMockup</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -130,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\ECS\System.h">
       <Filter>Fichiers sources\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\World.h">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\GameScreen.h">
+      <Filter>Fichiers sources\GameMockup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\GameApplication.h">
+      <Filter>Fichiers sources\GameMockup</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

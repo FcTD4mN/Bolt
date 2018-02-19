@@ -4,7 +4,6 @@
 
 class cScreen
 {
-
 public:
     // Contruction/Destruction
     virtual  ~cScreen() = 0;
