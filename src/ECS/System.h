@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
 
 class cEntity;
 
@@ -19,7 +19,7 @@ public:
 
 public:
     // Update/Draw
-    virtual  void  Draw();
+    virtual  void  Draw( sf::RenderTarget* iRenderTarget );
     virtual  void  Update();
 
 public:

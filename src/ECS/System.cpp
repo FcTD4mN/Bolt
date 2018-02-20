@@ -21,7 +21,7 @@ cSystem::cSystem()
 
 
 void
-cSystem::Draw()
+cSystem::Draw( sf::RenderTarget* iRenderTarget )
 {
     // Does nothing
 }

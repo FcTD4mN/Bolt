@@ -20,7 +20,7 @@ public:
 
 public:
     void Update();
-    void Draw();
+    void Draw( sf::RenderTarget* iRenderTarget );
 
 public:
     // Screen
@@ -55,7 +55,7 @@ public:
     virtual  void  TouchEnded( const sf::Event& iEvent );             ///< A touch event ended (data in event.touch)
     virtual  void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
 
-private:
+protected:
     sf::RenderWindow*       mMainWindow;
     std::vector< cScreen* > mScreenStack;
 };

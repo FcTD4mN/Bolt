@@ -30,9 +30,9 @@ cMainMenu::MouseClick( int iX, int iY )
 
 
 void
-cMainMenu::Draw()
+cMainMenu::Draw( sf::RenderTarget* iRenderTarget )
 {
-    mPages[ mCurrentPage ]->Draw();
+    mPages[ mCurrentPage ]->Draw( iRenderTarget );
 }
 
 

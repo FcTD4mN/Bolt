@@ -43,9 +43,9 @@ cScreenMainMenu::Finalize()
 
 
 void
-cScreenMainMenu::Draw()
+cScreenMainMenu::Draw( sf::RenderTarget* iRenderTarget )
 {
-    mMainMenu->Draw();
+    mMainMenu->Draw( iRenderTarget );
 }
 
 

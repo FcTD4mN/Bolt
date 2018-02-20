@@ -1,7 +1,6 @@
 #include "MainMenu/MenuPage/MenuPage.h"
 
 
-#include "Application/Application.h"
 #include "MainMenu/MenuItem/MenuItem.h"
 
 
@@ -23,11 +22,10 @@ cMenuPage::cMenuPage( cMainMenu* iMasterMenu ) :
 void
 cMenuPage::Init()
 {
-    sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
     mPageBounding.left = 0;
     mPageBounding.top = 0;
-    mPageBounding.width = float(windowSize.x);
-    mPageBounding.height = float(windowSize.y);
+    mPageBounding.width = 10;
+    mPageBounding.height = 10;
 }
 
 
@@ -97,8 +95,6 @@ cMenuPage::Size( float iW, float iH )
 void
 cMenuPage::ComputeItemPositions()
 {
-    sf::Vector2u windowSize = cApplication::App()->Window()->getSize();
-
     float totalHeight = 0.0F;
     for( int i = 0; i < mItems.size(); ++i )
     {
@@ -129,11 +125,11 @@ cMenuPage::ComputeItemPositions()
 
 
 void
-cMenuPage::Draw()
+cMenuPage::Draw( sf::RenderTarget* iRenderTarget )
 {
     for( int i = 0; i < mItems.size() ; ++i )
     {
-        mItems[ i ]->Draw();
+        mItems[ i ]->Draw( iRenderTarget );
     }
 }
 

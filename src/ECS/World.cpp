@@ -24,11 +24,11 @@ cWorld::cWorld()
 
 
 void
-cWorld::Draw()
+cWorld::Draw( sf::RenderTarget* iRenderTarget )
 {
     for( int i = 0; i < mSystems.size(); ++i )
     {
-        mSystems[ i ]->Draw();
+        mSystems[ i ]->Draw( iRenderTarget );
     }
 }
 

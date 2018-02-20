@@ -18,7 +18,7 @@ public:
     virtual  void  Finalize() override;
 
 public:
-    virtual  void  Draw() override;
+    virtual  void  Draw( sf::RenderTarget* iRenderTarget ) override;
     virtual  void  Update() override;
 
 public:

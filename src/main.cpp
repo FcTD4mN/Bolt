@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Application/Application.h"
+#include "GameMockup/GameApplication.h"
 
 
 #include "MainMenu/MainMenu.h"
@@ -10,7 +10,7 @@
 
 int main()
 {
-    cApplication* app = cApplication::App();
+    cGameApplication* app = cGameApplication::App();
     app->Initialize();
 
     while( app->Window()->isOpen() )
@@ -23,7 +23,7 @@ int main()
 
         app->Update();
         app->Window()->clear();
-        app->Draw();
+        app->Draw( app->Window() );
         app->Window()->display();
     }
 

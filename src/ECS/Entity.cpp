@@ -52,7 +52,8 @@ cEntity::RemoveComponentByName( const std::string & iComponentName )
 cComponent*
 cEntity::GetComponentByName( const std::string & iComponentName )
 {
-    return  mComponents.find( iComponentName )->second; // Returns a pair < string, cComponent > -> first is string, second is cComponent
+    return  mComponents[ iComponentName ];
+
 }
 
 
@@ -71,7 +72,7 @@ cEntity::AddTag( const std::string & iTag )
 void
 cEntity::RemoveTag( const std::string & iTag )
 {
-    mComponents.erase( iTag );
+    mTags.erase( iTag );
 }
 
 

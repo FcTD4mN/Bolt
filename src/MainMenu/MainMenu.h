@@ -17,7 +17,7 @@ public:
     void  MouseClick( int iX, int iY );
 
 public:
-    virtual  void Draw() override;
+    virtual  void Draw( sf::RenderTarget* iRenderTarget ) override;
 
 protected:
     std::vector< cMenuPage* > mPages;

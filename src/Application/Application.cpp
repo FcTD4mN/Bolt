@@ -82,11 +82,11 @@ cApplication::Update()
 
 
 void
-cApplication::Draw()
+cApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
     cScreen* currentScreen = mScreenStack.back();
     if( currentScreen )
-        currentScreen->Draw();
+        currentScreen->Draw( iRenderTarget );
 }
 
 

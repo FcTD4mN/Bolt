@@ -1,5 +1,8 @@
 #include "GameScreen.h"
 
+#include "ECS/Entity.h"
+#include "ECS/World.h"
+#include "GameMockup/GameApplication.h"
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -24,7 +27,12 @@ cGameScreen::cGameScreen()
 void
 cGameScreen::Initialize()
 {
-
+    cWorld* world = cGameApplication::App()->World();
+    for( int i = 0; i < 10; ++i )
+    {
+        cEntity* ent = new cEntity( world );
+        world->AddEntity( ent );
+    }
 }
 
 
@@ -41,8 +49,12 @@ cGameScreen::Finalize()
 
 
 void
-cGameScreen::Draw()
+cGameScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
+    sf::RectangleShape rect = sf::RectangleShape( sf::Vector2f( 400, 50 ) );
+    rect.setPosition( 100, 50 );
+
+    iRenderTarget->draw( rect );
 }
 
 

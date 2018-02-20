@@ -7,16 +7,17 @@
 #include <SFML/Graphics.hpp>
 
 
-cItemCallback::cItemCallback( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, void( *iFunction )( ) ) :
+cItemCallback::cItemCallback( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, void( *iFunction )( cMainMenu* iMenu ) ) :
    tSuperClass( iMasterMenu, iText, iBox ),
     mFunction( iFunction )
 {
 }
 
+
 void
 cItemCallback::ClickAction()
 {
-    mFunction();
+    mFunction( mMasterMenu );
 }
 
 

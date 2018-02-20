@@ -21,7 +21,7 @@ cScreen::cScreen()
 
 
 void
-cScreen::Draw()
+cScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
     // Does nothing
 }

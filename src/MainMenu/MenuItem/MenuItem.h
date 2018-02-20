@@ -28,7 +28,7 @@ public:
 
 public:
     virtual  void ClickAction() = 0;
-    virtual  void Draw() override;
+    virtual  void Draw( sf::RenderTarget* iRenderTarget ) override;
     bool ContainsCoordinates( float iX, float iY ) const;
 
 protected:

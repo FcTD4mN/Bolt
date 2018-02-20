@@ -92,10 +92,10 @@ cMenuItem::Size( float iW, float iH )
 
 
 void
-cMenuItem::Draw()
+cMenuItem::Draw( sf::RenderTarget* iRenderTarget )
 {
-    cApplication::App()->Window()->draw( mRectangle );
-    cApplication::App()->Window()->draw( mText );
+    iRenderTarget->draw( mRectangle );
+    iRenderTarget->draw( mText );
 }
 
 
