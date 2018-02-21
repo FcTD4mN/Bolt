@@ -166,6 +166,10 @@
     <ClCompile Include="..\..\src\ECS\Entity.cpp" />
     <ClCompile Include="..\..\src\ECS\System.cpp" />
     <ClCompile Include="..\..\src\ECS\World.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\Color.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\Sprite.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameScreen.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
@@ -187,6 +191,10 @@
     <ClInclude Include="..\..\src\ECS\Entity.h" />
     <ClInclude Include="..\..\src\ECS\System.h" />
     <ClInclude Include="..\..\src\ECS\World.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\Color.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\Position.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\Size.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\Sprite.h" />
     <ClInclude Include="..\..\src\GameMockup\GameApplication.h" />
     <ClInclude Include="..\..\src\GameMockup\GameScreen.h" />
     <ClInclude Include="..\..\src\MainMenu\MainMenu.h" />

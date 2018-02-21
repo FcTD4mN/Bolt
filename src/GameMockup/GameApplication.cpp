@@ -67,8 +67,9 @@ cGameApplication::Initialize()
     cMainMenu* menu = new cMainMenu();
     cMenuPage* pageOne = new cMenuPage( menu );
     pageOne->Size( float(winSize.x), float(winSize.y) );
+
     cMenuPage* pageTwo = new cMenuPage( menu );
-    pageOne->Size( float(winSize.x), float(winSize.y) );
+    pageTwo->Size( float(winSize.x), float(winSize.y) );
 
     sf::RectangleShape rect( sf::Vector2f( 200, 50 ) );
 

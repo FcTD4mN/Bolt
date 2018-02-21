@@ -5,8 +5,13 @@
 // -------------------------------------------------------------------------------------
 
 
-cComponent::cComponent( const std::string& iName ):
-   mName( iName )
+cComponent::~cComponent()
+{
+}
+
+
+cComponent::cComponent( const std::string& iName ) :
+    mName( iName )
 {
 }
 

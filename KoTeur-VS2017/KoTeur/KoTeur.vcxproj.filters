@@ -40,6 +40,9 @@
     <Filter Include="Fichiers sources\GameMockup">
       <UniqueIdentifier>{b50f1859-08f7-4914-884c-54e69f6291bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Components">
+      <UniqueIdentifier>{dde68560-6861-4777-a9b1-d2dfcd00794b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -96,6 +99,18 @@
     <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Color.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Sprite.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -151,6 +166,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\GameApplication.h">
       <Filter>Fichiers sources\GameMockup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Color.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Position.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Size.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Sprite.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
