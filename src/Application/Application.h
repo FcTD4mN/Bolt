@@ -58,4 +58,5 @@ public:
 protected:
     sf::RenderWindow*       mMainWindow;
     std::vector< cScreen* > mScreenStack;
+    cScreen*                mCurrentScreen;
 };

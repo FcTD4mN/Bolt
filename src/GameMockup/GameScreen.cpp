@@ -33,13 +33,21 @@ cGameScreen::cGameScreen()
 void
 cGameScreen::Initialize()
 {
+    srand( time( NULL ) );
+
+    sf::Window* window = cGameApplication::App()->Window();
+    sf::Vector2u size = window->getSize();
+
     cWorld* world = cGameApplication::App()->World();
-    for( int i = 0; i < 10; ++i )
+    for( int i = 0; i < 10000; ++i )
     {
+        int posX = rand() % ( size.x - 10 );
+        int posY = rand() % (size.y - 10);
+
         cEntity* ent = new cEntity( world );
-        ent->AddComponent( new cPosition( i * 50.0, i * 50.0 ) );
+        ent->AddComponent( new cPosition( float(posX), float(posY) ) );
         ent->AddComponent( new cSize( 10.0, 10.0 ) );
-        ent->AddComponent( new cColor( 255, i*20, 20, 255 ) );
+        ent->AddComponent( new cColor( 255, i*20, 20, 100 ) );
         world->AddEntity( ent );
     }
 }

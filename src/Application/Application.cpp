@@ -75,18 +75,14 @@ cApplication::Finalize()
 void
 cApplication::Update()
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->Update();
+    mCurrentScreen->Update();
 }
 
 
 void
 cApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->Draw( iRenderTarget );
+    mCurrentScreen->Draw( iRenderTarget );
 }
 
 
@@ -100,6 +96,7 @@ cApplication::PushScreen( cScreen * iScreen )
 {
     mScreenStack.push_back( iScreen );
     iScreen->Initialize();
+    mCurrentScreen = iScreen;
 }
 
 
@@ -110,6 +107,7 @@ cApplication::PopScreen()
     currentScreen->Finalize();
 
     mScreenStack.pop_back();
+    mCurrentScreen = mScreenStack.back();
 }
 
 
@@ -230,160 +228,124 @@ cApplication::TextEntered( const sf::Event& iEvent )
 void
 cApplication::KeyPressed( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->KeyPressed( iEvent );
+    mCurrentScreen->KeyPressed( iEvent );
 }
 
 
 void
 cApplication::KeyReleased( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->KeyReleased( iEvent );
+    mCurrentScreen->KeyReleased( iEvent );
 }
 
 
 void
 cApplication::MouseWheelMoved( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->MouseWheelMoved( iEvent );
+    mCurrentScreen->MouseWheelMoved( iEvent );
 }
 
 
 void
 cApplication::MouseWheelScrolled( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->MouseWheelScrolled( iEvent );
+    mCurrentScreen->MouseWheelScrolled( iEvent );
 }
 
 
 void
 cApplication::MouseButtonPressed( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->MouseButtonPressed( iEvent );
+    mCurrentScreen->MouseButtonPressed( iEvent );
 }
 
 
 void
 cApplication::MouseButtonReleased( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->MouseButtonReleased( iEvent );
+    mCurrentScreen->MouseButtonReleased( iEvent );
 }
 
 
 void
 cApplication::MouseMoved( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->MouseMoved( iEvent );
+    mCurrentScreen->MouseMoved( iEvent );
 }
 
 
 void
 cApplication::MouseEntered( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->MouseEntered( iEvent );
+    mCurrentScreen->MouseEntered( iEvent );
 }
 
 
 void
 cApplication::MouseLeft( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->MouseLeft( iEvent );
+    mCurrentScreen->MouseLeft( iEvent );
 }
 
 
 void
 cApplication::JoystickButtonPressed( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->JoystickButtonPressed( iEvent );
+    mCurrentScreen->JoystickButtonPressed( iEvent );
 }
 
 
 void
 cApplication::JoystickButtonReleased( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->JoystickButtonReleased( iEvent );
+    mCurrentScreen->JoystickButtonReleased( iEvent );
 }
 
 
 void
 cApplication::JoystickMoved( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->JoystickMoved( iEvent );
+    mCurrentScreen->JoystickMoved( iEvent );
 }
 
 
 void
 cApplication::JoystickConnected( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->JoystickConnected( iEvent );
+    mCurrentScreen->JoystickConnected( iEvent );
 }
 
 
 void
 cApplication::JoystickDisconnected( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->JoystickDisconnected( iEvent );
+    mCurrentScreen->JoystickDisconnected( iEvent );
 }
 
 
 void
 cApplication::TouchBegan( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->TouchBegan( iEvent );
+    mCurrentScreen->TouchBegan( iEvent );
 }
 
 
 void
 cApplication::TouchMoved( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->TouchMoved( iEvent );
+    mCurrentScreen->TouchMoved( iEvent );
 }
 
 
 void
 cApplication::TouchEnded( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->TouchEnded( iEvent );
+    mCurrentScreen->TouchEnded( iEvent );
 }
 
 
 void
 cApplication::SensorChanged( const sf::Event& iEvent )
 {
-    cScreen* currentScreen = mScreenStack.back();
-    if( currentScreen )
-        currentScreen->SensorChanged( iEvent );
+    mCurrentScreen->SensorChanged( iEvent );
 }

@@ -1,6 +1,7 @@
  #include "SimplerRenderer.h"
 
 #include "ECS/Entity.h"
+#include "GameMockup/GameApplication.h"
 #include "GameMockup/Components/Color.h"
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
@@ -46,17 +47,22 @@ cSimplerRenderer::Finalize()
 void
 cSimplerRenderer::Draw( sf::RenderTarget * iRenderTarget )
 {
+    sf::RectangleShape rect( sf::Vector2f( 10,10 ) );
+
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
         cEntity* entity = mEntityGroup[ i ];
 
-        auto position   = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
-        auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
-        auto color      = dynamic_cast< cColor* >( entity->GetComponentByName( "color" ) );
+        //auto position   = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        //auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
+        //auto color      = dynamic_cast< cColor* >( entity->GetComponentByName( "color" ) );
 
-        sf::RectangleShape rect( sf::Vector2f( size->mSize ) );
-        rect.setPosition( position->mPosition );
-        rect.setFillColor( color->mColor );
+        //rect.setSize( size->mSize );
+        //rect.setPosition( position->mPosition );
+        //rect.setFillColor( color->mColor );
+
+        rect.setPosition( sf::Vector2f( 10, 10 ) );
+        rect.setFillColor( sf::Color( 255,10,10,50 ) );
 
         iRenderTarget->draw( rect );
     }
