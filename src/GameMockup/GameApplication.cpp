@@ -1,7 +1,6 @@
 #include "GameMockup/GameApplication.h"
 
 
-
 #include "ECS/Entity.h"
 #include "ECS/World.h"
 #include "GameMockup/GameScreen.h"
@@ -11,9 +10,6 @@
 #include "MainMenu/MenuPage/MenuPage.h"
 #include "Screen/Screen.h"
 #include "Screen/ScreenMainMenu.h"
-
-
-
 
 
 // -------------------------------------------------------------------------------------
@@ -70,9 +66,9 @@ cGameApplication::Initialize()
     // Game.Application, not here, this is just for testing purposes
     cMainMenu* menu = new cMainMenu();
     cMenuPage* pageOne = new cMenuPage( menu );
-    pageOne->Size( winSize.x, winSize.y );
+    pageOne->Size( float(winSize.x), float(winSize.y) );
     cMenuPage* pageTwo = new cMenuPage( menu );
-    pageOne->Size( winSize.x, winSize.y );
+    pageOne->Size( float(winSize.x), float(winSize.y) );
 
     sf::RectangleShape rect( sf::Vector2f( 200, 50 ) );
 
@@ -80,12 +76,12 @@ cGameApplication::Initialize()
     cItemPageSwaper* itemOne2 = new cItemPageSwaper( menu, "FirstPage1", rect, 1 );
 
     cItemPageSwaper* itemTwo  = new cItemPageSwaper( menu, "SecondPage0", rect, 0 );
-    cItemCallback*   itemTwo2 = new cItemCallback( menu, "SecondPage1", rect, []( cMainMenu* iMenu )
+    cItemCallback*   itemTwo2 = new cItemCallback( menu, "SecondPage1", rect, []()
     {
         cGameApplication::App()->Window()->setTitle( "CLICK" );
     } );
 
-    cItemCallback*   gameScreenSwap = new cItemCallback( menu, "Game", rect, []( cMainMenu* iMenu )
+    cItemCallback*   gameScreenSwap = new cItemCallback( menu, "Game", rect, []()
     {
         cGameApplication::App()->PushScreen( new cGameScreen() );
     } );

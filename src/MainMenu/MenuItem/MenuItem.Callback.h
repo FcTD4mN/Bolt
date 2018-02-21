@@ -2,6 +2,8 @@
 
 #include "MainMenu/MenuItem/MenuItem.h"
 
+#include <functional>
+
 class cMainMenu;
 
 class cItemCallback :
@@ -11,12 +13,12 @@ public:
     typedef  cMenuItem  tSuperClass;
 
 public:
-    cItemCallback( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, void (*iFunction)( cMainMenu* iMenu ) );
+    cItemCallback( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, std::function< void() > iFunction );
 
 public:
     virtual  void ClickAction() override;
 
 private:
-    void (*mFunction)( cMainMenu* iMenu );
+	std::function< void() > mFunction;
 };
 
