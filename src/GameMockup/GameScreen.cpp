@@ -4,6 +4,12 @@
 #include "ECS/World.h"
 #include "GameMockup/GameApplication.h"
 
+#include "GameMockup/Components/Color.h"
+#include "GameMockup/Components/Position.h"
+#include "GameMockup/Components/Size.h"
+#include "GameMockup/Components/Sprite.h"
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
 // -------------------------------------------------------------------------------------
@@ -31,6 +37,9 @@ cGameScreen::Initialize()
     for( int i = 0; i < 10; ++i )
     {
         cEntity* ent = new cEntity( world );
+        ent->AddComponent( new cPosition( i * 50.0, i * 50.0 ) );
+        ent->AddComponent( new cSize( 10.0, 10.0 ) );
+        ent->AddComponent( new cColor( 255, i*20, 20, 255 ) );
         world->AddEntity( ent );
     }
 }
@@ -51,10 +60,6 @@ cGameScreen::Finalize()
 void
 cGameScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
-    sf::RectangleShape rect = sf::RectangleShape( sf::Vector2f( 400, 50 ) );
-    rect.setPosition( 100, 50 );
-
-    iRenderTarget->draw( rect );
 }
 
 

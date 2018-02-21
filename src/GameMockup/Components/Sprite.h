@@ -12,7 +12,7 @@ public:
 
 public:
     virtual  ~cSprite();
-    cSprite(); 
+    cSprite();
 
 public:
     sf::Vector2f  mSprite;

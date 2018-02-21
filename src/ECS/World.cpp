@@ -86,6 +86,7 @@ cWorld::UpdateWorldWithEntity( cEntity* iEntity )
 void
 cWorld::AddSystem( cSystem * iSystem )
 {
+    mSystems.push_back( iSystem );
     iSystem->Initialize();
     for( int i = 0; i < mEntity.size(); ++i )
     {

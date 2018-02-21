@@ -3,11 +3,15 @@
 
 #include "ECS/Entity.h"
 #include "ECS/World.h"
+
 #include "GameMockup/GameScreen.h"
+#include "GameMockup/Systems/SimplerRenderer.h"
+
 #include "MainMenu/MainMenu.h"
 #include "MainMenu/MenuItem/MenuItem.Callback.h"
 #include "MainMenu/MenuItem/MenuItem.PageSwaper.h"
 #include "MainMenu/MenuPage/MenuPage.h"
+
 #include "Screen/Screen.h"
 #include "Screen/ScreenMainMenu.h"
 
@@ -101,6 +105,7 @@ cGameApplication::Initialize()
     PushScreen( mainMenuScreen );
 
     mWorld = new cWorld();
+    mWorld->AddSystem( new cSimplerRenderer() );
 
     //-----------------------------------
 }
@@ -124,6 +129,7 @@ void
 cGameApplication::Update()
 {
     tSuperClass::Update();
+    mWorld->Update();
 }
 
 
@@ -131,6 +137,7 @@ void
 cGameApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
     tSuperClass::Draw( iRenderTarget );
+    mWorld->Draw( iRenderTarget );
 }
 
 

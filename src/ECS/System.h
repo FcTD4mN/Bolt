@@ -26,6 +26,7 @@ public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) = 0;
     virtual  void  EntityLost( cEntity* iEntity );
+    void  AcceptEntity( cEntity* iEntity );
 
 public:
     // Events

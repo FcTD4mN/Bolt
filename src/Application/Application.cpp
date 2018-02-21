@@ -99,12 +99,16 @@ void
 cApplication::PushScreen( cScreen * iScreen )
 {
     mScreenStack.push_back( iScreen );
+    iScreen->Initialize();
 }
 
 
 void
 cApplication::PopScreen()
 {
+    cScreen* currentScreen = mScreenStack.back();
+    currentScreen->Finalize();
+
     mScreenStack.pop_back();
 }
 

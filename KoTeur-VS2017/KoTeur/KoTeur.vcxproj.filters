@@ -43,6 +43,9 @@
     <Filter Include="Fichiers sources\GameMockup\Components">
       <UniqueIdentifier>{dde68560-6861-4777-a9b1-d2dfcd00794b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Systems">
+      <UniqueIdentifier>{f9f48c9d-0a63-4da9-b8bf-b7cf0559cc44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -111,6 +114,9 @@
     <ClCompile Include="..\..\src\GameMockup\Components\Sprite.cpp">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -178,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Components\Sprite.h">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
