@@ -18,12 +18,13 @@ public:
     // Handle functions
     void  NextFrame();
     void  PreviousFrame();
+    void  Flip();
+    void  Unflip();
 
 public:
     sf::Texture mSpriteSheet;
     sf::Sprite  mSprite;
     sf::IntRect mCurrentSpriteRect;
     float       mFrameRate;         // Animation's frame rate
-    int         mSpriteCount;       // How many sprites are drawn on the sprite sheet ?
     bool        mPaused;            // Is the animation paused ?
 };

@@ -41,5 +41,21 @@ cSpriteAnimated::PreviousFrame()
     mCurrentSpriteRect.left -= mCurrentSpriteRect.width;
     if( mCurrentSpriteRect.left < 0 )
         mCurrentSpriteRect.left = mSpriteSheet.getSize().x - mCurrentSpriteRect.width;
+
+    mSprite.setTextureRect( mCurrentSpriteRect );
+}
+
+
+void
+cSpriteAnimated::Flip()
+{
+    mSprite.setScale( sf::Vector2f( -1.0F, 1.0F ) );
+}
+
+
+void
+cSpriteAnimated::Unflip()
+{
+    mSprite.setScale( sf::Vector2f( 1.0F, 1.0F ) );
 }
 

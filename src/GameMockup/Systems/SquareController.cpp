@@ -5,6 +5,7 @@
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/UserInput.h"
+#include "GameMockup/Components/SpriteAnimated.h"
 
 #include <iostream>
 
@@ -61,6 +62,7 @@ cSquareController::Update()
 
         auto userinput = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
 
         for( int i = 0; i < userinput->mActions.size(); ++i )
         {
@@ -75,10 +77,12 @@ cSquareController::Update()
             else if( userinput->mActions[ i ] == "moveright" )
             {
                 position->mPosition.x++;
+                spriteanimated->Flip();
             }
             else if( userinput->mActions[ i ] == "moveleft" )
             {
                 position->mPosition.x--;
+                spriteanimated->Unflip();
             }
         }
     }
@@ -95,8 +99,9 @@ cSquareController::IncomingEntity( cEntity * iEntity )
 {
     auto userinput = iEntity->GetComponentByName( "userinput" );
     auto position = iEntity->GetComponentByName( "position" );
+    auto spriteanimated = iEntity->GetComponentByName( "spriteanimated" );
 
-    if( userinput && position )
+    if( userinput && position && spriteanimated )
         AcceptEntity( iEntity );
 }
 
