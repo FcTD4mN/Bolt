@@ -132,6 +132,9 @@
     <ClCompile Include="..\..\src\GameMockup\Components\SpriteAnimated.cpp">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Systems\AnimationRenderer.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Components\SpriteAnimated.h">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Systems\AnimationRenderer.h">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

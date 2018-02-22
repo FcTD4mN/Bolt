@@ -13,7 +13,8 @@ cSpriteAnimated::~cSpriteAnimated()
 
 cSpriteAnimated::cSpriteAnimated( const std::string& iFile, int iW, int iH ) :
     tSuperClass( "spriteanimated" ),
-    mCurrentSpriteRect( 0, 0, iW, iH )
+    mCurrentSpriteRect( 0, 0, iW, iH ),
+    mFrameRate( 24.0F )
 {
     mSpriteSheet.loadFromFile( iFile );
     mSprite.setTexture( mSpriteSheet );

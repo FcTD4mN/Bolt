@@ -5,8 +5,9 @@
 #include "ECS/World.h"
 
 #include "GameMockup/GameScreen.h"
-#include "GameMockup/Systems/SimplerRenderer.h"
+#include "GameMockup/Systems/AnimationRenderer.h"
 #include "GameMockup/Systems/InputConverter.h"
+#include "GameMockup/Systems/SimplerRenderer.h"
 #include "GameMockup/Systems/SquareController.h"
 
 #include "MainMenu/MainMenu.h"
@@ -127,6 +128,7 @@ cGameApplication::Initialize()
     mWorld->ConnectSystemToEvents( ic );
 
     mWorld->AddSystem( new cSquareController() );
+    mWorld->AddSystem( new cAnimationRenderer() );
 
     // =======Shortcuts=======
     mShortcutEngine = new cShortcuts();

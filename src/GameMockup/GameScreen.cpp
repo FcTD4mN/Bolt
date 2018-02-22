@@ -54,9 +54,12 @@ cGameScreen::Initialize()
 
     cEntity* ent = new cEntity( world );
     ent->AddComponent( new cUserInput() );
+
+    cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
+    animation->mFrameRate = 24;
+    ent->AddComponent( animation );
+
     ent->AddComponent( new cPosition( 400.0, 300.0 ) );
-    ent->AddComponent( new cSize( 10.0, 10.0 ) );
-    ent->AddComponent( new cColor( 20, 20, 200, 255 ) );
     world->AddEntity( ent );
 }
 

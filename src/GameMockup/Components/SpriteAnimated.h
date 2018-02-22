@@ -23,6 +23,7 @@ public:
     sf::Texture mSpriteSheet;
     sf::Sprite  mSprite;
     sf::IntRect mCurrentSpriteRect;
-    float       mFrameRate;
-    int         mSpriteCount; // How many sprites are drawn on the sprite sheet ?
+    float       mFrameRate;         // Animation's frame rate
+    int         mSpriteCount;       // How many sprites are drawn on the sprite sheet ?
+    bool        mPaused;            // Is the animation paused ?
 };
