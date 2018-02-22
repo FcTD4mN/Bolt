@@ -3,6 +3,7 @@
 #include "Application/Application.h"
 
 class cWorld;
+class cShortcuts;
 
 class cGameApplication :
     public cApplication
@@ -19,6 +20,7 @@ public:
 public:
     // Access
     cWorld* World();
+    cShortcuts* ShortcutEngine();
 
 public:
     void Initialize();
@@ -33,6 +35,7 @@ public:
     virtual  void  KeyReleased( const sf::Event& iEvent );  ///< A key was released (data in event.key)
 
 private:
-    cWorld * mWorld;
+    cWorld*     mWorld;
+    cShortcuts* mShortcutEngine;
 };
 

@@ -183,6 +183,7 @@
     <ClCompile Include="..\..\src\Math\Vector2d.cpp" />
     <ClCompile Include="..\..\src\Screen\Screen.cpp" />
     <ClCompile Include="..\..\src\Screen\ScreenMainMenu.cpp" />
+    <ClCompile Include="..\..\src\Shortcuts\Shortcuts.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application\Application.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="..\..\src\Math\Vector2d.h" />
     <ClInclude Include="..\..\src\Screen\Screen.h" />
     <ClInclude Include="..\..\src\Screen\ScreenMainMenu.h" />
+    <ClInclude Include="..\..\src\Shortcuts\Shortcuts.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

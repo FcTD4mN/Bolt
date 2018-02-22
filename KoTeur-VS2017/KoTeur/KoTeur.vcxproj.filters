@@ -46,6 +46,9 @@
     <Filter Include="Fichiers sources\GameMockup\Systems">
       <UniqueIdentifier>{f9f48c9d-0a63-4da9-b8bf-b7cf0559cc44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Shortcuts">
+      <UniqueIdentifier>{9ebf1ece-30d3-4e0b-965a-f54de889bdee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -117,6 +120,9 @@
     <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Shortcuts\Shortcuts.cpp">
+      <Filter>Fichiers sources\Shortcuts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -187,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Shortcuts\Shortcuts.h">
+      <Filter>Fichiers sources\Shortcuts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

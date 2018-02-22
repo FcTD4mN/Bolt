@@ -15,6 +15,8 @@
 #include "Screen/Screen.h"
 #include "Screen/ScreenMainMenu.h"
 
+#include "Shortcuts/Shortcuts.h"
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -52,6 +54,13 @@ cWorld*
 cGameApplication::World()
 {
     return mWorld;
+}
+
+
+cShortcuts*
+cGameApplication::ShortcutEngine()
+{
+    return  mShortcutEngine;
 }
 
 
@@ -104,8 +113,13 @@ cGameApplication::Initialize()
     cScreenMainMenu* mainMenuScreen = new cScreenMainMenu( menu );
     PushScreen( mainMenuScreen );
 
+    // =======ECS WORLD=======
     mWorld = new cWorld();
     mWorld->AddSystem( new cSimplerRenderer() );
+
+    // =======Shortcuts=======
+    mShortcutEngine = new cShortcuts();
+    mShortcutEngine->Initialize();
 
     //-----------------------------------
 }
