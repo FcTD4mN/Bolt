@@ -57,6 +57,7 @@ cGameScreen::Initialize()
 
     cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
     animation->mFrameRate = 24;
+    animation->mPaused = false;
     ent->AddComponent( animation );
 
     ent->AddComponent( new cPosition( 400.0, 300.0 ) );

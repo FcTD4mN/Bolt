@@ -30,7 +30,8 @@ cSpriteAnimated::cSpriteAnimated( const std::string& iFile, int iW, int iH ) :
 void
 cSpriteAnimated::NextFrame()
 {
-    mCurrentSpriteRect.left += mCurrentSpriteRect.width % mSpriteSheet.getSize().x;
+    mCurrentSpriteRect.left = (mCurrentSpriteRect.left + mCurrentSpriteRect.width) % mSpriteSheet.getSize().x;
+    mSprite.setTextureRect( mCurrentSpriteRect );
 }
 
 
