@@ -38,7 +38,7 @@ cGameScreen::Initialize()
     sf::Vector2u size = window->getSize();
 
     cWorld* world = cGameApplication::App()->World();
-    for( int i = 0; i < 7000; ++i )
+    for( int i = 0; i < 10; ++i )
     {
         int posX = rand() % ( size.x - 10 );
         int posY = rand() % (size.y - 10);
@@ -52,6 +52,17 @@ cGameScreen::Initialize()
         ent->AddComponent( new cPosition( float(posX), float(posY) ) );
         world->AddEntity( ent );
     }
+
+    cEntity* ent = new cEntity( world );
+    cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
+    animation->mFrameRate = 24;
+    animation->mPaused = false;
+
+    ent->AddComponent( animation );
+    ent->AddComponent( new cPosition( 400.0, 300.0 ) );
+    ent->AddComponent( new cUserInput() );
+    world->AddEntity( ent );
+
 }
 
 

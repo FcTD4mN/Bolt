@@ -12,20 +12,22 @@
 
 int main()
 {
+    srand( unsigned int(time( NULL )) );
+
     cGameApplication* app = cGameApplication::App();
     app->Initialize();
 
-    sf::Clock clock;
-    srand( unsigned int(time( NULL )) );
-
     sf::RenderWindow* window = cGameApplication::App()->Window();
+    window->setFramerateLimit( 144 );
     sf::Vector2u size = window->getSize();
+
+    sf::Clock clock;
     sf::Time frameTime;
+    sf::Event event;
 
     while( app->Window()->isOpen() )
     {
         frameTime = clock.restart();
-        sf::Event event;
 
         while( app->Window()->pollEvent( event ) )
         {
@@ -42,13 +44,12 @@ int main()
         rect.setFillColor( sf::Color( 10, 10, 255, 255 ) );
         rect.setSize( sf::Vector2f( 50, 50 ) );
         window->draw( rect );
-        // PERF TESTS============================================================
-
-
-        app->Window()->display();
 
         float fps = 1 / frameTime.asSeconds();
         std::cout << std::to_string( fps ) << std::endl;
+        // PERF TESTS============================================================
+
+        app->Window()->display();
     }
 
     return 0;

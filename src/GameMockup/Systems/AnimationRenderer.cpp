@@ -72,7 +72,7 @@ cAnimationRenderer::Update( unsigned int iDeltaTime )
         cEntity* entity = mEntityGroup[ i ];
 
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
-        auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         spriteanimated->mSprite.setPosition( position->mPosition );
 
         if( spriteanimated->mPaused )
