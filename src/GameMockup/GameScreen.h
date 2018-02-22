@@ -16,7 +16,7 @@ public:
 
 public:
     virtual  void  Draw( sf::RenderTarget* iRenderTarget ) override;
-    virtual  void  Update() override;
+    virtual  void  Update( unsigned int iDeltaTime ) override;
 
 public:
     // Events

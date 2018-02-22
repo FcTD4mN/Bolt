@@ -153,10 +153,10 @@ cGameApplication::Finalize()
 
 
 void
-cGameApplication::Update()
+cGameApplication::Update( unsigned int iDeltaTime )
 {
-    tSuperClass::Update();
-    mWorld->Update();
+    tSuperClass::Update( iDeltaTime );
+    mWorld->Update( iDeltaTime );
 }
 
 

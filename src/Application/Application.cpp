@@ -73,9 +73,9 @@ cApplication::Finalize()
 
 
 void
-cApplication::Update()
+cApplication::Update( unsigned int iDeltaTime )
 {
-    mCurrentScreen->Update();
+    mCurrentScreen->Update( iDeltaTime );
 }
 
 

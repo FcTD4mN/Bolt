@@ -15,7 +15,7 @@ public:
 
 public:
     virtual  void  Draw( sf::RenderTarget* iRenderTarget );
-    virtual  void  Update();
+    virtual  void  Update( unsigned int iDeltaTime );
 
 public:
     // Events

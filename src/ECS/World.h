@@ -16,7 +16,7 @@ public:
 public:
     // Update/Draw
     void  Draw( sf::RenderTarget* iRenderTarget );
-    void  Update();
+    void  Update( unsigned int iDeltaTime );
 
 public:
     // Entity

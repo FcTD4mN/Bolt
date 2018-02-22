@@ -19,7 +19,7 @@ public:
     void Finalize();
 
 public:
-    void Update();
+    void Update( unsigned int iDeltaTime );
     void Draw( sf::RenderTarget* iRenderTarget );
 
 public:

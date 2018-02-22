@@ -50,7 +50,7 @@ cScreenMainMenu::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cScreenMainMenu::Update()
+cScreenMainMenu::Update( unsigned int iDeltaTime )
 {
     // Does nothing
 }

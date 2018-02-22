@@ -14,27 +14,27 @@ int main()
 {
     cGameApplication* app = cGameApplication::App();
     app->Initialize();
-    sf::Clock clock;
 
-    srand( time( NULL ) );
+    sf::Clock clock;
+    srand( unsigned int(time( NULL )) );
 
     sf::RenderWindow* window = cGameApplication::App()->Window();
     sf::Vector2u size = window->getSize();
-
+    sf::Time frameTime;
 
     while( app->Window()->isOpen() )
     {
+        frameTime = clock.restart();
         sf::Event event;
+
         while( app->Window()->pollEvent( event ) )
         {
             app->HandleEvents( event );
         }
 
-        app->Update();
+        app->Update( frameTime.asMilliseconds() );
         app->Window()->clear();
         app->Draw( app->Window() );
-
-
 
         // PERF TESTS============================================================
         sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
@@ -47,7 +47,6 @@ int main()
 
         app->Window()->display();
 
-        sf::Time frameTime = clock.restart();
         float fps = 1 / frameTime.asSeconds();
         std::cout << std::to_string( fps ) << std::endl;
     }

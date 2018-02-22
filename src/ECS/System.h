@@ -20,7 +20,7 @@ public:
 public:
     // Update/Draw
     virtual  void  Draw( sf::RenderTarget* iRenderTarget );
-    virtual  void  Update();
+    virtual  void  Update( unsigned int iDeltaTime );
 
 public:
     // Entity

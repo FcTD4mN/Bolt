@@ -10,6 +10,15 @@
 
 cWorld::~cWorld()
 {
+    for( int i = 0; i < mEntity.size(); ++i )
+    {
+        delete  mEntity[ i ];
+    }
+
+    for( int i = 0; i < mSystems.size(); ++i )
+    {
+        delete  mSystems[ i ];
+    }
 }
 
 
@@ -34,11 +43,11 @@ cWorld::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cWorld::Update()
+cWorld::Update( unsigned int iDeltaTime )
 {
     for( int i = 0; i < mSystems.size(); ++i )
     {
-        mSystems[ i ]->Update();
+        mSystems[ i ]->Update( iDeltaTime );
     }
 }
 

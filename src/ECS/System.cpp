@@ -28,7 +28,7 @@ cSystem::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cSystem::Update()
+cSystem::Update( unsigned int iDeltaTime )
 {
     // Does nothing
 }

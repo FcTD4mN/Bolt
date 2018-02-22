@@ -67,7 +67,7 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cSimplerRenderer::Update()
+cSimplerRenderer::Update( unsigned int iDeltaTime )
 {
 }
 

@@ -34,8 +34,6 @@ cGameScreen::cGameScreen()
 void
 cGameScreen::Initialize()
 {
-    srand( time( NULL ) );
-
     sf::Window* window = cGameApplication::App()->Window();
     sf::Vector2u size = window->getSize();
 
@@ -76,7 +74,7 @@ cGameScreen::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cGameScreen::Update()
+cGameScreen::Update( unsigned int iDeltaTime )
 {
     // Does nothing
 }

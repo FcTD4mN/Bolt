@@ -28,7 +28,7 @@ cScreen::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cScreen::Update()
+cScreen::Update( unsigned int iDeltaTime )
 {
     // Does nothing
 }

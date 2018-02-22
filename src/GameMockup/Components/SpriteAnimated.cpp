@@ -19,7 +19,7 @@ cSpriteAnimated::cSpriteAnimated( const std::string& iFile, int iW, int iH ) :
     mSpriteSheet.loadFromFile( iFile );
     mSprite.setTexture( mSpriteSheet );
     mSprite.setTextureRect( mCurrentSpriteRect );
-    mSprite.setOrigin( sf::Vector2f( iW/2, iH/2 ) );
+    mSprite.setOrigin( sf::Vector2f( float(iW/2), float(iH/2) ) );
 }
 
 

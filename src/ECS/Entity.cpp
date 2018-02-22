@@ -8,6 +8,10 @@
 
 cEntity::~cEntity()
 {
+    for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
+    {
+        delete  it->second;
+    }
 }
 
 

@@ -65,7 +65,7 @@ cAnimationRenderer::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cAnimationRenderer::Update()
+cAnimationRenderer::Update( unsigned int iDeltaTime )
 {
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
