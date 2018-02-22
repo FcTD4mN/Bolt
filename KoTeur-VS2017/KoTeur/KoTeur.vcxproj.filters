@@ -114,9 +114,6 @@
     <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\GameMockup\Components\Sprite.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClCompile>
@@ -131,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GameMockup\Systems\InputConverter.cpp">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\SpriteAnimated.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,9 +197,6 @@
     <ClInclude Include="..\..\src\GameMockup\Components\Size.h">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\GameMockup\Components\Sprite.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
@@ -214,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Systems\InputConverter.h">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\SpriteAnimated.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

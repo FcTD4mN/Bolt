@@ -119,5 +119,3 @@ cInputConverter::KeyReleased( const sf::Event & iEvent )
 }
 
 
-
-

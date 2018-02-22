@@ -7,7 +7,7 @@
 #include "GameMockup/Components/Color.h"
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
-#include "GameMockup/Components/Sprite.h"
+#include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
 
 

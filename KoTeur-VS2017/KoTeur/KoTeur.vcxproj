@@ -169,7 +169,7 @@
     <ClCompile Include="..\..\src\GameMockup\Components\Color.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp" />
-    <ClCompile Include="..\..\src\GameMockup\Components\Sprite.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\SpriteAnimated.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\UserInput.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameScreen.cpp" />
@@ -199,7 +199,7 @@
     <ClInclude Include="..\..\src\GameMockup\Components\Color.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Position.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Size.h" />
-    <ClInclude Include="..\..\src\GameMockup\Components\Sprite.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\SpriteAnimated.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\UserInput.h" />
     <ClInclude Include="..\..\src\GameMockup\GameApplication.h" />
     <ClInclude Include="..\..\src\GameMockup\GameScreen.h" />
