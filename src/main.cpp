@@ -8,11 +8,13 @@
 #include "MainMenu/MenuItem/MenuItem.Callback.h"
 #include "Math/Rectangle.h"
 
+#include <iostream>
+
 int main()
 {
     cGameApplication* app = cGameApplication::App();
     app->Initialize();
-
+    sf::Clock clock;
 
     srand( time( NULL ) );
 
@@ -44,6 +46,10 @@ int main()
 
 
         app->Window()->display();
+
+        sf::Time frameTime = clock.restart();
+        float fps = 1 / frameTime.asSeconds();
+        std::cout << std::to_string( fps ) << std::endl;
     }
 
     return 0;

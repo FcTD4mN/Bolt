@@ -27,4 +27,5 @@ public:
     sf::IntRect mCurrentSpriteRect;
     float       mFrameRate;         // Animation's frame rate
     bool        mPaused;            // Is the animation paused ?
+    sf::Clock   mClock;             // Animation clock
 };

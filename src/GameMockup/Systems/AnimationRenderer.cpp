@@ -53,15 +53,13 @@ cAnimationRenderer::Draw( sf::RenderTarget* iRenderTarget )
         cEntity* entity = mEntityGroup[ i ];
 
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
-        auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
 
-        rect.setPosition( position->mPosition );
-        rect.setSize( sf::Vector2f( spriteanimated->mCurrentSpriteRect.width, spriteanimated->mCurrentSpriteRect.height ) );
-        rect.setOutlineColor( sf::Color( 255, 0, 0, 200 ) );
-        rect.setFillColor( sf::Color( 255, 0, 0, 200 ) );
+        // Because sprite's origin is set to be the very center of the image, we need to
+        // reposition it so it matches top left format given by position
+        spriteanimated->mSprite.setPosition( spriteanimated->mSprite.getPosition() + spriteanimated->mSprite.getOrigin() );
 
         iRenderTarget->draw( spriteanimated->mSprite );
-        iRenderTarget->draw( rect );
     }
 }
 
@@ -80,10 +78,10 @@ cAnimationRenderer::Update()
         if( spriteanimated->mPaused )
             continue;
 
-        if( mClock.getElapsedTime().asSeconds() > 1 / spriteanimated->mFrameRate )
+        if( spriteanimated->mClock.getElapsedTime().asSeconds() > 1 / spriteanimated->mFrameRate )
         {
             spriteanimated->NextFrame();
-            mClock.restart();
+            spriteanimated->mClock.restart();
         }
     }
 }
