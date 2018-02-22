@@ -6,6 +6,8 @@
 
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/Systems/SimplerRenderer.h"
+#include "GameMockup/Systems/InputConverter.h"
+#include "GameMockup/Systems/SquareController.h"
 
 #include "MainMenu/MainMenu.h"
 #include "MainMenu/MenuItem/MenuItem.Callback.h"
@@ -74,9 +76,12 @@ cGameApplication::Initialize()
 {
     tSuperClass::Initialize();
 
+    // =========== GENERAL CONFIG ===========
+    mMainWindow->setKeyRepeatEnabled( false );
+
     sf::Vector2u winSize = mMainWindow->getSize();
 
-    // Game.Application, not here, this is just for testing purposes
+    // ========= MAIN MENU =========
     cMainMenu* menu = new cMainMenu();
     cMenuPage* pageOne = new cMenuPage( menu );
     pageOne->Size( float(winSize.x), float(winSize.y) );
@@ -116,6 +121,12 @@ cGameApplication::Initialize()
     // =======ECS WORLD=======
     mWorld = new cWorld();
     mWorld->AddSystem( new cSimplerRenderer() );
+
+    cInputConverter* ic = new cInputConverter();
+    mWorld->AddSystem( ic );
+    mWorld->ConnectSystemToEvents( ic );
+
+    mWorld->AddSystem( new cSquareController() );
 
     // =======Shortcuts=======
     mShortcutEngine = new cShortcuts();
@@ -164,6 +175,7 @@ void
 cGameApplication::KeyPressed( const sf::Event& iEvent )
 {
     tSuperClass::KeyPressed( iEvent );
+    mWorld->KeyPressed( iEvent );
 }
 
 
@@ -171,5 +183,6 @@ void
 cGameApplication::KeyReleased( const sf::Event& iEvent )
 {
     tSuperClass::KeyReleased( iEvent );
+    mWorld->KeyReleased( iEvent );
 }
 

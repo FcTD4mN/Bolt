@@ -24,10 +24,10 @@ cShortcuts::cShortcuts()
 void
 cShortcuts::Initialize()
 {
-    mShortcuts.insert( std::make_pair( "moveup", sf::Keyboard::Key::Up ) );
-    mShortcuts.insert( std::make_pair( "movedown", sf::Keyboard::Key::Down ) );
-    mShortcuts.insert( std::make_pair( "moveleft", sf::Keyboard::Key::Left ) );
-    mShortcuts.insert( std::make_pair( "moveright", sf::Keyboard::Key::Right ) );
+    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Up, "moveup" ) );
+    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Down, "movedown" ) );
+    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Left, "moveleft" ) );
+    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Right, "moveright" ) );
 }
 
 

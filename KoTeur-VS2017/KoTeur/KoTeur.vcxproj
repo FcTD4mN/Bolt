@@ -170,9 +170,12 @@
     <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Sprite.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\UserInput.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameScreen.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Systems\InputConverter.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Systems\SquareController.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MainMenu.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.Callback.cpp" />
@@ -197,9 +200,12 @@
     <ClInclude Include="..\..\src\GameMockup\Components\Position.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Size.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Sprite.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\UserInput.h" />
     <ClInclude Include="..\..\src\GameMockup\GameApplication.h" />
     <ClInclude Include="..\..\src\GameMockup\GameScreen.h" />
+    <ClInclude Include="..\..\src\GameMockup\Systems\InputConverter.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h" />
+    <ClInclude Include="..\..\src\GameMockup\Systems\SquareController.h" />
     <ClInclude Include="..\..\src\MainMenu\MainMenu.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.Callback.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h" />

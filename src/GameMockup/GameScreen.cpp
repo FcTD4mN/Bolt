@@ -8,6 +8,7 @@
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
 #include "GameMockup/Components/Sprite.h"
+#include "GameMockup/Components/UserInput.h"
 
 
 // -------------------------------------------------------------------------------------
@@ -39,7 +40,7 @@ cGameScreen::Initialize()
     sf::Vector2u size = window->getSize();
 
     cWorld* world = cGameApplication::App()->World();
-    for( int i = 0; i < 50000; ++i )
+    for( int i = 0; i < 100; ++i )
     {
         int posX = rand() % ( size.x - 10 );
         int posY = rand() % (size.y - 10);
@@ -50,6 +51,13 @@ cGameScreen::Initialize()
         ent->AddComponent( new cColor( 255, i*20, 20, 100 ) );
         world->AddEntity( ent );
     }
+
+    cEntity* ent = new cEntity( world );
+    ent->AddComponent( new cUserInput() );
+    ent->AddComponent( new cPosition( 400.0, 300.0 ) );
+    ent->AddComponent( new cSize( 10.0, 10.0 ) );
+    ent->AddComponent( new cColor( 20, 20, 200, 255 ) );
+    world->AddEntity( ent );
 }
 
 

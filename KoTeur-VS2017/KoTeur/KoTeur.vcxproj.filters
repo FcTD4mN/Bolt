@@ -123,6 +123,15 @@
     <ClCompile Include="..\..\src\Shortcuts\Shortcuts.cpp">
       <Filter>Fichiers sources\Shortcuts</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\UserInput.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Systems\SquareController.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Systems\InputConverter.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -196,6 +205,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Shortcuts\Shortcuts.h">
       <Filter>Fichiers sources\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\UserInput.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Systems\SquareController.h">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Systems\InputConverter.h">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
