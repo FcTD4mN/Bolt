@@ -34,8 +34,9 @@ int main()
             app->HandleEvents( event );
         }
 
+
         app->Update( frameTime.asMilliseconds() );
-        app->Window()->clear();
+        app->Window()->clear( sf::Color( 200, 200, 200 ) );
         app->Draw( app->Window() );
 
         // PERF TESTS============================================================

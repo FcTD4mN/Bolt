@@ -49,6 +49,9 @@
     <Filter Include="Fichiers sources\Shortcuts">
       <UniqueIdentifier>{9ebf1ece-30d3-4e0b-965a-f54de889bdee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameMockup\GUI">
+      <UniqueIdentifier>{56c74a16-8ae8-4868-8254-afa155de4742}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -135,6 +138,9 @@
     <ClCompile Include="..\..\src\GameMockup\Systems\AnimationRenderer.cpp">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\GUI\ConsoleWidget.cpp">
+      <Filter>Fichiers sources\GameMockup\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -220,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Systems\AnimationRenderer.h">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\GUI\ConsoleWidget.h">
+      <Filter>Fichiers sources\GameMockup\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

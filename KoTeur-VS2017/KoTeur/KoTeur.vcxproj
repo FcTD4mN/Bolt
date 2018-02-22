@@ -173,6 +173,7 @@
     <ClCompile Include="..\..\src\GameMockup\Components\UserInput.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameScreen.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\GUI\ConsoleWidget.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\AnimationRenderer.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\InputConverter.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="..\..\src\GameMockup\Components\UserInput.h" />
     <ClInclude Include="..\..\src\GameMockup\GameApplication.h" />
     <ClInclude Include="..\..\src\GameMockup\GameScreen.h" />
+    <ClInclude Include="..\..\src\GameMockup\GUI\ConsoleWidget.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\AnimationRenderer.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\InputConverter.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h" />

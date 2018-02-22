@@ -18,11 +18,26 @@
 
 cGameScreen::~cGameScreen()
 {
+    if( mConsoleWidget )
+    {
+        delete  mConsoleWidget;
+        mConsoleWidget = 0;
+    }
 }
 
 
-cGameScreen::cGameScreen()
+cGameScreen::cGameScreen() :
+    mConsoleWidget( 0 )
 {
+    mConsoleWidget = new  ::nGUI::cConsoleWidget();
+    sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ), 
+                                                    float( cGameApplication::App()->Window()->getSize().y ) );
+    float  sizeRatio     = 2.f / 6.f;
+    float  positionRatio = 4.f / 5.f;
+    sf::Vector2f  consoleSize       = sf::Vector2f( availableGeometry.x, availableGeometry.y * sizeRatio );
+    sf::Vector2f  consolePosition   = sf::Vector2f( 0.f, availableGeometry.y * positionRatio );
+    mConsoleWidget->SetSize( consoleSize );
+    mConsoleWidget->SetPosition( consolePosition );
 }
 
 
@@ -81,6 +96,7 @@ cGameScreen::Finalize()
 void
 cGameScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
+    mConsoleWidget->Draw( iRenderTarget );
 }
 
 

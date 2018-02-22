@@ -163,8 +163,8 @@ cGameApplication::Update( unsigned int iDeltaTime )
 void
 cGameApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
-    tSuperClass::Draw( iRenderTarget );
     mWorld->Draw( iRenderTarget );
+    tSuperClass::Draw( iRenderTarget );
 }
 
 
