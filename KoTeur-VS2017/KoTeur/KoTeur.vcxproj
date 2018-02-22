@@ -148,14 +148,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>A:\Programmation\Bolt\src;A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Users\admin\work\KoTeur\src;A:\Programmation\KoTeur\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>A:\Programmation\SFML-2.4.2-VS\lib;D:\Libraries\SFML-2.4.2VC14\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>A:\Programmation\SFML-2.4.2-VS\lib;D:\Libraries\SFML-2.4.2VC14\lib;E:\SFML\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

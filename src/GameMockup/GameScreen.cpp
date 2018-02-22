@@ -39,7 +39,7 @@ cGameScreen::Initialize()
     sf::Vector2u size = window->getSize();
 
     cWorld* world = cGameApplication::App()->World();
-    for( int i = 0; i < 10000; ++i )
+    for( int i = 0; i < 50000; ++i )
     {
         int posX = rand() % ( size.x - 10 );
         int posY = rand() % (size.y - 10);
