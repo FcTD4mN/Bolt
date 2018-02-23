@@ -20,7 +20,7 @@ namespace  nGUI
 #define DEFAULT_LINE_HEIGHT                 14
 #define DEFAULT_FONT_COLOR                  sf::Color( 220, 220, 220, 255 )
 #define DEFAULT_CURSOR_COLOR                DEFAULT_FONT_COLOR
-#define DEFAULT_CURSOR_SIZE                 sf::Vector2f( 2.f, float( DEFAULT_FONT_SIZE ) )
+#define DEFAULT_CURSOR_SIZE                 sf::Vector2f( 2.f, float( DEFAULT_LINE_HEIGHT ) )
 #define DEFAULT_CURSOR_TOGGLE_TIME_MS       500
 
 
@@ -41,6 +41,8 @@ cConsoleWidget::cConsoleWidget() :
     mCursorToggled( false ),
     mCursorToggleTimeMs( DEFAULT_CURSOR_TOGGLE_TIME_MS ),
     mCursorTimerElapsedTimeMs( 0 ),
+    mCursorPosition( 0 ),
+    mCharWidth( 0 ),
     mConsoleRectangle(),
     mCursorRectangle(),
     mSize(),
@@ -54,6 +56,8 @@ cConsoleWidget::cConsoleWidget() :
     mKeyPressedProcessMap[ sf::Keyboard::BackSpace ]        =  &cConsoleWidget::ProcessBackspacePressed;
     mKeyPressedProcessMap[ sf::Keyboard::Return ]           =  &cConsoleWidget::ProcessReturnPressed;
     mKeyPressedProcessMap[ sf::Keyboard::Escape ]           =  &cConsoleWidget::ProcessEscapePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Left ]             =  &cConsoleWidget::ProcessLeftPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Right ]            =  &cConsoleWidget::ProcessRightPressed;
 
     // CTRL + Key Press
     mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
@@ -132,15 +136,8 @@ cConsoleWidget::SetBackgroundColor()  const
 }
 
 
-int
-cConsoleWidget::NVisibleRows()  const
-{
-    return  int( mSize.y ) / DEFAULT_LINE_HEIGHT;
-}
-
-
 // -------------------------------------------------------------------------------------
-// ----------------------------------------------------------- Geometry and Style Update
+// -------------------------------------------------------------- Internal Text Geometry
 // -------------------------------------------------------------------------------------
 
 
@@ -149,6 +146,15 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
 {
     if( iNoUpdate )
         return;
+
+    {
+        sf::Text  sampleText;
+        sampleText.setFont( mFont );
+        sampleText.setCharacterSize( DEFAULT_FONT_SIZE );
+        sampleText.setString( "oo" );
+        sf::Vector2f pos = sampleText.findCharacterPos( 1 );
+        mCharWidth = unsigned int( pos.x );
+    }
 
     mConsoleRectangle.setSize(      mSize );
     mConsoleRectangle.setPosition(  mPosition );
@@ -172,6 +178,56 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
     float y = float( nOutputTextLines * DEFAULT_LINE_HEIGHT );
     sf::Vector2f  inputLinePosition = sf::Vector2f( x, y );
     mInputText.setPosition( inputLinePosition );
+
+    float cursorX = mCursorPosition * mCharWidth;
+    float cursorY = y;
+    mCursorRectangle.setPosition( cursorX, cursorY );
+}
+
+
+int
+cConsoleWidget::NVisibleRows()  const
+{
+    return  int( mSize.y ) / DEFAULT_LINE_HEIGHT;
+}
+
+
+void
+cConsoleWidget::IncrementCursorPosition()
+{
+    ++mCursorPosition;
+    mCursorRectangle.move( float( mCharWidth ), 0.f );
+}
+
+
+void 
+cConsoleWidget::DecrementCursorPosition()
+{
+    ++mCursorPosition;
+    mCursorRectangle.move( -float( mCharWidth ), 0.f );
+}
+
+
+void
+cConsoleWidget::ResetCursorPosition()
+{
+    mCursorPosition = 0;
+    sf::Vector2f  cursorPosition = mCursorRectangle.getPosition();
+    mCursorRectangle.setPosition( 0.f, cursorPosition.y );
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------ Public Text Manipulation
+// -------------------------------------------------------------------------------------
+
+
+void
+cConsoleWidget::ClearInput()
+{
+    // Clear input content
+    mInputText.setString("");
+    ResetCursorPosition();
 }
 
 
@@ -221,12 +277,13 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
     auto  unicode = iEvent.text.unicode;
 
     // Handle ASCII characters only
-    if ( unicode > 0X0020 && unicode < 0X007E )
+    if ( unicode > 0X0020 && unicode < 0X007E || unicode == 32 ) // unicode == 32 for whitespace
     {
         std::string str = mInputText.getString();
         char charCode = static_cast<char>( unicode );
         str += charCode;
         mInputText.setString( str );
+        IncrementCursorPosition();
     }
 }
 
@@ -276,7 +333,7 @@ cConsoleWidget::KeyReleased( const sf::Event& iEvent )
 
 
 // -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------ Events
+// -------------------------------------------------------------------- Event Processing
 // -------------------------------------------------------------------------------------
 
 
@@ -291,6 +348,7 @@ cConsoleWidget::ProcessBackspacePressed()
     }
 
     mInputText.setString( str );
+    DecrementCursorPosition();
 }
 
 
@@ -309,16 +367,26 @@ cConsoleWidget::ProcessReturnPressed()
     // Set last output row content with input content
     mOutputTextLines.back().setString( inputStr );
 
-    // Clear input content
-    mInputText.setString("");
+    ClearInput();
 }
 
 
 void
 cConsoleWidget::ProcessEscapePressed()
 {
-    // Clear input content
-    mInputText.setString("");
+    ClearInput();
+}
+
+
+void
+cConsoleWidget::ProcessLeftPressed()
+{
+    DecrementCursorPosition();
+}
+void
+cConsoleWidget::ProcessRightPressed()
+{
+    IncrementCursorPosition();
 }
 
 
@@ -335,8 +403,7 @@ cConsoleWidget::ProcessCTRLVPressed()
 void
 cConsoleWidget::ProcessCTRLBackspacePressed()
 {
-    // Clear input content
-    mInputText.setString("");
+    ClearInput();
 }
 
 
