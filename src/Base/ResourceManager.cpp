@@ -1,12 +1,13 @@
 ﻿#include "Base/Drawable.h"
 #include "ResourceManager.h"
 
+#include <iostream>
 
 cResourceManager::~cResourceManager()
 {
     for( auto it = mTextures.begin(); it != mTextures.end(); ++it )
     {
-        delete  it->second;
+        delete  it->second.mTexture;
     }
 }
 
@@ -14,7 +15,6 @@ cResourceManager::~cResourceManager()
 cResourceManager::cResourceManager()
 {
 }
-
 
 
 cResourceManager*
@@ -34,12 +34,14 @@ cResourceManager::GetTexture( const std::string& iFileName )
 {
     auto finder = mTextures.find( iFileName );
 
-    if( finder == mTextures.end() )
+    stTexture& result = mTextures[ iFileName ];
+
+    if( !result.mTexture )
     {
-        sf::Texture* texture = new sf::Texture();
-        texture->loadFromFile( iFileName );
-        mTextures.insert( std::make_pair( iFileName, texture ) );
+        result.mTexture = new sf::Texture();
+        result.mTexture->loadFromFile( iFileName );
     }
 
-    return  mTextures[ iFileName ];
+    ++(result.mCounter);
+    return  result.mTexture;
 }
