@@ -38,10 +38,10 @@ cGameScreen::cGameScreen() :
     float  positionRatio = 4.f / 5.f;
     sf::Vector2f  consoleSize       = sf::Vector2f( availableGeometry.x, availableGeometry.y * sizeRatio );
     sf::Vector2f  consolePosition   = sf::Vector2f( 0.f, availableGeometry.y * positionRatio );
-    //mConsoleWidget->SetSize( consoleSize );
-    //mConsoleWidget->SetPosition( consolePosition );
-    mConsoleWidget->SetSize( availableGeometry );
-    mConsoleWidget->SetPosition( sf::Vector2f() );
+    mConsoleWidget->SetSize( consoleSize );
+    mConsoleWidget->SetPosition( consolePosition );
+    //mConsoleWidget->SetSize( availableGeometry );
+    //mConsoleWidget->SetPosition( sf::Vector2f() );
 }
 
 

@@ -34,11 +34,11 @@ cEntityParser::CreateEntityFromFile( const std::string & iFile )
     if( !file.open( iFile ) )
         return  nullptr;
 
-    int fileSize = file.getSize();
+    sf::Int64 fileSize = file.getSize();
 
     char buffer[ BUFFER_SIZE ];
     memset( buffer, '\0', BUFFER_SIZE );
-    int readSize = BUFFER_SIZE > fileSize ? fileSize : BUFFER_SIZE;
+    sf::Int64 readSize = BUFFER_SIZE > fileSize ? fileSize : BUFFER_SIZE;
 
     sf::Int64 nbRead = file.read( buffer, readSize );
     std::string line = "";
