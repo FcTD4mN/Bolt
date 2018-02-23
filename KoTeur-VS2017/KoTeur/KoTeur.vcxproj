@@ -165,6 +165,7 @@
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp" />
     <ClCompile Include="..\..\src\ECS\Component.cpp" />
     <ClCompile Include="..\..\src\ECS\Entity.cpp" />
+    <ClCompile Include="..\..\src\ECS\EntityParser.cpp" />
     <ClCompile Include="..\..\src\ECS\System.cpp" />
     <ClCompile Include="..\..\src\ECS\World.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Color.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="..\..\src\Base\ResourceManager.h" />
     <ClInclude Include="..\..\src\ECS\Component.h" />
     <ClInclude Include="..\..\src\ECS\Entity.h" />
+    <ClInclude Include="..\..\src\ECS\EntityParser.h" />
     <ClInclude Include="..\..\src\ECS\System.h" />
     <ClInclude Include="..\..\src\ECS\World.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Color.h" />

@@ -1,14 +1,16 @@
 #include "GameScreen.h"
 
 #include "ECS/Entity.h"
+#include "ECS/EntityParser.h"
 #include "ECS/World.h"
-#include "GameMockup/GameApplication.h"
 
+#include "GameMockup/GameApplication.h"
 #include "GameMockup/Components/Color.h"
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
 #include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
+
 
 
 // -------------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ cGameScreen::Initialize()
     sf::Vector2u size = window->getSize();
 
     cWorld* world = cGameApplication::App()->World();
-    for( int i = 0; i < 5000; ++i )
+    for( int i = 0; i < 10; ++i )
     {
         int posX = rand() % ( size.x - 10 );
         int posY = rand() % (size.y - 10);
@@ -123,6 +125,7 @@ void
 cGameScreen::KeyPressed( const sf::Event& iEvent )
 {
     // Does nothing
+
 }
 
 
@@ -130,6 +133,7 @@ void
 cGameScreen::KeyReleased( const sf::Event& iEvent )
 {
     // Does nothing
+    cEntityParser::CreateEntityFromFile( "resources/Entities/test.entity" );
 }
 
 

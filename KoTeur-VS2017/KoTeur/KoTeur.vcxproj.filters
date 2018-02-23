@@ -144,6 +144,9 @@
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ECS\EntityParser.cpp">
+      <Filter>Fichiers sources\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Base\ResourceManager.h">
       <Filter>Fichiers sources\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\EntityParser.h">
+      <Filter>Fichiers sources\ECS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
