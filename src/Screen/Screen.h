@@ -20,6 +20,7 @@ public:
 public:
     // Events
     virtual  void  Resized( const sf::Event& iEvent );                ///< The window was resized (data in event.size)
+    virtual  void  TextEntered( const sf::Event& iEvent );            ///< A character was entered (data in event.text)
     virtual  void  KeyPressed( const sf::Event& iEvent );             ///< A key was pressed (data in event.key)
     virtual  void  KeyReleased( const sf::Event& iEvent );            ///< A key was released (data in event.key)
     virtual  void  MouseWheelMoved( const sf::Event& iEvent );        ///< The mouse wheel was scrolled (data in event.mouseWheel) (deprecated)

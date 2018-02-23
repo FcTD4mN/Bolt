@@ -95,17 +95,23 @@ cConsoleScreen::Resized( const sf::Event& iEvent )
 
 
 void
+cConsoleScreen::TextEntered( const sf::Event& iEvent )
+{
+    mConsoleWidget->TextEntered( iEvent );
+}
+
+
+void
 cConsoleScreen::KeyPressed( const sf::Event& iEvent )
 {
-    // Does nothing
-
+    mConsoleWidget->KeyPressed( iEvent );
 }
 
 
 void
 cConsoleScreen::KeyReleased( const sf::Event& iEvent )
 {
-    // Does nothing
+    mConsoleWidget->KeyReleased( iEvent );
 }
 
 

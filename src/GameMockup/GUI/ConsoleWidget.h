@@ -23,6 +23,8 @@ public:
     const  sf::Vector2f&  SetPosition()  const;
     const  sf::Color&     SetBackgroundColor()  const;
 
+    int  NVisibleRows()  const;
+
 private:
     void  UpdateGeometryAndStyle( bool  iNoUpdate = false );
 
@@ -35,6 +37,7 @@ public:
     void  Draw( sf::RenderTarget* iRenderTarget );
 
 public:
+    void  TextEntered( const sf::Event& iEvent );
     void  KeyPressed( const sf::Event& iEvent );
     void  KeyReleased( const sf::Event& iEvent );
 

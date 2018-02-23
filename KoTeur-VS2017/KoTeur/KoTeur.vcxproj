@@ -254,6 +254,7 @@
     <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuPage\MenuPage.cpp" />
     <ClCompile Include="..\..\src\Math\Rectangle.cpp" />
+    <ClCompile Include="..\..\src\Math\Utils.cpp" />
     <ClCompile Include="..\..\src\Math\Vector2d.cpp" />
     <ClCompile Include="..\..\src\Screen\Screen.cpp" />
     <ClCompile Include="..\..\src\Screen\ScreenMainMenu.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuPage\MenuPage.h" />
     <ClInclude Include="..\..\src\Math\Rectangle.h" />
+    <ClInclude Include="..\..\src\Math\Utils.h" />
     <ClInclude Include="..\..\src\Math\Vector2d.h" />
     <ClInclude Include="..\..\src\Screen\Screen.h" />
     <ClInclude Include="..\..\src\Screen\ScreenMainMenu.h" />

@@ -1,4 +1,5 @@
 #include "GameMockup/GUI/ConsoleWidget.h"
+#include "Math/Utils.h"
 
 
 namespace  nGUI
@@ -14,6 +15,7 @@ namespace  nGUI
 #define DEFAULT_COLOR       sf::Color( 20, 20, 20, 255 )
 #define DEFAULT_FONT        "resources/Fonts/SourceCodePro-Regular.ttf"
 #define DEFAULT_FONT_SIZE   12
+#define DEFAULT_LINE_HEIGHT 14
 #define DEFAULT_FONT_COLOR  sf::Color( 220, 220, 220, 255 )
 
 // -------------------------------------------------------------------------------------
@@ -36,16 +38,16 @@ cConsoleWidget::cConsoleWidget() :
     mInputText(),
     mOutputTextLines()
 {
-    SetSize(            DEFAULT_SIZE        , true );
-    SetPosition(        DEFAULT_POSITION    , true );
-    SetBackgroundColor( DEFAULT_COLOR       , true );
-    UpdateGeometryAndStyle();
-
     mFont.loadFromFile( DEFAULT_FONT );
     mInputText.setFont( mFont );
     mInputText.setCharacterSize( DEFAULT_FONT_SIZE );
     mInputText.setFillColor( DEFAULT_FONT_COLOR );
     mInputText.setString( "Input" );
+
+    SetSize(            DEFAULT_SIZE        , true );
+    SetPosition(        DEFAULT_POSITION    , true );
+    SetBackgroundColor( DEFAULT_COLOR       , true );
+    UpdateGeometryAndStyle();
 }
 
 
@@ -57,7 +59,9 @@ cConsoleWidget::cConsoleWidget() :
 void
 cConsoleWidget::SetSize( const  sf::Vector2f&  iSize, bool iNoUpdate )
 {
-    mSize = iSize;
+    float w = iSize.x;
+    float h = iSize.y;
+    mSize = sf::Vector2f( w, h );
     UpdateGeometryAndStyle( iNoUpdate );
 }
 
@@ -65,7 +69,9 @@ cConsoleWidget::SetSize( const  sf::Vector2f&  iSize, bool iNoUpdate )
 void
 cConsoleWidget::SetPosition(  const  sf::Vector2f&  iPosition, bool iNoUpdate )
 {
-    mPosition = iPosition;
+    float x = iPosition.x;
+    float y = iPosition.y;
+    mPosition = sf::Vector2f( x, y );
     UpdateGeometryAndStyle( iNoUpdate );
 }
 
@@ -98,6 +104,14 @@ cConsoleWidget::SetBackgroundColor()  const
     return  mBackgroundColor;
 }
 
+
+int
+cConsoleWidget::NVisibleRows()  const
+{
+    return  int( mSize.y ) / DEFAULT_LINE_HEIGHT;
+}
+
+
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------- Geometry and Style Update
 // -------------------------------------------------------------------------------------
@@ -113,7 +127,24 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
     mConsoleRectangle.setPosition(  mPosition );
     mConsoleRectangle.setFillColor( mBackgroundColor );
 
-    mInputText.setPosition( mPosition );
+    int  nOutputTextLines = NVisibleRows() -1; // -1 because 1 line is reserved for input text.
+    mOutputTextLines.resize( nOutputTextLines );
+    for( int i = 0; i < nOutputTextLines; ++i )
+    {
+        mOutputTextLines[i].setFont( mFont );
+        mOutputTextLines[i].setCharacterSize( DEFAULT_FONT_SIZE );
+        mOutputTextLines[i].setFillColor( DEFAULT_FONT_COLOR );
+        mOutputTextLines[i].setString( ">: Output" );
+        float x = 0;
+        float y = float( i * DEFAULT_LINE_HEIGHT );
+        sf::Vector2f  outputLinePosition = sf::Vector2f( x, y );
+        mOutputTextLines[i].setPosition( outputLinePosition );
+    }
+    
+    float x = 0;
+    float y = float( nOutputTextLines * DEFAULT_LINE_HEIGHT );
+    sf::Vector2f  inputLinePosition = sf::Vector2f( x, y );
+    mInputText.setPosition( inputLinePosition );
 }
 
 
@@ -149,6 +180,11 @@ void
 cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
 {
     iRenderTarget->draw( mConsoleRectangle );
+    int  nOutputTextLines = NVisibleRows() -1; // -1 because 1 line is reserved for input text.
+    for( int i = 0; i < nOutputTextLines; ++i )
+    {
+        iRenderTarget->draw( mOutputTextLines[i] );
+    }
     iRenderTarget->draw( mInputText );
 }
 
@@ -156,6 +192,22 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------ Events
 // -------------------------------------------------------------------------------------
+
+
+void
+cConsoleWidget::TextEntered( const sf::Event& iEvent )
+{
+    auto  unicode = iEvent.text.unicode;
+
+    // Handle ASCII characters only
+    if ( unicode > 0020 && unicode < 0X007E )
+    {
+        std::string str = mInputText.getString();
+        char charCode = static_cast<char>( unicode );
+        str += charCode;
+        mInputText.setString( str );
+    }
+}
 
 
 void

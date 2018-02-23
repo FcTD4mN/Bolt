@@ -222,6 +222,7 @@ cApplication::GainedFocus( const sf::Event& iEvent )
 void
 cApplication::TextEntered( const sf::Event& iEvent )
 {
+    mCurrentScreen->TextEntered( iEvent );
 }
 
 

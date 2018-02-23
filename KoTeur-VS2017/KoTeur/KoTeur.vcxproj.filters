@@ -150,6 +150,9 @@
     <ClCompile Include="..\..\src\GameMockup\ConsoleScreen.cpp">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Math\Utils.cpp">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\ConsoleScreen.h">
       <Filter>Fichiers sources\GameMockup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Math\Utils.h">
+      <Filter>Fichiers sources\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

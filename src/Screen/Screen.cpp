@@ -45,6 +45,12 @@ cScreen::Resized( const sf::Event& iEvent )
     // Does nothing
 }
 
+void
+cScreen::TextEntered( const sf::Event& iEvent )
+{
+    // Does nothing
+}
+
 
 void
 cScreen::KeyPressed( const sf::Event& iEvent )
