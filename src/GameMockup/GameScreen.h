@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Screen/Screen.h"
-#include "GameMockup/GUI/ConsoleWidget.h"
 
 class cGameScreen :
     public cScreen
@@ -40,8 +39,5 @@ public:
     virtual  void  TouchMoved( const sf::Event& iEvent ) override;             ///< A touch moved (data in event.touch)
     virtual  void  TouchEnded( const sf::Event& iEvent ) override;             ///< A touch event ended (data in event.touch)
     virtual  void  SensorChanged( const sf::Event& iEvent ) override;          ///< A sensor value changed (data in event.sensor)
-
-private:
-    ::nGUI::cConsoleWidget*  mConsoleWidget;
 };
 
