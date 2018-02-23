@@ -200,7 +200,7 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
     auto  unicode = iEvent.text.unicode;
 
     // Handle ASCII characters only
-    if ( unicode > 0020 && unicode < 0X007E )
+    if ( unicode > 0X0020 && unicode < 0X007E )
     {
         std::string str = mInputText.getString();
         char charCode = static_cast<char>( unicode );
