@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/GameScreen.h"
+#include "GameMockup/ConsoleScreen.h"
 
 
 #include "MainMenu/MainMenu.h"
@@ -19,7 +20,7 @@ int main()
     app->Initialize();
 
 #ifdef  CONSOLEDEBUG
-	cGameApplication::App()->PushScreen(new cGameScreen() );
+    cGameApplication::App()->PushScreen(new cConsoleScreen() );
 #endif //  CONSOLEDEBUG
 
     sf::RenderWindow* window = cGameApplication::App()->Window();

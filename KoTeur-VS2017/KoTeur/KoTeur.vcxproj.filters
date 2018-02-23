@@ -147,6 +147,9 @@
     <ClCompile Include="..\..\src\ECS\EntityParser.cpp">
       <Filter>Fichiers sources\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\ConsoleScreen.cpp">
+      <Filter>Fichiers sources\GameMockup</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -241,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\ECS\EntityParser.h">
       <Filter>Fichiers sources\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\ConsoleScreen.h">
+      <Filter>Fichiers sources\GameMockup</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
