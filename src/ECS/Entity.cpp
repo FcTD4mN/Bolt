@@ -2,6 +2,7 @@
 
 #include "ECS/Component.h"
 
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -104,4 +105,34 @@ void
 cEntity::SetLoaded()
 {
     mLoaded = true;
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------ Input/Output
+// -------------------------------------------------------------------------------------
+
+
+void
+cEntity::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument )
+{
+    tinyxml2::XMLElement* entity = iDocument->NewElement( "entity" );
+    entity->SetAttribute( "id", mID.c_str() );
+
+        tinyxml2::XMLElement* components = iDocument->NewElement( "components" );
+
+        for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
+        {
+            it->second->SaveXML( components, iDocument );
+        }
+
+        entity->LinkEndChild( components );
+
+    iNode->LinkEndChild( entity );
+}
+
+
+void
+cEntity::LoadXML( const tinyxml2::XMLElement * iNode )
+{
 }

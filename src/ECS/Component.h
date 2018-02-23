@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "tinyxml2.h"
 
 class cComponent
 {
@@ -13,6 +14,11 @@ public:
 public:
     // Access/Get
     const  std::string&  Name() const;
+
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( const tinyxml2::XMLElement* iNode );
 
 protected:
     std::string mName;

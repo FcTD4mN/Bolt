@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "tinyxml2.h"
+
 class cComponent;
 class cSystem;
 class cWorld;
@@ -31,6 +33,11 @@ public:
 public:
     bool IsDead() const;
     void SetLoaded();
+
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( const tinyxml2::XMLElement* iNode );
 
 private:
     cWorld *                                        mWorld;             // To call for updates if entity changes

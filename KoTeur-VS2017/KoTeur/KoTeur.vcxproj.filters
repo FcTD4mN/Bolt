@@ -52,6 +52,12 @@
     <Filter Include="Fichiers sources\GameMockup\GUI">
       <UniqueIdentifier>{56c74a16-8ae8-4868-8254-afa155de4742}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\EXTERNAL">
+      <UniqueIdentifier>{19d0c6f7-3c6a-4c77-b412-f496f4350895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\EXTERNAL\tinyxml2">
+      <UniqueIdentifier>{1a6ff4d2-2e4b-4eb5-8c23-98a0121a3749}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -159,6 +165,9 @@
     <ClCompile Include="..\..\src\Base\Clipboard.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\extlibs\tinyxml2\tinyxml2.cpp">
+      <Filter>Fichiers sources\EXTERNAL\tinyxml2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -262,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Base\Clipboard.h">
       <Filter>Fichiers sources\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extlibs\tinyxml2\tinyxml2.h">
+      <Filter>Fichiers sources\EXTERNAL\tinyxml2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
