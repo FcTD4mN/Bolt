@@ -54,6 +54,7 @@ cConsoleWidget::cConsoleWidget() :
 {
     // Single Key Press
     mKeyPressedProcessMap[ sf::Keyboard::BackSpace ]        =  &cConsoleWidget::ProcessBackspacePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Tab ]              =  &cConsoleWidget::ProcessTabPressed;
     mKeyPressedProcessMap[ sf::Keyboard::Return ]           =  &cConsoleWidget::ProcessReturnPressed;
     mKeyPressedProcessMap[ sf::Keyboard::Escape ]           =  &cConsoleWidget::ProcessEscapePressed;
     mKeyPressedProcessMap[ sf::Keyboard::Left ]             =  &cConsoleWidget::ProcessLeftPressed;
@@ -151,9 +152,9 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
         sf::Text  sampleText;
         sampleText.setFont( mFont );
         sampleText.setCharacterSize( DEFAULT_FONT_SIZE );
-        sampleText.setString( "oo" );
+        sampleText.setString( ">>" );
         sf::Vector2f pos = sampleText.findCharacterPos( 1 );
-        mCharWidth = unsigned int( pos.x );
+        mCharWidth = int( pos.x );
     }
 
     mConsoleRectangle.setSize(      mSize );
@@ -229,7 +230,7 @@ cConsoleWidget::DecrementCursorPosition()
 void
 cConsoleWidget::MoveCursorPosition( int iDelta )
 {
-    mCursorIndex = unsigned int( int( mCursorIndex ) + iDelta );
+    mCursorIndex = int( int( mCursorIndex ) + iDelta );
     mCursorRectangle.move( float( iDelta * mCharWidth ), 0.f );
 }
 
@@ -391,6 +392,24 @@ cConsoleWidget::ProcessBackspacePressed()
 
     mInputText.setString( str );
     DecrementCursorPosition();
+}
+
+
+void
+cConsoleWidget::ProcessTabPressed()
+{
+    // Append tab str text content to input content
+    int nTabToWhiteSpace = 4;
+    std::string tabStr = "";
+    for( int i = 0; i < nTabToWhiteSpace; ++i )
+    {
+        tabStr += " ";
+    }
+
+    std::string inputStr = mInputText.getString();
+    std::string resultStr = inputStr + tabStr;
+    mInputText.setString( resultStr );
+    MoveCursorPosition( int( tabStr.length() ) );
 }
 
 

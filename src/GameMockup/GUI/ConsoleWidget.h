@@ -55,6 +55,7 @@ public:
 private:
     // Event Processing
     void  ProcessBackspacePressed();
+    void  ProcessTabPressed();
     void  ProcessReturnPressed();
     void  ProcessEscapePressed();
     void  ProcessLeftPressed();
