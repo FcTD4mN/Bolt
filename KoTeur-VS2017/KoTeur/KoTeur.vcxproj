@@ -227,6 +227,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Application\Application.cpp" />
+    <ClCompile Include="..\..\src\Base\Clipboard.cpp" />
+    <ClCompile Include="..\..\src\Base\ClipboardWin32.cpp" />
     <ClCompile Include="..\..\src\Base\Drawable.cpp" />
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp" />
     <ClCompile Include="..\..\src\ECS\Component.cpp" />
@@ -262,6 +264,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Application\Application.h" />
+    <ClInclude Include="..\..\src\Base\Clipboard.h" />
     <ClInclude Include="..\..\src\Base\Drawable.h" />
     <ClInclude Include="..\..\src\Base\GeneralEnums.h" />
     <ClInclude Include="..\..\src\Base\ResourceManager.h" />

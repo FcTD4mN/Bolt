@@ -1,5 +1,8 @@
 #include "GameMockup/GUI/ConsoleWidget.h"
+
+
 #include "Math/Utils.h"
+#include "Base/Clipboard.h"
 
 
 namespace  nGUI
@@ -10,7 +13,7 @@ namespace  nGUI
 // -------------------------------------------------------------------------------------
 
 
-#define DEFAULT_SIZE        sf::Vector2f( 600.f,   200.f )
+#define DEFAULT_SIZE        sf::Vector2f( 600.f, 200.f )
 #define DEFAULT_POSITION    sf::Vector2f( 0.f, 0.f )
 #define DEFAULT_COLOR       sf::Color( 20, 20, 20, 255 )
 #define DEFAULT_FONT        "resources/Fonts/SourceCodePro-Regular.ttf"
@@ -41,6 +44,7 @@ cConsoleWidget::cConsoleWidget() :
 {
     mKeyProcessMap[ sf::Keyboard::BackSpace ]   =  &cConsoleWidget::ProcessBackspacePressed;
     mKeyProcessMap[ sf::Keyboard::Return ]      =  &cConsoleWidget::ProcessReturnPressed;
+    mKeyProcessMap[ sf::Keyboard::Escape ]      =  &cConsoleWidget::ProcessEscapePressed;
 
     mFont.loadFromFile( DEFAULT_FONT );
     mInputText.setFont( mFont );
@@ -48,6 +52,8 @@ cConsoleWidget::cConsoleWidget() :
     mInputText.setFillColor( DEFAULT_FONT_COLOR );
     mInputText.setString( "Input" );
 
+    // The next three functions have the optional NoUpdate Boolean parameter set to true,
+    // in order the to avoid calling UpdateGeometryAndStyle too often.
     SetSize(            DEFAULT_SIZE        , true );
     SetPosition(        DEFAULT_POSITION    , true );
     SetBackgroundColor( DEFAULT_COLOR       , true );
@@ -153,23 +159,6 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
 
 
 // -------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------- Init/Finalize
-// -------------------------------------------------------------------------------------
-
-
-void
-cConsoleWidget::Initialize()
-{
-}
-
-
-void
-cConsoleWidget::Finalize()
-{
-}
-
-
-// -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------- Update/Draw
 // -------------------------------------------------------------------------------------
 
@@ -258,15 +247,29 @@ cConsoleWidget::ProcessReturnPressed()
 {
     std::string inputStr = mInputText.getString();
 
+    // Shift output rows content upwards
     for( int i = 0; i < NVisibleRows() -2; ++i )
     {
         std::string currentOutputStr = mOutputTextLines[i + 1 ].getString();
         mOutputTextLines[i].setString( currentOutputStr );
     }
 
+    // Set last output row content with input content
     mOutputTextLines.back().setString( inputStr );
+
+    // Clear input content
+    mInputText.setString("");
 }
 
+
+void
+cConsoleWidget::ProcessEscapePressed()
+{
+    std::string clipboardStr = GetClipboardText();
+    std::string inputStr = mInputText.getString();
+    std::string resultStr = inputStr + clipboardStr;
+    mInputText.setString( resultStr );
+}
 
 } // namespace  nGUI
 

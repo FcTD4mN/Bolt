@@ -28,10 +28,6 @@ public:
 private:
     void  UpdateGeometryAndStyle( bool  iNoUpdate = false );
 
-private:
-    void  Initialize();
-    void  Finalize();
-
 public:
     void  Update();
     void  Draw( sf::RenderTarget* iRenderTarget );
@@ -44,6 +40,7 @@ public:
 private:
     void  ProcessBackspacePressed();
     void  ProcessReturnPressed();
+    void  ProcessEscapePressed();
 
 private:
     typedef void ( cConsoleWidget::*tVoidMemberFunctionPointer )();

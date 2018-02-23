@@ -153,6 +153,12 @@
     <ClCompile Include="..\..\src\Math\Utils.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Base\ClipboardWin32.cpp">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Base\Clipboard.cpp">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -253,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Math\Utils.h">
       <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Base\Clipboard.h">
+      <Filter>Fichiers sources\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
