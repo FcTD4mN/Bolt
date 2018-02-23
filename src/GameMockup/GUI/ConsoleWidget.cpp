@@ -21,7 +21,7 @@ namespace  nGUI
 #define DEFAULT_FONT_COLOR                  sf::Color( 220, 220, 220, 255 )
 #define DEFAULT_CURSOR_COLOR                DEFAULT_FONT_COLOR
 #define DEFAULT_CURSOR_SIZE                 sf::Vector2f( 2.f, float( DEFAULT_LINE_HEIGHT ) )
-#define DEFAULT_CURSOR_TOGGLE_TIME_MS       500
+#define DEFAULT_CURSOR_TOGGLE_TIME_MS       200
 
 
 // -------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ cConsoleWidget::cConsoleWidget() :
     mCursorToggled( false ),
     mCursorToggleTimeMs( DEFAULT_CURSOR_TOGGLE_TIME_MS ),
     mCursorTimerElapsedTimeMs( 0 ),
-    mCursorPosition( 0 ),
+    mCursorIndex( 0 ),
     mCharWidth( 0 ),
     mConsoleRectangle(),
     mCursorRectangle(),
@@ -179,9 +179,10 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
     sf::Vector2f  inputLinePosition = sf::Vector2f( x, y );
     mInputText.setPosition( inputLinePosition );
 
-    float cursorX = mCursorPosition * mCharWidth;
+    float cursorX = 0;
     float cursorY = y;
     mCursorRectangle.setPosition( cursorX, cursorY );
+    UpdateCursorPosition();
 }
 
 
@@ -195,7 +196,17 @@ cConsoleWidget::NVisibleRows()  const
 void
 cConsoleWidget::IncrementCursorPosition()
 {
-    ++mCursorPosition;
+    std::string str = mInputText.getString();
+    int length = int( str.length() );
+
+    if( mCursorIndex >= length )
+    {
+        mCursorIndex = length;
+        UpdateCursorPosition();
+        return;
+    }
+
+    ++mCursorIndex;
     mCursorRectangle.move( float( mCharWidth ), 0.f );
 }
 
@@ -203,7 +214,14 @@ cConsoleWidget::IncrementCursorPosition()
 void 
 cConsoleWidget::DecrementCursorPosition()
 {
-    ++mCursorPosition;
+    if( mCursorIndex <= 0 )
+    {
+        mCursorIndex = 0;
+        UpdateCursorPosition();
+        return;
+    }
+
+    --mCursorIndex;
     mCursorRectangle.move( -float( mCharWidth ), 0.f );
 }
 
@@ -211,12 +229,18 @@ cConsoleWidget::DecrementCursorPosition()
 void
 cConsoleWidget::ResetCursorPosition()
 {
-    mCursorPosition = 0;
+    mCursorIndex = 0;
     sf::Vector2f  cursorPosition = mCursorRectangle.getPosition();
     mCursorRectangle.setPosition( 0.f, cursorPosition.y );
 }
 
 
+void
+cConsoleWidget::UpdateCursorPosition()
+{
+    sf::Vector2f  cursorPosition = mCursorRectangle.getPosition();
+    mCursorRectangle.setPosition( float( mCursorIndex * mCharWidth ), cursorPosition.y );
+}
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Public Text Manipulation
 // -------------------------------------------------------------------------------------

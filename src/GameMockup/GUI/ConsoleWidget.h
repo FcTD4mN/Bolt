@@ -33,6 +33,7 @@ private:
     void    IncrementCursorPosition();
     void    DecrementCursorPosition();
     void    ResetCursorPosition();
+    void    UpdateCursorPosition();
 
 private:
     // Public Text Manipulation
@@ -71,7 +72,7 @@ private:
     bool                mCursorToggled;
     unsigned  int       mCursorToggleTimeMs;
     unsigned  int       mCursorTimerElapsedTimeMs;
-    unsigned  int       mCursorPosition;
+    int                 mCursorIndex;
     unsigned  int       mCharWidth;
     sf::RectangleShape  mConsoleRectangle;
     sf::RectangleShape  mCursorRectangle;
