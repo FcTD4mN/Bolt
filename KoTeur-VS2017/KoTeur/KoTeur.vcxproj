@@ -108,12 +108,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Libraries\SFML-2.4.2VC14\include;E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>A:\Programmation\SFML-2.4.2-VS\lib;D:\Libraries\SFML-2.4.2VC14\lib;E:\SFML\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Libraries\SFML-2.4.2VC14\lib;A:\Programmation\SFML-2.4.2-VS\lib;D:\Libraries\SFML-2.4.2VC14\lib;E:\SFML\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

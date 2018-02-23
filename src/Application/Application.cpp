@@ -56,7 +56,7 @@ cApplication::SetAppDefaultResolution( int iW, int iH )
 void
 cApplication::Initialize()
 {
-    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Game Title" );
+    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Console" );
 }
 
 

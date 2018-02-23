@@ -117,7 +117,7 @@ cGameApplication::Initialize()
     menu->CurrentPage( 0 );
 
     cScreenMainMenu* mainMenuScreen = new cScreenMainMenu( menu );
-    PushScreen( mainMenuScreen );
+	PushScreen( mainMenuScreen );
 
     // =======ECS WORLD=======
     mWorld = new cWorld();
@@ -135,6 +135,9 @@ cGameApplication::Initialize()
     mShortcutEngine->Initialize();
 
     //-----------------------------------
+
+	cGameApplication::App()->PushScreen(new cGameScreen());
+
 }
 
 
