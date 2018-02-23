@@ -29,7 +29,7 @@ private:
     void  UpdateGeometryAndStyle( bool  iNoUpdate = false );
 
 public:
-    void  Update();
+    void  Update( unsigned int iDeltaTime );
     void  Draw( sf::RenderTarget* iRenderTarget );
 
 public:
@@ -52,7 +52,11 @@ private:
     std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mCTRLKeyPressedProcessMap;
 
     bool                mCollapsed;
+    bool                mCursorToggled;
+    unsigned  int       mCursorToggleTimeMs;
+    unsigned  int       mCursorTimerElapsedTimeMs;
     sf::RectangleShape  mConsoleRectangle;
+    sf::RectangleShape  mCursorRectangle;
     sf::Vector2f        mSize;
     sf::Vector2f        mPosition;
     sf::Color           mBackgroundColor;

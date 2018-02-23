@@ -13,13 +13,16 @@ namespace  nGUI
 // -------------------------------------------------------------------------------------
 
 
-#define DEFAULT_SIZE        sf::Vector2f( 600.f, 200.f )
-#define DEFAULT_POSITION    sf::Vector2f( 0.f, 0.f )
-#define DEFAULT_COLOR       sf::Color( 20, 20, 20, 255 )
-#define DEFAULT_FONT        "resources/Fonts/SourceCodePro-Regular.ttf"
-#define DEFAULT_FONT_SIZE   12
-#define DEFAULT_LINE_HEIGHT 14
-#define DEFAULT_FONT_COLOR  sf::Color( 220, 220, 220, 255 )
+#define DEFAULT_SIZE                        sf::Vector2f( 600.f, 200.f )
+#define DEFAULT_COLOR                       sf::Color( 20, 20, 20, 255 )
+#define DEFAULT_FONT                        "resources/Fonts/SourceCodePro-Regular.ttf"
+#define DEFAULT_FONT_SIZE                   12
+#define DEFAULT_LINE_HEIGHT                 14
+#define DEFAULT_FONT_COLOR                  sf::Color( 220, 220, 220, 255 )
+#define DEFAULT_CURSOR_COLOR                DEFAULT_FONT_COLOR
+#define DEFAULT_CURSOR_SIZE                 sf::Vector2f( 2.f, float( DEFAULT_FONT_SIZE ) )
+#define DEFAULT_CURSOR_TOGGLE_TIME_MS       500
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -35,7 +38,11 @@ cConsoleWidget::cConsoleWidget() :
     mKeyPressedProcessMap(),
     mCTRLKeyPressedProcessMap(),
     mCollapsed( false ),
+    mCursorToggled( false ),
+    mCursorToggleTimeMs( DEFAULT_CURSOR_TOGGLE_TIME_MS ),
+    mCursorTimerElapsedTimeMs( 0 ),
     mConsoleRectangle(),
+    mCursorRectangle(),
     mSize(),
     mPosition(),
     mBackgroundColor(),
@@ -52,6 +59,10 @@ cConsoleWidget::cConsoleWidget() :
     mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
     mCTRLKeyPressedProcessMap[ sf::Keyboard::BackSpace ]    =  &cConsoleWidget::ProcessCTRLBackspacePressed;
 
+    mCursorRectangle.setSize(       DEFAULT_CURSOR_SIZE );
+    mCursorRectangle.setPosition(   sf::Vector2f() );
+    mCursorRectangle.setFillColor(  DEFAULT_CURSOR_COLOR );
+
     mFont.loadFromFile( DEFAULT_FONT );
     mInputText.setFont( mFont );
     mInputText.setCharacterSize( DEFAULT_FONT_SIZE );
@@ -61,7 +72,7 @@ cConsoleWidget::cConsoleWidget() :
     // The next three functions have the optional NoUpdate Boolean parameter set to true,
     // in order the to avoid calling UpdateGeometryAndStyle too often.
     SetSize(            DEFAULT_SIZE        , true );
-    SetPosition(        DEFAULT_POSITION    , true );
+    SetPosition(        sf::Vector2f()      , true );
     SetBackgroundColor( DEFAULT_COLOR       , true );
     UpdateGeometryAndStyle();
 }
@@ -170,8 +181,14 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
 
 
 void
-cConsoleWidget::Update()
+cConsoleWidget::Update( unsigned int iDeltaTime )
 {
+    mCursorTimerElapsedTimeMs += iDeltaTime;
+    if( mCursorTimerElapsedTimeMs > mCursorToggleTimeMs )
+    {
+        mCursorTimerElapsedTimeMs = 0;
+        mCursorToggled = !mCursorToggled;
+    }
 }
 
 
@@ -185,6 +202,11 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
         iRenderTarget->draw( mOutputTextLines[i] );
     }
     iRenderTarget->draw( mInputText );
+
+    if( mCursorToggled )
+    {
+        iRenderTarget->draw( mCursorRectangle );
+    }
 }
 
 

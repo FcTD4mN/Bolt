@@ -76,7 +76,7 @@ cConsoleScreen::Draw( sf::RenderTarget* iRenderTarget )
 void
 cConsoleScreen::Update( unsigned int iDeltaTime )
 {
-    // Does nothing
+    mConsoleWidget->Update( iDeltaTime );
 }
 
 
