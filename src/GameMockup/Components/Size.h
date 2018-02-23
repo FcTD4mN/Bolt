@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "tinyxml2.h"
+
 class cSize :
     public cComponent
 {
@@ -15,6 +17,11 @@ public:
     cSize();
     cSize( float iW, float iH );
     cSize( const sf::Vector2f& iVector );
+
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( const tinyxml2::XMLElement* iNode );
 
 public:
     sf::Vector2f  mSize;

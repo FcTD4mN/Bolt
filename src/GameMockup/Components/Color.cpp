@@ -32,3 +32,32 @@ cColor::cColor( sf::Color iColor ) :
 {
 }
 
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------ Input/Output
+// -------------------------------------------------------------------------------------
+
+
+void
+cColor::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+{
+    tSuperClass::SaveXML( iNode, iDocument );
+    iNode->SetAttribute( "colorr", mColor.r );
+    iNode->SetAttribute( "colorg", mColor.g );
+    iNode->SetAttribute( "colorb", mColor.b );
+    iNode->SetAttribute( "colora", mColor.a );
+}
+
+
+void
+cColor::LoadXML( const tinyxml2::XMLElement* iNode )
+{
+    tSuperClass::LoadXML( iNode );
+    mColor.r = iNode->IntAttribute( "colorr", 0 );
+    mColor.g = iNode->IntAttribute( "colorg", 0 );
+    mColor.b = iNode->IntAttribute( "colorb", 0 );
+    mColor.a = iNode->IntAttribute( "colora", 255 );
+
+}
+
+

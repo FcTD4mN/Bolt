@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "tinyxml2.h"
+
 class cSpriteAnimated :
     public cComponent
 {
@@ -22,6 +24,13 @@ public:
     void  Unflip();
 
 public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( const tinyxml2::XMLElement* iNode );
+
+public:
+    std::string     mFileName;
+
     sf::Texture*    mSpriteSheet;
     sf::Sprite      mSprite;
     sf::IntRect     mCurrentSpriteRect;
