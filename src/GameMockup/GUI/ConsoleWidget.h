@@ -34,6 +34,7 @@ private:
     void    DecrementCursorPosition();
     void    ResetCursorPosition();
     void    UpdateCursorPosition();
+    void    MatchCursorPosition();
 
 private:
     // Public Text Manipulation

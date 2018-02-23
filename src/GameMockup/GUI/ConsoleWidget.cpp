@@ -182,7 +182,7 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
     float cursorX = 0;
     float cursorY = y;
     mCursorRectangle.setPosition( cursorX, cursorY );
-    UpdateCursorPosition();
+    MatchCursorPosition();
 }
 
 
@@ -241,6 +241,16 @@ cConsoleWidget::UpdateCursorPosition()
     sf::Vector2f  cursorPosition = mCursorRectangle.getPosition();
     mCursorRectangle.setPosition( float( mCursorIndex * mCharWidth ), cursorPosition.y );
 }
+
+
+void
+cConsoleWidget::MatchCursorPosition()
+{
+    std::string str = mInputText.getString();
+    mCursorIndex = str.length();
+    UpdateCursorPosition();
+}
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Public Text Manipulation
 // -------------------------------------------------------------------------------------
