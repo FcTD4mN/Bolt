@@ -50,8 +50,8 @@ void
 cPosition::LoadXML( const tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
-    mPosition.x = iNode->IntAttribute( "x", 0 );
-    mPosition.y = iNode->IntAttribute( "y", 0 );
+    mPosition.x = iNode->FloatAttribute( "x", 0.0F );
+    mPosition.y = iNode->FloatAttribute( "y", 0.0F );
 
 }
 

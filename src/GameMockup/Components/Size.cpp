@@ -50,8 +50,8 @@ void
 cSize::LoadXML( const tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
-    mSize.x = iNode->IntAttribute( "w", 0 );
-    mSize.y = iNode->IntAttribute( "h", 0 );
+    mSize.x = iNode->FloatAttribute( "w", 0.0F );
+    mSize.y = iNode->FloatAttribute( "h", 0.0F );
 
 }
 
