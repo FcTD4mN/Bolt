@@ -227,6 +227,14 @@ cConsoleWidget::DecrementCursorPosition()
 
 
 void
+cConsoleWidget::MoveCursorPosition( int iDelta )
+{
+    mCursorIndex = unsigned int( int( mCursorIndex ) + iDelta );
+    mCursorRectangle.move( float( iDelta * mCharWidth ), 0.f );
+}
+
+
+void
 cConsoleWidget::ResetCursorPosition()
 {
     mCursorIndex = 0;
@@ -432,6 +440,7 @@ cConsoleWidget::ProcessCTRLVPressed()
     std::string inputStr = mInputText.getString();
     std::string resultStr = inputStr + clipboardStr;
     mInputText.setString( resultStr );
+    MoveCursorPosition( int( clipboardStr.length() ) );
 }
 
 void

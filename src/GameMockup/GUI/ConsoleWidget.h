@@ -32,6 +32,7 @@ private:
     int     NVisibleRows()  const;
     void    IncrementCursorPosition();
     void    DecrementCursorPosition();
+    void    MoveCursorPosition( int iDelta );
     void    ResetCursorPosition();
     void    UpdateCursorPosition();
     void    MatchCursorPosition();
@@ -74,7 +75,7 @@ private:
     unsigned  int       mCursorToggleTimeMs;
     unsigned  int       mCursorTimerElapsedTimeMs;
     int                 mCursorIndex;
-    unsigned  int       mCharWidth;
+    int                 mCharWidth;
     sf::RectangleShape  mConsoleRectangle;
     sf::RectangleShape  mCursorRectangle;
     sf::Vector2f        mSize;
