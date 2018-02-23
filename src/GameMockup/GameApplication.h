@@ -35,7 +35,7 @@ public:
     virtual  void  KeyReleased( const sf::Event& iEvent );  ///< A key was released (data in event.key)
 
 private:
-    cWorld*     mWorld;
-    cShortcuts* mShortcutEngine;
+    cWorld*             mWorld;
+    cShortcuts*         mShortcutEngine;
 };
 

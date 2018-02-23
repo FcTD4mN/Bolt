@@ -30,7 +30,7 @@ cGameScreen::cGameScreen() :
     mConsoleWidget( 0 )
 {
     mConsoleWidget = new  ::nGUI::cConsoleWidget();
-    sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ), 
+    sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
                                                     float( cGameApplication::App()->Window()->getSize().y ) );
     float  sizeRatio     = 2.f / 6.f;
     float  positionRatio = 4.f / 5.f;
@@ -53,7 +53,7 @@ cGameScreen::Initialize()
     sf::Vector2u size = window->getSize();
 
     cWorld* world = cGameApplication::App()->World();
-    for( int i = 0; i < 10; ++i )
+    for( int i = 0; i < 5000; ++i )
     {
         int posX = rand() % ( size.x - 10 );
         int posY = rand() % (size.y - 10);

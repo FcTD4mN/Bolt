@@ -22,10 +22,10 @@ public:
     void  Unflip();
 
 public:
-    sf::Texture mSpriteSheet;
-    sf::Sprite  mSprite;
-    sf::IntRect mCurrentSpriteRect;
-    float       mFrameRate;         // Animation's frame rate
-    bool        mPaused;            // Is the animation paused ?
-    sf::Clock   mClock;             // Animation clock
+    sf::Texture*    mSpriteSheet;
+    sf::Sprite      mSprite;
+    sf::IntRect     mCurrentSpriteRect;
+    float           mFrameRate;         // Animation's frame rate
+    bool            mPaused;            // Is the animation paused ?
+    sf::Clock       mClock;             // Animation clock
 };
