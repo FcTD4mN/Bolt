@@ -135,9 +135,6 @@ cGameApplication::Initialize()
     mShortcutEngine->Initialize();
 
     //-----------------------------------
-
-	cGameApplication::App()->PushScreen(new cGameScreen());
-
 }
 
 
