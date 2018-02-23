@@ -247,7 +247,7 @@ void
 cConsoleWidget::MatchCursorPosition()
 {
     std::string str = mInputText.getString();
-    mCursorIndex = str.length();
+    mCursorIndex = int( str.length() );
     UpdateCursorPosition();
 }
 
