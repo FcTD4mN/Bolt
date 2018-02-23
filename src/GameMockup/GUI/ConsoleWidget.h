@@ -42,9 +42,14 @@ private:
     void  ProcessReturnPressed();
     void  ProcessEscapePressed();
 
+    void  ProcessCTRLVPressed();
+    void  ProcessCTRLBackspacePressed();
+
+
 private:
     typedef void ( cConsoleWidget::*tVoidMemberFunctionPointer )();
-    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mKeyProcessMap;
+    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mKeyPressedProcessMap;
+    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mCTRLKeyPressedProcessMap;
 
     bool                mCollapsed;
     sf::RectangleShape  mConsoleRectangle;

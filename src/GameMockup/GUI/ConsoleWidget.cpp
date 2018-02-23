@@ -32,7 +32,8 @@ cConsoleWidget::~cConsoleWidget()
 
 
 cConsoleWidget::cConsoleWidget() :
-    mKeyProcessMap(),
+    mKeyPressedProcessMap(),
+    mCTRLKeyPressedProcessMap(),
     mCollapsed( false ),
     mConsoleRectangle(),
     mSize(),
@@ -42,9 +43,14 @@ cConsoleWidget::cConsoleWidget() :
     mInputText(),
     mOutputTextLines()
 {
-    mKeyProcessMap[ sf::Keyboard::BackSpace ]   =  &cConsoleWidget::ProcessBackspacePressed;
-    mKeyProcessMap[ sf::Keyboard::Return ]      =  &cConsoleWidget::ProcessReturnPressed;
-    mKeyProcessMap[ sf::Keyboard::Escape ]      =  &cConsoleWidget::ProcessEscapePressed;
+    // Single Key Press
+    mKeyPressedProcessMap[ sf::Keyboard::BackSpace ]        =  &cConsoleWidget::ProcessBackspacePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Return ]           =  &cConsoleWidget::ProcessReturnPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Escape ]           =  &cConsoleWidget::ProcessEscapePressed;
+
+    // CTRL + Key Press
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::BackSpace ]    =  &cConsoleWidget::ProcessCTRLBackspacePressed;
 
     mFont.loadFromFile( DEFAULT_FONT );
     mInputText.setFont( mFont );
@@ -206,12 +212,36 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
 void
 cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 {
-    auto key = iEvent.key.code;
+    auto key = iEvent.key;
+    auto code = key.code;
 
-    // If Key Exists in mKeyProcessMap
-    if( ! ( mKeyProcessMap.find( key ) == mKeyProcessMap.end() ) )
+    if( key.alt )           // Alt Modifier
     {
-        (this->*mKeyProcessMap[ key ])();
+        // Nothing ATM
+    }
+    else if( key.control )  // Control Modifier
+    {
+        // If Key Exists in mKeyProcessMap
+        if( ! ( mCTRLKeyPressedProcessMap.find( code ) == mCTRLKeyPressedProcessMap.end() ) )
+        {
+            (this->*mCTRLKeyPressedProcessMap[ code ])();
+        }
+    }
+    else if( key.shift )    // Shift Modifier
+    {
+        // Nothing ATM
+    }
+    else if( key.system )   // System Modifier
+    {
+        // Nothing ATM
+    }
+    else                    // No Modifier
+    {
+        // If Key Exists in mKeyProcessMap
+        if( ! ( mKeyPressedProcessMap.find( code ) == mKeyPressedProcessMap.end() ) )
+        {
+            (this->*mKeyPressedProcessMap[ code ])();
+        }
     }
 }
 
@@ -265,11 +295,28 @@ cConsoleWidget::ProcessReturnPressed()
 void
 cConsoleWidget::ProcessEscapePressed()
 {
+    // Clear input content
+    mInputText.setString("");
+}
+
+
+void
+cConsoleWidget::ProcessCTRLVPressed()
+{
+    // Append clipboard text content to input content
     std::string clipboardStr = GetClipboardText();
     std::string inputStr = mInputText.getString();
     std::string resultStr = inputStr + clipboardStr;
     mInputText.setString( resultStr );
 }
+
+void
+cConsoleWidget::ProcessCTRLBackspacePressed()
+{
+    // Clear input content
+    mInputText.setString("");
+}
+
 
 } // namespace  nGUI
 
