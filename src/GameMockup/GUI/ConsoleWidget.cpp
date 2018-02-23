@@ -218,6 +218,7 @@ void
 cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 {
     auto key = iEvent.key.code;
+
     // If Key Exists in mKeyProcessMap
     if( ! ( mKeyProcessMap.find( key ) == mKeyProcessMap.end() ) )
     {
@@ -255,7 +256,15 @@ cConsoleWidget::ProcessBackspacePressed()
 void
 cConsoleWidget::ProcessReturnPressed()
 {
+    std::string inputStr = mInputText.getString();
 
+    for( int i = 0; i < NVisibleRows() -2; ++i )
+    {
+        std::string currentOutputStr = mOutputTextLines[i + 1 ].getString();
+        mOutputTextLines[i].setString( currentOutputStr );
+    }
+
+    mOutputTextLines.back().setString( inputStr );
 }
 
 
