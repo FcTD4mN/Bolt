@@ -29,6 +29,7 @@ cConsoleWidget::~cConsoleWidget()
 
 
 cConsoleWidget::cConsoleWidget() :
+    mKeyProcessMap(),
     mCollapsed( false ),
     mConsoleRectangle(),
     mSize(),
@@ -38,6 +39,9 @@ cConsoleWidget::cConsoleWidget() :
     mInputText(),
     mOutputTextLines()
 {
+    mKeyProcessMap[ sf::Keyboard::BackSpace ]   =  &cConsoleWidget::ProcessBackspacePressed;
+    mKeyProcessMap[ sf::Keyboard::Return ]      =  &cConsoleWidget::ProcessReturnPressed;
+
     mFont.loadFromFile( DEFAULT_FONT );
     mInputText.setFont( mFont );
     mInputText.setCharacterSize( DEFAULT_FONT_SIZE );
@@ -214,18 +218,10 @@ void
 cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 {
     auto key = iEvent.key.code;
-
-    // Backspace Erase
-    if( key == sf::Keyboard::BackSpace )
+    // If Key Exists in mKeyProcessMap
+    if( ! ( mKeyProcessMap.find( key ) == mKeyProcessMap.end() ) )
     {
-        std::string str = mInputText.getString();
-
-        if( str.length() )
-        {
-            str.pop_back();
-        }
-
-        mInputText.setString( str );
+        (this->*mKeyProcessMap[ key ])();
     }
 }
 
@@ -234,6 +230,32 @@ void
 cConsoleWidget::KeyReleased( const sf::Event& iEvent )
 {
     auto key = iEvent.key.code;
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ Events
+// -------------------------------------------------------------------------------------
+
+
+void
+cConsoleWidget::ProcessBackspacePressed()
+{
+    std::string str = mInputText.getString();
+
+    if( str.length() )
+    {
+        str.pop_back();
+    }
+
+    mInputText.setString( str );
+}
+
+
+void
+cConsoleWidget::ProcessReturnPressed()
+{
+
 }
 
 

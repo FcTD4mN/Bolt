@@ -42,6 +42,13 @@ public:
     void  KeyReleased( const sf::Event& iEvent );
 
 private:
+    void  ProcessBackspacePressed();
+    void  ProcessReturnPressed();
+
+private:
+    typedef void ( cConsoleWidget::*tVoidMemberFunctionPointer )();
+    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mKeyProcessMap;
+
     bool                mCollapsed;
     sf::RectangleShape  mConsoleRectangle;
     sf::Vector2f        mSize;
