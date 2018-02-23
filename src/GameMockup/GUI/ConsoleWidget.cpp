@@ -213,12 +213,27 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
 void
 cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 {
+    auto key = iEvent.key.code;
+
+    // Backspace Erase
+    if( key == sf::Keyboard::BackSpace )
+    {
+        std::string str = mInputText.getString();
+
+        if( str.length() )
+        {
+            str.pop_back();
+        }
+
+        mInputText.setString( str );
+    }
 }
 
 
 void
 cConsoleWidget::KeyReleased( const sf::Event& iEvent )
 {
+    auto key = iEvent.key.code;
 }
 
 
