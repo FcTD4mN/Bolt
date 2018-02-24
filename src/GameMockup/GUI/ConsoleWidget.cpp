@@ -22,7 +22,10 @@ namespace  nGUI
 #define DEFAULT_CURSOR_COLOR                DEFAULT_FONT_COLOR
 #define DEFAULT_CURSOR_SIZE                 sf::Vector2f( 2.f, float( DEFAULT_LINE_HEIGHT ) )
 #define DEFAULT_CURSOR_TOGGLE_TIME_MS       200
+#define DEFAULT_TAB_WHITESPACE              4
 
+
+#define KEY_EXISTS( iMap, iKey )            ( ! ( iMap.find( iKey ) == iMap.end() ) )
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -37,6 +40,7 @@ cConsoleWidget::~cConsoleWidget()
 cConsoleWidget::cConsoleWidget() :
     mKeyPressedProcessMap(),
     mCTRLKeyPressedProcessMap(),
+    mShiftKeyPressedProcessMap(),
     mCollapsed( false ),
     mCursorToggled( false ),
     mCursorToggleTimeMs( DEFAULT_CURSOR_TOGGLE_TIME_MS ),
@@ -59,10 +63,16 @@ cConsoleWidget::cConsoleWidget() :
     mKeyPressedProcessMap[ sf::Keyboard::Escape ]           =  &cConsoleWidget::ProcessEscapePressed;
     mKeyPressedProcessMap[ sf::Keyboard::Left ]             =  &cConsoleWidget::ProcessLeftPressed;
     mKeyPressedProcessMap[ sf::Keyboard::Right ]            =  &cConsoleWidget::ProcessRightPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Home ]             =  &cConsoleWidget::ProcessHomePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::End ]              =  &cConsoleWidget::ProcessEndPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Delete ]           =  &cConsoleWidget::ProcessDeletePressed;
 
     // CTRL + Key Press
     mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
     mCTRLKeyPressedProcessMap[ sf::Keyboard::BackSpace ]    =  &cConsoleWidget::ProcessCTRLBackspacePressed;
+
+    // Shift + Key Press
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Tab ]         =  &cConsoleWidget::ProcessShiftTabPressed;
 
     mCursorRectangle.setSize(       DEFAULT_CURSOR_SIZE );
     mCursorRectangle.setPosition(   sf::Vector2f() );
@@ -317,17 +327,20 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
 void
 cConsoleWidget::TextEntered( const sf::Event& iEvent )
 {
-    auto  unicode = iEvent.text.unicode;
-
     // Handle ASCII characters only
-    if ( unicode > 0X0020 && unicode < 0X007E || unicode == 32 ) // unicode == 32 for whitespace
-    {
-        std::string str = mInputText.getString();
-        char charCode = static_cast<char>( unicode );
-        str += charCode;
-        mInputText.setString( str );
-        IncrementCursorPosition();
-    }
+    auto  unicode = iEvent.text.unicode;
+    bool  unicodeInput = unicode > 0X0020 && unicode < 0X007E || unicode == 32;
+
+    if( !unicodeInput )
+        return;
+
+    std::string str = mInputText.getString();
+    char charCode = static_cast<char>( unicode );
+    std::string charStr;
+    charStr.push_back( charCode );
+    str.insert( mCursorIndex, charStr );
+    mInputText.setString( str );
+    IncrementCursorPosition();
 }
 
 
@@ -340,30 +353,41 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
     if( key.alt )           // Alt Modifier
     {
         // Nothing ATM
+
+
     }
     else if( key.control )  // Control Modifier
     {
-        // If Key Exists in mKeyProcessMap
-        if( ! ( mCTRLKeyPressedProcessMap.find( code ) == mCTRLKeyPressedProcessMap.end() ) )
+        if( KEY_EXISTS( mCTRLKeyPressedProcessMap, code ) )
         {
             (this->*mCTRLKeyPressedProcessMap[ code ])();
         }
+
+
     }
     else if( key.shift )    // Shift Modifier
     {
-        // Nothing ATM
+        if( KEY_EXISTS( mShiftKeyPressedProcessMap, code ) )
+        {
+            (this->*mShiftKeyPressedProcessMap[ code ])();
+        }
+
+
     }
     else if( key.system )   // System Modifier
     {
         // Nothing ATM
+
+
     }
     else                    // No Modifier
     {
-        // If Key Exists in mKeyProcessMap
-        if( ! ( mKeyPressedProcessMap.find( code ) == mKeyPressedProcessMap.end() ) )
+        if( KEY_EXISTS( mKeyPressedProcessMap, code ) )
         {
             (this->*mKeyPressedProcessMap[ code ])();
         }
+
+
     }
 }
 
@@ -385,13 +409,12 @@ cConsoleWidget::ProcessBackspacePressed()
 {
     std::string str = mInputText.getString();
 
-    if( str.length() )
+    if( str.length() && mCursorIndex > 0 )
     {
-        str.pop_back();
+        str.erase( mCursorIndex-1, 1 );
+        mInputText.setString( str );
+        DecrementCursorPosition();
     }
-
-    mInputText.setString( str );
-    DecrementCursorPosition();
 }
 
 
@@ -399,7 +422,7 @@ void
 cConsoleWidget::ProcessTabPressed()
 {
     // Append tab str text content to input content
-    int nTabToWhiteSpace = 4;
+    int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
     std::string tabStr = "";
     for( int i = 0; i < nTabToWhiteSpace; ++i )
     {
@@ -407,7 +430,8 @@ cConsoleWidget::ProcessTabPressed()
     }
 
     std::string inputStr = mInputText.getString();
-    std::string resultStr = inputStr + tabStr;
+    std::string resultStr = inputStr;
+    resultStr.insert( mCursorIndex, tabStr );
     mInputText.setString( resultStr );
     MoveCursorPosition( int( tabStr.length() ) );
 }
@@ -452,6 +476,33 @@ cConsoleWidget::ProcessRightPressed()
 
 
 void
+cConsoleWidget::ProcessHomePressed()
+{
+    ResetCursorPosition();
+}
+
+
+void
+cConsoleWidget::ProcessEndPressed()
+{
+    MatchCursorPosition();
+}
+
+
+void
+cConsoleWidget::ProcessDeletePressed()
+{
+    std::string str = mInputText.getString();
+
+    if( str.length() && mCursorIndex < str.length() )
+    {
+        str.erase( mCursorIndex, 1 );
+        mInputText.setString( str );
+    }
+}
+
+
+void
 cConsoleWidget::ProcessCTRLVPressed()
 {
     // Append clipboard text content to input content
@@ -466,6 +517,35 @@ void
 cConsoleWidget::ProcessCTRLBackspacePressed()
 {
     ClearInput();
+}
+
+
+void
+cConsoleWidget::ProcessShiftTabPressed()
+{
+    // Append tab str text content to input content
+    int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
+    std::string inputStr = mInputText.getString();
+    int toErase = 0;
+
+    for( int i = 0; i < nTabToWhiteSpace; ++i )
+    {
+        char currentChar = inputStr[ mCursorIndex - 1 - i ]; // -1 because the last char of a string is a \0
+
+        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
+        {
+            toErase++;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    std::string  resultStr = inputStr;
+    resultStr.erase( mCursorIndex - toErase, toErase );
+    mInputText.setString( resultStr );
+    MoveCursorPosition( -toErase );
 }
 
 

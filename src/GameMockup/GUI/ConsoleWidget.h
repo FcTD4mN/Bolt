@@ -60,9 +60,14 @@ private:
     void  ProcessEscapePressed();
     void  ProcessLeftPressed();
     void  ProcessRightPressed();
+    void  ProcessHomePressed();
+    void  ProcessEndPressed();
+    void  ProcessDeletePressed();
 
     void  ProcessCTRLVPressed();
     void  ProcessCTRLBackspacePressed();
+
+    void  ProcessShiftTabPressed();
 
 
 private:
@@ -70,6 +75,7 @@ private:
     typedef void ( cConsoleWidget::*tVoidMemberFunctionPointer )();
     std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mKeyPressedProcessMap;
     std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mCTRLKeyPressedProcessMap;
+    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mShiftKeyPressedProcessMap;
 
     bool                mCollapsed;
     bool                mCursorToggled;
