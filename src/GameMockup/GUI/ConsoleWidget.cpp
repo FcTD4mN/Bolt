@@ -86,6 +86,8 @@ cConsoleWidget::cConsoleWidget() :
     mShiftKeyPressedProcessMap[ sf::Keyboard::Tab ]         =  &cConsoleWidget::ProcessShiftTabPressed;
     mShiftKeyPressedProcessMap[ sf::Keyboard::Left ]        =  &cConsoleWidget::ProcessShiftLeftPressed;
     mShiftKeyPressedProcessMap[ sf::Keyboard::Right ]       =  &cConsoleWidget::ProcessShiftRightPressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Home ]        =  &cConsoleWidget::ProcessShiftHomePressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::End ]         =  &cConsoleWidget::ProcessShiftEndPressed;
 
     // CTRL + Shift + Key Press
     mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Left ]    =  &cConsoleWidget::ProcessCtrlShiftLeftPressed;
@@ -396,9 +398,6 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
 void
 cConsoleWidget::TextEntered( const sf::Event& iEvent )
 {
-    if( iEvent.key.control )
-        return;
-
     // Handle ASCII characters only
     auto  unicode = iEvent.text.unicode;
     bool  unicodeInput = unicode > 0X0020 && unicode < 0X007E || unicode == 32;
@@ -817,6 +816,22 @@ void
 cConsoleWidget::ProcessShiftRightPressed()
 {
     IncrementCursorPosition();
+    UpdateSelectionGeometry();
+}
+
+
+void
+cConsoleWidget::ProcessShiftHomePressed()
+{
+    ResetCursorPosition();
+    UpdateSelectionGeometry();
+}
+
+
+void
+cConsoleWidget::ProcessShiftEndPressed()
+{
+    MatchCursorPosition();
     UpdateSelectionGeometry();
 }
 

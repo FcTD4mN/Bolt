@@ -78,6 +78,8 @@ private:
     void  ProcessShiftTabPressed();
     void  ProcessShiftLeftPressed();
     void  ProcessShiftRightPressed();
+    void  ProcessShiftHomePressed();
+    void  ProcessShiftEndPressed();
 
     void  ProcessCtrlShiftLeftPressed();
     void  ProcessCtrlShiftRightPressed();
