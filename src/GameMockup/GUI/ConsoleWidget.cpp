@@ -230,8 +230,8 @@ cConsoleWidget::UpdateSelectionGeometry()
 {
     sf::Vector2f  inputTextPosition = mInputText.getPosition();
     float  y = inputTextPosition.y;
-    float x1 = SelectionFirstIndex() * mCharWidth;
-    float x2 = SelectionLastIndex() * mCharWidth;
+    float x1 = float( SelectionFirstIndex() * mCharWidth );
+    float x2 = float( SelectionLastIndex() * mCharWidth );
     float dx = x2 - x1;
 
     sf::Vector2f  selectionPosition = sf::Vector2f( x1, y );
