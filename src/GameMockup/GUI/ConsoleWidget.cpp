@@ -70,6 +70,8 @@ cConsoleWidget::cConsoleWidget() :
     // CTRL + Key Press
     mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
     mCTRLKeyPressedProcessMap[ sf::Keyboard::BackSpace ]    =  &cConsoleWidget::ProcessCTRLBackspacePressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::Left ]         =  &cConsoleWidget::ProcessCTRLLeftPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::Right ]        =  &cConsoleWidget::ProcessCTRLRightPressed;
 
     // Shift + Key Press
     mShiftKeyPressedProcessMap[ sf::Keyboard::Tab ]         =  &cConsoleWidget::ProcessShiftTabPressed;
@@ -521,6 +523,82 @@ cConsoleWidget::ProcessCTRLBackspacePressed()
 
 
 void
+cConsoleWidget::ProcessCTRLLeftPressed()
+{
+    std::string inputStr = mInputText.getString();
+    int length = inputStr.length();
+    int delta = 0;
+    bool firstWhitespaceOccurenceFound = false;
+
+    for( int i = mCursorIndex; i >= 0; i-- )
+    {
+        int currentLookupIndex = i - 1;
+        // Out of range safety
+        if( currentLookupIndex < 0 )
+            break;
+
+        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
+        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
+        {
+            firstWhitespaceOccurenceFound = true;
+            delta--;
+        }
+        else
+        {
+            if( firstWhitespaceOccurenceFound )
+            {
+                break;
+            }
+            else
+            {
+                delta--;
+            }
+        }
+    }
+
+    MoveCursorPosition( delta );
+}
+
+
+void
+cConsoleWidget::ProcessCTRLRightPressed()
+{
+    std::string inputStr = mInputText.getString();
+    int length = inputStr.length();
+    int delta = 0;
+    bool firstWhitespaceOccurenceFound = false;
+
+    for( int i = mCursorIndex; i < length; i++ )
+    {
+        int currentLookupIndex = i;
+        // Out of range safety
+        if( currentLookupIndex < 0 )
+            break;
+
+        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
+        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
+        {
+            firstWhitespaceOccurenceFound = true;
+            delta++;
+        }
+        else
+        {
+            if( firstWhitespaceOccurenceFound )
+            {
+                break;
+            }
+            else
+            {
+                delta++;
+            }
+        }
+    }
+
+    MoveCursorPosition( delta );
+}
+
+
+void
 cConsoleWidget::ProcessShiftTabPressed()
 {
     // Append tab str text content to input content
@@ -530,7 +608,12 @@ cConsoleWidget::ProcessShiftTabPressed()
 
     for( int i = 0; i < nTabToWhiteSpace; ++i )
     {
-        char currentChar = inputStr[ mCursorIndex - 1 - i ]; // -1 because the last char of a string is a \0
+        int currentLookupIndex = mCursorIndex - 1 - i;
+        // Out of range safety
+        if( currentLookupIndex < 0 )
+            break;
+
+        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
 
         if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
         {

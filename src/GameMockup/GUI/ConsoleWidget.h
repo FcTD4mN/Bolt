@@ -66,6 +66,8 @@ private:
 
     void  ProcessCTRLVPressed();
     void  ProcessCTRLBackspacePressed();
+    void  ProcessCTRLLeftPressed();
+    void  ProcessCTRLRightPressed();
 
     void  ProcessShiftTabPressed();
 
