@@ -286,7 +286,7 @@ cConsoleWidget::DecrementCursorPosition()
 void
 cConsoleWidget::MoveCursorPosition( int iDelta )
 {
-    mCursorIndex = int( int( mCursorIndex ) + iDelta );
+    mCursorIndex += iDelta;
     mCursorRectangle.move( float( iDelta * mCharWidth ), 0.f );
 }
 
@@ -314,6 +314,15 @@ cConsoleWidget::MatchCursorPosition()
     std::string str = mInputText.getString();
     mCursorIndex = int( str.length() );
     UpdateCursorPosition();
+}
+
+
+void
+cConsoleWidget::MoveSelectionRange( int iDelta )
+{
+    MoveCursorPosition( iDelta );
+    mSelectionStartIndex += iDelta;
+    UpdateSelectionGeometry();
 }
 
 // -------------------------------------------------------------------------------------
@@ -357,14 +366,16 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
         iRenderTarget->draw( mOutputTextLines[i] );
     }
 
-    iRenderTarget->draw( mSelectionBGRectangle );
+    if( mSelectionOccuring )
+        iRenderTarget->draw( mSelectionBGRectangle );
+
     iRenderTarget->draw( mInputText );
 
     if( mCursorToggled )
-    {
         iRenderTarget->draw( mCursorRectangle );
-    }
-    iRenderTarget->draw( mSelectionFGRectangle );
+
+    if( mSelectionOccuring )
+        iRenderTarget->draw( mSelectionFGRectangle );
 }
 
 
@@ -390,6 +401,8 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
     str.insert( mCursorIndex, charStr );
     mInputText.setString( str );
     IncrementCursorPosition();
+
+    mSelectionOccuring = false;
 }
 
 
@@ -399,10 +412,11 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
     auto key = iEvent.key;
     auto code = key.code;
 
-    if( code == sf::Keyboard::LShift || code == sf::Keyboard::RShift )
+    if( ( code == sf::Keyboard::LShift || code == sf::Keyboard::RShift ) && !mSelectionOccuring )
     {
         mSelectionStartIndex = mCursorIndex;
         mSelectionOccuring = true;
+        UpdateSelectionGeometry();
     }
 
     if( key.alt )           // Alt Modifier
@@ -466,11 +480,25 @@ cConsoleWidget::ProcessBackspacePressed()
 {
     std::string str = mInputText.getString();
 
-    if( str.length() && mCursorIndex > 0 )
+    if( mSelectionOccuring )
     {
-        str.erase( mCursorIndex-1, 1 );
+        int selectionFirstIndex = SelectionFirstIndex();
+        int selectionLastIndex = SelectionLastIndex();
+        int delta = selectionLastIndex - selectionFirstIndex;
+        str.erase( selectionFirstIndex, delta );
         mInputText.setString( str );
-        DecrementCursorPosition();
+        mCursorIndex = selectionFirstIndex;
+        UpdateCursorPosition();
+        mSelectionOccuring = false;
+    }
+    else
+    {
+        if( str.length() && mCursorIndex > 0 )
+        {
+            str.erase( mCursorIndex-1, 1 );
+            mInputText.setString( str );
+            DecrementCursorPosition();
+        }
     }
 }
 
@@ -488,9 +516,20 @@ cConsoleWidget::ProcessTabPressed()
 
     std::string inputStr = mInputText.getString();
     std::string resultStr = inputStr;
-    resultStr.insert( mCursorIndex, tabStr );
-    mInputText.setString( resultStr );
-    MoveCursorPosition( int( tabStr.length() ) );
+
+    if( mSelectionOccuring )
+    {
+        resultStr.insert( SelectionFirstIndex(), tabStr );
+        mInputText.setString( resultStr );
+        MoveSelectionRange( int( tabStr.length() ) );
+    }
+    else
+    {
+        resultStr.insert( mCursorIndex, tabStr );
+        mInputText.setString( resultStr );
+        MoveCursorPosition( int( tabStr.length() ) );
+    }
+
 }
 
 
@@ -510,6 +549,7 @@ cConsoleWidget::ProcessReturnPressed()
     mOutputTextLines.back().setString( inputStr );
 
     ClearInput();
+    mSelectionOccuring = false;
 }
 
 
@@ -517,6 +557,7 @@ void
 cConsoleWidget::ProcessEscapePressed()
 {
     ClearInput();
+    mSelectionOccuring = false;
 }
 
 
@@ -524,11 +565,13 @@ void
 cConsoleWidget::ProcessLeftPressed()
 {
     DecrementCursorPosition();
+    mSelectionOccuring = false;
 }
 void
 cConsoleWidget::ProcessRightPressed()
 {
     IncrementCursorPosition();
+    mSelectionOccuring = false;
 }
 
 
@@ -536,6 +579,7 @@ void
 cConsoleWidget::ProcessHomePressed()
 {
     ResetCursorPosition();
+    mSelectionOccuring = false;
 }
 
 
@@ -543,6 +587,7 @@ void
 cConsoleWidget::ProcessEndPressed()
 {
     MatchCursorPosition();
+    mSelectionOccuring = false;
 }
 
 
@@ -556,6 +601,8 @@ cConsoleWidget::ProcessDeletePressed()
         str.erase( mCursorIndex, 1 );
         mInputText.setString( str );
     }
+
+    mSelectionOccuring = false;
 }
 
 
@@ -688,7 +735,7 @@ cConsoleWidget::ProcessShiftTabPressed()
 void 
 cConsoleWidget::ProcessShiftLeftPressed()
 {
-    ProcessLeftPressed();
+    DecrementCursorPosition();
     UpdateSelectionGeometry();
 }
 
@@ -696,7 +743,7 @@ cConsoleWidget::ProcessShiftLeftPressed()
 void
 cConsoleWidget::ProcessShiftRightPressed()
 {
-    ProcessRightPressed();
+    IncrementCursorPosition();
     UpdateSelectionGeometry();
 }
 

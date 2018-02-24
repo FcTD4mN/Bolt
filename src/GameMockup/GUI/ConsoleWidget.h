@@ -39,6 +39,7 @@ private:
     void    ResetCursorPosition();
     void    UpdateCursorPosition();
     void    MatchCursorPosition();
+    void    MoveSelectionRange( int iDelta );
 
 private:
     // Public Text Manipulation
