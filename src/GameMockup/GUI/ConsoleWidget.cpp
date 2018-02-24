@@ -528,7 +528,7 @@ cConsoleWidget::ProcessCTRLLeftPressed()
     std::string inputStr = mInputText.getString();
     int length = inputStr.length();
     int delta = 0;
-    bool firstWhitespaceOccurenceFound = false;
+    bool firstCharOccurenceFound = false;
 
     for( int i = mCursorIndex; i >= 0; i-- )
     {
@@ -540,19 +540,17 @@ cConsoleWidget::ProcessCTRLLeftPressed()
         char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
         if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
         {
-            firstWhitespaceOccurenceFound = true;
+            if( firstCharOccurenceFound )
+            {
+                break;
+            }
+
             delta--;
         }
         else
         {
-            if( firstWhitespaceOccurenceFound )
-            {
-                break;
-            }
-            else
-            {
-                delta--;
-            }
+            firstCharOccurenceFound = true;
+            delta--;
         }
     }
 
