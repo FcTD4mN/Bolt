@@ -391,6 +391,11 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
     auto  unicode = iEvent.text.unicode;
     bool  unicodeInput = unicode > 0X0020 && unicode < 0X007E || unicode == 32;
 
+    if( mSelectionOccuring )
+    {
+        ProcessBackspacePressed();
+    }
+
     if( !unicodeInput )
         return;
 
@@ -422,8 +427,6 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
     if( key.alt )           // Alt Modifier
     {
         // Nothing ATM
-
-
     }
     else if( key.control )  // Control Modifier
     {
@@ -514,22 +517,19 @@ cConsoleWidget::ProcessTabPressed()
         tabStr += " ";
     }
 
+    if( mSelectionOccuring )
+    {
+        ProcessBackspacePressed();
+    }
+
     std::string inputStr = mInputText.getString();
     std::string resultStr = inputStr;
 
-    if( mSelectionOccuring )
-    {
-        resultStr.insert( SelectionFirstIndex(), tabStr );
-        mInputText.setString( resultStr );
-        MoveSelectionRange( int( tabStr.length() ) );
-    }
-    else
-    {
-        resultStr.insert( mCursorIndex, tabStr );
-        mInputText.setString( resultStr );
-        MoveCursorPosition( int( tabStr.length() ) );
-    }
+    resultStr.insert( mCursorIndex, tabStr );
+    mInputText.setString( resultStr );
+    MoveCursorPosition( int( tabStr.length() ) );
 
+    mSelectionOccuring = false;
 }
 
 
@@ -596,19 +596,33 @@ cConsoleWidget::ProcessDeletePressed()
 {
     std::string str = mInputText.getString();
 
-    if( str.length() && mCursorIndex < str.length() )
+    if( mSelectionOccuring )
     {
-        str.erase( mCursorIndex, 1 );
-        mInputText.setString( str );
+        ProcessBackspacePressed();
+        mSelectionOccuring = false;
     }
+    else
+    {
+        if( str.length() && mCursorIndex < str.length() )
+        {
+            str.erase( mCursorIndex, 1 );
+            mInputText.setString( str );
+        }
 
-    mSelectionOccuring = false;
+        mSelectionOccuring = false;
+    }
 }
 
 
 void
 cConsoleWidget::ProcessCTRLVPressed()
 {
+    if( mSelectionOccuring )
+    {
+        ProcessBackspacePressed();
+        mSelectionOccuring = false;
+    }
+
     // Append clipboard text content to input content
     std::string clipboardStr = GetClipboardText();
     std::string inputStr = mInputText.getString();
@@ -621,6 +635,7 @@ void
 cConsoleWidget::ProcessCTRLBackspacePressed()
 {
     ClearInput();
+    mSelectionOccuring = false;
 }
 
 
@@ -657,6 +672,7 @@ cConsoleWidget::ProcessCTRLLeftPressed()
     }
 
     MoveCursorPosition( delta );
+    mSelectionOccuring = false;
 }
 
 
@@ -695,12 +711,19 @@ cConsoleWidget::ProcessCTRLRightPressed()
     }
 
     MoveCursorPosition( delta );
+    mSelectionOccuring = false;
 }
 
 
 void
 cConsoleWidget::ProcessShiftTabPressed()
 {
+    if( mSelectionOccuring )
+    {
+        ProcessBackspacePressed();
+        mSelectionOccuring = false;
+    }
+
     // Append tab str text content to input content
     int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
     std::string inputStr = mInputText.getString();
@@ -729,6 +752,7 @@ cConsoleWidget::ProcessShiftTabPressed()
     resultStr.erase( mCursorIndex - toErase, toErase );
     mInputText.setString( resultStr );
     MoveCursorPosition( -toErase );
+    mSelectionOccuring = false;
 }
 
 
