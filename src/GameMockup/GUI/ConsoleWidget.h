@@ -77,6 +77,11 @@ private:
     void  ProcessShiftLeftPressed();
     void  ProcessShiftRightPressed();
 
+    void  ProcessCtrlShiftLeftPressed();
+    void  ProcessCtrlShiftRightPressed();
+    void  ProcessCtrlShiftHomePressed();
+    void  ProcessCtrlShiftEndPressed();
+
 
 private:
     // Data Members
@@ -84,6 +89,7 @@ private:
     std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mKeyPressedProcessMap;
     std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mCTRLKeyPressedProcessMap;
     std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mShiftKeyPressedProcessMap;
+    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mCTRLShiftKeyPressedProcessMap;
 
     bool                mCollapsed;
     bool                mCursorToggled;

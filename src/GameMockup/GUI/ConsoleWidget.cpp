@@ -43,6 +43,7 @@ cConsoleWidget::cConsoleWidget() :
     mKeyPressedProcessMap(),
     mCTRLKeyPressedProcessMap(),
     mShiftKeyPressedProcessMap(),
+    mCTRLShiftKeyPressedProcessMap(),
     mCollapsed( false ),
     mCursorToggled( false ),
     mCursorToggleTimeMs( DEFAULT_CURSOR_TOGGLE_TIME_MS ),
@@ -83,6 +84,12 @@ cConsoleWidget::cConsoleWidget() :
     mShiftKeyPressedProcessMap[ sf::Keyboard::Tab ]         =  &cConsoleWidget::ProcessShiftTabPressed;
     mShiftKeyPressedProcessMap[ sf::Keyboard::Left ]        =  &cConsoleWidget::ProcessShiftLeftPressed;
     mShiftKeyPressedProcessMap[ sf::Keyboard::Right ]       =  &cConsoleWidget::ProcessShiftRightPressed;
+
+    // CTRL + Shift + Key Press
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Left ]    =  &cConsoleWidget::ProcessCtrlShiftLeftPressed;
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Right ]   =  &cConsoleWidget::ProcessCtrlShiftRightPressed;
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Home ]    =  &cConsoleWidget::ProcessCtrlShiftHomePressed;
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::End ]     =  &cConsoleWidget::ProcessCtrlShiftEndPressed;
 
     mCursorRectangle.setSize(       DEFAULT_CURSOR_SIZE );
     mCursorRectangle.setPosition(   sf::Vector2f() );
@@ -428,7 +435,7 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
     {
         // Nothing ATM
     }
-    else if( key.control )  // Control Modifier
+    else if( key.control && !key.shift)  // Control Modifier
     {
         if( KEY_EXISTS( mCTRLKeyPressedProcessMap, code ) )
         {
@@ -437,11 +444,20 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 
 
     }
-    else if( key.shift )    // Shift Modifier
+    else if( key.shift && !key.control )    // Shift Modifier
     {
         if( KEY_EXISTS( mShiftKeyPressedProcessMap, code ) )
         {
             (this->*mShiftKeyPressedProcessMap[ code ])();
+        }
+
+
+    }
+    else if( key.shift && key.control ) // CTRL + Shift Modifier
+    {
+        if( KEY_EXISTS( mCTRLShiftKeyPressedProcessMap, code ) )
+        {
+            (this->*mCTRLShiftKeyPressedProcessMap[ code ])();
         }
 
 
@@ -756,7 +772,7 @@ cConsoleWidget::ProcessShiftTabPressed()
 }
 
 
-void 
+void
 cConsoleWidget::ProcessShiftLeftPressed()
 {
     DecrementCursorPosition();
@@ -771,5 +787,96 @@ cConsoleWidget::ProcessShiftRightPressed()
     UpdateSelectionGeometry();
 }
 
+
+void
+cConsoleWidget::ProcessCtrlShiftLeftPressed()
+{
+    std::string inputStr = mInputText.getString();
+    int length = int( inputStr.length() );
+    int delta = 0;
+    bool firstCharOccurenceFound = false;
+
+    for( int i = mCursorIndex; i >= 0; i-- )
+    {
+        int currentLookupIndex = i - 1;
+        // Out of range safety
+        if( currentLookupIndex < 0 )
+            break;
+
+        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
+        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
+        {
+            if( firstCharOccurenceFound )
+            {
+                break;
+            }
+
+            delta--;
+        }
+        else
+        {
+            firstCharOccurenceFound = true;
+            delta--;
+        }
+    }
+
+    MoveCursorPosition( delta );
+    UpdateSelectionGeometry();
+}
+
+
+void
+cConsoleWidget::ProcessCtrlShiftRightPressed()
+{
+    std::string inputStr = mInputText.getString();
+    int length = int( inputStr.length() );
+    int delta = 0;
+    bool firstWhitespaceOccurenceFound = false;
+
+    for( int i = mCursorIndex; i < length; i++ )
+    {
+        int currentLookupIndex = i;
+        // Out of range safety
+        if( currentLookupIndex < 0 )
+            break;
+
+        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
+        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
+        {
+            firstWhitespaceOccurenceFound = true;
+            delta++;
+        }
+        else
+        {
+            if( firstWhitespaceOccurenceFound )
+            {
+                break;
+            }
+            else
+            {
+                delta++;
+            }
+        }
+    }
+
+    MoveCursorPosition( delta );
+    UpdateSelectionGeometry();
+}
+
+
+void
+cConsoleWidget::ProcessCtrlShiftHomePressed()
+{
+    ResetCursorPosition();
+    UpdateSelectionGeometry();
+}
+
+
+void
+cConsoleWidget::ProcessCtrlShiftEndPressed()
+{
+    MatchCursorPosition();
+    UpdateSelectionGeometry();
+}
 
 } // namespace  nGUI
