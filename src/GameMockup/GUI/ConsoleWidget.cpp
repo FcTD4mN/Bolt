@@ -75,6 +75,8 @@ cConsoleWidget::cConsoleWidget() :
     mKeyPressedProcessMap[ sf::Keyboard::Delete ]           =  &cConsoleWidget::ProcessDeletePressed;
 
     // CTRL + Key Press
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::C ]            =  &cConsoleWidget::ProcessCTRLCPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::X ]            =  &cConsoleWidget::ProcessCTRLXPressed;
     mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
     mCTRLKeyPressedProcessMap[ sf::Keyboard::BackSpace ]    =  &cConsoleWidget::ProcessCTRLBackspacePressed;
     mCTRLKeyPressedProcessMap[ sf::Keyboard::Left ]         =  &cConsoleWidget::ProcessCTRLLeftPressed;
@@ -102,7 +104,7 @@ cConsoleWidget::cConsoleWidget() :
     mInputText.setFont( mFont );
     mInputText.setCharacterSize( DEFAULT_FONT_SIZE );
     mInputText.setFillColor( DEFAULT_FONT_COLOR );
-    mInputText.setString( "Input" );
+    mInputText.setString( "" );
 
     // The next three functions have the optional NoUpdate Boolean parameter set to true,
     // in order the to avoid calling UpdateGeometryAndStyle too often.
@@ -198,7 +200,7 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
         mOutputTextLines[i].setFont( mFont );
         mOutputTextLines[i].setCharacterSize( DEFAULT_FONT_SIZE );
         mOutputTextLines[i].setFillColor( DEFAULT_FONT_COLOR );
-        mOutputTextLines[i].setString( ">: Output" );
+        mOutputTextLines[i].setString( "" );
         float x = 0;
         float y = float( i * DEFAULT_LINE_HEIGHT );
         sf::Vector2f  outputLinePosition = sf::Vector2f( x, y );
@@ -394,6 +396,9 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
 void
 cConsoleWidget::TextEntered( const sf::Event& iEvent )
 {
+    if( iEvent.key.control )
+        return;
+
     // Handle ASCII characters only
     auto  unicode = iEvent.text.unicode;
     bool  unicodeInput = unicode > 0X0020 && unicode < 0X007E || unicode == 32;
@@ -627,6 +632,34 @@ cConsoleWidget::ProcessDeletePressed()
 
         mSelectionOccuring = false;
     }
+}
+
+
+void
+cConsoleWidget::ProcessCTRLCPressed()
+{
+    if( !mSelectionOccuring )
+        return;
+
+    std::string  inputString = mInputText.getString();
+
+    int selectionFirstIndex = SelectionFirstIndex();
+    int selectionLastIndex = SelectionLastIndex();
+    int delta = selectionLastIndex - selectionFirstIndex;
+    std::string  str = inputString.substr( selectionFirstIndex, delta );
+    SetClipboardText( str );
+}
+
+
+void
+cConsoleWidget::ProcessCTRLXPressed()
+{
+    if( !mSelectionOccuring )
+        return;
+
+    ProcessCTRLCPressed();
+    ProcessBackspacePressed();
+    mSelectionOccuring = false;
 }
 
 

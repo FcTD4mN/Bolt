@@ -68,6 +68,8 @@ private:
     void  ProcessEndPressed();
     void  ProcessDeletePressed();
 
+    void  ProcessCTRLCPressed();
+    void  ProcessCTRLXPressed();
     void  ProcessCTRLVPressed();
     void  ProcessCTRLBackspacePressed();
     void  ProcessCTRLLeftPressed();
