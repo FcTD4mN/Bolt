@@ -26,6 +26,10 @@ public:
     const  sf::Color&     SetBackgroundColor()  const;
 
 private:
+    // Internal Logic Initialization
+    void    BuildEventProcessMaps();
+
+private:
     // Internal Text Geometry
     void    UpdateGeometryAndStyle( bool  iNoUpdate = false );
     int     SelectionFirstIndex();
@@ -68,6 +72,7 @@ private:
     void  ProcessEndPressed();
     void  ProcessDeletePressed();
 
+    void  ProcessCTRLAPressed();
     void  ProcessCTRLCPressed();
     void  ProcessCTRLXPressed();
     void  ProcessCTRLVPressed();

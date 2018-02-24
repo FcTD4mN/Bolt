@@ -63,40 +63,9 @@ cConsoleWidget::cConsoleWidget() :
     mInputText(),
     mOutputTextLines()
 {
-    // Single Key Press
-    mKeyPressedProcessMap[ sf::Keyboard::BackSpace ]        =  &cConsoleWidget::ProcessBackspacePressed;
-    mKeyPressedProcessMap[ sf::Keyboard::Tab ]              =  &cConsoleWidget::ProcessTabPressed;
-    mKeyPressedProcessMap[ sf::Keyboard::Return ]           =  &cConsoleWidget::ProcessReturnPressed;
-    mKeyPressedProcessMap[ sf::Keyboard::Escape ]           =  &cConsoleWidget::ProcessEscapePressed;
-    mKeyPressedProcessMap[ sf::Keyboard::Left ]             =  &cConsoleWidget::ProcessLeftPressed;
-    mKeyPressedProcessMap[ sf::Keyboard::Right ]            =  &cConsoleWidget::ProcessRightPressed;
-    mKeyPressedProcessMap[ sf::Keyboard::Home ]             =  &cConsoleWidget::ProcessHomePressed;
-    mKeyPressedProcessMap[ sf::Keyboard::End ]              =  &cConsoleWidget::ProcessEndPressed;
-    mKeyPressedProcessMap[ sf::Keyboard::Delete ]           =  &cConsoleWidget::ProcessDeletePressed;
-
-    // CTRL + Key Press
-    mCTRLKeyPressedProcessMap[ sf::Keyboard::C ]            =  &cConsoleWidget::ProcessCTRLCPressed;
-    mCTRLKeyPressedProcessMap[ sf::Keyboard::X ]            =  &cConsoleWidget::ProcessCTRLXPressed;
-    mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
-    mCTRLKeyPressedProcessMap[ sf::Keyboard::BackSpace ]    =  &cConsoleWidget::ProcessCTRLBackspacePressed;
-    mCTRLKeyPressedProcessMap[ sf::Keyboard::Left ]         =  &cConsoleWidget::ProcessCTRLLeftPressed;
-    mCTRLKeyPressedProcessMap[ sf::Keyboard::Right ]        =  &cConsoleWidget::ProcessCTRLRightPressed;
-
-    // Shift + Key Press
-    mShiftKeyPressedProcessMap[ sf::Keyboard::Tab ]         =  &cConsoleWidget::ProcessShiftTabPressed;
-    mShiftKeyPressedProcessMap[ sf::Keyboard::Left ]        =  &cConsoleWidget::ProcessShiftLeftPressed;
-    mShiftKeyPressedProcessMap[ sf::Keyboard::Right ]       =  &cConsoleWidget::ProcessShiftRightPressed;
-    mShiftKeyPressedProcessMap[ sf::Keyboard::Home ]        =  &cConsoleWidget::ProcessShiftHomePressed;
-    mShiftKeyPressedProcessMap[ sf::Keyboard::End ]         =  &cConsoleWidget::ProcessShiftEndPressed;
-
-    // CTRL + Shift + Key Press
-    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Left ]    =  &cConsoleWidget::ProcessCtrlShiftLeftPressed;
-    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Right ]   =  &cConsoleWidget::ProcessCtrlShiftRightPressed;
-    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Home ]    =  &cConsoleWidget::ProcessCtrlShiftHomePressed;
-    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::End ]     =  &cConsoleWidget::ProcessCtrlShiftEndPressed;
+    BuildEventProcessMaps();
 
     mCursorRectangle.setSize(       DEFAULT_CURSOR_SIZE );
-    mCursorRectangle.setPosition(   sf::Vector2f() );
     mCursorRectangle.setFillColor(  DEFAULT_CURSOR_COLOR );
 
     mSelectionBGRectangle.setFillColor(  DEFAULT_SELECTION_BG_COLOR );
@@ -106,7 +75,6 @@ cConsoleWidget::cConsoleWidget() :
     mInputText.setFont( mFont );
     mInputText.setCharacterSize( DEFAULT_FONT_SIZE );
     mInputText.setFillColor( DEFAULT_FONT_COLOR );
-    mInputText.setString( "" );
 
     // The next three functions have the optional NoUpdate Boolean parameter set to true,
     // in order the to avoid calling UpdateGeometryAndStyle too often.
@@ -172,6 +140,49 @@ cConsoleWidget::SetBackgroundColor()  const
 
 
 // -------------------------------------------------------------------------------------
+// ------------------------------------------------------- Internal Logic Initialization
+// -------------------------------------------------------------------------------------
+
+
+void
+cConsoleWidget::BuildEventProcessMaps()
+{
+    // Single Key Press
+    mKeyPressedProcessMap[ sf::Keyboard::BackSpace ]        =  &cConsoleWidget::ProcessBackspacePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Tab ]              =  &cConsoleWidget::ProcessTabPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Return ]           =  &cConsoleWidget::ProcessReturnPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Escape ]           =  &cConsoleWidget::ProcessEscapePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Left ]             =  &cConsoleWidget::ProcessLeftPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Right ]            =  &cConsoleWidget::ProcessRightPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Home ]             =  &cConsoleWidget::ProcessHomePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::End ]              =  &cConsoleWidget::ProcessEndPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Delete ]           =  &cConsoleWidget::ProcessDeletePressed;
+
+    // CTRL + Key Press
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::A ]            =  &cConsoleWidget::ProcessCTRLAPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::C ]            =  &cConsoleWidget::ProcessCTRLCPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::X ]            =  &cConsoleWidget::ProcessCTRLXPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::V ]            =  &cConsoleWidget::ProcessCTRLVPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::BackSpace ]    =  &cConsoleWidget::ProcessCTRLBackspacePressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::Left ]         =  &cConsoleWidget::ProcessCTRLLeftPressed;
+    mCTRLKeyPressedProcessMap[ sf::Keyboard::Right ]        =  &cConsoleWidget::ProcessCTRLRightPressed;
+
+    // Shift + Key Press
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Tab ]         =  &cConsoleWidget::ProcessShiftTabPressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Left ]        =  &cConsoleWidget::ProcessShiftLeftPressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Right ]       =  &cConsoleWidget::ProcessShiftRightPressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Home ]        =  &cConsoleWidget::ProcessShiftHomePressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::End ]         =  &cConsoleWidget::ProcessShiftEndPressed;
+
+    // CTRL + Shift + Key Press
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Left ]    =  &cConsoleWidget::ProcessCtrlShiftLeftPressed;
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Right ]   =  &cConsoleWidget::ProcessCtrlShiftRightPressed;
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Home ]    =  &cConsoleWidget::ProcessCtrlShiftHomePressed;
+    mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::End ]     =  &cConsoleWidget::ProcessCtrlShiftEndPressed;
+}
+
+
+// -------------------------------------------------------------------------------------
 // -------------------------------------------------------------- Internal Text Geometry
 // -------------------------------------------------------------------------------------
 
@@ -183,6 +194,7 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
         return;
 
     {
+        // Computing Char width using functions provided by SFML
         sf::Text  sampleText;
         sampleText.setFont( mFont );
         sampleText.setCharacterSize( DEFAULT_FONT_SIZE );
@@ -191,6 +203,7 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
         mCharWidth = int( pos.x );
     }
 
+    // Setting atual console rectangle geometry.
     mConsoleRectangle.setSize(      mSize );
     mConsoleRectangle.setPosition(  mPosition );
     mConsoleRectangle.setFillColor( mBackgroundColor );
@@ -232,7 +245,6 @@ int
 cConsoleWidget::SelectionLastIndex()
 {
     return  mCursorIndex <= mSelectionStartIndex ? mSelectionStartIndex : mCursorIndex;
-    
 }
 
 
@@ -402,13 +414,13 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
     auto  unicode = iEvent.text.unicode;
     bool  unicodeInput = unicode > 0X0020 && unicode < 0X007E || unicode == 32;
 
+    if( !unicodeInput )
+        return;
+
     if( mSelectionOccuring )
     {
         ProcessBackspacePressed();
     }
-
-    if( !unicodeInput )
-        return;
 
     std::string str = mInputText.getString();
     char charCode = static_cast<char>( unicode );
@@ -631,6 +643,17 @@ cConsoleWidget::ProcessDeletePressed()
 
         mSelectionOccuring = false;
     }
+}
+
+
+void
+cConsoleWidget::ProcessCTRLAPressed()
+{
+    ResetCursorPosition();
+    mSelectionStartIndex = mCursorIndex;
+    mSelectionOccuring = true;
+    MatchCursorPosition();
+    UpdateSelectionGeometry();
 }
 
 
