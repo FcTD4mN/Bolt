@@ -14,15 +14,17 @@ namespace  nGUI
 
 
 #define DEFAULT_SIZE                        sf::Vector2f( 600.f, 200.f )
-#define DEFAULT_COLOR                       sf::Color( 20, 20, 20, 255 )
+#define DEFAULT_COLOR                       sf::Color( 220, 220, 220, 255 )
 #define DEFAULT_FONT                        "resources/Fonts/SourceCodePro-Regular.ttf"
 #define DEFAULT_FONT_SIZE                   12
 #define DEFAULT_LINE_HEIGHT                 14
-#define DEFAULT_FONT_COLOR                  sf::Color( 220, 220, 220, 255 )
+#define DEFAULT_FONT_COLOR                  sf::Color( 20, 20, 20, 255 )
 #define DEFAULT_CURSOR_COLOR                DEFAULT_FONT_COLOR
 #define DEFAULT_CURSOR_SIZE                 sf::Vector2f( 2.f, float( DEFAULT_LINE_HEIGHT ) )
 #define DEFAULT_CURSOR_TOGGLE_TIME_MS       200
 #define DEFAULT_TAB_WHITESPACE              4
+#define DEFAULT_SELECTION_BG_COLOR          sf::Color( 255, 255, 0, 255 )
+#define DEFAULT_SELECTION_FG_COLOR          sf::Color( 255, 255, 0, 85 )
 
 
 #define KEY_EXISTS( iMap, iKey )            ( ! ( iMap.find( iKey ) == iMap.end() ) )
@@ -48,8 +50,11 @@ cConsoleWidget::cConsoleWidget() :
     mCursorIndex( 0 ),
     mSelectionStartIndex( 0 ),
     mCharWidth( 0 ),
+    mSelectionOccuring( false ),
     mConsoleRectangle(),
     mCursorRectangle(),
+    mSelectionBGRectangle(),
+    mSelectionFGRectangle(),
     mSize(),
     mPosition(),
     mBackgroundColor(),
@@ -76,10 +81,15 @@ cConsoleWidget::cConsoleWidget() :
 
     // Shift + Key Press
     mShiftKeyPressedProcessMap[ sf::Keyboard::Tab ]         =  &cConsoleWidget::ProcessShiftTabPressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Left ]        =  &cConsoleWidget::ProcessShiftLeftPressed;
+    mShiftKeyPressedProcessMap[ sf::Keyboard::Right ]       =  &cConsoleWidget::ProcessShiftRightPressed;
 
     mCursorRectangle.setSize(       DEFAULT_CURSOR_SIZE );
     mCursorRectangle.setPosition(   sf::Vector2f() );
     mCursorRectangle.setFillColor(  DEFAULT_CURSOR_COLOR );
+
+    mSelectionBGRectangle.setFillColor(  DEFAULT_SELECTION_BG_COLOR );
+    mSelectionFGRectangle.setFillColor(  DEFAULT_SELECTION_FG_COLOR );
 
     mFont.loadFromFile( DEFAULT_FONT );
     mInputText.setFont( mFont );
@@ -201,6 +211,39 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
 
 
 int
+cConsoleWidget::SelectionFirstIndex()
+{
+    return  mCursorIndex <= mSelectionStartIndex ? mCursorIndex : mSelectionStartIndex;
+}
+
+
+int
+cConsoleWidget::SelectionLastIndex()
+{
+    return  mCursorIndex <= mSelectionStartIndex ? mSelectionStartIndex : mCursorIndex;
+    
+}
+
+
+void
+cConsoleWidget::UpdateSelectionGeometry()
+{
+    sf::Vector2f  inputTextPosition = mInputText.getPosition();
+    float  y = inputTextPosition.y;
+    float x1 = SelectionFirstIndex() * mCharWidth;
+    float x2 = SelectionLastIndex() * mCharWidth;
+    float dx = x2 - x1;
+
+    sf::Vector2f  selectionPosition = sf::Vector2f( x1, y );
+    sf::Vector2f  selectionSize     = sf::Vector2f( dx, DEFAULT_LINE_HEIGHT );
+    mSelectionBGRectangle.setPosition( selectionPosition );
+    mSelectionFGRectangle.setPosition( selectionPosition );
+    mSelectionBGRectangle.setSize( selectionSize );
+    mSelectionFGRectangle.setSize( selectionSize );
+}
+
+
+int
 cConsoleWidget::NVisibleRows()  const
 {
     return  int( mSize.y ) / DEFAULT_LINE_HEIGHT;
@@ -313,12 +356,15 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
     {
         iRenderTarget->draw( mOutputTextLines[i] );
     }
+
+    iRenderTarget->draw( mSelectionBGRectangle );
     iRenderTarget->draw( mInputText );
 
     if( mCursorToggled )
     {
         iRenderTarget->draw( mCursorRectangle );
     }
+    iRenderTarget->draw( mSelectionFGRectangle );
 }
 
 
@@ -352,6 +398,12 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 {
     auto key = iEvent.key;
     auto code = key.code;
+
+    if( code == sf::Keyboard::LShift || code == sf::Keyboard::RShift )
+    {
+        mSelectionStartIndex = mCursorIndex;
+        mSelectionOccuring = true;
+    }
 
     if( key.alt )           // Alt Modifier
     {
@@ -398,7 +450,9 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 void
 cConsoleWidget::KeyReleased( const sf::Event& iEvent )
 {
-    auto key = iEvent.key.code;
+    auto key = iEvent.key;
+    auto code = key.code;
+    // Nothing ATM
 }
 
 
@@ -631,5 +685,20 @@ cConsoleWidget::ProcessShiftTabPressed()
 }
 
 
-} // namespace  nGUI
+void 
+cConsoleWidget::ProcessShiftLeftPressed()
+{
+    ProcessLeftPressed();
+    UpdateSelectionGeometry();
+}
 
+
+void
+cConsoleWidget::ProcessShiftRightPressed()
+{
+    ProcessRightPressed();
+    UpdateSelectionGeometry();
+}
+
+
+} // namespace  nGUI

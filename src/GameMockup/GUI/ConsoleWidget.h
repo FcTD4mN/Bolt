@@ -28,6 +28,9 @@ public:
 private:
     // Internal Text Geometry
     void    UpdateGeometryAndStyle( bool  iNoUpdate = false );
+    int     SelectionFirstIndex();
+    int     SelectionLastIndex();
+    void    UpdateSelectionGeometry();
 
     int     NVisibleRows()  const;
     void    IncrementCursorPosition();
@@ -70,6 +73,8 @@ private:
     void  ProcessCTRLRightPressed();
 
     void  ProcessShiftTabPressed();
+    void  ProcessShiftLeftPressed();
+    void  ProcessShiftRightPressed();
 
 
 private:
@@ -86,8 +91,11 @@ private:
     int                 mCursorIndex;
     int                 mSelectionStartIndex;
     int                 mCharWidth;
+    bool                mSelectionOccuring;
     sf::RectangleShape  mConsoleRectangle;
     sf::RectangleShape  mCursorRectangle;
+    sf::RectangleShape  mSelectionBGRectangle;
+    sf::RectangleShape  mSelectionFGRectangle;
     sf::Vector2f        mSize;
     sf::Vector2f        mPosition;
     sf::Color           mBackgroundColor;
