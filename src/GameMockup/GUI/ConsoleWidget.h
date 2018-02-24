@@ -84,6 +84,7 @@ private:
     unsigned  int       mCursorToggleTimeMs;
     unsigned  int       mCursorTimerElapsedTimeMs;
     int                 mCursorIndex;
+    int                 mSelectionStartIndex;
     int                 mCharWidth;
     sf::RectangleShape  mConsoleRectangle;
     sf::RectangleShape  mCursorRectangle;

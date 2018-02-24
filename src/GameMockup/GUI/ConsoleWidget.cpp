@@ -46,6 +46,7 @@ cConsoleWidget::cConsoleWidget() :
     mCursorToggleTimeMs( DEFAULT_CURSOR_TOGGLE_TIME_MS ),
     mCursorTimerElapsedTimeMs( 0 ),
     mCursorIndex( 0 ),
+    mSelectionStartIndex( 0 ),
     mCharWidth( 0 ),
     mConsoleRectangle(),
     mCursorRectangle(),
@@ -526,7 +527,7 @@ void
 cConsoleWidget::ProcessCTRLLeftPressed()
 {
     std::string inputStr = mInputText.getString();
-    int length = inputStr.length();
+    int length = int( inputStr.length() );
     int delta = 0;
     bool firstCharOccurenceFound = false;
 
@@ -562,7 +563,7 @@ void
 cConsoleWidget::ProcessCTRLRightPressed()
 {
     std::string inputStr = mInputText.getString();
-    int length = inputStr.length();
+    int length = int( inputStr.length() );
     int delta = 0;
     bool firstWhitespaceOccurenceFound = false;
 
