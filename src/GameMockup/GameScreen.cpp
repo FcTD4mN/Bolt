@@ -40,20 +40,21 @@ cGameScreen::Initialize()
     sf::Vector2u size = window->getSize();
 
     cWorld* world = cGameApplication::App()->World();
-    for( int i = 0; i < 10; ++i )
-    {
-        int posX = rand() % ( size.x - 10 );
-        int posY = rand() % (size.y - 10);
 
-        cEntity* ent = new cEntity( world );
-        cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
-        animation->mFrameRate = 24;
-        animation->mPaused = false;
+    //for( int i = 0; i < 10; ++i )
+    //{
+    //    int posX = rand() % ( size.x - 10 );
+    //    int posY = rand() % (size.y - 10);
 
-        ent->AddComponent( animation );
-        ent->AddComponent( new cPosition( float(posX), float(posY) ) );
-        world->AddEntity( ent );
-    }
+    //    cEntity* ent = new cEntity( world );
+    //    cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
+    //    animation->mFrameRate = 24;
+    //    animation->mPaused = false;
+
+    //    ent->AddComponent( animation );
+    //    ent->AddComponent( new cPosition( float(posX), float(posY) ) );
+    //    world->AddEntity( ent );
+    //}
 
     cEntity* ent = new cEntity( world );
     cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
@@ -63,6 +64,8 @@ cGameScreen::Initialize()
     ent->AddComponent( animation );
     ent->AddComponent( new cPosition( 400.0, 300.0 ) );
     ent->AddComponent( new cUserInput() );
+    ent->AddTag( "Un" );
+    ent->AddTag( "Deux" );
     world->AddEntity( ent );
 
 }
@@ -117,31 +120,10 @@ void
 cGameScreen::KeyReleased( const sf::Event& iEvent )
 {
     // Does nothing
-    //cEntityParser::CreateEntityFromFile( "resources/Entities/test.entity" );
-    tinyxml2::XMLDocument doc;
-    tinyxml2::XMLElement* elm = doc.NewElement( "world" );
-
-    cGameApplication::App()->World()->SaveXML( elm, &doc );
-
-    doc.InsertFirstChild( elm );
-
-    tinyxml2::XMLError error = doc.SaveFile( "test.xml" );
-    if( error )
-    {
-        std::cout << "No" << std::endl;
-    }
-
-    //bool loadOkay = doc.LoadFile();
-    //if( loadOkay )
-    //{
-    //    printf( "\n%s:\n", pFilename );
-    //    dump_to_stdout( &doc ); // defined later in the tutorial
-    //}
-    //else
-    //{
-    //    printf( "Failed to load file \"%s\"\n", pFilename );
-    //}
-
+    if( iEvent.key.code == sf::Keyboard::Key::S )
+        SaveXML();
+    else if( iEvent.key.code == sf::Keyboard::Key::L )
+        LoadXML();
 }
 
 
@@ -254,6 +236,44 @@ cGameScreen::SensorChanged( const sf::Event& iEvent )
 {
     // Does nothing
 }
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------ Input/Output
+// -------------------------------------------------------------------------------------
+
+void
+cGameScreen::SaveXML()
+{
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* elm = doc.NewElement( "world" );
+
+    cGameApplication::App()->World()->SaveXML( elm, &doc );
+
+    doc.InsertFirstChild( elm );
+
+    tinyxml2::XMLError error = doc.SaveFile( "test.xml" );
+    if( error )
+    {
+        std::cout << "Heh, couldn't save ..." << std::endl;
+    }
+}
+
+
+void
+cGameScreen::LoadXML()
+{
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLError error = doc.LoadFile( "test.xml" );
+
+    cGameApplication::App()->World()->LoadXML( doc.FirstChildElement( "world" ) );
+
+    if( !error )
+        std::cout << "Successfuly loaded " << std::endl;
+    else
+        std::cout << "Failed to load" << std::endl;
+}
+
 
 
 

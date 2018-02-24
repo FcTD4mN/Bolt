@@ -314,23 +314,30 @@ cWorld::SensorChanged( const sf::Event& iEvent )
 void
 cWorld::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
-    tinyxml2::XMLElement* elm = iDocument->NewElement( "entities" );
+    tinyxml2::XMLElement* entities = iDocument->NewElement( "entities" );
 
     for( int i = 0; i < mEntity.size(); ++i )
     {
         tinyxml2::XMLElement* entity = iDocument->NewElement( "entity" );
         mEntity[ i ]->SaveXML( entity, iDocument );
-        elm->LinkEndChild( entity );
+        entities->LinkEndChild( entity );
     }
 
-    iNode->LinkEndChild( elm );
+    iNode->LinkEndChild( entities );
 }
 
 
 void
-cWorld::LoadXML( const tinyxml2::XMLElement* iNode )
+cWorld::LoadXML( tinyxml2::XMLElement* iNode )
 {
+    tinyxml2::XMLElement* entities = iNode->FirstChildElement( "entities" );
 
+    for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity->NextSiblingElement() )
+    {
+        cEntity* loadedEntity = new cEntity( this );
+        loadedEntity->LoadXML( entity );
+        AddEntity( loadedEntity );
+    }
 }
 
 

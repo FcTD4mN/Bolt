@@ -82,7 +82,7 @@ cSpriteAnimated::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iD
 
 
 void
-cSpriteAnimated::LoadXML( const tinyxml2::XMLElement* iNode )
+cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mFileName = iNode->Attribute( "file", "unknown" );

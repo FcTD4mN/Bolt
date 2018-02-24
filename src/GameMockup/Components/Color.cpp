@@ -50,7 +50,7 @@ cColor::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 
 
 void
-cColor::LoadXML( const tinyxml2::XMLElement* iNode )
+cColor::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mColor.r = iNode->IntAttribute( "colorr", 0 );

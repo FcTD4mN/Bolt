@@ -233,6 +233,7 @@
     <ClCompile Include="..\..\src\Base\Drawable.cpp" />
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp" />
     <ClCompile Include="..\..\src\ECS\Component.cpp" />
+    <ClCompile Include="..\..\src\ECS\ComponentRegistry.cpp" />
     <ClCompile Include="..\..\src\ECS\Entity.cpp" />
     <ClCompile Include="..\..\src\ECS\EntityParser.cpp" />
     <ClCompile Include="..\..\src\ECS\System.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="..\..\src\Base\GeneralEnums.h" />
     <ClInclude Include="..\..\src\Base\ResourceManager.h" />
     <ClInclude Include="..\..\src\ECS\Component.h" />
+    <ClInclude Include="..\..\src\ECS\ComponentRegistry.h" />
     <ClInclude Include="..\..\src\ECS\Entity.h" />
     <ClInclude Include="..\..\src\ECS\EntityParser.h" />
     <ClInclude Include="..\..\src\ECS\System.h" />

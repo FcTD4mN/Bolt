@@ -39,5 +39,10 @@ public:
     virtual  void  TouchMoved( const sf::Event& iEvent ) override;             ///< A touch moved (data in event.touch)
     virtual  void  TouchEnded( const sf::Event& iEvent ) override;             ///< A touch event ended (data in event.touch)
     virtual  void  SensorChanged( const sf::Event& iEvent ) override;          ///< A sensor value changed (data in event.sensor)
+
+public:
+    // Input/Output
+    virtual  void SaveXML();
+    virtual  void LoadXML();
 };
 

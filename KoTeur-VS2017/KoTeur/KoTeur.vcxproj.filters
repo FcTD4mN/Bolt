@@ -58,6 +58,12 @@
     <Filter Include="Fichiers sources\EXTERNAL\tinyxml2">
       <UniqueIdentifier>{1a6ff4d2-2e4b-4eb5-8c23-98a0121a3749}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\ECS\Core">
+      <UniqueIdentifier>{af6311e2-2111-45fb-97a5-1ae14a28c52f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\ECS\Utilities">
+      <UniqueIdentifier>{6cfe0a1c-4e17-4c4c-b863-941432fd3e8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -95,18 +101,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Screen\ScreenMainMenu.cpp">
       <Filter>Fichiers sources\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\ECS\Component.cpp">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\ECS\Entity.cpp">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\ECS\System.cpp">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\ECS\World.cpp">
-      <Filter>Fichiers sources\ECS</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\GameMockup\GameScreen.cpp">
       <Filter>Fichiers sources\GameMockup</Filter>
@@ -150,9 +144,6 @@
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ECS\EntityParser.cpp">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\GameMockup\ConsoleScreen.cpp">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClCompile>
@@ -167,6 +158,24 @@
     </ClCompile>
     <ClCompile Include="..\..\extlibs\tinyxml2\tinyxml2.cpp">
       <Filter>Fichiers sources\EXTERNAL\tinyxml2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\Component.cpp">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\Entity.cpp">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\System.cpp">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\World.cpp">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\ComponentRegistry.cpp">
+      <Filter>Fichiers sources\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ECS\EntityParser.cpp">
+      <Filter>Fichiers sources\ECS\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,18 +214,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Screen\ScreenMainMenu.h">
       <Filter>Fichiers sources\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\ECS\Component.h">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\ECS\Entity.h">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\ECS\System.h">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\ECS\World.h">
-      <Filter>Fichiers sources\ECS</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\GameScreen.h">
       <Filter>Fichiers sources\GameMockup</Filter>
@@ -260,9 +257,6 @@
     <ClInclude Include="..\..\src\Base\ResourceManager.h">
       <Filter>Fichiers sources\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ECS\EntityParser.h">
-      <Filter>Fichiers sources\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\ConsoleScreen.h">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClInclude>
@@ -274,6 +268,24 @@
     </ClInclude>
     <ClInclude Include="..\..\extlibs\tinyxml2\tinyxml2.h">
       <Filter>Fichiers sources\EXTERNAL\tinyxml2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\Component.h">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\Entity.h">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\System.h">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\World.h">
+      <Filter>Fichiers sources\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\ComponentRegistry.h">
+      <Filter>Fichiers sources\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ECS\EntityParser.h">
+      <Filter>Fichiers sources\ECS\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

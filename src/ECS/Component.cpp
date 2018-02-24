@@ -41,7 +41,7 @@ cComponent::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocum
 
 
 void
-cComponent::LoadXML( const tinyxml2::XMLElement * iNode )
+cComponent::LoadXML( tinyxml2::XMLElement * iNode )
 {
     mName = iNode->Attribute( "name" );
 }

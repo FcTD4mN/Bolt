@@ -47,7 +47,7 @@ cSize::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 
 
 void
-cSize::LoadXML( const tinyxml2::XMLElement* iNode )
+cSize::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mSize.x = iNode->FloatAttribute( "w", 0.0F );

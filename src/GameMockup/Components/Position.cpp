@@ -47,7 +47,7 @@ cPosition::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocumen
 
 
 void
-cPosition::LoadXML( const tinyxml2::XMLElement* iNode )
+cPosition::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mPosition.x = iNode->FloatAttribute( "x", 0.0F );

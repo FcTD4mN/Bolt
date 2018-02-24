@@ -56,7 +56,7 @@ public:
 public:
     // Input/Output
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML( const tinyxml2::XMLElement* iNode );
+    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
     std::vector< cEntity* > mEntity;

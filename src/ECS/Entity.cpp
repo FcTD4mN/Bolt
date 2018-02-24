@@ -136,10 +136,38 @@ cEntity::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument
     }
 
     iNode->LinkEndChild( components );
+
+    tinyxml2::XMLElement* tags = iDocument->NewElement( "tags" );
+
+    for( auto it = mTags.begin(); it != mTags.end(); ++it )
+    {
+        // If tag is there and true
+        if( it->second )
+        {
+            tinyxml2::XMLElement* tag = iDocument->NewElement( "tag" );
+            tag->SetAttribute( "name", it->first.c_str() );
+            tags->LinkEndChild( tag );
+        }
+    }
+
+    iNode->LinkEndChild( tags );
 }
 
 
 void
-cEntity::LoadXML( const tinyxml2::XMLElement * iNode )
+cEntity::LoadXML( tinyxml2::XMLElement * iNode )
 {
+    tinyxml2::XMLElement* components = iNode->FirstChildElement( "components" );
+
+    for( tinyxml2::XMLElement* component = components->FirstChildElement( "component" ); component; component->NextSiblingElement() )
+    {
+    }
+
+
+    tinyxml2::XMLElement* tags = iNode->FirstChildElement( "tags" );
+
+    for( tinyxml2::XMLElement* tag = tags->FirstChildElement( "tag" ); tag; tag->NextSiblingElement() )
+    {
+        AddTag( tag->Attribute( "name" ) );
+    }
 }
