@@ -11,7 +11,7 @@
 #include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
 
-
+#include <iostream>
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -117,7 +117,31 @@ void
 cGameScreen::KeyReleased( const sf::Event& iEvent )
 {
     // Does nothing
-    cEntityParser::CreateEntityFromFile( "resources/Entities/test.entity" );
+    //cEntityParser::CreateEntityFromFile( "resources/Entities/test.entity" );
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* elm = doc.NewElement( "world" );
+
+    cGameApplication::App()->World()->SaveXML( elm, &doc );
+
+    doc.InsertFirstChild( elm );
+
+    tinyxml2::XMLError error = doc.SaveFile( "test.xml" );
+    if( error )
+    {
+        std::cout << "No" << std::endl;
+    }
+
+    //bool loadOkay = doc.LoadFile();
+    //if( loadOkay )
+    //{
+    //    printf( "\n%s:\n", pFilename );
+    //    dump_to_stdout( &doc ); // defined later in the tutorial
+    //}
+    //else
+    //{
+    //    printf( "Failed to load file \"%s\"\n", pFilename );
+    //}
+
 }
 
 

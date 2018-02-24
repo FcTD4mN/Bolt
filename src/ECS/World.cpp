@@ -306,6 +306,33 @@ cWorld::SensorChanged( const sf::Event& iEvent )
 }
 
 
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------ Input/Output
+// -------------------------------------------------------------------------------------
+
+
+void
+cWorld::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+{
+    tinyxml2::XMLElement* elm = iDocument->NewElement( "entities" );
+
+    for( int i = 0; i < mEntity.size(); ++i )
+    {
+        tinyxml2::XMLElement* entity = iDocument->NewElement( "entity" );
+        mEntity[ i ]->SaveXML( entity, iDocument );
+        elm->LinkEndChild( entity );
+    }
+
+    iNode->LinkEndChild( elm );
+}
+
+
+void
+cWorld::LoadXML( const tinyxml2::XMLElement* iNode )
+{
+
+}
+
 
 
 

@@ -1,0 +1,71 @@
+<game>
+    <entities>
+        <entity id="idontknow0">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="23" y="52"/>
+            </components>
+        </entity>
+        <entity id="idontknow1">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="615" y="520"/>
+            </components>
+        </entity>
+        <entity id="idontknow2">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="366" y="576"/>
+            </components>
+        </entity>
+        <entity id="idontknow3">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="653" y="301"/>
+            </components>
+        </entity>
+        <entity id="idontknow4">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="191" y="549"/>
+            </components>
+        </entity>
+        <entity id="idontknow5">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="611" y="179"/>
+            </components>
+        </entity>
+        <entity id="idontknow6">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="134" y="501"/>
+            </components>
+        </entity>
+        <entity id="idontknow7">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="410" y="252"/>
+            </components>
+        </entity>
+        <entity id="idontknow8">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="230" y="274"/>
+            </components>
+        </entity>
+        <entity id="idontknow9">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="479" y="25"/>
+            </components>
+        </entity>
+        <entity id="idontknow10">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="400" y="300"/>
+                <component name="userinput"/>
+            </components>
+        </entity>
+    </entities>
+</game>

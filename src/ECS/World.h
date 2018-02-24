@@ -2,6 +2,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "tinyxml2.h"
+
 class cEntity;
 class cSystem;
 
@@ -50,6 +52,11 @@ public:
     void  TouchMoved( const sf::Event& iEvent );             ///< A touch moved (data in event.touch)
     void  TouchEnded( const sf::Event& iEvent );             ///< A touch event ended (data in event.touch)
     void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
+
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( const tinyxml2::XMLElement* iNode );
 
 protected:
     std::vector< cEntity* > mEntity;

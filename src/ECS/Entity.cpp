@@ -3,6 +3,9 @@
 #include "ECS/Component.h"
 
 
+static unsigned int sgEntityCount = 0;
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -18,13 +21,14 @@ cEntity::~cEntity()
 
 cEntity::cEntity( cWorld* iWorld ) :
     mWorld( iWorld ),
-    mID( "idontknow" ),
+    mID( "idontknow" + std::to_string( sgEntityCount ) ),
     mComponents(),
     mTags(),
     mObserverSystems(),
     mLoaded( false ),
     mDead( false )
 {
+    ++sgEntityCount;
 }
 
 
@@ -116,19 +120,22 @@ cEntity::SetLoaded()
 void
 cEntity::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument )
 {
-    tinyxml2::XMLElement* entity = iDocument->NewElement( "entity" );
-    entity->SetAttribute( "id", mID.c_str() );
+    iNode->SetAttribute( "id", mID.c_str() );
 
-        tinyxml2::XMLElement* components = iDocument->NewElement( "components" );
+    tinyxml2::XMLElement* components = iDocument->NewElement( "components" );
 
-        for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
+    for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
+    {
+        // Thing is wherever you do a mComponents[ "something" ], it creates a key value pair : {"something", NULL}
+        if( it->second )
         {
-            it->second->SaveXML( components, iDocument );
+            tinyxml2::XMLElement* component = iDocument->NewElement( "component" );
+            it->second->SaveXML( component, iDocument );
+            components->LinkEndChild( component );
         }
+    }
 
-        entity->LinkEndChild( components );
-
-    iNode->LinkEndChild( entity );
+    iNode->LinkEndChild( components );
 }
 
 
