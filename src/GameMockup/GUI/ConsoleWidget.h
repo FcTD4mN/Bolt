@@ -9,6 +9,19 @@ namespace  nGUI
 class cConsoleWidget
 {
 
+private:
+enum  eModifierState
+{
+    kNone           = 0,        // 0000 // 0
+    kAlt            = 1 << 0,   // 0001 // 1
+    kControl        = 1 << 1,   // 0010 // 2
+    kShift          = 1 << 2,   // 0100 // 4
+    kSystem         = 1 << 3,   // 1000 // 8
+
+    kControlShift   = kControl | kShift,
+    //...
+};
+
 public:
     // Construction/Destruction
     ~cConsoleWidget();
@@ -37,9 +50,11 @@ private:
     void    UpdateSelectionGeometry();
     int     DeltaToNextWord();
     int     DeltaToPrevWord();
+    void    StartSelection();
     void    BreakSelection();
     void    ClearSelection();
     std::string  SelectionString();
+    std::string  TabulationString();
 
     int     NVisibleRows()  const;
     void    IncrementCursorPosition();
@@ -97,10 +112,12 @@ private:
 private:
     // Data Members
     typedef void ( cConsoleWidget::*tVoidMemberFunctionPointer )();
-    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mKeyPressedProcessMap;
-    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mCTRLKeyPressedProcessMap;
-    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mShiftKeyPressedProcessMap;
-    std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  mCTRLShiftKeyPressedProcessMap;
+    typedef std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  tProcessMap;
+    std::map< eModifierState, tProcessMap* >  mSuperProcessMap;
+    tProcessMap  mKeyPressedProcessMap;
+    tProcessMap  mCTRLKeyPressedProcessMap;
+    tProcessMap  mShiftKeyPressedProcessMap;
+    tProcessMap  mCTRLShiftKeyPressedProcessMap;
 
     bool                mCollapsed;
     bool                mCursorToggled;

@@ -40,6 +40,7 @@ cConsoleWidget::~cConsoleWidget()
 
 
 cConsoleWidget::cConsoleWidget() :
+    mSuperProcessMap(),
     mKeyPressedProcessMap(),
     mCTRLKeyPressedProcessMap(),
     mShiftKeyPressedProcessMap(),
@@ -179,6 +180,11 @@ cConsoleWidget::BuildEventProcessMaps()
     mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Right ]   =  &cConsoleWidget::ProcessCtrlShiftRightPressed;
     mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Home ]    =  &cConsoleWidget::ProcessCtrlShiftHomePressed;
     mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::End ]     =  &cConsoleWidget::ProcessCtrlShiftEndPressed;
+
+    mSuperProcessMap[ eModifierState::kNone ]           = &mKeyPressedProcessMap;
+    mSuperProcessMap[ eModifierState::kControl]         = &mCTRLKeyPressedProcessMap;
+    mSuperProcessMap[ eModifierState::kShift ]          = &mShiftKeyPressedProcessMap;
+    mSuperProcessMap[ eModifierState::kControlShift]    = &mCTRLShiftKeyPressedProcessMap;
 }
 
 
@@ -341,6 +347,14 @@ cConsoleWidget::DeltaToPrevWord()
 
 
 void
+cConsoleWidget::StartSelection()
+{
+    mSelectionStartIndex = mCursorIndex;
+    mSelectionOccuring = true;
+}
+
+
+void
 cConsoleWidget::BreakSelection()
 {
     mSelectionOccuring = false;
@@ -372,6 +386,21 @@ cConsoleWidget::SelectionString()
     int delta = selectionLastIndex - selectionFirstIndex;
     std::string  str = inputString.substr( selectionFirstIndex, delta );
     return  str;
+}
+
+
+std::string
+cConsoleWidget::TabulationString()
+{
+    // Build str text ( N whitespaces )
+    int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
+    std::string tabStr = "";
+    for( int i = 0; i < nTabToWhiteSpace; ++i )
+    {
+        tabStr += " ";
+    }
+
+    return  tabStr;
 }
 
 
@@ -544,58 +573,24 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
     auto key = iEvent.key;
     auto code = key.code;
 
+    eModifierState modifierState = eModifierState::kNone;
+    modifierState = static_cast< eModifierState >(  ( int( key.alt )        << 0 ) |
+                                                    ( int( key.control)     << 1 ) |
+                                                    ( int( key.shift )      << 2 ) |
+                                                    ( int( key.system )     << 3 ) );
+
     if( ( code == sf::Keyboard::LShift || code == sf::Keyboard::RShift ) && !mSelectionOccuring )
     {
-        mSelectionStartIndex = mCursorIndex;
-        mSelectionOccuring = true;
+        StartSelection();
         UpdateSelectionGeometry();
     }
 
-    if( key.alt )           // Alt Modifier
+    if( KEY_EXISTS( mSuperProcessMap, modifierState ) )
     {
-        // Nothing ATM
-    }
-    else if( key.control && !key.shift)  // Control Modifier
-    {
-        if( KEY_EXISTS( mCTRLKeyPressedProcessMap, code ) )
+        if( KEY_EXISTS( ( *mSuperProcessMap[ modifierState ] ), code ) )
         {
-            (this->*mCTRLKeyPressedProcessMap[ code ])();
+            (this->*( *mSuperProcessMap[ modifierState ] )[ code ])();
         }
-
-
-    }
-    else if( key.shift && !key.control )    // Shift Modifier
-    {
-        if( KEY_EXISTS( mShiftKeyPressedProcessMap, code ) )
-        {
-            (this->*mShiftKeyPressedProcessMap[ code ])();
-        }
-
-
-    }
-    else if( key.shift && key.control ) // CTRL + Shift Modifier
-    {
-        if( KEY_EXISTS( mCTRLShiftKeyPressedProcessMap, code ) )
-        {
-            (this->*mCTRLShiftKeyPressedProcessMap[ code ])();
-        }
-
-
-    }
-    else if( key.system )   // System Modifier
-    {
-        // Nothing ATM
-
-
-    }
-    else                    // No Modifier
-    {
-        if( KEY_EXISTS( mKeyPressedProcessMap, code ) )
-        {
-            (this->*mKeyPressedProcessMap[ code ])();
-        }
-
-
     }
 }
 
@@ -640,23 +635,15 @@ cConsoleWidget::ProcessBackspacePressed()
 void
 cConsoleWidget::ProcessTabPressed()
 {
-    // Inset tab str text ( N whitespaces ) content to input content
-
-    // Build str text ( N whitespaces )
-    int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
-    std::string tabStr = "";
-    for( int i = 0; i < nTabToWhiteSpace; ++i )
-    {
-        tabStr += " ";
-    }
-
     if( mSelectionOccuring )
         ClearSelection();
 
-    std::string inputStr = mInputText.getString();
-    std::string resultStr = inputStr;
-    resultStr.insert( mCursorIndex, tabStr );
-    mInputText.setString( resultStr );
+    // Inset tab str text ( N whitespaces ) content to input content
+    std::string tabStr = TabulationString();
+
+    std::string str = mInputText.getString();
+    str.insert( mCursorIndex, tabStr );
+    mInputText.setString( str );
     MoveCursorPosition( int( tabStr.length() ) );
     BreakSelection();
 }
@@ -742,8 +729,7 @@ void
 cConsoleWidget::ProcessCTRLAPressed()
 {
     ResetCursorPosition();
-    mSelectionStartIndex = mCursorIndex;
-    mSelectionOccuring = true;
+    StartSelection();
     MatchCursorPosition();
     UpdateSelectionGeometry();
 }
@@ -815,7 +801,7 @@ cConsoleWidget::ProcessShiftTabPressed()
     // Append tab str text content to input content
     int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
     std::string inputStr = mInputText.getString();
-    int toErase = 0;
+    int toErase =   0;
 
     for( int i = 0; i < nTabToWhiteSpace; ++i )
     {
