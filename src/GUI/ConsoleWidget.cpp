@@ -747,6 +747,9 @@ cConsoleWidget::ProcessCTRLCPressed()
 void
 cConsoleWidget::ProcessCTRLXPressed()
 {
+    if( !mSelectionOccuring )
+        return;
+
     ProcessCTRLCPressed();
     ClearSelection();
 }
