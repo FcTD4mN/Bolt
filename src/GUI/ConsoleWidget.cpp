@@ -763,6 +763,9 @@ cConsoleWidget::ProcessCTRLVPressed()
 
     // Append clipboard text content to input content
     std::string clipboardStr = GetClipboardText();
+    int end = clipboardStr.find( '\r\n' );
+    clipboardStr = clipboardStr.substr( 0, end );
+
     std::string inputStr = mInputText.getString();
     std::string resultStr = inputStr;
     resultStr.insert( mCursorIndex, clipboardStr );
