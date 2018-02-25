@@ -267,6 +267,103 @@ cConsoleWidget::UpdateSelectionGeometry()
 
 
 int
+cConsoleWidget::DeltaToNextWord()
+{
+    std::string inputStr = mInputText.getString();
+    int length = int( inputStr.length() );
+    int delta = 0;
+    bool firstWhitespaceOccurenceFound = false;
+
+    for( int i = mCursorIndex; i < length; i++ )
+    {
+        int currentLookupIndex = i;
+        // Out of range safety
+        if( currentLookupIndex < 0 )
+            break;
+
+        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
+        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
+        {
+            firstWhitespaceOccurenceFound = true;
+            delta++;
+        }
+        else
+        {
+            if( firstWhitespaceOccurenceFound )
+            {
+                break;
+            }
+            else
+            {
+                delta++;
+            }
+        }
+    }
+
+    return  delta;
+}
+
+
+int
+cConsoleWidget::DeltaToPrevWord()
+{
+    std::string inputStr = mInputText.getString();
+    int length = int( inputStr.length() );
+    int delta = 0;
+    bool firstCharOccurenceFound = false;
+
+    for( int i = mCursorIndex; i >= 0; i-- )
+    {
+        int currentLookupIndex = i - 1;
+        // Out of range safety
+        if( currentLookupIndex < 0 )
+            break;
+
+        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
+        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
+        {
+            if( firstCharOccurenceFound )
+            {
+                break;
+            }
+
+            delta--;
+        }
+        else
+        {
+            firstCharOccurenceFound = true;
+            delta--;
+        }
+    }
+
+    return  delta;
+}
+
+
+void
+cConsoleWidget::BreakSelection()
+{
+    mSelectionOccuring = false;
+}
+
+
+void
+cConsoleWidget::ClearSelection()
+{
+    std::string str = mInputText.getString();
+
+    int selectionFirstIndex = SelectionFirstIndex();
+    int selectionLastIndex = SelectionLastIndex();
+    int delta = selectionLastIndex - selectionFirstIndex;
+    str.erase( selectionFirstIndex, delta );
+    mInputText.setString( str );
+    mCursorIndex = selectionFirstIndex;
+    UpdateCursorPosition();
+    BreakSelection();
+}
+
+
+int
 cConsoleWidget::NVisibleRows()  const
 {
     return  int( mSize.y ) / DEFAULT_LINE_HEIGHT;
@@ -418,9 +515,7 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
         return;
 
     if( mSelectionOccuring )
-    {
-        ProcessBackspacePressed();
-    }
+        ClearSelection();
 
     std::string str = mInputText.getString();
     char charCode = static_cast<char>( unicode );
@@ -430,7 +525,7 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
     mInputText.setString( str );
     IncrementCursorPosition();
 
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -517,14 +612,7 @@ cConsoleWidget::ProcessBackspacePressed()
 
     if( mSelectionOccuring )
     {
-        int selectionFirstIndex = SelectionFirstIndex();
-        int selectionLastIndex = SelectionLastIndex();
-        int delta = selectionLastIndex - selectionFirstIndex;
-        str.erase( selectionFirstIndex, delta );
-        mInputText.setString( str );
-        mCursorIndex = selectionFirstIndex;
-        UpdateCursorPosition();
-        mSelectionOccuring = false;
+        ClearSelection();
     }
     else
     {
@@ -535,6 +623,8 @@ cConsoleWidget::ProcessBackspacePressed()
             DecrementCursorPosition();
         }
     }
+
+    BreakSelection();
 }
 
 
@@ -550,9 +640,7 @@ cConsoleWidget::ProcessTabPressed()
     }
 
     if( mSelectionOccuring )
-    {
-        ProcessBackspacePressed();
-    }
+        ClearSelection();
 
     std::string inputStr = mInputText.getString();
     std::string resultStr = inputStr;
@@ -561,7 +649,7 @@ cConsoleWidget::ProcessTabPressed()
     mInputText.setString( resultStr );
     MoveCursorPosition( int( tabStr.length() ) );
 
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -581,7 +669,7 @@ cConsoleWidget::ProcessReturnPressed()
     mOutputTextLines.back().setString( inputStr );
 
     ClearInput();
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -589,7 +677,7 @@ void
 cConsoleWidget::ProcessEscapePressed()
 {
     ClearInput();
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -597,13 +685,13 @@ void
 cConsoleWidget::ProcessLeftPressed()
 {
     DecrementCursorPosition();
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 void
 cConsoleWidget::ProcessRightPressed()
 {
     IncrementCursorPosition();
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -611,7 +699,7 @@ void
 cConsoleWidget::ProcessHomePressed()
 {
     ResetCursorPosition();
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -619,7 +707,7 @@ void
 cConsoleWidget::ProcessEndPressed()
 {
     MatchCursorPosition();
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -630,8 +718,7 @@ cConsoleWidget::ProcessDeletePressed()
 
     if( mSelectionOccuring )
     {
-        ProcessBackspacePressed();
-        mSelectionOccuring = false;
+        ClearSelection();
     }
     else
     {
@@ -641,7 +728,7 @@ cConsoleWidget::ProcessDeletePressed()
             mInputText.setString( str );
         }
 
-        mSelectionOccuring = false;
+        BreakSelection();
     }
 }
 
@@ -680,8 +767,8 @@ cConsoleWidget::ProcessCTRLXPressed()
         return;
 
     ProcessCTRLCPressed();
-    ProcessBackspacePressed();
-    mSelectionOccuring = false;
+    ClearSelection();
+    BreakSelection();
 }
 
 
@@ -690,8 +777,7 @@ cConsoleWidget::ProcessCTRLVPressed()
 {
     if( mSelectionOccuring )
     {
-        ProcessBackspacePressed();
-        mSelectionOccuring = false;
+        ClearSelection();
     }
 
     // Append clipboard text content to input content
@@ -706,83 +792,27 @@ void
 cConsoleWidget::ProcessCTRLBackspacePressed()
 {
     ClearInput();
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
 void
 cConsoleWidget::ProcessCTRLLeftPressed()
 {
-    std::string inputStr = mInputText.getString();
-    int length = int( inputStr.length() );
-    int delta = 0;
-    bool firstCharOccurenceFound = false;
-
-    for( int i = mCursorIndex; i >= 0; i-- )
-    {
-        int currentLookupIndex = i - 1;
-        // Out of range safety
-        if( currentLookupIndex < 0 )
-            break;
-
-        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
-        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
-        {
-            if( firstCharOccurenceFound )
-            {
-                break;
-            }
-
-            delta--;
-        }
-        else
-        {
-            firstCharOccurenceFound = true;
-            delta--;
-        }
-    }
+    int delta = DeltaToPrevWord();
 
     MoveCursorPosition( delta );
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
 void
 cConsoleWidget::ProcessCTRLRightPressed()
 {
-    std::string inputStr = mInputText.getString();
-    int length = int( inputStr.length() );
-    int delta = 0;
-    bool firstWhitespaceOccurenceFound = false;
-
-    for( int i = mCursorIndex; i < length; i++ )
-    {
-        int currentLookupIndex = i;
-        // Out of range safety
-        if( currentLookupIndex < 0 )
-            break;
-
-        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
-        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
-        {
-            firstWhitespaceOccurenceFound = true;
-            delta++;
-        }
-        else
-        {
-            if( firstWhitespaceOccurenceFound )
-            {
-                break;
-            }
-            else
-            {
-                delta++;
-            }
-        }
-    }
+    int delta = DeltaToNextWord();
 
     MoveCursorPosition( delta );
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -791,8 +821,7 @@ cConsoleWidget::ProcessShiftTabPressed()
 {
     if( mSelectionOccuring )
     {
-        ProcessBackspacePressed();
-        mSelectionOccuring = false;
+        ClearSelection();
     }
 
     // Append tab str text content to input content
@@ -823,7 +852,7 @@ cConsoleWidget::ProcessShiftTabPressed()
     resultStr.erase( mCursorIndex - toErase, toErase );
     mInputText.setString( resultStr );
     MoveCursorPosition( -toErase );
-    mSelectionOccuring = false;
+    BreakSelection();
 }
 
 
@@ -862,34 +891,7 @@ cConsoleWidget::ProcessShiftEndPressed()
 void
 cConsoleWidget::ProcessCtrlShiftLeftPressed()
 {
-    std::string inputStr = mInputText.getString();
-    int length = int( inputStr.length() );
-    int delta = 0;
-    bool firstCharOccurenceFound = false;
-
-    for( int i = mCursorIndex; i >= 0; i-- )
-    {
-        int currentLookupIndex = i - 1;
-        // Out of range safety
-        if( currentLookupIndex < 0 )
-            break;
-
-        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
-        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
-        {
-            if( firstCharOccurenceFound )
-            {
-                break;
-            }
-
-            delta--;
-        }
-        else
-        {
-            firstCharOccurenceFound = true;
-            delta--;
-        }
-    }
+    int delta = DeltaToPrevWord();
 
     MoveCursorPosition( delta );
     UpdateSelectionGeometry();
@@ -899,36 +901,7 @@ cConsoleWidget::ProcessCtrlShiftLeftPressed()
 void
 cConsoleWidget::ProcessCtrlShiftRightPressed()
 {
-    std::string inputStr = mInputText.getString();
-    int length = int( inputStr.length() );
-    int delta = 0;
-    bool firstWhitespaceOccurenceFound = false;
-
-    for( int i = mCursorIndex; i < length; i++ )
-    {
-        int currentLookupIndex = i;
-        // Out of range safety
-        if( currentLookupIndex < 0 )
-            break;
-
-        char currentChar = inputStr[ currentLookupIndex ]; // -1 because the last char of a string is a \0
-        if( currentChar == char( 32 ) ) // char( 32 ) is a whitespace " "
-        {
-            firstWhitespaceOccurenceFound = true;
-            delta++;
-        }
-        else
-        {
-            if( firstWhitespaceOccurenceFound )
-            {
-                break;
-            }
-            else
-            {
-                delta++;
-            }
-        }
-    }
+    int delta = DeltaToNextWord();
 
     MoveCursorPosition( delta );
     UpdateSelectionGeometry();

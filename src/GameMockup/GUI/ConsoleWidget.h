@@ -35,6 +35,10 @@ private:
     int     SelectionFirstIndex();
     int     SelectionLastIndex();
     void    UpdateSelectionGeometry();
+    int     DeltaToNextWord();
+    int     DeltaToPrevWord();
+    void    BreakSelection();
+    void    ClearSelection();
 
     int     NVisibleRows()  const;
     void    IncrementCursorPosition();
