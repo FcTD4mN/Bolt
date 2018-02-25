@@ -62,7 +62,8 @@ cConsoleWidget::cConsoleWidget() :
     mBackgroundColor(),
     mFont(),
     mInputText(),
-    mOutputTextLines()
+    mOutputTextLines(),
+    mScriptEnvironment( 0 )
 {
     BuildEventProcessMaps();
 
@@ -83,6 +84,12 @@ cConsoleWidget::cConsoleWidget() :
     SetPosition(        sf::Vector2f()      , true );
     SetBackgroundColor( DEFAULT_COLOR       , true );
     UpdateGeometryAndStyle();
+
+    std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
+        this->Print( iStr );
+    };
+
+    mScriptEnvironment = new  ::nBoltScript::cBoltScriptEnvironment( f );
 }
 
 
@@ -498,6 +505,31 @@ cConsoleWidget::ClearInput()
 
 
 // -------------------------------------------------------------------------------------
+// ------------------------------------------------------------- Public Output Interface
+// -------------------------------------------------------------------------------------
+
+
+void
+cConsoleWidget::Print( const  std::string&  iStr )
+{
+    // Shift output rows content upwards
+    for( int i = 0; i < NVisibleRows() -2; ++i )
+    {
+        std::string currentOutputStr = mOutputTextLines[i + 1 ].getString();
+        mOutputTextLines[i].setString( currentOutputStr );
+    }
+    
+    mOutputTextLines.back().setString( iStr );
+}
+
+
+void
+cConsoleWidget::ProcessInput( const  std::string&  iStr )
+{
+    mScriptEnvironment->ProcessRawString( iStr );
+}
+
+// -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------- Update/Draw
 // -------------------------------------------------------------------------------------
 
@@ -650,17 +682,7 @@ cConsoleWidget::ProcessTabPressed()
 void
 cConsoleWidget::ProcessReturnPressed()
 {
-    // Shift output rows content upwards
-    for( int i = 0; i < NVisibleRows() -2; ++i )
-    {
-        std::string currentOutputStr = mOutputTextLines[i + 1 ].getString();
-        mOutputTextLines[i].setString( currentOutputStr );
-    }
-
-    // Set last output row content with input content
-    std::string inputStr = mInputText.getString();
-    mOutputTextLines.back().setString( inputStr );
-
+    ProcessInput( mInputText.getString() );
     ClearInput();
 }
 

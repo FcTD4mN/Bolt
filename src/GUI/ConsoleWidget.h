@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "BoltScript/BoltScriptEnvironment.h"
 
 namespace  nGUI
 {
@@ -65,6 +66,11 @@ private:
     void    MatchCursorPosition();
     void    MoveSelectionRange( int iDelta );
     void    ClearInput();
+
+public:
+    // Public Output Interface
+    void    Print( const  std::string&  iStr );
+    void    ProcessInput( const  std::string&  iStr );
 
 public:
     // Update/Draw
@@ -138,6 +144,8 @@ private:
     sf::Font                 mFont;
     sf::Text                 mInputText;
     std::vector< sf::Text >  mOutputTextLines;
+
+    ::nBoltScript::cBoltScriptEnvironment*  mScriptEnvironment;
 };
 
 
