@@ -2,6 +2,7 @@
 
 #include "ECS/Component.h"
 
+#include "ECS/ComponentRegistry.h"
 
 static unsigned int sgEntityCount = 0;
 
@@ -157,16 +158,22 @@ cEntity::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument
 void
 cEntity::LoadXML( tinyxml2::XMLElement * iNode )
 {
+    mID = iNode->Attribute( "id" );
     tinyxml2::XMLElement* components = iNode->FirstChildElement( "components" );
 
-    for( tinyxml2::XMLElement* component = components->FirstChildElement( "component" ); component; component->NextSiblingElement() )
+    for( tinyxml2::XMLElement* component = components->FirstChildElement( "component" ); component; component = component->NextSiblingElement() )
     {
+        cComponent* comp = cComponentRegistry::Instance()->CreateComponentFromName( component->Attribute( "name" ) );
+        if( comp )
+        {
+            comp->LoadXML( component );
+            AddComponent( comp );
+        }
     }
-
 
     tinyxml2::XMLElement* tags = iNode->FirstChildElement( "tags" );
 
-    for( tinyxml2::XMLElement* tag = tags->FirstChildElement( "tag" ); tag; tag->NextSiblingElement() )
+    for( tinyxml2::XMLElement* tag = tags->FirstChildElement( "tag" ); tag; tag = tag->NextSiblingElement() )
     {
         AddTag( tag->Attribute( "name" ) );
     }

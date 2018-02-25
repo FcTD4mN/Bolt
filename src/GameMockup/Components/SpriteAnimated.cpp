@@ -127,7 +127,7 @@ void
 cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
-    mFileName = iNode->Attribute( "file", "unknown" );
+    mFileName = iNode->Attribute( "file" );
     int width = iNode->IntAttribute( "width", 0 );
     int height = iNode->IntAttribute( "height", 0 );
     mFrameRate = iNode->FloatAttribute( "framerate", 24.0F );

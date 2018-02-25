@@ -332,7 +332,7 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tinyxml2::XMLElement* entities = iNode->FirstChildElement( "entities" );
 
-    for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity->NextSiblingElement() )
+    for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity = entity->NextSiblingElement() )
     {
         cEntity* loadedEntity = new cEntity( this );
         loadedEntity->LoadXML( entity );
