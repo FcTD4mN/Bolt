@@ -49,9 +49,6 @@
     <Filter Include="Fichiers sources\Shortcuts">
       <UniqueIdentifier>{9ebf1ece-30d3-4e0b-965a-f54de889bdee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\GameMockup\GUI">
-      <UniqueIdentifier>{56c74a16-8ae8-4868-8254-afa155de4742}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\EXTERNAL">
       <UniqueIdentifier>{19d0c6f7-3c6a-4c77-b412-f496f4350895}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="Fichiers sources\ECS\Utilities">
       <UniqueIdentifier>{6cfe0a1c-4e17-4c4c-b863-941432fd3e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GUI">
+      <UniqueIdentifier>{3e2414e1-847a-4625-bdb6-68016e8fd720}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +138,6 @@
     <ClCompile Include="..\..\src\GameMockup\Systems\AnimationRenderer.cpp">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\GameMockup\GUI\ConsoleWidget.cpp">
-      <Filter>Fichiers sources\GameMockup\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp">
       <Filter>Fichiers sources\Base</Filter>
     </ClCompile>
@@ -176,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\ECS\EntityParser.cpp">
       <Filter>Fichiers sources\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GUI\ConsoleWidget.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,9 +251,6 @@
     <ClInclude Include="..\..\src\GameMockup\Systems\AnimationRenderer.h">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\GameMockup\GUI\ConsoleWidget.h">
-      <Filter>Fichiers sources\GameMockup\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Base\ResourceManager.h">
       <Filter>Fichiers sources\Base</Filter>
     </ClInclude>
@@ -286,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\ECS\EntityParser.h">
       <Filter>Fichiers sources\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GUI\ConsoleWidget.h">
+      <Filter>Fichiers sources\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

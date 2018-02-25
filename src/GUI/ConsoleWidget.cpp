@@ -1,4 +1,4 @@
-#include "GameMockup/GUI/ConsoleWidget.h"
+#include "GUI/ConsoleWidget.h"
 
 
 #include "Math/Utils.h"
@@ -40,7 +40,7 @@ cConsoleWidget::~cConsoleWidget()
 
 
 cConsoleWidget::cConsoleWidget() :
-    mSuperProcessMap(),
+    mModifierMap(),
     mKeyPressedProcessMap(),
     mCTRLKeyPressedProcessMap(),
     mShiftKeyPressedProcessMap(),
@@ -181,10 +181,10 @@ cConsoleWidget::BuildEventProcessMaps()
     mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::Home ]    =  &cConsoleWidget::ProcessCtrlShiftHomePressed;
     mCTRLShiftKeyPressedProcessMap[ sf::Keyboard::End ]     =  &cConsoleWidget::ProcessCtrlShiftEndPressed;
 
-    mSuperProcessMap[ eModifierState::kNone ]           = &mKeyPressedProcessMap;
-    mSuperProcessMap[ eModifierState::kControl]         = &mCTRLKeyPressedProcessMap;
-    mSuperProcessMap[ eModifierState::kShift ]          = &mShiftKeyPressedProcessMap;
-    mSuperProcessMap[ eModifierState::kControlShift]    = &mCTRLShiftKeyPressedProcessMap;
+    mModifierMap[ eModifierState::kNone ]           = &mKeyPressedProcessMap;
+    mModifierMap[ eModifierState::kControl]         = &mCTRLKeyPressedProcessMap;
+    mModifierMap[ eModifierState::kShift ]          = &mShiftKeyPressedProcessMap;
+    mModifierMap[ eModifierState::kControlShift]    = &mCTRLShiftKeyPressedProcessMap;
 }
 
 
@@ -585,11 +585,11 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
         UpdateSelectionGeometry();
     }
 
-    if( KEY_EXISTS( mSuperProcessMap, modifierState ) )
+    if( KEY_EXISTS( mModifierMap, modifierState ) )
     {
-        if( KEY_EXISTS( ( *mSuperProcessMap[ modifierState ] ), code ) )
+        if( KEY_EXISTS( ( *mModifierMap[ modifierState ] ), code ) )
         {
-            (this->*( *mSuperProcessMap[ modifierState ] )[ code ])();
+            (this->*( *mModifierMap[ modifierState ] )[ code ])();
         }
     }
 }
@@ -598,8 +598,6 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 void
 cConsoleWidget::KeyReleased( const sf::Event& iEvent )
 {
-    auto key = iEvent.key;
-    auto code = key.code;
     // Nothing ATM
 }
 

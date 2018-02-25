@@ -113,7 +113,7 @@ private:
     // Data Members
     typedef void ( cConsoleWidget::*tVoidMemberFunctionPointer )();
     typedef std::map< sf::Keyboard::Key, tVoidMemberFunctionPointer >  tProcessMap;
-    std::map< eModifierState, tProcessMap* >  mSuperProcessMap;
+    std::map< eModifierState, tProcessMap* >  mModifierMap;
     tProcessMap  mKeyPressedProcessMap;
     tProcessMap  mCTRLKeyPressedProcessMap;
     tProcessMap  mShiftKeyPressedProcessMap;

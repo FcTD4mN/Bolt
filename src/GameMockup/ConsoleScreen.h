@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Screen/Screen.h"
-#include "GameMockup/GUI/ConsoleWidget.h"
+#include "GUI/ConsoleWidget.h"
 
 class cConsoleScreen :
     public cScreen
