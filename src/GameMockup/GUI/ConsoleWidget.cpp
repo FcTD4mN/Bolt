@@ -655,7 +655,6 @@ cConsoleWidget::ProcessTabPressed()
 
     std::string inputStr = mInputText.getString();
     std::string resultStr = inputStr;
-
     resultStr.insert( mCursorIndex, tabStr );
     mInputText.setString( resultStr );
     MoveCursorPosition( int( tabStr.length() ) );
@@ -764,9 +763,6 @@ cConsoleWidget::ProcessCTRLCPressed()
 void
 cConsoleWidget::ProcessCTRLXPressed()
 {
-    if( !mSelectionOccuring )
-        return;
-
     ProcessCTRLCPressed();
     ClearSelection();
 }
@@ -781,7 +777,8 @@ cConsoleWidget::ProcessCTRLVPressed()
     // Append clipboard text content to input content
     std::string clipboardStr = GetClipboardText();
     std::string inputStr = mInputText.getString();
-    std::string resultStr = inputStr + clipboardStr;
+    std::string resultStr = inputStr;
+    resultStr.insert( mCursorIndex, clipboardStr );
     mInputText.setString( resultStr );
     MoveCursorPosition( int( clipboardStr.length() ) );
 }
@@ -790,16 +787,13 @@ void
 cConsoleWidget::ProcessCTRLBackspacePressed()
 {
     ClearInput();
-    BreakSelection();
 }
 
 
 void
 cConsoleWidget::ProcessCTRLLeftPressed()
 {
-    int delta = DeltaToPrevWord();
-
-    MoveCursorPosition( delta );
+    MoveCursorPosition( DeltaToPrevWord() );
     BreakSelection();
 }
 
@@ -807,9 +801,7 @@ cConsoleWidget::ProcessCTRLLeftPressed()
 void
 cConsoleWidget::ProcessCTRLRightPressed()
 {
-    int delta = DeltaToNextWord();
-
-    MoveCursorPosition( delta );
+    MoveCursorPosition( DeltaToNextWord() );
     BreakSelection();
 }
 
@@ -818,9 +810,7 @@ void
 cConsoleWidget::ProcessShiftTabPressed()
 {
     if( mSelectionOccuring )
-    {
         ClearSelection();
-    }
 
     // Append tab str text content to input content
     int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
@@ -889,9 +879,7 @@ cConsoleWidget::ProcessShiftEndPressed()
 void
 cConsoleWidget::ProcessCtrlShiftLeftPressed()
 {
-    int delta = DeltaToPrevWord();
-
-    MoveCursorPosition( delta );
+    MoveCursorPosition( DeltaToPrevWord() );
     UpdateSelectionGeometry();
 }
 
@@ -899,9 +887,7 @@ cConsoleWidget::ProcessCtrlShiftLeftPressed()
 void
 cConsoleWidget::ProcessCtrlShiftRightPressed()
 {
-    int delta = DeltaToNextWord();
-
-    MoveCursorPosition( delta );
+    MoveCursorPosition( DeltaToNextWord() );
     UpdateSelectionGeometry();
 }
 
