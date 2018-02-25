@@ -157,12 +157,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Libraries\SFML-2.4.2\include;C:\Users\admin\BOLT\Bolt\extlibs\tinyxml2;A:\Programmation\Bolt\extlibs\tinyxml2;A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Libraries\SFML-2.4.2VC14\include;E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\extlibs\tinyxml2;$(SolutionDir)\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\src;C:\Libraries\SFML-2.4.2\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Libraries\SFML-2.4.2VC14\include;E:\SFML\SFML-2.4.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Libraries\SFML-2.4.2\lib;C:\Libraries\SFML-2.4.2VC14\lib;A:\Programmation\SFML-2.4.2-VS\lib;D:\Libraries\SFML-2.4.2VC14\lib;E:\SFML\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\SFML-2.4.2-VS\lib;C:\Libraries\SFML-2.4.2\lib;C:\Libraries\SFML-2.4.2VC14\lib;D:\Libraries\SFML-2.4.2VC14\lib;E:\SFML\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

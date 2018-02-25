@@ -5,19 +5,13 @@ CMAKE_POLICY(SET CMP0054 NEW)
 PROJECT(Bolt C CXX)
 MESSAGE( "CMAKE PROJECT : ${PROJECT_NAME}")
 
-# Utilities functions
-include(${CMAKE_SOURCE_DIR}/../CMake/Configurations/UtilityFunctions.cmake)
-
-# Basic configurations (OS, Arch, Target, CmakeModules, BuildTypes etc... )
-include(${CMAKE_SOURCE_DIR}/../CMake/Configurations/BasicConfiguration.cmake)
-
-# Loading right OS Module
+# OS Module
 IF( LINUX )
     include(${CMAKE_SOURCE_DIR}/../CMake/Configurations/LinuxConfig.cmake)
 ELSEIF( WINDOWS )
     include(${CMAKE_SOURCE_DIR}/../CMake/Configurations/WindowsConfig.cmake)
 ELSEIF( MACOSX )
-    include(${CMAKE_SOURCE_DIR}/../CMake/Configurations/MacOSXConfig.cmake)
+    include(${CMAKE_SOURCE_DIR}/../CMake/Configurations/MacOSConfig.cmake)
 ENDIF()
 
 # DEFINITIONS
@@ -42,16 +36,5 @@ SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_NAME}_${
 
 # TARGETS options
 SetCompileOptions( ${PROJECT_NAME} )
-
-
-IF(LINUX OR WINDOWS)
-    ADD_CUSTOM_COMMAND(TARGET  ${PROJECT_NAME} POST_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory
-                               ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources)
-ELSEIF(MACOSX)
-    ADD_CUSTOM_COMMAND(TARGET  ${PROJECT_NAME} POST_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory
-                               ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/../Resources)
-ENDIF()
 
 MESSAGE( "CMAKE PROJECT : ${PROJECT_NAME} configured")
