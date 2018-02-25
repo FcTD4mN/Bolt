@@ -17,6 +17,11 @@ public:
     cPosition();
     cPosition( float iX, float iY );
     cPosition( const sf::Vector2f& iVector );
+    cPosition( const cPosition& iPosition );
+
+public:
+    // Copy
+    virtual  cComponent* Clone();
 
 public:
     // Input/Output

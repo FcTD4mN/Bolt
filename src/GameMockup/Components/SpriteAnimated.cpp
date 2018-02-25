@@ -12,17 +12,49 @@ cSpriteAnimated::~cSpriteAnimated()
 }
 
 
+cSpriteAnimated::cSpriteAnimated() :
+    tSuperClass( "spriteanimated" ),
+    mFileName( "empty" ),
+    mSpriteSheet( 0 ),
+    mCurrentSpriteRect( 0, 0, 1, 1 ),
+    mFrameRate( 24.0F )
+{
+}
+
+
 cSpriteAnimated::cSpriteAnimated( const std::string& iFile, int iW, int iH ) :
     tSuperClass( "spriteanimated" ),
     mFileName( iFile ),
-    mCurrentSpriteRect( 0, 0, iW, iH ),
     mSpriteSheet( 0 ),
+    mCurrentSpriteRect( 0, 0, iW, iH ),
     mFrameRate( 24.0F )
 {
-    mSpriteSheet = cResourceManager::Instance()->GetTexture( mFileName );
-    mSprite.setTexture( *mSpriteSheet );
-    mSprite.setTextureRect( mCurrentSpriteRect );
-    mSprite.setOrigin( sf::Vector2f( float(iW/2), float(iH/2) ) );
+    SetSpriteSheet( iFile, iW, iH );
+}
+
+
+cSpriteAnimated::cSpriteAnimated( const cSpriteAnimated & iSpriteAnimated ) :
+    tSuperClass( iSpriteAnimated ),
+    mFileName( iSpriteAnimated.mFileName ),
+    mSpriteSheet( iSpriteAnimated.mSpriteSheet ), // Copy pointer -> Same object, but this is what we want, we don't copy a same texture ( that's why we have a resource manager )
+    mSprite( iSpriteAnimated.mSprite ),
+    mCurrentSpriteRect( iSpriteAnimated.mCurrentSpriteRect ),
+    mFrameRate( iSpriteAnimated.mFrameRate ),
+    mPaused( iSpriteAnimated.mPaused ),
+    mClock( iSpriteAnimated.mClock )
+{
+}
+
+
+// -------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------- Copy
+// -------------------------------------------------------------------------------------
+
+
+cComponent*
+cSpriteAnimated::Clone()
+{
+    return  new cSpriteAnimated( *this );
 }
 
 
@@ -64,6 +96,16 @@ cSpriteAnimated::Unflip()
 }
 
 
+void
+cSpriteAnimated::SetSpriteSheet( const std::string & iFile, int iW, int iH )
+{
+    mSpriteSheet = cResourceManager::Instance()->GetTexture( iFile );
+    mSprite.setTexture( *mSpriteSheet );
+    mSprite.setTextureRect( mCurrentSpriteRect );
+    mSprite.setOrigin( sf::Vector2f( float( iW / 2 ), float( iH / 2 ) ) );
+}
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Input/Output
 // -------------------------------------------------------------------------------------
@@ -91,12 +133,9 @@ cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
     mFrameRate = iNode->FloatAttribute( "framerate", 24.0F );
     mPaused = iNode->BoolAttribute( "paused", false );
 
-    mSpriteSheet = cResourceManager::Instance()->GetTexture( mFileName );
     mCurrentSpriteRect.width = width;
     mCurrentSpriteRect.height = height;
 
-    mSprite.setTexture( *mSpriteSheet );
-    mSprite.setTextureRect( mCurrentSpriteRect );
-    mSprite.setOrigin( sf::Vector2f( float( width / 2 ), float( height / 2 ) ) );
+    SetSpriteSheet( mFileName, width, height );
 }
 

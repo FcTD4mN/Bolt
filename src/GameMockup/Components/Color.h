@@ -17,6 +17,11 @@ public:
     cColor();
     cColor( int iR, int iG, int iB, int iA = 255 );
     cColor( sf::Color );
+    cColor( const cColor& iColor );
+
+public:
+    // Copy
+    virtual  cComponent* Clone();
 
 public:
     // Input/Output

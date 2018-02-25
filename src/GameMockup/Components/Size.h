@@ -17,6 +17,11 @@ public:
     cSize();
     cSize( float iW, float iH );
     cSize( const sf::Vector2f& iVector );
+    cSize( const cSize& iSize );
+
+public:
+    // Copy
+    virtual  cComponent* Clone();
 
 public:
     // Input/Output

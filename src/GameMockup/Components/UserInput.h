@@ -13,6 +13,11 @@ public:
 public:
     virtual  ~cUserInput();
     cUserInput();
+    cUserInput( const cUserInput& iUserInput );
+
+public:
+    // Copy
+    virtual  cComponent* Clone();
 
 public:
     std::vector< std::string > mActions;

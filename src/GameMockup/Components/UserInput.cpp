@@ -17,4 +17,22 @@ cUserInput::cUserInput() :
 }
 
 
+cUserInput::cUserInput( const cUserInput & iUserInput ) :
+    tSuperClass( iUserInput )
+{
+}
+
+
+// -------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------- Copy
+// -------------------------------------------------------------------------------------
+
+
+cComponent*
+cUserInput::Clone()
+{
+    return  new cUserInput( *this );
+}
+
+
 

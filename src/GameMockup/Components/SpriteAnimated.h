@@ -14,7 +14,13 @@ public:
 
 public:
     virtual  ~cSpriteAnimated();
+    cSpriteAnimated();
     cSpriteAnimated( const std::string& iFile, int iW, int iH );
+    cSpriteAnimated( const cSpriteAnimated& iSpriteAnimated );
+
+public:
+    // Copy
+    virtual  cComponent* Clone();
 
 public:
     // Handle functions
@@ -22,6 +28,9 @@ public:
     void  PreviousFrame();
     void  Flip();
     void  Unflip();
+
+public:
+    void SetSpriteSheet( const std::string& iFile, int iW, int iH );
 
 public:
     // Input/Output

@@ -10,6 +10,11 @@ public:
     // Contruction/Destruction
     virtual  ~cComponent() = 0;
     cComponent( const std::string& iName );
+    cComponent( const cComponent& iComponent );
+
+public:
+    // Copy
+    virtual  cComponent* Clone() = 0;
 
 public:
     // Access/Get
@@ -22,7 +27,5 @@ public:
 
 protected:
     std::string mName;
-
-
 };
 
