@@ -1,19 +1,11 @@
 #pragma once
 
-#include <string>
 
-class cEntity;
-
-
-class cEntityParser
+class cComponentRegistry
 {
 public:
     // Contruction/Destruction
-    ~cEntityParser();
-    cEntityParser();
-
-public:
-    // Functions
-    static  cEntity* CreateEntityFromFile( const std::string& iFile );
+    ~cComponentRegistry();
+    cComponentRegistry();
 };
 
