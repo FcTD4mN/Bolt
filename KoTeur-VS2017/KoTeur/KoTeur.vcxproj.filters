@@ -64,6 +64,9 @@
     <Filter Include="Fichiers sources\GUI">
       <UniqueIdentifier>{3e2414e1-847a-4625-bdb6-68016e8fd720}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\BoltScript">
+      <UniqueIdentifier>{6c3a8a3e-fd2d-40fe-937c-0663830d863c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -177,6 +180,9 @@
     <ClCompile Include="..\..\src\GUI\ConsoleWidget.cpp">
       <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\BoltScript\BoltScriptEnvironment.cpp">
+      <Filter>Fichiers sources\BoltScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -286,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GUI\ConsoleWidget.h">
       <Filter>Fichiers sources\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BoltScript\BoltScriptEnvironment.h">
+      <Filter>Fichiers sources\BoltScript</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
