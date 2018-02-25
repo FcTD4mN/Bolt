@@ -183,7 +183,7 @@ cConsoleWidget::BuildEventProcessMaps()
 
 
 // -------------------------------------------------------------------------------------
-// -------------------------------------------------------------- Internal Text Geometry
+// ----------------------------------------------- Internal Text Geometry & Manipulation
 // -------------------------------------------------------------------------------------
 
 
@@ -363,6 +363,18 @@ cConsoleWidget::ClearSelection()
 }
 
 
+std::string
+cConsoleWidget::SelectionString()
+{
+    std::string  inputString = mInputText.getString();
+    int selectionFirstIndex = SelectionFirstIndex();
+    int selectionLastIndex = SelectionLastIndex();
+    int delta = selectionLastIndex - selectionFirstIndex;
+    std::string  str = inputString.substr( selectionFirstIndex, delta );
+    return  str;
+}
+
+
 int
 cConsoleWidget::NVisibleRows()  const
 {
@@ -445,10 +457,6 @@ cConsoleWidget::MoveSelectionRange( int iDelta )
     UpdateSelectionGeometry();
 }
 
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------ Public Text Manipulation
-// -------------------------------------------------------------------------------------
-
 
 void
 cConsoleWidget::ClearInput()
@@ -456,6 +464,7 @@ cConsoleWidget::ClearInput()
     // Clear input content
     mInputText.setString("");
     ResetCursorPosition();
+    BreakSelection();
 }
 
 
@@ -608,30 +617,32 @@ cConsoleWidget::KeyReleased( const sf::Event& iEvent )
 void
 cConsoleWidget::ProcessBackspacePressed()
 {
-    std::string str = mInputText.getString();
-
     if( mSelectionOccuring )
     {
         ClearSelection();
     }
     else
     {
+        std::string str = mInputText.getString();
+
         if( str.length() && mCursorIndex > 0 )
         {
             str.erase( mCursorIndex-1, 1 );
             mInputText.setString( str );
             DecrementCursorPosition();
         }
-    }
 
-    BreakSelection();
+        BreakSelection();
+    }
 }
 
 
 void
 cConsoleWidget::ProcessTabPressed()
 {
-    // Append tab str text content to input content
+    // Inset tab str text ( N whitespaces ) content to input content
+
+    // Build str text ( N whitespaces )
     int nTabToWhiteSpace = DEFAULT_TAB_WHITESPACE;
     std::string tabStr = "";
     for( int i = 0; i < nTabToWhiteSpace; ++i )
@@ -648,7 +659,6 @@ cConsoleWidget::ProcessTabPressed()
     resultStr.insert( mCursorIndex, tabStr );
     mInputText.setString( resultStr );
     MoveCursorPosition( int( tabStr.length() ) );
-
     BreakSelection();
 }
 
@@ -656,8 +666,6 @@ cConsoleWidget::ProcessTabPressed()
 void
 cConsoleWidget::ProcessReturnPressed()
 {
-    std::string inputStr = mInputText.getString();
-
     // Shift output rows content upwards
     for( int i = 0; i < NVisibleRows() -2; ++i )
     {
@@ -666,10 +674,10 @@ cConsoleWidget::ProcessReturnPressed()
     }
 
     // Set last output row content with input content
+    std::string inputStr = mInputText.getString();
     mOutputTextLines.back().setString( inputStr );
 
     ClearInput();
-    BreakSelection();
 }
 
 
@@ -677,7 +685,6 @@ void
 cConsoleWidget::ProcessEscapePressed()
 {
     ClearInput();
-    BreakSelection();
 }
 
 
@@ -714,14 +721,13 @@ cConsoleWidget::ProcessEndPressed()
 void
 cConsoleWidget::ProcessDeletePressed()
 {
-    std::string str = mInputText.getString();
-
     if( mSelectionOccuring )
     {
         ClearSelection();
     }
     else
     {
+        std::string str = mInputText.getString();
         if( str.length() && mCursorIndex < str.length() )
         {
             str.erase( mCursorIndex, 1 );
@@ -750,12 +756,7 @@ cConsoleWidget::ProcessCTRLCPressed()
     if( !mSelectionOccuring )
         return;
 
-    std::string  inputString = mInputText.getString();
-
-    int selectionFirstIndex = SelectionFirstIndex();
-    int selectionLastIndex = SelectionLastIndex();
-    int delta = selectionLastIndex - selectionFirstIndex;
-    std::string  str = inputString.substr( selectionFirstIndex, delta );
+    std::string  str = SelectionString();
     SetClipboardText( str );
 }
 
@@ -768,7 +769,6 @@ cConsoleWidget::ProcessCTRLXPressed()
 
     ProcessCTRLCPressed();
     ClearSelection();
-    BreakSelection();
 }
 
 
@@ -776,9 +776,7 @@ void
 cConsoleWidget::ProcessCTRLVPressed()
 {
     if( mSelectionOccuring )
-    {
         ClearSelection();
-    }
 
     // Append clipboard text content to input content
     std::string clipboardStr = GetClipboardText();

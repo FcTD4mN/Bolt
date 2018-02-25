@@ -30,7 +30,7 @@ private:
     void    BuildEventProcessMaps();
 
 private:
-    // Internal Text Geometry
+    // Internal Text Geometry & Manipulation
     void    UpdateGeometryAndStyle( bool  iNoUpdate = false );
     int     SelectionFirstIndex();
     int     SelectionLastIndex();
@@ -39,6 +39,7 @@ private:
     int     DeltaToPrevWord();
     void    BreakSelection();
     void    ClearSelection();
+    std::string  SelectionString();
 
     int     NVisibleRows()  const;
     void    IncrementCursorPosition();
@@ -48,9 +49,6 @@ private:
     void    UpdateCursorPosition();
     void    MatchCursorPosition();
     void    MoveSelectionRange( int iDelta );
-
-private:
-    // Public Text Manipulation
     void    ClearInput();
 
 public:
