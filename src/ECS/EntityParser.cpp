@@ -56,20 +56,28 @@ cEntityParser::Initialize()
 
     for( int i = 0; i < mAllEntityFiles.size(); ++i )
     {
-        //tinyxml2::XMLError error = doc.LoadFile( "test.xml" );
-        //if( !error )
+        std::wstring file = mAllEntityFiles[ i ];
+        std::string conversion( file.begin(), file.end() );
 
+        tinyxml2::XMLError error = doc.LoadFile( conversion.c_str() );
+        if( error )
+            continue;
 
-        //cGameApplication::App()->World()->LoadXML( doc.FirstChildElement( "world" ) )
+        cEntity* entity = new cEntity( cGameApplication::App()->World() );
+        entity->LoadXML( doc.FirstChildElement( "entity" ) );
 
+        mEntities[ entity->ID() ] = entity;
     }
-
 }
 
 
 void
 cEntityParser::Finalize()
 {
+    for( auto it = mEntities.begin(); it != mEntities.end(); ++it )
+    {
+        delete  it->second;
+    }
 }
 
 
@@ -92,13 +100,13 @@ cEntityParser::WinParseEntityDir()
 
     std::wstring file( finddata.cFileName );
     if( ( file != L"." ) && ( file != L".." ) )
-        mAllEntityFiles.push_back( file );
+        mAllEntityFiles.push_back( L"resources/Entities/" + file );
 
     while( FindNextFileW( f, &finddata ) )
     {
         std::wstring file( finddata.cFileName );
         if( ( file != L"." ) && ( file != L".." ) )
-            mAllEntityFiles.push_back( file );
+            mAllEntityFiles.push_back( L"resources/Entities/" + file );
     }
 
     FindClose( f );
@@ -110,7 +118,6 @@ cEntityParser::WinParseEntityDir()
 // -------------------------------------------------------------------------------------
 
 
-// static
 cEntity*
 cEntityParser::CreateEntityFromFile( const std::string& iFile )
 {
@@ -123,5 +130,17 @@ cEntityParser::CreateEntityFromFile( const std::string& iFile )
     entity->LoadXML( doc.FirstChildElement( "entity" ) );
 
     return  entity;
+}
+
+
+cEntity*
+cEntityParser::CreateEntityFromPrototypeMap( const std::string& iEntityName )
+{
+    // Safety approach
+    cEntity* proto = mEntities[ iEntityName ];
+    if( proto )
+        return  mEntities[ iEntityName ]->Clone();
+    else
+        return  0;
 }
 

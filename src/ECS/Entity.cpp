@@ -33,6 +33,34 @@ cEntity::cEntity( cWorld* iWorld ) :
 }
 
 
+cEntity::cEntity( const cEntity& iEntity ) :
+    mWorld( iEntity.mWorld ),
+    mID( iEntity.mID + "c" + std::to_string( sgEntityCount ) ),
+    mComponents(),                                  // This will need to get copied
+    mTags( iEntity.mTags ),                         // This can be copied, as there is no pointer
+    mObserverSystems( iEntity.mObserverSystems ),   // Same systems will observe this entity
+    mLoaded( iEntity.mLoaded ),
+    mDead( iEntity.mDead )
+{
+    for( auto it = iEntity.mComponents.begin(); it != iEntity.mComponents.end(); ++it )
+    {
+        mComponents[ it->first ] = it->second->Clone();
+    }
+}
+
+
+// -------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------- Copy
+// -------------------------------------------------------------------------------------
+
+
+cEntity*
+cEntity::Clone()
+{
+    return  new cEntity( *this );
+}
+
+
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------- Components
 // -------------------------------------------------------------------------------------
@@ -110,6 +138,13 @@ void
 cEntity::SetLoaded()
 {
     mLoaded = true;
+}
+
+
+const std::string&
+cEntity::ID() const
+{
+    return  mID;
 }
 
 

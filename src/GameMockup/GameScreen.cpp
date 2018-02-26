@@ -121,14 +121,34 @@ cGameScreen::KeyReleased( const sf::Event& iEvent )
 {
     // Does nothing
     if( iEvent.key.code == sf::Keyboard::Key::S )
+    {
         SaveXML();
+    }
     else if( iEvent.key.code == sf::Keyboard::Key::L )
+    {
         LoadXML();
+    }
     else if( iEvent.key.code == sf::Keyboard::Key::T )
     {
-        cEntity* entity = cEntityParser::CreateEntityFromFile( "resources/Entities/test.entity" );
+        cEntity* entity = cEntityParser::Instance()->CreateEntityFromFile( "resources/Entities/test.entity" );
         cGameApplication::App()->World()->AddEntity( entity );
     }
+    else if( iEvent.key.code == sf::Keyboard::Key::A )
+    {
+        cEntity* entity = cEntityParser::Instance()->CreateEntityFromPrototypeMap( "entA" );
+        cGameApplication::App()->World()->AddEntity( entity );
+    }
+    else if( iEvent.key.code == sf::Keyboard::Key::B )
+    {
+        cEntity* entity = cEntityParser::Instance()->CreateEntityFromPrototypeMap( "entB" );
+        cGameApplication::App()->World()->AddEntity( entity );
+    }
+    else if( iEvent.key.code == sf::Keyboard::Key::C )
+    {
+        cEntity* entity = cEntityParser::Instance()->CreateEntityFromPrototypeMap( "testUltime" );
+        cGameApplication::App()->World()->AddEntity( entity );
+    }
+
 }
 
 

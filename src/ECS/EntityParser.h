@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 class cEntity;
 
@@ -28,7 +29,8 @@ public:
 
 public:
     // Functions
-    static  cEntity* CreateEntityFromFile( const std::string& iFile );
+    cEntity* CreateEntityFromFile( const std::string& iFile );
+    cEntity* CreateEntityFromPrototypeMap( const std::string& iEntityName );
 
 private:
     std::vector< std::wstring > mAllEntityFiles;

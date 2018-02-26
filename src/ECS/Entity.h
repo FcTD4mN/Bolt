@@ -16,6 +16,11 @@ public:
     // Contruction/Destruction
     ~cEntity();
     cEntity( cWorld* iWorld );
+    cEntity( const cEntity& iEntity );
+
+public:
+    // Copy
+    cEntity * Clone();
 
 public:
     // Components
@@ -31,8 +36,10 @@ public:
     bool  HasTag( const std::string& iTag );
 
 public:
+    // Access/Get
     bool IsDead() const;
     void SetLoaded();
+    const std::string& ID() const;
 
 public:
     // Input/Output

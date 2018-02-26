@@ -1,4 +1,4 @@
-<entity id="testUltime">
+<entity id="entB">
 	<components>
 		<component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
 		<component name="position" x="500" y="10"/>
