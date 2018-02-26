@@ -88,9 +88,9 @@ cConsoleWidget::cConsoleWidget() :
         this->Print( iStr );
     };
 
-    ::nBoltScript::Env()->Print( "Script Output Redirection is going to switch to SFML Console \r\n");
+    ::nBoltScript::Env()->Print( std::string( __FUNCTION__ ) + ">>: " + "Script Output Redirection is going to switch to SFML Console \r\n");
     ::nBoltScript::Env()->SetOutputRedirectionFunction( f );
-    ::nBoltScript::Env()->Print( "Script Output Redirection changed to SFML Console \r\n");
+    ::nBoltScript::Env()->Print( std::string( __FUNCTION__ ) + ">>: " + "Script Output Redirection has switched to SFML Console \r\n");
 }
 
 
