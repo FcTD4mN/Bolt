@@ -1,5 +1,28 @@
 <world>
     <entities>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="10" y="10"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="431" y="208"/>
+                <component name="userinput"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="152" y="61"/>
+                <component name="userinput"/>
+            </components>
+            <tags/>
+        </entity>
         <entity id="idontknow0">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
@@ -73,7 +96,7 @@
         <entity id="idontknow10">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="185" y="202"/>
+                <component name="position" x="138" y="73"/>
                 <component name="userinput"/>
             </components>
             <tags>

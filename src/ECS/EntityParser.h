@@ -23,10 +23,15 @@ public:
     void  Finalize();
 
 public:
+    // TOMOVE
+    void  WinParseEntityDir();
+
+public:
     // Functions
     static  cEntity* CreateEntityFromFile( const std::string& iFile );
 
 private:
-    std::vector< std::wstring > mEntities;
+    std::vector< std::wstring > mAllEntityFiles;
+    std::unordered_map< std::string, cEntity* > mEntities;
 };
 

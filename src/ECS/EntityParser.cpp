@@ -51,6 +51,36 @@ cEntityParser::Instance()
 void
 cEntityParser::Initialize()
 {
+    WinParseEntityDir();
+    tinyxml2::XMLDocument doc;
+
+    for( int i = 0; i < mAllEntityFiles.size(); ++i )
+    {
+        //tinyxml2::XMLError error = doc.LoadFile( "test.xml" );
+        //if( !error )
+
+
+        //cGameApplication::App()->World()->LoadXML( doc.FirstChildElement( "world" ) )
+
+    }
+
+}
+
+
+void
+cEntityParser::Finalize()
+{
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ TOMOVE
+// -------------------------------------------------------------------------------------
+
+
+void
+cEntityParser::WinParseEntityDir()
+{
     //TODO: Create a file manager class to handle every OS, or find a way with sfml
     WIN32_FIND_DATAW  finddata;
 
@@ -62,22 +92,16 @@ cEntityParser::Initialize()
 
     std::wstring file( finddata.cFileName );
     if( ( file != L"." ) && ( file != L".." ) )
-        mEntities.push_back( file );
+        mAllEntityFiles.push_back( file );
 
     while( FindNextFileW( f, &finddata ) )
     {
         std::wstring file( finddata.cFileName );
         if( ( file != L"." ) && ( file != L".." ) )
-            mEntities.push_back( file );
+            mAllEntityFiles.push_back( file );
     }
 
     FindClose( f );
-}
-
-
-void
-cEntityParser::Finalize()
-{
 }
 
 
