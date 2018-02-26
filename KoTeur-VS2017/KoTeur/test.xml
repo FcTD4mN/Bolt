@@ -3,77 +3,77 @@
         <entity id="idontknow0">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="217" y="10"/>
+                <component name="position" x="535" y="119"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow1">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="538" y="189"/>
+                <component name="position" x="465" y="379"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow2">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="590" y="83"/>
+                <component name="position" x="414" y="315"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow3">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="753" y="418"/>
+                <component name="position" x="488" y="535"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow4">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="454" y="454"/>
+                <component name="position" x="357" y="322"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow5">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="616" y="242"/>
+                <component name="position" x="733" y="35"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow6">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="476" y="461"/>
+                <component name="position" x="766" y="544"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow7">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="410" y="39"/>
+                <component name="position" x="586" y="358"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow8">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="584" y="421"/>
+                <component name="position" x="152" y="435"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow9">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="302" y="367"/>
+                <component name="position" x="350" y="51"/>
             </components>
             <tags/>
         </entity>
         <entity id="idontknow10">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="400" y="300"/>
+                <component name="position" x="185" y="202"/>
                 <component name="userinput"/>
             </components>
             <tags>

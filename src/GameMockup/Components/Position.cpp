@@ -71,6 +71,5 @@ cPosition::LoadXML( tinyxml2::XMLElement* iNode )
     tSuperClass::LoadXML( iNode );
     mPosition.x = iNode->FloatAttribute( "x", 0.0F );
     mPosition.y = iNode->FloatAttribute( "y", 0.0F );
-
 }
 

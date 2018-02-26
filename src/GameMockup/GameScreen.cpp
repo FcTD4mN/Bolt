@@ -36,10 +36,10 @@ cGameScreen::cGameScreen()
 void
 cGameScreen::Initialize()
 {
-    sf::Window* window = cGameApplication::App()->Window();
-    sf::Vector2u size = window->getSize();
+    //sf::Window* window = cGameApplication::App()->Window();
+    //sf::Vector2u size = window->getSize();
 
-    cWorld* world = cGameApplication::App()->World();
+    //cWorld* world = cGameApplication::App()->World();
 
     //for( int i = 0; i < 10; ++i )
     //{
@@ -56,17 +56,17 @@ cGameScreen::Initialize()
     //    world->AddEntity( ent );
     //}
 
-    cEntity* ent = new cEntity( world );
-    cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
-    animation->mFrameRate = 24;
-    animation->mPaused = false;
+    //cEntity* ent = new cEntity( world );
+    //cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
+    //animation->mFrameRate = 24;
+    //animation->mPaused = false;
 
-    ent->AddComponent( animation );
-    ent->AddComponent( new cPosition( 400.0, 300.0 ) );
-    ent->AddComponent( new cUserInput() );
-    ent->AddTag( "Un" );
-    ent->AddTag( "Deux" );
-    world->AddEntity( ent );
+    //ent->AddComponent( animation );
+    //ent->AddComponent( new cPosition( 400.0, 300.0 ) );
+    //ent->AddComponent( new cUserInput() );
+    //ent->AddTag( "Un" );
+    //ent->AddTag( "Deux" );
+    //world->AddEntity( ent );
 
 }
 
@@ -124,6 +124,11 @@ cGameScreen::KeyReleased( const sf::Event& iEvent )
         SaveXML();
     else if( iEvent.key.code == sf::Keyboard::Key::L )
         LoadXML();
+    else if( iEvent.key.code == sf::Keyboard::Key::T )
+    {
+        cEntity* entity = cEntityParser::CreateEntityFromFile( "resources/Entities/test.entity" );
+        cGameApplication::App()->World()->AddEntity( entity );
+    }
 }
 
 

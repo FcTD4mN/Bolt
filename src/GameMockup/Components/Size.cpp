@@ -71,6 +71,5 @@ cSize::LoadXML( tinyxml2::XMLElement* iNode )
     tSuperClass::LoadXML( iNode );
     mSize.x = iNode->FloatAttribute( "w", 0.0F );
     mSize.y = iNode->FloatAttribute( "h", 0.0F );
-
 }
 
