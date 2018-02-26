@@ -189,6 +189,9 @@
     <ClCompile Include="..\..\src\Benchmark\Benchmark.cpp">
       <Filter>Fichiers sources\Benchmark</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Text.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Benchmark\Benchmark.h">
       <Filter>Fichiers sources\Benchmark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Text.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

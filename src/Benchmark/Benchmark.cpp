@@ -1,4 +1,20 @@
 #include "Benchmark.h"
+
+
+
+#include "ECS/World.h"
+#include "ECS/Entity.h"
+#include "ECS/Component.h"
+
+
+#include "GameMockup/Components/Text.h"
+#include "GameMockup/Components/Color.h"
+#include "GameMockup/Components/Size.h"
+#include "GameMockup/Components/Position.h"
+#include "GameMockup/Systems/InputConverter.h"
+#include "GameMockup/Systems/SimplerRenderer.h"
+
+
 #include <iostream>
 #include <chrono>
 #include <vector>
@@ -16,7 +32,7 @@ namespace  nBenchmark
 		int			value;
 	};
 
-	void Benchmark( int iSize, long long* oVecResult, long long* oHMapResult, long long* oMapResult )
+	void VectorVsHMapvsMapBenchmark( int iSize, long long* oVecResult, long long* oHMapResult, long long* oMapResult )
 	{
 		int SIZE = iSize;
 		int LAST = SIZE-1;
@@ -71,7 +87,7 @@ namespace  nBenchmark
 		*oMapResult = end.count();
 	}
 
-	void Run()
+	void RunVectorVsHMapvsMapBenchmark()
 	{
 		long long vecresult = 0;
 		long long hmapresult = 0;
@@ -84,7 +100,7 @@ namespace  nBenchmark
 			long long currentvecresult = 0;
 			long long currenthmapresult = 0;
 			long long currentmapresult = 0;
-			Benchmark( size, &currentvecresult, &currenthmapresult, &currentmapresult );
+			VectorVsHMapvsMapBenchmark( size, &currentvecresult, &currenthmapresult, &currentmapresult );
 
 			vecresult += currentvecresult;
 			hmapresult += currenthmapresult;
@@ -103,6 +119,49 @@ namespace  nBenchmark
 		int dummy = 0;
 		std::cin >> dummy;
 	}
+
+
+
+
+
+    void EntityStressTest()
+    {
+        cWorld* world = new cWorld();
+
+        auto start = std::chrono::high_resolution_clock::now();
+
+        for( int i = 1; i <= 100; ++i )
+        {
+            cEntity* ent = new cEntity( world );
+            ent->AddComponent( new cSize( 10.0F, 10.0F ) );
+            ent->AddComponent( new cPosition( 10.0F, 100.0F ) );
+            ent->AddComponent( new cText( "Test" ) );
+            ent->AddComponent( new cColor( 255, 255, 0, 255 ) );
+
+            world->AddEntity( ent );
+
+            world->AddSystem( new cInputConverter() );
+            world->AddSystem( new cSimplerRenderer() );
+        }
+
+        auto end = std::chrono::high_resolution_clock::now() - start;
+        std::cout << "Creation time : " << std::to_string( end.count() ) << std::endl;
+
+
+        start = std::chrono::high_resolution_clock::now();
+
+        for( int i = 1; i <= 1000; ++i )
+            world->Update( i );
+
+        end = std::chrono::high_resolution_clock::now() - start;
+        std::cout << "Run time : " << std::to_string( end.count() ) << std::endl;
+    }
+
+
+
+
+
+
 
 }  // namespace  nBenchmark
 

@@ -15,8 +15,12 @@
 int main()
 {
 	/*
-	nBenchmark::Run();
+	nBenchmark::RunVectorVsHMapvsMapBenchmark();
+
 	*/
+    nBenchmark::EntityStressTest();
+
+    return  0;
 
     srand( unsigned int(time( NULL )) );
 

@@ -244,6 +244,7 @@
     <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\SpriteAnimated.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\Text.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\UserInput.cpp" />
     <ClCompile Include="..\..\src\GameMockup\ConsoleScreen.cpp" />
     <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="..\..\src\GameMockup\Components\Position.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Size.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\SpriteAnimated.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\Text.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\UserInput.h" />
     <ClInclude Include="..\..\src\GameMockup\ConsoleScreen.h" />
     <ClInclude Include="..\..\src\GameMockup\GameApplication.h" />

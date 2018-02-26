@@ -9,6 +9,9 @@ class cComponent;
 class cSystem;
 class cWorld;
 
+
+
+/*
 namespace
 {
     struct sPair
@@ -67,13 +70,13 @@ private:
     bool                        mDead;              // The entity is dead and shall be removed from world
 
 };
-
+*/
 
 // =================================================
 // ========== VERSION UNORDERED_MAP ================
 // =================================================
 
-/*
+
     class cEntity
     {
 
@@ -122,6 +125,6 @@ private:
         bool                                            mDead;              // The entity is dead and shall be removed from world
 
     };
-*/
+
 
 
