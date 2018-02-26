@@ -1,4 +1,7 @@
 #include <SFML/Graphics.hpp>
+
+
+#include "BoltScript/BoltScriptEnvironment.h"
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/ConsoleScreen.h"
@@ -14,13 +17,12 @@
 
 int main()
 {
-	/*
-	nBenchmark::RunVectorVsHMapvsMapBenchmark();
+    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->Print( "Script Output Redirection To Native Console \r\n");
+    /*
+    nBenchmark::RunVectorVsHMapvsMapBenchmark();
 
-	*/
+    */
     nBenchmark::EntityStressTest();
-
-    return  0;
 
     srand( unsigned int(time( NULL )) );
 

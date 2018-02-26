@@ -144,8 +144,6 @@ private:
     sf::Font                 mFont;
     sf::Text                 mInputText;
     std::vector< sf::Text >  mOutputTextLines;
-
-    ::nBoltScript::cBoltScriptEnvironment*  mScriptEnvironment;
 };
 
 

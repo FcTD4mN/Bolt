@@ -62,8 +62,7 @@ cConsoleWidget::cConsoleWidget() :
     mBackgroundColor(),
     mFont(),
     mInputText(),
-    mOutputTextLines(),
-    mScriptEnvironment( 0 )
+    mOutputTextLines()
 {
     BuildEventProcessMaps();
 
@@ -89,7 +88,9 @@ cConsoleWidget::cConsoleWidget() :
         this->Print( iStr );
     };
 
-    mScriptEnvironment = new  ::nBoltScript::cBoltScriptEnvironment( f );
+    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->Print( "Script Output Redirection is going to switch to SFML Console \r\n");
+    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->SetOutputRedirectionFunction( f );
+    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->Print( "Script Output Redirection changed to SFML Console \r\n");
 }
 
 
@@ -222,19 +223,39 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
     mConsoleRectangle.setFillColor( mBackgroundColor );
 
     int  nOutputTextLines = NVisibleRows() -1; // -1 because 1 line is reserved for input text.
+    int oldSize = int( mOutputTextLines.size() );
+    std::vector< std::string > linesBackup( oldSize );
+    for( int i = 0; i < oldSize; ++i )
+    {
+        linesBackup.push_back( mOutputTextLines[i].getString() );
+    }
+
+    mOutputTextLines.clear();
+    mOutputTextLines.reserve( nOutputTextLines+1 );
     mOutputTextLines.resize( nOutputTextLines );
+
     for( int i = 0; i < nOutputTextLines; ++i )
     {
         mOutputTextLines[i].setFont( mFont );
         mOutputTextLines[i].setCharacterSize( DEFAULT_FONT_SIZE );
         mOutputTextLines[i].setFillColor( DEFAULT_FONT_COLOR );
-        mOutputTextLines[i].setString( "" );
         float x = 0;
         float y = float( i * DEFAULT_LINE_HEIGHT );
         sf::Vector2f  outputLinePosition = sf::Vector2f( x, y );
         mOutputTextLines[i].setPosition( outputLinePosition );
     }
-    
+
+    int currentBackupIndex = nOutputTextLines-1;
+    while( linesBackup.size() )
+    {
+        if( currentBackupIndex < 0 )
+            return;
+
+        mOutputTextLines[currentBackupIndex].setString( linesBackup.back() );
+        linesBackup.pop_back();
+        --currentBackupIndex;
+    }
+
     float x = 0;
     float y = float( nOutputTextLines * DEFAULT_LINE_HEIGHT );
     sf::Vector2f  inputLinePosition = sf::Vector2f( x, y );
@@ -518,7 +539,7 @@ cConsoleWidget::Print( const  std::string&  iStr )
         std::string currentOutputStr = mOutputTextLines[i + 1 ].getString();
         mOutputTextLines[i].setString( currentOutputStr );
     }
-    
+
     mOutputTextLines.back().setString( iStr );
 }
 
@@ -526,7 +547,7 @@ cConsoleWidget::Print( const  std::string&  iStr )
 void
 cConsoleWidget::ProcessInput( const  std::string&  iStr )
 {
-    mScriptEnvironment->ProcessRawString( iStr );
+    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->ProcessRawString( iStr );
 }
 
 // -------------------------------------------------------------------------------------
@@ -785,7 +806,7 @@ cConsoleWidget::ProcessCTRLVPressed()
 
     // Append clipboard text content to input content
     std::string clipboardStr = GetClipboardText();
-    int end = clipboardStr.find( '\r\n' );
+    int end = int( clipboardStr.find( char( '\r\n' ) ) );
     clipboardStr = clipboardStr.substr( 0, end );
 
     std::string inputStr = mInputText.getString();

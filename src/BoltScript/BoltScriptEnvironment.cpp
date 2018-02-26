@@ -22,6 +22,37 @@ cBoltScriptEnvironment::cBoltScriptEnvironment( std::function< void( const  std:
 
 
 // -------------------------------------------------------------------------------------
+// ------------------------------------------------------------ Singleton GTRUX accessor
+// -------------------------------------------------------------------------------------
+
+
+// static
+cBoltScriptEnvironment*
+cBoltScriptEnvironment::BoltScriptEnvironment()
+{
+    static cBoltScriptEnvironment* gBoltScriptEnvironment = 0;
+
+    if( !gBoltScriptEnvironment )
+    {
+        std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
+            cBoltScriptEnvironment::DefaultOutputRedirectionFunction( iStr );
+        };
+        gBoltScriptEnvironment = new cBoltScriptEnvironment( f );
+    }
+
+    return  gBoltScriptEnvironment;
+}
+
+
+
+//static
+void
+cBoltScriptEnvironment::DefaultOutputRedirectionFunction( const  std::string&  iStr )
+{
+    printf( iStr.c_str() );
+}
+
+// -------------------------------------------------------------------------------------
 // --------------------------------------------------------- Public Processing Interface
 // -------------------------------------------------------------------------------------
 
@@ -29,16 +60,30 @@ cBoltScriptEnvironment::cBoltScriptEnvironment( std::function< void( const  std:
 void
 cBoltScriptEnvironment::ProcessRawString( const  std::string&  iStr )
 {
-    mOutputRedirectionFunction( iStr );
+    Print( iStr );
 
     if( iStr == "BOLT" )
     {
-        mOutputRedirectionFunction( "xxx  xxxx x    xxxxx" );
-        mOutputRedirectionFunction( "x x  x  x x      x  " );
-        mOutputRedirectionFunction( "xxxx x  x x      x  " );
-        mOutputRedirectionFunction( "x  x x  x x      x  " );
-        mOutputRedirectionFunction( "xxxx xxxx xxxx   x  " );
+        Print( "xxx  xxxx x    xxxxx" );
+        Print( "x x  x  x x      x  " );
+        Print( "xxxx x  x x      x  " );
+        Print( "x  x x  x x      x  " );
+        Print( "xxxx xxxx xxxx   x  " );
     }
+}
+
+
+void
+cBoltScriptEnvironment::Print( const  std::string&  iStr )
+{
+    mOutputRedirectionFunction( iStr );
+}
+
+
+void
+cBoltScriptEnvironment::SetOutputRedirectionFunction( std::function<void( const  std::string& )> iOutputRedirectionFunction )
+{
+    mOutputRedirectionFunction = iOutputRedirectionFunction;
 }
 
 
