@@ -4,6 +4,7 @@
 #include "ECS/Entity.h"
 #include "ECS/World.h"
 #include "ECS/ComponentRegistry.h"
+#include "ECS/EntityParser.h"
 
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/Systems/AnimationRenderer.h"
@@ -79,6 +80,7 @@ cGameApplication::Initialize()
     tSuperClass::Initialize();
 
     cComponentRegistry::Instance()->Initialize();
+    cEntityParser::Instance()->Initialize();
 
     // =========== GENERAL CONFIG ===========
     mMainWindow->setKeyRepeatEnabled( false );

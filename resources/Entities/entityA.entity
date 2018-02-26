@@ -1,7 +1,7 @@
 <entity id="testUltime">
 	<components>
 		<component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-		<component name="position" x="10" y="10"/>
+		<component name="position" x="10" y="500"/>
 	</components>
 	<tags/>
 </entity>
