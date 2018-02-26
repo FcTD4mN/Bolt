@@ -10,10 +10,14 @@
 #include "MainMenu/MenuItem/MenuItem.Callback.h"
 #include "Math/Rectangle.h"
 
-#include <iostream>
+#include "Benchmark/Benchmark.h"
 
 int main()
 {
+	/*
+	nBenchmark::Run();
+	*/
+
     srand( unsigned int(time( NULL )) );
 
     cGameApplication* app = cGameApplication::App();
@@ -40,7 +44,6 @@ int main()
             app->HandleEvents( event );
         }
 
-
         app->Update( frameTime.asMilliseconds() );
         app->Window()->clear( sf::Color( 200, 200, 200 ) );
         app->Draw( app->Window() );
@@ -53,9 +56,6 @@ int main()
             rect.setFillColor( sf::Color( 10, 10, 255, 255 ) );
             rect.setSize( sf::Vector2f( 50, 50 ) );
             window->draw( rect );
-
-            float fps = 1 / frameTime.asSeconds();
-            std::cout << std::to_string( fps ) << std::endl;
         }
         // PERF TESTS============================================================
 

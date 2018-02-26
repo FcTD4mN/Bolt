@@ -214,7 +214,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Libraries\SFML-2.4.2\include;C:\Users\admin\BOLT\Bolt\extlibs\tinyxml2;A:\Programmation\Bolt\extlibs\tinyxml2;E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Users\Ahmed\Bolt\inc\SFML-2.4.2-windows-vc14-64-bit(1)\SFML-2.4.2\include;%(AdditionalIncludeDirectories);C:\Users\Ahmed\Bolt\inc\SFML-2.4.2-windows-vc14-64-bit(1)\SFML-2.4.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Libraries\SFML-2.4.2\include;C:\Users\admin\BOLT\Bolt\extlibs\tinyxml2;A:\Programmation\Bolt\extlibs\tinyxml2;E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Users\Ahmed\Bolt\inc\SFML-2.4.2-windows-vc14-64-bit(1)\SFML-2.4.2\include;$(SolutionDir)\..\extlibs\tinyxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -232,6 +232,7 @@
     <ClCompile Include="..\..\src\Base\ClipboardWin32.cpp" />
     <ClCompile Include="..\..\src\Base\Drawable.cpp" />
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\Benchmark\Benchmark.cpp" />
     <ClCompile Include="..\..\src\BoltScript\BoltScriptEnvironment.cpp" />
     <ClCompile Include="..\..\src\ECS\Component.cpp" />
     <ClCompile Include="..\..\src\ECS\ComponentRegistry.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="..\..\src\Base\Drawable.h" />
     <ClInclude Include="..\..\src\Base\GeneralEnums.h" />
     <ClInclude Include="..\..\src\Base\ResourceManager.h" />
+    <ClInclude Include="..\..\src\Benchmark\Benchmark.h" />
     <ClInclude Include="..\..\src\BoltScript\BoltScriptEnvironment.h" />
     <ClInclude Include="..\..\src\ECS\Component.h" />
     <ClInclude Include="..\..\src\ECS\ComponentRegistry.h" />

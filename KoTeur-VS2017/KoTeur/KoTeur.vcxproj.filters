@@ -67,6 +67,9 @@
     <Filter Include="Fichiers sources\BoltScript">
       <UniqueIdentifier>{6c3a8a3e-fd2d-40fe-937c-0663830d863c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Benchmark">
+      <UniqueIdentifier>{f1202c71-c577-4710-91db-9a8f8da3112e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -183,6 +186,9 @@
     <ClCompile Include="..\..\src\BoltScript\BoltScriptEnvironment.cpp">
       <Filter>Fichiers sources\BoltScript</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Benchmark\Benchmark.cpp">
+      <Filter>Fichiers sources\Benchmark</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h">
@@ -295,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\BoltScript\BoltScriptEnvironment.h">
       <Filter>Fichiers sources\BoltScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Benchmark\Benchmark.h">
+      <Filter>Fichiers sources\Benchmark</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
