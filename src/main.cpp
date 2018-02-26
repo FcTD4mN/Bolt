@@ -17,7 +17,7 @@
 
 int main()
 {
-    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->Print( "Script Output Redirection To Native Console \r\n");
+    ::nBoltScript::Env()->Print( "Script Output Redirection To Native Console \r\n");
     /*
     nBenchmark::RunVectorVsHMapvsMapBenchmark();
 

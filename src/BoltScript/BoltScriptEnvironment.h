@@ -37,5 +37,9 @@ private:
 };
 
 
+// Wrapping accessor
+cBoltScriptEnvironment*  Env();
+
+
 }  // namespace  nBoltScript
 

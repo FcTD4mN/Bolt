@@ -88,9 +88,9 @@ cConsoleWidget::cConsoleWidget() :
         this->Print( iStr );
     };
 
-    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->Print( "Script Output Redirection is going to switch to SFML Console \r\n");
-    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->SetOutputRedirectionFunction( f );
-    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->Print( "Script Output Redirection changed to SFML Console \r\n");
+    ::nBoltScript::Env()->Print( "Script Output Redirection is going to switch to SFML Console \r\n");
+    ::nBoltScript::Env()->SetOutputRedirectionFunction( f );
+    ::nBoltScript::Env()->Print( "Script Output Redirection changed to SFML Console \r\n");
 }
 
 
@@ -547,7 +547,7 @@ cConsoleWidget::Print( const  std::string&  iStr )
 void
 cConsoleWidget::ProcessInput( const  std::string&  iStr )
 {
-    ::nBoltScript::cBoltScriptEnvironment::BoltScriptEnvironment()->ProcessRawString( iStr );
+    ::nBoltScript::Env()->ProcessRawString( iStr );
 }
 
 // -------------------------------------------------------------------------------------

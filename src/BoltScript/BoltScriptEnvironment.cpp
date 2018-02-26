@@ -87,5 +87,14 @@ cBoltScriptEnvironment::SetOutputRedirectionFunction( std::function<void( const 
 }
 
 
+
+// Wrapping accessor
+cBoltScriptEnvironment*
+Env()
+{
+    return  cBoltScriptEnvironment::BoltScriptEnvironment();
+}
+
+
 }  // namespace  nBoltScript
 
