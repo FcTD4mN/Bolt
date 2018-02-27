@@ -48,6 +48,8 @@ cSimplePhysics::Finalize()
 void
 cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
 {
+#ifdef _DEBUG
+
     sf::RectangleShape rect( sf::Vector2f( 10,10 ) );
 
     for( int i = 0; i < mEntityGroup.size(); ++i )
@@ -79,6 +81,8 @@ cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
             iRenderTarget->draw( lines );
         }
     }
+
+#endif // _DEBUG
 }
 
 
