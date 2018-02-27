@@ -96,7 +96,8 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             }
         }
 
-        if( !collided )
+
+        if( !collided && ( simplephysic->mVelocity.x != 0.0F || simplephysic->mVelocity.y != 0.0F ) )
         {
             // Remove Entity before changing its position, so it's quick and easy
             mEntityMap.RemoveEntityNotUpdated( entity );
