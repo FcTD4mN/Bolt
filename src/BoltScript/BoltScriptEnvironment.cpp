@@ -71,6 +71,12 @@ cBoltScriptEnvironment::ResetOutputRedirectionFunction()
 void
 cBoltScriptEnvironment::ProcessRawString( const  std::string&  iStr )
 {
+    if( iStr == "" )
+    {
+        Print( iStr + "\r\n" );
+        return;
+    }
+
     Print( iStr + "\r\n" );
 
     try
