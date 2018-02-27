@@ -106,6 +106,27 @@ cGameScreen::Initialize()
     mConsoleWidget.SetSize( size );
     mConsoleWidget.SetPosition( position );
     cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
+
+
+
+    std::function< void( void )> f = [=]( void ) {
+        cEntity* ent = new cEntity( world );
+        cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
+        animation->mFrameRate = 24;
+        animation->mPaused = false;
+
+        ent->AddComponent( animation );
+        sf::Window* window = cGameApplication::App()->Window();
+        sf::Vector2u size = window->getSize();
+        int posX = rand() % ( size.x - 10 );
+        int posY = rand() % (size.y - 10);
+        ent->AddComponent( new cPosition( posX, posY ) );
+        ent->AddComponent( new cUserInput() );
+        ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F ) );
+        world->AddEntity( ent );
+    };
+
+    ::nBoltScript::Env()->RegisterFunction( "newEntity", f );
 }
 
 

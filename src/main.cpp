@@ -26,10 +26,10 @@ int main()
     cGameApplication* app = cGameApplication::App();
     app->Initialize();
 
+    ::nBoltScript::Env()->RegisterFunction( "exit", [=]( void ) { app->Window()->close(); } );
 #ifdef  CONSOLEDEBUG
 
     cGameApplication::App()->PushScreen(new cConsoleScreen() );
-    ::nBoltScript::Env()->RegisterFunction( "exit", [=]( void ) { app->Window()->close(); } );
 
 #endif //  CONSOLEDEBUG
 
