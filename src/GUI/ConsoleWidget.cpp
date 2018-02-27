@@ -64,7 +64,8 @@ cConsoleWidget::cConsoleWidget() :
     mInputText(),
     mOutputTextLines(),
     mMiniGame( false ),
-    mMiniGameTimerElapsedTime( 0.0 )
+    mMiniGameTimerElapsedTime( 0.0 ),
+    mMiniGameShipCursorIndex( 0 )
 {
     BuildEventProcessMaps();
     BuildRegisteredFunctions();
@@ -200,6 +201,7 @@ cConsoleWidget::BuildRegisteredFunctions()
     ::nBoltScript::Env()->RegisterFunction( "cls",          [=](void) { Clear(); } );
     ::nBoltScript::Env()->RegisterFunction( "help",         [=](void) { Print( "Not Available" ); } );
     ::nBoltScript::Env()->RegisterFunction( "minigame",     [=](void) { StartMiniGame(); } );
+    ::nBoltScript::Env()->RegisterFunction( "break",        [=](void) { EndMiniGame(); } );
 }
 
 // -------------------------------------------------------------------------------------
@@ -632,13 +634,29 @@ cConsoleWidget::StartMiniGame()
     Clear();
     mMiniGame = true;
     mMiniGameTimerElapsedTime = 0;
+    int nChars = mSize.x / mCharWidth;
+    int center = nChars/2;
+    mMiniGameShipCursorIndex = center;
+
+    for( int i = 0; i < NVisibleRows() -1; ++i )
+    {
+        std::string str = mOutputTextLines[ i ].getString();
+
+        for( int j = 0; j < nChars; ++j )
+        {
+            str.push_back( ' ' );
+        }
+        mOutputTextLines[ i ].setString( str );
+    }
+
+    ClearInput();
 }
 
 
 void
 cConsoleWidget::EndMiniGame()
 {
-
+    mMiniGame = false;
 }
 
 
@@ -656,7 +674,7 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
         std::string str;
         for( int i = 0; i < nChars; ++i )
         {
-            str.push_back( '.' );
+            str.push_back( ' ' );
         }
 
         int center = nChars/2;
@@ -670,8 +688,6 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
         for( int i=realIndex + amplitude; i < nChars; ++i )
             str[i] = '*';
 
-        str.back() = '*';
-
         // Shift output rows content upwards
         for( int i = NVisibleRows()-2; i > 0; --i )
         {
@@ -681,6 +697,11 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
 
         mOutputTextLines[0].setString( str );
 
+        
+        char ship = 'A';
+        std::string shipStr = mOutputTextLines.back().getString();
+        shipStr[ mMiniGameShipCursorIndex ] = ship;
+        mOutputTextLines.back().setString( shipStr );
     }
 }
 
@@ -739,6 +760,18 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
         {
             (this->*( *mModifierMap[ modifierState ] )[ code ])();
         }
+    }
+
+    if( code == sf::Keyboard::Left )
+    {
+        mMiniGameShipCursorIndex = mMiniGameShipCursorIndex > 0 ? mMiniGameShipCursorIndex-1 : 0;
+    }
+
+    if( code == sf::Keyboard::Right )
+    {
+        std::string str = mOutputTextLines.back().getString();
+        int length = int( str.length() ) - 1;
+        mMiniGameShipCursorIndex = mMiniGameShipCursorIndex < length ? mMiniGameShipCursorIndex+1 : length;
     }
 }
 
