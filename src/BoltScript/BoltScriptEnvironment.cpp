@@ -16,7 +16,8 @@ cBoltScriptEnvironment::~cBoltScriptEnvironment()
 
 
 cBoltScriptEnvironment::cBoltScriptEnvironment( std::function< void( const  std::string& ) > iOutputRedirectionFunction ) :
-    mOutputRedirectionFunction( iOutputRedirectionFunction )
+    mOutputRedirectionFunction( iOutputRedirectionFunction ),
+    mVoidFuncVoid()
 {
 }
 
@@ -38,6 +39,7 @@ cBoltScriptEnvironment::BoltScriptEnvironment()
             cBoltScriptEnvironment::DefaultOutputRedirectionFunction( iStr );
         };
         gBoltScriptEnvironment = new cBoltScriptEnvironment( f );
+        gBoltScriptEnvironment->RegisterFunction( "default", ResetOutputRedirectionFunction );
     }
 
     return  gBoltScriptEnvironment;
@@ -52,6 +54,16 @@ cBoltScriptEnvironment::DefaultOutputRedirectionFunction( const  std::string&  i
     printf( iStr.c_str() );
 }
 
+//static
+void
+cBoltScriptEnvironment::ResetOutputRedirectionFunction()
+{
+    std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
+            cBoltScriptEnvironment::DefaultOutputRedirectionFunction( iStr );
+    };
+    cBoltScriptEnvironment::BoltScriptEnvironment()->SetOutputRedirectionFunction( f );
+}
+
 // -------------------------------------------------------------------------------------
 // --------------------------------------------------------- Public Processing Interface
 // -------------------------------------------------------------------------------------
@@ -60,16 +72,16 @@ cBoltScriptEnvironment::DefaultOutputRedirectionFunction( const  std::string&  i
 void
 cBoltScriptEnvironment::ProcessRawString( const  std::string&  iStr )
 {
-    Print( iStr );
-
-    if( iStr == "BOLT" )
+    try
     {
-        Print( "xxx  xxxx x    xxxxx" );
-        Print( "x x  x  x x      x  " );
-        Print( "xxxx x  x x      x  " );
-        Print( "x  x x  x x      x  " );
-        Print( "xxxx xxxx xxxx   x  " );
+        mVoidFuncVoid[ iStr ]();
     }
+    catch(const std::exception&)
+    {
+        Print( "Couldn't Process Raw String \r\n" );
+    }
+
+    Print( iStr + "\r\n" );
 }
 
 
@@ -87,6 +99,21 @@ cBoltScriptEnvironment::SetOutputRedirectionFunction( std::function<void( const 
 }
 
 
+// -------------------------------------------------------------------------------------
+// ----------------------------------------------------------- Public Register Interface
+// -------------------------------------------------------------------------------------
+
+
+void
+cBoltScriptEnvironment::RegisterFunction( const  std::string&  iStr, std::function< void( void ) > iFPtr )
+{
+    mVoidFuncVoid[ iStr ] = iFPtr;
+}
+
+
+// -------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------
 
 // Wrapping accessor
 cBoltScriptEnvironment*
