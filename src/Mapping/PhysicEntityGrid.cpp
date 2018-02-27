@@ -91,7 +91,9 @@ cEntityGrid::GetSurroundingEntitiesOf( cEntity* iEntity )
         {
             for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
             {
-                result.push_back( mGridMap[ i ][ j ][ k ] );
+                cEntity* ent = mGridMap[ i ][ j ][ k ];
+                if( ent != iEntity && std::find( result.begin(), result.end(), ent ) == result.end() )
+                    result.push_back( ent );
             }
         }
     }

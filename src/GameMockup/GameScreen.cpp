@@ -101,11 +101,13 @@ cGameScreen::Initialize()
                                                     float( cGameApplication::App()->Window()->getSize().y ) );
     double posRatio     = 3./5.;
     double sizeRatio    = 2./5.;
-    sf::Vector2f  size      = sf::Vector2f( availableGeometry.x, availableGeometry.y * sizeRatio );
-    sf::Vector2f  position  = sf::Vector2f( 0, availableGeometry.y * posRatio);
+    sf::Vector2f  size      = sf::Vector2f( availableGeometry.x, availableGeometry.y * float(sizeRatio) );
+    sf::Vector2f  position  = sf::Vector2f( 0, availableGeometry.y * float(posRatio));
     mConsoleWidget.SetSize( size );
     mConsoleWidget.SetPosition( position );
-    cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
+
+    // Not compatible with input system
+    //cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
 
 
 
@@ -118,8 +120,8 @@ cGameScreen::Initialize()
         ent->AddComponent( animation );
         sf::Window* window = cGameApplication::App()->Window();
         sf::Vector2u size = window->getSize();
-        int posX = rand() % ( size.x - 10 );
-        int posY = rand() % (size.y - 10);
+        float posX = float(rand() % ( size.x - 10 ));
+        float posY = float(rand() % (size.y - 10));
         ent->AddComponent( new cPosition( posX, posY ) );
         ent->AddComponent( new cUserInput() );
         ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F ) );

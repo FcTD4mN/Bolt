@@ -56,11 +56,28 @@ cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
 
         auto simplephysic = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
 
+        // DEBUG Hitbox Drawing
         rect.setSize( sf::Vector2f( simplephysic->mHitBox.width, simplephysic->mHitBox.height ) );
         rect.setPosition( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
         rect.setFillColor( sf::Color( 255, 50, 50, 100 ) );
 
         iRenderTarget->draw( rect );
+
+        // DEBUG Surrounding Drawing
+        std::vector< cEntity* > surrounding = mEntityMap.GetSurroundingEntitiesOf( entity );
+        for( int j = 0; j < surrounding.size(); ++j )
+        {
+            cEntity* surroundingEntity = surrounding[ j ];
+            auto simplephysicSurr = dynamic_cast< cSimplePhysic* >( surroundingEntity->GetComponentByName( "simplephysic" ) );
+
+            sf::VertexArray lines( sf::LinesStrip, 2 );
+            lines[ 0 ].position = sf::Vector2f( simplephysic->mHitBox.left + simplephysic->mHitBox.width/2, simplephysic->mHitBox.top + simplephysic->mHitBox.height / 2 );
+            lines[ 0 ].color = sf::Color( 20, 20, 255, 150 );
+            lines[ 1 ].position = sf::Vector2f( simplephysicSurr->mHitBox.left + simplephysicSurr->mHitBox.width / 2, simplephysicSurr->mHitBox.top + simplephysicSurr->mHitBox.height / 2 );
+            lines[ 1 ].color = sf::Color( 20, 20, 255, 150 );
+
+            iRenderTarget->draw( lines );
+        }
     }
 }
 
@@ -80,11 +97,11 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         projection.left += simplephysic->mVelocity.x;
         projection.top += simplephysic->mVelocity.y;
 
-        for( int j = 0; j < mEntityGroup.size(); ++j )
+        std::vector< cEntity* > surrounding = mEntityMap.GetSurroundingEntitiesOf( entity );
+
+        for( int j = 0; j < surrounding.size(); ++j )
         {
-            cEntity* surroundingEntity = mEntityGroup[ j ];
-            if( entity == surroundingEntity )
-                continue;
+            cEntity* surroundingEntity = surrounding[ j ];
 
             auto simplephysicSurr = dynamic_cast< cSimplePhysic* >( surroundingEntity->GetComponentByName( "simplephysic" ) );
             if( projection.intersects( simplephysicSurr->mHitBox ) )
@@ -95,7 +112,6 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
                 break;
             }
         }
-
 
         if( !collided && ( simplephysic->mVelocity.x != 0.0F || simplephysic->mVelocity.y != 0.0F ) )
         {
