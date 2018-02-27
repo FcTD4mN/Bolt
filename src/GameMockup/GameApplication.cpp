@@ -9,6 +9,7 @@
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/Systems/AnimationRenderer.h"
 #include "GameMockup/Systems/InputConverter.h"
+#include "GameMockup/Systems/SimplePhysics.h"
 #include "GameMockup/Systems/SimplerRenderer.h"
 #include "GameMockup/Systems/SquareController.h"
 
@@ -134,12 +135,11 @@ cGameApplication::Initialize()
 
     mWorld->AddSystem( new cSquareController() );
     mWorld->AddSystem( new cAnimationRenderer() );
+    mWorld->AddSystem( new cSimplePhysics() );
 
     // =======Shortcuts=======
     mShortcutEngine = new cShortcuts();
     mShortcutEngine->Initialize();
-
-    //-----------------------------------
 }
 
 

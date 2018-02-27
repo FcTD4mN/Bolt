@@ -70,6 +70,21 @@
     <Filter Include="Fichiers sources\Benchmark">
       <UniqueIdentifier>{f1202c71-c577-4710-91db-9a8f8da3112e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Components\Physic">
+      <UniqueIdentifier>{f1382b64-569f-42c0-b230-21ddd3a0f04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Systems\Render">
+      <UniqueIdentifier>{76e22e6e-9efb-49c1-877e-2e7ea225e16c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Components\Basics">
+      <UniqueIdentifier>{e3bdbd12-7057-42a3-ba84-174dc290983a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Systems\Physic">
+      <UniqueIdentifier>{768750aa-a5ac-4c08-911e-26443566ce7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Mapping">
+      <UniqueIdentifier>{7631d07f-cf4b-4261-9edb-2e7e2f657a3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -114,18 +129,6 @@
     <ClCompile Include="..\..\src\GameMockup\GameApplication.cpp">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\GameMockup\Components\Color.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Shortcuts\Shortcuts.cpp">
       <Filter>Fichiers sources\Shortcuts</Filter>
     </ClCompile>
@@ -140,9 +143,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GameMockup\Components\SpriteAnimated.cpp">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\GameMockup\Systems\AnimationRenderer.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Base\ResourceManager.cpp">
       <Filter>Fichiers sources\Base</Filter>
@@ -189,8 +189,32 @@
     <ClCompile Include="..\..\src\Benchmark\Benchmark.cpp">
       <Filter>Fichiers sources\Benchmark</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Systems\AnimationRenderer.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp">
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp">
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\Color.cpp">
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\GameMockup\Components\Text.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Systems\SimplePhysics.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Components\SimplePhysic.cpp">
+      <Filter>Fichiers sources\GameMockup\Components\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Mapping\PhysicEntityGrid.cpp">
+      <Filter>Fichiers sources\Mapping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,18 +260,6 @@
     <ClInclude Include="..\..\src\GameMockup\GameApplication.h">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\GameMockup\Components\Color.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GameMockup\Components\Position.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GameMockup\Components\Size.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Shortcuts\Shortcuts.h">
       <Filter>Fichiers sources\Shortcuts</Filter>
     </ClInclude>
@@ -262,9 +274,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Components\SpriteAnimated.h">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\GameMockup\Systems\AnimationRenderer.h">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Base\ResourceManager.h">
       <Filter>Fichiers sources\Base</Filter>
@@ -308,8 +317,32 @@
     <ClInclude Include="..\..\src\Benchmark\Benchmark.h">
       <Filter>Fichiers sources\Benchmark</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Systems\AnimationRenderer.h">
+      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h">
+      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Position.h">
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Size.h">
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\Color.h">
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Components\Text.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Systems\SimplePhysics.h">
+      <Filter>Fichiers sources\GameMockup\Systems\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Components\SimplePhysic.h">
+      <Filter>Fichiers sources\GameMockup\Components\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Mapping\PhysicEntityGrid.h">
+      <Filter>Fichiers sources\Mapping</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

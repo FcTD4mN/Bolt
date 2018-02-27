@@ -10,6 +10,7 @@
 #include "GameMockup/Components/Size.h"
 #include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
+#include "GameMockup/Components/SimplePhysic.h"
 
 #include <iostream>
 
@@ -39,7 +40,7 @@ cGameScreen::Initialize()
     //sf::Window* window = cGameApplication::App()->Window();
     //sf::Vector2u size = window->getSize();
 
-    //cWorld* world = cGameApplication::App()->World();
+    cWorld* world = cGameApplication::App()->World();
 
     //for( int i = 0; i < 10; ++i )
     //{
@@ -56,18 +57,45 @@ cGameScreen::Initialize()
     //    world->AddEntity( ent );
     //}
 
-    //cEntity* ent = new cEntity( world );
-    //cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
-    //animation->mFrameRate = 24;
-    //animation->mPaused = false;
+    cEntity* ent = new cEntity( world );
+    cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
+    animation->mFrameRate = 24;
+    animation->mPaused = false;
 
-    //ent->AddComponent( animation );
-    //ent->AddComponent( new cPosition( 400.0, 300.0 ) );
-    //ent->AddComponent( new cUserInput() );
-    //ent->AddTag( "Un" );
-    //ent->AddTag( "Deux" );
-    //world->AddEntity( ent );
+    ent->AddComponent( animation );
+    float posX = 400.0F;
+    float posY = 300.0F;
+    ent->AddComponent( new cPosition( posX, posY ) );
+    ent->AddComponent( new cUserInput() );
+    ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F ) );
+    world->AddEntity( ent );
 
+    cEntity* murtavu = new cEntity( world );
+    posX = 500.0F;
+    posY = 300.0F;
+    murtavu->AddComponent( new cPosition( posX, posY ) );
+    murtavu->AddComponent( new cSize( 64.0F, 64.0F ) );
+    murtavu->AddComponent( new cColor( 255, 255, 255 ) );
+    murtavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F ) );
+    world->AddEntity( murtavu );
+
+    cEntity* mur2tavu = new cEntity( world );
+    posX = 500.0F;
+    posY = 235.0F;
+    mur2tavu->AddComponent( new cPosition( posX, posY ) );
+    mur2tavu->AddComponent( new cSize( 64.0F, 64.0F ) );
+    mur2tavu->AddComponent( new cColor( 255, 200, 255 ) );
+    mur2tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F ) );
+    world->AddEntity( mur2tavu );
+
+    cEntity* mur3tavu = new cEntity( world );
+    posX = 200.0;
+    posY = 235.0F;
+    mur3tavu->AddComponent( new cPosition( posX, posY ) );
+    mur3tavu->AddComponent( new cSize( 64.0F, 64.0F ) );
+    mur3tavu->AddComponent( new cColor( 255, 200, 255 ) );
+    mur3tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F ) );
+    world->AddEntity( mur3tavu );
 }
 
 

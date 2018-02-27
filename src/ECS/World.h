@@ -33,7 +33,7 @@ public:
 
 public:
     // Access
-    unsigned int EntityCount() const;
+    size_t EntityCount() const;
 
 public:
     // Events

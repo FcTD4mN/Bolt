@@ -242,6 +242,7 @@
     <ClCompile Include="..\..\src\ECS\World.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Color.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Position.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Components\SimplePhysic.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Size.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\SpriteAnimated.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Components\Text.cpp" />
@@ -251,6 +252,7 @@
     <ClCompile Include="..\..\src\GameMockup\GameScreen.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\AnimationRenderer.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\InputConverter.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Systems\SimplePhysics.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\SimplerRenderer.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Systems\SquareController.cpp" />
     <ClCompile Include="..\..\src\GUI\ConsoleWidget.cpp" />
@@ -260,6 +262,7 @@
     <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.cpp" />
     <ClCompile Include="..\..\src\MainMenu\MenuPage\MenuPage.cpp" />
+    <ClCompile Include="..\..\src\Mapping\PhysicEntityGrid.cpp" />
     <ClCompile Include="..\..\src\Math\Rectangle.cpp" />
     <ClCompile Include="..\..\src\Math\Utils.cpp" />
     <ClCompile Include="..\..\src\Math\Vector2d.cpp" />
@@ -284,6 +287,7 @@
     <ClInclude Include="..\..\src\ECS\World.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Color.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Position.h" />
+    <ClInclude Include="..\..\src\GameMockup\Components\SimplePhysic.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Size.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\SpriteAnimated.h" />
     <ClInclude Include="..\..\src\GameMockup\Components\Text.h" />
@@ -293,6 +297,7 @@
     <ClInclude Include="..\..\src\GameMockup\GameScreen.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\AnimationRenderer.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\InputConverter.h" />
+    <ClInclude Include="..\..\src\GameMockup\Systems\SimplePhysics.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\SimplerRenderer.h" />
     <ClInclude Include="..\..\src\GameMockup\Systems\SquareController.h" />
     <ClInclude Include="..\..\src\GUI\ConsoleWidget.h" />
@@ -301,6 +306,7 @@
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuItem\MenuItem.PageSwaper.h" />
     <ClInclude Include="..\..\src\MainMenu\MenuPage\MenuPage.h" />
+    <ClInclude Include="..\..\src\Mapping\PhysicEntityGrid.h" />
     <ClInclude Include="..\..\src\Math\Rectangle.h" />
     <ClInclude Include="..\..\src\Math\Utils.h" />
     <ClInclude Include="..\..\src\Math\Vector2d.h" />

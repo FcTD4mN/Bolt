@@ -116,7 +116,7 @@ cWorld::ConnectSystemToEvents( cSystem * iSystem )
 // -------------------------------------------------------------------------------------
 
 
-unsigned int
+size_t
 cWorld::EntityCount() const
 {
     return  mEntity.size();

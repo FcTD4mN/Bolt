@@ -3,9 +3,10 @@
 #include "ECS/Entity.h"
 
 #include "GameMockup/GameApplication.h"
+#include "GameMockup/Components/SimplePhysic.h"
 #include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/UserInput.h"
 #include "GameMockup/Components/SpriteAnimated.h"
+#include "GameMockup/Components/UserInput.h"
 
 #include <iostream>
 
@@ -60,29 +61,34 @@ cSquareController::Update( unsigned int iDeltaTime )
     {
         cEntity* entity = mEntityGroup[ i ];
 
-        auto userinput = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
-        auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        auto userinput      = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
+        auto simplephysic = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
+
+        simplephysic->mVelocity.x = 0;
+        simplephysic->mVelocity.y = 0;
 
         for( int i = 0; i < userinput->mActions.size(); ++i )
         {
             if( userinput->mActions[ i ] == "moveup" )
             {
-                position->mPosition.y--;
+                simplephysic->mVelocity.y -= 1;
             }
             else if( userinput->mActions[ i ] == "movedown" )
             {
-                position->mPosition.y++;
+                simplephysic->mVelocity.y += 1;
             }
             else if( userinput->mActions[ i ] == "moveright" )
             {
-                position->mPosition.x++;
-                spriteanimated->Flip();
+                simplephysic->mVelocity.x += 1;
+                if( spriteanimated )
+                    spriteanimated->Flip();
             }
             else if( userinput->mActions[ i ] == "moveleft" )
             {
-                position->mPosition.x--;
-                spriteanimated->Unflip();
+                simplephysic->mVelocity.x -= 1;
+                if( spriteanimated )
+                    spriteanimated->Unflip();
             }
         }
     }
@@ -98,10 +104,9 @@ void
 cSquareController::IncomingEntity( cEntity * iEntity )
 {
     auto userinput = iEntity->GetComponentByName( "userinput" );
-    auto position = iEntity->GetComponentByName( "position" );
-    auto spriteanimated = iEntity->GetComponentByName( "spriteanimated" );
+    auto simplephysic = iEntity->GetComponentByName( "simplephysic" );
 
-    if( userinput && position && spriteanimated )
+    if( userinput && simplephysic )
         AcceptEntity( iEntity );
 }
 
