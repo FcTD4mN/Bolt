@@ -65,6 +65,7 @@ cConsoleWidget::cConsoleWidget() :
     mOutputTextLines()
 {
     BuildEventProcessMaps();
+    BuildRegisteredFunctions();
 
     mCursorRectangle.setSize(       DEFAULT_CURSOR_SIZE );
     mCursorRectangle.setFillColor(  DEFAULT_CURSOR_COLOR );
@@ -84,20 +85,7 @@ cConsoleWidget::cConsoleWidget() :
     SetBackgroundColor( DEFAULT_COLOR       , true );
     UpdateGeometryAndStyle();
 
-    std::function< void( void )> r = [=]( void ) {
-
-        std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
-            this->Print( iStr );
-        };
-
-        ::nBoltScript::Env()->Print( ">>: Output switching to SFML Console \r\n");
-        ::nBoltScript::Env()->SetOutputRedirectionFunction( f );
-        ::nBoltScript::Env()->Print( ">>: Output switched to SFML Console \r\n");
-    };
-
-    r();
-
-    ::nBoltScript::Env()->RegisterFunction( "SFML", r );
+    ::nBoltScript::Env()->ProcessRawString( "SFML" );
 }
 
 
@@ -202,6 +190,13 @@ cConsoleWidget::BuildEventProcessMaps()
     mModifierMap[ eModifierState::kControlShift]    = &mCTRLShiftKeyPressedProcessMap;
 }
 
+
+void
+cConsoleWidget::BuildRegisteredFunctions()
+{
+    ::nBoltScript::Env()->RegisterFunction( "SFML", [=](void) { HookOutput(); } );
+    ::nBoltScript::Env()->RegisterFunction( "cls",  [=](void) { Clear(); } );
+}
 
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------- Internal Text Geometry & Manipulation
@@ -535,6 +530,30 @@ cConsoleWidget::ClearInput()
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------- Public Output Interface
 // -------------------------------------------------------------------------------------
+
+
+void
+cConsoleWidget::HookOutput()
+{
+    std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
+        this->Print( iStr );
+    };
+
+    ::nBoltScript::Env()->Print( ">>: Output switching to SFML Console \r\n");
+    ::nBoltScript::Env()->SetOutputRedirectionFunction( f );
+    ::nBoltScript::Env()->Print( ">>: Output switched to SFML Console \r\n");
+}
+
+
+void
+cConsoleWidget::Clear()
+{
+    for( int i = 0; i < NVisibleRows() -1; ++i )
+    {
+        mOutputTextLines[ i ].setString( "" );
+    }
+    ClearInput();
+}
 
 
 void

@@ -42,6 +42,7 @@ public:
 private:
     // Internal Logic Initialization
     void    BuildEventProcessMaps();
+    void    BuildRegisteredFunctions();
 
 private:
     // Internal Text Geometry & Manipulation
@@ -69,7 +70,8 @@ private:
 
 public:
     // Public Output Interface
-    void    RedirectOutputToConsole();
+    void    HookOutput();
+    void    Clear();
     void    Print( const  std::string&  iStr );
     void    ProcessInput( const  std::string&  iStr );
 
