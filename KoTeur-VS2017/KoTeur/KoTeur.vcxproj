@@ -174,7 +174,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;CONSOLEDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Libraries\SFML-2.4.2\include;C:\Users\admin\BOLT\Bolt\extlibs\tinyxml2;A:\Programmation\Bolt\extlibs\tinyxml2;A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Libraries\SFML-2.4.2VC14\include;E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;%(AdditionalIncludeDirectories);C:\Users\Ahmed\Bolt\inc\SFML-2.4.2-windows-vc14-64-bit(1)\SFML-2.4.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\extlibs\tinyxml2;$(SolutionDir)\..\src;C:\Libraries\SFML-2.4.2\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Libraries\SFML-2.4.2VC14\include;E:\SFML\SFML-2.4.2\include;%(AdditionalIncludeDirectories);C:\Users\Ahmed\Bolt\inc\SFML-2.4.2-windows-vc14-64-bit(1)\SFML-2.4.2\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -214,7 +214,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Libraries\SFML-2.4.2\include;C:\Users\admin\BOLT\Bolt\extlibs\tinyxml2;A:\Programmation\Bolt\extlibs\tinyxml2;E:\SFML\SFML-2.4.2\include;$(SolutionDir)\..\src;A:\Programmation\SFML-2.4.2-VS\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Users\Ahmed\Bolt\inc\SFML-2.4.2-windows-vc14-64-bit(1)\SFML-2.4.2\include;$(SolutionDir)\..\extlibs\tinyxml2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\extlibs\tinyxml2;$(SolutionDir)\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\src;C:\Libraries\SFML-2.4.2\include;E:\SFML\SFML-2.4.2\include;D:\Libraries\SFML-2.4.2VC14\include;C:\Users\Ahmed\Bolt\inc\SFML-2.4.2-windows-vc14-64-bit(1)\SFML-2.4.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
