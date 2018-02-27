@@ -693,16 +693,23 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
         for( int i=realIndex + amplitude; i < nChars; ++i )
             str[i] = '*';
 
-        // Shift output rows content upwards
+        // Shift output rows content downwards
         for( int i = NVisibleRows()-2; i > 0; --i )
         {
             std::string currentOutputStr = mOutputTextLines[ i-1 ].getString();
             mOutputTextLines[i].setString( currentOutputStr );
         }
 
+        if( str[ mMiniGameShipCursorIndex ] == '*' )
+        {
+            EndMiniGame();
+            Print( "LOSER !!!!!" );
+            return;
+        }
+
+
         mOutputTextLines[0].setString( str );
 
-        
         char ship = 'A';
         std::string shipStr = mOutputTextLines.back().getString();
         shipStr[ mMiniGameShipCursorIndex ] = ship;

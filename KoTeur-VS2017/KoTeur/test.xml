@@ -3,9 +3,9 @@
         <entity id="idontknow3">
             <components>
                 <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
-                <component name="position" x="400" y="300"/>
+                <component name="position" x="401" y="281"/>
                 <component name="userinput"/>
-                <component name="simplephysic" x="400" y="300" w="40" h="64" veloX="0" veloY="0"/>
+                <component name="simplephysic" x="401" y="281" w="40" h="64" veloX="0" veloY="0"/>
             </components>
             <tags/>
         </entity>
@@ -33,6 +33,68 @@
                 <component name="size" w="64" h="64"/>
                 <component name="color" colorr="255" colorg="200" colorb="255" colora="255"/>
                 <component name="simplephysic" x="200" y="235" w="64" h="64" veloX="0" veloY="0"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="100" y="100"/>
+                <component name="userinput"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="100" y="100"/>
+                <component name="userinput"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="entAc9">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="10" y="500"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="100" y="100"/>
+                <component name="userinput"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="100" y="100"/>
+                <component name="userinput"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="100" y="100"/>
+                <component name="userinput"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="entAc12">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="10" y="500"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltime">
+            <components>
+                <component name="spriteanimated" file="resources/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+                <component name="position" x="100" y="100"/>
+                <component name="userinput"/>
             </components>
             <tags/>
         </entity>
