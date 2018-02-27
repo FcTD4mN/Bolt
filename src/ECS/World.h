@@ -32,6 +32,10 @@ public:
     void  ConnectSystemToEvents( cSystem* iSystem );
 
 public:
+    // Access
+    unsigned int EntityCount() const;
+
+public:
     // Events
     void  Resized( const sf::Event& iEvent );                ///< The window was resized (data in event.size)
     void  KeyPressed( const sf::Event& iEvent );             ///< A key was pressed (data in event.key)

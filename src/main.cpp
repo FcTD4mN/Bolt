@@ -17,11 +17,9 @@
 
 int main()
 {
-    /*
-    nBenchmark::RunVectorVsHMapvsMapBenchmark();
 
-    */
-    nBenchmark::EntityStressTest();
+    //nBenchmark::RunVectorVsHMapvsMapBenchmark();
+    //nBenchmark::EntityStressTest();
 
     srand( unsigned int(time( NULL )) );
 
@@ -57,13 +55,18 @@ int main()
         app->Draw( app->Window() );
 
         // PERF TESTS============================================================
-        if( 0 )
+        if( 1 )
         {
             sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
             rect.setPosition( sf::Vector2f( sf::Mouse::getPosition( *window ) ) );
             rect.setFillColor( sf::Color( 10, 10, 255, 255 ) );
             rect.setSize( sf::Vector2f( 50, 50 ) );
             window->draw( rect );
+
+            float fps = 1 / frameTime.asSeconds();
+            std::cout << std::to_string( fps ) << "\n";
+            std::cout << "==============" << std::to_string( cGameApplication::App()->World()->EntityCount() ) << "\n";
+
         }
         // PERF TESTS============================================================
 

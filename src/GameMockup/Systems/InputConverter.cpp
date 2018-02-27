@@ -61,9 +61,6 @@ cInputConverter::Update( unsigned int iDeltaTime )
         cEntity* entity = mEntityGroup[ i ];
 
         auto userinput = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
-
-        for( int i = 0; i < userinput->mActions.size(); ++i )
-            std::cout << userinput->mActions[i].c_str() << std::endl;
     }
 }
 

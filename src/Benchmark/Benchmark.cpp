@@ -157,11 +157,5 @@ namespace  nBenchmark
         std::cout << "Run time : " << std::to_string( end.count() ) << std::endl;
     }
 
-
-
-
-
-
-
 }  // namespace  nBenchmark
 
