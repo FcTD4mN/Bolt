@@ -201,7 +201,6 @@ cConsoleWidget::BuildRegisteredFunctions()
     ::nBoltScript::Env()->RegisterFunction( "cls",          [=](void) { Clear(); } );
     ::nBoltScript::Env()->RegisterFunction( "help",         [=](void) { Print( "Not Available" ); } );
     ::nBoltScript::Env()->RegisterFunction( "minigame",     [=](void) { StartMiniGame(); } );
-    ::nBoltScript::Env()->RegisterFunction( "break",        [=](void) { EndMiniGame(); } );
 }
 
 // -------------------------------------------------------------------------------------
@@ -831,6 +830,7 @@ cConsoleWidget::ProcessTabPressed()
 void
 cConsoleWidget::ProcessReturnPressed()
 {
+    EndMiniGame();
     ProcessInput();
     ClearInput();
 }
