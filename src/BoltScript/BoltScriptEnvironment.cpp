@@ -58,12 +58,8 @@ cBoltScriptEnvironment::DefaultOutputRedirectionFunction( const  std::string&  i
 void
 cBoltScriptEnvironment::ResetOutputRedirectionFunction()
 {
-    std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
-            DefaultOutputRedirectionFunction( iStr );
-    };
-
     ::nBoltScript::Env()->Print( ">>: Output switching to Native Console \r\n");
-    ::nBoltScript::Env()->SetOutputRedirectionFunction( f );
+    ::nBoltScript::Env()->SetOutputRedirectionFunction( DefaultOutputRedirectionFunction );
     ::nBoltScript::Env()->Print( ">>: Output switched to Native Console \r\n");
 }
 
