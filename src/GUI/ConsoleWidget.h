@@ -157,6 +157,7 @@ private:
     bool                mMiniGame;
     double              mMiniGameTimerElapsedTime;
     int                 mMiniGameShipCursorIndex;
+    int                 mMiniGameHighscore;
 };
 
 

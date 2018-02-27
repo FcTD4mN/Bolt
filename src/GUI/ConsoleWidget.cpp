@@ -67,7 +67,8 @@ cConsoleWidget::cConsoleWidget() :
     mOutputTextLines(),
     mMiniGame( false ),
     mMiniGameTimerElapsedTime( 0.0 ),
-    mMiniGameShipCursorIndex( 0 )
+    mMiniGameShipCursorIndex( 0 ),
+    mMiniGameHighscore( 0 )
 {
     BuildEventProcessMaps();
     BuildRegisteredFunctions();
@@ -642,6 +643,7 @@ cConsoleWidget::StartMiniGame()
     int nChars = mSize.x / mCharWidth;
     int center = nChars/2;
     mMiniGameShipCursorIndex = center;
+    mMiniGameHighscore = 0;
 
     for( int i = 0; i < NVisibleRows() -1; ++i )
     {
@@ -670,6 +672,8 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
 {
     if( mMiniGame )
     {
+        ++mMiniGameHighscore;
+
         double incrementSpeed = 1.2;
         double incrementalPeriod = double( 400 - mMiniGameTimerElapsedTime * incrementSpeed );
         double minPeriod = 120.0;
@@ -704,6 +708,7 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
         {
             EndMiniGame();
             Print( "LOSER !!!!!" );
+            Print( "Score: " + std::to_string( mMiniGameHighscore) + " meters" );
             return;
         }
 
