@@ -17,7 +17,6 @@
 
 int main()
 {
-    ::nBoltScript::Env()->Print( std::string( __FUNCTION__ ) + ">>: " + "Script Output Redirection To Native Console \r\n");
     /*
     nBenchmark::RunVectorVsHMapvsMapBenchmark();
 
@@ -31,6 +30,10 @@ int main()
 
 #ifdef  CONSOLEDEBUG
     cGameApplication::App()->PushScreen(new cConsoleScreen() );
+
+    ::nBoltScript::Env()->Print( std::string( __FUNCTION__ ) + ">>: " + "Script Output Redirection To Native Console \r\n");
+    ::nBoltScript::Env()->RegisterFunction( "exit", [=]( void ) { app->Window()->close(); } );
+
 #endif //  CONSOLEDEBUG
 
     sf::RenderWindow* window = cGameApplication::App()->Window();
