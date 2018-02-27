@@ -27,6 +27,7 @@ namespace  nGUI
 #define DEFAULT_TAB_WHITESPACE              4
 #define DEFAULT_SELECTION_BG_COLOR          sf::Color( 255, 255, 0, 255 )
 #define DEFAULT_SELECTION_FG_COLOR          sf::Color( 255, 255, 0, 85 )
+#define DEFAULT_PRINT_CACHE_SIZE            10
 
 
 #define KEY_EXISTS( iMap, iKey )            ( ! ( iMap.find( iKey ) == iMap.end() ) )
@@ -68,7 +69,9 @@ cConsoleWidget::cConsoleWidget() :
     mMiniGame( false ),
     mMiniGameTimerElapsedTime( 0.0 ),
     mMiniGameShipCursorIndex( 0 ),
-    mMiniGameHighscore( 0 )
+    mMiniGameHighscore( 0 ),
+    mPrintCache(),
+    mPrintCacheIndex( 0 )
 {
     BuildEventProcessMaps();
     BuildRegisteredFunctions();
@@ -92,6 +95,8 @@ cConsoleWidget::cConsoleWidget() :
     UpdateGeometryAndStyle();
 
     ::nBoltScript::Env()->ProcessRawString( "output:SFML" );
+
+    mPrintCache.resize( DEFAULT_PRINT_CACHE_SIZE );
 }
 
 
@@ -167,6 +172,8 @@ cConsoleWidget::BuildEventProcessMaps()
     mKeyPressedProcessMap[ sf::Keyboard::Home ]             =  &cConsoleWidget::ProcessHomePressed;
     mKeyPressedProcessMap[ sf::Keyboard::End ]              =  &cConsoleWidget::ProcessEndPressed;
     mKeyPressedProcessMap[ sf::Keyboard::Delete ]           =  &cConsoleWidget::ProcessDeletePressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Up ]               =  &cConsoleWidget::ProcessUpPressed;
+    mKeyPressedProcessMap[ sf::Keyboard::Down ]             =  &cConsoleWidget::ProcessDownPressed;
 
     // CTRL + Key Press
     mCTRLKeyPressedProcessMap[ sf::Keyboard::A ]            =  &cConsoleWidget::ProcessCTRLAPressed;
@@ -537,6 +544,17 @@ cConsoleWidget::ClearInput()
 }
 
 
+void
+cConsoleWidget::PushPrintCache()
+{
+    for( int i = 1; i < mPrintCache.size(); ++i )
+    {
+        mPrintCache[ i ] = mPrintCache[ i-1 ];
+    }
+    mPrintCache[0] = mInputText.getString();
+}
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------- Public Output Interface
 // -------------------------------------------------------------------------------------
@@ -707,7 +725,7 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
         if( str[ mMiniGameShipCursorIndex ] == '*' )
         {
             EndMiniGame();
-            Print( "LOSER !!!!!" );
+            Print( "LOSER !" );
             Print( "Score: " + std::to_string( mMiniGameHighscore) + " meters" );
             return;
         }
@@ -859,6 +877,7 @@ void
 cConsoleWidget::ProcessReturnPressed()
 {
     EndMiniGame();
+    PushPrintCache();
     ProcessInput();
     ClearInput();
 }
@@ -919,6 +938,25 @@ cConsoleWidget::ProcessDeletePressed()
 
         BreakSelection();
     }
+}
+
+
+void
+cConsoleWidget::ProcessUpPressed()
+{
+    std::string cacheStr = mPrintCache[ mPrintCacheIndex ];
+    mInputText.setString( cacheStr );
+    int max = cacheStr.size()-1;
+    mPrintCacheIndex += mPrintCacheIndex < max ? 1 : 0;
+}
+
+
+void
+cConsoleWidget::ProcessDownPressed()
+{
+    std::string cacheStr = mPrintCache[ mPrintCacheIndex ];
+    mInputText.setString( cacheStr );
+    mPrintCacheIndex -= 0 > 0 ? 1 : 0;
 }
 
 

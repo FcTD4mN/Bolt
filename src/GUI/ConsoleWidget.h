@@ -67,6 +67,7 @@ private:
     void    MatchCursorPosition();
     void    MoveSelectionRange( int iDelta );
     void    ClearInput();
+    void    PushPrintCache();
 
 public:
     // Public Output Interface
@@ -103,6 +104,8 @@ private:
     void  ProcessHomePressed();
     void  ProcessEndPressed();
     void  ProcessDeletePressed();
+    void  ProcessUpPressed();
+    void  ProcessDownPressed();
 
     void  ProcessCTRLAPressed();
     void  ProcessCTRLCPressed();
@@ -158,6 +161,9 @@ private:
     double              mMiniGameTimerElapsedTime;
     int                 mMiniGameShipCursorIndex;
     int                 mMiniGameHighscore;
+
+    std::vector< std::string >  mPrintCache;
+    int                         mPrintCacheIndex;
 };
 
 
