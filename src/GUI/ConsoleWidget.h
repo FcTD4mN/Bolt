@@ -73,12 +73,18 @@ public:
     void    HookOutput();
     void    Clear();
     void    Print( const  std::string&  iStr );
-    void    ProcessInput( const  std::string&  iStr );
+    void    ProcessInput();
 
 public:
     // Update/Draw
     void  Update( unsigned int iDeltaTime );
     void  Draw( sf::RenderTarget* iRenderTarget );
+
+public:
+    // MiniGame
+    void  StartMiniGame();
+    void  EndMiniGame();
+    void  UpdateMiniGame( unsigned int iDeltaTime );
 
 public:
     // Events
@@ -147,6 +153,9 @@ private:
     sf::Font                 mFont;
     sf::Text                 mInputText;
     std::vector< sf::Text >  mOutputTextLines;
+
+    bool                mMiniGame;
+    double              mMiniGameTimerElapsedTime;
 };
 
 

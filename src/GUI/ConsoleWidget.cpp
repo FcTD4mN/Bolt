@@ -62,7 +62,9 @@ cConsoleWidget::cConsoleWidget() :
     mBackgroundColor(),
     mFont(),
     mInputText(),
-    mOutputTextLines()
+    mOutputTextLines(),
+    mMiniGame( false ),
+    mMiniGameTimerElapsedTime( 0.0 )
 {
     BuildEventProcessMaps();
     BuildRegisteredFunctions();
@@ -85,7 +87,7 @@ cConsoleWidget::cConsoleWidget() :
     SetBackgroundColor( DEFAULT_COLOR       , true );
     UpdateGeometryAndStyle();
 
-    ::nBoltScript::Env()->ProcessRawString( "SFML" );
+    ::nBoltScript::Env()->ProcessRawString( "output:SFML" );
 }
 
 
@@ -194,8 +196,10 @@ cConsoleWidget::BuildEventProcessMaps()
 void
 cConsoleWidget::BuildRegisteredFunctions()
 {
-    ::nBoltScript::Env()->RegisterFunction( "SFML", [=](void) { HookOutput(); } );
-    ::nBoltScript::Env()->RegisterFunction( "cls",  [=](void) { Clear(); } );
+    ::nBoltScript::Env()->RegisterFunction( "output:SFML",  [=](void) { HookOutput(); } );
+    ::nBoltScript::Env()->RegisterFunction( "cls",          [=](void) { Clear(); } );
+    ::nBoltScript::Env()->RegisterFunction( "help",         [=](void) { Print( "Not Available" ); } );
+    ::nBoltScript::Env()->RegisterFunction( "minigame",     [=](void) { StartMiniGame(); } );
 }
 
 // -------------------------------------------------------------------------------------
@@ -571,9 +575,9 @@ cConsoleWidget::Print( const  std::string&  iStr )
 
 
 void
-cConsoleWidget::ProcessInput( const  std::string&  iStr )
+cConsoleWidget::ProcessInput()
 {
-    ::nBoltScript::Env()->ProcessRawString( iStr );
+    ::nBoltScript::Env()->ProcessRawString( mInputText.getString() );
 }
 
 // -------------------------------------------------------------------------------------
@@ -590,6 +594,8 @@ cConsoleWidget::Update( unsigned int iDeltaTime )
         mCursorTimerElapsedTimeMs = 0;
         mCursorToggled = !mCursorToggled;
     }
+
+    UpdateMiniGame( iDeltaTime );
 }
 
 
@@ -613,6 +619,69 @@ cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
 
     if( mSelectionOccuring )
         iRenderTarget->draw( mSelectionFGRectangle );
+}
+
+// -------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------- MiniGame
+// -------------------------------------------------------------------------------------
+
+
+void
+cConsoleWidget::StartMiniGame()
+{
+    Clear();
+    mMiniGame = true;
+    mMiniGameTimerElapsedTime = 0;
+}
+
+
+void
+cConsoleWidget::EndMiniGame()
+{
+
+}
+
+
+void
+cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
+{
+    if( mMiniGame )
+    {
+        double incrementSpeed = 1.2;
+        double incrementalPeriod = double( 400 - mMiniGameTimerElapsedTime * incrementSpeed );
+        double minPeriod = 120.0;
+        double period = incrementalPeriod >= minPeriod ? incrementalPeriod : minPeriod;
+        mMiniGameTimerElapsedTime += double( iDeltaTime ) / period;
+        int nChars = mSize.x / mCharWidth;
+        std::string str;
+        for( int i = 0; i < nChars; ++i )
+        {
+            str.push_back( '.' );
+        }
+
+        int center = nChars/2;
+        int amplitudeMin = 5;
+        int amplitude = center - amplitudeMin;
+        int index = int( ( sin( mMiniGameTimerElapsedTime ) / 2.0 + 0.5 ) * amplitude ) +1;
+        int realIndex = center - index;
+        for( int i=0; i < realIndex; ++i )
+            str[i] = '*';
+
+        for( int i=realIndex + amplitude; i < nChars; ++i )
+            str[i] = '*';
+
+        str.back() = '*';
+
+        // Shift output rows content upwards
+        for( int i = NVisibleRows()-2; i > 0; --i )
+        {
+            std::string currentOutputStr = mOutputTextLines[ i-1 ].getString();
+            mOutputTextLines[i].setString( currentOutputStr );
+        }
+
+        mOutputTextLines[0].setString( str );
+
+    }
 }
 
 
@@ -729,7 +798,7 @@ cConsoleWidget::ProcessTabPressed()
 void
 cConsoleWidget::ProcessReturnPressed()
 {
-    ProcessInput( mInputText.getString() );
+    ProcessInput();
     ClearInput();
 }
 

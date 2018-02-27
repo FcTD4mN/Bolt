@@ -39,7 +39,7 @@ cBoltScriptEnvironment::BoltScriptEnvironment()
             cBoltScriptEnvironment::DefaultOutputRedirectionFunction( iStr );
         };
         gBoltScriptEnvironment = new cBoltScriptEnvironment( f );
-        gBoltScriptEnvironment->RegisterFunction( "native", ResetOutputRedirectionFunction );
+        gBoltScriptEnvironment->RegisterFunction( "output:native", ResetOutputRedirectionFunction );
     }
 
     return  gBoltScriptEnvironment;
