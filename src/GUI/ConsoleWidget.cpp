@@ -4,6 +4,8 @@
 #include "Math/Utils.h"
 #include "Base/Clipboard.h"
 
+#define  CHECK_COLLAPSED if( mCollapsed ) return;
+
 
 namespace  nGUI
 {
@@ -249,14 +251,14 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
         float x = 0;
         float y = float( i * DEFAULT_LINE_HEIGHT );
         sf::Vector2f  outputLinePosition = sf::Vector2f( x, y );
-        mOutputTextLines[i].setPosition( outputLinePosition );
+        mOutputTextLines[i].setPosition( mPosition + outputLinePosition );
     }
 
     int currentBackupIndex = nOutputTextLines-1;
     while( linesBackup.size() )
     {
         if( currentBackupIndex < 0 )
-            return;
+            break;
 
         mOutputTextLines[currentBackupIndex].setString( linesBackup.back() );
         linesBackup.pop_back();
@@ -266,11 +268,13 @@ cConsoleWidget::UpdateGeometryAndStyle( bool  iNoUpdate )
     float x = 0;
     float y = float( nOutputTextLines * DEFAULT_LINE_HEIGHT );
     sf::Vector2f  inputLinePosition = sf::Vector2f( x, y );
-    mInputText.setPosition( inputLinePosition );
+    mInputText.setPosition( mPosition + inputLinePosition );
 
     float cursorX = 0;
     float cursorY = y;
-    mCursorRectangle.setPosition( cursorX, cursorY );
+    sf::Vector2f  cursorPosition = sf::Vector2f( cursorX, cursorY );
+
+    mCursorRectangle.setPosition( mPosition + cursorPosition );
     MatchCursorPosition();
 }
 
@@ -589,6 +593,7 @@ cConsoleWidget::ProcessInput()
 void
 cConsoleWidget::Update( unsigned int iDeltaTime )
 {
+    CHECK_COLLAPSED
     mCursorTimerElapsedTimeMs += iDeltaTime;
     if( mCursorTimerElapsedTimeMs > mCursorToggleTimeMs )
     {
@@ -603,6 +608,7 @@ cConsoleWidget::Update( unsigned int iDeltaTime )
 void
 cConsoleWidget::Draw( sf::RenderTarget* iRenderTarget )
 {
+    CHECK_COLLAPSED
     iRenderTarget->draw( mConsoleRectangle );
     int  nOutputTextLines = NVisibleRows() -1; // -1 because 1 line is reserved for input text.
     for( int i = 0; i < nOutputTextLines; ++i )
@@ -713,6 +719,7 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
 void
 cConsoleWidget::TextEntered( const sf::Event& iEvent )
 {
+    CHECK_COLLAPSED
     // Handle ASCII characters only
     auto  unicode = iEvent.text.unicode;
     bool  unicodeInput = unicode > 0X0020 && unicode < 0X007E || unicode == 32;
@@ -747,6 +754,14 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
                                                     ( int( key.shift )      << 2 ) |
                                                     ( int( key.system )     << 3 ) );
 
+    if( code == sf::Keyboard::Tab && modifierState == kControl )
+    {
+        mCollapsed = !mCollapsed;
+    }
+
+    CHECK_COLLAPSED
+
+
     if( ( code == sf::Keyboard::LShift || code == sf::Keyboard::RShift ) && !mSelectionOccuring )
     {
         StartSelection();
@@ -778,6 +793,7 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 void
 cConsoleWidget::KeyReleased( const sf::Event& iEvent )
 {
+    CHECK_COLLAPSED
     // Nothing ATM
 }
 

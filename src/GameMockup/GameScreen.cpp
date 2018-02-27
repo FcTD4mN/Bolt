@@ -96,6 +96,16 @@ cGameScreen::Initialize()
     mur3tavu->AddComponent( new cColor( 255, 200, 255 ) );
     mur3tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F ) );
     world->AddEntity( mur3tavu );
+
+    sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
+                                                    float( cGameApplication::App()->Window()->getSize().y ) );
+    double posRatio     = 3./5.;
+    double sizeRatio    = 2./5.;
+    sf::Vector2f  size      = sf::Vector2f( availableGeometry.x, availableGeometry.y * sizeRatio );
+    sf::Vector2f  position  = sf::Vector2f( 0, availableGeometry.y * posRatio);
+    mConsoleWidget.SetSize( size );
+    mConsoleWidget.SetPosition( position );
+    cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
 }
 
 
@@ -114,13 +124,14 @@ cGameScreen::Finalize()
 void
 cGameScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
+    mConsoleWidget.Draw( iRenderTarget );
 }
 
 
 void
 cGameScreen::Update( unsigned int iDeltaTime )
 {
-    // Does nothing
+    mConsoleWidget.Update( iDeltaTime );
 }
 
 
@@ -137,9 +148,16 @@ cGameScreen::Resized( const sf::Event& iEvent )
 
 
 void
+cGameScreen::TextEntered( const sf::Event& iEvent )
+{
+    mConsoleWidget.TextEntered( iEvent );
+}
+
+
+void
 cGameScreen::KeyPressed( const sf::Event& iEvent )
 {
-    // Does nothing
+    mConsoleWidget.KeyPressed( iEvent );
 
 }
 
@@ -177,6 +195,7 @@ cGameScreen::KeyReleased( const sf::Event& iEvent )
         cGameApplication::App()->World()->AddEntity( entity );
     }
 
+    mConsoleWidget.KeyReleased( iEvent );
 }
 
 

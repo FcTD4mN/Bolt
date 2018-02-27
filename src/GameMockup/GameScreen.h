@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Screen/Screen.h"
+#include "GUI/ConsoleWidget.h"
 
 class cGameScreen :
     public cScreen
@@ -21,6 +22,7 @@ public:
 public:
     // Events
     virtual  void  Resized( const sf::Event& iEvent ) override;                ///< The window was resized (data in event.size)
+    virtual  void  TextEntered( const sf::Event& iEvent );                     ///< A character was entered (data in event.text)
     virtual  void  KeyPressed( const sf::Event& iEvent ) override;             ///< A key was pressed (data in event.key)
     virtual  void  KeyReleased( const sf::Event& iEvent ) override;            ///< A key was released (data in event.key)
     virtual  void  MouseWheelMoved( const sf::Event& iEvent ) override;        ///< The mouse wheel was scrolled (data in event.mouseWheel) (deprecated)
@@ -44,5 +46,8 @@ public:
     // Input/Output
     virtual  void SaveXML();
     virtual  void LoadXML();
+
+private:
+    ::nGUI::cConsoleWidget  mConsoleWidget;
 };
 
