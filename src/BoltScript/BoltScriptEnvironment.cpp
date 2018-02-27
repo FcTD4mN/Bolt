@@ -39,7 +39,7 @@ cBoltScriptEnvironment::BoltScriptEnvironment()
             cBoltScriptEnvironment::DefaultOutputRedirectionFunction( iStr );
         };
         gBoltScriptEnvironment = new cBoltScriptEnvironment( f );
-        gBoltScriptEnvironment->RegisterFunction( "default", ResetOutputRedirectionFunction );
+        gBoltScriptEnvironment->RegisterFunction( "native", ResetOutputRedirectionFunction );
     }
 
     return  gBoltScriptEnvironment;
@@ -61,7 +61,10 @@ cBoltScriptEnvironment::ResetOutputRedirectionFunction()
     std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
             cBoltScriptEnvironment::DefaultOutputRedirectionFunction( iStr );
     };
-    cBoltScriptEnvironment::BoltScriptEnvironment()->SetOutputRedirectionFunction( f );
+
+    ::nBoltScript::Env()->Print( ">>: Output switching to Native Console \r\n");
+    ::nBoltScript::Env()->SetOutputRedirectionFunction( f );
+    ::nBoltScript::Env()->Print( ">>: Output switched to Native Console \r\n");
 }
 
 // -------------------------------------------------------------------------------------
@@ -72,16 +75,16 @@ cBoltScriptEnvironment::ResetOutputRedirectionFunction()
 void
 cBoltScriptEnvironment::ProcessRawString( const  std::string&  iStr )
 {
+    Print( iStr + "\r\n" );
+
     try
     {
         mVoidFuncVoid[ iStr ]();
     }
     catch(const std::exception&)
     {
-        Print( "Couldn't Process Raw String \r\n" );
+        Print( "ERROR: Couldn't Process Raw String \r\n" );
     }
-
-    Print( iStr + "\r\n" );
 }
 
 

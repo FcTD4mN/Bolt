@@ -69,6 +69,7 @@ private:
 
 public:
     // Public Output Interface
+    void    RedirectOutputToConsole();
     void    Print( const  std::string&  iStr );
     void    ProcessInput( const  std::string&  iStr );
 

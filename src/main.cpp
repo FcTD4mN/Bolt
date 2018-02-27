@@ -29,9 +29,8 @@ int main()
     app->Initialize();
 
 #ifdef  CONSOLEDEBUG
-    cGameApplication::App()->PushScreen(new cConsoleScreen() );
 
-    ::nBoltScript::Env()->Print( std::string( __FUNCTION__ ) + ">>: " + "Script Output Redirection To Native Console \r\n");
+    cGameApplication::App()->PushScreen(new cConsoleScreen() );
     ::nBoltScript::Env()->RegisterFunction( "exit", [=]( void ) { app->Window()->close(); } );
 
 #endif //  CONSOLEDEBUG
