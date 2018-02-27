@@ -74,6 +74,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         cEntity* entity = mEntityGroup[ i ];
         auto simplephysic   = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
         auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        bool collided = false;
 
         projection = simplephysic->mHitBox;
         projection.left += simplephysic->mVelocity.x;
@@ -88,16 +89,26 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             auto simplephysicSurr = dynamic_cast< cSimplePhysic* >( surroundingEntity->GetComponentByName( "simplephysic" ) );
             if( projection.intersects( simplephysicSurr->mHitBox ) )
             {
+                collided = true;
                 simplephysic->mVelocity.x = 0.0F;
                 simplephysic->mVelocity.y = 0.0F;
                 break;
             }
         }
 
-        position->mPosition.x += simplephysic->mVelocity.x;
-        position->mPosition.y += simplephysic->mVelocity.y;
-        simplephysic->mHitBox.left += simplephysic->mVelocity.x;
-        simplephysic->mHitBox.top += simplephysic->mVelocity.y;
+        if( !collided )
+        {
+            // Remove Entity before changing its position, so it's quick and easy
+            mEntityMap.RemoveEntityNotUpdated( entity );
+
+            position->mPosition.x += simplephysic->mVelocity.x;
+            position->mPosition.y += simplephysic->mVelocity.y;
+            simplephysic->mHitBox.left += simplephysic->mVelocity.x;
+            simplephysic->mHitBox.top += simplephysic->mVelocity.y;
+
+            // Add it back at its new position
+            mEntityMap.AddEntity( entity );
+        }
     }
 }
 
@@ -115,8 +126,16 @@ cSimplePhysics::IncomingEntity( cEntity * iEntity )
     if( simplephysic )
     {
         AcceptEntity( iEntity );
-        mEntityMap.AddObject( iEntity );
+        mEntityMap.AddEntity( iEntity );
     }
+}
+
+
+void
+cSimplePhysics::EntityLost( cEntity * iEntity )
+{
+    tSuperClass::EntityLost( iEntity );
+    mEntityMap.RemoveEntityNotUpdated( iEntity );
 }
 
 

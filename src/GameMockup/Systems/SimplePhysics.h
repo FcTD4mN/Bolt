@@ -30,6 +30,7 @@ public:
 public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
+    virtual  void  EntityLost( cEntity* iEntity ) override;
 
 private:
     cEntityGrid  mEntityMap;

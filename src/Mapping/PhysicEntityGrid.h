@@ -13,8 +13,16 @@ public:
 
 public:
     // Grid management
-    void AddObject( cEntity* iObject );
+    void AddEntity( cEntity* iEntity );
+
+        // This asssumes that iEntity still has the same position as when it was added
+        // It allows for a fast removal
+    void RemoveEntityNotUpdated( cEntity* iEntity );
     std::vector< cEntity* > GetSurroundingEntitiesOf( cEntity* iEntity );
+
+private:
+    // Private computing methods
+    void GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, cEntity* iEntity );
 
 private:
     std::vector< std::vector< std::vector < cEntity* > > > mGridMap;
