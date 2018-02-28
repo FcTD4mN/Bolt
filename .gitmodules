@@ -1,0 +1,3 @@
+[submodule "extlibs/cpython"]
+	path = extlibs/cpython
+	url = https://github.com/python/cpython
