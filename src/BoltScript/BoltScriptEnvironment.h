@@ -13,7 +13,6 @@ class  cBoltScriptEnvironment
 {
 private:
     typedef  void ( *tOutputRedirectionFunction )( const  std::string& );
-    typedef  void ( *tAnyFPtr )( ... );
 
 public:
     // Construction/Destruction
@@ -40,7 +39,7 @@ public:
 private:
     // Data Members
     std::function<void( const  std::string& )>  mOutputRedirectionFunction;
-    std::unordered_map< std::string, std::function< void( void ) > > mVoidFuncVoid;
+	std::unordered_map< std::string, std::function< void(void) > > mVoidFuncVoid;
 };
 
 

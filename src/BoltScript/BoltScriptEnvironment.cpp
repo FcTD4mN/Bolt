@@ -35,16 +35,13 @@ cBoltScriptEnvironment::BoltScriptEnvironment()
 
     if( !gBoltScriptEnvironment )
     {
-        std::function< void( const  std::string& )> f = [=]( const  std::string& iStr ) {
-            cBoltScriptEnvironment::DefaultOutputRedirectionFunction( iStr );
-        };
-        gBoltScriptEnvironment = new cBoltScriptEnvironment( f );
-        gBoltScriptEnvironment->RegisterFunction( "output:native", ResetOutputRedirectionFunction );
+        gBoltScriptEnvironment = new cBoltScriptEnvironment( DefaultOutputRedirectionFunction );
+		gBoltScriptEnvironment->RegisterFunction("output:native", ResetOutputRedirectionFunction);
+		gBoltScriptEnvironment->RegisterFunction("python", [=](void) { Env()->Print( "Incoming Feature \r\n" ); });
     }
 
     return  gBoltScriptEnvironment;
 }
-
 
 
 //static
@@ -54,14 +51,16 @@ cBoltScriptEnvironment::DefaultOutputRedirectionFunction( const  std::string&  i
     printf( iStr.c_str() );
 }
 
+
 //static
 void
 cBoltScriptEnvironment::ResetOutputRedirectionFunction()
 {
-    ::nBoltScript::Env()->Print( ">>: Output switching to Native Console \r\n");
-    ::nBoltScript::Env()->SetOutputRedirectionFunction( DefaultOutputRedirectionFunction );
-    ::nBoltScript::Env()->Print( ">>: Output switched to Native Console \r\n");
+    Env()->Print( ">>: Output switching to Native Console \r\n");
+    Env()->SetOutputRedirectionFunction( DefaultOutputRedirectionFunction );
+    Env()->Print( ">>: Output switched to Native Console \r\n");
 }
+
 
 // -------------------------------------------------------------------------------------
 // --------------------------------------------------------- Public Processing Interface
