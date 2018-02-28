@@ -547,7 +547,7 @@ cConsoleWidget::ClearInput()
 void
 cConsoleWidget::PushPrintCache()
 {
-    for( int i = 1; i < mPrintCache.size(); ++i )
+    for( int i = mPrintCache.size()-1; i > 0; --i )
     {
         mPrintCache[ i ] = mPrintCache[ i-1 ];
     }
@@ -722,7 +722,7 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
             mOutputTextLines[i].setString( currentOutputStr );
         }
 
-        if( str[ mMiniGameShipCursorIndex ] == '*' )
+        if( mOutputTextLines.back().getString()[ mMiniGameShipCursorIndex ] == '*' )
         {
             EndMiniGame();
             Print( "LOSER !" );
