@@ -5,11 +5,10 @@
 
 #include "tinyxml2.h"
 
+
 class cComponent;
 class cSystem;
 class cWorld;
-
-
 
 
 namespace
@@ -53,6 +52,8 @@ public:
     bool IsDead() const;
     void SetLoaded();
     const std::string& ID() const;
+    void Destroy();
+    void AddSystemObserver( cSystem* iSystem );
 
 public:
     // Input/Output

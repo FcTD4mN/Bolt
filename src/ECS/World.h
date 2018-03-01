@@ -25,6 +25,7 @@ public:
     void  AddEntity( cEntity* iEntity );
     void  RemoveEntity( cEntity* iEntity );
     void  UpdateWorldWithEntity( cEntity* iEntity );
+    void  DestroyEntity( cEntity* iEntity );
 
 public:
     // Systems
@@ -64,6 +65,8 @@ public:
 
 protected:
     std::vector< cEntity* > mEntity;
+    std::vector< cEntity* > mEntitiesToDestroy;
+
     std::vector< cSystem* > mSystems;
     std::vector< cSystem* > mEventRelatedSystems;
 };

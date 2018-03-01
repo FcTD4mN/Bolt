@@ -5,6 +5,7 @@
 #include "GameMockup/Components/Color.h"
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
+#include "GameMockup/Components/SimplePhysic.h"
 #include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
 
@@ -52,12 +53,14 @@ cComponentRegistry::Initialize()
     cSize*              sizePrototype           = new cSize();
     cSpriteAnimated*    spriteAnimatedPrototype = new cSpriteAnimated();
     cUserInput*         userInputPrototype      = new cUserInput();
+    cSimplePhysic*      simplePhysicPrototype   = new cSimplePhysic();
 
     mComponents.insert( std::make_pair( colorPrototype->Name(), colorPrototype ) );
     mComponents.insert( std::make_pair( positionPrototype->Name(), positionPrototype ) );
     mComponents.insert( std::make_pair( sizePrototype->Name(), sizePrototype ) );
     mComponents.insert( std::make_pair( spriteAnimatedPrototype->Name(), spriteAnimatedPrototype ) );
     mComponents.insert( std::make_pair( userInputPrototype->Name(), userInputPrototype ) );
+    mComponents.insert( std::make_pair( simplePhysicPrototype->Name(), simplePhysicPrototype ) );
 }
 
 

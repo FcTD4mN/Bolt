@@ -67,6 +67,7 @@ cEntityParser::Initialize()
         entity->LoadXML( doc.FirstChildElement( "entity" ) );
 
         mEntities[ entity->ID() ] = entity;
+        doc.Clear();
     }
 }
 

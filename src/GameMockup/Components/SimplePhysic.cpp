@@ -14,21 +14,26 @@ cSimplePhysic::~cSimplePhysic()
 cSimplePhysic::cSimplePhysic() :
     tSuperClass( "simplephysic" ),
     mHitBox( 0.0F, 0.0F, 0.0F, 0.0F ),
-    mVelocity( 0.0F, 0.0F )
+    mVelocity( 0.0F, 0.0F ),
+    mType( kStatic )
 {
 }
 
 
-cSimplePhysic::cSimplePhysic( float iX, float iY, float iW, float iH ) :
+cSimplePhysic::cSimplePhysic( float iX, float iY, float iW, float iH, eType iType ) :
     tSuperClass( "simplephysic" ),
     mHitBox( iX, iY, iW, iH ),
-    mVelocity( 0.0F, 0.0F )
+    mVelocity( 0.0F, 0.0F ),
+    mType( iType )
 {
 }
 
 
 cSimplePhysic::cSimplePhysic( const cSimplePhysic & iSimplePhysic ) :
-    tSuperClass( iSimplePhysic )
+    tSuperClass( iSimplePhysic ),
+    mHitBox( iSimplePhysic.mHitBox ),
+    mVelocity( iSimplePhysic.mVelocity ),
+    mType( iSimplePhysic.mType )
 {
 }
 
@@ -61,6 +66,8 @@ cSimplePhysic::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDoc
 
     iNode->SetAttribute( "veloX", mVelocity.x );
     iNode->SetAttribute( "veloY", mVelocity.y );
+
+    iNode->SetAttribute( "type", mType );
 }
 
 
@@ -75,6 +82,8 @@ cSimplePhysic::LoadXML( tinyxml2::XMLElement* iNode )
 
     mVelocity.x     = iNode->FloatAttribute( "veloX", 0.0F );
     mVelocity.y     = iNode->FloatAttribute( "veloY", 0.0F );
+
+    mType = eType( iNode->IntAttribute( "type", 0 ) );
 }
 
 

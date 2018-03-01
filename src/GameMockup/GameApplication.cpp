@@ -80,6 +80,19 @@ cGameApplication::Initialize()
 {
     tSuperClass::Initialize();
 
+    // =======ECS WORLD=======
+    mWorld = new cWorld();
+    mWorld->AddSystem( new cSimplerRenderer() );
+
+    cInputConverter* ic = new cInputConverter();
+    mWorld->AddSystem( ic );
+    mWorld->ConnectSystemToEvents( ic );
+
+    mWorld->AddSystem( new cSquareController() );
+    mWorld->AddSystem( new cAnimationRenderer() );
+    mWorld->AddSystem( new cSimplePhysics() );
+
+    // Following call may need world
     cComponentRegistry::Instance()->Initialize();
     cEntityParser::Instance()->Initialize();
 
@@ -124,18 +137,6 @@ cGameApplication::Initialize()
 
     cScreenMainMenu* mainMenuScreen = new cScreenMainMenu( menu );
     PushScreen( mainMenuScreen );
-
-    // =======ECS WORLD=======
-    mWorld = new cWorld();
-    mWorld->AddSystem( new cSimplerRenderer() );
-
-    cInputConverter* ic = new cInputConverter();
-    mWorld->AddSystem( ic );
-    mWorld->ConnectSystemToEvents( ic );
-
-    mWorld->AddSystem( new cSquareController() );
-    mWorld->AddSystem( new cAnimationRenderer() );
-    mWorld->AddSystem( new cSimplePhysics() );
 
     // =======Shortcuts=======
     mShortcutEngine = new cShortcuts();

@@ -90,9 +90,9 @@ void
 cSimplePhysics::Update( unsigned int iDeltaTime )
 {
     sf::Rect< float > projection;
-    for( int i = 0; i < mEntityGroup.size(); ++i )
+    for( int i = 0; i < mDynamicEntities.size(); ++i )
     {
-        cEntity* entity = mEntityGroup[ i ];
+        cEntity* entity = mDynamicEntities[ i ];
         auto simplephysic   = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
         auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         bool collided = false;
@@ -127,6 +127,10 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             simplephysic->mHitBox.left += simplephysic->mVelocity.x;
             simplephysic->mHitBox.top += simplephysic->mVelocity.y;
 
+            // very basic test just to test
+            if( position->mPosition.x > 900 )
+                entity->Destroy();
+
             // Add it back at its new position
             mEntityMap.AddEntity( entity );
         }
@@ -142,12 +146,17 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 void
 cSimplePhysics::IncomingEntity( cEntity * iEntity )
 {
-    auto simplephysic = iEntity->GetComponentByName( "simplephysic" );
+    auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
 
     if( simplephysic )
     {
         AcceptEntity( iEntity );
         mEntityMap.AddEntity( iEntity );
+
+        if( simplephysic->mType == cSimplePhysic::eType::kStatic )
+            mStaticEntities.push_back( iEntity );
+        else if( simplephysic->mType == cSimplePhysic::eType::kDynamic )
+            mDynamicEntities.push_back( iEntity );
     }
 }
 
@@ -155,6 +164,26 @@ cSimplePhysics::IncomingEntity( cEntity * iEntity )
 void
 cSimplePhysics::EntityLost( cEntity * iEntity )
 {
+    // Getting type to quickly know in which vector we should look to remove entity
+    auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+
+    if( simplephysic->mType == cSimplePhysic::eType::kStatic )
+    {
+        for( int i = 0; i < mStaticEntities.size(); ++i )
+        {
+            if( mStaticEntities[ i ] == iEntity )
+                mStaticEntities.erase( mStaticEntities.begin() + i );
+        }
+    }
+    else if( simplephysic->mType == cSimplePhysic::eType::kDynamic )
+    {
+        for( int i = 0; i < mDynamicEntities.size(); ++i )
+        {
+            if( mDynamicEntities[ i ] == iEntity )
+                mDynamicEntities.erase( mDynamicEntities.begin() + i );
+        }
+    }
+
     tSuperClass::EntityLost( iEntity );
     mEntityMap.RemoveEntityNotUpdated( iEntity );
 }

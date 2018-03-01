@@ -1,6 +1,8 @@
 #include "Entity.h"
 
 #include "ECS/Component.h"
+#include "ECS/World.h"
+#include "ECS/System.h"
 
 #include "ECS/ComponentRegistry.h"
 
@@ -13,6 +15,11 @@ static unsigned int sgEntityCount = 0;
 
 cEntity::~cEntity()
 {
+    for( int i = 0; i < mObserverSystems.size(); ++i )
+    {
+        mObserverSystems[ i ]->EntityLost( this );
+    }
+
     for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
     {
         delete  it->value;
@@ -177,6 +184,25 @@ const std::string&
 cEntity::ID() const
 {
     return  mID;
+}
+
+
+void
+cEntity::Destroy()
+{
+    mWorld->DestroyEntity( this );
+
+    for( int i = 0; i < mObserverSystems.size(); ++i )
+    {
+        mObserverSystems[ i ]->EntityLost( this );
+    }
+}
+
+
+void
+cEntity::AddSystemObserver( cSystem * iSystem )
+{
+    mObserverSystems.push_back( iSystem );
 }
 
 

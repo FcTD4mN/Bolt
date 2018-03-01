@@ -28,6 +28,7 @@ cShortcuts::Initialize()
     mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Down, "movedown" ) );
     mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Left, "moveleft" ) );
     mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Right, "moveright" ) );
+    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Space, "attack" ) );
 }
 
 

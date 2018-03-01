@@ -1,5 +1,7 @@
 #include "ECS/System.h"
 
+#include "ECS/Entity.h"
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
 // -------------------------------------------------------------------------------------
@@ -54,6 +56,7 @@ void
 cSystem::AcceptEntity( cEntity * iEntity )
 {
     mEntityGroup.push_back( iEntity );
+    iEntity->AddSystemObserver( this );
 }
 
 

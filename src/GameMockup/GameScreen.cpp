@@ -67,7 +67,7 @@ cGameScreen::Initialize()
     float posY = 300.0F;
     ent->AddComponent( new cPosition( posX, posY ) );
     ent->AddComponent( new cUserInput() );
-    ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F ) );
+    ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );
 
     cEntity* murtavu = new cEntity( world );
@@ -76,7 +76,7 @@ cGameScreen::Initialize()
     murtavu->AddComponent( new cPosition( posX, posY ) );
     murtavu->AddComponent( new cSize( 64.0F, 64.0F ) );
     murtavu->AddComponent( new cColor( 255, 255, 255 ) );
-    murtavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F ) );
+    murtavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( murtavu );
 
     cEntity* mur2tavu = new cEntity( world );
@@ -85,7 +85,7 @@ cGameScreen::Initialize()
     mur2tavu->AddComponent( new cPosition( posX, posY ) );
     mur2tavu->AddComponent( new cSize( 64.0F, 64.0F ) );
     mur2tavu->AddComponent( new cColor( 255, 200, 255 ) );
-    mur2tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F ) );
+    mur2tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( mur2tavu );
 
     cEntity* mur3tavu = new cEntity( world );
@@ -94,7 +94,7 @@ cGameScreen::Initialize()
     mur3tavu->AddComponent( new cPosition( posX, posY ) );
     mur3tavu->AddComponent( new cSize( 64.0F, 64.0F ) );
     mur3tavu->AddComponent( new cColor( 255, 200, 255 ) );
-    mur3tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F ) );
+    mur3tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( mur3tavu );
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
@@ -124,7 +124,7 @@ cGameScreen::Initialize()
         float posY = float(rand() % (size.y - 10));
         ent->AddComponent( new cPosition( posX, posY ) );
         ent->AddComponent( new cUserInput() );
-        ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F ) );
+        ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F, cSimplePhysic::eType::kDynamic ) );
         world->AddEntity( ent );
     };
 

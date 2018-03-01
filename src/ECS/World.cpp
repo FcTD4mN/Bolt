@@ -45,6 +45,15 @@ cWorld::Draw( sf::RenderTarget* iRenderTarget )
 void
 cWorld::Update( unsigned int iDeltaTime )
 {
+    //OPTI: This is not ideal, as remove entity is o(n) worst case
+    while( mEntitiesToDestroy.size() > 0 )
+    {
+        cEntity* ent = mEntitiesToDestroy.back();
+        RemoveEntity( ent );
+        delete  ent;
+        mEntitiesToDestroy.pop_back();
+    }
+
     for( int i = 0; i < mSystems.size(); ++i )
     {
         mSystems[ i ]->Update( iDeltaTime );
@@ -72,7 +81,9 @@ cWorld::RemoveEntity( cEntity* iEntity )
     for( int i = 0; i < mEntity.size(); ++i )
     {
         if( mEntity[ i ] == iEntity )
+        {
             mEntity.erase( mEntity.begin() + i );
+        }
     }
 }
 
@@ -84,6 +95,13 @@ cWorld::UpdateWorldWithEntity( cEntity* iEntity )
     {
         mSystems[ i ]->IncomingEntity( iEntity );
     }
+}
+
+
+void
+cWorld::DestroyEntity( cEntity * iEntity )
+{
+    mEntitiesToDestroy.push_back( iEntity );
 }
 
 

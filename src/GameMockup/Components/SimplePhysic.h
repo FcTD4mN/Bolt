@@ -11,9 +11,16 @@ public:
     typedef  cComponent  tSuperClass;
 
 public:
+    enum eType
+    {
+        kStatic = 0,
+        kDynamic
+    };
+
+public:
     virtual  ~cSimplePhysic();
     cSimplePhysic();
-    cSimplePhysic( float iX, float iY, float iW, float iH );
+    cSimplePhysic( float iX, float iY, float iW, float iH, eType iType );
     cSimplePhysic( const cSimplePhysic& iSimplePhysic );
 
 public:
@@ -28,5 +35,6 @@ public:
 public:
     sf::Vector2f        mVelocity;
     sf::Rect< float >   mHitBox;
+    eType               mType;
 };
 

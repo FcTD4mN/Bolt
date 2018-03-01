@@ -34,5 +34,7 @@ public:
 
 private:
     cEntityGrid  mEntityMap;
+    std::vector< cEntity* > mStaticEntities;
+    std::vector< cEntity* > mDynamicEntities;
 };
 

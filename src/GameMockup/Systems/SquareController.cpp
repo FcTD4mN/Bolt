@@ -1,6 +1,8 @@
 #include "SquareController.h"
 
 #include "ECS/Entity.h"
+#include "ECS/EntityParser.h"
+#include "ECS/World.h"
 
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/Components/SimplePhysic.h"
@@ -89,6 +91,23 @@ cSquareController::Update( unsigned int iDeltaTime )
                 simplephysic->mVelocity.x -= 1;
                 if( spriteanimated )
                     spriteanimated->Unflip();
+            }
+            else if( userinput->mActions[ i ] == "attack" )
+            {
+                cEntity* bullet = cEntityParser::Instance()->CreateEntityFromPrototypeMap( "bullet" );
+                float x = simplephysic->mHitBox.left + simplephysic->mHitBox.width + 5;
+                float y = simplephysic->mHitBox.top - simplephysic->mHitBox.height / 2;
+                auto pos = dynamic_cast< cPosition* >( bullet->GetComponentByName( "position" ) );
+                pos->mPosition.x = x;
+                pos->mPosition.y = y;
+
+                auto phys = dynamic_cast< cSimplePhysic* >( bullet->GetComponentByName( "simplephysic" ) );
+                phys->mHitBox.left = x;
+                phys->mHitBox.top = y;
+
+                phys->mVelocity.x = 0.1;
+                cGameApplication::App()->World()->AddEntity( bullet );
+                userinput->mActions.erase( userinput->mActions.begin() + i );
             }
         }
     }
