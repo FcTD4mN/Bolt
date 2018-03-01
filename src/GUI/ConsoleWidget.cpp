@@ -948,6 +948,7 @@ cConsoleWidget::ProcessUpPressed()
     mInputText.setString( cacheStr );
     int max = cacheStr.size()-1;
     mPrintCacheIndex += mPrintCacheIndex < max ? 1 : 0;
+    MatchCursorPosition();
 }
 
 
@@ -957,6 +958,7 @@ cConsoleWidget::ProcessDownPressed()
     std::string cacheStr = mPrintCache[ mPrintCacheIndex ];
     mInputText.setString( cacheStr );
     mPrintCacheIndex -= 0 > 0 ? 1 : 0;
+    MatchCursorPosition();
 }
 
 
