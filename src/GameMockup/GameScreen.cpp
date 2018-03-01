@@ -37,65 +37,31 @@ cGameScreen::cGameScreen()
 void
 cGameScreen::Initialize()
 {
-    //sf::Window* window = cGameApplication::App()->Window();
-    //sf::Vector2u size = window->getSize();
+    sf::Window* window = cGameApplication::App()->Window();
+    sf::Vector2u windowSize = window->getSize();
 
     cWorld* world = cGameApplication::App()->World();
 
-    //for( int i = 0; i < 10; ++i )
-    //{
-    //    int posX = rand() % ( size.x - 10 );
-    //    int posY = rand() % (size.y - 10);
+    for( int i = 0; i < 100; ++i )
+    {
+        int posX = rand() % ( windowSize.x - 10 );
+        int posY = rand() % (windowSize.y - 10);
 
-    //    cEntity* ent = new cEntity( world );
-    //    cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
-    //    animation->mFrameRate = 24;
-    //    animation->mPaused = false;
-
-    //    ent->AddComponent( animation );
-    //    ent->AddComponent( new cPosition( float(posX), float(posY) ) );
-    //    world->AddEntity( ent );
-    //}
+        cEntity* ent = new cEntity( world );
+        ent->AddComponent( new cSize( 2.0F, 2.0F ) );
+        ent->AddComponent( new cColor( 255, 20, 20 ) );
+        ent->AddComponent( new cPosition( float(posX), float(posY) ) );
+        ent->AddComponent( new cSimplePhysic( float( posX ), float( posY ), 2.0F, 2.0F, cSimplePhysic::eType::kDynamic ) );
+        world->AddEntity( ent );
+    }
 
     cEntity* ent = new cEntity( world );
-    cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
-    animation->mFrameRate = 24;
-    animation->mPaused = false;
-
-    ent->AddComponent( animation );
-    float posX = 400.0F;
-    float posY = 300.0F;
-    ent->AddComponent( new cPosition( posX, posY ) );
+    ent->AddComponent( new cPosition( 400.0F, 300.0F ) );
+    ent->AddComponent( new cSize( 5.0F, 5.0F ) );
+    ent->AddComponent( new cColor( 20,255,20 ) );
     ent->AddComponent( new cUserInput() );
-    ent->AddComponent( new cSimplePhysic( posX, posY, 40.0F, 64.0F, cSimplePhysic::eType::kDynamic ) );
+    ent->AddComponent( new cSimplePhysic( 400.0F, 300.0F, 5.0F, 5.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );
-
-    cEntity* murtavu = new cEntity( world );
-    posX = 500.0F;
-    posY = 300.0F;
-    murtavu->AddComponent( new cPosition( posX, posY ) );
-    murtavu->AddComponent( new cSize( 64.0F, 64.0F ) );
-    murtavu->AddComponent( new cColor( 255, 255, 255 ) );
-    murtavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
-    world->AddEntity( murtavu );
-
-    cEntity* mur2tavu = new cEntity( world );
-    posX = 500.0F;
-    posY = 235.0F;
-    mur2tavu->AddComponent( new cPosition( posX, posY ) );
-    mur2tavu->AddComponent( new cSize( 64.0F, 64.0F ) );
-    mur2tavu->AddComponent( new cColor( 255, 200, 255 ) );
-    mur2tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
-    world->AddEntity( mur2tavu );
-
-    cEntity* mur3tavu = new cEntity( world );
-    posX = 200.0;
-    posY = 235.0F;
-    mur3tavu->AddComponent( new cPosition( posX, posY ) );
-    mur3tavu->AddComponent( new cSize( 64.0F, 64.0F ) );
-    mur3tavu->AddComponent( new cColor( 255, 200, 255 ) );
-    mur3tavu->AddComponent( new cSimplePhysic( posX, posY, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
-    world->AddEntity( mur3tavu );
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
                                                     float( cGameApplication::App()->Window()->getSize().y ) );

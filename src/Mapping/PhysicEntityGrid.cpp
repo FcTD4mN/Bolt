@@ -16,9 +16,9 @@ cEntityGrid::~cEntityGrid()
 
 cEntityGrid::cEntityGrid() :
     mGridMap(),
-    mWidth( 256 ),
-    mHeight( 256 ),
-    mCellSize( 16 )
+    mWidth( 1024 ),
+    mHeight( 1024 ),
+    mCellSize( 2 )
 {
     mGridMap.reserve( mWidth );
     for( int i = 0; i < mWidth; ++i )
@@ -85,9 +85,15 @@ cEntityGrid::GetSurroundingEntitiesOf( cEntity* iEntity )
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
-    for( int i = x-1; i <= x2+1; ++i )
+    // We compute the enlarged rectangle that represent "one cell distance"
+    int left    = x - 1     <   0           ? 0         : x - 1;
+    int top     = y - 1     <   0           ? 0         : y - 1;
+    int right   = x2 + 1    >=  mWidth -1   ? mWidth -1 : x2 + 1;
+    int bottom  = y2 + 1    >=  mWidth -1   ? mWidth -1 : y2 + 1;
+
+    for( int i = left; i <= right; ++i )
     {
-        for( int j = y-1; j <= y2+1; ++j )
+        for( int j = top; j <= bottom; ++j )
         {
             for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
             {
