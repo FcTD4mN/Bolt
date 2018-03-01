@@ -42,7 +42,7 @@ cGameScreen::Initialize()
 
     cWorld* world = cGameApplication::App()->World();
 
-    for( int i = 0; i < 100; ++i )
+    for( int i = 0; i < 500; ++i )
     {
         int posX = rand() % ( windowSize.x - 10 );
         int posY = rand() % (windowSize.y - 10);

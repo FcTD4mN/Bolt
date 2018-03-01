@@ -43,11 +43,17 @@ cEntityGrid::AddEntity( cEntity* iEntity )
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
+    // We crop so that entities that are part outside the grid and part inside can be treated
+    int left   = x     <   0 ? 0 : x;
+    int top    = y     <   0 ? 0 : y;
+    int right  = x2    >= mWidth - 1 ? mWidth - 1 : x2;
+    int bottom = y2    >= mWidth - 1 ? mWidth - 1 : y2;
+
     // We store the pointer of iEntity in every cell that it is contained within, so we know at any time which entity should be considered
     // when looking for collision
-    for( int i = x; i <= x2; ++i )
+    for( int i = left; i <= right; ++i )
     {
-        for( int j = y; j <= y2; ++j )
+        for( int j = top; j <= bottom; ++j )
         {
             mGridMap[ i ][ j ].push_back( iEntity );
         }
@@ -61,9 +67,15 @@ cEntityGrid::RemoveEntityNotUpdated( cEntity* iEntity )
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
-    for( int i = x; i <= x2; ++i )
+    // We crop so that entities that are part outside the grid and part inside can be treated
+    int left = x     <   0 ? 0 : x;
+    int top = y     <   0 ? 0 : y;
+    int right = x2 >= mWidth - 1 ? mWidth - 1 : x2;
+    int bottom = y2 >= mWidth - 1 ? mWidth - 1 : y2;
+
+    for( int i = left; i <= right; ++i )
     {
-        for( int j = y; j <= y2; ++j )
+        for( int j = top; j <= bottom; ++j )
         {
             for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
             {
@@ -123,4 +135,11 @@ cEntityGrid::GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, cEntity* iEnti
 
     *oX2 = int( simplephysic->mHitBox.left + simplephysic->mHitBox.width ) / mCellSize;
     *oY2 = int( simplephysic->mHitBox.top + simplephysic->mHitBox.height ) / mCellSize;
+
+    // If an entity wants to be added out of grid bouds, it justs sets ox2 and oy2 so that we won't get in any of the "for" loops
+    if( *oX >= mWidth || *oY >= mHeight || *oX2 < 0 || *oY2 < 0 )
+    {
+        *oX2 = *oX - 1;
+        *oY2 = *oY - 1;
+    }
 }
