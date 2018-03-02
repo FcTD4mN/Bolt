@@ -10,6 +10,8 @@
 #include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
 
+#include "SFML/Graphics.hpp"
+
 #include <iostream>
 
 // -------------------------------------------------------------------------------------
@@ -109,6 +111,13 @@ cSquareController::Update( unsigned int iDeltaTime )
                 cGameApplication::App()->World()->AddEntity( bullet );
                 userinput->mActions.erase( userinput->mActions.begin() + i );
             }
+
+            // Basic test thing that assumes only one square is controlled
+            // All the gamemockup part is testing anyway ...
+            auto window = cGameApplication::App()->Window();
+            sf::View view = window->getView();
+            view.setCenter( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
+            window->setView( view );
         }
     }
 }
