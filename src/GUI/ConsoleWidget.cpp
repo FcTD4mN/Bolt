@@ -547,7 +547,7 @@ cConsoleWidget::ClearInput()
 void
 cConsoleWidget::PushPrintCache()
 {
-    for( int i = mPrintCache.size()-1; i > 0; --i )
+    for( int i = int( mPrintCache.size() )-1; i > 0; --i )
     {
         mPrintCache[ i ] = mPrintCache[ i-1 ];
     }
@@ -658,7 +658,7 @@ cConsoleWidget::StartMiniGame()
     Clear();
     mMiniGame = true;
     mMiniGameTimerElapsedTime = 0;
-    int nChars = mSize.x / mCharWidth;
+    int nChars = int( mSize.x ) / mCharWidth;
     int center = nChars/2;
     mMiniGameShipCursorIndex = center;
     mMiniGameHighscore = 0;
@@ -697,7 +697,7 @@ cConsoleWidget::UpdateMiniGame( unsigned int iDeltaTime )
         double minPeriod = 120.0;
         double period = incrementalPeriod >= minPeriod ? incrementalPeriod : minPeriod;
         mMiniGameTimerElapsedTime += double( iDeltaTime ) / period;
-        int nChars = mSize.x / mCharWidth;
+        int nChars = int( mSize.x ) / mCharWidth;
         std::string str;
         for( int i = 0; i < nChars; ++i )
         {
@@ -946,7 +946,7 @@ cConsoleWidget::ProcessUpPressed()
 {
     std::string cacheStr = mPrintCache[ mPrintCacheIndex ];
     mInputText.setString( cacheStr );
-    int max = cacheStr.size()-1;
+    int max = int( cacheStr.size() )-1;
     mPrintCacheIndex += mPrintCacheIndex < max ? 1 : 0;
     MatchCursorPosition();
 }
