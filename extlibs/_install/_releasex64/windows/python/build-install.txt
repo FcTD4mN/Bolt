@@ -1,0 +1,32 @@
+Informations
+-----------------
+python submodule build-install instruction for windows
+
+For detailed informations:
+• goto read Bolt/extlibs/cpython/readme.rst
+• goto read Bolt/extlibs/cpython/PCBuild/readme.txt
+
+Build
+---------------
+A script should be provided in order to automate the building of Python, but until it is done i'll detail all the steps here:
+
+• launch cmd.exe
+• cd %YOUR_INSTALL_PATH/Bolt/extlibs/cpython/PCBuild/
+• execute "build.bat -h" from command line
+• check the description for build options.
+• Run the following four commands:
+	build.bat -V -r -e -v -k -c Release -p x64 		-t Rebuild
+	build.bat -V -r -e -v -k -c Debug 	-p x64 		-t Rebuild
+	build.bat -V -r -e -v -k -c Release -p Win32 	-t Rebuild
+	build.bat -V -r -e -v -k -c Debug	-p Win32 	-t Rebuild
+	
+	this builds Python for all configurations on windows using the latest provided VC++ compiler. Python will be built as a dynamic library, also generating python.exe and associated executables that you can try to execute from command line too in order to check if everything is okay.
+• Provided you are on a 64Bit OS, try the following commands and check if everything runs ok:
+	• amd64/python.exe
+	* Python should start in cmd *
+	• import mslib
+	• mslib.gen_uuid()
+	* Python should print some id *
+	• exit()
+
+• Great, you built python, you are happy !
