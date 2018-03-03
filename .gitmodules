@@ -1,3 +1,6 @@
 [submodule "extlibs/cpython"]
 	path = extlibs/cpython
 	url = https://github.com/python/cpython
+[submodule "tinyxml2"]
+	path = tinyxml2
+	url = https://github.com/leethomason/tinyxml2
