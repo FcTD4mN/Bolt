@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="ConsoleDebug|Win32">
+      <Configuration>ConsoleDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ConsoleDebug|x64">
+      <Configuration>ConsoleDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{9819E07A-14C5-46F6-A99A-9306FF2D138D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>KoTeur</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>BoltCore</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>A:\Programmation\SFML-2.4.2-VS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>A:\Programmation\SFML-2.4.2-VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>A:\Programmation\SFML-2.4.2-VS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>A:\Programmation\SFML-2.4.2-VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;CONSOLEDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>A:\Programmation\SFML-2.4.2-VS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>A:\Programmation\SFML-2.4.2-VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\BoltExtlibs\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Application\Application.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Base\Clipboard.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Base\ClipboardWin32.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Base\Drawable.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Base\ResourceManager.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Benchmark\Benchmark.cpp" />
+    <ClCompile Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\Component.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\Entity.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\System.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\World.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\EntityParser.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Color.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Position.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Size.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\SpriteAnimated.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Text.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\UserInput.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\ConsoleScreen.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\GameApplication.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\GameScreen.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SquareController.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GUI\ConsoleWidget.cpp" />
+    <ClCompile Include="..\..\..\src\Core\main.cpp" />
+    <ClCompile Include="..\..\..\src\Core\MainMenu\MainMenu.cpp" />
+    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.cpp" />
+    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.cpp" />
+    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.cpp" />
+    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Math\Utils.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Screen\Screen.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Screen\ScreenMainMenu.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Shortcuts\Shortcuts.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\BoltExtlibs\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="..\..\..\src\Core\Application\Application.h" />
+    <ClInclude Include="..\..\..\src\Core\Base\Clipboard.h" />
+    <ClInclude Include="..\..\..\src\Core\Base\Drawable.h" />
+    <ClInclude Include="..\..\..\src\Core\Base\GeneralEnums.h" />
+    <ClInclude Include="..\..\..\src\Core\Base\ResourceManager.h" />
+    <ClInclude Include="..\..\..\src\Core\Benchmark\Benchmark.h" />
+    <ClInclude Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\Component.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\Entity.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\System.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\World.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\EntityParser.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Color.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Position.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Size.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\SpriteAnimated.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Text.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\UserInput.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\ConsoleScreen.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\GameApplication.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\GameScreen.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SquareController.h" />
+    <ClInclude Include="..\..\..\src\Core\GUI\ConsoleWidget.h" />
+    <ClInclude Include="..\..\..\src\Core\MainMenu\MainMenu.h" />
+    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.h" />
+    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.h" />
+    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.h" />
+    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.h" />
+    <ClInclude Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.h" />
+    <ClInclude Include="..\..\..\src\Core\Math\Utils.h" />
+    <ClInclude Include="..\..\..\src\Core\Screen\Screen.h" />
+    <ClInclude Include="..\..\..\src\Core\Screen\ScreenMainMenu.h" />
+    <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
