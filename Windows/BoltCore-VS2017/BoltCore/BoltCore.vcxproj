@@ -157,7 +157,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -174,7 +174,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;CONSOLEDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -214,7 +214,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\BoltExtlibs\tinyxml2;$(SolutionDir)\..\..\..\..\..\SFML-2.4.2-VS\include;$(SolutionDir)\..\..\..\src\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -226,7 +226,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\BoltExtlibs\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\BoltExtlibs\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\Clipboard.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\ClipboardWin32.cpp" />
@@ -269,7 +269,7 @@
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Shortcuts.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\BoltExtlibs\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="..\..\..\BoltExtlibs\tinyxml2\tinyxml2.h" />
     <ClInclude Include="..\..\..\src\Core\Application\Application.h" />
     <ClInclude Include="..\..\..\src\Core\Base\Clipboard.h" />
     <ClInclude Include="..\..\..\src\Core\Base\Drawable.h" />
