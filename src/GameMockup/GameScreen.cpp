@@ -113,7 +113,11 @@ cGameScreen::Finalize()
 void
 cGameScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
+    auto window = cGameApplication::App()->Window();
+    sf::View view = window->getView();
+    window->setView( window->getDefaultView() );
     mConsoleWidget.Draw( iRenderTarget );
+    window->setView( view );
 }
 
 
