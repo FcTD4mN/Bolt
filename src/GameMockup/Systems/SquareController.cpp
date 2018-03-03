@@ -107,7 +107,7 @@ cSquareController::Update( unsigned int iDeltaTime )
                 phys->mHitBox.left = x;
                 phys->mHitBox.top = y;
 
-                phys->mVelocity.x = 0.1;
+                phys->mVelocity.x = 0.1f;
                 cGameApplication::App()->World()->AddEntity( bullet );
                 userinput->mActions.erase( userinput->mActions.begin() + i );
             }
