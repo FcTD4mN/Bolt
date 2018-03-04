@@ -46,19 +46,23 @@ main(int argc, char *argv[])
     Py_SetProgramName(program);
     Py_Initialize();
     PyRun_SimpleString("import PyBolt\n");
-    PyRun_SimpleString("PyBolt.PyBoltPrint(\"Python says i love Bolt\")\n");
+    PyRun_SimpleString("PyBolt.PyBoltPrint(\"\")\n");
     PyRun_SimpleString("class Monitor:\n"
                        "    def __init__(self):\n"
                        "      self\n"
                        "\n"
                        "    def write(self, s):\n"
-                       "      PyBolt.PyBoltPrint(s)\n"
+                       "      if s.rstrip() != \"\":\n"
+                       "        PyBolt.PyBoltPrint(s)\n"
                        "\n" );
     PyRun_SimpleString("monitorQ = Monitor()\n");
     PyRun_SimpleString("print(\"Redirecting output...\")\n"
                        "import sys\n"
-                       "sys.stdout = monitorQ\n"
-                       "print(\"aaaaa\")\n" );
+                       "sys.stdout = monitorQ\n" );
+
+    PyRun_SimpleString("print(\"Python says i love Bolt\")\n" );
+    PyRun_SimpleString("print(\"Python says i can't wait to see your little voxels\")\n" );
+    
 
     ////////////////////////////////////////////////////////////
 

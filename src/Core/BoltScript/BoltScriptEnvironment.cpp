@@ -84,7 +84,8 @@ cBoltScriptEnvironment::ProcessRawString( const  std::string&  iStr )
     }
     catch(const std::exception&)
     {
-        Print( "ERROR: Couldn't Process Raw String \r\n" );
+        PyRun_SimpleString( iStr.c_str() );
+        //Print( "ERROR: Couldn't Process Raw String \r\n" );
     }
 }
 
