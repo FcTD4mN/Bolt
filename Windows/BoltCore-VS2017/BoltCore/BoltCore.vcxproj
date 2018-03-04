@@ -231,6 +231,7 @@
     <ClCompile Include="..\..\..\src\Core\Base\ClipboardWin32.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\Drawable.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\ResourceManager.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Base\Utilities.cpp" />
     <ClCompile Include="..\..\..\src\Core\Benchmark\Benchmark.cpp" />
     <ClCompile Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Core\Component.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="..\..\..\src\Core\Base\Drawable.h" />
     <ClInclude Include="..\..\..\src\Core\Base\GeneralEnums.h" />
     <ClInclude Include="..\..\..\src\Core\Base\ResourceManager.h" />
+    <ClInclude Include="..\..\..\src\Core\Base\Utilities.h" />
     <ClInclude Include="..\..\..\src\Core\Benchmark\Benchmark.h" />
     <ClInclude Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Component.h" />

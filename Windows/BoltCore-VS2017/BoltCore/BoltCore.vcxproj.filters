@@ -201,6 +201,9 @@
     <ClCompile Include="..\..\..\src\Core\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Utilities.cpp">
+      <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h">
       <Filter>Fichiers sources\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Base\Utilities.h">
+      <Filter>Fichiers sources\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

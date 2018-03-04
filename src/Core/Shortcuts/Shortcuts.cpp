@@ -1,5 +1,7 @@
 ﻿ #include "Shortcuts.h"
 
+#include <fstream>
+#include <sstream>
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -24,17 +26,14 @@ cShortcuts::cShortcuts()
 void
 cShortcuts::Initialize()
 {
-    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Up, "moveup" ) );
-    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Down, "movedown" ) );
-    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Left, "moveleft" ) );
-    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Right, "moveright" ) );
-    mShortcuts.insert( std::make_pair( sf::Keyboard::Key::Space, "attack" ) );
+    LoadXML();
 }
 
 
 void
 cShortcuts::Finalize()
 {
+    SaveXML();
 }
 
 
@@ -60,4 +59,44 @@ const std::string&
 cShortcuts::GetActionForKey( sf::Keyboard::Key iKey )
 {
     return  mShortcuts[ iKey ];
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------ Input/Output
+// -------------------------------------------------------------------------------------
+
+
+void
+cShortcuts::SaveXML()
+{
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* elm = doc.NewElement( "shortcuts" );
+
+    for( auto v : mShortcuts )
+    {
+        tinyxml2::XMLElement* entry = doc.NewElement( "entry" );
+
+        entry->SetAttribute( "key", v.first );
+        entry->SetAttribute( "action", v.second.c_str() );
+
+         elm->LinkEndChild( entry );
+    }
+
+    doc.InsertFirstChild( elm );
+
+    tinyxml2::XMLError error = doc.SaveFile( "shortcuts.xml" );
+}
+
+
+void
+cShortcuts::LoadXML()
+{
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLError error = doc.LoadFile( "shortcuts.xml" );
+
+    for( tinyxml2::XMLElement* entry = doc.FirstChildElement( "shortcuts" )->FirstChildElement( "entry"); entry; entry = entry->NextSiblingElement() )
+    {
+        mShortcuts[ sf::Keyboard::Key( entry->Int64Attribute( "key" ) ) ] = entry->Attribute( "action" );
+    }
 }

@@ -26,9 +26,6 @@ public:
     void Initialize();
     void Finalize();
 
-    void InitializeComponents();
-    void FinalizeComponents();
-
 public:
     void Update( unsigned int iDeltaTime );
     void Draw( sf::RenderTarget* iRenderTarget );
