@@ -2,6 +2,7 @@
 #include <cpython/Python.h>
 
 #include "BoltScript/BoltScriptEnvironment.h"
+
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/ConsoleScreen.h"
@@ -14,6 +15,36 @@
 
 #include "Benchmark/Benchmark.h"
 
+extern "C" {
+static int numargs=0;
+
+/* Return the number of arguments of the application command line */
+static PyObject*
+emb_numargs(PyObject *self, PyObject *args)
+{
+    if(!PyArg_ParseTuple(args, ":numargs"))
+        return NULL;
+    return PyLong_FromLong(numargs);
+}
+
+static PyMethodDef EmbMethods[] = {
+    {"numargs", emb_numargs, METH_VARARGS,
+     "Return the number of arguments received by the process."},
+    {NULL, NULL, 0, NULL}
+};
+
+static PyModuleDef EmbModule = {
+    PyModuleDef_HEAD_INIT, "emb", NULL, -1, EmbMethods,
+    NULL, NULL, NULL, NULL
+};
+
+static PyObject*
+PyInit_emb(void)
+{
+    return PyModule_Create(&EmbModule);
+}
+
+}
 int
 main(int argc, char *argv[])
 {
@@ -34,9 +65,6 @@ main(int argc, char *argv[])
 #endif //  CONSOLEDEBUG
 
     // PYTHON TEST
-    std::wstring ws( Py_GetPath() );
-    std::string str( ws.begin(), ws.end() );
-    ::nBoltScript::Env()->Print( str + "\r\n" );
     wchar_t *program = Py_DecodeLocale(argv[0], NULL);
     if (program == NULL) {
         fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
@@ -44,8 +72,12 @@ main(int argc, char *argv[])
     }
     Py_SetProgramName(program);
     Py_Initialize();
-    PyRun_SimpleString("from time import time,ctime\n"
-            "print('>>Python says:', ctime(time()))\n");
+
+    numargs = argc;
+    PyImport_AppendInittab("emb", &PyInit_emb);
+
+    PyRun_SimpleString("import ctypes\n");
+
     ////////////////////////////////////////////////////////////
 
     sf::RenderWindow* window = cGameApplication::App()->Window();
@@ -70,7 +102,7 @@ main(int argc, char *argv[])
         app->Draw( app->Window() );
 
         // PERF TESTS============================================================
-        if( 1 )
+        if( 0 )
         {
             //sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
             //rect.setPosition( sf::Vector2f( sf::Mouse::getPosition( *window ) ) );
@@ -82,7 +114,6 @@ main(int argc, char *argv[])
             std::cout << std::to_string( fps ) << "\n";
             std::cout << "==============" << std::to_string( cGameApplication::App()->World()->EntityCount() ) << "\n";
 
-            PyRun_SimpleString("print('>>Python says:', ctime(time()))\n");
         }
         // PERF TESTS============================================================
 
