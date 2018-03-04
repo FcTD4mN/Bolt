@@ -40,9 +40,13 @@ main(int argc, char *argv[])
         fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
         exit(1);
     }
+
+    PyImport_AppendInittab("PyBolt", &::nBoltScript::PyInit_PyBolt);
+
     Py_SetProgramName(program);
     Py_Initialize();
-    PyRun_SimpleString("import ctypes\n");
+    PyRun_SimpleString("import PyBolt\n");
+    PyRun_SimpleString("PyBolt.PyBoltPrint(\"Python says i love Bolt\")\n");
 
     ////////////////////////////////////////////////////////////
 

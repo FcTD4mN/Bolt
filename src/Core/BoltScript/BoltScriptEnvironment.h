@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
+#include <cpython/Python.h>
 #include <functional>
+#include <string>
 #include <unordered_map>
 
 namespace  nBoltScript
@@ -44,6 +45,39 @@ private:
 
 // Wrapping accessor
 cBoltScriptEnvironment*  Env();
+
+
+/* Python wrapper for BoltScriptEnvironment redirected print */
+static PyObject*
+PyBoltPrint(PyObject *self, PyObject *args)
+{
+    const char *command;
+    int sts = 0;
+
+    if (!PyArg_ParseTuple(args, "s", &command))
+        return NULL;
+
+    std::string str = command;
+    Env()->Print( command );
+    return Py_BuildValue("i", sts);
+}
+
+static PyMethodDef PyBoltMethods[] = {
+    {"PyBoltPrint", PyBoltPrint, METH_VARARGS,
+     "Python wrapper for BoltScriptEnvironment redirected print."},
+    {NULL, NULL, 0, NULL}
+};
+
+static PyModuleDef PyBoltModule = {
+    PyModuleDef_HEAD_INIT, "PyBolt", NULL, -1, PyBoltMethods,
+    NULL, NULL, NULL, NULL
+};
+
+static PyObject*
+PyInit_PyBolt(void)
+{
+    return PyModule_Create(&PyBoltModule);
+}
 
 
 }  // namespace  nBoltScript
