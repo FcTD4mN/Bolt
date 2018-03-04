@@ -49,12 +49,6 @@
     <Filter Include="Fichiers sources\Shortcuts">
       <UniqueIdentifier>{9ebf1ece-30d3-4e0b-965a-f54de889bdee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\EXTERNAL">
-      <UniqueIdentifier>{19d0c6f7-3c6a-4c77-b412-f496f4350895}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\EXTERNAL\tinyxml2">
-      <UniqueIdentifier>{1a6ff4d2-2e4b-4eb5-8c23-98a0121a3749}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\ECS\Core">
       <UniqueIdentifier>{af6311e2-2111-45fb-97a5-1ae14a28c52f}</UniqueIdentifier>
     </Filter>
@@ -207,9 +201,6 @@
     <ClCompile Include="..\..\..\src\Core\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\BoltExtlibs\tinyxml2\tinyxml2.cpp">
-      <Filter>Fichiers sources\EXTERNAL\tinyxml2</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -328,9 +319,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h">
       <Filter>Fichiers sources\Shortcuts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\BoltExtlibs\tinyxml2\tinyxml2.h">
-      <Filter>Fichiers sources\EXTERNAL\tinyxml2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

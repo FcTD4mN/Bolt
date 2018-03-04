@@ -7,7 +7,7 @@
 
 
 #define ITEM_COLOR sf::Color( 255, 0, 0 )
-#define ITEM_FONT "resources/Fonts/arial.ttf"
+#define ITEM_FONT "resources/Shared/Fonts/arial.ttf"
 #define ITEM_CHARACTER_SIZE 24
 
 cMenuItem::cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox ) :

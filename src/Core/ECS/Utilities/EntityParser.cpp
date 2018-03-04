@@ -93,7 +93,7 @@ cEntityParser::WinParseEntityDir()
     //TODO: Create a file manager class to handle every OS, or find a way with sfml
     WIN32_FIND_DATAW  finddata;
 
-    std::wstring entityDir = L"resources\\Entities\\*";
+    std::wstring entityDir = L"resources\\Core\\Entities\\*";
 
     HANDLE f = FindFirstFileW( entityDir.c_str(), &finddata );
     if( f == INVALID_HANDLE_VALUE )
@@ -101,13 +101,13 @@ cEntityParser::WinParseEntityDir()
 
     std::wstring file( finddata.cFileName );
     if( ( file != L"." ) && ( file != L".." ) )
-        mAllEntityFiles.push_back( L"resources/Entities/" + file );
+        mAllEntityFiles.push_back( L"resources/Core/Entities/" + file );
 
     while( FindNextFileW( f, &finddata ) )
     {
         std::wstring file( finddata.cFileName );
         if( ( file != L"." ) && ( file != L".." ) )
-            mAllEntityFiles.push_back( L"resources/Entities/" + file );
+            mAllEntityFiles.push_back( L"resources/Core/Entities/" + file );
     }
 
     FindClose( f );

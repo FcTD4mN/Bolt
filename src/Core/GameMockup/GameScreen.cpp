@@ -79,7 +79,7 @@ cGameScreen::Initialize()
 
     std::function< void( void )> f = [=]( void ) {
         cEntity* ent = new cEntity( world );
-        cSpriteAnimated* animation = new cSpriteAnimated( "resources/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
+        cSpriteAnimated* animation = new cSpriteAnimated( "resources/Core/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
         animation->mFrameRate = 24;
         animation->mPaused = false;
 
@@ -169,7 +169,7 @@ cGameScreen::KeyReleased( const sf::Event& iEvent )
     }
     else if( iEvent.key.code == sf::Keyboard::Key::T )
     {
-        cEntity* entity = cEntityParser::Instance()->CreateEntityFromFile( "resources/Entities/test.entity" );
+        cEntity* entity = cEntityParser::Instance()->CreateEntityFromFile( "resources/Core/Entities/test.entity" );
         cGameApplication::App()->World()->AddEntity( entity );
     }
     else if( iEvent.key.code == sf::Keyboard::Key::A )

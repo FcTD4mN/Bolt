@@ -17,7 +17,7 @@ namespace  nGUI
 
 #define DEFAULT_SIZE                        sf::Vector2f( 600.f, 200.f )
 #define DEFAULT_COLOR                       sf::Color( 220, 220, 220, 255 )
-#define DEFAULT_FONT                        "resources/Fonts/SourceCodePro-Regular.ttf"
+#define DEFAULT_FONT                        "resources/Shared/Fonts/SourceCodePro-Regular.ttf"
 #define DEFAULT_FONT_SIZE                   12
 #define DEFAULT_LINE_HEIGHT                 14
 #define DEFAULT_FONT_COLOR                  sf::Color( 20, 20, 20, 255 )
@@ -476,7 +476,7 @@ cConsoleWidget::IncrementCursorPosition()
 }
 
 
-void 
+void
 cConsoleWidget::DecrementCursorPosition()
 {
     if( mCursorIndex <= 0 )
