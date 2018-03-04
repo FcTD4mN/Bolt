@@ -34,6 +34,9 @@ main(int argc, char *argv[])
 #endif //  CONSOLEDEBUG
 
     // PYTHON TEST
+    std::wstring ws( Py_GetPath() );
+    std::string str( ws.begin(), ws.end() );
+    ::nBoltScript::Env()->Print( str + "\r\n" );
     wchar_t *program = Py_DecodeLocale(argv[0], NULL);
     if (program == NULL) {
         fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
