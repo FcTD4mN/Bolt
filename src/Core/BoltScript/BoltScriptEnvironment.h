@@ -4,7 +4,6 @@
 #include <functional>
 #include <unordered_map>
 
-
 namespace  nBoltScript
 {
 
@@ -39,7 +38,7 @@ public:
 private:
     // Data Members
     std::function<void( const  std::string& )>  mOutputRedirectionFunction;
-	std::unordered_map< std::string, std::function< void(void) > > mVoidFuncVoid;
+    std::unordered_map< std::string, std::function< void(void) > > mVoidFuncVoid;
 };
 
 

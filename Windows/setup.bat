@@ -32,4 +32,7 @@ taskkill /F /IM vctip.exe
 rmdir /s /q %SETUP_ROOT%\SFML\_build
 rmdir /s /q %SETUP_ROOT%\tinyxml2\_build
 
+mkdir "%SETUP_ROOT%/Windows/BoltCore-VS2017/BoltCore/Lib"
+xcopy /s /e /h /y "%SETUP_ROOT%/BoltExtlibs/cpython/Lib" "%SETUP_ROOT%/Windows/BoltCore-VS2017/BoltCore/Lib"
+
 echo /////////%0 done

@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-
+#include "cpython/Python.h"
 
 #include "BoltScript/BoltScriptEnvironment.h"
 #include "GameMockup/GameApplication.h"
@@ -14,7 +14,8 @@
 
 #include "Benchmark/Benchmark.h"
 
-int main()
+int
+main(int argc, char *argv[])
 {
 
     //nBenchmark::RunVectorVsHMapvsMapBenchmark();
@@ -31,6 +32,22 @@ int main()
     cGameApplication::App()->PushScreen(new cConsoleScreen() );
 
 #endif //  CONSOLEDEBUG
+
+    // PYTHON TEST
+    wchar_t *program = Py_DecodeLocale(argv[0], NULL);
+    if (program == NULL) {
+        fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
+        exit(1);
+    }
+    Py_SetProgramName(program);
+    Py_Initialize();
+    PyRun_SimpleString("from time import time,ctime\n"
+                       "print('>>Python says:', ctime(time()))\n");
+    if (Py_FinalizeEx() < 0) {
+        exit(120);
+    }
+    PyMem_RawFree(program);
+    ////////////////////////////////////////////////////////////
 
     sf::RenderWindow* window = cGameApplication::App()->Window();
     window->setFramerateLimit( 144 );
@@ -54,7 +71,7 @@ int main()
         app->Draw( app->Window() );
 
         // PERF TESTS============================================================
-        if( 1 )
+        if( 0 )
         {
             //sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
             //rect.setPosition( sf::Vector2f( sf::Mouse::getPosition( *window ) ) );
