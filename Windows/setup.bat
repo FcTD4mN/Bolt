@@ -25,6 +25,7 @@ mkdir "%OUT_DEBUG64_DIR%"
 xcopy /s /e /h /y "%IN_RELEASE64_DIR%" "%OUT_RELEASE64_DIR%"
 xcopy /s /e /h /y "%IN_DEBUG64_DIR%" "%OUT_DEBUG64_DIR%"
 
+taskkill /F /IM vctip.exe
 rmdir /s /q %SETUP_ROOT%\SFML\_build
 rmdir /s /q %SETUP_ROOT%\tinyxml2\_build
 
