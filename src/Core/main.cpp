@@ -45,11 +45,7 @@ main(int argc, char *argv[])
     Py_SetProgramName(program);
     Py_Initialize();
     PyRun_SimpleString("from time import time,ctime\n"
-                       "print('>>Python says:', ctime(time()))\n");
-    if (Py_FinalizeEx() < 0) {
-        exit(120);
-    }
-    PyMem_RawFree(program);
+            "print('>>Python says:', ctime(time()))\n");
     ////////////////////////////////////////////////////////////
 
     sf::RenderWindow* window = cGameApplication::App()->Window();
@@ -74,7 +70,7 @@ main(int argc, char *argv[])
         app->Draw( app->Window() );
 
         // PERF TESTS============================================================
-        if( 0 )
+        if( 1 )
         {
             //sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
             //rect.setPosition( sf::Vector2f( sf::Mouse::getPosition( *window ) ) );
@@ -86,11 +82,17 @@ main(int argc, char *argv[])
             std::cout << std::to_string( fps ) << "\n";
             std::cout << "==============" << std::to_string( cGameApplication::App()->World()->EntityCount() ) << "\n";
 
+            PyRun_SimpleString("print('>>Python says:', ctime(time()))\n");
         }
         // PERF TESTS============================================================
 
         app->Window()->display();
     }
+
+    if (Py_FinalizeEx() < 0) {
+        exit(120);
+    }
+    PyMem_RawFree(program);
 
     return 0;
 }
