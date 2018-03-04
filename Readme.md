@@ -1,4 +1,4 @@
-Bolt, Core C++ game engine
+Bolt, Core C++ game engine \n
 Dependencies from BoltExtlibs: SFML, cpython, tinyxml, ...
 
 Setup instructions for Windows
