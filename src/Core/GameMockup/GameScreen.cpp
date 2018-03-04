@@ -163,10 +163,6 @@ cGameScreen::KeyReleased( const sf::Event& iEvent )
     {
         SaveXML();
     }
-    else if( iEvent.key.code == sf::Keyboard::Key::L )
-    {
-        LoadXML();
-    }
     else if( iEvent.key.code == sf::Keyboard::Key::T )
     {
         cEntity* entity = cEntityParser::Instance()->CreateEntityFromFile( "resources/Core/Entities/test.entity" );
