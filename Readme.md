@@ -1,5 +1,9 @@
-Moteur C++ successeur de Coop pain
-Base : SFML
+Bolt, Core C++ game engine
+Dependencies from BoltExtlibs: SFML, cpython, tinyxml, ...
 
-Partons pour le moment sur du full C++, on verra par la suite si on wrap du python
-Essentiellement attendre que le portage dernier en date soit fait et fonctionnel
+Setup instructions for Windows
+==============================
+You need to have Visual Studio 2017, git and cMake installed on your machine.
+run from cmd.exe:
+git clone https://github.com/FcTD4mN/Bolt
+call Bolt/Windows/setup.bat
