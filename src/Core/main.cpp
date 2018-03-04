@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "cpython/Python.h"
+#include <cpython/Python.h>
 
 #include "BoltScript/BoltScriptEnvironment.h"
 #include "GameMockup/GameApplication.h"
