@@ -58,7 +58,8 @@ main(int argc, char *argv[])
     PyRun_SimpleString("monitorQ = Monitor()\n");
     PyRun_SimpleString("print(\"Redirecting output...\")\n"
                        "import sys\n"
-                       "sys.stdout = monitorQ\n" );
+                       "sys.stdout = monitorQ\n"
+                       "sys.stderr = monitorQ\n" );
 
     PyRun_SimpleString("print(\"Python says i love Bolt\")\n" );
     PyRun_SimpleString("print(\"Python says i can't wait to see your little voxels\")\n" );
