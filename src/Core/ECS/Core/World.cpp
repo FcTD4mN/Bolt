@@ -99,6 +99,19 @@ cWorld::DestroyEntity( cEntity * iEntity )
 }
 
 
+void
+cWorld::DestroyEntityByID( const  std::string& iID )
+{
+    mEntity.erase( iID );
+}
+
+cEntity*
+cWorld::GetEntityByID( const  std::string& iID )
+{
+    return  mEntity[ iID ];
+}
+
+
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------- Systems
 // -------------------------------------------------------------------------------------

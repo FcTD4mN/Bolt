@@ -28,6 +28,8 @@ public:
     void  RemoveEntity( cEntity* iEntity );
     void  UpdateWorldWithEntity( cEntity* iEntity );
     void  DestroyEntity( cEntity* iEntity );
+    void  DestroyEntityByID( const  std::string& iID );
+    cEntity*  GetEntityByID( const  std::string& iID );
 
 public:
     // Systems
