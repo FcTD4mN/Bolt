@@ -10,9 +10,9 @@
 
 cWorld::~cWorld()
 {
-    for( int i = 0; i < mEntity.size(); ++i )
+    for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
     {
-        delete  mEntity[ i ];
+        delete  it->second;
     }
 
     for( int i = 0; i < mSystems.size(); ++i )
@@ -69,7 +69,7 @@ cWorld::Update( unsigned int iDeltaTime )
 void
 cWorld::AddEntity( cEntity* iEntity )
 {
-    mEntity.push_back( iEntity );
+    mEntity[ iEntity->ID() ] = iEntity;
     UpdateWorldWithEntity( iEntity );
     iEntity->SetLoaded();
 }
@@ -78,13 +78,7 @@ cWorld::AddEntity( cEntity* iEntity )
 void
 cWorld::RemoveEntity( cEntity* iEntity )
 {
-    for( int i = 0; i < mEntity.size(); ++i )
-    {
-        if( mEntity[ i ] == iEntity )
-        {
-            mEntity.erase( mEntity.begin() + i );
-        }
-    }
+    mEntity.erase( iEntity->ID() );
 }
 
 
@@ -115,9 +109,9 @@ cWorld::AddSystem( cSystem * iSystem )
 {
     mSystems.push_back( iSystem );
     iSystem->Initialize();
-    for( int i = 0; i < mEntity.size(); ++i )
+    for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
     {
-        iSystem->IncomingEntity( mEntity[ i ] );
+        iSystem->IncomingEntity( it->second );
     }
 }
 
@@ -346,10 +340,10 @@ cWorld::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
     tinyxml2::XMLElement* entities = iDocument->NewElement( "entities" );
 
-    for( int i = 0; i < mEntity.size(); ++i )
+    for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
     {
         tinyxml2::XMLElement* entity = iDocument->NewElement( "entity" );
-        mEntity[ i ]->SaveXML( entity, iDocument );
+        it->second->SaveXML( entity, iDocument );
         entities->LinkEndChild( entity );
     }
 

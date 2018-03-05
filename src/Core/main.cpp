@@ -27,6 +27,7 @@ main(int argc, char *argv[])
     cGameApplication* app = cGameApplication::App();
     app->Initialize();
 
+
     ::nBoltScript::Env()->RegisterFunction( "exit", [=]( void ) { app->Window()->close(); } );
 #ifdef  CONSOLEDEBUG
 
@@ -63,7 +64,7 @@ main(int argc, char *argv[])
 
     PyRun_SimpleString("print(\"Python says i love Bolt\")\n" );
     PyRun_SimpleString("print(\"Python says i can't wait to see your little voxels\")\n" );
-    
+
 
     ////////////////////////////////////////////////////////////
 
@@ -96,6 +97,8 @@ main(int argc, char *argv[])
             //rect.setFillColor( sf::Color( 10, 10, 255, 255 ) );
             //rect.setSize( sf::Vector2f( 50, 50 ) );
             //window->draw( rect );
+
+            //nBenchmark::DrawStressTest( app->Window() );
 
             float fps = 1 / frameTime.asSeconds();
             std::cout << std::to_string( fps ) << "\n";

@@ -157,5 +157,19 @@ namespace  nBenchmark
         std::cout << "Run time : " << std::to_string( end.count() ) << std::endl;
     }
 
+
+    void DrawStressTest( sf::RenderTarget* iRender )
+    {
+        int COUNT = 20000;
+        sf::RectangleShape rect( sf::Vector2f( 100.0F, 100.0F ) );
+        rect.setFillColor( sf::Color( 255, 00, 00, 1 ) );
+        rect.setPosition( sf::Vector2f( 400.0F, 300.0F ) );
+        for( int i = 1; i <= COUNT; ++i )
+        {
+            iRender->draw( rect );
+        }
+    }
+
+
 }  // namespace  nBenchmark
 

@@ -79,6 +79,9 @@
     <Filter Include="Fichiers sources\Mapping">
       <UniqueIdentifier>{7631d07f-cf4b-4261-9edb-2e7e2f657a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Screens">
+      <UniqueIdentifier>{fa7cf3ce-9ec2-4ab3-a228-36a4678e253c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -156,13 +159,7 @@
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.cpp">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\ConsoleScreen.cpp">
-      <Filter>Fichiers sources\GameMockup</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\GameApplication.cpp">
-      <Filter>Fichiers sources\GameMockup</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\GameScreen.cpp">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GUI\ConsoleWidget.cpp">
@@ -203,6 +200,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Utilities.cpp">
       <Filter>Fichiers sources\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\ConsoleScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\GameScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,13 +287,7 @@
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SquareController.h">
       <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\ConsoleScreen.h">
-      <Filter>Fichiers sources\GameMockup</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\GameApplication.h">
-      <Filter>Fichiers sources\GameMockup</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\GameScreen.h">
       <Filter>Fichiers sources\GameMockup</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GUI\ConsoleWidget.h">
@@ -325,6 +325,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Utilities.h">
       <Filter>Fichiers sources\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\ConsoleScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\GameScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

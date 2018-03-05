@@ -4,6 +4,8 @@
 
 #include "tinyxml2.h"
 
+#include <unordered_map>
+
 class cEntity;
 class cSystem;
 
@@ -64,7 +66,7 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::vector< cEntity* > mEntity;
+    std::unordered_map< std::string, cEntity* > mEntity;
     std::vector< cEntity* > mEntitiesToDestroy;
 
     std::vector< cSystem* > mSystems;

@@ -7,6 +7,7 @@
 #include "ECS/Utilities/EntityParser.h"
 
 #include "GameMockup/GameScreen.h"
+#include "GameMockup/InfiltratorScreen.h"
 #include "GameMockup/Systems/AnimationRenderer.h"
 #include "GameMockup/Systems/InputConverter.h"
 #include "GameMockup/Systems/SimplePhysics.h"
@@ -125,9 +126,15 @@ cGameApplication::Initialize()
         cGameApplication::App()->PushScreen( new cGameScreen() );
     } );
 
+    cItemCallback*   infiltratorScreenSwap = new cItemCallback( menu, "Infiltrator", rect, [](){
+        cGameApplication::App()->PushScreen( new cInfiltratorScreen() );
+    } );
+
+
     pageOne->AddItem( itemOne );
     pageOne->AddItem( itemOne2 );
     pageOne->AddItem( gameScreenSwap );
+    pageOne->AddItem( infiltratorScreenSwap );
     pageTwo->AddItem( itemTwo );
     pageTwo->AddItem( itemTwo2 );
 
