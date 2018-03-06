@@ -241,6 +241,8 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\EntityParser.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Color.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Direction.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Position.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Size.cpp" />
@@ -285,6 +287,8 @@
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\EntityParser.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Color.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Direction.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Position.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Size.h" />

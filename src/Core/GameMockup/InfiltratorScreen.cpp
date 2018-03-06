@@ -6,6 +6,8 @@
 
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/Components/Color.h"
+#include "GameMockup/Components/Direction.h"
+#include "GameMockup/Components/FieldOfView.h"
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
 #include "GameMockup/Components/SpriteAnimated.h"
@@ -42,12 +44,50 @@ cInfiltratorScreen::Initialize()
 
     cWorld* world = cGameApplication::App()->World();
 
-    cEntity* ent = new cEntity( world );
-    ent->AddComponent( new cPosition( 0.0F, 0.0F ) );
-    ent->AddComponent( new cSize( 64.0F, 64.0F ) );
-    ent->AddComponent( new cColor( 20, 180, 20 ) );
-    ent->AddComponent( new cSimplePhysic( 400.0F, 300.0F, 5.0F, 5.0F, cSimplePhysic::eType::kDynamic ) );
-    world->AddEntity( ent );
+    cEntity* wall1 = new cEntity( world );
+    wall1->AddComponent( new cPosition( 0.0F, 0.0F ) );
+    wall1->AddComponent( new cSize( 64.0F, 64.0F ) );
+    wall1->AddComponent( new cColor( 20, 180, 20 ) );
+    wall1->AddComponent( new cSimplePhysic( 0.0F, 0.0F, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
+    world->AddEntity( wall1 );
+
+    cEntity* wall2 = new cEntity( world );
+    wall2->AddComponent( new cPosition( 124.0F, 124.0F ) );
+    wall2->AddComponent( new cSize( 256.0F, 64.0F ) );
+    wall2->AddComponent( new cColor( 20, 180, 20 ) );
+    wall2->AddComponent( new cSimplePhysic( 124.0F, 124.0F, 256.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
+    world->AddEntity( wall2 );
+
+    cEntity* wall3 = new cEntity( world );
+    wall3->AddComponent( new cPosition( 60.0F, 250.0F ) );
+    wall3->AddComponent( new cSize( 64.0F, 64.0F ) );
+    wall3->AddComponent( new cColor( 20, 180, 20 ) );
+    wall3->AddComponent( new cSimplePhysic( 60.0F, 250.0F, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
+    world->AddEntity( wall3 );
+
+    cEntity* wall4 = new cEntity( world );
+    wall4->AddComponent( new cPosition( 450.0F, 200.0F ) );
+    wall4->AddComponent( new cSize( 64.0F, 256.0F ) );
+    wall4->AddComponent( new cColor( 20, 180, 20 ) );
+    wall4->AddComponent( new cSimplePhysic( 450.0F, 200.0F, 64.0F, 256.0F, cSimplePhysic::eType::kStatic ) );
+    world->AddEntity( wall4 );
+
+    cEntity* hero = new cEntity( world );
+    hero->AddComponent( new cPosition( 124.0F, 64.0F ) );
+    hero->AddComponent( new cSize( 40.0F, 60.0F ) );
+    hero->AddComponent( new cColor( 20, 20, 200 ) );
+    hero->AddComponent( new cUserInput() );
+    hero->AddComponent( new cSimplePhysic( 124.0F, 64.0F, 40.0F, 60.0F, cSimplePhysic::eType::kDynamic ) );
+    world->AddEntity( hero );
+
+    cEntity* mechant = new cEntity( world );
+    mechant->AddComponent( new cPosition( 124.0F, 256.0F ) );
+    mechant->AddComponent( new cSize( 40.0F, 40.0F ) );
+    mechant->AddComponent( new cColor( 180, 20, 20 ) );
+    mechant->AddComponent( new cDirection( sf::Vector2f( 1.0F, 0.0F ) ) );
+    mechant->AddComponent( new cSimplePhysic( 124.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
+    world->AddEntity( mechant );
+
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
                                                     float( cGameApplication::App()->Window()->getSize().y ) );

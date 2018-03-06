@@ -210,6 +210,12 @@
     <ClCompile Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.cpp">
       <Filter>Fichiers sources\GameMockup\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Direction.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.cpp">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -334,6 +340,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.h">
       <Filter>Fichiers sources\GameMockup\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Direction.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.h">
+      <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
