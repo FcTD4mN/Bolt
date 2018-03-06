@@ -70,7 +70,20 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto direction = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
+        for( int j = 0; j < mPointsOfInterest.size(); ++j )
+        {
+            cEntity* poi = mPointsOfInterest[ j ];
 
+            auto positionPOI = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+            sf::Vector2f entityToPOI( position->mPosition.x - positionPOI->mPosition.x, position->mPosition.y - positionPOI->mPosition.y );
+
+            float dotProduct = entityToPOI.x * direction->mDirection.x + entityToPOI.y * direction->mDirection.y;
+            float magnetudeA = sqrt( entityToPOI.x * entityToPOI.x + entityToPOI.y *entityToPOI.y );
+            float magnetudeB = sqrt( direction->mDirection.x * direction->mDirection.x + direction->mDirection.y *direction->mDirection.y );
+            float angle = acos( dotProduct / ( magnetudeA * magnetudeB ) ) * 180 / 3.141592653589793238463;
+
+            printf( "Angle : %f\n", angle );
+        }
     }
 }
 

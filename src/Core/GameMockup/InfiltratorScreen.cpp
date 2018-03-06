@@ -85,6 +85,7 @@ cInfiltratorScreen::Initialize()
     mechant->AddComponent( new cPosition( 124.0F, 256.0F ) );
     mechant->AddComponent( new cSize( 40.0F, 40.0F ) );
     mechant->AddComponent( new cColor( 180, 20, 20 ) );
+    mechant->AddComponent( new cFieldOfView( 90 ) );
     mechant->AddComponent( new cDirection( sf::Vector2f( 0.5F, 0.5F ) ) );
     mechant->AddComponent( new cSimplePhysic( 124.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( mechant );
