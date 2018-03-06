@@ -32,5 +32,9 @@ public:
 
 private:
     std::vector< cEntity* > mPointsOfInterest;
+
+    sf::Vector2f mDEBUGSightLine;
+    sf::Vector2f mDEBUGSightPA;
+    sf::Vector2f mDEBUGSightPB;
 };
 

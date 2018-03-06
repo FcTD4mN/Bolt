@@ -48,6 +48,7 @@ cInfiltratorScreen::Initialize()
     wall1->AddComponent( new cPosition( 0.0F, 0.0F ) );
     wall1->AddComponent( new cSize( 64.0F, 64.0F ) );
     wall1->AddComponent( new cColor( 20, 180, 20 ) );
+    wall1->AddTag( "wall" );
     wall1->AddComponent( new cSimplePhysic( 0.0F, 0.0F, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( wall1 );
 
@@ -55,6 +56,7 @@ cInfiltratorScreen::Initialize()
     wall2->AddComponent( new cPosition( 124.0F, 124.0F ) );
     wall2->AddComponent( new cSize( 256.0F, 64.0F ) );
     wall2->AddComponent( new cColor( 20, 180, 20 ) );
+    wall2->AddTag( "wall" );
     wall2->AddComponent( new cSimplePhysic( 124.0F, 124.0F, 256.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( wall2 );
 
@@ -62,6 +64,7 @@ cInfiltratorScreen::Initialize()
     wall3->AddComponent( new cPosition( 60.0F, 250.0F ) );
     wall3->AddComponent( new cSize( 64.0F, 64.0F ) );
     wall3->AddComponent( new cColor( 20, 180, 20 ) );
+    wall3->AddTag( "wall" );
     wall3->AddComponent( new cSimplePhysic( 60.0F, 250.0F, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( wall3 );
 
@@ -69,6 +72,7 @@ cInfiltratorScreen::Initialize()
     wall4->AddComponent( new cPosition( 450.0F, 200.0F ) );
     wall4->AddComponent( new cSize( 64.0F, 256.0F ) );
     wall4->AddComponent( new cColor( 20, 180, 20 ) );
+    wall4->AddTag( "wall" );
     wall4->AddComponent( new cSimplePhysic( 450.0F, 200.0F, 64.0F, 256.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( wall4 );
 
@@ -82,12 +86,12 @@ cInfiltratorScreen::Initialize()
     world->AddEntity( hero );
 
     cEntity* mechant = new cEntity( world );
-    mechant->AddComponent( new cPosition( 124.0F, 256.0F ) );
+    mechant->AddComponent( new cPosition( 156.0F, 256.0F ) );
     mechant->AddComponent( new cSize( 40.0F, 40.0F ) );
     mechant->AddComponent( new cColor( 180, 20, 20 ) );
     mechant->AddComponent( new cFieldOfView( 90 ) );
-    mechant->AddComponent( new cDirection( sf::Vector2f( 0.5F, 0.5F ) ) );
-    mechant->AddComponent( new cSimplePhysic( 124.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
+    mechant->AddComponent( new cDirection( sf::Vector2f( 1.0F, 1.0F ) ) );
+    mechant->AddComponent( new cSimplePhysic( 156.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( mechant );
 
 

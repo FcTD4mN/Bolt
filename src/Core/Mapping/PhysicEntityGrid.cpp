@@ -120,6 +120,36 @@ cEntityGrid::GetSurroundingEntitiesOf( cEntity* iEntity )
 }
 
 
+std::vector< cEntity* >
+cEntityGrid::GetEntitiesFollwingVectorFromEntity( cEntity * iEntity, const sf::Vector2f & iVector )
+{
+    std::vector< cEntity* > result;
+    int x, y, x2, y2;
+    GetEntityArea( &x, &y, &x2, &y2, iEntity );
+
+    float xLookup = x;
+    float yLookup = y;
+    int  xLookupToInt = int( xLookup );
+    int  yLookupToInt = int( yLookup );
+
+    while( xLookupToInt >= 0 && yLookupToInt >= 0 && xLookupToInt < mWidth && yLookupToInt < mHeight )
+    {
+        for( int k = 0; k < mGridMap[ xLookupToInt ][ yLookupToInt ].size(); ++k )
+        {
+            cEntity* ent = mGridMap[ xLookupToInt ][ yLookupToInt ][ k ];
+            if( ent != iEntity && std::find( result.begin(), result.end(), ent ) == result.end() )
+                result.push_back( ent );
+        }
+        xLookup += iVector.x;
+        yLookup += iVector.y;
+        xLookupToInt = int( xLookup );
+        yLookupToInt = int( yLookup );
+    }
+
+    return  result;
+}
+
+
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------- Private computing methods
 // -------------------------------------------------------------------------------------

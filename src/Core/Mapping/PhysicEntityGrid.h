@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include <SFML/Graphics.hpp>
+
 class cEntity;
 
 class cEntityGrid
@@ -19,6 +21,7 @@ public:
         // It allows for a fast removal
     void RemoveEntityNotUpdated( cEntity* iEntity );
     std::vector< cEntity* > GetSurroundingEntitiesOf( cEntity* iEntity );
+    std::vector< cEntity* > GetEntitiesFollwingVectorFromEntity( cEntity* iEntity, const sf::Vector2f& iVector );
 
 private:
     // Private computing methods
