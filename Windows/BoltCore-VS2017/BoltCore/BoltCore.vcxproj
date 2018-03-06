@@ -255,6 +255,7 @@
     <ClCompile Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SquareController.cpp" />
@@ -301,6 +302,7 @@
     <ClInclude Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SquareController.h" />

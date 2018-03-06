@@ -3,17 +3,16 @@
 #include "ECS/Core/System.h"
 
 #include <SFML/Graphics.hpp>
-#include "Mapping/PhysicEntityGrid.h"
 
-class cSimplePhysics :
+class cSightSystem :
     public cSystem
 {
 public:
     typedef  cSystem  tSuperClass;
 
 public:
-    virtual  ~cSimplePhysics();
-    cSimplePhysics();
+    virtual  ~cSightSystem();
+    cSightSystem();
 
 
     // Overrides
@@ -30,10 +29,8 @@ public:
 public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
-    virtual  void  EntityLost( cEntity* iEntity ) override;
 
 private:
-    std::vector< cEntity* > mStaticEntities;
-    std::vector< cEntity* > mDynamicEntities;
+    std::vector< cEntity* > mPointsOfInterest;
 };
 

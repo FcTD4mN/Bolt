@@ -216,6 +216,9 @@
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.cpp">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.cpp">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.h">
       <Filter>Fichiers sources\GameMockup\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.h">
+      <Filter>Fichiers sources\GameMockup\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

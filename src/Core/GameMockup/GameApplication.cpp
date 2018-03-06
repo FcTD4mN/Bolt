@@ -13,11 +13,14 @@
 #include "GameMockup/Systems/SimplePhysics.h"
 #include "GameMockup/Systems/SimplerRenderer.h"
 #include "GameMockup/Systems/SquareController.h"
+#include "GameMockup/Systems/SightSystem.h"
 
 #include "MainMenu/MainMenu.h"
 #include "MainMenu/MenuItem/MenuItem.Callback.h"
 #include "MainMenu/MenuItem/MenuItem.PageSwaper.h"
 #include "MainMenu/MenuPage/MenuPage.h"
+
+#include "Mapping/PhysicEntityGrid.h"
 
 #include "Screen/Screen.h"
 #include "Screen/ScreenMainMenu.h"
@@ -71,6 +74,13 @@ cGameApplication::ShortcutEngine()
 }
 
 
+cEntityGrid*
+cGameApplication::EntityMap()
+{
+    return  mEntityMap;
+}
+
+
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------- Init/Finalize
 // -------------------------------------------------------------------------------------
@@ -81,6 +91,7 @@ cGameApplication::Initialize()
 {
     tSuperClass::Initialize();
 
+    mEntityMap = new cEntityGrid();
     // =======ECS WORLD=======
     mWorld = new cWorld();
     mWorld->AddSystem( new cSimplerRenderer() );
@@ -89,9 +100,10 @@ cGameApplication::Initialize()
     mWorld->AddSystem( ic );
     mWorld->ConnectSystemToEvents( ic );
 
-    mWorld->AddSystem( new cSquareController() );
     mWorld->AddSystem( new cAnimationRenderer() );
+    mWorld->AddSystem( new cSightSystem() );
     mWorld->AddSystem( new cSimplePhysics() );
+    mWorld->AddSystem( new cSquareController() );
 
     // Following call may need world
     cComponentRegistry::Instance()->Initialize();

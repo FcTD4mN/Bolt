@@ -17,8 +17,7 @@ cSimplePhysics::~cSimplePhysics()
 
 
 cSimplePhysics::cSimplePhysics() :
-    tSuperClass(),
-    mEntityMap()
+    tSuperClass()
 {
 }
 
@@ -66,7 +65,7 @@ cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
         iRenderTarget->draw( rect );
 
         // DEBUG Surrounding Drawing
-        std::vector< cEntity* > surrounding = mEntityMap.GetSurroundingEntitiesOf( entity );
+        std::vector< cEntity* > surrounding = cGameApplication::App()->EntityMap()->GetSurroundingEntitiesOf( entity );
         for( int j = 0; j < surrounding.size(); ++j )
         {
             cEntity* surroundingEntity = surrounding[ j ];
@@ -90,6 +89,7 @@ void
 cSimplePhysics::Update( unsigned int iDeltaTime )
 {
     sf::Rect< float > projection;
+    cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
     for( int i = 0; i < mDynamicEntities.size(); ++i )
     {
         cEntity* entity = mDynamicEntities[ i ];
@@ -101,7 +101,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         projection.left += simplephysic->mVelocity.x;
         projection.top += simplephysic->mVelocity.y;
 
-        std::vector< cEntity* > surrounding = mEntityMap.GetSurroundingEntitiesOf( entity );
+        std::vector< cEntity* > surrounding = entityMap->GetSurroundingEntitiesOf( entity );
 
         for( int j = 0; j < surrounding.size(); ++j )
         {
@@ -120,7 +120,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         if( !collided && ( simplephysic->mVelocity.x != 0.0F || simplephysic->mVelocity.y != 0.0F ) )
         {
             // Remove Entity before changing its position, so it's quick and easy
-            mEntityMap.RemoveEntityNotUpdated( entity );
+            entityMap->RemoveEntityNotUpdated( entity );
 
             position->mPosition.x += simplephysic->mVelocity.x;
             position->mPosition.y += simplephysic->mVelocity.y;
@@ -132,7 +132,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
                 entity->Destroy();
 
             // Add it back at its new position
-            mEntityMap.AddEntity( entity );
+            entityMap->AddEntity( entity );
         }
     }
 }
@@ -151,7 +151,7 @@ cSimplePhysics::IncomingEntity( cEntity * iEntity )
     if( simplephysic )
     {
         AcceptEntity( iEntity );
-        mEntityMap.AddEntity( iEntity );
+        cGameApplication::App()->EntityMap()->AddEntity( iEntity );
 
         if( simplephysic->mType == cSimplePhysic::eType::kStatic )
             mStaticEntities.push_back( iEntity );
@@ -185,7 +185,7 @@ cSimplePhysics::EntityLost( cEntity * iEntity )
     }
 
     tSuperClass::EntityLost( iEntity );
-    mEntityMap.RemoveEntityNotUpdated( iEntity );
+    cGameApplication::App()->EntityMap()->RemoveEntityNotUpdated( iEntity );
 }
 
 

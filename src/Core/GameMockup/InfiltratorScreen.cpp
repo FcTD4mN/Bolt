@@ -77,6 +77,7 @@ cInfiltratorScreen::Initialize()
     hero->AddComponent( new cSize( 40.0F, 60.0F ) );
     hero->AddComponent( new cColor( 20, 20, 200 ) );
     hero->AddComponent( new cUserInput() );
+    hero->AddTag( "hero" );
     hero->AddComponent( new cSimplePhysic( 124.0F, 64.0F, 40.0F, 60.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( hero );
 
@@ -84,7 +85,7 @@ cInfiltratorScreen::Initialize()
     mechant->AddComponent( new cPosition( 124.0F, 256.0F ) );
     mechant->AddComponent( new cSize( 40.0F, 40.0F ) );
     mechant->AddComponent( new cColor( 180, 20, 20 ) );
-    mechant->AddComponent( new cDirection( sf::Vector2f( 1.0F, 0.0F ) ) );
+    mechant->AddComponent( new cDirection( sf::Vector2f( 0.5F, 0.5F ) ) );
     mechant->AddComponent( new cSimplePhysic( 124.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( mechant );
 

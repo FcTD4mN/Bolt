@@ -4,6 +4,7 @@
 
 class cWorld;
 class cShortcuts;
+class cEntityGrid;
 
 class cGameApplication :
     public cApplication
@@ -19,8 +20,9 @@ public:
 
 public:
     // Access
-    cWorld* World();
-    cShortcuts* ShortcutEngine();
+    cWorld*         World();
+    cShortcuts*     ShortcutEngine();
+    cEntityGrid*    EntityMap();
 
 public:
     void Initialize();
@@ -37,5 +39,6 @@ public:
 private:
     cWorld*             mWorld;
     cShortcuts*         mShortcutEngine;
+    cEntityGrid*        mEntityMap;
 };
 
