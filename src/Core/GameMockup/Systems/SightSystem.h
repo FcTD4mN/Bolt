@@ -36,5 +36,9 @@ private:
     sf::Vector2f mDEBUGSightLine;
     sf::Vector2f mDEBUGSightPA;
     sf::Vector2f mDEBUGSightPB;
+
+    sf::Vector2f mDEBUGTriangleA;
+    sf::Vector2f mDEBUGTriangleB;
+    sf::Vector2f mDEBUGTriangleC;
 };
 
