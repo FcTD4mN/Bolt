@@ -5,12 +5,11 @@
 #define kPI 3.141592653589793238463
 
 
+bool    IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
 
-
-bool IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
 double  GetAngleBetweenVectors( sf::Vector2f& p1, sf::Vector2f& p2 );
 
-
+std::vector< sf::Vector2f >  GetUnionFromTriangles( sf::Vector2f& iT1A, sf::Vector2f& iT1B, sf::Vector2f& iT1C, sf::Vector2f& iT2A, sf::Vector2f& iT2B, sf::Vector2f& iT2C );
 
 
 template< typename T >

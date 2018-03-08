@@ -22,4 +22,33 @@ GetAngleBetweenVectors( sf::Vector2f& p1, sf::Vector2f& p2 )
 
 }
 
+
+std::vector< sf::Vector2f >
+GetUnionFromTriangles( sf::Vector2f & iT1A, sf::Vector2f & iT1B, sf::Vector2f & iT1C, sf::Vector2f & iT2A, sf::Vector2f & iT2B, sf::Vector2f & iT2C )
+{
+    std::vector< sf::Vector2f > output;
+    output.push_back( iT1A );
+    output.push_back( iT1B );
+    output.push_back( iT1C );
+
+    //for( Edge clipEdge in clipPolygon ) do
+    //    List inputList = outputList;
+    //outputList.clear();
+    //Point S = inputList.last;
+    //for( Point E in inputList ) do
+    //    if( E inside clipEdge ) then
+    //        if( S not inside clipEdge ) then
+    //            outputList.add( ComputeIntersection( S, E, clipEdge ) );
+    //end if
+    //    outputList.add( E );
+    //else if( S inside clipEdge ) then
+    //    outputList.add( ComputeIntersection( S, E, clipEdge ) );
+    //end if
+    //    S = E;
+    //done
+    //    done
+
+    return  output;
+}
+
 //...
