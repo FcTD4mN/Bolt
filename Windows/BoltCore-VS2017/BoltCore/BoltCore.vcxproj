@@ -267,6 +267,8 @@
     <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.cpp" />
     <ClCompile Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.cpp" />
     <ClCompile Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Math\Edge.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Math\Triangle.cpp" />
     <ClCompile Include="..\..\..\src\Core\Math\Utils.cpp" />
     <ClCompile Include="..\..\..\src\Core\Screen\Screen.cpp" />
     <ClCompile Include="..\..\..\src\Core\Screen\ScreenMainMenu.cpp" />
@@ -313,6 +315,8 @@
     <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.h" />
     <ClInclude Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.h" />
     <ClInclude Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.h" />
+    <ClInclude Include="..\..\..\src\Core\Math\Edge.h" />
+    <ClInclude Include="..\..\..\src\Core\Math\Triangle.h" />
     <ClInclude Include="..\..\..\src\Core\Math\Utils.h" />
     <ClInclude Include="..\..\..\src\Core\Screen\Screen.h" />
     <ClInclude Include="..\..\..\src\Core\Screen\ScreenMainMenu.h" />

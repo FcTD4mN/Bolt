@@ -2,14 +2,97 @@
 
 #include "SFML/Graphics.hpp"
 
-#define kPI 3.141592653589793238463
+#include "Math/Edge.h"
+
+/** Constant : PI in float format. */
+#define kPIF (3.1415926535897932384626F)
+
+/** Constant : some small epsilon in float format. */
+#define kEpsilonF (1E-5F)
 
 
 bool    IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
 
-double  GetAngleBetweenVectors( sf::Vector2f& p1, sf::Vector2f& p2 );
+double  GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 );
 
-std::vector< sf::Vector2f >  GetUnionFromTriangles( sf::Vector2f& iT1A, sf::Vector2f& iT1B, sf::Vector2f& iT1C, sf::Vector2f& iT2A, sf::Vector2f& iT2B, sf::Vector2f& iT2C );
+sf::Vector2f CenterOfGravity( const  sf::VertexArray& iPolygon );
+
+sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );
+sf::VertexArray PolygonPolygonInterectionList( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
+
+sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
+bool  CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
+void  ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
+
+
+
+// ===================================================
+// ===================================================
+
+
+inline
+float
+DotProduct( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
+{
+    return  iVector1.x * iVector2.x + iVector1.y * iVector2.y;
+}
+
+
+// ===================================================
+// ===================================================
+
+
+inline
+float
+Magnitude( const sf::Vector2f& iVector )
+{
+    return  sqrt( iVector.x * iVector.x + iVector.y *iVector.y );
+}
+
+
+inline
+void
+Normalize( sf::Vector2f* oVector1 )
+{
+    *oVector1 = *oVector1 / Magnitude( *oVector1 );
+}
+
+
+inline
+bool
+Collinear( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
+{
+    if( iVector1 == iVector2 )
+        return  true;
+
+    bool x10 = iVector1.x == 0;
+    bool y10 = iVector1.y == 0;
+    bool x20 = iVector2.x == 0;
+    bool y20 = iVector2.y == 0;
+    if( x10 && x20 ) return  true;
+    if( y10 && y20 ) return  true;
+
+    if( x10 != x20 ) return  false;
+    if( y10 != y20 ) return  false;
+
+    return  ( iVector1.x / iVector2.x ) - ( iVector1.y / iVector2.y ) < kEpsilonF;
+}
+
+
+inline
+sf::Vector2f
+Orthogonal( const sf::Vector2f& iVector )
+{
+    sf::Vector2f ortho = iVector;
+    ortho.x = -iVector.y;
+    ortho.y = iVector.x;
+
+    return  ortho;
+}
+
+
+// ===================================================
+// ===================================================
 
 
 template< typename T >
@@ -33,7 +116,7 @@ FloorToClosestIntegerFactor( T iNumericValue, int iInteger )
 // Triangle computations
 inline
 float
-Sign( sf::Vector2f& p1, sf::Vector2f& p2, sf::Vector2f& p3 )
+Sign( const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3 )
 {
     return ( p1.x - p3.x ) * ( p2.y - p3.y ) - ( p2.x - p3.x ) * ( p1.y - p3.y );
 }
@@ -43,7 +126,7 @@ inline
 double
 DegToRad( double iAngle )
 {
-    return  iAngle * kPI / 180.0;
+    return  iAngle * kPIF / 180.0;
 }
 
 
@@ -51,7 +134,7 @@ inline
 double
 RadToDeg( double iAngle )
 {
-    return  iAngle * 180.0/kPI;
+    return  iAngle * 180.0/kPIF;
 }
 
 //...
