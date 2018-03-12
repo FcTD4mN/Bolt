@@ -22,6 +22,9 @@ GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 )
     while( angle > kPIF )
         angle -= 2.0F * kPIF;
 
+    while( angle < -kPIF )
+        angle += 2.0F * kPIF;
+
     return  angle;
 }
 
@@ -41,9 +44,13 @@ sf::Vector2f CenterOfGravity( const sf::VertexArray & iPolygon )
 sf::VertexArray
 CCWWindingSort( const sf::VertexArray & iPolygon )
 {
+    sf::VertexArray output( sf::PrimitiveType::Points );
+
+    if( iPolygon.getVertexCount() == 0 )
+        return  output;
+
     sf::Vector2f cog = CenterOfGravity( iPolygon );
     sf::Vector2f firstVector = iPolygon[ 0 ].position - cog;
-    sf::VertexArray output( sf::PrimitiveType::Points );
 
     std::vector< sf::Vector2f > outputList;
     outputList.reserve( iPolygon.getVertexCount() );
@@ -85,7 +92,7 @@ sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA
 
     for( int i = 0; i < polygonAEdges.size(); ++i )
     {
-        for( int j = 0; j < polygonAEdges.size(); ++j )
+        for( int j = 0; j < polygonBEdges.size(); ++j )
         {
             float parameterA = 0.0F;
             float parameterB = 0.0F;

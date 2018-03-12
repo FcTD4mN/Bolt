@@ -50,7 +50,6 @@ public:
     virtual  void LoadXML();
 
 private:
-    ::nGUI::cConsoleWidget  mConsoleWidget;
     cEntity* mMechant;
 
     sf::Transform mRotationFOV;

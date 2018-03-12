@@ -17,18 +17,14 @@ static sf::Vector2f gNULLVector( 0.0F, 0.0F );
 
 
 
-bool    IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
-
-double  GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 );
-
-sf::Vector2f CenterOfGravity( const  sf::VertexArray& iPolygon );
-
+bool            IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
+double          GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 );
+sf::Vector2f    CenterOfGravity( const  sf::VertexArray& iPolygon );
 sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );
 sf::VertexArray PolygonPolygonInterectionList( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
-
 sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
-bool  CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
-void  ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
+bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
+void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
 
 
 

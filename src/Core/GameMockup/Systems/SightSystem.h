@@ -35,13 +35,13 @@ public:
 private:
     std::vector< cEntity* > mPointsOfInterest;
 
-    sf::Vector2f mDEBUGSightLine;
-    sf::Vector2f mDEBUGSightPA;
-    sf::Vector2f mDEBUGSightPB;
-
     cTriangleF mFOVTriangle;
 
+    std::vector< sf::VertexArray > mTriangles;
     sf::Transform mTransformation;
+
+    std::vector< sf::VertexArray > mDEBUGClips;
+    std::vector< sf::VertexArray > mDEBUGEntities;
 
 };
 
