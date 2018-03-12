@@ -13,7 +13,7 @@ public:
 public:
     virtual  ~cFieldOfView();
     cFieldOfView();
-    cFieldOfView( double iAngle );
+    cFieldOfView( double iAngle, double iDistance );
     cFieldOfView( const cFieldOfView& iColor );
 
 public:
@@ -27,5 +27,6 @@ public:
 
 public:
     double  mAngle;
+    double  mDistance;
 };
 

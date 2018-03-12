@@ -103,7 +103,8 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         projection.left += simplephysic->mVelocity.x;
         projection.top += simplephysic->mVelocity.y;
 
-        std::vector< cEntity* > surrounding = entityMap->GetSurroundingEntitiesOf( entity );
+        std::vector< cEntity* > surrounding;
+        entityMap->GetSurroundingEntitiesOf( &surrounding, entity );
 
         for( int j = 0; j < surrounding.size(); ++j )
         {

@@ -85,15 +85,16 @@ cInfiltratorScreen::Initialize()
     hero->AddComponent( new cSimplePhysic( 124.0F, 64.0F, 40.0F, 60.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( hero );
 
-    cEntity* mechant = new cEntity( world );
-    mechant->AddComponent( new cPosition( 156.0F, 256.0F ) );
-    mechant->AddComponent( new cSize( 40.0F, 40.0F ) );
-    mechant->AddComponent( new cColor( 180, 20, 20 ) );
-    mechant->AddComponent( new cFieldOfView( 90 ) );
-    mechant->AddComponent( new cDirection( sf::Vector2f( 1.0F, 1.0F ) ) );
-    mechant->AddComponent( new cSimplePhysic( 156.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
-    world->AddEntity( mechant );
+    mMechant = new cEntity( world );
+    mMechant->AddComponent( new cPosition( 156.0F, 256.0F ) );
+    mMechant->AddComponent( new cSize( 40.0F, 40.0F ) );
+    mMechant->AddComponent( new cColor( 180, 20, 20 ) );
+    mMechant->AddComponent( new cFieldOfView( 90, 500 ) );
+    mMechant->AddComponent( new cDirection( sf::Vector2f( 1.0F, 1.0F ) ) );
+    mMechant->AddComponent( new cSimplePhysic( 156.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
+    world->AddEntity( mMechant );
 
+    mRotationFOV.rotate( 1.0F );
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
                                                     float( cGameApplication::App()->Window()->getSize().y ) );
@@ -167,8 +168,17 @@ void
 cInfiltratorScreen::KeyReleased( const sf::Event& iEvent )
 {
     // Does nothing
-    if( iEvent.key.code == sf::Keyboard::Key::S )
+    if( iEvent.key.code == sf::Keyboard::Key::X )
     {
+        auto direction = dynamic_cast< cDirection* >( mMechant->GetComponentByName( "direction" ) );
+        direction->mDirection = mRotationFOV.transformPoint( direction->mDirection );
+    }
+    else if( iEvent.key.code == sf::Keyboard::Key::C )
+    {
+        auto direction = dynamic_cast< cDirection* >( mMechant->GetComponentByName( "direction" ) );
+        mRotationFOV = mRotationFOV.getInverse();
+        direction->mDirection = mRotationFOV.transformPoint( direction->mDirection );
+        mRotationFOV = mRotationFOV.getInverse();
     }
     mConsoleWidget.KeyReleased( iEvent );
 }

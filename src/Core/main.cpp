@@ -76,20 +76,47 @@ main(int argc, char *argv[])
     sf::Time frameTime;
     sf::Event event;
 
-    while( app->Window()->isOpen() )
+
+
+
+    // Drawing entityMap
+        //sf::Vector2f position;
+        //sf::RectangleShape square;
+        //square.setSize( sf::Vector2f( 32, 32 ) );
+        //square.setFillColor( sf::Color( 0, 0, 0, 0 ) );
+        //square.setOutlineColor( sf::Color( 255, 0, 0, 120 ) );
+        //square.setOutlineThickness( 1.0F );
+    // /Drawing entityMap
+
+    while( window->isOpen() )
     {
         frameTime = clock.restart();
 
-        while( app->Window()->pollEvent( event ) )
+        while( window->pollEvent( event ) )
         {
             app->HandleEvents( event );
         }
 
         app->Update( frameTime.asMilliseconds() );
-        app->Window()->clear( sf::Color( 200, 200, 200 ) );
-        app->Draw( app->Window() );
+        window->clear( sf::Color( 200, 200, 200 ) );
+        app->Draw( window );
 
         // PERF TESTS============================================================
+
+        // Draw entityMapGrid
+            //for( int x = 0; x < 32; ++x )
+            //{
+            //    for( int y = 0; y < 32; ++y )
+            //    {
+            //        position.x = x * 32;
+            //        position.y = y * 32;
+            //        square.setPosition( position );
+
+            //        window->draw( square );
+            //    }
+            //}
+        // /Drawing entityMap
+
         if( 0 )
         {
             //sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
@@ -107,7 +134,7 @@ main(int argc, char *argv[])
         }
         // PERF TESTS============================================================
 
-        app->Window()->display();
+        window->display();
     }
 
     if (Py_FinalizeEx() < 0) {

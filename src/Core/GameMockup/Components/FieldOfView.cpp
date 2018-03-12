@@ -19,16 +19,18 @@ cFieldOfView::cFieldOfView() :
 }
 
 
-cFieldOfView::cFieldOfView( double iAngle ) :
+cFieldOfView::cFieldOfView( double iAngle, double iDistance ) :
     tSuperClass( "fieldofview" ),
-    mAngle( iAngle )
+    mAngle( iAngle ),
+    mDistance( iDistance )
 {
 }
 
 
 cFieldOfView::cFieldOfView( const cFieldOfView & iFOV ) :
     tSuperClass( iFOV ),
-    mAngle( iFOV.mAngle )
+    mAngle( iFOV.mAngle ),
+    mDistance( iFOV.mDistance )
 {
 }
 
@@ -55,6 +57,7 @@ cFieldOfView::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocu
 {
     tSuperClass::SaveXML( iNode, iDocument );
     iNode->SetAttribute( "angle", mAngle );
+    iNode->SetAttribute( "distance", mDistance );
 }
 
 
@@ -63,5 +66,6 @@ cFieldOfView::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mAngle = iNode->DoubleAttribute( "angle", 0.0 );
+    mDistance = iNode->DoubleAttribute( "distance", 0.0 );
 }
 

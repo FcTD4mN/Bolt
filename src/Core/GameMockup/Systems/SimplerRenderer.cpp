@@ -7,6 +7,8 @@
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
 
+#include "Math/Utils.h"
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -50,6 +52,7 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
 {
     sf::RectangleShape rect( sf::Vector2f( 10,10 ) );
     sf::CircleShape triangle( 80.0F, 3 ); // 3 sides circle = triangle
+    sf::Vector2f origin;
 
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
@@ -62,17 +65,14 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
 
         if( direction )
         {
+            triangle.setPosition( position->mPosition );
             triangle.setRadius( size->mSize.x );
-            triangle.setPosition( position->mPosition + size->mSize/2.0F );
             triangle.setFillColor( color->mColor );
-            triangle.setOrigin( sf::Vector2f( size->mSize.x / 2.0F, 0.0F ) );
             triangle.setOrigin( size->mSize );
 
-            float dotProduct = -direction->mDirection.y;
-            float magnitude = sqrt( direction->mDirection.x * direction->mDirection.x + direction->mDirection.y * direction->mDirection.y );
-            float angleRad = acos( dotProduct / magnitude );
+            float angle = GetAngleBetweenVectors( gYAxisVector, direction->mDirection );
 
-            triangle.setRotation( angleRad * float( 180.0 / 3.141592653589793238463 ) );
+            triangle.setRotation( RadToDeg( angle ) );
             iRenderTarget->draw( triangle );
         }
         else

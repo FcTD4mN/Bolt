@@ -1,8 +1,8 @@
 <shortcuts>
-	<entry key="71" action="moveleft"/>
-	<entry key="72" action="moveright"/>
-	<entry key="73" action="moveup"/>
-	<entry key="74" action="movedown"/>
+	<entry key="16" action="moveleft"/>
+	<entry key="3" action="moveright"/>
+	<entry key="25" action="moveup"/>
+	<entry key="18" action="movedown"/>
 	<entry key="37" action="attack"/>
 	<entry key="57" action="jump"/>
 </shortcuts> 

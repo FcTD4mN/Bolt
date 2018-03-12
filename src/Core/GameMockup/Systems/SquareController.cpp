@@ -114,10 +114,10 @@ cSquareController::Update( unsigned int iDeltaTime )
 
             // Basic test thing that assumes only one square is controlled
             // All the gamemockup part is testing anyway ...
-            //auto window = cGameApplication::App()->Window();
-            //sf::View view = window->getView();
-            //view.setCenter( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
-            //window->setView( view );
+            auto window = cGameApplication::App()->Window();
+            sf::View view = window->getView();
+            view.setCenter( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
+            window->setView( view );
         }
     }
 }

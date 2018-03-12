@@ -59,18 +59,20 @@ cSightSystem::Finalize()
 void
 cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
 {
+    cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
+
     sf::VertexArray lines( sf::LinesStrip, 2 );
     lines[ 0 ].position = mDEBUGSightPA;
-    lines[ 0 ].color = sf::Color( 20, 20, 255, 150 );
+    lines[ 0 ].color = sf::Color( 20, 20, 255, 100 );
     lines[ 1 ].position = mDEBUGSightPA + mDEBUGSightLine;
-    lines[ 1 ].color = sf::Color( 20, 20, 255, 150 );
+    lines[ 1 ].color = sf::Color( 20, 20, 255, 100 );
 
     sf::ConvexShape sight;
     sight.setPointCount( 3 );
-    sight.setPoint( 0, mDEBUGTriangleA );
-    sight.setPoint( 1, mDEBUGTriangleB );
-    sight.setPoint( 2, mDEBUGTriangleC );
-    sight.setFillColor( sf::Color( 0, 0, 255 ) );
+    sight.setPoint( 0, mFOVTriangle.mA );
+    sight.setPoint( 1, mFOVTriangle.mB );
+    sight.setPoint( 2, mFOVTriangle.mC );
+    sight.setFillColor( sf::Color( 0, 0, 255, 100 ) );
 
     iRenderTarget->draw( lines );
     iRenderTarget->draw( sight );
@@ -80,6 +82,17 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
 void
 cSightSystem::Update( unsigned int iDeltaTime )
 {
+    cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
+
+    mTransformation = mTransformation.Identity;
+
+    sf::Vector2f fovA;
+    sf::Vector2f fovB;
+    sf::Vector2f fovC;
+
+    // These names sux ass, but i didn't have any better
+    sf::Vector2f analysis;
+
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
         cEntity* entity = mEntityGroup[ i ];
@@ -89,51 +102,43 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto direction = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
+        mTransformation.rotate( RadToDeg( -GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) + 180.0F );
+        mTransformation.translate( -position->mPosition );
+
         // Get FOV triangle
-        sf::Vector2f a = position->mPosition;
+        fovA = position->mPosition;
         float semiAngle = float(fieldofview->mAngle / 2.0F);
         sf::Transform rotation;
         rotation.rotate( semiAngle );
 
-        sf::Vector2f baseVector = direction->mDirection * 500.0F;
-        sf::Vector2f b = rotation.transformPoint( baseVector );
+        sf::Vector2f baseVector = direction->mDirection * float(fieldofview->mDistance);
+        fovB = rotation.transformPoint( baseVector );
 
         rotation.rotate( float(-fieldofview->mAngle) );
-        sf::Vector2f c = rotation.transformPoint( baseVector );
+        fovC = rotation.transformPoint( baseVector );
 
         // Translation
-        b += a;
-        c += a;
+        fovB += fovA;
+        fovC += fovA;
 
-        mDEBUGTriangleA = a;
-        mDEBUGTriangleB = b;
-        mDEBUGTriangleC = c;
+        mFOVTriangle.mA = fovA;
+        mFOVTriangle.mB = fovB;
+        mFOVTriangle.mC = fovC;
 
-        for( int j = 0; j < mPointsOfInterest.size(); ++j )
+        sf::VertexArray fov;
+        fov.append( fovA );
+        fov.append( fovB );
+        fov.append( fovC );
+
+        std::vector< cEntity* > entitiesInFOVBBox;
+        entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, fov.getBounds() );
+
+        for( auto v : entitiesInFOVBBox )
         {
-            cEntity* poi = mPointsOfInterest[ j ];
+            auto positionENT = dynamic_cast< cPosition* >( v->GetComponentByName( "position" ) );
+            auto sizeENT = dynamic_cast< cSize* >( v->GetComponentByName( "size" ) );
 
-            auto positionPOI = dynamic_cast< cPosition* >( poi->GetComponentByName( "position" ) );
-            auto sizePOI = dynamic_cast< cSize* >( poi->GetComponentByName( "size" ) );
 
-            // Get 4 extreme points, and then check if any is in FOV
-            sf::Vector2f poiA = positionPOI->mPosition;
-            sf::Vector2f poiB = poiA;
-            poiB.x += sizePOI->mSize.x;
-            sf::Vector2f poiC = poiB;
-            poiB.y += sizePOI->mSize.y;
-            sf::Vector2f poiD = poiA;
-            poiD.y += sizePOI->mSize.y;
-
-            if( IsPointInTriangle( poiA,    a, b, c )
-                || IsPointInTriangle( poiB, a, b, c )
-                || IsPointInTriangle( poiC, a, b, c )
-                || IsPointInTriangle( poiD, a, b, c )
-                )
-            {
-                printf( "IN FOV\n" );
-                auto entityMap = cGameApplication::App()->EntityMap();
-            }
         }
     }
 }

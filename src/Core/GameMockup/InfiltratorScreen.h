@@ -3,6 +3,8 @@
 #include "Screen/Screen.h"
 #include "GUI/ConsoleWidget.h"
 
+class cEntity;
+
 class cInfiltratorScreen :
     public cScreen
 {
@@ -49,5 +51,8 @@ public:
 
 private:
     ::nGUI::cConsoleWidget  mConsoleWidget;
+    cEntity* mMechant;
+
+    sf::Transform mRotationFOV;
 };
 

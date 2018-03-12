@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Math/Triangle.h"
+
 class cSightSystem :
     public cSystem
 {
@@ -37,8 +39,9 @@ private:
     sf::Vector2f mDEBUGSightPA;
     sf::Vector2f mDEBUGSightPB;
 
-    sf::Vector2f mDEBUGTriangleA;
-    sf::Vector2f mDEBUGTriangleB;
-    sf::Vector2f mDEBUGTriangleC;
+    cTriangleF mFOVTriangle;
+
+    sf::Transform mTransformation;
+
 };
 

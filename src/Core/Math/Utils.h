@@ -11,6 +11,12 @@
 #define kEpsilonF (1E-5F)
 
 
+static sf::Vector2f gYAxisVector( 0.0F, 1.0F );
+static sf::Vector2f gXAxisVector( 1.0F, 0.0F );
+static sf::Vector2f gNULLVector( 0.0F, 0.0F );
+
+
+
 bool    IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
 
 double  GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 );

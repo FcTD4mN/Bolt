@@ -18,7 +18,7 @@ cEntityGrid::cEntityGrid() :
     mGridMap(),
     mWidth( 1024 ),
     mHeight( 1024 ),
-    mCellSize( 2 )
+    mCellSize( 32 )
 {
     mGridMap.reserve( mWidth );
     for( int i = 0; i < mWidth; ++i )
@@ -90,10 +90,9 @@ cEntityGrid::RemoveEntityNotUpdated( cEntity* iEntity )
 }
 
 
-std::vector< cEntity* >
-cEntityGrid::GetSurroundingEntitiesOf( cEntity* iEntity )
+void
+cEntityGrid::GetSurroundingEntitiesOf( std::vector<cEntity*>* oEntities, cEntity* iEntity )
 {
-    std::vector< cEntity* > result;
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
@@ -110,25 +109,22 @@ cEntityGrid::GetSurroundingEntitiesOf( cEntity* iEntity )
             for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
             {
                 cEntity* ent = mGridMap[ i ][ j ][ k ];
-                if( ent != iEntity && std::find( result.begin(), result.end(), ent ) == result.end() )
-                    result.push_back( ent );
+                if( ent != iEntity && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+                    ( *oEntities ).push_back( ent );
             }
         }
     }
-
-    return  result;
 }
 
 
-std::vector< cEntity* >
-cEntityGrid::GetEntitiesFollwingVectorFromEntity( cEntity * iEntity, const sf::Vector2f & iVector )
+void
+cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::vector<cEntity*>* oEntities, cEntity * iEntity, const sf::Vector2f & iVector )
 {
-    std::vector< cEntity* > result;
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
-    float xLookup = x;
-    float yLookup = y;
+    float xLookup = float(x);
+    float yLookup = float(y);
     int  xLookupToInt = int( xLookup );
     int  yLookupToInt = int( yLookup );
 
@@ -137,16 +133,35 @@ cEntityGrid::GetEntitiesFollwingVectorFromEntity( cEntity * iEntity, const sf::V
         for( int k = 0; k < mGridMap[ xLookupToInt ][ yLookupToInt ].size(); ++k )
         {
             cEntity* ent = mGridMap[ xLookupToInt ][ yLookupToInt ][ k ];
-            if( ent != iEntity && std::find( result.begin(), result.end(), ent ) == result.end() )
-                result.push_back( ent );
+            if( ent != iEntity && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+                ( *oEntities ).push_back( ent );
         }
         xLookup += iVector.x;
         yLookup += iVector.y;
         xLookupToInt = int( xLookup );
         yLookupToInt = int( yLookup );
     }
+}
 
-    return  result;
+
+void
+cEntityGrid::GetEntitiesInBoundingBox( std::vector<cEntity*>* oEntities, const sf::Rect<float>& iBBox )
+{
+    int x, y, x2, y2;
+    GetBBoxArea( &x, &y, &x2, &y2, iBBox );
+
+    for( int i = x; i < x2; ++i )
+    {
+        for( int j = y; j < y2; ++j )
+        {
+            for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
+            {
+                cEntity* ent = mGridMap[ i ][ j ][ k ];
+                if( std::find( (*oEntities).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+                    ( *oEntities ).push_back( ent );
+            }
+        }
+    }
 }
 
 
@@ -160,16 +175,40 @@ cEntityGrid::GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, cEntity* iEnti
 {
     auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
 
-    *oX = int( simplephysic->mHitBox.left ) / mCellSize;
-    *oY = int( simplephysic->mHitBox.top ) / mCellSize;
+    GetBBoxArea( oX, oY, oX2, oY2, simplephysic->mHitBox.left, simplephysic->mHitBox.top, simplephysic->mHitBox.left + simplephysic->mHitBox.width, simplephysic->mHitBox.top + simplephysic->mHitBox.height );
+}
 
-    *oX2 = int( simplephysic->mHitBox.left + simplephysic->mHitBox.width ) / mCellSize;
-    *oY2 = int( simplephysic->mHitBox.top + simplephysic->mHitBox.height ) / mCellSize;
+
+void
+cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, const sf::Rect<float>& iBBox )
+{
+    GetBBoxArea( oX, oY, oX2, oY2, iBBox.left, iBBox.top, iBBox.left + iBBox.width, iBBox.top + iBBox.height );
+}
+
+
+void cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float iX, float iY, float iX2, float iY2 )
+{
+    *oX = int( iX ) / mCellSize;
+    *oY = int( iY ) / mCellSize;
+
+    *oX2 = int( iX2 ) / mCellSize;
+    *oY2 = int( iY2 ) / mCellSize;
 
     // If an entity wants to be added out of grid bouds, it justs sets ox2 and oy2 so that we won't get in any of the "for" loops
     if( *oX >= mWidth || *oY >= mHeight || *oX2 < 0 || *oY2 < 0 )
     {
         *oX2 = *oX - 1;
         *oY2 = *oY - 1;
+        return;
     }
+
+    // Clamping to avoid seeking out of bounds
+    if( *oX < 0 )
+        *oX = 0;
+    if( *oY < 0 )
+        *oY = 0;
+    if( *oX2 > mWidth - 1 )
+        *oX2 = mWidth - 1;
+    if( *oY2 > mHeight - 1 )
+        *oY2 = mHeight - 1;
 }
