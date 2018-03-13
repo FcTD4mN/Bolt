@@ -64,6 +64,11 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
 {
     cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
+    // BBOx of fov
+    //sf::RectangleShape bbox( sf::Vector2f( mFOVBBox.width, mFOVBBox.height ) );
+    //bbox.setPosition( sf::Vector2f( mFOVBBox.left, mFOVBBox.top ) );
+    //iRenderTarget->draw( bbox );
+
     for( int i = 0; i < mTriangles.size(); ++i )
     {
         mTriangles[ i ].setPrimitiveType( sf::Triangles );
@@ -75,15 +80,25 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
         iRenderTarget->draw( mTriangles[ i ] );
     }
 
-    for( int i = 0; i < mDEBUGClips.size(); ++i )
-    {
-        mDEBUGClips[ i ].setPrimitiveType( sf::TriangleFan );
-        for( int j = 0; j < mDEBUGClips[ i ].getVertexCount(); ++j )
-        {
-            mDEBUGClips[ i ][ j ].color = sf::Color( 255, 150, 0, 255 );
-        }
+    //for( int i = 0; i < mDEBUGClips.size(); ++i )
+    //{
+    //    mDEBUGClips[ i ].setPrimitiveType( sf::TriangleFan );
+    //    for( int j = 0; j < mDEBUGClips[ i ].getVertexCount(); ++j )
+    //    {
+    //        mDEBUGClips[ i ][ j ].color = sf::Color( 255, 150, 0, 255 );
+    //    }
 
-        iRenderTarget->draw( mDEBUGClips[ i ] );
+    //    iRenderTarget->draw( mDEBUGClips[ i ] );
+    //}
+
+    for( int i = 0; i < mDEBUGRays.size(); ++i )
+    {
+        sf::VertexArray line( sf::Lines, 2 );
+        line[ 0 ].position = mDEBUGRays[ i ].mPoint;
+        line[ 0 ].color = sf::Color( 255, 0, 0 );
+        line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
+        line[ 1 ].color = sf::Color( 255, 0, 0 );
+        iRenderTarget->draw( line );
     }
 }
 
@@ -97,6 +112,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     mTriangles.clear();
     mDEBUGClips.clear();
     mDEBUGEntities.clear();
+    mDEBUGRays.clear();
 
     sf::Vector2f fovA;
     sf::Vector2f fovB;
@@ -110,10 +126,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto direction = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
-        mTransformation.rotate( RadToDeg( -GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) + 180.0F );
+        mTransformation.rotate( float(RadToDeg( -GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) )) + 180.0F );
         mTransformation.translate( -position->mPosition );
         sf::VertexArray subFov;
-        sf::VertexArray completeFov;
 
         // Get FOV triangles
         fovA = position->mPosition; // Base point of the triangle
@@ -129,10 +144,6 @@ cSightSystem::Update( unsigned int iDeltaTime )
         // Set it to FOV angle / number of split, negative so it goes right and not left
         rotation.rotate( float( -fieldofview->mAngle ) / FOVSplitThreshold );
 
-        // We need the complete FOV to check the bounding box and ask entitymap for all entities
-        completeFov.append( fovA );
-        completeFov.append( fovB + fovA );
-
         for( int i = 0; i < FOVSplitThreshold; ++i )
         {
             // We start a new triangle, that has ptA and ptB from the previous
@@ -146,13 +157,13 @@ cSightSystem::Update( unsigned int iDeltaTime )
             mTriangles.push_back( subFov );
         }
 
-        completeFov.append( fovB + fovA );
+        mFOVBBox = GetTriangleSetBBox( mTriangles );
 
         std::vector< cEntity* > entitiesInFOVBBox;
-        entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, completeFov.getBounds() );
+        entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
-        //for( auto v : mPointsOfInterest )
-        for( auto v : entitiesInFOVBBox )
+        //for( auto v : entitiesInFOVBBox )
+        for( auto v : mPointsOfInterest )
         {
             // We don't analyse the watcher itself
             if( v == entity )
@@ -170,7 +181,17 @@ cSightSystem::Update( unsigned int iDeltaTime )
             for( int i = 0; i < mTriangles.size(); ++i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
-                mDEBUGClips.push_back( clipedPol );
+
+                for( int j = 0; j < clipedPol.getVertexCount(); ++j )
+                {
+                    sf::Vector2f vectorDirectionToPolygonEdge = clipedPol[ j ].position - fovA;
+                    Normalize( &vectorDirectionToPolygonEdge );
+                    vectorDirectionToPolygonEdge *= float(fieldofview->mDistance);
+                    mDEBUGRays.push_back( cEdgeF::MakePointDirection( fovA, vectorDirectionToPolygonEdge ) );
+                }
+
+                if( clipedPol.getVertexCount() > 0 )
+                    mDEBUGClips.push_back( clipedPol );
             }
         }
     }

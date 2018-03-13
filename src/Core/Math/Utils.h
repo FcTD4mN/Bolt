@@ -25,7 +25,7 @@ sf::VertexArray PolygonPolygonInterectionList( const  sf::VertexArray& iPolygonA
 sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
 bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
 void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
-
+sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
 
 
 // ===================================================

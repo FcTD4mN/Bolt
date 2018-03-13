@@ -64,7 +64,7 @@ cEdgeF::Intersect( float* oParameterA, float* oParameterB, const cEdgeF & iEdge 
 
     if( v.y == 0.0F )
         *oParameterB = ( O.x + ( *oParameterA ) * u.x - P.x ) / v.x;
-    else if( v.x == 0.0F )
+    else
         *oParameterB = ( O.y + ( *oParameterA ) * u.y - P.y ) / v.y;
 
     return  true;

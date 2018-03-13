@@ -173,6 +173,34 @@ ExtractEdgesFromPolygon( std::vector<cEdgeF>* oEdges, const sf::VertexArray& iPo
 }
 
 
+sf::FloatRect
+GetTriangleSetBBox( const std::vector< sf::VertexArray >& iTriangleSet )
+{
+    if( iTriangleSet.size() == 0 )
+        return  sf::FloatRect( 0.0f, 0.0f, 0.0f, 0.0f );
+
+    sf::FloatRect bBox = iTriangleSet[ 0 ].getBounds();
+    float x = bBox.left;
+    float y = bBox.top;
+    float x2 = bBox.left + bBox.width;
+    float y2 = bBox.top + bBox.height;
+
+    for( int i = 1; i < iTriangleSet.size(); ++i )
+    {
+        bBox = iTriangleSet[ i ].getBounds();
+        if( x > bBox.left )
+            x = bBox.left;
+        if( y > bBox.top )
+            y = bBox.top;
+        if( x2 < bBox.left + bBox.width )
+            x2 = bBox.left + bBox.width;
+        if( y2 < bBox.top + bBox.height )
+            y2 = bBox.top + bBox.height;
+    }
+    return  sf::FloatRect( x, y , x2 - x, y2 - y );
+}
+
+
 
 // This functions clips all the edges w.r.t one clip
 // edge of clipping area

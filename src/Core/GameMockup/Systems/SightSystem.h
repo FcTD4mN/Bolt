@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Math/Triangle.h"
+#include "Math/Edge.h"
 
 class cSightSystem :
     public cSystem
@@ -35,13 +35,13 @@ public:
 private:
     std::vector< cEntity* > mPointsOfInterest;
 
-    cTriangleF mFOVTriangle;
-
+    sf::FloatRect  mFOVBBox;
     std::vector< sf::VertexArray > mTriangles;
     sf::Transform mTransformation;
 
     std::vector< sf::VertexArray > mDEBUGClips;
     std::vector< sf::VertexArray > mDEBUGEntities;
+    std::vector< cEdgeF > mDEBUGRays;
 
 };
 
