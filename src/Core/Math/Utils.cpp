@@ -113,6 +113,7 @@ sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA
 
 sf::VertexArray ClipPolygonPolygon( const sf::VertexArray& iPolygonA, const sf::VertexArray& iPolygonB )
 {
+    // TODO: remove doublons
     sf::VertexArray intersectionList = PolygonPolygonInterectionList( iPolygonA, iPolygonB );
 
     for( int i = 0; i < iPolygonA.getVertexCount(); ++i )
@@ -150,8 +151,8 @@ CCWWindedPolygonContainsPoint( const sf::VertexArray & iPolygon, const sf::Vecto
 
         sf::Vector2f vecProjection = iPoint - projection;
 
-        float angle = GetAngleBetweenVectors( v.mDirection, vecProjection );
-        if( angle > 0.0F )
+        double angle = GetAngleBetweenVectors( v.mDirection, vecProjection );
+        if( angle > 0.0 )
             return  false;
     }
 
@@ -198,6 +199,45 @@ GetTriangleSetBBox( const std::vector< sf::VertexArray >& iTriangleSet )
             y2 = bBox.top + bBox.height;
     }
     return  sf::FloatRect( x, y , x2 - x, y2 - y );
+}
+
+
+sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon )
+{
+    sf::VertexArray output;
+    if( iPolygon.getVertexCount() <= 0 )
+        return  output;
+
+    output.resize( iPolygon.getVertexCount() );
+    std::vector< sf::Vector2f > xSort;
+    xSort.reserve( iPolygon.getVertexCount() );
+    xSort.push_back( iPolygon[ 0 ].position );
+
+    for( int i = 1; i < iPolygon.getVertexCount(); ++i )
+    {
+        int index = 0;
+        while( index < xSort.size() && iPolygon[ i ].position.x > xSort[ index ].x )
+            ++index;
+
+        xSort.insert( xSort.begin() + index, iPolygon[ i ].position );
+    }
+
+    for( int i = 0; i < xSort.size(); ++i )
+    {
+        output[ i ].position = xSort[ i ];
+    }
+
+    return  output;
+}
+
+
+void
+TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform & iTransformation )
+{
+    for( int i = 0; i < (*oPolygon).getVertexCount(); ++i )
+    {
+        ( *oPolygon )[ i ].position = iTransformation.transformPoint( ( *oPolygon )[ i ].position );
+    }
 }
 
 

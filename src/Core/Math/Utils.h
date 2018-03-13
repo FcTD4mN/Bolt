@@ -26,7 +26,8 @@ sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf
 bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
 void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
 sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
-
+sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon );
+void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform& iTransformation );
 
 // ===================================================
 // ===================================================

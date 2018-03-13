@@ -91,22 +91,17 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    iRenderTarget->draw( mDEBUGClips[ i ] );
     //}
 
-    for( int i = 0; i < mDEBUGRays.size(); ++i )
-    {
-        sf::VertexArray line( sf::Lines, 2 );
-        line[ 0 ].position = mDEBUGRays[ i ].mPoint;
-        line[ 0 ].color = sf::Color( 255, 0, 0 );
-        line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
-        line[ 1 ].color = sf::Color( 255, 0, 0 );
-        iRenderTarget->draw( line );
-    }
+    //for( int i = 0; i < mDEBUGRays.size(); ++i )
+    //{
+    //    sf::VertexArray line( sf::Lines, 2 );
+    //    line[ 0 ].position = mDEBUGRays[ i ].mPoint;
+    //    line[ 0 ].color = sf::Color( 255, 0, 0 );
+    //    line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
+    //    line[ 1 ].color = sf::Color( 255, 0, 0 );
+    //    iRenderTarget->draw( line );
+    //}
 
-    for( int i = 0; i < mDEBUGHitPoints.getVertexCount(); ++i )
-    {
-        mDEBUGHitPoints[ i ].color = sf::Color( 255, 0, 0 );
-    }
     iRenderTarget->draw( mDEBUGHitPoints );
-
 }
 
 
@@ -134,6 +129,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto direction = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
+        // This is the transformation that allows to go in the watcher's referential
         mTransformation.rotate( float(RadToDeg( -GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) )) + 180.0F );
         mTransformation.translate( -position->mPosition );
         sf::VertexArray subFov;
@@ -186,6 +182,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
 
+            // For each triangle in the set, we split it according to object in the fov
             for( int i = 0; i < mTriangles.size(); ++i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
@@ -193,6 +190,20 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                 // Now we have the clipped polygon, we want to cast rays towards every vertexes to see
                 // which part of the FOV is obstructed
+
+
+                // But before that, we need the rays to be in order from left to right, so we need to sort vertexes
+                // from clipedPoly.
+                // To do that, we tranform into watcher's referential, and simply order by x
+                sf::VertexArray clipedPolyTransformed;
+                clipedPolyTransformed.resize( clipedPol.getVertexCount() );
+                for( int j = 0; j < clipedPol.getVertexCount(); ++j )
+                {
+                    clipedPolyTransformed[ j ].position = mTransformation.transformPoint( clipedPol[ j ].position );
+                }
+                sf::VertexArray clipedPolyTransformedSorted = SortVertexesByX( clipedPolyTransformed );
+                TransformPolygonUsingTransformation( &clipedPolyTransformedSorted, mTransformation.getInverse() );
+
                 for( int j = 0; j < clipedPol.getVertexCount(); ++j )
                 {
                     // First we get for each vertex, the ray from fov's origin
@@ -205,6 +216,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     cEdgeF ray = cEdgeF::MakePointDirection( fovOrigin, vectorDirectionToPolygonEdge );
 
                     // This looks ugly as hell, but no better idea atm
+                    // Here we want to filter rays so we don't add the same twice
                     bool addNewRay = true;
                     for( auto rayFromList : rayList )
                     {
@@ -241,17 +253,18 @@ cSightSystem::Update( unsigned int iDeltaTime )
                             && ( paramB > 0.0F && paramB < 1.0F ) )
                         {
                             mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                            mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
                             hitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
                         }
                         else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
                         {
-                            mDEBUGHitPoints.append( ray.mPoint + ray.mDirection );
+                            mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                            mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Green;
+
                             hitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
                         }
-
-                        // In all cases, we should have 2 intersections with clippedPolygon
-                        int a = 2;
                     }
+
                 }
 
                 if( clipedPol.getVertexCount() > 0 )
