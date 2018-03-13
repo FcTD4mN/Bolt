@@ -42,6 +42,7 @@ private:
     std::vector< sf::VertexArray > mDEBUGClips;
     std::vector< sf::VertexArray > mDEBUGEntities;
     std::vector< cEdgeF > mDEBUGRays;
+    sf::VertexArray mDEBUGHitPoints;
 
 };
 

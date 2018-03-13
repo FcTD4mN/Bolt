@@ -70,9 +70,9 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
             triangle.setFillColor( color->mColor );
             triangle.setOrigin( size->mSize );
 
-            float angle = GetAngleBetweenVectors( gYAxisVector, direction->mDirection );
+            float angle = float(GetAngleBetweenVectors( gYAxisVector, direction->mDirection ));
 
-            triangle.setRotation( RadToDeg( angle ) );
+            triangle.setRotation( float(RadToDeg( angle ) ) );
             iRenderTarget->draw( triangle );
         }
         else

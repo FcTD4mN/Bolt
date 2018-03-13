@@ -14,6 +14,8 @@
 #include "GameMockup/Components/UserInput.h"
 #include "GameMockup/Components/SimplePhysic.h"
 
+#include "Math/Utils.h"
+
 #include <iostream>
 
 // -------------------------------------------------------------------------------------
@@ -89,8 +91,8 @@ cInfiltratorScreen::Initialize()
     mMechant->AddComponent( new cPosition( 156.0F, 256.0F ) );
     mMechant->AddComponent( new cSize( 40.0F, 40.0F ) );
     mMechant->AddComponent( new cColor( 180, 20, 20 ) );
-    mMechant->AddComponent( new cFieldOfView( 90, 200 ) );
-    mMechant->AddComponent( new cDirection( sf::Vector2f( 1.0F, 1.0F ) ) );
+    mMechant->AddComponent( new cFieldOfView( 90, 300 ) );
+    mMechant->AddComponent( new cDirection( Normale( sf::Vector2f( 1.0F, 1.0F ) ) ) );
     mMechant->AddComponent( new cSimplePhysic( 156.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( mMechant );
 

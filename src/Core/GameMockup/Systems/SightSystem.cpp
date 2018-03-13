@@ -100,6 +100,13 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
         line[ 1 ].color = sf::Color( 255, 0, 0 );
         iRenderTarget->draw( line );
     }
+
+    for( int i = 0; i < mDEBUGHitPoints.getVertexCount(); ++i )
+    {
+        mDEBUGHitPoints[ i ].color = sf::Color( 255, 0, 0 );
+    }
+    iRenderTarget->draw( mDEBUGHitPoints );
+
 }
 
 
@@ -113,8 +120,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
     mDEBUGClips.clear();
     mDEBUGEntities.clear();
     mDEBUGRays.clear();
+    mDEBUGHitPoints.clear();
 
-    sf::Vector2f fovA;
+    sf::Vector2f fovOrigin;
     sf::Vector2f fovB;
 
     for( int i = 0; i < mEntityGroup.size(); ++i )
@@ -131,7 +139,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         sf::VertexArray subFov;
 
         // Get FOV triangles
-        fovA = position->mPosition; // Base point of the triangle
+        fovOrigin = position->mPosition; // Base point of the triangle
         float semiAngle = float(fieldofview->mAngle / 2.0F);
         sf::Transform rotation;
         rotation.rotate( semiAngle );
@@ -148,12 +156,12 @@ cSightSystem::Update( unsigned int iDeltaTime )
         {
             // We start a new triangle, that has ptA and ptB from the previous
             subFov.clear();
-            subFov.append( fovA );
-            subFov.append( fovA + fovB );
+            subFov.append( fovOrigin );
+            subFov.append( fovOrigin + fovB );
             // And for each split, we apply the rotation to the top left point, creating the top right point
             // for the Nth triangle
             fovB = rotation.transformPoint( fovB );
-            subFov.append( fovB + fovA );
+            subFov.append( fovB + fovOrigin );
             mTriangles.push_back( subFov );
         }
 
@@ -181,13 +189,69 @@ cSightSystem::Update( unsigned int iDeltaTime )
             for( int i = 0; i < mTriangles.size(); ++i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
+                std::vector< cEdgeF > rayList;
 
+                // Now we have the clipped polygon, we want to cast rays towards every vertexes to see
+                // which part of the FOV is obstructed
                 for( int j = 0; j < clipedPol.getVertexCount(); ++j )
                 {
-                    sf::Vector2f vectorDirectionToPolygonEdge = clipedPol[ j ].position - fovA;
-                    Normalize( &vectorDirectionToPolygonEdge );
-                    vectorDirectionToPolygonEdge *= float(fieldofview->mDistance);
-                    mDEBUGRays.push_back( cEdgeF::MakePointDirection( fovA, vectorDirectionToPolygonEdge ) );
+                    // First we get for each vertex, the ray from fov's origin
+                    // Then we store it, so we end up with the list of rays
+                    // We'll then be able to remove rays that are identical, to simplify things
+                    sf::Vector2f vectorDirectionToPolygonEdge = Normale( clipedPol[ j ].position - fovOrigin );
+                    vectorDirectionToPolygonEdge *= float( fieldofview->mDistance + 5.0F ); // +5 to ensure intersection
+
+                    // There it is
+                    cEdgeF ray = cEdgeF::MakePointDirection( fovOrigin, vectorDirectionToPolygonEdge );
+
+                    // This looks ugly as hell, but no better idea atm
+                    bool addNewRay = true;
+                    for( auto rayFromList : rayList )
+                    {
+                        if( Collinear( ray.mDirection, rayFromList.mDirection ) )
+                        {
+                            addNewRay = false;
+                            break;
+                        }
+                    }
+                    if( addNewRay )
+                    {
+                        mDEBUGRays.push_back( ray );
+                        rayList.push_back( ray );
+                    }
+                }
+
+                for( auto ray : rayList )
+                {
+                    // Now, for each edge of the clipped polygon, we intersect with that ray
+                    // and harvest all intersections
+                    std::vector< cEdgeF > clipPolEdges;
+
+                    // Collision between ray and clipped Polygon will be stored in this vector
+                    std::vector< sf::Vector2f > hitPoints;
+
+                    ExtractEdgesFromPolygon( &clipPolEdges, clipedPol );
+                    for( auto edge : clipPolEdges )
+                    {
+                        float paramA;
+                        float paramB;
+
+                        cEdgeF::Intersect( &paramA, &paramB, edge, ray );
+                        if( ( paramA > 0.0F && paramA < 1.0F ) // If actual intersection that is NOT on an exact vertex
+                            && ( paramB > 0.0F && paramB < 1.0F ) )
+                        {
+                            mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                            hitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
+                        }
+                        else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
+                        {
+                            mDEBUGHitPoints.append( ray.mPoint + ray.mDirection );
+                            hitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
+                        }
+
+                        // In all cases, we should have 2 intersections with clippedPolygon
+                        int a = 2;
+                    }
                 }
 
                 if( clipedPol.getVertexCount() > 0 )

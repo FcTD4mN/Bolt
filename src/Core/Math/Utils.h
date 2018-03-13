@@ -61,6 +61,14 @@ Normalize( sf::Vector2f* oVector1 )
 
 
 inline
+sf::Vector2f
+Normale( const  sf::Vector2f& iVector1 )
+{
+    return  iVector1 / Magnitude( iVector1 );
+}
+
+
+inline
 bool
 Collinear( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
 {
@@ -77,7 +85,7 @@ Collinear( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
     if( x10 != x20 ) return  false;
     if( y10 != y20 ) return  false;
 
-    return  ( iVector1.x / iVector2.x ) - ( iVector1.y / iVector2.y ) < kEpsilonF;
+    return  abs(( iVector1.x / iVector2.x ) - ( iVector1.y / iVector2.y )) < kEpsilonF;
 }
 
 
