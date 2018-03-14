@@ -163,6 +163,9 @@ CCWWindedPolygonContainsPoint( const sf::VertexArray & iPolygon, const sf::Vecto
 void
 ExtractEdgesFromPolygon( std::vector<cEdgeF>* oEdges, const sf::VertexArray& iPolygon )
 {
+    if( iPolygon.getVertexCount() == 0 )
+        return;
+
     (*oEdges).clear();
     (*oEdges).reserve( iPolygon.getVertexCount() );
 
@@ -271,32 +274,50 @@ TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transf
 }
 
 
-void AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArray )
+bool
+AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArray )
 {
     for( int i = 0 ; i < (*oVArray).getVertexCount() ; ++i )
     {
         sf::Vector2f diff = (*oVArray)[ i ].position - iElement;
         if( abs( diff.x ) < 0.01 && abs( diff.y ) < 0.01 ) // vertexes are supposed to represent pixel points in the end, so 0.01 difference = same point
-            return;
+            return  false;
     }
 
     ( *oVArray ).append( iElement );
+    return  true;
 }
 
 
 // Adds an element to a vector only if it is not already in
 template<>
-void
+bool
 AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector )
 {
     for( auto elm : *oVector )
     {
         sf::Vector2f diff = elm - iElement;
         if( abs(diff.x) < 0.01 && abs(diff.y) < 0.01 ) // sfVector2f are supposed to represent pixel points in the end, so 0.01 difference = same point
-            return;
+            return  false;
     }
 
     ( *oVector ).push_back( iElement );
+    return  true;
+}
+
+
+template<>
+bool
+AddElementToVectorUnique( cEdgeF & iElement, std::vector<cEdgeF>* oVector )
+{
+    for( auto elm : *oVector )
+    {
+        if( Collinear( iElement.mDirection, elm.mDirection ) )
+            return  false;
+    }
+
+    ( *oVector ).push_back( iElement );
+    return  true;
 }
 
 

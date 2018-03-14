@@ -38,7 +38,7 @@ private:
     sf::FloatRect                   mFOVBBox;
     std::vector< sf::VertexArray >  mTriangles;
     std::vector< sf::VertexArray >  mResultingSubTriangles;
-    std::vector< sf::Vector2f >     mInterestingHitPoints;
+    sf::VertexArray                 mInterestingHitPoints;
     sf::Transform                   mTransformation;
 
     std::vector< sf::VertexArray >  mDEBUGClips;

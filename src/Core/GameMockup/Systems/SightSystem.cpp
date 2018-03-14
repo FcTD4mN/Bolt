@@ -19,7 +19,7 @@
 #include <iostream>
 
 
-#define FOVSplitThreshold 3
+#define FOVSplitThreshold 1
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -45,7 +45,7 @@ cSightSystem::cSightSystem() :
 void
 cSightSystem::Initialize()
 {
-    mInterestingHitPoints.reserve( 8 );
+    mInterestingHitPoints.setPrimitiveType( sf::Points );
 }
 
 
@@ -92,15 +92,15 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    iRenderTarget->draw( mDEBUGClips[ i ] );
     //}
 
-    //for( int i = 0; i < mDEBUGRays.size(); ++i )
-    //{
-    //    sf::VertexArray line( sf::Lines, 2 );
-    //    line[ 0 ].position = mDEBUGRays[ i ].mPoint;
-    //    line[ 0 ].color = sf::Color( 255, 0, 0 );
-    //    line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
-    //    line[ 1 ].color = sf::Color( 255, 0, 0 );
-    //    iRenderTarget->draw( line );
-    //}
+    for( int i = 0; i < mDEBUGRays.size(); ++i )
+    {
+        sf::VertexArray line( sf::Lines, 2 );
+        line[ 0 ].position = mDEBUGRays[ i ].mPoint;
+        line[ 0 ].color = sf::Color( i*50, 0, 0 );
+        line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
+        line[ 1 ].color = sf::Color( i*50, 0, 0 );
+        iRenderTarget->draw( line );
+    }
 
     //if( mTriangles.size() > 0 )
     //{
@@ -118,15 +118,7 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //}
 
     //iRenderTarget->draw( mDEBUGHitPoints );
-
-    sf::VertexArray debugIHitPoints;
-    debugIHitPoints.setPrimitiveType( sf::Points );
-    for( auto i : mInterestingHitPoints )
-    {
-        debugIHitPoints.append( i );
-        debugIHitPoints[ debugIHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
-    }
-    iRenderTarget->draw( debugIHitPoints );
+    iRenderTarget->draw( mInterestingHitPoints );
 }
 
 
@@ -227,6 +219,31 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 sf::VertexArray clipedPolyTransformedSorted = SortVertexesByX( clipedPolyTransformed );
                 TransformPolygonUsingTransformation( &clipedPolyTransformedSorted, mTransformation.getInverse() );
 
+
+                // RAYS ARE CASTED FROM LEFT TO RIGHT
+                // order is important ( maybe ? ) to make building subTriangles after easier
+                // in the end, all we want is a subtriangle, no matter the points order i feel
+
+
+                /*
+                                                    README
+                        The only thing that needs to be ordered seems to be the hitpoints
+                        They need to be sorted in order to create consistent triangles
+                        So, we don't need to bother about sorting rays
+
+                */
+
+
+
+                // =============================================================
+                // =============================================================
+
+                // The first ray we add is the left part of the sub fov
+                cEdgeF firstTamere = cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 2 ].position );
+                rayList.push_back( firstTamere );
+                mDEBUGRays.push_back( firstTamere );
+
+                // Then, one ray per vertex of the polygon
                 for( int j = 0; j < clipedPolyTransformedSorted.getVertexCount(); ++j )
                 {
                     // First we get for each vertex, the ray from fov's origin
@@ -238,24 +255,19 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     // There it is
                     cEdgeF ray = cEdgeF::MakePointDirection( fovOrigin, vectorDirectionToPolygonEdge );
 
-                    // This looks ugly as hell, but no better idea atm
-                    // Here we want to filter rays so we don't add the same twice
-                    bool addNewRay = true;
-                    for( auto rayFromList : rayList )
-                    {
-                        if( Collinear( ray.mDirection, rayFromList.mDirection ) )
-                        {
-                            addNewRay = false;
-                            break;
-                        }
-                    }
-                    if( addNewRay )
-                    {
+                    if( AddElementToVectorUnique( ray, &rayList ) )
                         mDEBUGRays.push_back( ray );
-                        rayList.push_back( ray );
-                    }
                 }
 
+                // Then finally the last ray is the right part of the sub fov
+                cEdgeF lastTamere = cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 1 ].position );
+                if( AddElementToVectorUnique( lastTamere, &rayList ) )
+                    mDEBUGRays.push_back( lastTamere );
+
+
+                // Then we intersect every rays against polygon
+                // ============================================
+                // ============================================
                 for( auto ray : rayList )
                 {
                     // Now, for each edge of the clipped polygon, we intersect with that ray
@@ -289,9 +301,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         }
                     }
 
-                    // If only one local intersection with polygon, it means the ray will cast up to the fov's limit
+                    // If only one local or no intersections with polygon, it means the ray will cast up to the fov's limit
                     // So the interesting hitpoint of that ray is fov's limit
-                    if( hitPoints.getVertexCount() == 1 )
+                    if( hitPoints.getVertexCount() <= 1 )
                     {
                         // We get fov's limit, which is the edge 1-2 (0 is always the origin point of fov)
                         // Then we intersect with the ray to get the exact point
@@ -300,7 +312,11 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         float paramB;
                         cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray );
 
-                        mInterestingHitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
+                        mInterestingHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+
+                        // We also push the single intersection, to be able to build subTriangles
+                        if( hitPoints.getVertexCount() == 1 )
+                            mInterestingHitPoints.append( hitPoints[ 0 ].position );
                     }
                     else if( hitPoints.getVertexCount() > 1 )
                     {
@@ -311,11 +327,21 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         TransformPolygonUsingTransformation( &hitPoints, mTransformation );
                         hitPoints = SortVertexesByY( hitPoints );
                         TransformPolygonUsingTransformation( &hitPoints, mTransformation.getInverse() );
-                        mInterestingHitPoints.push_back( hitPoints[ hitPoints.getVertexCount() - 1 ].position );
+                        mInterestingHitPoints.append( hitPoints[ hitPoints.getVertexCount() - 1 ].position );
                     }
                 }
 
+                //TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformation );
+                //sf::VertexArray iHitPointXSorted = SortVertexesByX( mInterestingHitPoints );
+                //TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformation.getInverse() );
 
+                //sf::VertexArray subTriangle( sf::Triangles, 3 );
+                //subTriangle[ 0 ] = fovOrigin;
+
+                //for( auto hp : mInterestingHitPoints )
+                //{
+                //    mResultingSubTriangles.push_back( subTriangle );
+                //}
             }
         }
     }
