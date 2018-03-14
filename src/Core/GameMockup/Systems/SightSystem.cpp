@@ -19,7 +19,7 @@
 #include <iostream>
 
 
-#define FOVSplitThreshold 5
+#define FOVSplitThreshold 3
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -45,6 +45,7 @@ cSightSystem::cSightSystem() :
 void
 cSightSystem::Initialize()
 {
+    mInterestingHitPoints.reserve( 8 );
 }
 
 
@@ -101,7 +102,31 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    iRenderTarget->draw( line );
     //}
 
-    iRenderTarget->draw( mDEBUGHitPoints );
+    //if( mTriangles.size() > 0 )
+    //{
+    //    sf::VertexArray fovTrans = mTriangles[ 0 ];
+    //    TransformPolygonUsingTransformation( &fovTrans, mTransformation );
+    //    iRenderTarget->draw( fovTrans );
+
+    //    for( auto ent : mDEBUGEntities )
+    //    {
+    //        sf::VertexArray trans = ent;
+    //        TransformPolygonUsingTransformation( &trans, mTransformation );
+    //        trans.setPrimitiveType( sf::Quads );
+    //        iRenderTarget->draw( trans );
+    //    }
+    //}
+
+    //iRenderTarget->draw( mDEBUGHitPoints );
+
+    sf::VertexArray debugIHitPoints;
+    debugIHitPoints.setPrimitiveType( sf::Points );
+    for( auto i : mInterestingHitPoints )
+    {
+        debugIHitPoints.append( i );
+        debugIHitPoints[ debugIHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
+    }
+    iRenderTarget->draw( debugIHitPoints );
 }
 
 
@@ -130,7 +155,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
         // This is the transformation that allows to go in the watcher's referential
-        mTransformation.rotate( float(RadToDeg( -GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) )) + 180.0F );
+        mTransformation.rotate( float(RadToDeg( -GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) )) - 90.0F );
         mTransformation.translate( -position->mPosition );
         sf::VertexArray subFov;
 
@@ -187,6 +212,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
                 std::vector< cEdgeF > rayList;
+                mInterestingHitPoints.clear();
 
                 // Now we have the clipped polygon, we want to cast rays towards every vertexes to see
                 // which part of the FOV is obstructed
@@ -195,22 +221,19 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 // But before that, we need the rays to be in order from left to right, so we need to sort vertexes
                 // from clipedPoly.
                 // To do that, we tranform into watcher's referential, and simply order by x
-                sf::VertexArray clipedPolyTransformed;
-                clipedPolyTransformed.resize( clipedPol.getVertexCount() );
-                for( int j = 0; j < clipedPol.getVertexCount(); ++j )
-                {
-                    clipedPolyTransformed[ j ].position = mTransformation.transformPoint( clipedPol[ j ].position );
-                }
+                sf::VertexArray clipedPolyTransformed = clipedPol;
+                TransformPolygonUsingTransformation( &clipedPolyTransformed, mTransformation );
+
                 sf::VertexArray clipedPolyTransformedSorted = SortVertexesByX( clipedPolyTransformed );
                 TransformPolygonUsingTransformation( &clipedPolyTransformedSorted, mTransformation.getInverse() );
 
-                for( int j = 0; j < clipedPol.getVertexCount(); ++j )
+                for( int j = 0; j < clipedPolyTransformedSorted.getVertexCount(); ++j )
                 {
                     // First we get for each vertex, the ray from fov's origin
                     // Then we store it, so we end up with the list of rays
                     // We'll then be able to remove rays that are identical, to simplify things
-                    sf::Vector2f vectorDirectionToPolygonEdge = Normale( clipedPol[ j ].position - fovOrigin );
-                    vectorDirectionToPolygonEdge *= float( fieldofview->mDistance + 5.0F ); // +5 to ensure intersection
+                    sf::Vector2f vectorDirectionToPolygonEdge = Normale( clipedPolyTransformedSorted[ j ].position - fovOrigin );
+                    vectorDirectionToPolygonEdge *= float( fieldofview->mDistance );
 
                     // There it is
                     cEdgeF ray = cEdgeF::MakePointDirection( fovOrigin, vectorDirectionToPolygonEdge );
@@ -239,8 +262,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     // and harvest all intersections
                     std::vector< cEdgeF > clipPolEdges;
 
-                    // Collision between ray and clipped Polygon will be stored in this vector
-                    std::vector< sf::Vector2f > hitPoints;
+                    // Collision between ray and clipped Polygon will be stored in this vertexArray
+                    sf::VertexArray hitPoints;
 
                     ExtractEdgesFromPolygon( &clipPolEdges, clipedPol );
                     for( auto edge : clipPolEdges )
@@ -249,26 +272,50 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         float paramB;
 
                         cEdgeF::Intersect( &paramA, &paramB, edge, ray );
-                        if( ( paramA > 0.0F && paramA < 1.0F ) // If actual intersection that is NOT on an exact vertex
-                            && ( paramB > 0.0F && paramB < 1.0F ) )
+                        if( ( paramA > kEpsilonF && paramA < 1.0F - kEpsilonF ) // If actual intersection that is NOT on an exact vertex
+                            && ( paramB > kEpsilonF && paramB < 1.0F - kEpsilonF ) )
                         {
                             mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
                             mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
-                            hitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
+                            hitPoints.append( ray.mPoint + paramB * ray.mDirection );
                         }
                         else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
                         {
                             mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
                             mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Green;
 
-                            hitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
+                            sf::Vector2f vertex = ray.mPoint + paramB * ray.mDirection;
+                            AddElementToVertexArrayUnique( vertex, &hitPoints );
                         }
                     }
 
+                    // If only one local intersection with polygon, it means the ray will cast up to the fov's limit
+                    // So the interesting hitpoint of that ray is fov's limit
+                    if( hitPoints.getVertexCount() == 1 )
+                    {
+                        // We get fov's limit, which is the edge 1-2 (0 is always the origin point of fov)
+                        // Then we intersect with the ray to get the exact point
+                        cEdgeF fovLimit = cEdgeF::MakePointPoint( mTriangles[ i ][1].position, mTriangles[ i ][2].position );
+                        float paramA;
+                        float paramB;
+                        cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray );
+
+                        mInterestingHitPoints.push_back( ray.mPoint + paramB * ray.mDirection );
+                    }
+                    else if( hitPoints.getVertexCount() > 1 )
+                    {
+                        // If there were more than one intersection, we keep the closest one
+                        // So we transform points into watcher's referential
+                        // That has its fov pointing upwards => the smallest the Y, the farthest it is
+                        // So we sort by Y, then we take the biggest Y, being the closest to watcher
+                        TransformPolygonUsingTransformation( &hitPoints, mTransformation );
+                        hitPoints = SortVertexesByY( hitPoints );
+                        TransformPolygonUsingTransformation( &hitPoints, mTransformation.getInverse() );
+                        mInterestingHitPoints.push_back( hitPoints[ hitPoints.getVertexCount() - 1 ].position );
+                    }
                 }
 
-                if( clipedPol.getVertexCount() > 0 )
-                    mDEBUGClips.push_back( clipedPol );
+
             }
         }
     }

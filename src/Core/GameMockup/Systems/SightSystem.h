@@ -35,14 +35,16 @@ public:
 private:
     std::vector< cEntity* > mPointsOfInterest;
 
-    sf::FloatRect  mFOVBBox;
-    std::vector< sf::VertexArray > mTriangles;
-    sf::Transform mTransformation;
+    sf::FloatRect                   mFOVBBox;
+    std::vector< sf::VertexArray >  mTriangles;
+    std::vector< sf::VertexArray >  mResultingSubTriangles;
+    std::vector< sf::Vector2f >     mInterestingHitPoints;
+    sf::Transform                   mTransformation;
 
-    std::vector< sf::VertexArray > mDEBUGClips;
-    std::vector< sf::VertexArray > mDEBUGEntities;
-    std::vector< cEdgeF > mDEBUGRays;
-    sf::VertexArray mDEBUGHitPoints;
+    std::vector< sf::VertexArray >  mDEBUGClips;
+    std::vector< sf::VertexArray >  mDEBUGEntities;
+    std::vector< cEdgeF >           mDEBUGRays;
+    sf::VertexArray                 mDEBUGHitPoints;
 
 };
 

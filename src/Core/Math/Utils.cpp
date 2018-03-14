@@ -231,6 +231,36 @@ sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon )
 }
 
 
+sf::VertexArray
+SortVertexesByY( const sf::VertexArray & iPolygon )
+{
+    sf::VertexArray output;
+    if( iPolygon.getVertexCount() <= 0 )
+        return  output;
+
+    output.resize( iPolygon.getVertexCount() );
+    std::vector< sf::Vector2f > ySort;
+    ySort.reserve( iPolygon.getVertexCount() );
+    ySort.push_back( iPolygon[ 0 ].position );
+
+    for( int i = 1; i < iPolygon.getVertexCount(); ++i )
+    {
+        int index = 0;
+        while( index < ySort.size() && iPolygon[ i ].position.y > ySort[ index ].y )
+            ++index;
+
+        ySort.insert( ySort.begin() + index, iPolygon[ i ].position );
+    }
+
+    for( int i = 0; i < ySort.size(); ++i )
+    {
+        output[ i ].position = ySort[ i ];
+    }
+
+    return  output;
+}
+
+
 void
 TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform & iTransformation )
 {
@@ -241,133 +271,33 @@ TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transf
 }
 
 
-
-// This functions clips all the edges w.r.t one clip
-// edge of clipping area
-void clip( sf::VertexArray& iPolygon, sf::Vector2f& iPt1, sf::Vector2f& iPt2 )
+void AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArray )
 {
-    //sf::VertexArray output( sf::PrimitiveType::Points, iPolygon.getVertexCount );
+    for( int i = 0 ; i < (*oVArray).getVertexCount() ; ++i )
+    {
+        sf::Vector2f diff = (*oVArray)[ i ].position - iElement;
+        if( abs( diff.x ) < 0.01 && abs( diff.y ) < 0.01 ) // vertexes are supposed to represent pixel points in the end, so 0.01 difference = same point
+            return;
+    }
 
-    //// (ix,iy),(kx,ky) are the co-ordinate values of
-    //// the points
-    //int polySize = iPolygon.getVertexCount();
-
-    //for( int i = 0; i < iPolygon.getVertexCount(); ++i )
-    //{
-    //    // i and k form a line in polygon
-    //    int k = ( i + 1 ) % polySize;
-    //    int ix = iPolygon[ i ].position.x, iy = iPolygon[ i ].position.y;
-    //    int kx = poly_points[ k ][ 0 ], ky = poly_points[ k ][ 1 ];
-
-    //    // Calculating position of first point
-    //    // w.r.t. clipper line
-    //    int i_pos = ( x2 - x1 ) * ( iy - y1 ) - ( y2 - y1 ) * ( ix - x1 );
-
-    //    // Calculating position of second point
-    //    // w.r.t. clipper line
-    //    int k_pos = ( x2 - x1 ) * ( ky - y1 ) - ( y2 - y1 ) * ( kx - x1 );
-
-    //    // Case 1 : When both points are inside
-    //    if( i_pos < 0 && k_pos < 0 )
-    //    {
-    //        //Only second point is added
-    //        new_points[ new_poly_size ][ 0 ] = kx;
-    //        new_points[ new_poly_size ][ 1 ] = ky;
-    //        new_poly_size++;
-    //    }
-
-    //    // Case 2: When only first point is outside
-    //    else if( i_pos >= 0 && k_pos < 0 )
-    //    {
-    //        // Point of intersection with edge
-    //        // and the second point is added
-    //        new_points[ new_poly_size ][ 0 ] = x_intersect( x1,
-    //                                                        y1, x2, y2, ix, iy, kx, ky );
-    //        new_points[ new_poly_size ][ 1 ] = y_intersect( x1,
-    //                                                        y1, x2, y2, ix, iy, kx, ky );
-    //        new_poly_size++;
-
-    //        new_points[ new_poly_size ][ 0 ] = kx;
-    //        new_points[ new_poly_size ][ 1 ] = ky;
-    //        new_poly_size++;
-    //    }
-
-    //    // Case 3: When only second point is outside
-    //    else if( i_pos < 0 && k_pos >= 0 )
-    //    {
-    //        //Only point of intersection with edge is added
-    //        new_points[ new_poly_size ][ 0 ] = x_intersect( x1,
-    //                                                        y1, x2, y2, ix, iy, kx, ky );
-    //        new_points[ new_poly_size ][ 1 ] = y_intersect( x1,
-    //                                                        y1, x2, y2, ix, iy, kx, ky );
-    //        new_poly_size++;
-    //    }
-
-    //    // Case 4: When both points are outside
-    //    else
-    //    {
-    //        //No points are added
-    //    }
-    //}
-
-    //// Copying new points into original array
-    //// and changing the no. of vertices
-    //poly_size = new_poly_size;
-    //for( int i = 0; i < poly_size; i++ )
-    //{
-    //    poly_points[ i ][ 0 ] = new_points[ i ][ 0 ];
-    //    poly_points[ i ][ 1 ] = new_points[ i ][ 1 ];
-    //}
+    ( *oVArray ).append( iElement );
 }
 
-//// Implements Sutherland–Hodgman algorithm
-//void suthHodgClip( int poly_points[][ 2 ], int poly_size,
-//                   int clipper_points[][ 2 ], int clipper_size )
-//{
-//    //i and k are two consecutive indexes
-//    for( int i = 0; i<clipper_size; i++ )
-//    {
-//        int k = ( i + 1 ) % clipper_size;
-//
-//        // We pass the current array of vertices, it's size
-//        // and the end points of the selected clipper line
-//        clip( poly_points, poly_size, clipper_points[ i ][ 0 ],
-//              clipper_points[ i ][ 1 ], clipper_points[ k ][ 0 ],
-//              clipper_points[ k ][ 1 ] );
-//    }
-//
-//    // Printing vertices of clipped polygon
-//    for( int i = 0; i < poly_size; i++ )
-//        cout << '(' << poly_points[ i ][ 0 ] <<
-//        ", " << poly_points[ i ][ 1 ] << ") ";
-//}
-//
-////Driver code
-//int main()
-//{
-//    // Defining polygon vertices in clockwise order
-//    int poly_size = 3;
-//    int poly_points[ 20 ][ 2 ] = { { 100,150 },{ 200,250 },
-//    { 300,200 } };
-//
-//    // Defining clipper polygon vertices in clockwise order
-//    // 1st Example with square clipper
-//    int clipper_size = 4;
-//    int clipper_points[][ 2 ] = { { 150,150 },{ 150,200 },
-//    { 200,200 },{ 200,150 } };
-//
-//    // 2nd Example with triangle clipper
-//    /*int clipper_size = 3;
-//    int clipper_points[][2] = {{100,300}, {300,300},
-//    {200,100}};*/
-//
-//    //Calling the clipping function
-//    suthHodgClip( poly_points, poly_size, clipper_points,
-//                  clipper_size );
-//
-//    return 0;
-//}
 
+// Adds an element to a vector only if it is not already in
+template<>
+void
+AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector )
+{
+    for( auto elm : *oVector )
+    {
+        sf::Vector2f diff = elm - iElement;
+        if( abs(diff.x) < 0.01 && abs(diff.y) < 0.01 ) // sfVector2f are supposed to represent pixel points in the end, so 0.01 difference = same point
+            return;
+    }
+
+    ( *oVector ).push_back( iElement );
+}
 
 
 //...

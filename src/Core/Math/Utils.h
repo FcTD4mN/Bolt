@@ -8,7 +8,7 @@
 #define kPIF (3.1415926535897932384626F)
 
 /** Constant : some small epsilon in float format. */
-#define kEpsilonF (1E-5F)
+#define kEpsilonF (1E-4F)
 
 
 static sf::Vector2f gYAxisVector( 0.0F, 1.0F );
@@ -27,7 +27,30 @@ bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon,
 void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
 sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
 sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon );
+sf::VertexArray SortVertexesByY( const sf::VertexArray& iPolygon );
 void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform& iTransformation );
+void            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray );
+
+// ===================================================
+// ===================================================
+
+
+// Adds an element to a vector only if it is not already in
+template< typename T >
+void
+AddElementToVectorUnique( T& iElement, std::vector< T >* oVector )
+{
+    for( auto elm : *oVector )
+    {
+        if( elm == iElement )
+            return;
+    }
+
+    (*oVector).push_back( iElement );
+}
+
+template<> void AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector );
+
 
 // ===================================================
 // ===================================================
@@ -76,10 +99,10 @@ Collinear( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
     if( iVector1 == iVector2 )
         return  true;
 
-    bool x10 = iVector1.x == 0;
-    bool y10 = iVector1.y == 0;
-    bool x20 = iVector2.x == 0;
-    bool y20 = iVector2.y == 0;
+    bool x10 = abs(iVector1.x) < kEpsilonF;
+    bool y10 = abs(iVector1.y) < kEpsilonF;
+    bool x20 = abs(iVector2.x) < kEpsilonF;
+    bool y20 = abs(iVector2.y) < kEpsilonF;
     if( x10 && x20 ) return  true;
     if( y10 && y20 ) return  true;
 
