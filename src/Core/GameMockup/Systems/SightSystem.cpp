@@ -283,21 +283,23 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         float paramA;
                         float paramB;
 
-                        cEdgeF::Intersect( &paramA, &paramB, edge, ray );
-                        if( ( paramA > kEpsilonF && paramA < 1.0F - kEpsilonF ) // If actual intersection that is NOT on an exact vertex
-                            && ( paramB > kEpsilonF && paramB < 1.0F - kEpsilonF ) )
+                        if( cEdgeF::Intersect( &paramA, &paramB, edge, ray ) )
                         {
-                            mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
-                            mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
-                            hitPoints.append( ray.mPoint + paramB * ray.mDirection );
-                        }
-                        else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
-                        {
-                            mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
-                            mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Green;
+                            if( ( paramA > kEpsilonF && paramA < 1.0F - kEpsilonF ) // If actual intersection that is NOT on an exact vertex
+                                && ( paramB > kEpsilonF && paramB < 1.0F - kEpsilonF ) )
+                            {
+                                mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                                mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
+                                hitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                            }
+                            else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
+                            {
+                                mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                                mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Green;
 
-                            sf::Vector2f vertex = ray.mPoint + paramB * ray.mDirection;
-                            AddElementToVertexArrayUnique( vertex, &hitPoints );
+                                sf::Vector2f vertex = ray.mPoint + paramB * ray.mDirection;
+                                AddElementToVertexArrayUnique( vertex, &hitPoints );
+                            }
                         }
                     }
 
@@ -331,12 +333,13 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     }
                 }
 
-                //TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformation );
-                //sf::VertexArray iHitPointXSorted = SortVertexesByX( mInterestingHitPoints );
-                //TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformation.getInverse() );
+                TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformation );
+                sf::VertexArray iHitPointXSorted = SortVertexesByX( mInterestingHitPoints );
+                TransformPolygonUsingTransformation( &iHitPointXSorted, mTransformation.getInverse() );
+                // Need to retransform mInteresing points ?
 
-                //sf::VertexArray subTriangle( sf::Triangles, 3 );
-                //subTriangle[ 0 ] = fovOrigin;
+                sf::VertexArray subTriangle( sf::Triangles, 3 );
+                subTriangle[ 0 ] = fovOrigin;
 
                 //for( auto hp : mInterestingHitPoints )
                 //{

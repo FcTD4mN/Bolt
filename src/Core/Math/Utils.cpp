@@ -219,7 +219,7 @@ sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon )
     for( int i = 1; i < iPolygon.getVertexCount(); ++i )
     {
         int index = 0;
-        while( index < xSort.size() && iPolygon[ i ].position.x > xSort[ index ].x )
+        while( index < xSort.size() && abs(iPolygon[ i ].position.x - xSort[ index ].x) < kEpsilonF )
             ++index;
 
         xSort.insert( xSort.begin() + index, iPolygon[ i ].position );
