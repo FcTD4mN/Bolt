@@ -286,8 +286,19 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
         pair.angle = GetAngleBetweenVectors( gXAxisVector, pair.position );
 
         int index = 0;
-        while( index < angleSort.size() && pair.angle > angleSort[ index ].angle )
+        bool equal = false;
+        bool closer = false;
+
+        while( ( ( index < angleSort.size() ) && ( equal ) )
+               || ( ( index < angleSort.size() ) && ( pair.angle > angleSort[ index ].angle ) ) )
+        {
+            equal = abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF;
+            closer = pair.position.x < angleSort[ index ].position.x;
+            if( equal && closer )
+                break;
+
             ++index;
+        }
 
         angleSort.insert( angleSort.begin() + index, pair );
 
