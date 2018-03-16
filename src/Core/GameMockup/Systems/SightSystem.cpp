@@ -92,26 +92,26 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    iRenderTarget->draw( mDEBUGClips[ i ] );
     //}
 
-    for( int i = 0; i < mDEBUGRays.size(); ++i )
-    {
-        sf::VertexArray line( sf::Lines, 2 );
-        line[ 0 ].position = mDEBUGRays[ i ].mPoint;
-        line[ 0 ].color = sf::Color( i*50, 0, 0 );
-        line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
-        line[ 1 ].color = sf::Color( i*50, 0, 0 );
-        iRenderTarget->draw( line );
-    }
+    //for( int i = 0; i < mDEBUGRays.size(); ++i )
+    //{
+    //    sf::VertexArray line( sf::Lines, 2 );
+    //    line[ 0 ].position = mDEBUGRays[ i ].mPoint;
+    //    line[ 0 ].color = sf::Color( i*50, 0, 0 );
+    //    line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
+    //    line[ 1 ].color = sf::Color( i*50, 0, 0 );
+    //    iRenderTarget->draw( line );
+    //}
 
     //if( mTriangles.size() > 0 )
     //{
     //    sf::VertexArray fovTrans = mTriangles[ 0 ];
-    //    TransformPolygonUsingTransformation( &fovTrans, mTransformation );
+    //    TransformPolygonUsingTransformation( &fovTrans, mTransformationAngleSort );
     //    iRenderTarget->draw( fovTrans );
 
     //    for( auto ent : mDEBUGEntities )
     //    {
     //        sf::VertexArray trans = ent;
-    //        TransformPolygonUsingTransformation( &trans, mTransformation );
+    //        TransformPolygonUsingTransformation( &trans, mTransformationAngleSort );
     //        trans.setPrimitiveType( sf::Quads );
     //        iRenderTarget->draw( trans );
     //    }
@@ -127,7 +127,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
 {
     cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
-    mTransformation = mTransformation.Identity;
+    mTransformationAngleSort = mTransformationAngleSort.Identity;
     mTriangles.clear();
     mDEBUGClips.clear();
     mDEBUGEntities.clear();
@@ -147,8 +147,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
         // This is the transformation that allows to go in the watcher's referential
-        mTransformation.rotate( float(RadToDeg( -GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) )) - 90.0F );
-        mTransformation.translate( -position->mPosition );
+        mTransformationAngleSort.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) ) );
+        mTransformationAngleSort.translate( -position->mPosition );
         sf::VertexArray subFov;
 
         // Get FOV triangles
@@ -198,42 +198,18 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 1 ] = positionENT->mPosition + sf::Vector2f( 0.0F, sizeENT->mSize.y );
             analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
+            mDEBUGEntities.push_back( analysisVisibleBox );
 
             // For each triangle in the set, we split it according to object in the fov
             for( int i = 0; i < mTriangles.size(); ++i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
+                mDEBUGClips.push_back( clipedPol );
                 std::vector< cEdgeF > rayList;
                 mInterestingHitPoints.clear();
 
                 // Now we have the clipped polygon, we want to cast rays towards every vertexes to see
                 // which part of the FOV is obstructed
-
-
-                // But before that, we need the rays to be in order from left to right, so we need to sort vertexes
-                // from clipedPoly.
-                // To do that, we tranform into watcher's referential, and simply order by x
-                sf::VertexArray clipedPolyTransformed = clipedPol;
-                TransformPolygonUsingTransformation( &clipedPolyTransformed, mTransformation );
-
-                sf::VertexArray clipedPolyTransformedSorted = SortVertexesByX( clipedPolyTransformed );
-                TransformPolygonUsingTransformation( &clipedPolyTransformedSorted, mTransformation.getInverse() );
-
-
-                // RAYS ARE CASTED FROM LEFT TO RIGHT
-                // order is important ( maybe ? ) to make building subTriangles after easier
-                // in the end, all we want is a subtriangle, no matter the points order i feel
-
-
-                /*
-                                                    README
-                        The only thing that needs to be ordered seems to be the hitpoints
-                        They need to be sorted in order to create consistent triangles
-                        So, we don't need to bother about sorting rays
-
-                */
-
-
 
                 // =============================================================
                 // =============================================================
@@ -244,12 +220,12 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 mDEBUGRays.push_back( firstTamere );
 
                 // Then, one ray per vertex of the polygon
-                for( int j = 0; j < clipedPolyTransformedSorted.getVertexCount(); ++j )
+                for( int j = 0; j < clipedPol.getVertexCount(); ++j )
                 {
                     // First we get for each vertex, the ray from fov's origin
                     // Then we store it, so we end up with the list of rays
                     // We'll then be able to remove rays that are identical, to simplify things
-                    sf::Vector2f vectorDirectionToPolygonEdge = Normale( clipedPolyTransformedSorted[ j ].position - fovOrigin );
+                    sf::Vector2f vectorDirectionToPolygonEdge = Normale( clipedPol[ j ].position - fovOrigin );
                     vectorDirectionToPolygonEdge *= float( fieldofview->mDistance );
 
                     // There it is
@@ -324,22 +300,22 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     {
                         // If there were more than one intersection, we keep the closest one
                         // So we transform points into watcher's referential
-                        // That has its fov pointing upwards => the smallest the Y, the farthest it is
-                        // So we sort by Y, then we take the biggest Y, being the closest to watcher
-                        TransformPolygonUsingTransformation( &hitPoints, mTransformation );
-                        hitPoints = SortVertexesByY( hitPoints );
-                        TransformPolygonUsingTransformation( &hitPoints, mTransformation.getInverse() );
-                        mInterestingHitPoints.append( hitPoints[ hitPoints.getVertexCount() - 1 ].position );
+                        // That has its fov pointing upwards => the smallest the X, the closest it is
+                        TransformPolygonUsingTransformation( &hitPoints, mTransformationAngleSort );
+                        hitPoints = SortVertexesByX( hitPoints );
+                        TransformPolygonUsingTransformation( &hitPoints, mTransformationAngleSort.getInverse() );
+                        mInterestingHitPoints.append( hitPoints[ 0 ].position );
                     }
                 }
 
-                TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformation );
-                sf::VertexArray iHitPointXSorted = SortVertexesByX( mInterestingHitPoints );
-                TransformPolygonUsingTransformation( &iHitPointXSorted, mTransformation.getInverse() );
+                TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformationAngleSort );
+                sf::VertexArray iHitPointXSorted = SortVertexesByAngle( mInterestingHitPoints );
+                TransformPolygonUsingTransformation( &iHitPointXSorted, mTransformationAngleSort.getInverse() );
+                TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformationAngleSort.getInverse() );
                 // Need to retransform mInteresing points ?
 
-                sf::VertexArray subTriangle( sf::Triangles, 3 );
-                subTriangle[ 0 ] = fovOrigin;
+                //sf::VertexArray subTriangle( sf::Triangles, 3 );
+                //subTriangle[ 0 ] = fovOrigin;
 
                 //for( auto hp : mInterestingHitPoints )
                 //{

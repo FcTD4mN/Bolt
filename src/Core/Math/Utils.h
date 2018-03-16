@@ -26,8 +26,12 @@ sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf
 bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
 void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
 sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
+
+// Sorts
 sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByY( const sf::VertexArray& iPolygon );
+sf::VertexArray SortVertexesByAngle( const sf::VertexArray& iPolygon );
+
 void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform& iTransformation );
 bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray );
 
@@ -53,12 +57,6 @@ AddElementToVectorUnique( T& iElement, std::vector< T >* oVector )
 
 template<> bool AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector );
 template<> bool AddElementToVectorUnique( cEdgeF& iElement, std::vector< cEdgeF >* oVector );
-
-
-// Oui le nom est a chier, mais ca devient relou de trouver des noms cools
-// Returns true if vector was added
-bool AddVectorToVectorNonCollinear( sf::Vector2f& iVector, std::vector< sf::Vector2f >* oVector );
-
 
 
 // ===================================================

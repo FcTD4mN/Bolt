@@ -17,7 +17,7 @@ GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 )
 {
     float a1 = atan2( p1.y, p1.x );
     float a2 = atan2( p2.y, p2.x );
-    float angle = a2 - a1;
+    float angle = a1 - a2;
 
     while( angle > kPIF )
         angle -= 2.0F * kPIF;
@@ -62,7 +62,7 @@ CCWWindingSort( const sf::VertexArray & iPolygon )
 
     for( int i = 1; i < iPolygon.getVertexCount(); ++i )
     {
-        float angle = float(GetAngleBetweenVectors( firstVector, iPolygon[ i ].position - cog ));
+        float angle = float(GetAngleBetweenVectors( iPolygon[ i ].position - cog, firstVector ));
         int j = 0;
         while( j < angles.size() && angle > angles[ j ] )
         {
@@ -151,7 +151,7 @@ CCWWindedPolygonContainsPoint( const sf::VertexArray & iPolygon, const sf::Vecto
 
         sf::Vector2f vecProjection = iPoint - projection;
 
-        double angle = GetAngleBetweenVectors( v.mDirection, vecProjection );
+        double angle = GetAngleBetweenVectors( vecProjection, v.mDirection );
         if( angle > 0.0 )
             return  false;
     }
@@ -214,12 +214,11 @@ sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon )
     output.resize( iPolygon.getVertexCount() );
     std::vector< sf::Vector2f > xSort;
     xSort.reserve( iPolygon.getVertexCount() );
-    xSort.push_back( iPolygon[ 0 ].position );
 
-    for( int i = 1; i < iPolygon.getVertexCount(); ++i )
+    for( int i = 0; i < iPolygon.getVertexCount(); ++i )
     {
         int index = 0;
-        while( index < xSort.size() && abs(iPolygon[ i ].position.x - xSort[ index ].x) < kEpsilonF )
+        while( index < xSort.size() && iPolygon[ i ].position.x > xSort[ index ].x )
             ++index;
 
         xSort.insert( xSort.begin() + index, iPolygon[ i ].position );
@@ -244,9 +243,8 @@ SortVertexesByY( const sf::VertexArray & iPolygon )
     output.resize( iPolygon.getVertexCount() );
     std::vector< sf::Vector2f > ySort;
     ySort.reserve( iPolygon.getVertexCount() );
-    ySort.push_back( iPolygon[ 0 ].position );
 
-    for( int i = 1; i < iPolygon.getVertexCount(); ++i )
+    for( int i = 0; i < iPolygon.getVertexCount(); ++i )
     {
         int index = 0;
         while( index < ySort.size() && iPolygon[ i ].position.y > ySort[ index ].y )
@@ -258,6 +256,46 @@ SortVertexesByY( const sf::VertexArray & iPolygon )
     for( int i = 0; i < ySort.size(); ++i )
     {
         output[ i ].position = ySort[ i ];
+    }
+
+    return  output;
+}
+
+
+sf::VertexArray
+SortVertexesByAngle( const sf::VertexArray& iPolygon )
+{
+    sf::VertexArray output( iPolygon.getPrimitiveType(), iPolygon.getVertexCount() );
+
+    if( iPolygon.getVertexCount() == 0 )
+        return  output;
+
+    struct ePair
+    {
+        double angle;
+        sf::Vector2f position;
+    };
+
+    std::vector< ePair > angleSort;
+    angleSort.reserve( iPolygon.getVertexCount() );
+
+    for( int i = 0; i < iPolygon.getVertexCount(); ++i )
+    {
+        ePair pair;
+        pair.position = iPolygon[ i ].position;
+        pair.angle = GetAngleBetweenVectors( gXAxisVector, pair.position );
+
+        int index = 0;
+        while( index < angleSort.size() && pair.angle > angleSort[ index ].angle )
+            ++index;
+
+        angleSort.insert( angleSort.begin() + index, pair );
+
+    }
+
+    for( int i = 0; i < angleSort.size(); ++i )
+    {
+        output[ i ] = angleSort[ i ].position;
     }
 
     return  output;
