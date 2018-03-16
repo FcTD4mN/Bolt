@@ -10,6 +10,9 @@
 /** Constant : some small epsilon in float format. */
 #define kEpsilonF (1E-4F)
 
+/** Constant : some small epsilon in float format to handle float representing pixels */
+#define kEpsilonPixelF (1E-2F)
+
 
 static sf::Vector2f gYAxisVector( 0.0F, 1.0F );
 static sf::Vector2f gXAxisVector( 1.0F, 0.0F );
@@ -31,6 +34,9 @@ sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTria
 sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByY( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByAngle( const sf::VertexArray& iPolygon );
+
+// Contains
+bool            VertexArrayContainsVertex( const  sf::VertexArray& iArray, const sf::Vector2f& iVector );
 
 void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform& iTransformation );
 bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray );

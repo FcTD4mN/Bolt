@@ -99,7 +99,8 @@ sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA
             if( cEdgeF::Intersect( &parameterA, &parameterB, polygonAEdges[ i ], polygonBEdges[ j ] ) )
             {
                 if( (parameterA >= 0.0F && parameterA <= 1.0F)
-                    && parameterB >= 0.0F && parameterB <= 1.0F )
+                    && parameterB >= 0.0F && parameterB <= 1.0F
+                    && !VertexArrayContainsVertex( intersectionList, iPolygonA[ i ].position ) )
                 {
                     intersectionList.append( polygonAEdges[ i ].mPoint + parameterA * polygonAEdges[ i ].mDirection );
                 }
@@ -113,18 +114,19 @@ sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA
 
 sf::VertexArray ClipPolygonPolygon( const sf::VertexArray& iPolygonA, const sf::VertexArray& iPolygonB )
 {
-    // TODO: remove doublons
     sf::VertexArray intersectionList = PolygonPolygonInterectionList( iPolygonA, iPolygonB );
 
     for( int i = 0; i < iPolygonA.getVertexCount(); ++i )
     {
-        if( CCWWindedPolygonContainsPoint( iPolygonB, iPolygonA[ i ].position ) )
+        if( CCWWindedPolygonContainsPoint( iPolygonB, iPolygonA[ i ].position )
+                && !VertexArrayContainsVertex( intersectionList, iPolygonA[ i ].position ) )
             intersectionList.append( iPolygonA[ i ].position );
     }
 
     for( int i = 0; i < iPolygonB.getVertexCount(); ++i )
     {
-        if( CCWWindedPolygonContainsPoint( iPolygonA, iPolygonB[ i ].position ) )
+        if( CCWWindedPolygonContainsPoint( iPolygonA, iPolygonB[ i ].position )
+            && !VertexArrayContainsVertex( intersectionList, iPolygonB[ i ].position ) )
             intersectionList.append( iPolygonB[ i ].position );
     }
 
@@ -310,6 +312,20 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
     }
 
     return  output;
+}
+
+
+bool
+VertexArrayContainsVertex( const  sf::VertexArray& iArray, const sf::Vector2f& iVector )
+{
+    for( int i = 0; i < iArray.getVertexCount(); ++i )
+    {
+        sf::Vector2f sub = iVector - iArray[ i ].position;
+        if( abs( sub.x ) < kEpsilonPixelF && abs( sub.y ) < kEpsilonPixelF )
+            return  true;
+    }
+
+    return false;
 }
 
 

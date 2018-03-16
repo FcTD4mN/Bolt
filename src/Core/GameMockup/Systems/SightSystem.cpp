@@ -19,7 +19,7 @@
 #include <iostream>
 
 
-#define FOVSplitThreshold 1
+#define FOVSplitThreshold 10
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -117,17 +117,18 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    }
     //}
 
-    //iRenderTarget->draw( mDEBUGHitPoints );
-    iRenderTarget->draw( mInterestingHitPoints );
+    iRenderTarget->draw( mDEBUGHitPoints );
 
     for( int i = 0; i < mResultingSubTriangles.size(); ++i )
     {
         for( int j = 0; j < mResultingSubTriangles[ i ].getVertexCount(); ++j )
         {
-            mResultingSubTriangles[ i ][ j ].color = sf::Color( i + 255/(i+1), 0, 0, 255 );
+            mResultingSubTriangles[ i ].setPrimitiveType( sf::Triangles );
+            mResultingSubTriangles[ i ][ j ].color = sf::Color( (50*i)%255, ( 100 * i ) % 255, ( 10 * i ) % 255, 255 );
         }
         iRenderTarget->draw( mResultingSubTriangles[ i ] );
     }
+    //iRenderTarget->draw( mInterestingHitPoints );
 }
 
 
@@ -211,11 +212,15 @@ cSightSystem::Update( unsigned int iDeltaTime )
             mDEBUGEntities.push_back( analysisVisibleBox );
 
             // For each triangle in the set, we split it according to object in the fov
-            for( int i = 0; i < mTriangles.size(); ++i )
+            for( int i = mTriangles.size() - 1; i >= 0; --i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
+                // If this part of the fov doesn't clip with the polygon, we keep the whoe triangle, and we continue
                 if( clipedPol.getVertexCount() == 0 )
+                {
+                    mResultingSubTriangles.push_back( mTriangles[ i ] );
                     continue;
+                }
 
                 mDEBUGClips.push_back( clipedPol );
                 std::vector< cEdgeF > rayList;
@@ -379,7 +384,6 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
                         mResultingSubTriangles.push_back( subTriangle );
                 }
-                int end = 0;
             }
         }
     }
