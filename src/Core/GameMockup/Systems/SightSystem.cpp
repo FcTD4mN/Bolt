@@ -119,6 +119,15 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
 
     //iRenderTarget->draw( mDEBUGHitPoints );
     iRenderTarget->draw( mInterestingHitPoints );
+
+    for( int i = 0; i < mResultingSubTriangles.size(); ++i )
+    {
+        for( int j = 0; j < mResultingSubTriangles[ i ].getVertexCount(); ++j )
+        {
+            mResultingSubTriangles[ i ][ j ].color = sf::Color( i + 255/(i+1), 0, 0, 255 );
+        }
+        iRenderTarget->draw( mResultingSubTriangles[ i ] );
+    }
 }
 
 
@@ -129,6 +138,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
     mTransformationAngleSort = mTransformationAngleSort.Identity;
     mTriangles.clear();
+    mResultingSubTriangles.clear();
     mDEBUGClips.clear();
     mDEBUGEntities.clear();
     mDEBUGRays.clear();
@@ -204,6 +214,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
             for( int i = 0; i < mTriangles.size(); ++i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
+                if( clipedPol.getVertexCount() == 0 )
+                    continue;
+
                 mDEBUGClips.push_back( clipedPol );
                 std::vector< cEdgeF > rayList;
                 mInterestingHitPoints.clear();
@@ -309,18 +322,64 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 }
 
                 TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformationAngleSort );
-                sf::VertexArray iHitPointXSorted = SortVertexesByAngle( mInterestingHitPoints );
-                TransformPolygonUsingTransformation( &iHitPointXSorted, mTransformationAngleSort.getInverse() );
+                mInterestingHitPoints = SortVertexesByAngle( mInterestingHitPoints );
                 TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformationAngleSort.getInverse() );
                 // Need to retransform mInteresing points ?
 
-                //sf::VertexArray subTriangle( sf::Triangles, 3 );
-                //subTriangle[ 0 ] = fovOrigin;
+                // Now, one last part before creating sub triangles :
+                // There are up to 2 cases max where 2 hitpoints are aligned
+                // It is when a ray is casted on a vertex that is the visible limit of the polygon from the watcher
+                // The angle sort will, in case of equal angles, push the closest one before the further one
+                // But in order to create sub triangles, we possibly need one pair of hit point to be swaped ( the furthest one gets before the closest )
+                // The case is when the right part of the fov didn't intersect with the polygon.
+                // Then, the first pair of aligned hitpoints need to be swaped
 
-                //for( auto hp : mInterestingHitPoints )
-                //{
-                //    mResultingSubTriangles.push_back( subTriangle );
-                //}
+
+                // End point of right fov
+                sf::Vector2f endPoint = mTriangles[ i ][ 1 ].position;
+
+                bool rightFovCollided = true;
+                // If that end point is a point of interest, it means that that ray didn't intersect with the polygon
+                // So we'll swap the first pair of aligned HP
+                for( int i = 0; i < mInterestingHitPoints.getVertexCount(); ++i )
+                {
+                    sf::Vector2f subtract = mInterestingHitPoints[ i ].position - endPoint;
+                    if( abs(subtract.x) < kEpsilonF && abs( subtract.y) < kEpsilonF )
+                    {
+                        rightFovCollided = false;
+                        break;
+                    }
+                }
+
+
+                // If we didn't have an intersection with right part fov and polygon, then the next two hit points are
+                // necessarily the aligned pair
+                // so we swap 1 and 2 ( 0 is the end point of right fov ray)
+                if( !rightFovCollided )
+                {
+                    if( mInterestingHitPoints.getVertexCount() >= 3 ) // safety
+                    {
+                        sf::Vector2f tmp = mInterestingHitPoints[ 1 ].position;
+                        mInterestingHitPoints[ 1 ].position = mInterestingHitPoints[ 2 ].position;
+                        mInterestingHitPoints[ 2 ].position = tmp;
+                    }
+                }
+
+                // Now all is ready for sub triangles creation
+                // We'll encounter 2x triangles that are flat ( the aligned hit points )
+                // So, don't forget to check for these and don't add them in the sub set
+                sf::VertexArray subTriangle( sf::Triangles, 3 );
+                subTriangle[ 0 ] = fovOrigin;
+
+                for( int i = 0; i < mInterestingHitPoints.getVertexCount() - 1; ++i )
+                {
+                    subTriangle[ 1 ] = mInterestingHitPoints[ i ];
+                    subTriangle[ 2 ] = mInterestingHitPoints[ i + 1 ];
+
+                    if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                        mResultingSubTriangles.push_back( subTriangle );
+                }
+                int end = 0;
             }
         }
     }

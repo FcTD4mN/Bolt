@@ -33,7 +33,7 @@ public:
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
 
 private:
-    std::vector< cEntity* > mPointsOfInterest;
+    std::vector< cEntity* >         mPointsOfInterest;
 
     sf::FloatRect                   mFOVBBox;
     std::vector< sf::VertexArray >  mTriangles;
