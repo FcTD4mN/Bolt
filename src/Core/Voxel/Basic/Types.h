@@ -34,4 +34,8 @@ enum  eChunkNeighbour : tByte
                                                     {
 
 #define  IJK_ITERATION_END     }}}
+
+template< tByte N >  class  cStaticLodChunkN;
+typedef  cStaticLodChunkN< 64 > tStaticLodChunk64;
+
 }

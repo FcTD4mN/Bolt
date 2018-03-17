@@ -1,19 +1,19 @@
 #pragma once
 
-#include "Voxel/Types.h"
+#include "Voxel/Basic/Types.h"
 
 
 namespace  nVoxel
 {
 
 template< tByte N >
-class  cStaticChunk
+class  cStaticLodChunkN
 {
 
 public:
-    cStaticChunk();
-    cStaticChunk( tByte iVal );
-    cStaticChunk( const cStaticChunk& ) = delete;
+    cStaticLodChunkN();
+    cStaticLodChunkN( tByte iVal );
+    cStaticLodChunkN( const  cStaticLodChunkN& ) = delete;
 
 public:
     tByte   Size();
@@ -24,36 +24,36 @@ public:
             tByte&  Data( tByte iX, tByte iY, tByte iZ );
 
 public:
-    cStaticChunk*  Neighbour( eChunkNeighbour  iNeighbour );
+    cStaticLodChunkN*  Neighbour( eChunkNeighbour  iNeighbour );
 
 private:
     tByte mData[N][N][N];
-    cStaticChunk*  mNeighbour[sgChunkMaxNeighbours];
+    cStaticLodChunkN*  mNeighbour[sgChunkMaxNeighbours];
 };
 
 
 template< tByte N >
-cStaticChunk< N >::cStaticChunk()
+cStaticLodChunkN< N >::cStaticLodChunkN()
 {
 }
 
 
 template< tByte N >
-inline cStaticChunk< N >::cStaticChunk( tByte iVal )
+inline cStaticLodChunkN< N >::cStaticLodChunkN( tByte iVal )
 {
     Fill( iVal );
 }
 
 
 template<tByte N>
-inline tByte cStaticChunk<N>::Size()
+inline tByte cStaticLodChunkN<N>::Size()
 {
     return  N;
 }
 
 
 template<tByte N>
-inline void cStaticChunk<N>::Fill(tByte iVal)
+inline void cStaticLodChunkN<N>::Fill(tByte iVal)
 {
     IJK_ITERATION_BEGIN( N )
         mData[i][j][k] = iVal;
@@ -63,7 +63,7 @@ inline void cStaticChunk<N>::Fill(tByte iVal)
 
 template<tByte N>
 const  tByte&
-cStaticChunk< N >::Data( tByte iX, tByte iY, tByte iZ )  const
+cStaticLodChunkN< N >::Data( tByte iX, tByte iY, tByte iZ )  const
 {
     return  mData[iX][iY][iZ];
 }
@@ -71,15 +71,15 @@ cStaticChunk< N >::Data( tByte iX, tByte iY, tByte iZ )  const
 
 template<tByte N>
 tByte&
-cStaticChunk< N >::Data( tByte iX, tByte iY, tByte iZ )
+cStaticLodChunkN< N >::Data( tByte iX, tByte iY, tByte iZ )
 {
     return  mData[iX][iY][iZ];
 }
 
 
 template<tByte N>
-cStaticChunk< N >*
-cStaticChunk< N >::Neighbour( eChunkNeighbour  iNeighbour )
+cStaticLodChunkN< N >*
+cStaticLodChunkN< N >::Neighbour( eChunkNeighbour  iNeighbour )
 {
     return  mNeighbour[ iNeighbour ];
 }

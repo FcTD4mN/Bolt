@@ -1,4 +1,4 @@
-#include "StaticChunk.h"
+#include "Voxel/Basic/StaticLodChunk.h"
 
 namespace  nVoxel
 {
