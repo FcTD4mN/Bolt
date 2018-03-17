@@ -82,6 +82,9 @@
     <Filter Include="Fichiers sources\GameMockup\Screens">
       <UniqueIdentifier>{fa7cf3ce-9ec2-4ab3-a228-36a4678e253c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Voxel">
+      <UniqueIdentifier>{d4e58ea6-bd6f-464c-b5cb-1bb79e2ca74e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -225,6 +228,9 @@
     <ClCompile Include="..\..\..\src\Core\Math\Edge.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Voxel\StaticChunk.cpp">
+      <Filter>Fichiers sources\Voxel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -364,6 +370,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Math\Edge.h">
       <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Voxel\Types.h">
+      <Filter>Fichiers sources\Voxel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Voxel\StaticChunk.h">
+      <Filter>Fichiers sources\Voxel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
