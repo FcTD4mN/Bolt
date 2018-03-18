@@ -2,7 +2,7 @@
 
 #include <limits>
 
-namespace  nBitvolume
+namespace  nVolumetric
 {
 
 typedef  unsigned  char         tByte;                      // Consider 8 bits, [0, 255]. Smallest addressable unit.
@@ -13,5 +13,5 @@ typedef  long  int              tGlobalDataIndex;           // Consider 32 bits,
 typedef  tByte                  tLocalDataIndex;            // Consider 8 bits.
 static  const  tByte            sgEmptyMaterial = 0;
 
-} // namespace  nBitvolume
+} // namespace  nVolumetric
 

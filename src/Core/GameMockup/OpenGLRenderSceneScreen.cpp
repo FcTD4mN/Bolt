@@ -5,6 +5,8 @@
 #include "GameMockup/OpenGLRenderSceneScreen.h"
 #include "GameMockup/GameApplication.h"
 
+#include "GameMockup/GameApplication.h"
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -69,6 +71,23 @@ cOpenGLRenderSceneScreen::Initialize()
     glLoadIdentity();
     double ratio = double( window->getSize().x ) / double( window->getSize().y );
     gluPerspective(50.f, ratio, 1.f, 500.f);
+
+    int radius = 20;
+    for( int i = 0; i < radius*2; ++i )
+    {
+        for( int j = 0; j < radius*2; ++j )
+        {
+            for( int k = 0; k < radius*2; ++k )
+            {
+                double x = i - radius;
+                double y = j - radius;
+                double z = k - radius;
+                if( sqrt( double( x*x + y*y + z*z ) ) < double( radius ) )
+                    mMap.SafeSetMaterial( i, j, k, 1 );
+            }
+        }
+    }
+
 }
 
 
@@ -96,44 +115,15 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0.f, 0.f, -200.f);
-    glRotatef(mClock.getElapsedTime().asSeconds() * 50, 1.f, 0.f, 0.f);
-    glRotatef(mClock.getElapsedTime().asSeconds() * 30, 0.f, 1.f, 0.f);
-    glRotatef(mClock.getElapsedTime().asSeconds() * 90, 0.f, 0.f, 1.f);
+    glTranslatef( 0.f, 0.f, -200.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
+    glTranslatef( -20.f, -20.f, -20.f );
 
-    glBegin(GL_QUADS);
-
-    glVertex3f(-50.f, -50.f, -50.f);
-    glVertex3f(-50.f,  50.f, -50.f);
-    glVertex3f( 50.f,  50.f, -50.f);
-    glVertex3f( 50.f, -50.f, -50.f);
-
-    glVertex3f(-50.f, -50.f, 50.f);
-    glVertex3f(-50.f,  50.f, 50.f);
-    glVertex3f( 50.f,  50.f, 50.f);
-    glVertex3f( 50.f, -50.f, 50.f);
-
-    glVertex3f(-50.f, -50.f, -50.f);
-    glVertex3f(-50.f,  50.f, -50.f);
-    glVertex3f(-50.f,  50.f,  50.f);
-    glVertex3f(-50.f, -50.f,  50.f);
-
-    glVertex3f(50.f, -50.f, -50.f);
-    glVertex3f(50.f,  50.f, -50.f);
-    glVertex3f(50.f,  50.f,  50.f);
-    glVertex3f(50.f, -50.f,  50.f);
-
-    glVertex3f(-50.f, -50.f,  50.f);
-    glVertex3f(-50.f, -50.f, -50.f);
-    glVertex3f( 50.f, -50.f, -50.f);
-    glVertex3f( 50.f, -50.f,  50.f);
-
-    glVertex3f(-50.f, 50.f,  50.f);
-    glVertex3f(-50.f, 50.f, -50.f);
-    glVertex3f( 50.f, 50.f, -50.f);
-    glVertex3f( 50.f, 50.f,  50.f);
-
-    glEnd();
+    glPushMatrix();
+    mMap.DirectDraw();
+    glPopMatrix();
 
     window->pushGLStates();
 

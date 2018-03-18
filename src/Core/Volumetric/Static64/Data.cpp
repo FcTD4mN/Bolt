@@ -1,7 +1,7 @@
-#include "Bitvolume/Static64/Data.h"
+#include "Volumetric/Static64/Data.h"
 
 
-namespace  nBitvolume
+namespace  nVolumetric
 {
 
 //----------------------------------------------------------------------------------------------
@@ -101,5 +101,5 @@ cData::GetNeighbourField()  const
 }
 
 
-} // namespace  nBitvolume
+} // namespace  nVolumetric
 

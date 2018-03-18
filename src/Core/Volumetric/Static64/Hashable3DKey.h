@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Bitvolume/Static64/Types.h"
+#include "Volumetric/Static64/Types.h"
 
 
-namespace  nBitvolume
+namespace  nVolumetric
 {
 
 
@@ -49,5 +49,5 @@ private:
 
 
 
-} // namespace  nBitvolume
+} // namespace  nVolumetric
 

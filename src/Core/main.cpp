@@ -15,7 +15,7 @@
 
 #include "Benchmark/Benchmark.h"
 
-#include "Bitvolume/Static64/Data.h"
+#include "Volumetric/Static64/Data.h"
 
 
 int
@@ -38,8 +38,8 @@ main(int argc, char *argv[])
 
 #endif //  CONSOLEDEBUG
 
-    // Small Bitvolume benchmark
-    ::nBoltScript::Env()->Print( ">>> Size of Bitvolume Atomic Data: " + std::to_string( sizeof( ::nBitvolume::cData ) ) + "Bytes\n" );
+    // Small Volumetric benchmark
+    ::nBoltScript::Env()->Print( ">>> Size of Volumetric Atomic Data: " + std::to_string( sizeof( ::nVolumetric::cData ) ) + "Bytes\n" );
 
     // PYTHON TEST
     wchar_t *program = Py_DecodeLocale(argv[0], NULL);

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Bitvolume/Static64/Types.h"
-#include "Bitvolume/Static64/Data.h"
+#include "Volumetric/Static64/Types.h"
+#include "Volumetric/Static64/Data.h"
 
 
-namespace  nBitvolume
+namespace  nVolumetric
 {
 
 
@@ -59,6 +59,11 @@ private:
     cData*  GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
     cStaticLodChunk64*  GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
 
+public:
+    // Naive Rendering
+    void  DirectDraw();
+    void  DirectDrawCube();
+
 private:
     // Private Data Members
     static  const  tByte            msSize = 64;
@@ -70,5 +75,5 @@ private:
 };
 
 
-} // namespace  nBitvolume
+} // namespace  nVolumetric
 

@@ -1,9 +1,13 @@
-#include "Bitvolume/Static64/SparseStaticLodChunk64Map.h"
+#include "Volumetric/Static64/SparseStaticLodChunk64Map.h"
 
 
 #include "Math/Utils.h"
 
-namespace  nBitvolume
+#include <GL/glew.h>
+#include <gl/GLU.h>
+#include "SFML/OpenGL.hpp"
+
+namespace  nVolumetric
 {
 
 cSparseStaticLodChunk64Map::cSparseStaticLodChunk64Map() :
@@ -53,7 +57,7 @@ cSparseStaticLodChunk64Map::MkChunk( const  cHashable3DKey&  iKey )
     if( ChunkExists( iKey ) )
         return;
 
-    mChunks.emplace( iKey.HashedSignature(), &cStaticLodChunk64(0) );
+    mChunks.emplace( iKey.HashedSignature(), new cStaticLodChunk64(0) );
     UpdateChunkNeighbours( iKey );
 }
 
@@ -140,5 +144,27 @@ cSparseStaticLodChunk64Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataInd
 }
 
 
-} // namespace  nBitvolume
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------ Naive Rendering
+
+
+void
+cSparseStaticLodChunk64Map::DirectDraw()
+{
+    for ( auto it : mChunks )
+    {
+        auto hashedKey = it.first;
+        auto chunk = it.second;
+        cHashable3DKey key( hashedKey );
+
+        glPushMatrix();
+        glTranslatef( key.GetX() * 64.f, key.GetY() * 64.f, key.GetZ() * 64.f );
+        chunk->DirectDraw();
+        glPopMatrix();
+
+    }
+}
+
+
+} // namespace  nVolumetric
 

@@ -1,6 +1,6 @@
-#include "Bitvolume/Static64/Hashable3DKey.h"
+#include "Volumetric/Static64/Hashable3DKey.h"
 
-namespace  nBitvolume
+namespace  nVolumetric
 {
 
 cHashable3DKey::cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ ) :
@@ -20,6 +20,7 @@ cHashable3DKey::cHashable3DKey( tHashableKeySignature iHashedSignature ) :
     mCacheValid( true ),
     mCachedHashedSignature( iHashedSignature )
 {
+    Set( iHashedSignature );
 }
 
 
@@ -38,9 +39,9 @@ cHashable3DKey::Set( tHashableKeySignature iHashedSignature )
 {
     mCachedHashedSignature = iHashedSignature;
     mCacheValid = true;
-    mX = ( mCachedHashedSignature & 0x00FF0000 ) >> 32;
-    mY = ( mCachedHashedSignature & 0x0000FF00 ) >> 16;
-    mZ = ( mCachedHashedSignature & 0x000000FF );
+    mX = tKeyComponent( ( mCachedHashedSignature & tHashableKeySignature( 0x00FF0000 ) ) >> 32 );
+    mY = tKeyComponent( ( mCachedHashedSignature & tHashableKeySignature( 0x0000FF00 ) ) >> 16 );
+    mZ = tKeyComponent( ( mCachedHashedSignature & tHashableKeySignature( 0x000000FF ) ) );
 }
 
 
@@ -163,5 +164,5 @@ cHashable3DKey::UpdateHashedSignatureCache()  const
 }
 
 
-} // namespace  nBitvolume
+} // namespace  nVolumetric
 

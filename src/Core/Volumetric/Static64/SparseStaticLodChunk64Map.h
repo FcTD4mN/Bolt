@@ -2,12 +2,12 @@
 
 #include <unordered_map>
 
-#include "Bitvolume/Static64/Types.h"
-#include "Bitvolume/Static64/StaticLodChunk64.h"
-#include "Bitvolume/Static64/Hashable3DKey.h"
+#include "Volumetric/Static64/Types.h"
+#include "Volumetric/Static64/StaticLodChunk64.h"
+#include "Volumetric/Static64/Hashable3DKey.h"
 
 
-namespace  nBitvolume
+namespace  nVolumetric
 {
 
 class  cSparseStaticLodChunk64Map
@@ -36,11 +36,15 @@ public:
     tByte   operator()( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
     void    SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ, tByte iValue );
 
+public:
+    // Naive Rendering
+    void  DirectDraw();
+
 private:
     // Private Data Members
     std::unordered_map< tHashableKeySignature, cStaticLodChunk64* > mChunks; // Owning
 };
 
 
-} // namespace  nBitvolume
+} // namespace  nVolumetric
 

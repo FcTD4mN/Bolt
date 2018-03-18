@@ -1,7 +1,10 @@
-#include "Bitvolume/Static64/StaticLodChunk64.h"
+#include "Volumetric/Static64/StaticLodChunk64.h"
 
+#include <GL/glew.h>
+#include <gl/GLU.h>
+#include "SFML/OpenGL.hpp"
 
-namespace  nBitvolume
+namespace  nVolumetric
 {
 
 //----------------------------------------------------------------------------------------------
@@ -239,5 +242,72 @@ cStaticLodChunk64::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
     return  NULL;
 }
 
-} // namespace  nBitvolume
+
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------ Naive Rendering
+
+
+void
+cStaticLodChunk64::DirectDraw()
+{
+    
+    for( tLocalDataIndex  i = 0; i < msSize; ++i )
+    {
+        for( tLocalDataIndex  j = 0; j < msSize; ++j )
+        {
+            for( tLocalDataIndex  k = 0; k < msSize; ++k )
+            {
+                glPushMatrix();
+                glTranslatef( i, j, k );
+
+                if( IsSolid( i, j, k ) )
+                    DirectDrawCube();
+
+                glPopMatrix();
+            }
+        }
+    }
+}
+
+
+void
+cStaticLodChunk64::DirectDrawCube()
+{
+    glBegin(GL_QUADS);
+
+    glVertex3f(-0.5f, -0.5f, -0.5f);
+    glVertex3f(-0.5f,  0.5f, -0.5f);
+    glVertex3f( 0.5f,  0.5f, -0.5f);
+    glVertex3f( 0.5f, -0.5f, -0.5f);
+
+    glVertex3f(-0.5f, -0.5f, 0.5f);
+    glVertex3f(-0.5f,  0.5f, 0.5f);
+    glVertex3f( 0.5f,  0.5f, 0.5f);
+    glVertex3f( 0.5f, -0.5f, 0.5f);
+
+    glVertex3f(-0.5f, -0.5f, -0.5f);
+    glVertex3f(-0.5f,  0.5f, -0.5f);
+    glVertex3f(-0.5f,  0.5f,  0.5f);
+    glVertex3f(-0.5f, -0.5f,  0.5f);
+
+    glVertex3f(0.5f, -0.5f, -0.5f);
+    glVertex3f(0.5f,  0.5f, -0.5f);
+    glVertex3f(0.5f,  0.5f,  0.5f);
+    glVertex3f(0.5f, -0.5f,  0.5f);
+
+    glVertex3f(-0.5f, -0.5f,  0.5f);
+    glVertex3f(-0.5f, -0.5f, -0.5f);
+    glVertex3f( 0.5f, -0.5f, -0.5f);
+    glVertex3f( 0.5f, -0.5f,  0.5f);
+
+    glVertex3f(-0.5f, 0.5f,  0.5f);
+    glVertex3f(-0.5f, 0.5f, -0.5f);
+    glVertex3f( 0.5f, 0.5f, -0.5f);
+    glVertex3f( 0.5f, 0.5f,  0.5f);
+
+    glEnd();
+}
+
+
+} // namespace  nVolumetric
 
