@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-#include "Bitvolume/Static64/Utils.h"
+#include "Bitvolume/Static64/Types.h"
 #include "Bitvolume/Static64/StaticLodChunk64.h"
 #include "Bitvolume/Static64/Hashable3DKey.h"
 

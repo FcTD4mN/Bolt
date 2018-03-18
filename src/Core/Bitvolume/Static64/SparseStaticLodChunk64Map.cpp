@@ -29,7 +29,7 @@ cSparseStaticLodChunk64Map::KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex
 bool
 cSparseStaticLodChunk64Map::ChunkExists( const  cHashable3DKey&  iKey )  const
 {
-    return  KEY_EXISTS( mChunks, iKey.HashedSignature() );
+    return  ( ! ( mChunks.find( iKey.HashedSignature() ) == mChunks.end() ) );
 }
 
 
@@ -82,20 +82,20 @@ cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey 
 
     if( chunk )
     {
-        chunk->SetNeighbour( eChunkNeighbourIndex::kTop, top );
-        chunk->SetNeighbour( eChunkNeighbourIndex::kBot, bot );
-        chunk->SetNeighbour( eChunkNeighbourIndex::kFront, front );
-        chunk->SetNeighbour( eChunkNeighbourIndex::kBack, back );
-        chunk->SetNeighbour( eChunkNeighbourIndex::kLeft, left );
-        chunk->SetNeighbour( eChunkNeighbourIndex::kRight, right );
+        chunk->SetNeighbour( cStaticLodChunk64::eChunkNeighbourIndex::kTop,     top );
+        chunk->SetNeighbour( cStaticLodChunk64::eChunkNeighbourIndex::kBot,     bot );
+        chunk->SetNeighbour( cStaticLodChunk64::eChunkNeighbourIndex::kFront,   front );
+        chunk->SetNeighbour( cStaticLodChunk64::eChunkNeighbourIndex::kBack,    back );
+        chunk->SetNeighbour( cStaticLodChunk64::eChunkNeighbourIndex::kLeft,    left );
+        chunk->SetNeighbour( cStaticLodChunk64::eChunkNeighbourIndex::kRight,   right );
     }
 
-    if( top )   top->SetNeighbour(      eChunkNeighbourIndex::kBot, chunk );
-    if( bot )   bot->SetNeighbour(      eChunkNeighbourIndex::kTop, chunk );
-    if( front ) front->SetNeighbour(    eChunkNeighbourIndex::kBack, chunk );
-    if( back )  back->SetNeighbour(     eChunkNeighbourIndex::kFront, chunk );
-    if( left )  left->SetNeighbour(     eChunkNeighbourIndex::kRight, chunk );
-    if( right ) right->SetNeighbour(    eChunkNeighbourIndex::kLeft, chunk );
+    if( top )   top->SetNeighbour(      cStaticLodChunk64::eChunkNeighbourIndex::kBot,      chunk );
+    if( bot )   bot->SetNeighbour(      cStaticLodChunk64::eChunkNeighbourIndex::kTop,      chunk );
+    if( front ) front->SetNeighbour(    cStaticLodChunk64::eChunkNeighbourIndex::kBack,     chunk );
+    if( back )  back->SetNeighbour(     cStaticLodChunk64::eChunkNeighbourIndex::kFront,    chunk );
+    if( left )  left->SetNeighbour(     cStaticLodChunk64::eChunkNeighbourIndex::kRight,    chunk );
+    if( right ) right->SetNeighbour(    cStaticLodChunk64::eChunkNeighbourIndex::kLeft,     chunk );
 }
 
 

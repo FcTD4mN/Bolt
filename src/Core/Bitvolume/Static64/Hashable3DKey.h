@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Bitvolume/Static64/Utils.h"
+#include "Bitvolume/Static64/Types.h"
 
 
 namespace  nBitvolume

@@ -291,7 +291,7 @@
     <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Hashable3DKey.h" />
     <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\SparseStaticLodChunk64Map.h" />
     <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\StaticLodChunk64.h" />
-    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Utils.h" />
+    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Types.h" />
     <ClInclude Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Component.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Entity.h" />

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Bitvolume/Static64/Utils.h"
+#include "Bitvolume/Static64/Types.h"
 #include "Bitvolume/Static64/Data.h"
 
 
@@ -10,6 +10,17 @@ namespace  nBitvolume
 
 class  cStaticLodChunk64
 {
+
+public:
+enum  eChunkNeighbourIndex : tByte
+{
+    kTop    = 0,
+    kBot    = 1,
+    kFront  = 2,
+    kBack   = 3,
+    kLeft   = 4,
+    kRight  = 5,
+};
 
 public:
     // Construction / Destruction

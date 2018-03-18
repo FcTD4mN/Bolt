@@ -66,9 +66,16 @@ cStaticLodChunk64::IsEmpty()  const
 void
 cStaticLodChunk64::Fill(tByte iVal)
 {
-    IJK_ITERATION_BEGIN( msSize )
-        mData[i][j][k] = iVal;
-    IJK_ITERATION_END
+    for( tLocalDataIndex  i = 0; i < msSize; ++i )
+    {
+        for( tLocalDataIndex  j = 0; j < msSize; ++j )
+        {
+            for( tLocalDataIndex  k = 0; k < msSize; ++k )
+            {
+                mData[i][j][k] = iVal;
+            }
+        }
+    }
 
     if( iVal == sgEmptyMaterial )
         mOccupiedVolume = 0;
@@ -119,7 +126,6 @@ void
 
 //----------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------- Neighbour Accessors
-
 
 
 cStaticLodChunk64*

@@ -401,7 +401,7 @@
     <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\StaticLodChunk64.h">
       <Filter>Fichiers sources\Bitvolume\Static64</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Utils.h">
+    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Types.h">
       <Filter>Fichiers sources\Bitvolume\Static64</Filter>
     </ClInclude>
   </ItemGroup>
