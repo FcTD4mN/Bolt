@@ -223,6 +223,12 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     continue;
                 }
 
+                // Situation : we have a unique hitpoint that is exactly on a vertex -> we add the fov intersection in interesting points.
+                // BUT, sometimes, both points are the same. We then don't want to do the swap 1<->2 below.
+                // This is to check that
+                bool vertexIntersectionAndFovInterAreIdentical = false;
+                sf::Vector2f idPoint( 0.0f, 0.0F ); // This is the point that is identical
+
                 mDEBUGClips.push_back( clipedPol );
                 std::vector< cRay > rayList;
                 mInterestingHitPoints.clear();
@@ -310,13 +316,21 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         float paramB;
                         cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray.mRay );
 
-                        mInterestingHitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
+                        auto fovVector = ray.mRay.mPoint + paramB * ray.mRay.mDirection;
+                        AddElementToVertexArrayUnique( fovVector, &mInterestingHitPoints );
 
                         // CHECK: we could remove this from if
                         // BUT: this situation avoids computing useless transformations and apply a useless sort
                         // We also push the single intersection, to be able to build subTriangles
                         if( hitPoints.getVertexCount() == 1 )
-                            mInterestingHitPoints.append( hitPoints[ 0 ].position );
+                        {
+                            // If the point is not added, it means it's already there, which means fovIntersection is the same point as the vertex itself
+                            if( !AddElementToVertexArrayUnique( hitPoints[ 0 ].position, &mInterestingHitPoints ) )
+                            {
+                                idPoint = fovVector;
+                                vertexIntersectionAndFovInterAreIdentical = true;
+                            }
+                        }
                     }
                     else if( hitPoints.getVertexCount() > 1 )
                     {
@@ -340,7 +354,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
                                 float paramB;
                                 cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray.mRay );
 
-                                mInterestingHitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
+                                auto fovVector = ray.mRay.mPoint + paramB * ray.mRay.mDirection;
+                                AddElementToVertexArrayUnique( fovVector, &mInterestingHitPoints );
                             }
                         }
 
@@ -385,7 +400,6 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     }
                 }
 
-
                 // If we didn't have an intersection with right part fov and polygon, then the next two hit points are
                 // necessarily the aligned pair
                 // so we swap 1 and 2 ( 0 is the end point of right fov ray)
@@ -393,9 +407,15 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 {
                     if( mInterestingHitPoints.getVertexCount() >= 3 ) // safety
                     {
-                        sf::Vector2f tmp = mInterestingHitPoints[ 1 ].position;
-                        mInterestingHitPoints[ 1 ].position = mInterestingHitPoints[ 2 ].position;
-                        mInterestingHitPoints[ 2 ].position = tmp;
+                        if( (!vertexIntersectionAndFovInterAreIdentical)
+                            ||
+                            (vertexIntersectionAndFovInterAreIdentical
+                            && !IsVectorEqualToVector( mInterestingHitPoints[ 1 ].position, idPoint ) ) )
+                        {
+                            sf::Vector2f tmp = mInterestingHitPoints[ 1 ].position;
+                            mInterestingHitPoints[ 1 ].position = mInterestingHitPoints[ 2 ].position;
+                            mInterestingHitPoints[ 2 ].position = tmp;
+                        }
                     }
                 }
 

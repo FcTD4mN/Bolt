@@ -366,7 +366,7 @@ VertexesAreNeighboorInPolygon( const sf::VertexArray & iPolygon, const sf::Vecto
 
     int previousVertex = ( vertexAIndexInPolygon - 1 );
     if( previousVertex < 0 )
-        previousVertex = int(iPolygon.getVertexCount());
+        previousVertex = int(iPolygon.getVertexCount() - 1);
     if( IsVectorEqualToVector( iPolygon[ previousVertex ].position, iVectorB ) )
         return  true;
 

@@ -91,6 +91,7 @@ void
 cGameApplication::Initialize()
 {
     tSuperClass::Initialize();
+    //SetAppDefaultResolution( 1024, 768 ); //TODO: menu is shitty as fuck when not in 800*600 ........
 
     mEntityMap = new cEntityGrid();
     // =======ECS WORLD=======
