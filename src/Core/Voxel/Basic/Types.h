@@ -8,6 +8,7 @@ namespace  nVoxel
 typedef  unsigned  char     tByte;                  // Consider 8 bits, [0, 255]. Smallest addressable unit for individual voxel data.
 typedef  short  int         tKeyComponent;          // Consider 16 bits, [−32,767, +32,767]. See also USHRT_MAX
 typedef  long  long  int    tHashedKeySignature;    // Consider 64 bits.
+typedef  long  int          tDataIndex;             // Consider 32 bits.
 
 enum  eBaseMaterials : tByte
 {
@@ -37,5 +38,8 @@ enum  eChunkNeighbour : tByte
 
 template< tByte N >  class  cStaticLodChunkN;
 typedef  cStaticLodChunkN< 64 > tStaticLodChunk64;
+
+
+#define KEY_EXISTS( iMap, iKey )            ( ! ( iMap.find( iKey ) == iMap.end() ) )
 
 }

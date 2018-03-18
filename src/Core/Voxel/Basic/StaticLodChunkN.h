@@ -16,12 +16,12 @@ public:
     cStaticLodChunkN( const  cStaticLodChunkN& ) = delete;
 
 public:
-    tByte   Size();
-    void    Fill( tByte iVal );
+    tByte           Size();
+    unsigned  int   Capacity();
+    void            Fill( tByte iVal );
 
 public:
-    const   tByte&  Data( tByte iX, tByte iY, tByte iZ )  const;
-            tByte&  Data( tByte iX, tByte iY, tByte iZ );
+    tByte* operator()( tByte iX, tByte iY, tByte iZ );
 
 public:
     cStaticLodChunkN*  Neighbour( eChunkNeighbour  iNeighbour );
@@ -29,6 +29,7 @@ public:
 private:
     tByte mData[N][N][N];
     cStaticLodChunkN*  mNeighbour[sgChunkMaxNeighbours];
+    static  int  mCapacity = N * N * N;
 };
 
 
@@ -53,6 +54,13 @@ inline tByte cStaticLodChunkN<N>::Size()
 
 
 template<tByte N>
+inline unsigned  int cStaticLodChunkN<N>::Capacity()
+{
+    return  mCapacity;
+}
+
+
+template<tByte N>
 inline void cStaticLodChunkN<N>::Fill(tByte iVal)
 {
     IJK_ITERATION_BEGIN( N )
@@ -62,19 +70,11 @@ inline void cStaticLodChunkN<N>::Fill(tByte iVal)
 
 
 template<tByte N>
-const  tByte&
-cStaticLodChunkN< N >::Data( tByte iX, tByte iY, tByte iZ )  const
+inline tByte* cStaticLodChunkN<N>::operator()( tByte iX,tByte iY,tByte iZ )
 {
     return  mData[iX][iY][iZ];
 }
 
-
-template<tByte N>
-tByte&
-cStaticLodChunkN< N >::Data( tByte iX, tByte iY, tByte iZ )
-{
-    return  mData[iX][iY][iZ];
-}
 
 
 template<tByte N>
