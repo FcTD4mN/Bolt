@@ -1,6 +1,7 @@
 #include "SightSystem.h"
 
 #include "Math/Utils.h"
+#include "Math/Ray.h"
 
 #include "ECS/Core/Entity.h"
 #include "ECS/Utilities/EntityParser.h"
@@ -19,7 +20,7 @@
 #include <iostream>
 
 
-#define FOVSplitThreshold 10
+#define FOVSplitThreshold 1
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -212,7 +213,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
             mDEBUGEntities.push_back( analysisVisibleBox );
 
             // For each triangle in the set, we split it according to object in the fov
-            for( int i = mTriangles.size() - 1; i >= 0; --i )
+            for( int i = int(mTriangles.size() - 1); i >= 0; --i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
                 // If this part of the fov doesn't clip with the polygon, we keep the whoe triangle, and we continue
@@ -223,7 +224,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 }
 
                 mDEBUGClips.push_back( clipedPol );
-                std::vector< cEdgeF > rayList;
+                std::vector< cRay > rayList;
                 mInterestingHitPoints.clear();
 
                 // Now we have the clipped polygon, we want to cast rays towards every vertexes to see
@@ -233,9 +234,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 // =============================================================
 
                 // The first ray we add is the left part of the sub fov
-                cEdgeF firstTamere = cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 2 ].position );
-                rayList.push_back( firstTamere );
-                mDEBUGRays.push_back( firstTamere );
+                cRay fovRightEdge( cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 2 ].position ), cRay::eRayType::kFovSide );
+                rayList.push_back( fovRightEdge );
+                mDEBUGRays.push_back( fovRightEdge.mRay );
 
                 // Then, one ray per vertex of the polygon
                 for( int j = 0; j < clipedPol.getVertexCount(); ++j )
@@ -247,16 +248,16 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     vectorDirectionToPolygonEdge *= float( fieldofview->mDistance );
 
                     // There it is
-                    cEdgeF ray = cEdgeF::MakePointDirection( fovOrigin, vectorDirectionToPolygonEdge );
+                    cRay ray( cEdgeF::MakePointDirection( fovOrigin, vectorDirectionToPolygonEdge ), cRay::eRayType::kBasicRay );
 
                     if( AddElementToVectorUnique( ray, &rayList ) )
-                        mDEBUGRays.push_back( ray );
+                        mDEBUGRays.push_back( ray.mRay );
                 }
 
                 // Then finally the last ray is the right part of the sub fov
-                cEdgeF lastTamere = cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 1 ].position );
-                if( AddElementToVectorUnique( lastTamere, &rayList ) )
-                    mDEBUGRays.push_back( lastTamere );
+                cRay fovLeftEdge( cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 1 ].position ), cRay::eRayType::kFovSide );
+                if( AddElementToVectorUnique( fovLeftEdge, &rayList ) )
+                    mDEBUGRays.push_back( fovLeftEdge.mRay );
 
 
                 // Then we intersect every rays against polygon
@@ -277,21 +278,21 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         float paramA;
                         float paramB;
 
-                        if( cEdgeF::Intersect( &paramA, &paramB, edge, ray ) )
+                        if( cEdgeF::Intersect( &paramA, &paramB, edge, ray.mRay ) )
                         {
                             if( ( paramA > kEpsilonF && paramA < 1.0F - kEpsilonF ) // If actual intersection that is NOT on an exact vertex
                                 && ( paramB > kEpsilonF && paramB < 1.0F - kEpsilonF ) )
                             {
-                                mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
-                                mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
-                                hitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                                //mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                                //mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
+                                hitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
                             }
                             else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
                             {
-                                mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
-                                mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Green;
+                                //mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                                //mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Green;
 
-                                sf::Vector2f vertex = ray.mPoint + paramB * ray.mDirection;
+                                sf::Vector2f vertex = ray.mRay.mPoint + paramB * ray.mRay.mDirection;
                                 AddElementToVertexArrayUnique( vertex, &hitPoints );
                             }
                         }
@@ -306,9 +307,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         cEdgeF fovLimit = cEdgeF::MakePointPoint( mTriangles[ i ][1].position, mTriangles[ i ][2].position );
                         float paramA;
                         float paramB;
-                        cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray );
+                        cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray.mRay );
 
-                        mInterestingHitPoints.append( ray.mPoint + paramB * ray.mDirection );
+                        mInterestingHitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
 
                         // We also push the single intersection, to be able to build subTriangles
                         if( hitPoints.getVertexCount() == 1 )
@@ -316,6 +317,11 @@ cSightSystem::Update( unsigned int iDeltaTime )
                     }
                     else if( hitPoints.getVertexCount() > 1 )
                     {
+                        if( ray.mRayType == cRay::eRayType::kBasicRay )
+                        {
+
+                        }
+
                         // If there were more than one intersection, we keep the closest one
                         // So we transform points into watcher's referential
                         // That has its fov pointing upwards => the smallest the X, the closest it is

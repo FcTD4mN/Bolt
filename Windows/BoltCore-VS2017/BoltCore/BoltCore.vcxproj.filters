@@ -237,6 +237,9 @@
     <ClCompile Include="..\..\..\src\Core\Voxel\Static64\SparseStaticLodChunk64Map.cpp">
       <Filter>Fichiers sources\Voxel\Static64</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Math\Ray.cpp">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -388,6 +391,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Utils.h">
       <Filter>Fichiers sources\Voxel\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Math\Ray.h">
+      <Filter>Fichiers sources\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

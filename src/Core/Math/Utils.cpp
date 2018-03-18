@@ -386,4 +386,19 @@ AddElementToVectorUnique( cEdgeF & iElement, std::vector<cEdgeF>* oVector )
 }
 
 
+template<>
+bool
+AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector )
+{
+    for( auto elm : *oVector )
+    {
+        if( Collinear( iElement.mRay.mDirection, elm.mRay.mDirection ) )
+            return  false;
+    }
+
+    ( *oVector ).push_back( iElement );
+    return  true;
+}
+
+
 //...

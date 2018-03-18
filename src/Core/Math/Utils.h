@@ -3,6 +3,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "Math/Edge.h"
+#include "Math/Ray.h"
 
 /** Constant : PI in float format. */
 #define kPIF (3.1415926535897932384626F)
@@ -63,6 +64,7 @@ AddElementToVectorUnique( T& iElement, std::vector< T >* oVector )
 
 template<> bool AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector );
 template<> bool AddElementToVectorUnique( cEdgeF& iElement, std::vector< cEdgeF >* oVector );
+template<> bool AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector );
 
 
 // ===================================================

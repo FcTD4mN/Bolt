@@ -2,7 +2,6 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "tinyxml2.h"
 
 class cEdgeF
 {
