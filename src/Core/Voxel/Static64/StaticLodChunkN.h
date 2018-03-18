@@ -24,8 +24,8 @@ public:
     bool            IsEmpty();
 
 public:
-    const  tByte&  GetData( tByte iX, tByte iY, tByte iZ )  const;
-    void  SetData( tByte iX, tByte iY, tByte iZ, tByte iValue );
+    tByte  GetMaterial( tByte iX, tByte iY, tByte iZ )  const;
+    void  SetMaterial( tByte iX, tByte iY, tByte iZ, tByte iValue );
     bool  IsSolid( tByte iX, tByte iY, tByte iZ );
     bool  HasSolidTopNeighbour( tByte iX, tByte iY, tByte iZ );
     bool  HasSolidBotNeighbour( tByte iX, tByte iY, tByte iZ );
@@ -40,7 +40,7 @@ public:
     void  SetNeighbour( eChunkNeighbour  iNeighbour, cStaticLodChunkN* iAdress );
 
 private:
-    tByte mData[N][N][N];
+    t2Byte  mData[N][N][N];
     cStaticLodChunkN*  mNeighbour[6];
     static  const  unsigned  int  mCapacity = N * N * N;
     unsigned  int  mOccupiedVolume;
@@ -109,15 +109,15 @@ inline bool cStaticLodChunkN<N>::IsEmpty()
 }
 
 template<tByte N>
-inline const tByte & cStaticLodChunkN<N>::GetData(tByte iX,tByte iY,tByte iZ) const
+inline  tByte cStaticLodChunkN<N>::GetMaterial(tByte iX,tByte iY,tByte iZ) const
 {
-    return  mData[iX][iY][iZ];
+    return  tByte( mData[iX][iY][iZ] & sgFirstByteMask );
 }
 
 template<tByte N>
-inline void cStaticLodChunkN<N>::SetData(tByte iX,tByte iY,tByte iZ, tByte iValue)
+inline void cStaticLodChunkN<N>::SetMaterial(tByte iX,tByte iY,tByte iZ, tByte iValue)
 {
-    tByte oldValue = mData[iX][iY][iZ];
+    tByte oldValue = GetMaterial( iX, iY, iZ );
     mData[iX][iY][iZ] = iValue;
 
     tByte flag = tByte( bool( oldValue ) ) << 1 | tByte( bool( iValue ) );

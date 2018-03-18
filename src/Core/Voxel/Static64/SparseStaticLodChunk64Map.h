@@ -27,7 +27,7 @@ public:
     void  PurgeEmptyChunks();
 
 public:
-    const  tByte&  operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
+    tByte  operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
     void  SafeSetData( tDataIndex iX, tDataIndex iY, tDataIndex iZ, tByte iValue );
 
 private:

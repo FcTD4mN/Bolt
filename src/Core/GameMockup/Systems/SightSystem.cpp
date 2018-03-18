@@ -129,7 +129,7 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
         }
         iRenderTarget->draw( mResultingSubTriangles[ i ] );
     }
-    //iRenderTarget->draw( mInterestingHitPoints );
+    iRenderTarget->draw( mInterestingHitPoints );
 }
 
 
