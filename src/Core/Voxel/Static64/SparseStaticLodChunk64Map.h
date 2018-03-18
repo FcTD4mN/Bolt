@@ -24,6 +24,7 @@ public:
     tStaticLodChunk64*  ChunkAtKey( const  cHashable3DKey&  iKey );
     cHashable3DKey  KeyForIndices( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
     void  UpdateChunkNeighbours( const  cHashable3DKey&  iKey );
+    void  PurgeEmptyChunks();
 
 public:
     const  tByte&  operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ );

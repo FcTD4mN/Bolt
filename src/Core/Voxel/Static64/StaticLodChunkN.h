@@ -20,8 +20,8 @@ public:
     unsigned  int   Capacity();
     unsigned  int   OccupiedVolume();
     void            Fill( tByte iVal );
-    bool            Full();
-    bool            Empty();
+    bool            IsFull();
+    bool            IsEmpty();
 
 public:
     const  tByte&  GetData( tByte iX, tByte iY, tByte iZ )  const;
@@ -89,13 +89,13 @@ inline void cStaticLodChunkN<N>::Fill(tByte iVal)
 }
 
 template<tByte N>
-inline bool cStaticLodChunkN<N>::Full()
+inline bool cStaticLodChunkN<N>::IsFull()
 {
     return  mOccupiedVolume == mCapacity;
 }
 
 template<tByte N>
-inline bool cStaticLodChunkN<N>::Empty()
+inline bool cStaticLodChunkN<N>::IsEmpty()
 {
     return  mOccupiedVolume == 0;
 }

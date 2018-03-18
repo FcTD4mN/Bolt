@@ -13,6 +13,16 @@ cHashable3DKey::cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponen
 }
 
 
+cHashable3DKey::cHashable3DKey( tHashedKeySignature iHashedSignature ) :
+    mX( 0 ),
+    mY( 0 ),
+    mZ( 0 ),
+    mCacheValid( true ),
+    mCachedHashedSignature( iHashedSignature )
+{
+}
+
+
 void
 cHashable3DKey::Set( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ )
 {
@@ -20,6 +30,17 @@ cHashable3DKey::Set( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ )
     mY = iY;
     mZ = iZ;
     InvalidCache();
+}
+
+
+void
+cHashable3DKey::Set( tHashedKeySignature iHashedSignature )
+{
+    mCachedHashedSignature = iHashedSignature;
+    mCacheValid = true;
+    mX = ( mCachedHashedSignature & 0x00FF0000 ) >> 32;
+    mY = ( mCachedHashedSignature & 0x0000FF00 ) >> 16;
+    mZ = ( mCachedHashedSignature & 0x000000FF );
 }
 
 

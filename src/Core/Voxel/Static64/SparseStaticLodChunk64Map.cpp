@@ -92,6 +92,18 @@ cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey 
 }
 
 
+void
+cSparseStaticLodChunk64Map::PurgeEmptyChunks()
+{
+    for (auto it : mChunks )
+    {
+        auto hashedKey = it.first;
+        auto chunk = it.second;
+        if( chunk->IsEmpty() ) RmChunk( cHashable3DKey( hashedKey ) );
+    }
+}
+
+
 const  tByte&
 cSparseStaticLodChunk64Map::operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
 {

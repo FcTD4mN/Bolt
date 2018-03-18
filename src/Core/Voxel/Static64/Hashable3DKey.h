@@ -12,9 +12,11 @@ class  cHashable3DKey
 
 public:
     cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ );
+    cHashable3DKey( tHashedKeySignature iHashedSignature );
 
 public:
     void  Set( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ );
+    void  Set( tHashedKeySignature iHashedSignature );
     void  SetX( tKeyComponent iValue );
     void  SetY( tKeyComponent iValue );
     void  SetZ( tKeyComponent iValue );
