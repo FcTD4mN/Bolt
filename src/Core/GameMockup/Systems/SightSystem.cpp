@@ -238,6 +238,11 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 rayList.push_back( fovRightEdge );
                 mDEBUGRays.push_back( fovRightEdge.mRay );
 
+                // Then finally the last ray is the right part of the sub fov
+                cRay fovLeftEdge( cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 1 ].position ), cRay::eRayType::kFovSide );
+                if( AddElementToVectorUnique( fovLeftEdge, &rayList ) )
+                    mDEBUGRays.push_back( fovLeftEdge.mRay );
+
                 // Then, one ray per vertex of the polygon
                 for( int j = 0; j < clipedPol.getVertexCount(); ++j )
                 {
@@ -254,12 +259,6 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         mDEBUGRays.push_back( ray.mRay );
                 }
 
-                // Then finally the last ray is the right part of the sub fov
-                cRay fovLeftEdge( cEdgeF::MakePointPoint( mTriangles[ i ][ 0 ].position, mTriangles[ i ][ 1 ].position ), cRay::eRayType::kFovSide );
-                if( AddElementToVectorUnique( fovLeftEdge, &rayList ) )
-                    mDEBUGRays.push_back( fovLeftEdge.mRay );
-
-
                 // Then we intersect every rays against polygon
                 // ============================================
                 // ============================================
@@ -271,6 +270,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                     // Collision between ray and clipped Polygon will be stored in this vertexArray
                     sf::VertexArray hitPoints;
+                    bool onlyVertexIntersection = true; // To quickly know if hitpoints are only vertex exact, or if some are mid-edge intersections
 
                     ExtractEdgesFromPolygon( &clipPolEdges, clipedPol );
                     for( auto edge : clipPolEdges )
@@ -286,6 +286,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
                                 //mDEBUGHitPoints.append( ray.mPoint + paramB * ray.mDirection );
                                 //mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
                                 hitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
+                                onlyVertexIntersection = false;
                             }
                             else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
                             {
@@ -311,15 +312,36 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                         mInterestingHitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
 
+                        // CHECK: we could remove this from if
+                        // BUT: this situation avoids computing useless transformations and apply a useless sort
                         // We also push the single intersection, to be able to build subTriangles
                         if( hitPoints.getVertexCount() == 1 )
                             mInterestingHitPoints.append( hitPoints[ 0 ].position );
                     }
                     else if( hitPoints.getVertexCount() > 1 )
                     {
-                        if( ray.mRayType == cRay::eRayType::kBasicRay )
+                        if( onlyVertexIntersection && ray.mRayType == cRay::eRayType::kBasicRay /*&& consecutives*/ )
                         {
+                            bool consec = true;
+                            for( int k = 0; k < hitPoints.getVertexCount() - 1; ++k )
+                            {
+                                if( !VertexesAreNeighboorInPolygon( clipedPol, hitPoints[ k ].position, hitPoints[ k + 1 ].position ) )
+                                {
+                                    consec = false;
+                                    break;
+                                }
+                            }
+                            if( consec )
+                            {
+                                // We get fov's limit, which is the edge 1-2 (0 is always the origin point of fov)
+                                // Then we intersect with the ray to get the exact point
+                                cEdgeF fovLimit = cEdgeF::MakePointPoint( mTriangles[ i ][ 1 ].position, mTriangles[ i ][ 2 ].position );
+                                float paramA;
+                                float paramB;
+                                cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray.mRay );
 
+                                mInterestingHitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
+                            }
                         }
 
                         // If there were more than one intersection, we keep the closest one
@@ -329,6 +351,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         hitPoints = SortVertexesByX( hitPoints );
                         TransformPolygonUsingTransformation( &hitPoints, mTransformationAngleSort.getInverse() );
                         mInterestingHitPoints.append( hitPoints[ 0 ].position );
+
                     }
                 }
 

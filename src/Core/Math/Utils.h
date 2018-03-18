@@ -21,10 +21,10 @@ static sf::Vector2f gNULLVector( 0.0F, 0.0F );
 
 
 
+// Geometry
 bool            IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
 double          GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 );
 sf::Vector2f    CenterOfGravity( const  sf::VertexArray& iPolygon );
-sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );
 sf::VertexArray PolygonPolygonInterectionList( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
 sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
 bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
@@ -32,12 +32,14 @@ void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  s
 sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
 
 // Sorts
+sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByY( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByAngle( const sf::VertexArray& iPolygon );
 
 // Contains
 bool            VertexArrayContainsVertex( const  sf::VertexArray& iArray, const sf::Vector2f& iVector );
+bool            VertexesAreNeighboorInPolygon( const  sf::VertexArray& iPolygon, const sf::Vector2f& iVectorA, const sf::Vector2f& iVectorB );
 
 void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform& iTransformation );
 bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray );
@@ -184,6 +186,21 @@ double
 RadToDeg( double iAngle )
 {
     return  iAngle * 180.0/kPIF;
+}
+
+
+
+// FloatCOmparison utilities
+
+inline
+bool
+IsVectorEqualToVector( const sf::Vector2f& iVectorA, const sf::Vector2f& iVectorB )
+{
+    sf::Vector2f sub = iVectorA - iVectorB;
+    if( abs( sub.x ) < kEpsilonF && abs( sub.y ) < kEpsilonF )
+        return  true;
+
+    return  false;
 }
 
 //...

@@ -41,46 +41,6 @@ sf::Vector2f CenterOfGravity( const sf::VertexArray & iPolygon )
 }
 
 
-sf::VertexArray
-CCWWindingSort( const sf::VertexArray & iPolygon )
-{
-    sf::VertexArray output( sf::PrimitiveType::Points );
-
-    if( iPolygon.getVertexCount() == 0 )
-        return  output;
-
-    sf::Vector2f cog = CenterOfGravity( iPolygon );
-    sf::Vector2f firstVector = iPolygon[ 0 ].position - cog;
-
-    std::vector< sf::Vector2f > outputList;
-    outputList.reserve( iPolygon.getVertexCount() );
-    std::vector< float > angles;
-    angles.reserve( iPolygon.getVertexCount() );
-
-    angles.push_back( 0.0F );
-    outputList.push_back( iPolygon[ 0 ].position );
-
-    for( int i = 1; i < iPolygon.getVertexCount(); ++i )
-    {
-        float angle = float(GetAngleBetweenVectors( iPolygon[ i ].position - cog, firstVector ));
-        int j = 0;
-        while( j < angles.size() && angle > angles[ j ] )
-        {
-            ++j;
-        }
-        angles.insert( angles.begin() + j, angle );
-        outputList.insert( outputList.begin() + j, iPolygon[ i ].position );
-    }
-
-    for( auto v : outputList )
-    {
-        output.append( v );
-    }
-
-    return  output;
-}
-
-
 sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA, const sf::VertexArray & iPolygonB )
 {
     sf::VertexArray intersectionList;
@@ -207,11 +167,58 @@ GetTriangleSetBBox( const std::vector< sf::VertexArray >& iTriangleSet )
 }
 
 
-sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon )
+sf::VertexArray
+CCWWindingSort( const sf::VertexArray & iPolygon )
+{
+    sf::VertexArray output( sf::PrimitiveType::Points );
+
+    if( iPolygon.getVertexCount() == 0 )
+        return  output;
+
+    sf::Vector2f cog = CenterOfGravity( iPolygon );
+    sf::Vector2f firstVector = iPolygon[ 0 ].position - cog;
+
+    std::vector< sf::Vector2f > outputList;
+    outputList.reserve( iPolygon.getVertexCount() );
+    std::vector< float > angles;
+    angles.reserve( iPolygon.getVertexCount() );
+
+    angles.push_back( 0.0F );
+    outputList.push_back( iPolygon[ 0 ].position );
+
+    for( int i = 1; i < iPolygon.getVertexCount(); ++i )
+    {
+        float angle = float( GetAngleBetweenVectors( iPolygon[ i ].position - cog, firstVector ) );
+        int j = 0;
+        while( j < angles.size() && angle > angles[ j ] )
+        {
+            ++j;
+        }
+        angles.insert( angles.begin() + j, angle );
+        outputList.insert( outputList.begin() + j, iPolygon[ i ].position );
+    }
+
+    for( auto v : outputList )
+    {
+        output.append( v );
+    }
+
+    return  output;
+}
+
+
+sf::VertexArray
+SortVertexesByX( const sf::VertexArray& iPolygon )
 {
     sf::VertexArray output;
     if( iPolygon.getVertexCount() <= 0 )
         return  output;
+
+    if( iPolygon.getVertexCount() == 1 )
+    {
+        output = iPolygon;
+        return  output;
+    }
 
     output.resize( iPolygon.getVertexCount() );
     std::vector< sf::Vector2f > xSort;
@@ -242,6 +249,12 @@ SortVertexesByY( const sf::VertexArray & iPolygon )
     if( iPolygon.getVertexCount() <= 0 )
         return  output;
 
+    if( iPolygon.getVertexCount() == 1 )
+    {
+        output = iPolygon;
+        return  output;
+    }
+
     output.resize( iPolygon.getVertexCount() );
     std::vector< sf::Vector2f > ySort;
     ySort.reserve( iPolygon.getVertexCount() );
@@ -271,6 +284,12 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
 
     if( iPolygon.getVertexCount() == 0 )
         return  output;
+
+    if( iPolygon.getVertexCount() == 1 )
+    {
+        output = iPolygon;
+        return  output;
+    }
 
     struct ePair
     {
@@ -320,10 +339,36 @@ VertexArrayContainsVertex( const  sf::VertexArray& iArray, const sf::Vector2f& i
 {
     for( int i = 0; i < iArray.getVertexCount(); ++i )
     {
-        sf::Vector2f sub = iVector - iArray[ i ].position;
-        if( abs( sub.x ) < kEpsilonPixelF && abs( sub.y ) < kEpsilonPixelF )
+        if( IsVectorEqualToVector( iVector, iArray[ i ].position ) )
             return  true;
     }
+
+    return false;
+}
+
+
+bool
+VertexesAreNeighboorInPolygon( const sf::VertexArray & iPolygon, const sf::Vector2f & iVectorA, const sf::Vector2f & iVectorB )
+{
+    int vertexAIndexInPolygon = -1;
+    for( int i = 0; i < iPolygon.getVertexCount(); ++i )
+    {
+        if( IsVectorEqualToVector( iPolygon[ i ].position, iVectorA ) )
+        {
+            vertexAIndexInPolygon = i;
+            break;
+        }
+    }
+
+    int nextVertex = ( vertexAIndexInPolygon + 1 ) % iPolygon.getVertexCount();
+    if( IsVectorEqualToVector( iPolygon[ nextVertex ].position, iVectorB ) )
+        return  true;
+
+    int previousVertex = ( vertexAIndexInPolygon - 1 );
+    if( previousVertex < 0 )
+        previousVertex = int(iPolygon.getVertexCount());
+    if( IsVectorEqualToVector( iPolygon[ previousVertex ].position, iVectorB ) )
+        return  true;
 
     return false;
 }
