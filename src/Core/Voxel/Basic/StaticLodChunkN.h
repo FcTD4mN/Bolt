@@ -28,8 +28,8 @@ public:
 
 private:
     tByte mData[N][N][N];
-    cStaticLodChunkN*  mNeighbour[sgChunkMaxNeighbours];
-    static  int  mCapacity = N * N * N;
+    cStaticLodChunkN*  mNeighbour[6];
+    static  const  int  mCapacity = N * N * N;
 };
 
 
@@ -72,7 +72,7 @@ inline void cStaticLodChunkN<N>::Fill(tByte iVal)
 template<tByte N>
 inline tByte* cStaticLodChunkN<N>::operator()( tByte iX,tByte iY,tByte iZ )
 {
-    return  mData[iX][iY][iZ];
+    return  &mData[iX][iY][iZ];
 }
 
 

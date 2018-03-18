@@ -85,6 +85,9 @@
     <Filter Include="Fichiers sources\Voxel">
       <UniqueIdentifier>{d4e58ea6-bd6f-464c-b5cb-1bb79e2ca74e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Voxel\Basic">
+      <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -228,8 +231,11 @@
     <ClCompile Include="..\..\..\src\Core\Math\Edge.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Voxel\StaticChunk.cpp">
-      <Filter>Fichiers sources\Voxel</Filter>
+    <ClCompile Include="..\..\..\src\Core\Voxel\Basic\StaticLodChunk64Map.cpp">
+      <Filter>Fichiers sources\Voxel\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Voxel\Basic\Hashable3DKey.cpp">
+      <Filter>Fichiers sources\Voxel\Basic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,11 +377,17 @@
     <ClInclude Include="..\..\..\src\Core\Math\Edge.h">
       <Filter>Fichiers sources\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Voxel\Types.h">
-      <Filter>Fichiers sources\Voxel</Filter>
+    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\Types.h">
+      <Filter>Fichiers sources\Voxel\Basic</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Voxel\StaticChunk.h">
-      <Filter>Fichiers sources\Voxel</Filter>
+    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\StaticLodChunk64Map.h">
+      <Filter>Fichiers sources\Voxel\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\StaticLodChunkN.h">
+      <Filter>Fichiers sources\Voxel\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\Hashable3DKey.h">
+      <Filter>Fichiers sources\Voxel\Basic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

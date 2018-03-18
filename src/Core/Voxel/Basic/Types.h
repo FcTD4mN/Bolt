@@ -16,7 +16,6 @@ enum  eBaseMaterials : tByte
     kSolid = UCHAR_MAX,
 };
 
-static  tByte sgChunkMaxNeighbours = 6;
 enum  eChunkNeighbour : tByte
 {
     kTop    = 0,
