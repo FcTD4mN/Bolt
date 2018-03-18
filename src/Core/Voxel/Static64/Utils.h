@@ -9,20 +9,18 @@ typedef  unsigned  char         tByte;                  // Consider 8 bits, [0, 
 typedef  unsigned  short  int   t2Byte;                 // Consider 16 bits, [0, 65535]. Typical extended voxel data.
 static  const  t2Byte           sgFirstByteMask = 0x00FF;
 static  const  t2Byte           sgSecondByteMask = 0xFF00;
-
-typedef  short  int             tKeyComponent;          // Consider 16 bits, [−32,767, +32,767]. See also USHRT_MAX
-typedef  long  long  int        tHashedKeySignature;    // Consider 64 bits.
-typedef  long  int              tUnsafeDataIndex;             // Consider 32 bits.
-typedef  tByte                  tSafeDataIndex;           // Consider 8 bits.
-static  const  tSafeDataIndex   sgMaxSafeDataIndex = 0xFF;
+typedef  short  int             tKeyComponent;              // Consider 16 bits, [−32,767, +32,767]. See also USHRT_MAX
+typedef  long  long  int        tHashableKeySignature;      // Consider 64 bits.
+typedef  long  int              tGlobalDataIndex;           // Consider 32 bits, [−2,147,483,647, +2,147,483,647]
+typedef  tByte                  tLocalDataIndex;             // Consider 8 bits.
+static  const  tLocalDataIndex  sgMaxLocalDataIndex = 0xFF;
 
 enum  eBaseMaterials : tByte
 {
     kEmpty = 0,
-    kSolid = UCHAR_MAX,
 };
 
-enum  class eDataNeighbourState : tByte
+enum  class eDataNeighbourFlag: tByte
 {
     kNone = 0,      // 0000 0000
     kTop = 1,       // 0000 0001
@@ -33,7 +31,7 @@ enum  class eDataNeighbourState : tByte
     kRight = 32,    // 0010 0000
 };
 
-enum  eChunkNeighbour : tByte
+enum  eChunkNeighbourIndex : tByte
 {
     kTop    = 0,
     kBot    = 1,
