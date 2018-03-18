@@ -246,6 +246,9 @@
     <ClCompile Include="..\..\..\src\Core\Bitvolume\Static64\StaticLodChunk64.cpp">
       <Filter>Fichiers sources\Bitvolume\Static64</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -403,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Types.h">
       <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

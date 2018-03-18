@@ -71,6 +71,8 @@ cGameScreen::Initialize()
     sf::Vector2f  position  = sf::Vector2f( 0, availableGeometry.y * float(posRatio));
     mConsoleWidget.SetSize( size );
     mConsoleWidget.SetPosition( position );
+    mConsoleWidget.ToggleVisibility();
+
 
     // Not compatible with input system
     //cGameApplication::App()->Window()->setKeyRepeatEnabled( true );

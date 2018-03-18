@@ -8,6 +8,7 @@
 
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/InfiltratorScreen.h"
+#include "GameMockup/OpenGLRenderSceneScreen.h"
 #include "GameMockup/Systems/AnimationRenderer.h"
 #include "GameMockup/Systems/InputConverter.h"
 #include "GameMockup/Systems/SimplePhysics.h"
@@ -142,11 +143,15 @@ cGameApplication::Initialize()
         cGameApplication::App()->PushScreen( new cInfiltratorScreen() );
     } );
 
+    cItemCallback*   openGLRenderSceneScreenSwap = new cItemCallback( menu, "OpenGL", rect, [](){
+        cGameApplication::App()->PushScreen( new cOpenGLRenderSceneScreen() );
+    } );
 
     pageOne->AddItem( itemOne );
     pageOne->AddItem( itemOne2 );
     pageOne->AddItem( gameScreenSwap );
     pageOne->AddItem( infiltratorScreenSwap );
+    pageOne->AddItem( openGLRenderSceneScreenSwap );
     pageTwo->AddItem( itemTwo );
     pageTwo->AddItem( itemTwo2 );
 

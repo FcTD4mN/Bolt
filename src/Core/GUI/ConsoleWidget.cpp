@@ -154,6 +154,13 @@ cConsoleWidget::SetBackgroundColor()  const
 }
 
 
+void
+cConsoleWidget::ToggleVisibility()
+{
+    mCollapsed = !mCollapsed;
+}
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------- Internal Logic Initialization
 // -------------------------------------------------------------------------------------
@@ -786,7 +793,7 @@ cConsoleWidget::KeyPressed( const sf::Event& iEvent )
 
     if( code == sf::Keyboard::Tab && modifierState == kControl )
     {
-        mCollapsed = !mCollapsed;
+        ToggleVisibility();
     }
 
     CHECK_COLLAPSED

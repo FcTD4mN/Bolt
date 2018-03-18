@@ -39,6 +39,8 @@ public:
     const  sf::Vector2f&  SetPosition()  const;
     const  sf::Color&     SetBackgroundColor()  const;
 
+    void  ToggleVisibility();
+
 private:
     // Internal Logic Initialization
     void    BuildEventProcessMaps();
