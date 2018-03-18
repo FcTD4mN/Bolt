@@ -90,7 +90,7 @@ inline void cStaticLodChunkN<N>::Fill(tByte iVal)
         mData[i][j][k] = iVal;
     IJK_ITERATION_END
 
-    if( iVal == 0 )
+    if( iVal == eBaseMaterials::kEmpty )
         mOccupiedVolume = 0;
     else
         mOccupiedVolume = mCapacity;
@@ -128,7 +128,7 @@ inline void cStaticLodChunkN<N>::SetData(tByte iX,tByte iY,tByte iZ, tByte iValu
 template<tByte N>
 inline bool cStaticLodChunkN<N>::IsSolid(tByte iX,tByte iY,tByte iZ)
 {
-    return  bool( mData[iX][iY][iZ] );
+    return  mData[iX][iY][iZ] != eBaseMaterials::kEmpty;
 }
 
 template<tByte N>
