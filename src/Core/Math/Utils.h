@@ -197,7 +197,7 @@ bool
 IsVectorEqualToVector( const sf::Vector2f& iVectorA, const sf::Vector2f& iVectorB )
 {
     sf::Vector2f sub = iVectorA - iVectorB;
-    if( abs( sub.x ) < kEpsilonF && abs( sub.y ) < kEpsilonF )
+    if( abs( sub.x ) < kEpsilonPixelF && abs( sub.y ) < kEpsilonPixelF )
         return  true;
 
     return  false;

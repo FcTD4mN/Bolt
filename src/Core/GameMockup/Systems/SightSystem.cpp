@@ -125,7 +125,7 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
         for( int j = 0; j < mResultingSubTriangles[ i ].getVertexCount(); ++j )
         {
             mResultingSubTriangles[ i ].setPrimitiveType( sf::Triangles );
-            mResultingSubTriangles[ i ][ j ].color = sf::Color( (50*i)%255, ( 100 * i ) % 255, ( 10 * i ) % 255, 255 );
+            mResultingSubTriangles[ i ][ j ].color = sf::Color( (50*i)%255, ( 100 * i ) % 255, ( 10 * i ) % 255, 50 );
         }
         iRenderTarget->draw( mResultingSubTriangles[ i ] );
     }
@@ -317,7 +317,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray.mRay );
 
                         auto fovVector = ray.mRay.mPoint + paramB * ray.mRay.mDirection;
-                        AddElementToVertexArrayUnique( fovVector, &mInterestingHitPoints );
+
+                        if( (hitPoints.getVertexCount() == 0) || (hitPoints.getVertexCount() == 1 && ray.mRayType != cRay::eRayType::kFovSide) )
+                            AddElementToVertexArrayUnique( fovVector, &mInterestingHitPoints );
 
                         // CHECK: we could remove this from if
                         // BUT: this situation avoids computing useless transformations and apply a useless sort

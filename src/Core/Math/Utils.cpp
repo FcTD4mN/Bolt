@@ -316,7 +316,14 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
             equal = abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF;
             closer = pair.position.x < angleSort[ index ].position.x;
             if( equal && closer )
+            {
                 break;
+            }
+            else if( equal && !closer )
+            {
+                ++index;
+                break;
+            }
 
             ++index;
         }
