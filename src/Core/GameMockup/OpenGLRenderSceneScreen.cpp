@@ -1,3 +1,7 @@
+#include <GL/glew.h>
+#include <gl/GLU.h>
+#include "SFML/OpenGL.hpp"
+
 #include "GameMockup/OpenGLRenderSceneScreen.h"
 #include "GameMockup/GameApplication.h"
 
@@ -27,19 +31,30 @@ void
 cOpenGLRenderSceneScreen::Initialize()
 {
     cGameApplication::App()->SetAppTitle( "OpenGL Render Scene" );
-
+    auto window  = cGameApplication::App()->Window();
     mConsoleWidget = new  ::nGUI::cConsoleWidget();
-    sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
-                                                    float( cGameApplication::App()->Window()->getSize().y ) );
+    sf::Vector2f  availableGeometry = sf::Vector2f( float( window->getSize().x ),
+                                                    float( window->getSize().y ) );
     double posRatio     = 3./5.;
     double sizeRatio    = 2./5.;
     sf::Vector2f  size      = sf::Vector2f( availableGeometry.x, availableGeometry.y * float(sizeRatio) );
     sf::Vector2f  position  = sf::Vector2f( 0, availableGeometry.y * float(posRatio));
     mConsoleWidget->SetSize( size );
     mConsoleWidget->SetPosition( position );
-    mConsoleWidget->ToggleVisibility();
+    //mConsoleWidget->ToggleVisibility();
 
     cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
+
+    // Init OpenGL stuff
+    sf::ContextSettings settings = window->getSettings();
+    ::nBoltScript::Env()->Print( "depth bits:" + std::to_string( settings.depthBits ) + "\n" );
+    ::nBoltScript::Env()->Print( "stencil bits:" + std::to_string( settings.stencilBits ) + "\n" );
+    ::nBoltScript::Env()->Print( "antialiasing level:" + std::to_string( settings.antialiasingLevel ) + "\n" );
+    ::nBoltScript::Env()->Print( "version:" + std::to_string( settings.majorVersion ) + "\n" );
+    window->setVerticalSyncEnabled(true);
+    glViewport(0, 0, window->getSize().x, window->getSize().y );
+    GLuint vao = 0;
+    glGenVertexArrays(1, &vao);
 }
 
 
@@ -62,8 +77,12 @@ cOpenGLRenderSceneScreen::Finalize()
 void
 cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
-    auto window = cGameApplication::App()->Window();
-    window->clear( sf::Color( 42, 40, 44 ) );
+    //auto window = cGameApplication::App()->Window();
+    //window->clear( sf::Color( 42, 40, 44 ) );
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+
     mConsoleWidget->Draw( iRenderTarget );
 }
 
