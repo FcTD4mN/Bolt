@@ -261,7 +261,7 @@ cStaticLodChunk64::DirectDraw()
                 glTranslatef( i, j, k );
 
                 if( IsSolid( i, j, k ) )
-                    DirectDrawCube();
+                    DirectDrawCube( GetMaterial( i, j, k ) );
 
                 glPopMatrix();
             }
@@ -271,9 +271,11 @@ cStaticLodChunk64::DirectDraw()
 
 
 void
-cStaticLodChunk64::DirectDrawCube()
+cStaticLodChunk64::DirectDrawCube( tByte iMaterial )
 {
+    float g = float( iMaterial ) / 255.f;
     glBegin(GL_QUADS);
+    glColor3f( g, g, g );
 
     glVertex3f(-0.5f, -0.5f, -0.5f);
     glVertex3f(-0.5f,  0.5f, -0.5f);

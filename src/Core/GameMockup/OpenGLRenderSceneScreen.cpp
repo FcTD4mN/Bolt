@@ -83,7 +83,7 @@ cOpenGLRenderSceneScreen::Initialize()
                 double y = j - radius;
                 double z = k - radius;
                 if( sqrt( double( x*x + y*y + z*z ) ) < double( radius ) )
-                    mMap.SafeSetMaterial( i, j, k, 1 );
+                    mMap.SafeSetMaterial( i, j, k, rand() % 255 );
             }
         }
     }
@@ -115,10 +115,10 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef( 0.f, 0.f, -200.f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
+    glTranslatef( 0.f, 0.f, -100.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 5.f, 0.f, 0.f, -1.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 2.f, 0.f, 1.f, 0.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 8.f, 1.f, 0.f, 0.f );
     glTranslatef( -20.f, -20.f, -20.f );
 
     glPushMatrix();

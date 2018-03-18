@@ -62,7 +62,7 @@ private:
 public:
     // Naive Rendering
     void  DirectDraw();
-    void  DirectDrawCube();
+    void  DirectDrawCube( tByte iMaterial );
 
 private:
     // Private Data Members
