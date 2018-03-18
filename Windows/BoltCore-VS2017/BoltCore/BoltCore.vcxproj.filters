@@ -82,10 +82,10 @@
     <Filter Include="Fichiers sources\GameMockup\Screens">
       <UniqueIdentifier>{fa7cf3ce-9ec2-4ab3-a228-36a4678e253c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Voxel">
+    <Filter Include="Fichiers sources\Bitvolume">
       <UniqueIdentifier>{d4e58ea6-bd6f-464c-b5cb-1bb79e2ca74e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Voxel\Static64">
+    <Filter Include="Fichiers sources\Bitvolume\Static64">
       <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -231,14 +231,20 @@
     <ClCompile Include="..\..\..\src\Core\Math\Edge.cpp">
       <Filter>Fichiers sources\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Voxel\Static64\Hashable3DKey.cpp">
-      <Filter>Fichiers sources\Voxel\Static64</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Voxel\Static64\SparseStaticLodChunk64Map.cpp">
-      <Filter>Fichiers sources\Voxel\Static64</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Math\Ray.cpp">
       <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Bitvolume\Static64\Data.cpp">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Bitvolume\Static64\Hashable3DKey.cpp">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Bitvolume\Static64\SparseStaticLodChunk64Map.cpp">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Bitvolume\Static64\StaticLodChunk64.cpp">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -380,20 +386,23 @@
     <ClInclude Include="..\..\..\src\Core\Math\Edge.h">
       <Filter>Fichiers sources\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Hashable3DKey.h">
-      <Filter>Fichiers sources\Voxel\Static64</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\SparseStaticLodChunk64Map.h">
-      <Filter>Fichiers sources\Voxel\Static64</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\StaticLodChunkN.h">
-      <Filter>Fichiers sources\Voxel\Static64</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Utils.h">
-      <Filter>Fichiers sources\Voxel\Static64</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Math\Ray.h">
       <Filter>Fichiers sources\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Data.h">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Hashable3DKey.h">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\SparseStaticLodChunk64Map.h">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\StaticLodChunk64.h">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Bitvolume\Static64\Utils.h">
+      <Filter>Fichiers sources\Bitvolume\Static64</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

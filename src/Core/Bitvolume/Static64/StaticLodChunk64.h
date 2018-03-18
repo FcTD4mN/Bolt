@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Voxel/Static64/Utils.h"
+#include "Bitvolume/Static64/Utils.h"
+#include "Bitvolume/Static64/Data.h"
 
 
-namespace  nVoxel
+namespace  nBitvolume
 {
 
 
@@ -18,11 +19,11 @@ public:
 
 public:
     // Volume Information
-    inline  tByte           Size()              const;
-    inline  unsigned  int   Capacity()          const;
-    inline  unsigned  int   OccupiedVolume()    const;
-    inline  bool            IsFull()            const;
-    inline  bool            IsEmpty()           const;
+    tByte           Size()              const;
+    unsigned  int   Capacity()          const;
+    unsigned  int   OccupiedVolume()    const;
+    bool            IsFull()            const;
+    bool            IsEmpty()           const;
 
 public:
     // Volume Manipulation
@@ -30,13 +31,13 @@ public:
 
 public:
     // Material Accessors
-    tByte  GetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const;
-    void  SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue );
-    bool  IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const;
+    tByte   GetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const;
+    void    SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue );
+    bool    IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const;
 
 public:
     // Neighbour Accessors
-    cStaticLodChunk64*  GetNeighbour( eChunkNeighbourIndex  iNeighbourIndex );
+    cStaticLodChunk64*  GetNeighbour( eChunkNeighbourIndex  iNeighbourIndex )  const;
     void  SetNeighbour( eChunkNeighbourIndex  iNeighbourIndex, cStaticLodChunk64* iAdress );
 
 private:
@@ -51,11 +52,11 @@ private:
 private:
     static  const  tByte  msSize = 64;
     static  const  unsigned  int  msCapacity = msSize * msSize * msSize; // size^3
-    t2Byte  mData[msSize][msSize][msSize];
+    cData  mData[msSize][msSize][msSize];
     cStaticLodChunk64*  mNeighbour[6] = { 0, 0, 0, 0, 0, 0 }; // six neighbours
     unsigned  int  mOccupiedVolume;
 
 };
 
 
-} // namespace  nVoxel
+} // namespace  nBitvolume

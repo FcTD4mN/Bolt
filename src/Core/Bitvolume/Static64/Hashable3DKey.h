@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Voxel/Static64/Utils.h"
+#include "Bitvolume/Static64/Utils.h"
 
 
-namespace  nVoxel
+namespace  nBitvolume
 {
 
 
@@ -12,11 +12,11 @@ class  cHashable3DKey
 
 public:
     cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ );
-    cHashable3DKey( tHashedKeySignature iHashedSignature );
+    cHashable3DKey( tHashableKeySignature iHashedSignature );
 
 public:
     void  Set( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ );
-    void  Set( tHashedKeySignature iHashedSignature );
+    void  Set( tHashableKeySignature iHashedSignature );
     void  SetX( tKeyComponent iValue );
     void  SetY( tKeyComponent iValue );
     void  SetZ( tKeyComponent iValue );
@@ -25,7 +25,7 @@ public:
     tKeyComponent  GetY()  const;
     tKeyComponent  GetZ()  const;
 
-    const  tHashedKeySignature&  HashedSignature()  const;
+    const  tHashableKeySignature&  HashedSignature()  const;
 
     cHashable3DKey  Top()  const;
     cHashable3DKey  Bot()  const;
@@ -43,9 +43,9 @@ private:
     tKeyComponent  mY;
     tKeyComponent  mZ;
     mutable  bool  mCacheValid;
-    mutable  tHashedKeySignature  mCachedHashedSignature;
+    mutable  tHashableKeySignature  mCachedHashedSignature;
 };
 
 
 
-} // namespace  nVoxel
+} // namespace  nBitvolume

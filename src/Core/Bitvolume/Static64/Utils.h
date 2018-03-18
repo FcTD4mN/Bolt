@@ -2,7 +2,7 @@
 
 #include <limits>
 
-namespace  nVoxel
+namespace  nBitvolume
 {
 
 typedef  unsigned  char         tByte;                  // Consider 8 bits, [0, 255]. Smallest addressable unit.
@@ -14,22 +14,7 @@ typedef  long  long  int        tHashableKeySignature;      // Consider 64 bits.
 typedef  long  int              tGlobalDataIndex;           // Consider 32 bits, [−2,147,483,647, +2,147,483,647]
 typedef  tByte                  tLocalDataIndex;             // Consider 8 bits.
 static  const  tLocalDataIndex  sgMaxLocalDataIndex = 0xFF;
-
-enum  eBaseMaterials : tByte
-{
-    kEmpty = 0,
-};
-
-enum  class eDataNeighbourFlag: tByte
-{
-    kNone = 0,      // 0000 0000
-    kTop = 1,       // 0000 0001
-    kBot = 2,       // 0000 0010
-    kFront = 4,     // 0000 0100
-    kBack = 8,      // 0000 1000
-    kLeft = 16,     // 0001 0000
-    kRight = 32,    // 0010 0000
-};
+static  const  tByte            sgEmptyMaterial = 0;
 
 enum  eChunkNeighbourIndex : tByte
 {
@@ -49,10 +34,6 @@ enum  eChunkNeighbourIndex : tByte
                                                     {
 
 #define  IJK_ITERATION_END     }}}
-
-template< tByte N >  class  cStaticLodChunkN;
-typedef  cStaticLodChunkN< 64 > tStaticLodChunk64;
-
 
 #define KEY_EXISTS( iMap, iKey )            ( ! ( iMap.find( iKey ) == iMap.end() ) )
 

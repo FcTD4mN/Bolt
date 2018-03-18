@@ -1,7 +1,7 @@
-#include "Voxel/Static64/StaticLodChunk64.h"
+#include "Bitvolume/Static64/StaticLodChunk64.h"
 
 
-namespace  nVoxel
+namespace  nBitvolume
 {
 
 //----------------------------------------------------------------------------------------------
@@ -25,34 +25,34 @@ cStaticLodChunk64::cStaticLodChunk64() :
 //--------------------------------------------------------------------------- Volume Information
 
 
- inline  tByte cStaticLodChunk64::Size()  const
+tByte cStaticLodChunk64::Size()  const
 {
     return  msSize;
 }
 
 
-inline  unsigned  int 
+unsigned  int 
 cStaticLodChunk64::Capacity()  const
 {
     return  msCapacity;
 }
 
 
-inline  unsigned  int
+unsigned  int
 cStaticLodChunk64::OccupiedVolume()  const
 {
     return  mOccupiedVolume;
 }
 
 
-inline  bool
+bool
 cStaticLodChunk64::IsFull()  const
 {
     return  mOccupiedVolume == msCapacity;
 }
 
 
-inline  bool
+bool
 cStaticLodChunk64::IsEmpty()  const
 {
     return  mOccupiedVolume == 0;
@@ -70,7 +70,7 @@ cStaticLodChunk64::Fill(tByte iVal)
         mData[i][j][k] = iVal;
     IJK_ITERATION_END
 
-    if( iVal == eBaseMaterials::kEmpty )
+    if( iVal == sgEmptyMaterial )
         mOccupiedVolume = 0;
     else
         mOccupiedVolume = msCapacity;
@@ -108,7 +108,7 @@ void
 bool
  cStaticLodChunk64::IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
 {
-    return  mData[iX][iY][iZ] != eBaseMaterials::kEmpty;
+    return  mData[iX][iY][iZ].GetMaterialField() != sgEmptyMaterial;
 }
 
 
@@ -118,7 +118,7 @@ bool
 
 
 cStaticLodChunk64*
-cStaticLodChunk64::GetNeighbour( eChunkNeighbourIndex  iNeighbour )
+cStaticLodChunk64::GetNeighbour( eChunkNeighbourIndex  iNeighbour )  const
 {
     return  mNeighbour[ iNeighbour ];
 }
@@ -137,7 +137,7 @@ void cStaticLodChunk64::SetNeighbour( eChunkNeighbourIndex iNeighbour, cStaticLo
 const  t2Byte&
 cStaticLodChunk64::GetData( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
 {
-    return  mData[iX][iY][iZ];
+    return  mData[iX][iY][iZ].GetDataField();
 }
 
 
@@ -200,6 +200,8 @@ cStaticLodChunk64::ExternChunkFromCoordinates( tGlobalDataIndex iX, tGlobalDataI
         if( iX < 0 )        return  mNeighbour[ eChunkNeighbourIndex::kLeft ];
         if( iX >= msSize )  return  mNeighbour[ eChunkNeighbourIndex::kRight ];
     }
+
+    return  NULL;
 }
 
-} // namespace  nVoxel
+} // namespace  nBitvolume

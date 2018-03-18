@@ -1,6 +1,6 @@
-#include "Voxel/Static64/Hashable3DKey.h"
+#include "Bitvolume/Static64/Hashable3DKey.h"
 
-namespace  nVoxel
+namespace  nBitvolume
 {
 
 cHashable3DKey::cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ ) :
@@ -13,7 +13,7 @@ cHashable3DKey::cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponen
 }
 
 
-cHashable3DKey::cHashable3DKey( tHashedKeySignature iHashedSignature ) :
+cHashable3DKey::cHashable3DKey( tHashableKeySignature iHashedSignature ) :
     mX( 0 ),
     mY( 0 ),
     mZ( 0 ),
@@ -34,7 +34,7 @@ cHashable3DKey::Set( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ )
 
 
 void
-cHashable3DKey::Set( tHashedKeySignature iHashedSignature )
+cHashable3DKey::Set( tHashableKeySignature iHashedSignature )
 {
     mCachedHashedSignature = iHashedSignature;
     mCacheValid = true;
@@ -89,7 +89,7 @@ cHashable3DKey::GetZ()  const
 }
 
 
-const  tHashedKeySignature&
+const  tHashableKeySignature&
 cHashable3DKey::HashedSignature()  const
 {
     UpdateHashedSignatureCache();
@@ -155,12 +155,12 @@ cHashable3DKey::UpdateHashedSignatureCache()  const
     if( mCacheValid )
         return;
 
-    mCachedHashedSignature = tHashedKeySignature( mX ) << 32 |
-                             tHashedKeySignature( mY ) << 16 |
-                             tHashedKeySignature( mZ );
+    mCachedHashedSignature = tHashableKeySignature( mX ) << 32 |
+                             tHashableKeySignature( mY ) << 16 |
+                             tHashableKeySignature( mZ );
 
     mCacheValid = true;
 }
 
 
-} // namespace  nVoxel
+} // namespace  nBitvolume
