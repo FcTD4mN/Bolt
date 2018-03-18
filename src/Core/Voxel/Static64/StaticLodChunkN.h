@@ -18,10 +18,14 @@ public:
 public:
     tByte           Size();
     unsigned  int   Capacity();
+    unsigned  int   OccupiedVolume();
     void            Fill( tByte iVal );
+    bool            Full();
+    bool            Empty();
 
 public:
-    tByte* operator()( tByte iX, tByte iY, tByte iZ );
+    const  tByte&  GetData( tByte iX, tByte iY, tByte iZ )  const;
+    void  SetData( tByte iX, tByte iY, tByte iZ, tByte iValue );
 
 public:
     cStaticLodChunkN*  GetNeighbour( eChunkNeighbour  iNeighbour );
@@ -30,18 +34,22 @@ public:
 private:
     tByte mData[N][N][N];
     cStaticLodChunkN*  mNeighbour[6];
-    static  const  int  mCapacity = N * N * N;
+    static  const  unsigned  int  mCapacity = N * N * N;
+    unsigned  int  mOccupiedVolume;
+
 };
 
 
 template< tByte N >
-cStaticLodChunkN< N >::cStaticLodChunkN()
+cStaticLodChunkN< N >::cStaticLodChunkN() :
+    mOccupiedVolume( 0 )
 {
 }
 
 
 template< tByte N >
-inline cStaticLodChunkN< N >::cStaticLodChunkN( tByte iVal )
+inline cStaticLodChunkN< N >::cStaticLodChunkN( tByte iVal ) :
+    mOccupiedVolume( 0 )
 {
     Fill( iVal );
 }
@@ -60,6 +68,12 @@ inline unsigned  int cStaticLodChunkN<N>::Capacity()
     return  mCapacity;
 }
 
+template<tByte N>
+inline unsigned int cStaticLodChunkN<N>::OccupiedVolume()
+{
+    return  mOccupiedVolume;
+}
+
 
 template<tByte N>
 inline void cStaticLodChunkN<N>::Fill(tByte iVal)
@@ -67,15 +81,41 @@ inline void cStaticLodChunkN<N>::Fill(tByte iVal)
     IJK_ITERATION_BEGIN( N )
         mData[i][j][k] = iVal;
     IJK_ITERATION_END
-}
 
+    if( iVal == 0 )
+        mOccupiedVolume = 0;
+    else
+        mOccupiedVolume = mCapacity;
+}
 
 template<tByte N>
-inline tByte* cStaticLodChunkN<N>::operator()( tByte iX,tByte iY,tByte iZ )
+inline bool cStaticLodChunkN<N>::Full()
 {
-    return  &mData[iX][iY][iZ];
+    return  mOccupiedVolume == mCapacity;
 }
 
+template<tByte N>
+inline bool cStaticLodChunkN<N>::Empty()
+{
+    return  mOccupiedVolume == 0;
+}
+
+template<tByte N>
+inline const tByte & cStaticLodChunkN<N>::GetData(tByte iX,tByte iY,tByte iZ) const
+{
+    return  mData[iX][iY][iZ];
+}
+
+template<tByte N>
+inline void cStaticLodChunkN<N>::SetData(tByte iX,tByte iY,tByte iZ, tByte iValue)
+{
+    tByte oldValue = mData[iX][iY][iZ];
+    mData[iX][iY][iZ] = iValue;
+
+    tByte flag = tByte( bool( oldValue ) ) << 1 | tByte( bool( iValue ) );
+    if( flag == 2 ) --mOccupiedVolume;
+    if( flag == 1 ) ++mOccupiedVolume;
+}
 
 
 template<tByte N>

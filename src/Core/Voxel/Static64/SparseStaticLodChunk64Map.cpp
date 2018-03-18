@@ -92,7 +92,7 @@ cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey 
 }
 
 
-tByte*
+const  tByte&
 cSparseStaticLodChunk64Map::operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
@@ -100,7 +100,7 @@ cSparseStaticLodChunk64Map::operator()( tDataIndex iX, tDataIndex iY, tDataIndex
     tByte dataY = tByte( tKeyComponent( iY ) - key.GetY() * 64 );
     tByte dataZ = tByte( tKeyComponent( iZ ) - key.GetZ() * 64 );
     auto chunk = ChunkAtKey( key );
-    return  (*chunk)( dataX, dataY, dataZ );
+    return  chunk->GetData( dataX, dataY, dataZ );
 }
 
 
@@ -113,7 +113,7 @@ cSparseStaticLodChunk64Map::SafeSetData( tDataIndex iX, tDataIndex iY, tDataInde
     tByte dataY = tByte( tKeyComponent( iY ) - key.GetY() * 64 );
     tByte dataZ = tByte( tKeyComponent( iZ ) - key.GetZ() * 64 );
     auto chunk = ChunkAtKey( key );
-    *(*chunk)( dataX, dataY, dataZ ) = iValue;
+    chunk->SetData( dataX, dataY, dataZ, iValue );
 }
 
 

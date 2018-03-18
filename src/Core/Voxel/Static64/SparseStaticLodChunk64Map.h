@@ -26,7 +26,7 @@ public:
     void  UpdateChunkNeighbours( const  cHashable3DKey&  iKey );
 
 public:
-    tByte* operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
+    const  tByte&  operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
     void  SafeSetData( tDataIndex iX, tDataIndex iY, tDataIndex iZ, tByte iValue );
 
 private:
