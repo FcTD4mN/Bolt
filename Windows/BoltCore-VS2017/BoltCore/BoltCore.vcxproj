@@ -273,8 +273,8 @@
     <ClCompile Include="..\..\..\src\Core\Screen\Screen.cpp" />
     <ClCompile Include="..\..\..\src\Core\Screen\ScreenMainMenu.cpp" />
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Shortcuts.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Voxel\Basic\Hashable3DKey.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Voxel\Basic\StaticLodChunk64Map.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Voxel\Static64\Hashable3DKey.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Voxel\Static64\SparseStaticLodChunk64Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h" />
@@ -323,10 +323,10 @@
     <ClInclude Include="..\..\..\src\Core\Screen\Screen.h" />
     <ClInclude Include="..\..\..\src\Core\Screen\ScreenMainMenu.h" />
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h" />
-    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\Hashable3DKey.h" />
-    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\StaticLodChunkN.h" />
-    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\StaticLodChunk64Map.h" />
-    <ClInclude Include="..\..\..\src\Core\Voxel\Basic\Types.h" />
+    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Hashable3DKey.h" />
+    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\SparseStaticLodChunk64Map.h" />
+    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\StaticLodChunkN.h" />
+    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

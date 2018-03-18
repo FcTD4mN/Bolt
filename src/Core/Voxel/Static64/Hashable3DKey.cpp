@@ -1,4 +1,4 @@
-#include "Voxel/Basic/Hashable3DKey.h"
+#include "Voxel/Static64/Hashable3DKey.h"
 
 namespace  nVoxel
 {

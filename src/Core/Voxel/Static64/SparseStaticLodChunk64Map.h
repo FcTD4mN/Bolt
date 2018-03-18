@@ -2,20 +2,20 @@
 
 #include <unordered_map>
 
-#include "Voxel/Basic/Types.h"
-#include "Voxel/Basic/StaticLodChunkN.h"
-#include "Voxel/Basic/Hashable3DKey.h"
+#include "Voxel/Static64/Types.h"
+#include "Voxel/Static64/StaticLodChunkN.h"
+#include "Voxel/Static64/Hashable3DKey.h"
 
 
 namespace  nVoxel
 {
 
-class  cStaticLodChunk64Map
+class  cSparseStaticLodChunkN
 {
 
 public:
-    cStaticLodChunk64Map();
-    cStaticLodChunk64Map( const  cStaticLodChunk64Map& ) = delete;
+    cSparseStaticLodChunkN();
+    cSparseStaticLodChunkN( const  cSparseStaticLodChunkN& ) = delete;
 
 public:
     void  MkChunk( const  cHashable3DKey&  iKey );
