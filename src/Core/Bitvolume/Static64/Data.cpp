@@ -58,6 +58,13 @@ cData::HasNeighbour( eDataNeighbourFlag iDataNeighbourFlag)  const
 }
 
 
+bool
+cData::IsSolid()  const
+{
+    return  GetMaterialField() != sgEmptyMaterial;
+}
+
+
 void
 cData::SetDataField( const  t2Byte&  iDataField )
 {

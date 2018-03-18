@@ -12,6 +12,41 @@ cSparseStaticLodChunk64Map::cSparseStaticLodChunk64Map() :
 }
 
 
+//----------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------- Sparse Volume Information
+
+
+cHashable3DKey
+cSparseStaticLodChunk64Map::KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )  const
+{
+    tKeyComponent keyX = tKeyComponent( floor( double(iX) / 64. ) );
+    tKeyComponent keyY = tKeyComponent( floor( double(iY) / 64. ) );
+    tKeyComponent keyZ = tKeyComponent( floor( double(iZ) / 64. ) );
+    return  cHashable3DKey( keyX, keyY, keyZ );
+}
+
+
+bool
+cSparseStaticLodChunk64Map::ChunkExists( const  cHashable3DKey&  iKey )  const
+{
+    return  KEY_EXISTS( mChunks, iKey.HashedSignature() );
+}
+
+
+cStaticLodChunk64*
+cSparseStaticLodChunk64Map::ChunkAtKey( const  cHashable3DKey&  iKey )
+{
+    auto it = mChunks.find( iKey.HashedSignature() );
+    if( it != mChunks.end() )
+        return  it->second;
+    else
+        return  NULL;
+}
+
+
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------ Chunk cmd
+
 void
 cSparseStaticLodChunk64Map::MkChunk( const  cHashable3DKey&  iKey )
 {
@@ -34,44 +69,16 @@ cSparseStaticLodChunk64Map::RmChunk( const  cHashable3DKey&  iKey )
 }
 
 
-bool
-cSparseStaticLodChunk64Map::ChunkExists( const  cHashable3DKey&  iKey )
-{
-    return  KEY_EXISTS( mChunks, iKey.HashedSignature() );
-}
-
-
-cStaticLodChunk64*
-cSparseStaticLodChunk64Map::ChunkAtKey( const  cHashable3DKey&  iKey )
-{
-    auto it = mChunks.find( iKey.HashedSignature() );
-    if( it != mChunks.end() )
-        return  it->second;
-    else
-        return  NULL;
-}
-
-
-cHashable3DKey
-cSparseStaticLodChunk64Map::KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
-{
-    tKeyComponent keyX = tKeyComponent( floor( double(iX) / 64. ) );
-    tKeyComponent keyY = tKeyComponent( floor( double(iY) / 64. ) );
-    tKeyComponent keyZ = tKeyComponent( floor( double(iZ) / 64. ) );
-    return  cHashable3DKey( keyX, keyY, keyZ );
-}
-
-
 void
 cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey )
 {
-    auto chunk = ChunkAtKey( iKey );
-    auto top = ChunkAtKey( iKey.Top() );
-    auto bot = ChunkAtKey( iKey.Bot() );
-    auto front  = ChunkAtKey( iKey.Front() );
-    auto back = ChunkAtKey( iKey.Back() );
-    auto left = ChunkAtKey( iKey.Left() );
-    auto right = ChunkAtKey( iKey.Right() );
+    auto chunk  = ChunkAtKey( iKey );           // can be NULL
+    auto top    = ChunkAtKey( iKey.Top() );     // can be NULL
+    auto bot    = ChunkAtKey( iKey.Bot() );     // can be NULL
+    auto front  = ChunkAtKey( iKey.Front() );   // can be NULL
+    auto back   = ChunkAtKey( iKey.Back() );    // can be NULL
+    auto left   = ChunkAtKey( iKey.Left() );    // can be NULL
+    auto right  = ChunkAtKey( iKey.Right() );   // can be NULL
 
     if( chunk )
     {
@@ -102,6 +109,10 @@ cSparseStaticLodChunk64Map::PurgeEmptyChunks()
         if( chunk->IsEmpty() ) RmChunk( cHashable3DKey( hashedKey ) );
     }
 }
+
+
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- Wrapping Inner Data Access
 
 
 tByte

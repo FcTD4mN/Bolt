@@ -39,6 +39,7 @@ private:
     void  UpdateHashedSignatureCache()  const;
 
 private:
+    // Private Data Members
     tKeyComponent  mX;
     tKeyComponent  mY;
     tKeyComponent  mZ;

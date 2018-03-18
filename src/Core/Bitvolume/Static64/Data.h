@@ -36,6 +36,7 @@ public:
     tByte           GetMaterialField()                                      const;
     tByte           GetNeighbourField()                                     const;
     bool            HasNeighbour( eDataNeighbourFlag iDataNeighbourFlag)    const;
+    bool            IsSolid()                                               const;
 
     void  SetDataField( const  t2Byte&  iDataField );
     void  SetMaterialField( tByte  iMaterialField );
@@ -43,14 +44,15 @@ public:
     void  SetNeighbour( eDataNeighbourFlag iDataNeighbourFlag, bool iValue );
 
 private:
+    // Private Data Members
     union  uDataField
     {
         uDataField()                    : mData( t2Byte( 0 ) )          {}
-        uDataField( t2Byte iData )      : mData( iData )  {}
+        uDataField( t2Byte iData )      : mData( iData )                {}
         uDataField( tByte iMaterial )   : mData( t2Byte( iMaterial ) )  {}
 
         t2Byte  mData;      // Occupies 2 Bytes
-        tByte  mField[2];  // Occupies 2 Bytes
+        tByte   mField[2];  // Occupies 2 Bytes
     };                      // The whole union occupies 2 Bytes: First Byte is Material Field, Second Byte is Neighbour Field
 
     uDataField  mDataField;

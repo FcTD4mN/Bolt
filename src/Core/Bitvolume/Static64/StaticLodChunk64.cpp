@@ -81,34 +81,39 @@ cStaticLodChunk64::Fill(tByte iVal)
 //--------------------------------------------------------------------------- Material Accessors
 
 
+bool
+ cStaticLodChunk64::IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
+{
+    return  mData[iX][iY][iZ].IsSolid();
+}
+
+
 tByte
 cStaticLodChunk64::GetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
 {
-    return  tByte( GetData(iX,iY,iZ) & sgFirstByteMask );
+    return  mData[iX][iY][iZ].GetMaterialField();
 }
 
 
 void
  cStaticLodChunk64::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue )
 {
-    tByte oldValue = GetMaterial( iX, iY, iZ );
-    mData[iX][iY][iZ] = iValue;
+    tByte oldMat = GetMaterial( iX, iY, iZ );
+    mData[iX][iY][iZ].SetMaterialField( iValue );
 
-    tByte flag = tByte( bool( oldValue ) ) << 1 | tByte( bool( iValue ) );
+    tByte flag = tByte( bool( oldMat ) ) << 1 | tByte( bool( iValue ) );
+    // Bitfield manipulation:
+    // 11   old solid - new solid   - 3 - no change
+    // 10   old solid - new empty   - 2 - decrease occupied volume
+    // 01   old empty - new solid   - 1 - increase occupied volume
+    // 00   old empty - new empty   - 0 - no change
     if( flag == 2 ) --mOccupiedVolume;
     if( flag == 1 ) ++mOccupiedVolume;
 
-    if( flag == 1 || flag == 2 )
+    if( flag == 1 || flag == 2 )    // Update neighbours in case of change
     {
-        IsSolid( iX, iY, iZ );
+        UpdateDataNeighbours( iX, iY, iZ );
     }
-}
-
-
-bool
- cStaticLodChunk64::IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
-{
-    return  mData[iX][iY][iZ].GetMaterialField() != sgEmptyMaterial;
 }
 
 
@@ -144,61 +149,99 @@ cStaticLodChunk64::GetData( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIn
 void
 cStaticLodChunk64::SetData( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, t2Byte iValue )
 {
-    mData[iX][iY][iZ] = iValue;
+    mData[iX][iY][iZ].SetDataField( iValue );
 }
 
 
-const  t2Byte&
-cStaticLodChunk64::SafeExternGetData( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ)
+cData*
+cStaticLodChunk64::DataHandle( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
 {
-    auto chunk = ExternChunkFromCoordinates( iX, iY, iZ );
-    tLocalDataIndex safeX = iX % msSize;
-    tLocalDataIndex safeY = iY % msSize;
-    tLocalDataIndex safeZ = iZ % msSize;
-    return  chunk->GetData( safeX, safeY, safeZ );
+    return  &mData[iX][iY][iZ];
 }
 
 
 void
-cStaticLodChunk64::SafeExternSetData( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ, t2Byte iValue )
+cStaticLodChunk64::UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
 {
-    auto chunk = ExternChunkFromCoordinates( iX, iY, iZ );
-    tLocalDataIndex safeX = iX % msSize;
-    tLocalDataIndex safeY = iY % msSize;
-    tLocalDataIndex safeZ = iZ % msSize;
-    return  chunk->SetData( safeX, safeY, safeZ, iValue );
+    cData* currentHandle    = DataHandle( iX, iY, iZ );
+    bool  currentIsSolid = currentHandle->IsSolid();
+    cData* topDataHandle    = GetSafeExternDataHandle( iX,     iY-1,   iZ      );
+    cData* botDataHandle    = GetSafeExternDataHandle( iX,     iY+1,   iZ      );
+    cData* frontDataHandle  = GetSafeExternDataHandle( iX,     iY,     iZ-1    );
+    cData* backDataHandle   = GetSafeExternDataHandle( iX,     iY,     iZ+1    );
+    cData* leftDataHandle   = GetSafeExternDataHandle( iX-1,   iY,     iZ      );
+    cData* rightDataHandle  = GetSafeExternDataHandle( iX+1,   iY,     iZ      );
+
+    if( topDataHandle )
+    {
+        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kTop, topDataHandle->IsSolid() );
+        topDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kBot, currentIsSolid );
+    }
+
+    if( botDataHandle )
+    {
+        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kBot, botDataHandle->IsSolid() );
+        botDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kTop, currentIsSolid );
+    }
+
+    if( frontDataHandle )
+    {
+        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kFront, frontDataHandle->IsSolid() );
+        frontDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kBack, currentIsSolid );
+    }
+
+    if( backDataHandle )
+    {
+        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kBack, backDataHandle->IsSolid() );
+        backDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kFront, currentIsSolid );
+    }
+
+    if( leftDataHandle )
+    {
+        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kLeft, leftDataHandle->IsSolid() );
+        leftDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kRight, currentIsSolid );
+    }
+
+    if( rightDataHandle )
+    {
+        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kRight, rightDataHandle->IsSolid() );
+        rightDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kLeft, currentIsSolid );
+    }
 }
 
 
-t2Byte
-cStaticLodChunk64::SafeExternIsSolid( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
+
+cData*
+cStaticLodChunk64::GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
 {
-    auto chunk = ExternChunkFromCoordinates( iX, iY, iZ );
+    auto chunk = GetSafeExternChunkHandle( iX, iY, iZ );
+    if( !chunk )
+        return  NULL;
+
     tLocalDataIndex safeX = iX % msSize;
     tLocalDataIndex safeY = iY % msSize;
     tLocalDataIndex safeZ = iZ % msSize;
-    return  chunk->IsSolid( safeX, safeY, safeZ );
+    return  chunk->DataHandle( safeX, safeY, safeZ );
 }
-
 
 
  cStaticLodChunk64*
-cStaticLodChunk64::ExternChunkFromCoordinates( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
+cStaticLodChunk64::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
 {
-    if( ( iX & sgMaxLocalDataIndex ) &&
-        ( iY & sgMaxLocalDataIndex ) &&
-        ( iZ & sgMaxLocalDataIndex ) )
+    if( ( iX >= 0 && iX < msSize ) &&
+        ( iY >= 0 && iY < msSize ) &&
+        ( iZ >= 0 && iZ < msSize ) )
     {
         return  this;
     }
     else
     {
-        if( iY < 0 )        return  mNeighbour[ eChunkNeighbourIndex::kTop ];
-        if( iY >= msSize )  return  mNeighbour[ eChunkNeighbourIndex::kBot ];
-        if( iZ < 0 )        return  mNeighbour[ eChunkNeighbourIndex::kFront ];
-        if( iZ >= msSize )  return  mNeighbour[ eChunkNeighbourIndex::kBack ];
-        if( iX < 0 )        return  mNeighbour[ eChunkNeighbourIndex::kLeft ];
-        if( iX >= msSize )  return  mNeighbour[ eChunkNeighbourIndex::kRight ];
+        if( iY == -1 )      return  mNeighbour[ eChunkNeighbourIndex::kTop ];
+        if( iY == msSize )  return  mNeighbour[ eChunkNeighbourIndex::kBot ];
+        if( iZ == -1 )      return  mNeighbour[ eChunkNeighbourIndex::kFront ];
+        if( iZ == msSize )  return  mNeighbour[ eChunkNeighbourIndex::kBack ];
+        if( iX == -1 )      return  mNeighbour[ eChunkNeighbourIndex::kLeft ];
+        if( iX == msSize )  return  mNeighbour[ eChunkNeighbourIndex::kRight ];
     }
 
     return  NULL;

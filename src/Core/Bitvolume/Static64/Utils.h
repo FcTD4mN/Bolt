@@ -13,7 +13,6 @@ typedef  short  int             tKeyComponent;              // Consider 16 bits,
 typedef  long  long  int        tHashableKeySignature;      // Consider 64 bits.
 typedef  long  int              tGlobalDataIndex;           // Consider 32 bits, [−2,147,483,647, +2,147,483,647]
 typedef  tByte                  tLocalDataIndex;             // Consider 8 bits.
-static  const  tLocalDataIndex  sgMaxLocalDataIndex = 0xFF;
 static  const  tByte            sgEmptyMaterial = 0;
 
 enum  eChunkNeighbourIndex : tByte
