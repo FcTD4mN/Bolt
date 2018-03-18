@@ -7,12 +7,14 @@ namespace  nVoxel
 
 typedef  unsigned  char         tByte;                  // Consider 8 bits, [0, 255]. Smallest addressable unit.
 typedef  unsigned  short  int   t2Byte;                 // Consider 16 bits, [0, 65535]. Typical extended voxel data.
-static  const  unsigned  int    sgFirstByteMask = 0x00FF;
-static  const  unsigned  int    sgSecondByteMask = 0xFF00;
+static  const  t2Byte           sgFirstByteMask = 0x00FF;
+static  const  t2Byte           sgSecondByteMask = 0xFF00;
 
 typedef  short  int             tKeyComponent;          // Consider 16 bits, [−32,767, +32,767]. See also USHRT_MAX
 typedef  long  long  int        tHashedKeySignature;    // Consider 64 bits.
-typedef  long  int              tDataIndex;             // Consider 32 bits.
+typedef  long  int              tUnsafeDataIndex;             // Consider 32 bits.
+typedef  tByte                  tSafeDataIndex;           // Consider 8 bits.
+static  const  tSafeDataIndex   sgMaxSafeDataIndex = 0xFF;
 
 enum  eBaseMaterials : tByte
 {

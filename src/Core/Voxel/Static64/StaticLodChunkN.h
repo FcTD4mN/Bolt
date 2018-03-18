@@ -24,9 +24,9 @@ public:
     bool            IsEmpty();
 
 public:
-    tByte  GetMaterial( tByte iX, tByte iY, tByte iZ )  const;
-    void  SetMaterial( tByte iX, tByte iY, tByte iZ, tByte iValue );
-    bool  IsSolid( tByte iX, tByte iY, tByte iZ );
+    tByte  GetMaterial( tSafeDataIndex iX, tSafeDataIndex iY, tSafeDataIndex iZ )  const;
+    void  SetMaterial( tSafeDataIndex iX, tSafeDataIndex iY, tSafeDataIndex iZ, tByte iValue );
+    bool  IsSolid( tSafeDataIndex iX, tSafeDataIndex iY, tSafeDataIndex iZ );
     bool  HasSolidTopNeighbour( tByte iX, tByte iY, tByte iZ );
     bool  HasSolidBotNeighbour( tByte iX, tByte iY, tByte iZ );
     bool  HasSolidFrontNeighbour( tByte iX, tByte iY, tByte iZ );
@@ -34,6 +34,14 @@ public:
     bool  HasSolidLeftNeighbour( tByte iX, tByte iY, tByte iZ );
     bool  HasSolidRightNeighbour( tByte iX, tByte iY, tByte iZ );
     int  DataNeighbourCount( tByte iX, tByte iY, tByte iZ );
+
+private:
+    const  t2Byte&  GetData( tSafeDataIndex iX, tSafeDataIndex iY, tSafeDataIndex iZ )  const;
+    void  SetData( tSafeDataIndex iX, tSafeDataIndex iY, tSafeDataIndex iZ, t2Byte iValue );
+    const  t2Byte&  SafeExternGetData( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ );
+    void  SafeExternSetData( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ, t2Byte iValue );
+    t2Byte  SafeExternIsSolid( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ );
+    cStaticLodChunkN*  ExternChunkFromCoordinates( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ );
 
 public:
     cStaticLodChunkN*  GetNeighbour( eChunkNeighbour  iNeighbour );
@@ -109,13 +117,13 @@ inline bool cStaticLodChunkN<N>::IsEmpty()
 }
 
 template<tByte N>
-inline  tByte cStaticLodChunkN<N>::GetMaterial(tByte iX,tByte iY,tByte iZ) const
+inline  tByte cStaticLodChunkN<N>::GetMaterial(tSafeDataIndex iX,tSafeDataIndex iY,tSafeDataIndex iZ) const
 {
-    return  tByte( mData[iX][iY][iZ] & sgFirstByteMask );
+    return  tByte( GetData(iX,iY,iZ) & sgFirstByteMask );
 }
 
 template<tByte N>
-inline void cStaticLodChunkN<N>::SetMaterial(tByte iX,tByte iY,tByte iZ, tByte iValue)
+inline void cStaticLodChunkN<N>::SetMaterial(tSafeDataIndex iX,tSafeDataIndex iY,tSafeDataIndex iZ, tByte iValue)
 {
     tByte oldValue = GetMaterial( iX, iY, iZ );
     mData[iX][iY][iZ] = iValue;
@@ -123,10 +131,15 @@ inline void cStaticLodChunkN<N>::SetMaterial(tByte iX,tByte iY,tByte iZ, tByte i
     tByte flag = tByte( bool( oldValue ) ) << 1 | tByte( bool( iValue ) );
     if( flag == 2 ) --mOccupiedVolume;
     if( flag == 1 ) ++mOccupiedVolume;
+
+    if( flag == 1 || flag == 2 )
+    {
+        IsSolid( iX, iY, iZ );
+    }
 }
 
 template<tByte N>
-inline bool cStaticLodChunkN<N>::IsSolid(tByte iX,tByte iY,tByte iZ)
+inline bool cStaticLodChunkN<N>::IsSolid(tSafeDataIndex iX,tSafeDataIndex iY,tSafeDataIndex iZ)
 {
     return  mData[iX][iY][iZ] != eBaseMaterials::kEmpty;
 }
@@ -262,6 +275,70 @@ inline int cStaticLodChunkN<N>::DataNeighbourCount(tByte iX,tByte iY,tByte iZ)
             int( HasSolidBackNeighbour( iX, iY, iZ ) ) +
             int( HasSolidLeftNeighbour( iX, iY, iZ ) ) +
             int( HasSolidRightNeighbour( iX, iY, iZ ) );
+}
+
+template<tByte N>
+inline const t2Byte & cStaticLodChunkN<N>::GetData(tSafeDataIndex iX,tSafeDataIndex iY,tSafeDataIndex iZ) const
+{
+    return  mData[iX][iY][iZ];
+}
+
+template<tByte N>
+inline void cStaticLodChunkN<N>::SetData(tSafeDataIndex iX,tSafeDataIndex iY,tSafeDataIndex iZ,t2Byte iValue)
+{
+    mData[iX][iY][iZ] = iValue;
+}
+
+template<tByte N>
+inline const t2Byte & cStaticLodChunkN<N>::SafeExternGetData(tUnsafeDataIndex iX,tUnsafeDataIndex iY,tUnsafeDataIndex iZ)
+{
+    auto chunk = ExternChunkFromCoordinates( iX, iY, iZ );
+    tSafeDataIndex safeX = iX % N;
+    tSafeDataIndex safeY = iY % N;
+    tSafeDataIndex safeZ = iZ % N;
+    return  chunk->GetData( safeX, safeY, safeZ );
+}
+
+template<tByte N>
+inline void cStaticLodChunkN<N>::SafeExternSetData(tUnsafeDataIndex iX,tUnsafeDataIndex iY,tUnsafeDataIndex iZ,t2Byte iValue)
+{
+    auto chunk = ExternChunkFromCoordinates( iX, iY, iZ );
+    tSafeDataIndex safeX = iX % N;
+    tSafeDataIndex safeY = iY % N;
+    tSafeDataIndex safeZ = iZ % N;
+    return  chunk->SetData( safeX, safeY, safeZ, iValue );
+}
+
+template<tByte N>
+inline t2Byte cStaticLodChunkN<N>::SafeExternIsSolid(tUnsafeDataIndex iX,tUnsafeDataIndex iY,tUnsafeDataIndex iZ)
+{
+    auto chunk = ExternChunkFromCoordinates( iX, iY, iZ );
+    tSafeDataIndex safeX = iX % N;
+    tSafeDataIndex safeY = iY % N;
+    tSafeDataIndex safeZ = iZ % N;
+    return  chunk->IsSolid( safeX, safeY, safeZ );
+}
+
+
+template<tByte N>
+inline cStaticLodChunkN< N >*
+cStaticLodChunkN<N>::ExternChunkFromCoordinates(tUnsafeDataIndex iX,tUnsafeDataIndex iY,tUnsafeDataIndex iZ)
+{
+    if( ( iX & sgMaxSafeDataIndex ) &&
+        ( iY & sgMaxSafeDataIndex ) &&
+        ( iZ & sgMaxSafeDataIndex ) )
+    {
+        return  this;
+    }
+    else
+    {
+        if( iY < 0 )    return  mNeighbours[ eChunkNeighbour::kTop ];
+        if( iY >= N )   return  mNeighbours[ eChunkNeighbour::kBot ];
+        if( iZ < 0 )    return  mNeighbours[ eChunkNeighbour::kFront ];
+        if( iZ >= N )   return  mNeighbours[ eChunkNeighbour::kBack ];
+        if( iX < 0 )    return  mNeighbours[ eChunkNeighbour::kLeft ];
+        if( iX >= N )   return  mNeighbours[ eChunkNeighbour::kRight ];
+    }
 }
 
 

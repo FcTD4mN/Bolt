@@ -22,13 +22,13 @@ public:
     void  RmChunk( const  cHashable3DKey&  iKey );
     bool  ChunkExists( const  cHashable3DKey&  iKey );
     tStaticLodChunk64*  ChunkAtKey( const  cHashable3DKey&  iKey );
-    cHashable3DKey  KeyForIndices( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
+    cHashable3DKey  KeyForIndices( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ );
     void  UpdateChunkNeighbours( const  cHashable3DKey&  iKey );
     void  PurgeEmptyChunks();
 
 public:
-    tByte  operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
-    void  SafeSetData( tDataIndex iX, tDataIndex iY, tDataIndex iZ, tByte iValue );
+    tByte  operator()( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ );
+    void  SafeSetMaterial( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ, tByte iValue );
 
 private:
     std::unordered_map< tHashedKeySignature, tStaticLodChunk64* > mChunks; // Owning

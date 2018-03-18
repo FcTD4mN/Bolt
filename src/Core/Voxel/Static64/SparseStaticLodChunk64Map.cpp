@@ -53,7 +53,7 @@ cSparseStaticLodChunk64Map::ChunkAtKey( const  cHashable3DKey&  iKey )
 
 
 cHashable3DKey
-cSparseStaticLodChunk64Map::KeyForIndices( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
+cSparseStaticLodChunk64Map::KeyForIndices( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ )
 {
     tKeyComponent keyX = tKeyComponent( floor( double(iX) / 64. ) );
     tKeyComponent keyY = tKeyComponent( floor( double(iY) / 64. ) );
@@ -105,7 +105,7 @@ cSparseStaticLodChunk64Map::PurgeEmptyChunks()
 
 
 tByte
-cSparseStaticLodChunk64Map::operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
+cSparseStaticLodChunk64Map::operator()( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     tByte dataX = tByte( tKeyComponent( iX ) - key.GetX() * 64 );
@@ -117,7 +117,7 @@ cSparseStaticLodChunk64Map::operator()( tDataIndex iX, tDataIndex iY, tDataIndex
 
 
 void
-cSparseStaticLodChunk64Map::SafeSetData( tDataIndex iX, tDataIndex iY, tDataIndex iZ, tByte iValue )
+cSparseStaticLodChunk64Map::SafeSetMaterial( tUnsafeDataIndex iX, tUnsafeDataIndex iY, tUnsafeDataIndex iZ, tByte iValue )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     MkChunk( key );
