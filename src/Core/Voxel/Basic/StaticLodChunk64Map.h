@@ -17,7 +17,7 @@ public:
     cStaticLodChunk64Map( const  cStaticLodChunk64Map& ) = delete;
 
 private:
-    std::unordered_map< tHashableKeySignature, tStaticLodChunk64* > mData;
+    std::unordered_map< tHashedKeySignature, tStaticLodChunk64* > mData;
 };
 
 
