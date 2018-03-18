@@ -145,20 +145,6 @@ void cStaticLodChunk64::SetNeighbour( eChunkNeighbourIndex iNeighbour, cStaticLo
 //---------------------------------------------------------------------------- Data Manipulation
 
 
-const  t2Byte&
-cStaticLodChunk64::GetData( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
-{
-    return  mData[iX][iY][iZ].GetDataField();
-}
-
-
-void
-cStaticLodChunk64::SetData( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, t2Byte iValue )
-{
-    mData[iX][iY][iZ].SetDataField( iValue );
-}
-
-
 cData*
 cStaticLodChunk64::DataHandle( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
 {
@@ -254,3 +240,4 @@ cStaticLodChunk64::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
 }
 
 } // namespace  nBitvolume
+

@@ -141,3 +141,4 @@ cSparseStaticLodChunk64Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataInd
 
 
 } // namespace  nBitvolume
+

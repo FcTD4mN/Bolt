@@ -13,4 +13,5 @@ typedef  long  int              tGlobalDataIndex;           // Consider 32 bits,
 typedef  tByte                  tLocalDataIndex;            // Consider 8 bits.
 static  const  tByte            sgEmptyMaterial = 0;
 
-}
+} // namespace  nBitvolume
+

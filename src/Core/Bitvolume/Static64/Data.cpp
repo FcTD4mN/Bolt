@@ -30,24 +30,10 @@ cData::cData( tByte iMaterial ) :
 //------------------------------------------------------------------ Data Manipulation Interface
 
 
-const  t2Byte&
-cData::GetDataField()  const
-{
-    return  mDataField.mData;
-}
-
-
 tByte
 cData::GetMaterialField()  const
 {
     return  mDataField.mField[0];
-}
-
-
-tByte
-cData::GetNeighbourField()  const
-{
-    return  mDataField.mField[1];
 }
 
 
@@ -66,23 +52,9 @@ cData::IsSolid()  const
 
 
 void
-cData::SetDataField( const  t2Byte&  iDataField )
-{
-    mDataField.mData = iDataField;
-}
-
-
-void
 cData::SetMaterialField( tByte  iMaterialField )
 {
     mDataField.mField[0] = iMaterialField;
-}
-
-
-void
-cData::SetNeighbourField( tByte  iNeighbourField )
-{
-    mDataField.mField[1] = iNeighbourField;
 }
 
 
@@ -97,6 +69,37 @@ cData::SetNeighbour( eDataNeighbourFlag iDataNeighbourFlag, bool iValue )
 }
 
 
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- Private Manipulation tools
+
+
+void
+cData::SetDataField( const  t2Byte&  iDataField )
+{
+    mDataField.mData = iDataField;
+}
+
+
+void
+cData::SetNeighbourField( tByte  iNeighbourField )
+{
+    mDataField.mField[1] = iNeighbourField;
+}
+
+
+const  t2Byte&
+cData::GetDataField()  const
+{
+    return  mDataField.mData;
+}
+
+
+tByte
+cData::GetNeighbourField()  const
+{
+    return  mDataField.mField[1];
+}
 
 
 } // namespace  nBitvolume
+

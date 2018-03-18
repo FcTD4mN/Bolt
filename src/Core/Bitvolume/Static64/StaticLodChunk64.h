@@ -53,8 +53,6 @@ public:
 
 private:
     // Data Manipulation
-    const  t2Byte&  GetData( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const;
-    void            SetData( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, t2Byte iValue );
     cData*          DataHandle( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ );
     void            UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ );
 
@@ -73,3 +71,4 @@ private:
 
 
 } // namespace  nBitvolume
+

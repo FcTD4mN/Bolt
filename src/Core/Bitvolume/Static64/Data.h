@@ -11,8 +11,6 @@ class  cData
 {
 
 public:
-
-public:
 enum  eDataNeighbourFlag: tByte
 {
     kNone   = 0,    // 0000 0000
@@ -32,16 +30,19 @@ public:
 
 public:
     // Data Manipulation Interface
-    const  t2Byte&  GetDataField()                                          const;
     tByte           GetMaterialField()                                      const;
-    tByte           GetNeighbourField()                                     const;
     bool            HasNeighbour( eDataNeighbourFlag iDataNeighbourFlag)    const;
     bool            IsSolid()                                               const;
 
-    void  SetDataField( const  t2Byte&  iDataField );
     void  SetMaterialField( tByte  iMaterialField );
-    void  SetNeighbourField( tByte  iNeighbourField );
     void  SetNeighbour( eDataNeighbourFlag iDataNeighbourFlag, bool iValue );
+
+private:
+    // Private Manipulation tools
+    void  SetDataField( const  t2Byte&  iDataField );
+    void  SetNeighbourField( tByte  iNeighbourField );
+    const  t2Byte&  GetDataField()                                          const;
+    tByte           GetNeighbourField()                                     const;
 
 private:
     // Private Data Members
@@ -60,3 +61,4 @@ private:
 
 
 } // namespace  nBitvolume
+
