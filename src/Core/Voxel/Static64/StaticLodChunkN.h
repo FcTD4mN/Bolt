@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Voxel/Static64/Types.h"
+#include "Voxel/Static64/Utils.h"
 
 
 namespace  nVoxel

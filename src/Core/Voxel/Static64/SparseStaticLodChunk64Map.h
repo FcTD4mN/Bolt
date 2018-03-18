@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-#include "Voxel/Static64/Types.h"
+#include "Voxel/Static64/Utils.h"
 #include "Voxel/Static64/StaticLodChunkN.h"
 #include "Voxel/Static64/Hashable3DKey.h"
 

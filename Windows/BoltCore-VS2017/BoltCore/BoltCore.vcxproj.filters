@@ -386,7 +386,7 @@
     <ClInclude Include="..\..\..\src\Core\Voxel\Static64\StaticLodChunkN.h">
       <Filter>Fichiers sources\Voxel\Static64</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Types.h">
+    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Utils.h">
       <Filter>Fichiers sources\Voxel\Static64</Filter>
     </ClInclude>
   </ItemGroup>

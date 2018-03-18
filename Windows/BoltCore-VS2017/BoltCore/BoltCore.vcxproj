@@ -326,7 +326,7 @@
     <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Hashable3DKey.h" />
     <ClInclude Include="..\..\..\src\Core\Voxel\Static64\SparseStaticLodChunk64Map.h" />
     <ClInclude Include="..\..\..\src\Core\Voxel\Static64\StaticLodChunkN.h" />
-    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Types.h" />
+    <ClInclude Include="..\..\..\src\Core\Voxel\Static64\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
