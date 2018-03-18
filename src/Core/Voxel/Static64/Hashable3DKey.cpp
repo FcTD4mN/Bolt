@@ -76,6 +76,51 @@ cHashable3DKey::HashedSignature()  const
 }
 
 
+cHashable3DKey
+cHashable3DKey::Top()  const
+{
+    return  cHashable3DKey( mX, mY-1, mZ );
+}
+
+
+cHashable3DKey
+cHashable3DKey::Bot()  const
+{
+    return  cHashable3DKey( mX, mY+1, mZ );
+}
+
+
+cHashable3DKey
+cHashable3DKey::Front()  const
+{
+    return  cHashable3DKey( mX, mY, mZ-1 );
+}
+
+
+
+cHashable3DKey
+cHashable3DKey::Back()  const
+{
+    return  cHashable3DKey( mX, mY, mZ+1 );
+}
+
+
+
+cHashable3DKey
+cHashable3DKey::Left()  const
+{
+    return  cHashable3DKey( mX-1, mY, mZ );
+}
+
+
+
+cHashable3DKey
+cHashable3DKey::Right()  const
+{
+    return  cHashable3DKey( mX+1, mY, mZ );
+}
+
+
 void
 cHashable3DKey::InvalidCache()  const
 {

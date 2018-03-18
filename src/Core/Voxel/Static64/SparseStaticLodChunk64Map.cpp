@@ -6,41 +6,43 @@
 namespace  nVoxel
 {
 
-cSparseStaticLodChunkN::cSparseStaticLodChunkN() :
+cSparseStaticLodChunk64Map::cSparseStaticLodChunk64Map() :
     mChunks()
 {
 }
 
 
 void
-cSparseStaticLodChunkN::MkChunk( const  cHashable3DKey&  iKey )
+cSparseStaticLodChunk64Map::MkChunk( const  cHashable3DKey&  iKey )
 {
     if( ChunkExists( iKey ) )
         return;
 
     mChunks.emplace( iKey.HashedSignature(), &tStaticLodChunk64(0) );
+    UpdateChunkNeighbours( iKey );
 }
 
 
 void
-cSparseStaticLodChunkN::RmChunk( const  cHashable3DKey&  iKey )
+cSparseStaticLodChunk64Map::RmChunk( const  cHashable3DKey&  iKey )
 {
     if( !ChunkExists( iKey ) )
         return;
 
     mChunks.erase( iKey.HashedSignature() );
+    UpdateChunkNeighbours( iKey );
 }
 
 
 bool
-cSparseStaticLodChunkN::ChunkExists( const  cHashable3DKey&  iKey )
+cSparseStaticLodChunk64Map::ChunkExists( const  cHashable3DKey&  iKey )
 {
     return  KEY_EXISTS( mChunks, iKey.HashedSignature() );
 }
 
 
 tStaticLodChunk64*
-cSparseStaticLodChunkN::ChunkAtKey( const  cHashable3DKey&  iKey )
+cSparseStaticLodChunk64Map::ChunkAtKey( const  cHashable3DKey&  iKey )
 {
     auto it = mChunks.find( iKey.HashedSignature() );
     if( it != mChunks.end() )
@@ -51,7 +53,7 @@ cSparseStaticLodChunkN::ChunkAtKey( const  cHashable3DKey&  iKey )
 
 
 cHashable3DKey
-cSparseStaticLodChunkN::KeyForIndices( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
+cSparseStaticLodChunk64Map::KeyForIndices( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
 {
     tKeyComponent keyX = tKeyComponent( floor( double(iX) / 64. ) );
     tKeyComponent keyY = tKeyComponent( floor( double(iY) / 64. ) );
@@ -60,8 +62,38 @@ cSparseStaticLodChunkN::KeyForIndices( tDataIndex iX, tDataIndex iY, tDataIndex 
 }
 
 
+void
+cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey )
+{
+    auto chunk = ChunkAtKey( iKey );
+    auto top = ChunkAtKey( iKey.Top() );
+    auto bot = ChunkAtKey( iKey.Bot() );
+    auto front  = ChunkAtKey( iKey.Front() );
+    auto back = ChunkAtKey( iKey.Back() );
+    auto left = ChunkAtKey( iKey.Left() );
+    auto right = ChunkAtKey( iKey.Right() );
+
+    if( chunk )
+    {
+        chunk->SetNeighbour( eChunkNeighbour::kTop, top );
+        chunk->SetNeighbour( eChunkNeighbour::kBot, bot );
+        chunk->SetNeighbour( eChunkNeighbour::kFront, front );
+        chunk->SetNeighbour( eChunkNeighbour::kBack, back );
+        chunk->SetNeighbour( eChunkNeighbour::kLeft, left );
+        chunk->SetNeighbour( eChunkNeighbour::kRight, right );
+    }
+
+    if( top ) top->SetNeighbour( eChunkNeighbour::kBot, chunk );
+    if( bot ) bot->SetNeighbour( eChunkNeighbour::kTop, chunk );
+    if( front ) front->SetNeighbour( eChunkNeighbour::kBack, chunk );
+    if( back ) back->SetNeighbour( eChunkNeighbour::kFront, chunk );
+    if( left ) left->SetNeighbour( eChunkNeighbour::kRight, chunk );
+    if( right ) right->SetNeighbour( eChunkNeighbour::kLeft, chunk );
+}
+
+
 tByte*
-cSparseStaticLodChunkN::operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
+cSparseStaticLodChunk64Map::operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     tByte dataX = tByte( tKeyComponent( iX ) - key.GetX() * 64 );
@@ -73,7 +105,7 @@ cSparseStaticLodChunkN::operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ 
 
 
 void
-cSparseStaticLodChunkN::SafeSetData( tDataIndex iX, tDataIndex iY, tDataIndex iZ, tByte iValue )
+cSparseStaticLodChunk64Map::SafeSetData( tDataIndex iX, tDataIndex iY, tDataIndex iZ, tByte iValue )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     MkChunk( key );

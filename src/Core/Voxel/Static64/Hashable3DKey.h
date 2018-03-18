@@ -25,6 +25,13 @@ public:
 
     const  tHashedKeySignature&  HashedSignature()  const;
 
+    cHashable3DKey  Top()  const;
+    cHashable3DKey  Bot()  const;
+    cHashable3DKey  Front()  const;
+    cHashable3DKey  Back()  const;
+    cHashable3DKey  Left()  const;
+    cHashable3DKey  Right()  const;
+
 private:
     void  InvalidCache()  const;
     void  UpdateHashedSignatureCache()  const;

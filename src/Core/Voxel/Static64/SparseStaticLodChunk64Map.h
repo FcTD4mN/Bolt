@@ -10,12 +10,12 @@
 namespace  nVoxel
 {
 
-class  cSparseStaticLodChunkN
+class  cSparseStaticLodChunk64Map
 {
 
 public:
-    cSparseStaticLodChunkN();
-    cSparseStaticLodChunkN( const  cSparseStaticLodChunkN& ) = delete;
+    cSparseStaticLodChunk64Map();
+    cSparseStaticLodChunk64Map( const  cSparseStaticLodChunk64Map& ) = delete;
 
 public:
     void  MkChunk( const  cHashable3DKey&  iKey );
@@ -23,6 +23,7 @@ public:
     bool  ChunkExists( const  cHashable3DKey&  iKey );
     tStaticLodChunk64*  ChunkAtKey( const  cHashable3DKey&  iKey );
     cHashable3DKey  KeyForIndices( tDataIndex iX, tDataIndex iY, tDataIndex iZ );
+    void  UpdateChunkNeighbours( const  cHashable3DKey&  iKey );
 
 public:
     tByte* operator()( tDataIndex iX, tDataIndex iY, tDataIndex iZ );

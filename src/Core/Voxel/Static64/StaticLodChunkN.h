@@ -24,7 +24,8 @@ public:
     tByte* operator()( tByte iX, tByte iY, tByte iZ );
 
 public:
-    cStaticLodChunkN*  Neighbour( eChunkNeighbour  iNeighbour );
+    cStaticLodChunkN*  GetNeighbour( eChunkNeighbour  iNeighbour );
+    void  SetNeighbour( eChunkNeighbour  iNeighbour, cStaticLodChunkN* iAdress );
 
 private:
     tByte mData[N][N][N];
@@ -79,9 +80,15 @@ inline tByte* cStaticLodChunkN<N>::operator()( tByte iX,tByte iY,tByte iZ )
 
 template<tByte N>
 cStaticLodChunkN< N >*
-cStaticLodChunkN< N >::Neighbour( eChunkNeighbour  iNeighbour )
+cStaticLodChunkN< N >::GetNeighbour( eChunkNeighbour  iNeighbour )
 {
     return  mNeighbour[ iNeighbour ];
+}
+
+template<tByte N>
+inline void cStaticLodChunkN<N>::SetNeighbour(eChunkNeighbour iNeighbour,cStaticLodChunkN * iAdress)
+{
+    mNeighbour[ iNeighbour ] = iAdress;
 }
 
 
