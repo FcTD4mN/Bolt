@@ -44,5 +44,6 @@ public:
 
 private:
     ::nGUI::cConsoleWidget*  mConsoleWidget;
+    sf::Clock  mClock;
 };
 

@@ -53,8 +53,22 @@ cOpenGLRenderSceneScreen::Initialize()
     ::nBoltScript::Env()->Print( "version:" + std::to_string( settings.majorVersion ) + "\n" );
     window->setVerticalSyncEnabled(true);
     glViewport(0, 0, window->getSize().x, window->getSize().y );
-    GLuint vao = 0;
-    glGenVertexArrays(1, &vao);
+    glEnable(GL_DEPTH_TEST);
+    //glDepthRange( 1.f, 200.f );
+
+    // Set color and depth clear value
+    glClearDepth(1.f);
+    glClearColor(0.f, 0.f, 0.f, 0.f);
+
+    // Enable Z-buffer read and write
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+
+    // Setup a perspective projection
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    double ratio = double( window->getSize().x ) / double( window->getSize().y );
+    gluPerspective(50.f, ratio, 1.f, 500.f);
 }
 
 
@@ -77,13 +91,55 @@ cOpenGLRenderSceneScreen::Finalize()
 void
 cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
-    //auto window = cGameApplication::App()->Window();
-    //window->clear( sf::Color( 42, 40, 44 ) );
+    auto window = ::cGameApplication::App()->Window();
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(0.f, 0.f, -200.f);
+    glRotatef(mClock.getElapsedTime().asSeconds() * 50, 1.f, 0.f, 0.f);
+    glRotatef(mClock.getElapsedTime().asSeconds() * 30, 0.f, 1.f, 0.f);
+    glRotatef(mClock.getElapsedTime().asSeconds() * 90, 0.f, 0.f, 1.f);
 
+    glBegin(GL_QUADS);
 
+    glVertex3f(-50.f, -50.f, -50.f);
+    glVertex3f(-50.f,  50.f, -50.f);
+    glVertex3f( 50.f,  50.f, -50.f);
+    glVertex3f( 50.f, -50.f, -50.f);
+
+    glVertex3f(-50.f, -50.f, 50.f);
+    glVertex3f(-50.f,  50.f, 50.f);
+    glVertex3f( 50.f,  50.f, 50.f);
+    glVertex3f( 50.f, -50.f, 50.f);
+
+    glVertex3f(-50.f, -50.f, -50.f);
+    glVertex3f(-50.f,  50.f, -50.f);
+    glVertex3f(-50.f,  50.f,  50.f);
+    glVertex3f(-50.f, -50.f,  50.f);
+
+    glVertex3f(50.f, -50.f, -50.f);
+    glVertex3f(50.f,  50.f, -50.f);
+    glVertex3f(50.f,  50.f,  50.f);
+    glVertex3f(50.f, -50.f,  50.f);
+
+    glVertex3f(-50.f, -50.f,  50.f);
+    glVertex3f(-50.f, -50.f, -50.f);
+    glVertex3f( 50.f, -50.f, -50.f);
+    glVertex3f( 50.f, -50.f,  50.f);
+
+    glVertex3f(-50.f, 50.f,  50.f);
+    glVertex3f(-50.f, 50.f, -50.f);
+    glVertex3f( 50.f, 50.f, -50.f);
+    glVertex3f( 50.f, 50.f,  50.f);
+
+    glEnd();
+
+    window->pushGLStates();
 
     mConsoleWidget->Draw( iRenderTarget );
+
+    window->popGLStates();
 }
 
 
