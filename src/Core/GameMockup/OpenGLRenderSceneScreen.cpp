@@ -54,23 +54,6 @@ cOpenGLRenderSceneScreen::Initialize()
     ::nBoltScript::Env()->Print( "antialiasing level:" + std::to_string( settings.antialiasingLevel ) + "\n" );
     ::nBoltScript::Env()->Print( "version:" + std::to_string( settings.majorVersion ) + "\n" );
     window->setVerticalSyncEnabled(true);
-    glViewport(0, 0, window->getSize().x, window->getSize().y );
-    glEnable(GL_DEPTH_TEST);
-    //glDepthRange( 1.f, 200.f );
-
-    // Set color and depth clear value
-    glClearDepth(1.f);
-    glClearColor(0.f, 0.f, 0.f, 0.f);
-
-    // Enable Z-buffer read and write
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(GL_TRUE);
-
-    // Setup a perspective projection
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    double ratio = double( window->getSize().x ) / double( window->getSize().y );
-    gluPerspective(50.f, ratio, 1.f, 500.f);
 
     int radius = 20;
     for( int i = 0; i < radius*2; ++i )
@@ -87,6 +70,17 @@ cOpenGLRenderSceneScreen::Initialize()
             }
         }
     }
+
+
+
+	glViewport(0, 0, window->getSize().x, window->getSize().y);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	double ratio = double(window->getSize().x) / double(window->getSize().y);
+	gluPerspective(50.f, ratio, 5.f, 500.f);
+
 
 }
 
@@ -111,7 +105,8 @@ void
 cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
     auto window = ::cGameApplication::App()->Window();
-
+	glClearDepth(1.f);
+	glClearColor(0.f, 0.f, 0.f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

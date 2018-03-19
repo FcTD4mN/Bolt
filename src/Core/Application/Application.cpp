@@ -56,7 +56,14 @@ cApplication::SetAppDefaultResolution( int iW, int iH )
 void
 cApplication::Initialize()
 {
-    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Console" );
+	sf::ContextSettings settings;
+	settings.depthBits = 24;
+	settings.stencilBits = 8;
+	settings.antialiasingLevel = 4;
+	settings.majorVersion = 3;
+	settings.minorVersion = 0;
+
+    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Bolt", sf::Style::Default, settings );
 }
 
 
