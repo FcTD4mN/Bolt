@@ -113,10 +113,13 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     mMap.DirectDraw();
     glPopMatrix();
 
-    sf::Vector3f Vertices[3];
+    sf::Vector3f Vertices[6];
     Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
     Vertices[1] = sf::Vector3f(1.0f, -1.0f, 0.0f);
     Vertices[2] = sf::Vector3f(0.0f, 1.0f, 0.0f);
+    Vertices[3] = sf::Vector3f(1.0f, -1.0f, 0.0f);
+    Vertices[4] = sf::Vector3f(0.0f, 1.0f, 0.0f);
+    Vertices[5] = sf::Vector3f(5.0f, 0.0f, 0.0f);
     GLuint VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -124,7 +127,7 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     glDisableVertexAttribArray(0);
 
     window->pushGLStates();
