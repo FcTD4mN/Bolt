@@ -12,7 +12,7 @@
 #define kEpsilonF (1E-4F)
 
 /** Constant : some small epsilon in float format to handle float representing pixels */
-#define kEpsilonPixelF (1E-2F)
+#define kEpsilonPixelF 1.0F
 
 
 static sf::Vector2f gYAxisVector( 0.0F, 1.0F );
@@ -42,7 +42,7 @@ bool            VertexArrayContainsVertex( const  sf::VertexArray& iArray, const
 bool            VertexesAreNeighboorInPolygon( const  sf::VertexArray& iPolygon, const sf::Vector2f& iVectorA, const sf::Vector2f& iVectorB );
 
 void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform& iTransformation );
-bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray );
+bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray, int* oIndexOfExisting );
 
 // ===================================================
 // ===================================================
@@ -51,10 +51,12 @@ bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::Verte
 // Adds an element to a vector only if it is not already in
 template< typename T >
 bool
-AddElementToVectorUnique( T& iElement, std::vector< T >* oVector )
+AddElementToVectorUnique( T& iElement, std::vector< T >* oVector, int* oIndexOfExisting )
 {
+    *oIndexOfExisting = -1;
     for( auto elm : *oVector )
     {
+        *oIndexOfExisting += 1;
         if( elm == iElement )
             return  false;
     }
@@ -64,9 +66,9 @@ AddElementToVectorUnique( T& iElement, std::vector< T >* oVector )
     return  true;
 }
 
-template<> bool AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector );
-template<> bool AddElementToVectorUnique( cEdgeF& iElement, std::vector< cEdgeF >* oVector );
-template<> bool AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector );
+template<> bool AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector, int* oIndexOfExisting );
+template<> bool AddElementToVectorUnique( cEdgeF& iElement, std::vector< cEdgeF >* oVector, int* oIndexOfExisting );
+template<> bool AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector, int* oIndexOfExisting );
 
 
 // ===================================================
@@ -113,20 +115,34 @@ inline
 bool
 Collinear( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
 {
+    float precision = kEpsilonF;
     if( iVector1 == iVector2 )
         return  true;
 
-    bool x10 = abs(iVector1.x) < kEpsilonF;
-    bool y10 = abs(iVector1.y) < kEpsilonF;
-    bool x20 = abs(iVector2.x) < kEpsilonF;
-    bool y20 = abs(iVector2.y) < kEpsilonF;
+    bool x10 = abs(iVector1.x) < precision;
+    bool y10 = abs(iVector1.y) < precision;
+    bool x20 = abs(iVector2.x) < precision;
+    bool y20 = abs(iVector2.y) < precision;
     if( x10 && x20 ) return  true;
     if( y10 && y20 ) return  true;
 
     if( x10 != x20 ) return  false;
     if( y10 != y20 ) return  false;
 
-    return  abs(( iVector1.x / iVector2.x ) - ( iVector1.y / iVector2.y )) < kEpsilonF;
+    return  abs(( iVector1.x / iVector2.x ) - ( iVector1.y / iVector2.y )) < precision;
+}
+
+inline
+bool
+CollinearUsingAngles( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
+{
+    if( iVector1 == iVector2 )
+        return  true;
+
+    double angleA = GetAngleBetweenVectors( iVector1, gXAxisVector );
+    double angleB = GetAngleBetweenVectors( iVector2, gXAxisVector );
+
+    return  abs( angleA - angleB ) < kEpsilonF;
 }
 
 
@@ -189,9 +205,7 @@ RadToDeg( double iAngle )
 }
 
 
-
 // FloatCOmparison utilities
-
 inline
 bool
 IsVectorEqualToVector( const sf::Vector2f& iVectorA, const sf::Vector2f& iVectorB )
@@ -201,6 +215,13 @@ IsVectorEqualToVector( const sf::Vector2f& iVectorA, const sf::Vector2f& iVector
         return  true;
 
     return  false;
+}
+
+inline
+sf::Vector2f
+RoundVector( const sf::Vector2f& iVector )
+{
+    return  sf::Vector2f( round( iVector.x ), round( iVector.y ) );
 }
 
 //...

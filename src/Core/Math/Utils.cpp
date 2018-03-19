@@ -392,12 +392,14 @@ TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transf
 
 
 bool
-AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArray )
+AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArray, int* oIndexOfExisting )
 {
+    *oIndexOfExisting = -1;
     for( int i = 0 ; i < (*oVArray).getVertexCount() ; ++i )
     {
+        *oIndexOfExisting += 1;
         sf::Vector2f diff = (*oVArray)[ i ].position - iElement;
-        if( abs( diff.x ) < 0.01 && abs( diff.y ) < 0.01 ) // vertexes are supposed to represent pixel points in the end, so 0.01 difference = same point
+        if( abs( diff.x ) < kEpsilonPixelF && abs( diff.y ) < kEpsilonPixelF ) // vertexes are supposed to represent pixel points in the end, so 0.01 difference = same point
             return  false;
     }
 
@@ -409,12 +411,14 @@ AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArra
 // Adds an element to a vector only if it is not already in
 template<>
 bool
-AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector )
+AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector, int* oIndexOfExisting )
 {
+    *oIndexOfExisting = -1;
     for( auto elm : *oVector )
     {
+        *oIndexOfExisting += 1;
         sf::Vector2f diff = elm - iElement;
-        if( abs(diff.x) < 0.01 && abs(diff.y) < 0.01 ) // sfVector2f are supposed to represent pixel points in the end, so 0.01 difference = same point
+        if( abs(diff.x) < kEpsilonPixelF && abs(diff.y) < kEpsilonPixelF ) // sfVector2f are supposed to represent pixel points in the end, so 0.01 difference = same point
             return  false;
     }
 
@@ -425,11 +429,13 @@ AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* o
 
 template<>
 bool
-AddElementToVectorUnique( cEdgeF & iElement, std::vector<cEdgeF>* oVector )
+AddElementToVectorUnique( cEdgeF & iElement, std::vector<cEdgeF>* oVector, int* oIndexOfExisting )
 {
+    *oIndexOfExisting = -1;
     for( auto elm : *oVector )
     {
-        if( Collinear( iElement.mDirection, elm.mDirection ) )
+        *oIndexOfExisting += 1;
+        if( CollinearUsingAngles( iElement.mDirection, elm.mDirection ) || IsVectorEqualToVector( iElement.mDirection, elm.mDirection ) )
             return  false;
     }
 
@@ -440,11 +446,13 @@ AddElementToVectorUnique( cEdgeF & iElement, std::vector<cEdgeF>* oVector )
 
 template<>
 bool
-AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector )
+AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector, int* oIndexOfExisting )
 {
+    *oIndexOfExisting = -1;
     for( auto elm : *oVector )
     {
-        if( Collinear( iElement.mRay.mDirection, elm.mRay.mDirection ) )
+        *oIndexOfExisting += 1;
+        if( CollinearUsingAngles( iElement.mRay.mDirection, elm.mRay.mDirection ) || IsVectorEqualToVector( iElement.mRay.mDirection, elm.mRay.mDirection ) )
             return  false;
     }
 
