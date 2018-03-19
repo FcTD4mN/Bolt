@@ -55,33 +55,27 @@ cOpenGLRenderSceneScreen::Initialize()
     ::nBoltScript::Env()->Print( "version:" + std::to_string( settings.majorVersion ) + "\n" );
     window->setVerticalSyncEnabled(true);
 
-    int radius = 20;
-    for( int i = 0; i < radius*2; ++i )
+    int st = 3;
+    for( int i = 0; i < st; ++i )
     {
-        for( int j = 0; j < radius*2; ++j )
+        for( int j = 0; j < st; ++j )
         {
-            for( int k = 0; k < radius*2; ++k )
+            for( int k = 0; k < st; ++k )
             {
-                double x = i - radius;
-                double y = j - radius;
-                double z = k - radius;
-                if( sqrt( double( x*x + y*y + z*z ) ) < double( radius ) )
-                    mMap.SafeSetMaterial( i, j, k, rand() % 255 );
+                mMap.SafeSetMaterial( i, j, k, rand() % 255 );
             }
         }
     }
 
 
-
-	glViewport(0, 0, window->getSize().x, window->getSize().y);
-	glEnable(GL_DEPTH_TEST);
-	glDepthMask(GL_TRUE);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	double ratio = double(window->getSize().x) / double(window->getSize().y);
-	gluPerspective(50.f, ratio, 5.f, 500.f);
-
-
+    glViewport(0, 0, window->getSize().x, window->getSize().y);
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    double ratio = double(window->getSize().x) / double(window->getSize().y);
+    gluPerspective(50.f, ratio, 5.f, 500.f);
+    glewInit();
 }
 
 
@@ -105,20 +99,33 @@ void
 cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
     auto window = ::cGameApplication::App()->Window();
-	glClearDepth(1.f);
-	glClearColor(0.f, 0.f, 0.f, 0.f);
+    glClearDepth(1.f);
+    glClearColor(0.f, 0.f, 0.f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef( 0.f, 0.f, -100.f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 5.f, 0.f, 0.f, -1.f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 2.f, 0.f, 1.f, 0.f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 8.f, 1.f, 0.f, 0.f );
-    glTranslatef( -20.f, -20.f, -20.f );
+    glTranslatef( 0.f, 0.f, -10.0f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
+    glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
 
     glPushMatrix();
     mMap.DirectDraw();
     glPopMatrix();
+
+    sf::Vector3f Vertices[3];
+    Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
+    Vertices[1] = sf::Vector3f(1.0f, -1.0f, 0.0f);
+    Vertices[2] = sf::Vector3f(0.0f, 1.0f, 0.0f);
+    GLuint VBO;
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDisableVertexAttribArray(0);
 
     window->pushGLStates();
 
