@@ -167,6 +167,17 @@ GetTriangleSetBBox( const std::vector< sf::VertexArray >& iTriangleSet )
 }
 
 
+void
+GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, const sf::VertexArray& iPolygon )
+{
+    sf::VertexArray  sortedVertexes = SortVertexesByAngle( iPolygon );
+
+    ( *oMinVertex ) = sortedVertexes[ 0 ].position;
+    ( *oMaxVertex ) = sortedVertexes[ sortedVertexes.getVertexCount() - 1 ].position; // pasisimple , car le dernier = le plus loin, le plus pres sur la droite = le "premier des derniers"
+                                                                                        // mais sinon c'est cool
+}
+
+
 sf::VertexArray
 CCWWindingSort( const sf::VertexArray & iPolygon )
 {

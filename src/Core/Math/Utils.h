@@ -30,6 +30,7 @@ sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf
 bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
 void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
 sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
+void            GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, const sf::VertexArray& iPolygon );
 
 // Sorts
 sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );

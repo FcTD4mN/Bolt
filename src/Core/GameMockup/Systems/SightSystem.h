@@ -68,5 +68,8 @@ private:
     std::vector< cEdgeF >           mDEBUGRays;
     sf::VertexArray                 mDEBUGHitPoints;
 
+
+    sf::VertexArray                 mDEBUGMinMax;
+
 };
 

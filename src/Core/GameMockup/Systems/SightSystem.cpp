@@ -139,6 +139,15 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    tamere.setOrigin( sf::Vector2f( 3.0F,3.0F ) );
     //    iRenderTarget->draw( tamere );
     //}
+
+    sf::CircleShape tamere( 6, 4 );
+    tamere.setFillColor( sf::Color::Red );
+    for( int i = 0; i < mDEBUGMinMax.getVertexCount(); ++i )
+    {
+        tamere.setPosition( mDEBUGMinMax[ i ].position );
+        tamere.setOrigin( sf::Vector2f( 3.0F,3.0F ) );
+        iRenderTarget->draw( tamere );
+    }
 }
 
 
@@ -154,6 +163,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     mDEBUGEntities.clear();
     mDEBUGRays.clear();
     mDEBUGHitPoints.clear();
+    mDEBUGMinMax.clear();
 
     sf::Vector2f fovOrigin;
     sf::Vector2f fovB;
@@ -235,6 +245,24 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 // End points of right fov
                 sf::Vector2f fovRightEndPoint = mTriangles[ i ][ 1 ].position;
                 sf::Vector2f fovLeftEndPoint = mTriangles[ i ][ 2 ].position;
+
+
+                // First we transpose clipedPolygon into watcher's referential, to get extreme points
+                TransformPolygonUsingTransformation( &clipedPol, mTransformationAngleSort );
+
+                sf::Vector2f mostLeftPointOfClipedPoly;
+                sf::Vector2f mostRightPointOfClipedPoly;
+                GetPolygonExtremesByAngle( &mostRightPointOfClipedPoly, &mostLeftPointOfClipedPoly, clipedPol );
+
+                mostLeftPointOfClipedPoly = mTransformationAngleSort.getInverse().transformPoint( mostLeftPointOfClipedPoly );
+                mostRightPointOfClipedPoly = mTransformationAngleSort.getInverse().transformPoint( mostRightPointOfClipedPoly );
+
+                TransformPolygonUsingTransformation( &clipedPol, mTransformationAngleSort.getInverse() );
+
+
+                mDEBUGMinMax.append( mostRightPointOfClipedPoly );
+                mDEBUGMinMax.append( mostLeftPointOfClipedPoly );
+
 
                 // Situation : we have a unique hitpoint that is exactly on a vertex -> we add the fov intersection in interesting points.
                 // BUT, sometimes, both points are the same. We then don't want to do the swap 1<->2 below.
