@@ -30,6 +30,7 @@ public:
     void  DestroyEntity( cEntity* iEntity );
     void  DestroyEntityByID( const  std::string& iID );
     cEntity*  GetEntityByID( const  std::string& iID );
+    void  DestroyAllEntities();
 
 public:
     // Systems
@@ -39,6 +40,9 @@ public:
 public:
     // Access
     size_t EntityCount() const;
+
+private:
+    void  PurgeEntities();
 
 public:
     // Events

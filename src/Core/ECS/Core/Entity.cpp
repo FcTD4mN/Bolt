@@ -196,6 +196,7 @@ cEntity::Destroy()
     {
         mObserverSystems[ i ]->EntityLost( this );
     }
+    mDead = true;
 }
 
 

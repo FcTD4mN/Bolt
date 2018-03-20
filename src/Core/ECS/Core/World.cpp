@@ -10,10 +10,7 @@
 
 cWorld::~cWorld()
 {
-    for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
-    {
-        delete  it->second;
-    }
+    DestroyAllEntities();
 
     for( int i = 0; i < mSystems.size(); ++i )
     {
@@ -45,15 +42,7 @@ cWorld::Draw( sf::RenderTarget* iRenderTarget )
 void
 cWorld::Update( unsigned int iDeltaTime )
 {
-    //OPTI: This is not ideal, as remove entity is o(n) worst case
-    while( mEntitiesToDestroy.size() > 0 )
-    {
-        cEntity* ent = mEntitiesToDestroy.back();
-        RemoveEntity( ent );
-        delete  ent;
-        mEntitiesToDestroy.pop_back();
-    }
-
+    PurgeEntities();
     for( int i = 0; i < mSystems.size(); ++i )
     {
         mSystems[ i ]->Update( iDeltaTime );
@@ -105,10 +94,22 @@ cWorld::DestroyEntityByID( const  std::string& iID )
     mEntity.erase( iID );
 }
 
+
 cEntity*
 cWorld::GetEntityByID( const  std::string& iID )
 {
     return  mEntity[ iID ];
+}
+
+
+void
+cWorld::DestroyAllEntities()
+{
+    for( auto it : mEntity )
+    {
+        it.second->Destroy();
+    }
+    PurgeEntities();
 }
 
 
@@ -145,6 +146,19 @@ size_t
 cWorld::EntityCount() const
 {
     return  mEntity.size();
+}
+
+
+void cWorld::PurgeEntities()
+{
+    //OPTI: This is not ideal, as remove entity is o(n) worst case
+    while( mEntitiesToDestroy.size() > 0 )
+    {
+        cEntity* ent = mEntitiesToDestroy.back();
+        RemoveEntity( ent );
+        delete  ent;
+        mEntitiesToDestroy.pop_back();
+    }
 }
 
 
@@ -367,6 +381,7 @@ cWorld::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 void
 cWorld::LoadXML( tinyxml2::XMLElement* iNode )
 {
+    DestroyAllEntities();
     tinyxml2::XMLElement* entities = iNode->FirstChildElement( "entities" );
 
     for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity = entity->NextSiblingElement() )

@@ -31,9 +31,11 @@ public:
 public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
+    virtual  void  EntityLost( cEntity* iEntity ) override;
 
 private:
     std::vector< cEntity* >         mPointsOfInterest;
+    std::vector< cEntity* >         mWatchers;
 
     sf::FloatRect                   mFOVBBox;
     std::vector< sf::VertexArray >  mTriangles;

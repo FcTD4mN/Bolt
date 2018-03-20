@@ -58,11 +58,13 @@ sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA
             float parameterB = 0.0F;
             if( cEdgeF::Intersect( &parameterA, &parameterB, polygonAEdges[ i ], polygonBEdges[ j ] ) )
             {
+                sf::Vector2f interPt = polygonAEdges[ i ].mPoint + parameterA * polygonAEdges[ i ].mDirection;
+
                 if( (parameterA >= 0.0F && parameterA <= 1.0F)
                     && parameterB >= 0.0F && parameterB <= 1.0F
-                    && !VertexArrayContainsVertex( intersectionList, iPolygonA[ i ].position ) )
+                    && !VertexArrayContainsVertex( intersectionList, interPt ) )
                 {
-                    intersectionList.append( polygonAEdges[ i ].mPoint + parameterA * polygonAEdges[ i ].mDirection );
+                    intersectionList.append( interPt );
                 }
             }
         }
@@ -170,11 +172,27 @@ GetTriangleSetBBox( const std::vector< sf::VertexArray >& iTriangleSet )
 void
 GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, const sf::VertexArray& iPolygon )
 {
+    if( iPolygon.getVertexCount() == 0 )
+    {
+        ( *oMinVertex ) = sf::Vector2f( 0.0F, 0.0F );
+        ( *oMaxVertex ) = sf::Vector2f( 0.0F, 0.0F );
+        return;
+    }
+
     sf::VertexArray  sortedVertexes = SortVertexesByAngle( iPolygon );
 
     ( *oMinVertex ) = sortedVertexes[ 0 ].position;
-    ( *oMaxVertex ) = sortedVertexes[ sortedVertexes.getVertexCount() - 1 ].position; // pasisimple , car le dernier = le plus loin, le plus pres sur la droite = le "premier des derniers"
-                                                                                        // mais sinon c'est cool
+    ( *oMaxVertex ) = sortedVertexes[ sortedVertexes.getVertexCount() - 1 ].position;
+
+    double angleMax = GetAngleBetweenVectors( gXAxisVector, sortedVertexes[ sortedVertexes.getVertexCount() - 1 ].position );
+
+    for( int i = sortedVertexes.getVertexCount() - 1; i >= 0; --i )
+    {
+        double angle = GetAngleBetweenVectors( gXAxisVector, sortedVertexes[ i ].position );
+        if( abs( angle - angleMax ) > kEpsilonF )
+            break;
+        ( *oMaxVertex ) = sortedVertexes[ i ].position;
+    }
 }
 
 
@@ -318,14 +336,16 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
         pair.angle = GetAngleBetweenVectors( gXAxisVector, pair.position );
 
         int index = 0;
+
         bool equal = false;
         bool closer = false;
 
-        while( ( ( index < angleSort.size() ) && ( equal ) )
+        while( ( ( index < angleSort.size() ) && ( abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF ) )
                || ( ( index < angleSort.size() ) && ( pair.angle > angleSort[ index ].angle ) ) )
         {
             equal = abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF;
             closer = pair.position.x < angleSort[ index ].position.x;
+
             if( equal && closer )
             {
                 break;

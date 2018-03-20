@@ -157,6 +157,14 @@ cInfiltratorScreen::KeyPressed( const sf::Event& iEvent )
         direction->mDirection = mRotationFOV.transformPoint( direction->mDirection );
         mRotationFOV = mRotationFOV.getInverse();
     }
+    else if( iEvent.key.code == sf::Keyboard::Key::K )
+    {
+        SaveXML();
+    }
+    else if( iEvent.key.code == sf::Keyboard::Key::L )
+    {
+        LoadXML();
+    }
 }
 
 

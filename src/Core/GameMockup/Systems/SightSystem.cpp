@@ -168,9 +168,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
     sf::Vector2f fovOrigin;
     sf::Vector2f fovB;
 
-    for( int i = 0; i < mEntityGroup.size(); ++i )
+    for( int i = 0; i < mWatchers.size(); ++i )
     {
-        cEntity* entity = mEntityGroup[ i ];
+        cEntity* entity = mWatchers[ i ];
 
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         auto size = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
@@ -498,6 +498,39 @@ cSightSystem::IncomingEntity( cEntity* iEntity )
     if( iEntity->HasTag( "hero" ) )
         mPointsOfInterest.push_back( iEntity );
     else if( position && size && direction && fieldofview )
-        AcceptEntity( iEntity );
+        mWatchers.push_back( iEntity );
+
+    AcceptEntity( iEntity );
 }
+
+
+void
+cSightSystem::EntityLost( cEntity * iEntity )
+{
+    auto position = iEntity->GetComponentByName( "position" );
+    auto size = iEntity->GetComponentByName( "size" );
+    auto direction = iEntity->GetComponentByName( "direction" );
+    auto fieldofview = iEntity->GetComponentByName( "fieldofview" );
+
+    if( iEntity->HasTag( "hero" ) )
+    {
+        for( int i = 0; i < mPointsOfInterest.size(); ++i )
+        {
+            if( iEntity == mPointsOfInterest[ i ] )
+                mPointsOfInterest.erase( mPointsOfInterest.begin() + i );
+        }
+    }
+    else if( position && size && direction && fieldofview )
+    {
+        for( int i = 0; i < mWatchers.size(); ++i )
+        {
+            if( iEntity == mWatchers[ i ] )
+                mWatchers.erase( mWatchers.begin() + i );
+        }
+    }
+
+    tSuperClass::EntityLost( iEntity );
+}
+
+
 

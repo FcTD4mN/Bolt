@@ -3,6 +3,8 @@
 #include "ECS/Core/Component.h"
 
 #include "GameMockup/Components/Color.h"
+#include "GameMockup/Components/Direction.h"
+#include "GameMockup/Components/FieldOfView.h"
 #include "GameMockup/Components/Position.h"
 #include "GameMockup/Components/Size.h"
 #include "GameMockup/Components/SimplePhysic.h"
@@ -49,6 +51,8 @@ void
 cComponentRegistry::Initialize()
 {
     cColor*             colorPrototype          = new cColor();
+    cDirection*         directionPrototype      = new cDirection();
+    cFieldOfView*       fovPrototype            = new cFieldOfView();
     cPosition*          positionPrototype       = new cPosition();
     cSize*              sizePrototype           = new cSize();
     cSpriteAnimated*    spriteAnimatedPrototype = new cSpriteAnimated();
@@ -56,6 +60,8 @@ cComponentRegistry::Initialize()
     cSimplePhysic*      simplePhysicPrototype   = new cSimplePhysic();
 
     mComponents.insert( std::make_pair( colorPrototype->Name(), colorPrototype ) );
+    mComponents.insert( std::make_pair( directionPrototype->Name(), directionPrototype ) );
+    mComponents.insert( std::make_pair( fovPrototype->Name(), fovPrototype ) );
     mComponents.insert( std::make_pair( positionPrototype->Name(), positionPrototype ) );
     mComponents.insert( std::make_pair( sizePrototype->Name(), sizePrototype ) );
     mComponents.insert( std::make_pair( spriteAnimatedPrototype->Name(), spriteAnimatedPrototype ) );

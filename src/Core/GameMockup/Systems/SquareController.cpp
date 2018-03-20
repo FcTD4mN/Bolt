@@ -76,23 +76,39 @@ cSquareController::Update( unsigned int iDeltaTime )
         {
             if( userinput->mActions[ i ] == "moveup" )
             {
-                simplephysic->mVelocity.y -= 0.1;
+                simplephysic->mVelocity.y -= 0.1F;
             }
             else if( userinput->mActions[ i ] == "movedown" )
             {
-                simplephysic->mVelocity.y += 0.1;
+                simplephysic->mVelocity.y += 0.1F;
             }
             else if( userinput->mActions[ i ] == "moveright" )
             {
-                simplephysic->mVelocity.x += 0.1;
+                simplephysic->mVelocity.x += 0.1F;
                 if( spriteanimated )
                     spriteanimated->Flip();
             }
             else if( userinput->mActions[ i ] == "moveleft" )
             {
-                simplephysic->mVelocity.x -= 0.1;
+                simplephysic->mVelocity.x -= 0.1F;
                 if( spriteanimated )
                     spriteanimated->Unflip();
+            }
+            else if( userinput->mActions[ i ] == "moveupslow" )
+            {
+                simplephysic->mVelocity.y -= 0.001F;
+            }
+            else if( userinput->mActions[ i ] == "movedownslow" )
+            {
+                simplephysic->mVelocity.y += 0.001F;
+            }
+            else if( userinput->mActions[ i ] == "moverightslow" )
+            {
+                simplephysic->mVelocity.x += 0.001F;
+            }
+            else if( userinput->mActions[ i ] == "moveleftslow" )
+            {
+                simplephysic->mVelocity.x -= 0.001F;
             }
             else if( userinput->mActions[ i ] == "attack" )
             {
