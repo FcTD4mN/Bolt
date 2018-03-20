@@ -31,6 +31,7 @@ bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon,
 void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
 sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
 void            GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, const sf::VertexArray& iPolygon );
+sf::VertexArray GetPointsFromPolygonInBetweenVectorsCCW( const  sf::VertexArray& iPolygon, const sf::Vector2f& iFirstPoint, const sf::Vector2f& iSecondPoint );
 
 // Sorts
 sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );

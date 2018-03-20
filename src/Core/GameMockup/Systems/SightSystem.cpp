@@ -20,7 +20,7 @@
 #include <iostream>
 
 
-#define FOVSplitThreshold 2
+#define FOVSplitThreshold 10
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -119,16 +119,27 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //}
     //iRenderTarget->draw( mDEBUGHitPoints );
 
+    //for( int i = 0; i < mResultingSubTriangles.size(); ++i )
+    //{
+    //    for( int j = 0; j < mResultingSubTriangles[ i ].getVertexCount(); ++j )
+    //    {
+    //        mResultingSubTriangles[ i ].setPrimitiveType( sf::Triangles );
+    //        mResultingSubTriangles[ i ][ j ].color = sf::Color( (50*i)%255, ( 100 * i ) % 255, ( 10 * i ) % 255, 50 );
+    //    }
+    //    iRenderTarget->draw( mResultingSubTriangles[ i ] );
+    //}
+    //iRenderTarget->draw( mInterestingHitPoints );
+
     for( int i = 0; i < mResultingSubTriangles.size(); ++i )
     {
         for( int j = 0; j < mResultingSubTriangles[ i ].getVertexCount(); ++j )
         {
             mResultingSubTriangles[ i ].setPrimitiveType( sf::Triangles );
-            mResultingSubTriangles[ i ][ j ].color = sf::Color( (50*i)%255, ( 100 * i ) % 255, ( 10 * i ) % 255, 50 );
+            mResultingSubTriangles[ i ][ j ].color = sf::Color( 200,20,20,120 );
         }
         iRenderTarget->draw( mResultingSubTriangles[ i ] );
     }
-    iRenderTarget->draw( mInterestingHitPoints );
+
 
 
     //sf::CircleShape tamere( 6, 4 );
@@ -140,14 +151,24 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    iRenderTarget->draw( tamere );
     //}
 
-    sf::CircleShape tamere( 6, 4 );
-    tamere.setFillColor( sf::Color::Red );
-    for( int i = 0; i < mDEBUGMinMax.getVertexCount(); ++i )
-    {
-        tamere.setPosition( mDEBUGMinMax[ i ].position );
-        tamere.setOrigin( sf::Vector2f( 3.0F,3.0F ) );
-        iRenderTarget->draw( tamere );
-    }
+    //sf::CircleShape hitPoint( 6, 4 );
+    //hitPoint.setFillColor( sf::Color::Red );
+    //for( int i = 0; i < mDEBUGMinMax.getVertexCount(); ++i )
+    //{
+    //    hitPoint.setPosition( mDEBUGMinMax[ i ].position );
+    //    hitPoint.setOrigin( sf::Vector2f( 3.0F,3.0F ) );
+    //    iRenderTarget->draw( hitPoint );
+    //}
+
+    //sf::CircleShape fovHP( 6, 4 );
+    //fovHP.setFillColor( sf::Color::Blue );
+    //for( int i = 0; i < mDEBUGFovHP.getVertexCount(); ++i )
+    //{
+    //    fovHP.setPosition( mDEBUGFovHP[ i ].position );
+    //    fovHP.setOrigin( sf::Vector2f( 3.0F, 3.0F ) );
+    //    iRenderTarget->draw( fovHP );
+    //}
+
 }
 
 
@@ -161,9 +182,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
     mResultingSubTriangles.clear();
     mDEBUGClips.clear();
     mDEBUGEntities.clear();
-    mDEBUGRays.clear();
-    mDEBUGHitPoints.clear();
     mDEBUGMinMax.clear();
+    mDEBUGFovHP.clear();
 
     sf::Vector2f fovOrigin;
     sf::Vector2f fovB;
@@ -264,214 +284,89 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 mDEBUGMinMax.append( mostLeftPointOfClipedPoly );
 
 
-                // Situation : we have a unique hitpoint that is exactly on a vertex -> we add the fov intersection in interesting points.
-                // BUT, sometimes, both points are the same. We then don't want to do the swap 1<->2 below.
-                // This is to check that
-                bool vertexIntersectionAndFovInterAreIdentical = false;
-                sf::Vector2f idPoint( 0.0f, 0.0F ); // This is the point that is identical
+                // For both extreme points, we cast a ray towards them
+                cRay rayRight( cEdgeF::MakePointPoint( fovOrigin, mostRightPointOfClipedPoly ), cRay::eRayType::kBasicRay );
+                cRay rayLeft( cEdgeF::MakePointPoint( fovOrigin, mostLeftPointOfClipedPoly ), cRay::eRayType::kBasicRay );
 
-                mDEBUGClips.push_back( clipedPol );
-                std::vector< cRay > rayList;
-                mInterestingHitPoints.clear();
+                // We also get the fov limit edge
+                cEdgeF fovLimit = cEdgeF::MakePointPoint( fovRightEndPoint, fovLeftEndPoint );
 
-                // Now we have the clipped polygon, we want to cast rays towards every vertexes to see
-                // which part of the FOV is obstructed
+                // Then we get both points that intersect between ray and limit
+                float paramA;
+                float paramB;
 
-                // =============================================================
-                // =============================================================
-                int existingIndex;
+                cEdgeF::Intersect( &paramA, &paramB, rayRight.mRay, fovLimit );
+                sf::Vector2f fovHPRight = rayRight.mRay.mPoint + paramA * rayRight.mRay.mDirection;
 
-                // Then, one ray per vertex of the polygon
-                for( int j = 0; j < clipedPol.getVertexCount(); ++j )
-                {
-                    // First we get for each vertex, the ray from fov's origin
-                    // Then we store it, so we end up with the list of rays
-                    // We'll then be able to remove rays that are identical, to simplify things
-                    sf::Vector2f vectorDirectionToPolygonEdge = Normale( clipedPol[ j ].position - fovOrigin );
-                    vectorDirectionToPolygonEdge *= float( fieldofview->mDistance );
+                cEdgeF::Intersect( &paramA, &paramB, rayLeft.mRay, fovLimit );
+                sf::Vector2f fovHPLeft= rayLeft.mRay.mPoint + paramA * rayLeft.mRay.mDirection;
 
-                    // There it is
-                    cRay ray( cEdgeF::MakePointDirection( fovOrigin, vectorDirectionToPolygonEdge ), cRay::eRayType::kBasicRay );
 
-                    if( AddElementToVectorUnique( ray, &rayList, &existingIndex ) )
-                        mDEBUGRays.push_back( ray.mRay );
-                }
+                mDEBUGFovHP.append( fovHPRight );
+                mDEBUGFovHP.append( fovHPLeft );
 
-                // The first ray we add is the left part of the sub fov
-                cRay fovRightEdge( cEdgeF::MakePointPoint( fovOrigin, fovRightEndPoint ), cRay::eRayType::kFovSide );
-                if( AddElementToVectorUnique( fovRightEdge, &rayList, &existingIndex ) )
-                    mDEBUGRays.push_back( fovRightEdge.mRay );
-                else
-                    rayList[ existingIndex ].mRayType = cRay::eRayType::kFovSide;
-
-                // Then finally the last ray is the right part of the sub fov
-                cRay fovLeftEdge( cEdgeF::MakePointPoint( fovOrigin, fovLeftEndPoint ), cRay::eRayType::kFovSide );
-                if( AddElementToVectorUnique( fovLeftEdge, &rayList, &existingIndex ) )
-                    mDEBUGRays.push_back( fovLeftEdge.mRay );
-                else
-                    rayList[ existingIndex ].mRayType = cRay::eRayType::kFovSide;
-
-                // Then we intersect every rays against polygon
-                // ============================================
-                // ============================================
-                for( auto ray : rayList )
-                {
-                    // Now, for each edge of the clipped polygon, we intersect with that ray
-                    // and harvest all intersections
-                    std::vector< cEdgeF > clipPolEdges;
-
-                    // Collision between ray and clipped Polygon will be stored in this vertexArray
-                    sf::VertexArray hitPoints;
-                    bool onlyVertexIntersection = true; // To quickly know if hitpoints are only vertex exact, or if some are mid-edge intersections
-
-                    ExtractEdgesFromPolygon( &clipPolEdges, clipedPol );
-                    for( auto edge : clipPolEdges )
-                    {
-                        float paramA;
-                        float paramB;
-
-                        if( cEdgeF::Intersect( &paramA, &paramB, edge, ray.mRay ) )
-                        {
-                            if( ( paramA > kEpsilonF && paramA < 1.0F - kEpsilonF ) // If actual intersection that is NOT on an exact vertex
-                                && ( paramB > kEpsilonF && paramB < 1.0F - kEpsilonF ) )
-                            {
-                                mDEBUGHitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
-                                mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Red;
-                                hitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
-                                onlyVertexIntersection = false;
-                            }
-                            else if( abs(paramA) < kEpsilonF || abs(paramA - 1.0F) < kEpsilonF ) // If it is on an exact vertex
-                            {
-                                mDEBUGHitPoints.append( ray.mRay.mPoint + paramB * ray.mRay.mDirection );
-                                mDEBUGHitPoints[ mDEBUGHitPoints.getVertexCount() - 1 ].color = sf::Color::Green;
-
-                                sf::Vector2f vertex = ray.mRay.mPoint + paramB * ray.mRay.mDirection;
-                                AddElementToVertexArrayUnique( vertex, &hitPoints, &existingIndex );
-                            }
-                        }
-                    }
-
-                    // If only one local or no intersections with polygon, it means the ray will cast up to the fov's limit
-                    // So the interesting hitpoint of that ray is fov's limit
-                    if( hitPoints.getVertexCount() <= 1 )
-                    {
-                        // We get fov's limit, which is the edge 1-2 (0 is always the origin point of fov)
-                        // Then we intersect with the ray to get the exact point
-                        cEdgeF fovLimit = cEdgeF::MakePointPoint( fovRightEndPoint, fovLeftEndPoint );
-                        float paramA;
-                        float paramB;
-                        cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray.mRay );
-
-                        auto fovVector = ray.mRay.mPoint + paramB * ray.mRay.mDirection;
-
-                        if( (hitPoints.getVertexCount() == 0) || (hitPoints.getVertexCount() == 1 && ray.mRayType != cRay::eRayType::kFovSide) )
-                            AddElementToVertexArrayUnique( fovVector, &mInterestingHitPoints, &existingIndex );
-
-                        // CHECK: we could remove this from if
-                        // BUT: this situation avoids computing useless transformations and apply a useless sort
-                        // We also push the single intersection, to be able to build subTriangles
-                        if( hitPoints.getVertexCount() == 1 )
-                        {
-                            // If the point is not added, it means it's already there, which means fovIntersection is the same point as the vertex itself
-                            if( !AddElementToVertexArrayUnique( hitPoints[ 0 ].position, &mInterestingHitPoints, &existingIndex ) )
-                            {
-                                idPoint = fovVector;
-                                vertexIntersectionAndFovInterAreIdentical = true;
-                            }
-                        }
-                    }
-                    else if( hitPoints.getVertexCount() > 1 )
-                    {
-                        if( onlyVertexIntersection && ray.mRayType == cRay::eRayType::kBasicRay /*&& consecutives*/ )
-                        {
-                            bool consec = true;
-                            for( int k = 0; k < hitPoints.getVertexCount() - 1; ++k )
-                            {
-                                if( !VertexesAreNeighboorInPolygon( clipedPol, hitPoints[ k ].position, hitPoints[ k + 1 ].position ) )
-                                {
-                                    consec = false;
-                                    break;
-                                }
-                            }
-                            if( consec )
-                            {
-                                // We get fov's limit, which is the edge 1-2 (0 is always the origin point of fov)
-                                // Then we intersect with the ray to get the exact point
-                                cEdgeF fovLimit = cEdgeF::MakePointPoint( fovRightEndPoint, fovLeftEndPoint );
-                                float paramA;
-                                float paramB;
-                                cEdgeF::Intersect( &paramA, &paramB, fovLimit, ray.mRay );
-
-                                auto fovVector = ray.mRay.mPoint + paramB * ray.mRay.mDirection;
-                                AddElementToVertexArrayUnique( fovVector, &mInterestingHitPoints, &existingIndex );
-                            }
-                        }
-
-                        // If there were more than one intersection, we keep the closest one
-                        // So we transform points into watcher's referential
-                        // That has its fov pointing upwards => the smallest the X, the closest it is
-                        TransformPolygonUsingTransformation( &hitPoints, mTransformationAngleSort );
-                        hitPoints = SortVertexesByX( hitPoints );
-                        TransformPolygonUsingTransformation( &hitPoints, mTransformationAngleSort.getInverse() );
-                        mInterestingHitPoints.append( hitPoints[ 0 ].position );
-
-                    }
-                }
-
-                TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformationAngleSort );
-                mInterestingHitPoints = SortVertexesByAngle( mInterestingHitPoints );
-                TransformPolygonUsingTransformation( &mInterestingHitPoints, mTransformationAngleSort.getInverse() );
-                // Need to retransform mInteresing points ?
-
-                // Now, one last part before creating sub triangles :
-                // There are up to 2 cases max where 2 hitpoints are aligned
-                // It is when a ray is casted on a vertex that is the visible limit of the polygon from the watcher
-                // The angle sort will, in case of equal angles, push the closest one before the further one
-                // But in order to create sub triangles, we possibly need one pair of hit point to be swaped ( the furthest one gets before the closest )
-                // The case is when the right part of the fov didn't intersect with the polygon.
-                // Then, the first pair of aligned hitpoints need to be swaped
-
-                bool rightFovCollided = true;
-                // If that end point is a point of interest, it means that that ray didn't intersect with the polygon
-                // So we'll swap the first pair of aligned HP
-                for( int i = 0; i < mInterestingHitPoints.getVertexCount(); ++i )
-                {
-                    if( IsVectorEqualToVector( mInterestingHitPoints[ i ].position, fovRightEndPoint ) )
-                    {
-                        rightFovCollided = false;
-                        break;
-                    }
-                }
-
-                // If we didn't have an intersection with right part fov and polygon, then the next two hit points are
-                // necessarily the aligned pair
-                // so we swap 1 and 2 ( 0 is the end point of right fov ray)
-                if( !rightFovCollided )
-                {
-                    if( mInterestingHitPoints.getVertexCount() >= 3 ) // safety
-                    {
-                        if( (!vertexIntersectionAndFovInterAreIdentical)
-                            ||
-                            (vertexIntersectionAndFovInterAreIdentical
-                            && !IsVectorEqualToVector( mInterestingHitPoints[ 1 ].position, idPoint ) ) )
-                        {
-                            sf::Vector2f tmp = mInterestingHitPoints[ 1 ].position;
-                            mInterestingHitPoints[ 1 ].position = mInterestingHitPoints[ 2 ].position;
-                            mInterestingHitPoints[ 2 ].position = tmp;
-                        }
-                    }
-                }
-
-                // Now all is ready for sub triangles creation
-                // We'll encounter 2x triangles that are flat ( the aligned hit points )
-                // So, don't forget to check for these and don't add them in the sub set
                 sf::VertexArray subTriangle( sf::Triangles, 3 );
-                subTriangle[ 0 ] = fovOrigin;
 
-                for( int i = 0; i < mInterestingHitPoints.getVertexCount() - 1; ++i )
+                double angleToRight = GetAngleBetweenVectors( fovRightEndPoint, fovHPRight );
+                if( angleToRight > kEpsilonF )
                 {
-                    subTriangle[ 1 ] = mInterestingHitPoints[ i ];
-                    subTriangle[ 2 ] = mInterestingHitPoints[ i + 1 ];
+                    subTriangle[ 0 ] = fovOrigin;
+                    subTriangle[ 1 ] = fovHPRight;
+                    subTriangle[ 2 ] = fovRightEndPoint;
+
+                    if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                        mResultingSubTriangles.push_back( subTriangle );
+                }
+
+                double angleToLeft = GetAngleBetweenVectors( fovHPLeft, fovLeftEndPoint );
+                if( angleToLeft > kEpsilonF )
+                {
+                    subTriangle[ 0 ] = fovOrigin;
+                    subTriangle[ 1 ] = fovHPLeft;
+                    subTriangle[ 2 ] = fovLeftEndPoint;
+
+                    if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                        mResultingSubTriangles.push_back( subTriangle );
+                }
+
+
+
+                sf::VertexArray inBetweens = GetPointsFromPolygonInBetweenVectorsCCW( clipedPol, mostLeftPointOfClipedPoly, mostRightPointOfClipedPoly );
+                if( inBetweens.getVertexCount() > 0 )
+                {
+                    subTriangle[ 0 ] = fovOrigin;
+                    subTriangle[ 1 ] = mostLeftPointOfClipedPoly;
+                    subTriangle[ 2 ] = inBetweens[ 0 ];
+
+                    if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                        mResultingSubTriangles.push_back( subTriangle );
+
+
+
+                    for( int i = 0; i < inBetweens.getVertexCount() - 1; ++i )
+                    {
+                        subTriangle[ 0 ] = fovOrigin;
+                        subTriangle[ 1 ] = inBetweens[ i ].position;
+                        subTriangle[ 2 ] = inBetweens[ i + 1 ].position;
+
+                        if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                            mResultingSubTriangles.push_back( subTriangle );
+                    }
+
+
+
+                    subTriangle[ 0 ] = fovOrigin;
+                    subTriangle[ 1 ] = inBetweens[ inBetweens.getVertexCount() - 1 ];
+                    subTriangle[ 2 ] = mostRightPointOfClipedPoly;
+
+                    if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                        mResultingSubTriangles.push_back( subTriangle );
+                }
+                else
+                {
+                    subTriangle[ 0 ] = fovOrigin;
+                    subTriangle[ 1 ] = mostLeftPointOfClipedPoly;
+                    subTriangle[ 2 ] = mostRightPointOfClipedPoly;
 
                     if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
                         mResultingSubTriangles.push_back( subTriangle );

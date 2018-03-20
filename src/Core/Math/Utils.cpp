@@ -197,6 +197,35 @@ GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, c
 
 
 sf::VertexArray
+GetPointsFromPolygonInBetweenVectorsCCW( const sf::VertexArray & iPolygon, const sf::Vector2f & iFirstPoint, const sf::Vector2f & iSecondPoint )
+{
+    sf::VertexArray output;
+    if( iPolygon.getVertexCount() < 3 ) // Won't be any points in between if only 2 points or less
+        return  output;
+
+    int firstIndex = -1;
+    // This assumes the polygon IS ALREADY ccw sorted
+    for( int i = 0; i < iPolygon.getVertexCount(); ++i )
+    {
+        if( IsVectorEqualToVector( iFirstPoint, iPolygon[ i ].position ) )
+        {
+            firstIndex = i;
+            break;
+        }
+    }
+
+    int current = (firstIndex + 1) % iPolygon.getVertexCount();
+    while( !IsVectorEqualToVector( iSecondPoint, iPolygon[ current ].position ) )
+    {
+        output.append( iPolygon[ current ] );
+        current = (current + 1) % iPolygon.getVertexCount();
+    }
+
+    return  output;
+}
+
+
+sf::VertexArray
 CCWWindingSort( const sf::VertexArray & iPolygon )
 {
     sf::VertexArray output( sf::PrimitiveType::Points );
@@ -217,7 +246,7 @@ CCWWindingSort( const sf::VertexArray & iPolygon )
 
     for( int i = 1; i < iPolygon.getVertexCount(); ++i )
     {
-        float angle = float( GetAngleBetweenVectors( iPolygon[ i ].position - cog, firstVector ) );
+        float angle = float( GetAngleBetweenVectors( firstVector, iPolygon[ i ].position - cog ) );
         int j = 0;
         while( j < angles.size() && angle > angles[ j ] )
         {
