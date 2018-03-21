@@ -4,6 +4,11 @@
 #include "Volumetric/Static64/Data.h"
 
 
+#include <GL/glew.h>
+#include <gl/GLU.h>
+#include "SFML/OpenGL.hpp"
+
+
 namespace  nVolumetric
 {
 
@@ -12,7 +17,7 @@ class  cStaticLodChunk64
 {
 
 public:
-enum  eChunkNeighbourIndex : tByte
+enum  eFaceIndex : tByte
 {
     kTop    = 0,
     kBot    = 1,
@@ -47,9 +52,20 @@ public:
     void    SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue );
 
 public:
+    // Public OpenGL Object Building
+    void  BuildVBOs();
+
+private:
+    // Private OpenGL Object Building
+    void  InitVBOs();
+    void  DestroyVBOs();
+    void  UpdateVBOs();
+    void  UpdateVBO( eFaceIndex  iVBO_ID_index );
+
+public:
     // Neighbour Accessors
-    cStaticLodChunk64*  GetNeighbour( eChunkNeighbourIndex  iNeighbourIndex )  const;
-    void                SetNeighbour( eChunkNeighbourIndex  iNeighbourIndex, cStaticLodChunk64* iAdress );
+    cStaticLodChunk64*  GetNeighbour( eFaceIndex  iNeighbourIndex )  const;
+    void                SetNeighbour( eFaceIndex  iNeighbourIndex, cStaticLodChunk64* iAdress );
 
 private:
     // Data Manipulation
@@ -65,12 +81,18 @@ public:
     void  DirectDrawCube( tByte iMaterial );
 
 private:
+    // Private OpenGL Object Rendering
+    void  DrawVBOs();
+    void  DrawVBO( eFaceIndex  iVBO_ID_index );
+
+private:
     // Private Data Members
     static  const  tByte            msSize = 64;
     static  const  unsigned  int    msCapacity = msSize * msSize * msSize; // size^3
     unsigned  int                   mOccupiedVolume;
-    cStaticLodChunk64*              mNeighbour[6] = { 0, 0, 0, 0, 0, 0 }; // six neighbours
-    cData                           mData[msSize][msSize][msSize];
+    cStaticLodChunk64*              mNeighbour[6] = { 0, 0, 0, 0, 0, 0 };   // six neighbours
+    cData                           mData[msSize][msSize][msSize];          // data
+    GLuint                          mVBO_ID[6] = { 0, 0, 0, 0, 0, 0 };      // six VBO faces
 
 };
 

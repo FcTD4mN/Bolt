@@ -1,8 +1,5 @@
 #include "Volumetric/Static64/StaticLodChunk64.h"
 
-#include <GL/glew.h>
-#include <gl/GLU.h>
-#include "SFML/OpenGL.hpp"
 
 namespace  nVolumetric
 {
@@ -92,7 +89,7 @@ cStaticLodChunk64::Fill(tByte iVal)
 
 
 bool
- cStaticLodChunk64::IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
+cStaticLodChunk64::IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
 {
     return  mData[iX][iY][iZ].IsSolid();
 }
@@ -106,7 +103,7 @@ cStaticLodChunk64::GetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDa
 
 
 void
- cStaticLodChunk64::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue )
+cStaticLodChunk64::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue )
 {
     tByte oldMat = GetMaterial( iX, iY, iZ );
     mData[iX][iY][iZ].SetMaterialField( iValue );
@@ -128,17 +125,93 @@ void
 
 
 //----------------------------------------------------------------------------------------------
+//---------------------------------------------------------------- Public OpenGL Object Building
+
+
+void
+cStaticLodChunk64::BuildVBOs()
+{
+}
+
+
+//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------- Private OpenGL Object Building
+
+
+void
+cStaticLodChunk64::InitVBOs()
+{
+    if(glIsBuffer( mVBO_ID[0] ) == GL_TRUE)
+        return;
+
+    glGenBuffers( 6, mVBO_ID );
+
+    float   voidData = 0.f;
+    int     defaultSize = 0;
+
+    //glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ eFaceIndex::kTop ]);
+    //glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
+    //glBufferSubData(GL_ARRAY_BUFFER, shift, size, data);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glNamedBufferData( mVBO_ID[ eFaceIndex::kTop ],     defaultSize, &voidData, GL_DYNAMIC_DRAW );
+    glNamedBufferData( mVBO_ID[ eFaceIndex::kBot ],     defaultSize, &voidData, GL_DYNAMIC_DRAW );
+    glNamedBufferData( mVBO_ID[ eFaceIndex::kFront ],   defaultSize, &voidData, GL_DYNAMIC_DRAW );
+    glNamedBufferData( mVBO_ID[ eFaceIndex::kBack ],    defaultSize, &voidData, GL_DYNAMIC_DRAW );
+    glNamedBufferData( mVBO_ID[ eFaceIndex::kLeft ],    defaultSize, &voidData, GL_DYNAMIC_DRAW );
+    glNamedBufferData( mVBO_ID[ eFaceIndex::kRight ],   defaultSize, &voidData, GL_DYNAMIC_DRAW );
+}
+
+
+void
+cStaticLodChunk64::DestroyVBOs()
+{
+    glDeleteBuffers( 6, mVBO_ID );
+}
+
+
+
+void
+cStaticLodChunk64::UpdateVBOs()
+{
+    UpdateVBO( eFaceIndex::kTop );
+    UpdateVBO( eFaceIndex::kBot );
+    UpdateVBO( eFaceIndex::kFront );
+    UpdateVBO( eFaceIndex::kBack );
+    UpdateVBO( eFaceIndex::kLeft );
+    UpdateVBO( eFaceIndex::kRight );
+}
+
+
+void
+cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
+{
+    glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
+
+        void *VBO_adress = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+        if(VBO_adress == NULL)
+        {
+            //Error
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            return; 
+        }
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+
+//----------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------- Neighbour Accessors
 
 
 cStaticLodChunk64*
-cStaticLodChunk64::GetNeighbour( eChunkNeighbourIndex  iNeighbour )  const
+cStaticLodChunk64::GetNeighbour( eFaceIndex  iNeighbour )  const
 {
     return  mNeighbour[ iNeighbour ];
 }
 
 
-void cStaticLodChunk64::SetNeighbour( eChunkNeighbourIndex iNeighbour, cStaticLodChunk64* iAdress )
+void cStaticLodChunk64::SetNeighbour( eFaceIndex iNeighbour, cStaticLodChunk64* iAdress )
 {
     mNeighbour[ iNeighbour ] = iAdress;
 }
@@ -159,7 +232,7 @@ void
 cStaticLodChunk64::UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
 {
     cData* currentHandle    = DataHandle( iX, iY, iZ );
-    bool  currentIsSolid = currentHandle->IsSolid();
+    bool  currentIsSolid    = currentHandle->IsSolid();
     cData* topDataHandle    = GetSafeExternDataHandle( iX,     iY-1,   iZ      );
     cData* botDataHandle    = GetSafeExternDataHandle( iX,     iY+1,   iZ      );
     cData* frontDataHandle  = GetSafeExternDataHandle( iX,     iY,     iZ-1    );
@@ -231,12 +304,12 @@ cStaticLodChunk64::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
     }
     else
     {
-        if( iY == -1 )      return  mNeighbour[ eChunkNeighbourIndex::kTop ];
-        if( iY == msSize )  return  mNeighbour[ eChunkNeighbourIndex::kBot ];
-        if( iZ == -1 )      return  mNeighbour[ eChunkNeighbourIndex::kFront ];
-        if( iZ == msSize )  return  mNeighbour[ eChunkNeighbourIndex::kBack ];
-        if( iX == -1 )      return  mNeighbour[ eChunkNeighbourIndex::kLeft ];
-        if( iX == msSize )  return  mNeighbour[ eChunkNeighbourIndex::kRight ];
+        if( iY == -1 )      return  mNeighbour[ eFaceIndex::kTop ];
+        if( iY == msSize )  return  mNeighbour[ eFaceIndex::kBot ];
+        if( iZ == -1 )      return  mNeighbour[ eFaceIndex::kFront ];
+        if( iZ == msSize )  return  mNeighbour[ eFaceIndex::kBack ];
+        if( iX == -1 )      return  mNeighbour[ eFaceIndex::kLeft ];
+        if( iX == msSize )  return  mNeighbour[ eFaceIndex::kRight ];
     }
 
     return  NULL;
@@ -308,6 +381,41 @@ cStaticLodChunk64::DirectDrawCube( tByte iMaterial )
     glVertex3f( 0.5f, 0.5f,  0.5f);
 
     glEnd();
+}
+
+
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------ Naive Rendering
+
+
+void
+cStaticLodChunk64::DrawVBOs()
+{
+    DrawVBO( eFaceIndex::kTop );
+    DrawVBO( eFaceIndex::kBot );
+    DrawVBO( eFaceIndex::kFront );
+    DrawVBO( eFaceIndex::kBack );
+    DrawVBO( eFaceIndex::kLeft );
+    DrawVBO( eFaceIndex::kRight );
+}
+
+
+void
+cStaticLodChunk64::DrawVBO( eFaceIndex  iVBO_ID_index )
+{
+    // void glVertexAttribPointer(GLuint index, GLuint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
+
+    glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
+
+        // Accès aux vertices dans la mémoire vidéo
+        glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET( 0 ) );
+        glEnableVertexAttribArray(0);
+
+        // Accès aux couleurs dans la mémoire vidéo
+        //glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, shift );
+        //glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 

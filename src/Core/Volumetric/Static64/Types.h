@@ -13,5 +13,9 @@ typedef  long  int              tGlobalDataIndex;           // Consider 32 bits,
 typedef  tByte                  tLocalDataIndex;            // Consider 8 bits.
 static  const  tByte            sgEmptyMaterial = 0;
 
+#ifndef BUFFER_OFFSET
+    #define BUFFER_OFFSET(offset) ((char*)NULL + (offset))
+#endif
+
 } // namespace  nVolumetric
 

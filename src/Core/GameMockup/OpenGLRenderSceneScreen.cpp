@@ -67,6 +67,8 @@ cOpenGLRenderSceneScreen::Initialize()
         }
     }
 
+    mMap.SafeSetMaterial( 0, 0, 0, 0 );
+
 
     glViewport(0, 0, window->getSize().x, window->getSize().y);
     glEnable(GL_DEPTH_TEST);
