@@ -261,7 +261,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                 sf::Vector2f mostLeftPointOfClipedPoly;
                 sf::Vector2f mostRightPointOfClipedPoly;
-                GetPolygonExtremesByAngle( &mostRightPointOfClipedPoly, &mostLeftPointOfClipedPoly, clipedPol, false );
+                GetPolygonExtremesByAngle( &mostRightPointOfClipedPoly, &mostLeftPointOfClipedPoly, clipedPol );
 
                 mostLeftPointOfClipedPoly = mTransformationAngleSort.getInverse().transformPoint( mostLeftPointOfClipedPoly );
                 mostRightPointOfClipedPoly = mTransformationAngleSort.getInverse().transformPoint( mostRightPointOfClipedPoly );
