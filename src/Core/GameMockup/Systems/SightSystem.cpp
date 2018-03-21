@@ -158,10 +158,10 @@ cSightSystem::Update( unsigned int iDeltaTime )
 {
     cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
-    mDEBUGClips.clear();
-    mDEBUGEntities.clear();
-    mDEBUGMinMax.clear();
-    mDEBUGFovHP.clear();
+    //mDEBUGClips.clear();
+    //mDEBUGEntities.clear();
+    //mDEBUGMinMax.clear();
+    //mDEBUGFovHP.clear();
     mFOVDrawer.clear();
 
     sf::Vector2f fovOrigin;
@@ -171,7 +171,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     {
         cEntity* entity = mWatchers[ i ];
 
-        mTransformationAngleSort = mTransformationAngleSort.Identity;
+        //mTransformationAngleSort = mTransformationAngleSort.Identity;
         mTriangles.clear();
         mResultingSubTriangles.clear();
 
@@ -181,8 +181,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
         // This is the transformation that allows to go in the watcher's referential
-        mTransformationAngleSort.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) ) );
-        mTransformationAngleSort.translate( -position->mPosition );
+        //mTransformationAngleSort.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) ) );
+        //mTransformationAngleSort.translate( -position->mPosition );
         sf::VertexArray subFov;
 
         // Get FOV triangles
@@ -231,7 +231,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 1 ] = positionENT->mPosition + sf::Vector2f( 0.0F, sizeENT->mSize.y );
             analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
-            mDEBUGEntities.push_back( analysisVisibleBox );
+            //mDEBUGEntities.push_back( analysisVisibleBox );
 
 
             // WHEN THIS IS EXTRACTED : take a ioTriangles = mTriangles, and no problems
@@ -239,31 +239,37 @@ cSightSystem::Update( unsigned int iDeltaTime )
             // For each triangle in the set, we split it according to object in the fov
             for( int i = int(mTriangles.size() - 1); i >= 0; --i )
             {
+                mTransformationAngleSort = mTransformationAngleSort.Identity;
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
                 // If this part of the fov doesn't clip with the polygon, we keep the whoe triangle, and we continue
                 if( clipedPol.getVertexCount() == 0 )
                     continue;
 
-                mDEBUGClips.push_back( clipedPol );
+                //mDEBUGClips.push_back( clipedPol );
 
                 // End points of right fov
                 sf::Vector2f fovRightEndPoint = mTriangles[ i ][ 1 ].position;
                 sf::Vector2f fovLeftEndPoint = mTriangles[ i ][ 2 ].position;
+
+                // We compute the transformation that will put right side
+                // of i-th triangle on x axis. This prevents any angle around PI
+                mTransformationAngleSort.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, fovRightEndPoint - fovOrigin ) ) ) );
+                mTransformationAngleSort.translate( -position->mPosition );
 
                 // First we transpose clipedPolygon into watcher's referential, to get extreme points
                 TransformPolygonUsingTransformation( &clipedPol, mTransformationAngleSort );
 
                 sf::Vector2f mostLeftPointOfClipedPoly;
                 sf::Vector2f mostRightPointOfClipedPoly;
-                GetPolygonExtremesByAngle( &mostRightPointOfClipedPoly, &mostLeftPointOfClipedPoly, clipedPol );
+                GetPolygonExtremesByAngle( &mostRightPointOfClipedPoly, &mostLeftPointOfClipedPoly, clipedPol, false );
 
                 mostLeftPointOfClipedPoly = mTransformationAngleSort.getInverse().transformPoint( mostLeftPointOfClipedPoly );
                 mostRightPointOfClipedPoly = mTransformationAngleSort.getInverse().transformPoint( mostRightPointOfClipedPoly );
 
                 TransformPolygonUsingTransformation( &clipedPol, mTransformationAngleSort.getInverse() );
 
-                mDEBUGMinMax.append( mostRightPointOfClipedPoly );
-                mDEBUGMinMax.append( mostLeftPointOfClipedPoly );
+                //mDEBUGMinMax.append( mostRightPointOfClipedPoly );
+                //mDEBUGMinMax.append( mostLeftPointOfClipedPoly );
 
                 // For both extreme points, we cast a ray towards them
                 cRay rayRight( cEdgeF::MakePointPoint( fovOrigin, mostRightPointOfClipedPoly ), cRay::eRayType::kBasicRay );
@@ -282,8 +288,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 cEdgeF::Intersect( &paramA, &paramB, rayLeft.mRay, fovLimit );
                 sf::Vector2f fovHPLeft= rayLeft.mRay.mPoint + paramA * rayLeft.mRay.mDirection;
 
-                mDEBUGFovHP.append( fovHPRight );
-                mDEBUGFovHP.append( fovHPLeft );
+                //mDEBUGFovHP.append( fovHPRight );
+                //mDEBUGFovHP.append( fovHPLeft );
 
                 sf::VertexArray subTriangle( sf::Triangles, 3 );
                 subTriangle[ 0 ] = fovOrigin;
@@ -348,7 +354,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                     mTriangles.erase( mTriangles.begin() + i );
                 }
+
                 mResultingSubTriangles.clear();
+
             }// for all triangles
         }// for all entities
 
