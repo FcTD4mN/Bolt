@@ -125,82 +125,6 @@ cStaticLodChunk64::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDa
 
 
 //----------------------------------------------------------------------------------------------
-//---------------------------------------------------------------- Public OpenGL Object Building
-
-
-void
-cStaticLodChunk64::BuildVBOs()
-{
-}
-
-
-//----------------------------------------------------------------------------------------------
-//--------------------------------------------------------------- Private OpenGL Object Building
-
-
-void
-cStaticLodChunk64::InitVBOs()
-{
-    if(glIsBuffer( mVBO_ID[0] ) == GL_TRUE)
-        return;
-
-    glGenBuffers( 6, mVBO_ID );
-
-    float   voidData = 0.f;
-    int     defaultSize = 0;
-
-    //glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ eFaceIndex::kTop ]);
-    //glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
-    //glBufferSubData(GL_ARRAY_BUFFER, shift, size, data);
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    glNamedBufferData( mVBO_ID[ eFaceIndex::kTop ],     defaultSize, &voidData, GL_DYNAMIC_DRAW );
-    glNamedBufferData( mVBO_ID[ eFaceIndex::kBot ],     defaultSize, &voidData, GL_DYNAMIC_DRAW );
-    glNamedBufferData( mVBO_ID[ eFaceIndex::kFront ],   defaultSize, &voidData, GL_DYNAMIC_DRAW );
-    glNamedBufferData( mVBO_ID[ eFaceIndex::kBack ],    defaultSize, &voidData, GL_DYNAMIC_DRAW );
-    glNamedBufferData( mVBO_ID[ eFaceIndex::kLeft ],    defaultSize, &voidData, GL_DYNAMIC_DRAW );
-    glNamedBufferData( mVBO_ID[ eFaceIndex::kRight ],   defaultSize, &voidData, GL_DYNAMIC_DRAW );
-}
-
-
-void
-cStaticLodChunk64::DestroyVBOs()
-{
-    glDeleteBuffers( 6, mVBO_ID );
-}
-
-
-
-void
-cStaticLodChunk64::UpdateVBOs()
-{
-    UpdateVBO( eFaceIndex::kTop );
-    UpdateVBO( eFaceIndex::kBot );
-    UpdateVBO( eFaceIndex::kFront );
-    UpdateVBO( eFaceIndex::kBack );
-    UpdateVBO( eFaceIndex::kLeft );
-    UpdateVBO( eFaceIndex::kRight );
-}
-
-
-void
-cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
-{
-    glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
-
-        void *VBO_adress = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-        if(VBO_adress == NULL)
-        {
-            //Error
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            return; 
-        }
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-
-//----------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------- Neighbour Accessors
 
 
@@ -323,7 +247,6 @@ cStaticLodChunk64::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
 void
 cStaticLodChunk64::DirectDraw()
 {
-    
     for( tLocalDataIndex  i = 0; i < msSize; ++i )
     {
         for( tLocalDataIndex  j = 0; j < msSize; ++j )
@@ -385,7 +308,168 @@ cStaticLodChunk64::DirectDrawCube( tByte iMaterial )
 
 
 //----------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------ Naive Rendering
+//--------------------------------------------------------------- Private OpenGL Object Building
+
+
+void
+cStaticLodChunk64::InitVBOs()
+{
+    UpdateVBO( eFaceIndex::kTop     );
+    UpdateVBO( eFaceIndex::kBot     );
+    UpdateVBO( eFaceIndex::kFront   );
+    UpdateVBO( eFaceIndex::kBack    );
+    UpdateVBO( eFaceIndex::kLeft    );
+    UpdateVBO( eFaceIndex::kRight   );
+}
+
+
+void
+cStaticLodChunk64::DestroyVBOs()
+{
+    glDeleteBuffers( 6, mVBO_ID );
+}
+
+
+void
+cStaticLodChunk64::UpdateVBOs()
+{
+    UpdateVBO( eFaceIndex::kTop );
+    UpdateVBO( eFaceIndex::kBot );
+    UpdateVBO( eFaceIndex::kFront );
+    UpdateVBO( eFaceIndex::kBack );
+    UpdateVBO( eFaceIndex::kLeft );
+    UpdateVBO( eFaceIndex::kRight );
+}
+
+
+void
+cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
+{
+    if(glIsBuffer( mVBO_ID[ iVBO_ID_index ] ) == GL_TRUE)
+        glDeleteBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
+
+    glGenBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
+
+    float* vertices = new float[ mOccupiedVolume * 6 * 3 ];
+    //float* colors   = new float[ mOccupiedVolume * 6 ];
+
+    for( tLocalDataIndex  i = 0; i < msSize; ++i )
+    {
+        for( tLocalDataIndex  j = 0; j < msSize; ++j )
+        {
+            for( tLocalDataIndex  k = 0; k < msSize; ++k )
+            {
+                cData* data = DataHandle( i, j, k );
+                if( data->IsSolid() && !data->HasNeighbour( static_cast< cData::eDataNeighbourFlag >( int( pow( int( iVBO_ID_index ), 2 ) ) ) ) )
+                {
+                    
+                    
+                }
+            }
+        }
+    }
+
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
+
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+
+    glBindBuffer( GL_ARRAY_BUFFER, 0 );
+}
+
+
+void
+cStaticLodChunk64::GenFace( eFaceIndex iFace, float* iData , int iX, int iY, int iZ )
+{
+    int index = iX + iY * 64 + iZ * 4096;
+    float x = float( iX );
+    float y = float( iY );
+    float z = float( iZ );
+
+    switch( iFace )
+    {
+    case kTop:
+        GenTopFace( iData, index, x, y, z );
+        break;
+    case kBot:
+        GenBotFace( iData, index, x, y, z );
+        break;
+    case kFront:
+        GenFrontFace( iData, index, x, y, z );
+        break;
+    case kBack:
+        GenBackFace( iData, index, x, y, z );
+        break;
+    case kLeft:
+        GenLeftFace( iData, index, x, y, z );
+        break;
+    case kRight:
+        GenRightFace( iData, index, x, y, z );
+        break;
+    }
+}
+
+
+void
+cStaticLodChunk64::GenTopFace( float* iData , int iIndex, float iX, float iY, float iZ )
+{
+    iData[ iIndex ]       = iX;
+    iData[ iIndex + 1 ]   = iX;
+    iData[ iIndex + 2 ]   = iX;
+
+    iData[ iIndex ]       = iX;
+    iData[ iIndex + 1 ]   = iX;
+    iData[ iIndex + 2 ]   = iX;
+
+    iData[ iIndex ]       = iX;
+    iData[ iIndex + 1 ]   = iX;
+    iData[ iIndex + 2 ]   = iX;
+
+    iData[ iIndex ]       = iX;
+    iData[ iIndex + 1 ]   = iX;
+    iData[ iIndex + 2 ]   = iX;
+
+    iData[ iIndex ]       = iX;
+    iData[ iIndex + 1 ]   = iX;
+    iData[ iIndex + 2 ]   = iX;
+
+    iData[ iIndex ]       = iX;
+    iData[ iIndex + 1 ]   = iX;
+    iData[ iIndex + 2 ]   = iX;
+}
+
+
+void
+cStaticLodChunk64::GenBotFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
+{
+}
+
+
+void
+cStaticLodChunk64::GenFrontFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
+{
+}
+
+
+void
+cStaticLodChunk64::GenBackFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
+{
+}
+
+
+void
+cStaticLodChunk64::GenLeftFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
+{
+}
+
+
+void
+cStaticLodChunk64::GenRightFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
+{
+}
+
+
+//----------------------------------------------------------------------------------------------
+//-------------------------------------------------------------- Private OpenGL Object Rendering
 
 
 void

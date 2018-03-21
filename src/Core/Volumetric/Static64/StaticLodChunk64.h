@@ -52,17 +52,6 @@ public:
     void    SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue );
 
 public:
-    // Public OpenGL Object Building
-    void  BuildVBOs();
-
-private:
-    // Private OpenGL Object Building
-    void  InitVBOs();
-    void  DestroyVBOs();
-    void  UpdateVBOs();
-    void  UpdateVBO( eFaceIndex  iVBO_ID_index );
-
-public:
     // Neighbour Accessors
     cStaticLodChunk64*  GetNeighbour( eFaceIndex  iNeighbourIndex )  const;
     void                SetNeighbour( eFaceIndex  iNeighbourIndex, cStaticLodChunk64* iAdress );
@@ -79,6 +68,20 @@ public:
     // Naive Rendering
     void  DirectDraw();
     void  DirectDrawCube( tByte iMaterial );
+
+private:
+    // Private OpenGL Object Building
+    void  InitVBOs();
+    void  DestroyVBOs();
+    void  UpdateVBOs();
+    void  UpdateVBO( eFaceIndex  iVBO_ID_index );
+    void  GenFace( eFaceIndex iFace, float* iData , int iX, int iY, int iZ );
+    void  GenTopFace(   float* iData ,  int iIndex, float iX, float iY, float iZ );
+    void  GenBotFace(   float* iData ,  int iIndex, float iX, float iY, float iZ );
+    void  GenFrontFace( float* iData ,  int iIndex, float iX, float iY, float iZ );
+    void  GenBackFace(  float* iData ,  int iIndex, float iX, float iY, float iZ );
+    void  GenLeftFace(  float* iData ,  int iIndex, float iX, float iY, float iZ );
+    void  GenRightFace( float* iData ,  int iIndex, float iX, float iY, float iZ );
 
 private:
     // Private OpenGL Object Rendering
