@@ -76,21 +76,21 @@ cSquareController::Update( unsigned int iDeltaTime )
         {
             if( userinput->mActions[ i ] == "moveup" )
             {
-                simplephysic->mVelocity.y -= 0.1F;
+                simplephysic->mVelocity.y -= 1.0F;
             }
             else if( userinput->mActions[ i ] == "movedown" )
             {
-                simplephysic->mVelocity.y += 0.1F;
+                simplephysic->mVelocity.y += 1.0F;
             }
             else if( userinput->mActions[ i ] == "moveright" )
             {
-                simplephysic->mVelocity.x += 0.1F;
+                simplephysic->mVelocity.x += 1.0F;
                 if( spriteanimated )
                     spriteanimated->Flip();
             }
             else if( userinput->mActions[ i ] == "moveleft" )
             {
-                simplephysic->mVelocity.x -= 0.1F;
+                simplephysic->mVelocity.x -= 1.0F;
                 if( spriteanimated )
                     spriteanimated->Unflip();
             }
@@ -130,10 +130,10 @@ cSquareController::Update( unsigned int iDeltaTime )
 
             // Basic test thing that assumes only one square is controlled
             // All the gamemockup part is testing anyway ...
-            auto window = cGameApplication::App()->Window();
-            sf::View view = window->getView();
-            view.setCenter( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
-            window->setView( view );
+            //auto window = cGameApplication::App()->Window();
+            //sf::View view = window->getView();
+            //view.setCenter( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
+            //window->setView( view );
         }
     }
 }

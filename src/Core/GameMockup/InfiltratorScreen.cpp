@@ -47,54 +47,80 @@ cInfiltratorScreen::Initialize()
     cWorld* world = cGameApplication::App()->World();
 
     cEntity* wall1 = new cEntity( world );
-    wall1->AddComponent( new cPosition( 0.0F, 0.0F ) );
-    wall1->AddComponent( new cSize( 64.0F, 64.0F ) );
-    wall1->AddComponent( new cColor( 20, 180, 20 ) );
+    wall1->AddComponent( new cPosition( 0.0F, 500.0F ) );
+    wall1->AddComponent( new cSize( 800.0F, 100.0F ) );
+    wall1->AddComponent( new cColor( 180, 185, 183 ) );
     wall1->AddTag( "wall" );
-    wall1->AddComponent( new cSimplePhysic( 0.0F, 0.0F, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
+    wall1->AddComponent( new cSimplePhysic( 0.0F, 500.0F, 800.0F, 100.0F, cSimplePhysic::eType::kStatic ) );
     world->AddEntity( wall1 );
 
-    cEntity* wall2 = new cEntity( world );
-    wall2->AddComponent( new cPosition( 124.0F, 124.0F ) );
-    wall2->AddComponent( new cSize( 256.0F, 64.0F ) );
-    wall2->AddComponent( new cColor( 20, 180, 20 ) );
-    wall2->AddTag( "wall" );
-    wall2->AddComponent( new cSimplePhysic( 124.0F, 124.0F, 256.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
-    world->AddEntity( wall2 );
+    //cEntity* wall2 = new cEntity( world );
+    //wall2->AddComponent( new cPosition( 124.0F, 124.0F ) );
+    //wall2->AddComponent( new cSize( 256.0F, 64.0F ) );
+    //wall2->AddComponent( new cColor( 20, 180, 20 ) );
+    //wall2->AddTag( "wall" );
+    //wall2->AddComponent( new cSimplePhysic( 124.0F, 124.0F, 256.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
+    //world->AddEntity( wall2 );
 
-    cEntity* wall3 = new cEntity( world );
-    wall3->AddComponent( new cPosition( 60.0F, 250.0F ) );
-    wall3->AddComponent( new cSize( 64.0F, 64.0F ) );
-    wall3->AddComponent( new cColor( 20, 180, 20 ) );
-    wall3->AddTag( "wall" );
-    wall3->AddComponent( new cSimplePhysic( 60.0F, 250.0F, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
-    world->AddEntity( wall3 );
+    //cEntity* wall3 = new cEntity( world );
+    //wall3->AddComponent( new cPosition( 60.0F, 250.0F ) );
+    //wall3->AddComponent( new cSize( 64.0F, 64.0F ) );
+    //wall3->AddComponent( new cColor( 20, 180, 20 ) );
+    //wall3->AddTag( "wall" );
+    //wall3->AddComponent( new cSimplePhysic( 60.0F, 250.0F, 64.0F, 64.0F, cSimplePhysic::eType::kStatic ) );
+    //world->AddEntity( wall3 );
 
-    cEntity* wall4 = new cEntity( world );
-    wall4->AddComponent( new cPosition( 450.0F, 200.0F ) );
-    wall4->AddComponent( new cSize( 64.0F, 256.0F ) );
-    wall4->AddComponent( new cColor( 20, 180, 20 ) );
-    wall4->AddTag( "wall" );
-    wall4->AddComponent( new cSimplePhysic( 450.0F, 200.0F, 64.0F, 256.0F, cSimplePhysic::eType::kStatic ) );
-    world->AddEntity( wall4 );
+    //cEntity* wall4 = new cEntity( world );
+    //wall4->AddComponent( new cPosition( 450.0F, 200.0F ) );
+    //wall4->AddComponent( new cSize( 64.0F, 256.0F ) );
+    //wall4->AddComponent( new cColor( 20, 180, 20 ) );
+    //wall4->AddTag( "wall" );
+    //wall4->AddComponent( new cSimplePhysic( 450.0F, 200.0F, 64.0F, 256.0F, cSimplePhysic::eType::kStatic ) );
+    //world->AddEntity( wall4 );
 
     cEntity* hero = new cEntity( world );
-    hero->AddComponent( new cPosition( 300.0F, 256.0F ) );
-    hero->AddComponent( new cSize( 40.0F, 60.0F ) );
+    hero->AddComponent( new cPosition( 350.0F, 350.0F ) );
+    hero->AddComponent( new cSize( 100.0F, 90.0F ) );
     hero->AddComponent( new cColor( 20, 20, 200 ) );
     hero->AddComponent( new cUserInput() );
     hero->AddTag( "hero" );
-    hero->AddComponent( new cSimplePhysic( 300.0F, 256.0F, 40.0F, 60.0F, cSimplePhysic::eType::kDynamic ) );
+    hero->AddComponent( new cSimplePhysic( 350.0F, 350.0F, 100.0F, 90.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( hero );
 
     mMechant = new cEntity( world );
-    mMechant->AddComponent( new cPosition( 156.0F, 256.0F ) );
-    mMechant->AddComponent( new cSize( 40.0F, 40.0F ) );
+    mMechant->AddComponent( new cPosition( 150.0F, 100.0F ) );
+    mMechant->AddComponent( new cSize( 1.0F, 1.0F ) );
     mMechant->AddComponent( new cColor( 180, 20, 20 ) );
-    mMechant->AddComponent( new cFieldOfView( 90, 300 ) );
-    mMechant->AddComponent( new cDirection( Normale( sf::Vector2f( 1.0F, 1.0F ) ) ) );
-    mMechant->AddComponent( new cSimplePhysic( 156.0F, 256.0F, 40.0F, 40.0F, cSimplePhysic::eType::kDynamic ) );
+    mMechant->AddComponent( new cFieldOfView( 90, 1000 ) );
+    mMechant->AddComponent( new cDirection( Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
+    mMechant->AddComponent( new cSimplePhysic( 150.0F, 100.0F, 1.0F, 1.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( mMechant );
+
+    cEntity* light = new cEntity( world );
+    light->AddComponent( new cPosition( 650.0F, 100.0F ) );
+    light->AddComponent( new cSize( 1.0F, 1.0F ) );
+    light->AddComponent( new cColor( 180, 20, 20 ) );
+    light->AddComponent( new cFieldOfView( 90, 1000 ) );
+    light->AddComponent( new cDirection( Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
+    light->AddComponent( new cSimplePhysic( 650.0F, 100.0F, 1.0F, 1.0F, cSimplePhysic::eType::kDynamic ) );
+    world->AddEntity( light );
+
+    /*
+    int swall = 1;
+    for( int i = 0; i < swall; ++i )
+    {
+        for( int j = 0; j < swall; ++j )
+        {
+            cEntity* wall = new cEntity( world );
+            wall->AddComponent( new cPosition( double(i) * 800.0 / double( swall ), double( j ) * 600.0 / double( swall ) ) );
+            wall->AddComponent( new cSize( 5.0f, 5.0f ) );
+            wall->AddComponent( new cColor( 20, 180, 20 ) );
+            wall->AddComponent( new cSimplePhysic( double( i ) * 800.0 / double( swall ), double( j ) * 600.0 / double( swall ), 5.0f, 5.0f, cSimplePhysic::eType::kDynamic ) );
+            wall->AddTag( "wall" );
+            world->AddEntity( wall );
+        }
+    }
+    */
 
     mRotationFOV.rotate( 2.0F );
 }
@@ -320,6 +346,7 @@ cInfiltratorScreen::LoadXML()
         std::cout << "Successfuly loaded " << std::endl;
     else
         std::cout << "Failed to load" << std::endl;
+    mMechant = cGameApplication::App()->World()->GetEntityByID( "idontknow9" );
 }
 
 

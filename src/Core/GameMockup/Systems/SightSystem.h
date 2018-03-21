@@ -65,6 +65,9 @@ private:
     // It means any angle to the "left" of the watcher's bissectrice will be positive, and to the "right" negative.
     // Also, the smaller the angle, the more it is on the right ( -PI/2 is more on the right than 0.0, itself more than PI  etc)
 
+
+    std::vector< std::vector< sf::VertexArray > >  mFOVDrawer;
+
     std::vector< sf::VertexArray >  mDEBUGClips;
     std::vector< sf::VertexArray >  mDEBUGEntities;
 

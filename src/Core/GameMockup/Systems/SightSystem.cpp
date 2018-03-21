@@ -20,7 +20,7 @@
 #include <iostream>
 
 
-#define FOVSplitThreshold 10
+#define FOVSplitThreshold 1
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -64,7 +64,7 @@ cSightSystem::Finalize()
 void
 cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
 {
-    cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
+    //cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
     // BBOx of fov
     //sf::RectangleShape bbox( sf::Vector2f( mFOVBBox.width, mFOVBBox.height ) );
@@ -91,16 +91,6 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    }
 
     //    iRenderTarget->draw( mDEBUGClips[ i ] );
-    //}
-
-    //for( int i = 0; i < mDEBUGRays.size(); ++i )
-    //{
-    //    sf::VertexArray line( sf::Lines, 2 );
-    //    line[ 0 ].position = mDEBUGRays[ i ].mPoint;
-    //    line[ 0 ].color = sf::Color( i*50, 0, 0 );
-    //    line[ 1 ].position = mDEBUGRays[ i ].mPoint + mDEBUGRays[ i ].mDirection;
-    //    line[ 1 ].color = sf::Color( i*50, 0, 0 );
-    //    iRenderTarget->draw( line );
     //}
 
     //if( mTriangles.size() > 0 )
@@ -130,26 +120,18 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //}
     //iRenderTarget->draw( mInterestingHitPoints );
 
-    for( int i = 0; i < mResultingSubTriangles.size(); ++i )
+    for( auto fov : mFOVDrawer )
     {
-        for( int j = 0; j < mResultingSubTriangles[ i ].getVertexCount(); ++j )
+        for( int i = 0; i < fov.size(); ++i )
         {
-            mResultingSubTriangles[ i ].setPrimitiveType( sf::Triangles );
-            mResultingSubTriangles[ i ][ j ].color = sf::Color( 200,20,20,120 );
+            for( int j = 0; j < fov[ i ].getVertexCount(); ++j )
+            {
+                fov[ i ].setPrimitiveType( sf::Triangles );
+                fov[ i ][ j ].color = sf::Color( 200,20,20,50 );
+            }
+            iRenderTarget->draw( fov[ i ] );
         }
-        iRenderTarget->draw( mResultingSubTriangles[ i ] );
     }
-
-
-
-    //sf::CircleShape tamere( 6, 4 );
-    //tamere.setFillColor( sf::Color::Red );
-    //for( int i = 0; i < mDEBUGHitPoints.getVertexCount(); ++i )
-    //{
-    //    tamere.setPosition( mDEBUGHitPoints[ i ].position );
-    //    tamere.setOrigin( sf::Vector2f( 3.0F,3.0F ) );
-    //    iRenderTarget->draw( tamere );
-    //}
 
     //sf::CircleShape hitPoint( 6, 4 );
     //hitPoint.setFillColor( sf::Color::Red );
@@ -159,7 +141,7 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    hitPoint.setOrigin( sf::Vector2f( 3.0F,3.0F ) );
     //    iRenderTarget->draw( hitPoint );
     //}
-
+    //
     //sf::CircleShape fovHP( 6, 4 );
     //fovHP.setFillColor( sf::Color::Blue );
     //for( int i = 0; i < mDEBUGFovHP.getVertexCount(); ++i )
@@ -168,7 +150,6 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     //    fovHP.setOrigin( sf::Vector2f( 3.0F, 3.0F ) );
     //    iRenderTarget->draw( fovHP );
     //}
-
 }
 
 
@@ -177,13 +158,11 @@ cSightSystem::Update( unsigned int iDeltaTime )
 {
     cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
-    mTransformationAngleSort = mTransformationAngleSort.Identity;
-    mTriangles.clear();
-    mResultingSubTriangles.clear();
     mDEBUGClips.clear();
     mDEBUGEntities.clear();
     mDEBUGMinMax.clear();
     mDEBUGFovHP.clear();
+    mFOVDrawer.clear();
 
     sf::Vector2f fovOrigin;
     sf::Vector2f fovB;
@@ -191,6 +170,10 @@ cSightSystem::Update( unsigned int iDeltaTime )
     for( int i = 0; i < mWatchers.size(); ++i )
     {
         cEntity* entity = mWatchers[ i ];
+
+        mTransformationAngleSort = mTransformationAngleSort.Identity;
+        mTriangles.clear();
+        mResultingSubTriangles.clear();
 
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         auto size = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
@@ -234,8 +217,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         std::vector< cEntity* > entitiesInFOVBBox;
         entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
-        //for( auto v : entitiesInFOVBBox )
-        for( auto v : mPointsOfInterest )
+        for( auto v : entitiesInFOVBBox )
         {
             // We don't analyse the watcher itself
             if( v == entity )
@@ -251,21 +233,22 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
             mDEBUGEntities.push_back( analysisVisibleBox );
 
+
+            // WHEN THIS IS EXTRACTED : take a ioTriangles = mTriangles, and no problems
+
             // For each triangle in the set, we split it according to object in the fov
             for( int i = int(mTriangles.size() - 1); i >= 0; --i )
             {
                 sf::VertexArray clipedPol = ClipPolygonPolygon( analysisVisibleBox, mTriangles[ i ] );
                 // If this part of the fov doesn't clip with the polygon, we keep the whoe triangle, and we continue
                 if( clipedPol.getVertexCount() == 0 )
-                {
-                    mResultingSubTriangles.push_back( mTriangles[ i ] );
                     continue;
-                }
+
+                mDEBUGClips.push_back( clipedPol );
 
                 // End points of right fov
                 sf::Vector2f fovRightEndPoint = mTriangles[ i ][ 1 ].position;
                 sf::Vector2f fovLeftEndPoint = mTriangles[ i ][ 2 ].position;
-
 
                 // First we transpose clipedPolygon into watcher's referential, to get extreme points
                 TransformPolygonUsingTransformation( &clipedPol, mTransformationAngleSort );
@@ -279,10 +262,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                 TransformPolygonUsingTransformation( &clipedPol, mTransformationAngleSort.getInverse() );
 
-
                 mDEBUGMinMax.append( mostRightPointOfClipedPoly );
                 mDEBUGMinMax.append( mostLeftPointOfClipedPoly );
-
 
                 // For both extreme points, we cast a ray towards them
                 cRay rayRight( cEdgeF::MakePointPoint( fovOrigin, mostRightPointOfClipedPoly ), cRay::eRayType::kBasicRay );
@@ -301,27 +282,25 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 cEdgeF::Intersect( &paramA, &paramB, rayLeft.mRay, fovLimit );
                 sf::Vector2f fovHPLeft= rayLeft.mRay.mPoint + paramA * rayLeft.mRay.mDirection;
 
-
                 mDEBUGFovHP.append( fovHPRight );
                 mDEBUGFovHP.append( fovHPLeft );
 
                 sf::VertexArray subTriangle( sf::Triangles, 3 );
+                subTriangle[ 0 ] = fovOrigin;
 
-                double angleToRight = GetAngleBetweenVectors( fovRightEndPoint, fovHPRight );
+                double angleToRight = GetAngleBetweenVectors( fovRightEndPoint - fovOrigin, fovHPRight - fovOrigin );
                 if( angleToRight > kEpsilonF )
                 {
-                    subTriangle[ 0 ] = fovOrigin;
-                    subTriangle[ 1 ] = fovHPRight;
-                    subTriangle[ 2 ] = fovRightEndPoint;
+                    subTriangle[ 1 ] = fovRightEndPoint;
+                    subTriangle[ 2 ] = fovHPRight;
 
                     if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
                         mResultingSubTriangles.push_back( subTriangle );
                 }
 
-                double angleToLeft = GetAngleBetweenVectors( fovHPLeft, fovLeftEndPoint );
+                double angleToLeft = GetAngleBetweenVectors( fovHPLeft - fovOrigin, fovLeftEndPoint - fovOrigin );
                 if( angleToLeft > kEpsilonF )
                 {
-                    subTriangle[ 0 ] = fovOrigin;
                     subTriangle[ 1 ] = fovHPLeft;
                     subTriangle[ 2 ] = fovLeftEndPoint;
 
@@ -329,50 +308,51 @@ cSightSystem::Update( unsigned int iDeltaTime )
                         mResultingSubTriangles.push_back( subTriangle );
                 }
 
-
-
                 sf::VertexArray inBetweens = GetPointsFromPolygonInBetweenVectorsCCW( clipedPol, mostLeftPointOfClipedPoly, mostRightPointOfClipedPoly );
                 if( inBetweens.getVertexCount() > 0 )
                 {
-                    subTriangle[ 0 ] = fovOrigin;
-                    subTriangle[ 1 ] = mostLeftPointOfClipedPoly;
-                    subTriangle[ 2 ] = inBetweens[ 0 ];
+                    subTriangle[ 1 ] = inBetweens[ 0 ];
+                    subTriangle[ 2 ] = mostLeftPointOfClipedPoly;
 
                     if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
                         mResultingSubTriangles.push_back( subTriangle );
 
-
-
                     for( int i = 0; i < inBetweens.getVertexCount() - 1; ++i )
                     {
-                        subTriangle[ 0 ] = fovOrigin;
-                        subTriangle[ 1 ] = inBetweens[ i ].position;
-                        subTriangle[ 2 ] = inBetweens[ i + 1 ].position;
+                        subTriangle[ 1 ] = inBetweens[ i + 1 ].position;
+                        subTriangle[ 2 ] = inBetweens[ i ].position;
 
                         if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
                             mResultingSubTriangles.push_back( subTriangle );
                     }
 
-
-
-                    subTriangle[ 0 ] = fovOrigin;
-                    subTriangle[ 1 ] = inBetweens[ inBetweens.getVertexCount() - 1 ];
-                    subTriangle[ 2 ] = mostRightPointOfClipedPoly;
+                    subTriangle[ 1 ] = mostRightPointOfClipedPoly;
+                    subTriangle[ 2 ] = inBetweens[ inBetweens.getVertexCount() - 1 ];
 
                     if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
                         mResultingSubTriangles.push_back( subTriangle );
                 }
                 else
                 {
-                    subTriangle[ 0 ] = fovOrigin;
-                    subTriangle[ 1 ] = mostLeftPointOfClipedPoly;
-                    subTriangle[ 2 ] = mostRightPointOfClipedPoly;
+                    subTriangle[ 1 ] = mostRightPointOfClipedPoly;
+                    subTriangle[ 2 ] = mostLeftPointOfClipedPoly;
 
                     if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
                         mResultingSubTriangles.push_back( subTriangle );
                 }
-            }
-        }
+
+                if( mResultingSubTriangles.size() > 0 )
+                {
+                    for( auto triangle : mResultingSubTriangles )
+                        mTriangles.push_back( triangle );
+
+                    mTriangles.erase( mTriangles.begin() + i );
+                }
+                mResultingSubTriangles.clear();
+            }// for all triangles
+        }// for all entities
+
+        mFOVDrawer.push_back( mTriangles );
     }
 }
 

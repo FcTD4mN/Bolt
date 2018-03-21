@@ -29,6 +29,16 @@ GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 )
 }
 
 
+double
+GetAngleBetweenVectors2( const sf::Vector2f& p1, const sf::Vector2f& p2 )
+{
+    float a1 = atan2( p1.y, p1.x );
+    float a2 = atan2( p2.y, p2.x );
+    float angle = a1 - a2;
+    return  angle;
+}
+
+
 sf::Vector2f CenterOfGravity( const sf::VertexArray & iPolygon )
 {
     sf::Vector2f cog( 0.0F, 0.0F );
@@ -115,8 +125,8 @@ CCWWindedPolygonContainsPoint( const sf::VertexArray & iPolygon, const sf::Vecto
 
         sf::Vector2f vecProjection = iPoint - projection;
 
-        double angle = GetAngleBetweenVectors( vecProjection, v.mDirection );
-        if( angle > 0.0 )
+        double angle = GetAngleBetweenVectors( v.mDirection, vecProjection );
+        if( angle < 0.0 )
             return  false;
     }
 
@@ -184,11 +194,11 @@ GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, c
     ( *oMinVertex ) = sortedVertexes[ 0 ].position;
     ( *oMaxVertex ) = sortedVertexes[ sortedVertexes.getVertexCount() - 1 ].position;
 
-    double angleMax = GetAngleBetweenVectors( gXAxisVector, sortedVertexes[ sortedVertexes.getVertexCount() - 1 ].position );
+    double angleMax = GetAngleBetweenVectors2( gXAxisVector, sortedVertexes[ sortedVertexes.getVertexCount() - 1 ].position );
 
-    for( int i = sortedVertexes.getVertexCount() - 1; i >= 0; --i )
+    for( int i = int(sortedVertexes.getVertexCount() - 1); i >= 0; --i )
     {
-        double angle = GetAngleBetweenVectors( gXAxisVector, sortedVertexes[ i ].position );
+        double angle = GetAngleBetweenVectors2( gXAxisVector, sortedVertexes[ i ].position );
         if( abs( angle - angleMax ) > kEpsilonF )
             break;
         ( *oMaxVertex ) = sortedVertexes[ i ].position;
@@ -362,7 +372,7 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
     {
         ePair pair;
         pair.position = iPolygon[ i ].position;
-        pair.angle = GetAngleBetweenVectors( gXAxisVector, pair.position );
+        pair.angle = GetAngleBetweenVectors2( gXAxisVector, pair.position );
 
         int index = 0;
 

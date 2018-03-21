@@ -9,7 +9,7 @@
 #define kPIF (3.1415926535897932384626F)
 
 /** Constant : some small epsilon in float format. */
-#define kEpsilonF (1E-4F)
+#define kEpsilonF (1E-5F)
 
 /** Constant : some small epsilon in float format to handle float representing pixels */
 #define kEpsilonPixelF 1.0F
@@ -24,6 +24,7 @@ static sf::Vector2f gNULLVector( 0.0F, 0.0F );
 // Geometry
 bool            IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
 double          GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 );
+double          GetAngleBetweenVectors2( const sf::Vector2f& p1, const sf::Vector2f& p2 );
 sf::Vector2f    CenterOfGravity( const  sf::VertexArray& iPolygon );
 sf::VertexArray PolygonPolygonInterectionList( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
 sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
@@ -213,7 +214,7 @@ bool
 IsVectorEqualToVector( const sf::Vector2f& iVectorA, const sf::Vector2f& iVectorB )
 {
     sf::Vector2f sub = iVectorA - iVectorB;
-    if( abs( sub.x ) < kEpsilonPixelF && abs( sub.y ) < kEpsilonPixelF )
+    if( abs( sub.x ) < kEpsilonF && abs( sub.y ) < kEpsilonF )
         return  true;
 
     return  false;
