@@ -312,18 +312,6 @@ cStaticLodChunk64::DirectDrawCube( tByte iMaterial )
 
 
 void
-cStaticLodChunk64::InitVBOs()
-{
-    UpdateVBO( eFaceIndex::kTop     );
-    UpdateVBO( eFaceIndex::kBot     );
-    UpdateVBO( eFaceIndex::kFront   );
-    UpdateVBO( eFaceIndex::kBack    );
-    UpdateVBO( eFaceIndex::kLeft    );
-    UpdateVBO( eFaceIndex::kRight   );
-}
-
-
-void
 cStaticLodChunk64::DestroyVBOs()
 {
     glDeleteBuffers( 6, mVBO_ID );
@@ -350,8 +338,8 @@ cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
 
     glGenBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
 
-    float* vertices = new float[ mOccupiedVolume * 6 * 3 ];
-    //float* colors   = new float[ mOccupiedVolume * 6 ];
+    int size = mOccupiedVolume * 6 * 3;
+    float* vertices = new float[ size ];
 
     for( tLocalDataIndex  i = 0; i < msSize; ++i )
     {
@@ -362,8 +350,7 @@ cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
                 cData* data = DataHandle( i, j, k );
                 if( data->IsSolid() && !data->HasNeighbour( static_cast< cData::eDataNeighbourFlag >( int( pow( int( iVBO_ID_index ), 2 ) ) ) ) )
                 {
-                    
-                    
+                    GenFace( iVBO_ID_index, vertices, i, j, k );
                 }
             }
         }
@@ -412,29 +399,29 @@ cStaticLodChunk64::GenFace( eFaceIndex iFace, float* iData , int iX, int iY, int
 void
 cStaticLodChunk64::GenTopFace( float* iData , int iIndex, float iX, float iY, float iZ )
 {
-    iData[ iIndex ]       = iX;
-    iData[ iIndex + 1 ]   = iX;
-    iData[ iIndex + 2 ]   = iX;
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
 
-    iData[ iIndex ]       = iX;
-    iData[ iIndex + 1 ]   = iX;
-    iData[ iIndex + 2 ]   = iX;
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
 
-    iData[ iIndex ]       = iX;
-    iData[ iIndex + 1 ]   = iX;
-    iData[ iIndex + 2 ]   = iX;
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
 
-    iData[ iIndex ]       = iX;
-    iData[ iIndex + 1 ]   = iX;
-    iData[ iIndex + 2 ]   = iX;
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
 
-    iData[ iIndex ]       = iX;
-    iData[ iIndex + 1 ]   = iX;
-    iData[ iIndex + 2 ]   = iX;
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
 
-    iData[ iIndex ]       = iX;
-    iData[ iIndex + 1 ]   = iX;
-    iData[ iIndex + 2 ]   = iX;
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
 }
 
 

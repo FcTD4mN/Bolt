@@ -71,7 +71,6 @@ public:
 
 private:
     // Private OpenGL Object Building
-    void  InitVBOs();
     void  DestroyVBOs();
     void  UpdateVBOs();
     void  UpdateVBO( eFaceIndex  iVBO_ID_index );
