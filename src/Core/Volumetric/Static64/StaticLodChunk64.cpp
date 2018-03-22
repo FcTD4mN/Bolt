@@ -382,11 +382,14 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
 
     glGenBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
 
-    /*
-    int stride = 6 * 3;
+    int stride = 3;
     int size = OccupiedVolume() * stride;
     int index = 0;
-    float* vertices = new float[ size ];
+    std::vector< sf::Vector3f > vertices;
+    vertices.resize( size );
+    int byteSize = sizeof( vertices[0] ) * vertices.size();
+
+    //sf::Vector3f  vertices[3];
     eNF_Flag neighbourFlag = NF_IndexToFlag( iVBO_ID_index );
 
     for( tLocalDataIndex  i = 0; i < msSize; ++i )
@@ -405,30 +408,31 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
         }
     }
 
+    auto a = vertices[0];
+    auto b = vertices[1];
+    auto c = vertices[2];
+
+    auto dummy = 0;
+
     glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
 
-        glBufferData( GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW );
+        glBufferData( GL_ARRAY_BUFFER, byteSize, &vertices[0], GL_STATIC_DRAW );
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glBindBuffer( GL_ARRAY_BUFFER, 0 );
+
+    /*
+    sf::Vector3f Vertices[3];
+    Vertices[0] = sf::Vector3f(0.0f, 0.0f, 0.0f);
+    Vertices[1] = sf::Vector3f(1.0f, 0.0f, 0.0f);
+    Vertices[2] = sf::Vector3f(0.0f, 0.0f, 1.0f);
+
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
+        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
     glBindBuffer( GL_ARRAY_BUFFER, 0 );
     */
-
-    sf::Vector3f Vertices[6];
-    Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
-    Vertices[1] = sf::Vector3f(1.0f, -1.0f, 0.0f);
-    Vertices[2] = sf::Vector3f(0.0f, 1.0f, 0.0f);
-    Vertices[3] = sf::Vector3f(1.0f, -1.0f, 0.0f);
-    Vertices[4] = sf::Vector3f(0.0f, 1.0f, 0.0f);
-    Vertices[5] = sf::Vector3f(5.0f, 0.0f, 0.0f);
-    //GLuint VBO;
-    //glGenBuffers(1, &VBO);
-    //glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
-
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
-    //glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-    glBindBuffer( GL_ARRAY_BUFFER, 0 );
 }
 
 
@@ -439,18 +443,15 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
 void
 cStaticLodChunk64::DrawVBO( eNF_Index  iVBO_ID_index )
 {
-/*
-    // void glVertexAttribPointer(GLuint index, GLuint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
+    /*
+    int stride = 3;
+    int size = OccupiedVolume() * stride;
 
     glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
 
-        // Accès aux vertices dans la mémoire vidéo
-        glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET( 0 ) );
         glEnableVertexAttribArray(0);
-
-        // Accès aux couleurs dans la mémoire vidéo
-        //glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, shift );
-        //glEnableVertexAttribArray(1);
+        glDrawArrays(GL_TRIANGLES, 0, size );
+        glDisableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     */
@@ -458,10 +459,11 @@ cStaticLodChunk64::DrawVBO( eNF_Index  iVBO_ID_index )
     glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
 
     glEnableVertexAttribArray(0);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
     glDisableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 }
 
