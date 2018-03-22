@@ -35,7 +35,7 @@ void            GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2
 sf::VertexArray GetPointsFromPolygonInBetweenVectorsCCW( const  sf::VertexArray& iPolygon, const sf::Vector2f& iFirstPoint, const sf::Vector2f& iSecondPoint );
 
 // TriangleSubDivisionUsingPolygon
-void  TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* ioTriangleSet, sf::VertexArray& iPolygon );
+void  TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOutput, sf::VertexArray& iTriangle, sf::VertexArray& iPolygon );
 
 
 // Sorts

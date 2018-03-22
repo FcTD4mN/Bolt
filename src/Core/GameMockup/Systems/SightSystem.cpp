@@ -231,12 +231,22 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 1 ] = positionENT->mPosition + sf::Vector2f( 0.0F, sizeENT->mSize.y );
             analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
-            //mDEBUGEntities.push_back( analysisVisibleBox );
 
+            std::vector< sf::VertexArray > subTriangles;
+            for( int i = int( mTriangles.size() - 1 ); i >= 0; --i )
+            {
+                TriangleSubDivisionUsingPolygon( &subTriangles, mTriangles[ i ], analysisVisibleBox );
 
-            // WHEN THIS IS EXTRACTED : take a ioTriangles = mTriangles, and no problems
+                if( subTriangles.size() > 0 )
+                {
+                    for( auto triangle : subTriangles )
+                        mTriangles.push_back( triangle );
 
-            TriangleSubDivisionUsingPolygon( &mTriangles, analysisVisibleBox );
+                    mTriangles.erase( mTriangles.begin() + i );
+                }
+
+                subTriangles.clear();
+            }
 
         }// for all entities
 
