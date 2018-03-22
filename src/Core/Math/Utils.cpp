@@ -236,7 +236,7 @@ GetPointsFromPolygonInBetweenVectorsCCW( const sf::VertexArray & iPolygon, const
 
 
 void
-TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOutput, sf::VertexArray& iTriangle, sf::VertexArray& iPolygon )
+TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray& iTriangle, const sf::VertexArray& iPolygon )
 {
     oSubTrianglesOutput->clear();
 
@@ -244,7 +244,7 @@ TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOu
     // If this part of the fov doesn't clip with the polygon, we keep the whoe triangle, and we continue
     if( clipedPol.getVertexCount() == 0 )
     {
-        (*oSubTrianglesOutput ).push_back( iTriangle );
+        oSubTrianglesOutput->push_back( iTriangle );
         return;
     }
 
@@ -343,6 +343,13 @@ TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOu
         if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
             ( *oSubTrianglesOutput ).push_back( subTriangle );
     }
+}
+
+
+void
+TriangleSubDivisionUsingPolygonMultiThreadCall( std::vector<sf::VertexArray>* oSubTrianglesOutput, const sf::VertexArray * iTriangle, const sf::VertexArray * iPolygon )
+{
+    TriangleSubDivisionUsingPolygon( oSubTrianglesOutput, *iTriangle, *iPolygon );
 }
 
 

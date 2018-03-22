@@ -6,6 +6,8 @@
 
 #include "Math/Edge.h"
 
+#include <thread>
+
 class cSightSystem :
     public cSystem
 {
@@ -39,9 +41,8 @@ private:
 
     sf::FloatRect                   mFOVBBox;
     std::vector< sf::VertexArray >  mTriangles;
-    std::vector< sf::VertexArray >  mResultingSubTriangles;
-    sf::VertexArray                 mInterestingHitPoints;
-    sf::Transform                   mTransformationAngleSort; // This places watcher in a y,x referential, that allows to sort using angle easily
+
+    std::vector< std::thread >      mThread;
 
     // The watcher referential is like this :
 
@@ -67,13 +68,5 @@ private:
 
 
     std::vector< std::vector< sf::VertexArray > >  mFOVDrawer;
-
-    std::vector< sf::VertexArray >  mDEBUGClips;
-    std::vector< sf::VertexArray >  mDEBUGEntities;
-
-
-    sf::VertexArray                 mDEBUGMinMax;
-    sf::VertexArray                 mDEBUGFovHP;
-
 };
 
