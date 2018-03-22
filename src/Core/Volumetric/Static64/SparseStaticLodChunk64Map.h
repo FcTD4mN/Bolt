@@ -15,6 +15,7 @@ class  cSparseStaticLodChunk64Map
 
 public:
     // Construction / Destruction
+    ~cSparseStaticLodChunk64Map();
     cSparseStaticLodChunk64Map();
     cSparseStaticLodChunk64Map( const  cSparseStaticLodChunk64Map& ) = delete;
 
@@ -30,6 +31,9 @@ public:
     void  RmChunk( const  cHashable3DKey&  iKey );
     void  UpdateChunkNeighbours( const  cHashable3DKey&  iKey );
     void  PurgeEmptyChunks();
+    void  PurgeAllChunks();
+
+    void  UpdateChunksVBOs();
 
 public:
     // Wrapping Inner Data Access

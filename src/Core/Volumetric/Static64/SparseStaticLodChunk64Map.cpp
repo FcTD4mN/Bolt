@@ -1,14 +1,20 @@
 #include "Volumetric/Static64/SparseStaticLodChunk64Map.h"
 
 
-#include "Math/Utils.h"
-
 #include <GL/glew.h>
 #include <gl/GLU.h>
 #include "SFML/OpenGL.hpp"
 
+
 namespace  nVolumetric
 {
+
+
+cSparseStaticLodChunk64Map::~cSparseStaticLodChunk64Map()
+{
+    PurgeAllChunks();
+}
+
 
 cSparseStaticLodChunk64Map::cSparseStaticLodChunk64Map() :
     mChunks()
@@ -115,6 +121,30 @@ cSparseStaticLodChunk64Map::PurgeEmptyChunks()
         auto hashedKey = it.first;
         auto chunk = it.second;
         if( chunk->IsEmpty() ) RmChunk( cHashable3DKey( hashedKey ) );
+    }
+}
+
+
+void
+cSparseStaticLodChunk64Map::PurgeAllChunks()
+{
+    for ( auto it : mChunks )
+    {
+        auto hashedKey = it.first;
+        auto chunk = it.second;
+        RmChunk( cHashable3DKey( hashedKey ) );
+    }
+}
+
+
+void
+cSparseStaticLodChunk64Map::UpdateChunksVBOs()
+{
+    for ( auto it : mChunks )
+    {
+        auto hashedKey = it.first;
+        auto chunk = it.second;
+        chunk->UpdateVBOs();
     }
 }
 

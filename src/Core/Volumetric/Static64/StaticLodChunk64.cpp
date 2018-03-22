@@ -9,6 +9,12 @@ namespace  nVolumetric
 //------------------------------------------------------------------- Construction / Destruction
 
 
+cStaticLodChunk64::~cStaticLodChunk64()
+{
+    DestroyVBOs();
+}
+
+
 cStaticLodChunk64::cStaticLodChunk64() :
     mOccupiedVolume( 0 )
 {
@@ -308,14 +314,7 @@ cStaticLodChunk64::DirectDrawCube( tByte iMaterial )
 
 
 //----------------------------------------------------------------------------------------------
-//--------------------------------------------------------------- Private OpenGL Object Building
-
-
-void
-cStaticLodChunk64::DestroyVBOs()
-{
-    glDeleteBuffers( 6, mVBO_ID );
-}
+//-------------------------------------------------------------------------------- VBO Interface
 
 
 void
@@ -327,6 +326,17 @@ cStaticLodChunk64::UpdateVBOs()
     UpdateVBO( eNF_Index::kIndexBack );
     UpdateVBO( eNF_Index::kIndexLeft );
     UpdateVBO( eNF_Index::kIndexRight );
+}
+
+
+//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------- Private OpenGL Object Building
+
+
+void
+cStaticLodChunk64::DestroyVBOs()
+{
+    glDeleteBuffers( 6, mVBO_ID );
 }
 
 

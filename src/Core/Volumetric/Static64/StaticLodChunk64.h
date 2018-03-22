@@ -19,6 +19,7 @@ class  cStaticLodChunk64
 
 public:
     // Construction / Destruction
+    ~cStaticLodChunk64();
     cStaticLodChunk64();
     cStaticLodChunk64( tByte iVal );
     cStaticLodChunk64( const  cStaticLodChunk64& ) = delete;
@@ -59,10 +60,13 @@ public:
     void  DirectDraw();
     void  DirectDrawCube( tByte iMaterial );
 
+public:
+    // VBO Interface
+    void  UpdateVBOs();
+
 private:
     // Private OpenGL Object Building
     void  DestroyVBOs();
-    void  UpdateVBOs();
     void  UpdateVBO( eNF_Index  iVBO_ID_index );
 
 private:
@@ -78,7 +82,6 @@ private:
     cStaticLodChunk64*              mNeighbour[6] = { 0, 0, 0, 0, 0, 0 };   // six neighbours
     cData                           mData[msSize][msSize][msSize];          // data
     GLuint                          mVBO_ID[6] = { 0, 0, 0, 0, 0, 0 };      // six VBO faces
-
 };
 
 
