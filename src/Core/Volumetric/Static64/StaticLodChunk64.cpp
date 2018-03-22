@@ -400,7 +400,7 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
             for( tLocalDataIndex  k = 0; k < msSize; ++k )
             {
                 cData* data = DataHandle( i, j, k );
-                if( data->IsSolid() && !data->HasNeighbour( neighbourFlag ) )
+                if( data->IsSolid() )
                 {
                     GenFace( iVBO_ID_index, index, vertices, i, j, k );
                     index += stride;
