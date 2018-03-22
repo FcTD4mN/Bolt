@@ -40,59 +40,174 @@ GenFace( eNF_Index iFace, int factor, int factor2, float* iData, int iX, int iY,
 void
 GenTopFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
-    iData[ ++iIndex ]       = iX;
+	iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ;
 
     iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ;
 
-    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iX + 1.f;
     iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ;
 
     iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
+    iData[ ++iIndex ]       = iZ + 1.f;
 
-    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iX + 1.f;
     iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
-
-    iData[ ++iIndex ]       = iX;
-    iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
+    iData[ ++iIndex ]       = iZ + 1.f;
 }
 
 
 void
 GenBotFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
+	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
 }
 
 
 void
 GenFrontFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
+	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
 }
 
 
 void
 GenBackFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
+	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
 }
 
 
 void
 GenLeftFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
+	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
 }
 
 
 void
 GenRightFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
+	iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY;
+    iData[ ++iIndex ]       = iZ + 1.f;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ;
+
+    iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iY + 1.f;
+    iData[ ++iIndex ]       = iZ + 1.f;
 }
 
 
