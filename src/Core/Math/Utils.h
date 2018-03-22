@@ -34,6 +34,10 @@ sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTria
 void            GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, const sf::VertexArray& iPolygon );
 sf::VertexArray GetPointsFromPolygonInBetweenVectorsCCW( const  sf::VertexArray& iPolygon, const sf::Vector2f& iFirstPoint, const sf::Vector2f& iSecondPoint );
 
+// TriangleSubDivisionUsingPolygon
+void  TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* ioTriangleSet, sf::VertexArray& iPolygon );
+
+
 // Sorts
 sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon );

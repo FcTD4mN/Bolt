@@ -235,6 +235,130 @@ GetPointsFromPolygonInBetweenVectorsCCW( const sf::VertexArray & iPolygon, const
 }
 
 
+void
+TriangleSubDivisionUsingPolygon( std::vector<sf::VertexArray>* ioTriangleSet, sf::VertexArray & iPolygon )
+{
+    sf::Vector2f fovOrigin = (*ioTriangleSet)[ 0 ][ 0 ].position;
+
+    // For each triangle in the set, we split it according to object in the fov
+    for( int i = int( (*ioTriangleSet).size() - 1 ); i >= 0; --i )
+    {
+        sf::VertexArray clipedPol = ClipPolygonPolygon( iPolygon, ( *ioTriangleSet )[ i ] );
+        // If this part of the fov doesn't clip with the polygon, we keep the whoe triangle, and we continue
+        if( clipedPol.getVertexCount() == 0 )
+            continue;
+
+        // End points of right fov
+        sf::Vector2f fovRightEndPoint = ( *ioTriangleSet )[ i ][ 1 ].position;
+        sf::Vector2f fovLeftEndPoint = ( *ioTriangleSet )[ i ][ 2 ].position;
+
+        // We compute the transformation that will put right side
+        // of i-th triangle on x axis. This prevents any angle around PI
+        sf::Transform transformation;
+        transformation.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, fovRightEndPoint - fovOrigin ) ) ) );
+        transformation.translate( -fovOrigin );
+
+        // First we transpose clipedPolygon into watcher's referential, to get extreme points
+        TransformPolygonUsingTransformation( &clipedPol, transformation );
+
+        sf::Vector2f mostLeftPointOfClipedPoly;
+        sf::Vector2f mostRightPointOfClipedPoly;
+        GetPolygonExtremesByAngle( &mostRightPointOfClipedPoly, &mostLeftPointOfClipedPoly, clipedPol );
+
+        mostLeftPointOfClipedPoly = transformation.getInverse().transformPoint( mostLeftPointOfClipedPoly );
+        mostRightPointOfClipedPoly = transformation.getInverse().transformPoint( mostRightPointOfClipedPoly );
+
+        TransformPolygonUsingTransformation( &clipedPol, transformation.getInverse() );
+
+        // For both extreme points, we cast a ray towards them
+        cRay rayRight( cEdgeF::MakePointPoint( fovOrigin, mostRightPointOfClipedPoly ), cRay::eRayType::kBasicRay );
+        cRay rayLeft( cEdgeF::MakePointPoint( fovOrigin, mostLeftPointOfClipedPoly ), cRay::eRayType::kBasicRay );
+
+        // We also get the fov limit edge
+        cEdgeF fovLimit = cEdgeF::MakePointPoint( fovRightEndPoint, fovLeftEndPoint );
+
+        // Then we get both points that intersect between ray and limit
+        float paramA;
+        float paramB;
+
+        cEdgeF::Intersect( &paramA, &paramB, rayRight.mRay, fovLimit );
+        sf::Vector2f fovHPRight = rayRight.mRay.mPoint + paramA * rayRight.mRay.mDirection;
+
+        cEdgeF::Intersect( &paramA, &paramB, rayLeft.mRay, fovLimit );
+        sf::Vector2f fovHPLeft = rayLeft.mRay.mPoint + paramA * rayLeft.mRay.mDirection;
+
+        sf::VertexArray subTriangle( sf::Triangles, 3 );
+        subTriangle[ 0 ] = fovOrigin;
+
+        std::vector< sf::VertexArray > subTriangles;
+
+        double angleToRight = GetAngleBetweenVectors( fovRightEndPoint - fovOrigin, fovHPRight - fovOrigin );
+        if( angleToRight > kEpsilonF )
+        {
+            subTriangle[ 1 ] = fovRightEndPoint;
+            subTriangle[ 2 ] = fovHPRight;
+
+            if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                subTriangles.push_back( subTriangle );
+        }
+
+        double angleToLeft = GetAngleBetweenVectors( fovHPLeft - fovOrigin, fovLeftEndPoint - fovOrigin );
+        if( angleToLeft > kEpsilonF )
+        {
+            subTriangle[ 1 ] = fovHPLeft;
+            subTriangle[ 2 ] = fovLeftEndPoint;
+
+            if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                subTriangles.push_back( subTriangle );
+        }
+
+        sf::VertexArray inBetweens = GetPointsFromPolygonInBetweenVectorsCCW( clipedPol, mostLeftPointOfClipedPoly, mostRightPointOfClipedPoly );
+        if( inBetweens.getVertexCount() > 0 )
+        {
+            subTriangle[ 1 ] = inBetweens[ 0 ];
+            subTriangle[ 2 ] = mostLeftPointOfClipedPoly;
+
+            if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                subTriangles.push_back( subTriangle );
+
+            for( int i = 0; i < inBetweens.getVertexCount() - 1; ++i )
+            {
+                subTriangle[ 1 ] = inBetweens[ i + 1 ].position;
+                subTriangle[ 2 ] = inBetweens[ i ].position;
+
+                if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                    subTriangles.push_back( subTriangle );
+            }
+
+            subTriangle[ 1 ] = mostRightPointOfClipedPoly;
+            subTriangle[ 2 ] = inBetweens[ inBetweens.getVertexCount() - 1 ];
+
+            if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                subTriangles.push_back( subTriangle );
+        }
+        else
+        {
+            subTriangle[ 1 ] = mostRightPointOfClipedPoly;
+            subTriangle[ 2 ] = mostLeftPointOfClipedPoly;
+
+            if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
+                subTriangles.push_back( subTriangle );
+        }
+
+        if( subTriangles.size() > 0 )
+        {
+            for( auto triangle : subTriangles )
+                ( *ioTriangleSet ).push_back( triangle );
+
+            ( *ioTriangleSet ).erase( ( *ioTriangleSet ).begin() + i );
+        }
+
+        subTriangles.clear();
+
+    }// for all triangles
+}
+
+
 sf::VertexArray
 CCWWindingSort( const sf::VertexArray & iPolygon )
 {
