@@ -11,18 +11,6 @@ class  cData
 {
 
 public:
-enum  eDataNeighbourFlag: tByte
-{
-    kNone   = 0,    // 0000 0000
-    kTop    = 1,    // 0000 0001
-    kBot    = 2,    // 0000 0010
-    kFront  = 4,    // 0000 0100
-    kBack   = 8,    // 0000 1000
-    kLeft   = 16,   // 0001 0000
-    kRight  = 32,   // 0010 0000
-};
-
-public:
     // Construction / Destruction
     cData();
     cData( t2Byte iData );
@@ -31,11 +19,11 @@ public:
 public:
     // Data Manipulation Interface
     tByte           GetMaterialField()                                      const;
-    bool            HasNeighbour( eDataNeighbourFlag iDataNeighbourFlag)    const;
+    bool            HasNeighbour( eNF_Flag  iDataNeighbourFlag)    const;
     bool            IsSolid()                                               const;
 
     void  SetMaterialField( tByte  iMaterialField );
-    void  SetNeighbour( eDataNeighbourFlag iDataNeighbourFlag, bool iValue );
+    void  SetNeighbour( eNF_Flag  iDataNeighbourFlag, bool iValue );
 
 private:
     // Private Manipulation tools

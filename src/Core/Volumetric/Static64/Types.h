@@ -17,5 +17,26 @@ static  const  tByte            sgEmptyMaterial = 0;
     #define BUFFER_OFFSET(offset) ((char*)NULL + (offset))
 #endif
 
+enum  eNF_Flag: tByte
+{
+    kFlagNone       = 0,    // 0000 0000    // -
+    kFlagTop        = 1,    // 0000 0001    // 2^0
+    kFlagBot        = 2,    // 0000 0010    // 2^1
+    kFlagFront      = 4,    // 0000 0100    // 2^2
+    kFlagBack       = 8,    // 0000 1000    // 2^3
+    kFlagLeft       = 16,   // 0001 0000    // 2^4
+    kFlagRight      = 32,   // 0010 0000    // 2^5
+};
+
+enum  eNF_Index : tByte
+{
+    kIndexTop       = 0,
+    kIndexBot       = 1,
+    kIndexFront     = 2,
+    kIndexBack      = 3,
+    kIndexLeft      = 4,
+    kIndexRight     = 5,
+};
+
 } // namespace  nVolumetric
 

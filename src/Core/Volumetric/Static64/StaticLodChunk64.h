@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Volumetric/Static64/Types.h"
+
 #include "Volumetric/Static64/Data.h"
+#include "Volumetric/Static64/Types.h"
 
 
 #include <GL/glew.h>
@@ -15,17 +16,6 @@ namespace  nVolumetric
 
 class  cStaticLodChunk64
 {
-
-public:
-enum  eFaceIndex : tByte
-{
-    kTop    = 0,
-    kBot    = 1,
-    kFront  = 2,
-    kBack   = 3,
-    kLeft   = 4,
-    kRight  = 5,
-};
 
 public:
     // Construction / Destruction
@@ -53,8 +43,8 @@ public:
 
 public:
     // Neighbour Accessors
-    cStaticLodChunk64*  GetNeighbour( eFaceIndex  iNeighbourIndex )  const;
-    void                SetNeighbour( eFaceIndex  iNeighbourIndex, cStaticLodChunk64* iAdress );
+    cStaticLodChunk64*  GetNeighbour( eNF_Index  iNeighbourIndex )  const;
+    void                SetNeighbour( eNF_Index  iNeighbourIndex, cStaticLodChunk64* iAdress );
 
 private:
     // Data Manipulation
@@ -73,19 +63,12 @@ private:
     // Private OpenGL Object Building
     void  DestroyVBOs();
     void  UpdateVBOs();
-    void  UpdateVBO( eFaceIndex  iVBO_ID_index );
-    void  GenFace( eFaceIndex iFace, float* iData , int iX, int iY, int iZ );
-    void  GenTopFace(   float* iData ,  int iIndex, float iX, float iY, float iZ );
-    void  GenBotFace(   float* iData ,  int iIndex, float iX, float iY, float iZ );
-    void  GenFrontFace( float* iData ,  int iIndex, float iX, float iY, float iZ );
-    void  GenBackFace(  float* iData ,  int iIndex, float iX, float iY, float iZ );
-    void  GenLeftFace(  float* iData ,  int iIndex, float iX, float iY, float iZ );
-    void  GenRightFace( float* iData ,  int iIndex, float iX, float iY, float iZ );
+    void  UpdateVBO( eNF_Index  iVBO_ID_index );
 
 private:
     // Private OpenGL Object Rendering
     void  DrawVBOs();
-    void  DrawVBO( eFaceIndex  iVBO_ID_index );
+    void  DrawVBO( eNF_Index  iVBO_ID_index );
 
 private:
     // Private Data Members

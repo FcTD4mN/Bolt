@@ -38,7 +38,7 @@ cData::GetMaterialField()  const
 
 
 bool
-cData::HasNeighbour( eDataNeighbourFlag iDataNeighbourFlag)  const
+cData::HasNeighbour( eNF_Flag  iDataNeighbourFlag)  const
 {
     return  bool( GetNeighbourField() & tByte( iDataNeighbourFlag ) );
 }
@@ -59,7 +59,7 @@ cData::SetMaterialField( tByte  iMaterialField )
 
 
 void
-cData::SetNeighbour( eDataNeighbourFlag iDataNeighbourFlag, bool iValue )
+cData::SetNeighbour( eNF_Flag  iDataNeighbourFlag, bool iValue )
 {
     tByte neighbourField = GetNeighbourField();
     if( iValue )

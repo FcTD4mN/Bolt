@@ -86,20 +86,20 @@ cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey 
 
     if( chunk )
     {
-        chunk->SetNeighbour( cStaticLodChunk64::eFaceIndex::kTop,     top );
-        chunk->SetNeighbour( cStaticLodChunk64::eFaceIndex::kBot,     bot );
-        chunk->SetNeighbour( cStaticLodChunk64::eFaceIndex::kFront,   front );
-        chunk->SetNeighbour( cStaticLodChunk64::eFaceIndex::kBack,    back );
-        chunk->SetNeighbour( cStaticLodChunk64::eFaceIndex::kLeft,    left );
-        chunk->SetNeighbour( cStaticLodChunk64::eFaceIndex::kRight,   right );
+        chunk->SetNeighbour( eNF_Index::kIndexTop,     top );
+        chunk->SetNeighbour( eNF_Index::kIndexBot,     bot );
+        chunk->SetNeighbour( eNF_Index::kIndexFront,   front );
+        chunk->SetNeighbour( eNF_Index::kIndexBack,    back );
+        chunk->SetNeighbour( eNF_Index::kIndexLeft,    left );
+        chunk->SetNeighbour( eNF_Index::kIndexRight,   right );
     }
 
-    if( top )   top->SetNeighbour(      cStaticLodChunk64::eFaceIndex::kBot,      chunk );
-    if( bot )   bot->SetNeighbour(      cStaticLodChunk64::eFaceIndex::kTop,      chunk );
-    if( front ) front->SetNeighbour(    cStaticLodChunk64::eFaceIndex::kBack,     chunk );
-    if( back )  back->SetNeighbour(     cStaticLodChunk64::eFaceIndex::kFront,    chunk );
-    if( left )  left->SetNeighbour(     cStaticLodChunk64::eFaceIndex::kRight,    chunk );
-    if( right ) right->SetNeighbour(    cStaticLodChunk64::eFaceIndex::kLeft,     chunk );
+    if( top )   top->SetNeighbour(      eNF_Index::kIndexBot,      chunk );
+    if( bot )   bot->SetNeighbour(      eNF_Index::kIndexTop,      chunk );
+    if( front ) front->SetNeighbour(    eNF_Index::kIndexBack,     chunk );
+    if( back )  back->SetNeighbour(     eNF_Index::kIndexFront,    chunk );
+    if( left )  left->SetNeighbour(     eNF_Index::kIndexRight,    chunk );
+    if( right ) right->SetNeighbour(    eNF_Index::kIndexLeft,     chunk );
 }
 
 

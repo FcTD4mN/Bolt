@@ -249,6 +249,9 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\StaticLodChunk64.cpp">
       <Filter>Fichiers sources\Volumetric\Static64</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\VUtils.cpp">
+      <Filter>Fichiers sources\Volumetric\Static64</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -408,6 +411,9 @@
       <Filter>Fichiers sources\Volumetric\Static64</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\Types.h">
+      <Filter>Fichiers sources\Volumetric\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\VUtils.h">
       <Filter>Fichiers sources\Volumetric\Static64</Filter>
     </ClInclude>
   </ItemGroup>

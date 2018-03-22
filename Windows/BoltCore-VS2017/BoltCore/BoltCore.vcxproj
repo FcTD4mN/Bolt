@@ -279,6 +279,7 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\Hashable3DKey.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\SparseStaticLodChunk64Map.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\StaticLodChunk64.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\VUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h" />
@@ -334,6 +335,7 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\SparseStaticLodChunk64Map.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\StaticLodChunk64.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\Types.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\VUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

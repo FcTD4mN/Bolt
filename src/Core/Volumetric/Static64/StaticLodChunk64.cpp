@@ -1,4 +1,5 @@
 #include "Volumetric/Static64/StaticLodChunk64.h"
+#include "Volumetric/Static64/VUtils.h"
 
 
 namespace  nVolumetric
@@ -129,13 +130,13 @@ cStaticLodChunk64::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDa
 
 
 cStaticLodChunk64*
-cStaticLodChunk64::GetNeighbour( eFaceIndex  iNeighbour )  const
+cStaticLodChunk64::GetNeighbour( eNF_Index  iNeighbour )  const
 {
     return  mNeighbour[ iNeighbour ];
 }
 
 
-void cStaticLodChunk64::SetNeighbour( eFaceIndex iNeighbour, cStaticLodChunk64* iAdress )
+void cStaticLodChunk64::SetNeighbour( eNF_Index iNeighbour, cStaticLodChunk64* iAdress )
 {
     mNeighbour[ iNeighbour ] = iAdress;
 }
@@ -166,38 +167,38 @@ cStaticLodChunk64::UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY,
 
     if( topDataHandle )
     {
-        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kTop, topDataHandle->IsSolid() );
-        topDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kBot, currentIsSolid );
+        currentHandle->SetNeighbour( eNF_Flag::kFlagTop, topDataHandle->IsSolid() );
+        topDataHandle->SetNeighbour( eNF_Flag::kFlagBot, currentIsSolid );
     }
 
     if( botDataHandle )
     {
-        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kBot, botDataHandle->IsSolid() );
-        botDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kTop, currentIsSolid );
+        currentHandle->SetNeighbour( eNF_Flag::kFlagBot, botDataHandle->IsSolid() );
+        botDataHandle->SetNeighbour( eNF_Flag::kFlagTop, currentIsSolid );
     }
 
     if( frontDataHandle )
     {
-        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kFront, frontDataHandle->IsSolid() );
-        frontDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kBack, currentIsSolid );
+        currentHandle->SetNeighbour( eNF_Flag::kFlagFront, frontDataHandle->IsSolid() );
+        frontDataHandle->SetNeighbour( eNF_Flag::kFlagBack, currentIsSolid );
     }
 
     if( backDataHandle )
     {
-        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kBack, backDataHandle->IsSolid() );
-        backDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kFront, currentIsSolid );
+        currentHandle->SetNeighbour( eNF_Flag::kFlagBack, backDataHandle->IsSolid() );
+        backDataHandle->SetNeighbour( eNF_Flag::kFlagFront, currentIsSolid );
     }
 
     if( leftDataHandle )
     {
-        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kLeft, leftDataHandle->IsSolid() );
-        leftDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kRight, currentIsSolid );
+        currentHandle->SetNeighbour( eNF_Flag::kFlagLeft, leftDataHandle->IsSolid() );
+        leftDataHandle->SetNeighbour( eNF_Flag::kFlagRight, currentIsSolid );
     }
 
     if( rightDataHandle )
     {
-        currentHandle->SetNeighbour( cData::eDataNeighbourFlag::kRight, rightDataHandle->IsSolid() );
-        rightDataHandle->SetNeighbour( cData::eDataNeighbourFlag::kLeft, currentIsSolid );
+        currentHandle->SetNeighbour( eNF_Flag::kFlagRight, rightDataHandle->IsSolid() );
+        rightDataHandle->SetNeighbour( eNF_Flag::kFlagLeft, currentIsSolid );
     }
 }
 
@@ -228,12 +229,12 @@ cStaticLodChunk64::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
     }
     else
     {
-        if( iY == -1 )      return  mNeighbour[ eFaceIndex::kTop ];
-        if( iY == msSize )  return  mNeighbour[ eFaceIndex::kBot ];
-        if( iZ == -1 )      return  mNeighbour[ eFaceIndex::kFront ];
-        if( iZ == msSize )  return  mNeighbour[ eFaceIndex::kBack ];
-        if( iX == -1 )      return  mNeighbour[ eFaceIndex::kLeft ];
-        if( iX == msSize )  return  mNeighbour[ eFaceIndex::kRight ];
+        if( iY == -1 )      return  mNeighbour[ eNF_Index::kIndexTop ];
+        if( iY == msSize )  return  mNeighbour[ eNF_Index::kIndexBot ];
+        if( iZ == -1 )      return  mNeighbour[ eNF_Index::kIndexFront ];
+        if( iZ == msSize )  return  mNeighbour[ eNF_Index::kIndexBack ];
+        if( iX == -1 )      return  mNeighbour[ eNF_Index::kIndexLeft ];
+        if( iX == msSize )  return  mNeighbour[ eNF_Index::kIndexRight ];
     }
 
     return  NULL;
@@ -321,17 +322,17 @@ cStaticLodChunk64::DestroyVBOs()
 void
 cStaticLodChunk64::UpdateVBOs()
 {
-    UpdateVBO( eFaceIndex::kTop );
-    UpdateVBO( eFaceIndex::kBot );
-    UpdateVBO( eFaceIndex::kFront );
-    UpdateVBO( eFaceIndex::kBack );
-    UpdateVBO( eFaceIndex::kLeft );
-    UpdateVBO( eFaceIndex::kRight );
+    UpdateVBO( eNF_Index::kIndexTop );
+    UpdateVBO( eNF_Index::kIndexBot );
+    UpdateVBO( eNF_Index::kIndexFront );
+    UpdateVBO( eNF_Index::kIndexBack );
+    UpdateVBO( eNF_Index::kIndexLeft );
+    UpdateVBO( eNF_Index::kIndexRight );
 }
 
 
 void
-cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
+cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
 {
     if(glIsBuffer( mVBO_ID[ iVBO_ID_index ] ) == GL_TRUE)
         glDeleteBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
@@ -340,6 +341,7 @@ cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
 
     int size = mOccupiedVolume * 6 * 3;
     float* vertices = new float[ size ];
+    eNF_Flag neighbourFlag = NF_IndexToFlag( iVBO_ID_index );
 
     for( tLocalDataIndex  i = 0; i < msSize; ++i )
     {
@@ -348,9 +350,9 @@ cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
             for( tLocalDataIndex  k = 0; k < msSize; ++k )
             {
                 cData* data = DataHandle( i, j, k );
-                if( data->IsSolid() && !data->HasNeighbour( static_cast< cData::eDataNeighbourFlag >( int( pow( int( iVBO_ID_index ), 2 ) ) ) ) )
+                if( data->IsSolid() && !data->HasNeighbour( neighbourFlag ) )
                 {
-                    GenFace( iVBO_ID_index, vertices, i, j, k );
+                    GenFace( iVBO_ID_index, 64, 4096, vertices, i, j, k );
                 }
             }
         }
@@ -364,97 +366,6 @@ cStaticLodChunk64::UpdateVBO( eFaceIndex  iVBO_ID_index )
 }
 
 
-void
-cStaticLodChunk64::GenFace( eFaceIndex iFace, float* iData , int iX, int iY, int iZ )
-{
-    int index = iX + iY * 64 + iZ * 4096;
-    float x = float( iX );
-    float y = float( iY );
-    float z = float( iZ );
-
-    switch( iFace )
-    {
-    case kTop:
-        GenTopFace( iData, index, x, y, z );
-        break;
-    case kBot:
-        GenBotFace( iData, index, x, y, z );
-        break;
-    case kFront:
-        GenFrontFace( iData, index, x, y, z );
-        break;
-    case kBack:
-        GenBackFace( iData, index, x, y, z );
-        break;
-    case kLeft:
-        GenLeftFace( iData, index, x, y, z );
-        break;
-    case kRight:
-        GenRightFace( iData, index, x, y, z );
-        break;
-    }
-}
-
-
-void
-cStaticLodChunk64::GenTopFace( float* iData , int iIndex, float iX, float iY, float iZ )
-{
-    iData[ ++iIndex ]       = iX;
-    iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
-
-    iData[ ++iIndex ]       = iX;
-    iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
-
-    iData[ ++iIndex ]       = iX;
-    iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
-
-    iData[ ++iIndex ]       = iX;
-    iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
-
-    iData[ ++iIndex ]       = iX;
-    iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
-
-    iData[ ++iIndex ]       = iX;
-    iData[ ++iIndex ]       = iY;
-    iData[ ++iIndex ]       = iZ;
-}
-
-
-void
-cStaticLodChunk64::GenBotFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
-{
-}
-
-
-void
-cStaticLodChunk64::GenFrontFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
-{
-}
-
-
-void
-cStaticLodChunk64::GenBackFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
-{
-}
-
-
-void
-cStaticLodChunk64::GenLeftFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
-{
-}
-
-
-void
-cStaticLodChunk64::GenRightFace( float* iData ,  int iIndex, float iX, float iY, float iZ )
-{
-}
-
-
 //----------------------------------------------------------------------------------------------
 //-------------------------------------------------------------- Private OpenGL Object Rendering
 
@@ -462,17 +373,17 @@ cStaticLodChunk64::GenRightFace( float* iData ,  int iIndex, float iX, float iY,
 void
 cStaticLodChunk64::DrawVBOs()
 {
-    DrawVBO( eFaceIndex::kTop );
-    DrawVBO( eFaceIndex::kBot );
-    DrawVBO( eFaceIndex::kFront );
-    DrawVBO( eFaceIndex::kBack );
-    DrawVBO( eFaceIndex::kLeft );
-    DrawVBO( eFaceIndex::kRight );
+    DrawVBO( eNF_Index::kIndexTop );
+    DrawVBO( eNF_Index::kIndexBot );
+    DrawVBO( eNF_Index::kIndexFront );
+    DrawVBO( eNF_Index::kIndexBack );
+    DrawVBO( eNF_Index::kIndexLeft );
+    DrawVBO( eNF_Index::kIndexRight );
 }
 
 
 void
-cStaticLodChunk64::DrawVBO( eFaceIndex  iVBO_ID_index )
+cStaticLodChunk64::DrawVBO( eNF_Index  iVBO_ID_index )
 {
     // void glVertexAttribPointer(GLuint index, GLuint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
 
