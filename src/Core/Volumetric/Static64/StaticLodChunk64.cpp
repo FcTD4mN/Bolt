@@ -315,6 +315,18 @@ cStaticLodChunk64::DirectDrawCube( tByte iMaterial )
 }
 
 
+void
+cStaticLodChunk64::DrawVBOs()
+{
+    DrawVBO( eNF_Index::kIndexTop );
+    DrawVBO( eNF_Index::kIndexBot );
+    DrawVBO( eNF_Index::kIndexFront );
+    DrawVBO( eNF_Index::kIndexBack );
+    DrawVBO( eNF_Index::kIndexLeft );
+    DrawVBO( eNF_Index::kIndexRight );
+}
+
+
 //----------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------- VBO Interface
 
@@ -370,6 +382,7 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
 
     glGenBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
 
+    /*
     int stride = 6 * 3;
     int size = OccupiedVolume() * stride;
     int index = 0;
@@ -394,7 +407,26 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
 
     glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
 
-        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+        glBufferData( GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW );
+
+    glBindBuffer( GL_ARRAY_BUFFER, 0 );
+    */
+
+    sf::Vector3f Vertices[6];
+    Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
+    Vertices[1] = sf::Vector3f(1.0f, -1.0f, 0.0f);
+    Vertices[2] = sf::Vector3f(0.0f, 1.0f, 0.0f);
+    Vertices[3] = sf::Vector3f(1.0f, -1.0f, 0.0f);
+    Vertices[4] = sf::Vector3f(0.0f, 1.0f, 0.0f);
+    Vertices[5] = sf::Vector3f(5.0f, 0.0f, 0.0f);
+    //GLuint VBO;
+    //glGenBuffers(1, &VBO);
+    //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
     glBindBuffer( GL_ARRAY_BUFFER, 0 );
 }
@@ -405,20 +437,9 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
 
 
 void
-cStaticLodChunk64::DrawVBOs()
-{
-    DrawVBO( eNF_Index::kIndexTop );
-    DrawVBO( eNF_Index::kIndexBot );
-    DrawVBO( eNF_Index::kIndexFront );
-    DrawVBO( eNF_Index::kIndexBack );
-    DrawVBO( eNF_Index::kIndexLeft );
-    DrawVBO( eNF_Index::kIndexRight );
-}
-
-
-void
 cStaticLodChunk64::DrawVBO( eNF_Index  iVBO_ID_index )
 {
+/*
     // void glVertexAttribPointer(GLuint index, GLuint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
 
     glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
@@ -432,6 +453,16 @@ cStaticLodChunk64::DrawVBO( eNF_Index  iVBO_ID_index )
         //glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    */
+
+    glBindBuffer(GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
+
+    glEnableVertexAttribArray(0);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDisableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 }
 
 

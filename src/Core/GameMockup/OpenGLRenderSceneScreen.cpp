@@ -58,7 +58,7 @@ cOpenGLRenderSceneScreen::Initialize()
     window->setActive();
     glewInit();
 
-    int st = 3;
+    int st = 1;
     for( int i = 0; i < st; ++i )
     {
         for( int j = 0; j < st; ++j )
@@ -80,6 +80,7 @@ cOpenGLRenderSceneScreen::Initialize()
     double ratio = double(window->getSize().x) / double(window->getSize().y);
     gluPerspective(50.f, ratio, 5.f, 500.f);
 
+    /*
     sf::Vector3f Vertices[6];
     Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
     Vertices[1] = sf::Vector3f(1.0f, -1.0f, 0.0f);
@@ -93,6 +94,7 @@ cOpenGLRenderSceneScreen::Initialize()
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    */
 }
 
 
@@ -127,12 +129,14 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
 
     glPushMatrix();
-    mMap.DirectDraw();
+    mMap.RenderVBOs();
     glPopMatrix();
 
+    /*
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glDisableVertexAttribArray(0);
+    */
 
     window->pushGLStates();
 

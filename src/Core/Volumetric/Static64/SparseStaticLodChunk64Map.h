@@ -43,6 +43,7 @@ public:
 public:
     // Naive Rendering
     void  DirectDraw();
+    void  RenderVBOs();
 
 private:
     // Private Data Members

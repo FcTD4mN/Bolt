@@ -199,5 +199,22 @@ cSparseStaticLodChunk64Map::DirectDraw()
 }
 
 
+void
+cSparseStaticLodChunk64Map::RenderVBOs()
+{
+    for ( auto it : mChunks )
+    {
+        auto hashedKey = it.first;
+        auto chunk = it.second;
+        cHashable3DKey key( hashedKey );
+
+        glPushMatrix();
+        glTranslatef( key.GetX() * 64.f, key.GetY() * 64.f, key.GetZ() * 64.f );
+        chunk->DrawVBOs();
+        glPopMatrix();
+
+    }
+}
+
 } // namespace  nVolumetric
 

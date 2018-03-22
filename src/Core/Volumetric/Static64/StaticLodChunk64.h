@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 #include <gl/GLU.h>
 #include "SFML/OpenGL.hpp"
+#include "SFML/Graphics.hpp"
 
 
 namespace  nVolumetric
@@ -59,6 +60,7 @@ public:
     // Naive Rendering
     void  DirectDraw();
     void  DirectDrawCube( tByte iMaterial );
+    void  DrawVBOs();
 
 public:
     // VBO Interface
@@ -72,7 +74,6 @@ private:
 
 private:
     // Private OpenGL Object Rendering
-    void  DrawVBOs();
     void  DrawVBO( eNF_Index  iVBO_ID_index );
 
 private:
