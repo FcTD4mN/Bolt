@@ -39,9 +39,10 @@ cHashable3DKey::Set( tHashableKeySignature iHashedSignature )
 {
     mCachedHashedSignature = iHashedSignature;
     mCacheValid = true;
-    mX = tKeyComponent( ( mCachedHashedSignature & tHashableKeySignature( 0x00FF0000 ) ) >> 32 );
-    mY = tKeyComponent( ( mCachedHashedSignature & tHashableKeySignature( 0x0000FF00 ) ) >> 16 );
-    mZ = tKeyComponent( ( mCachedHashedSignature & tHashableKeySignature( 0x000000FF ) ) );
+
+    mX = tKeyComponent( (   ( mCachedHashedSignature & tHashableKeySignature( 0x0000FFFF00000000 ) ) >> 32 )    - sgSignedKeyComponentRangeShift );
+    mY = tKeyComponent( (   ( mCachedHashedSignature & tHashableKeySignature( 0x00000000FFFF0000 ) ) >> 16 )    - sgSignedKeyComponentRangeShift );
+    mZ = tKeyComponent( (     mCachedHashedSignature & tHashableKeySignature( 0x000000000000FFFF ) )            - sgSignedKeyComponentRangeShift );
 }
 
 
@@ -156,9 +157,9 @@ cHashable3DKey::UpdateHashedSignatureCache()  const
     if( mCacheValid )
         return;
 
-    mCachedHashedSignature = tHashableKeySignature( mX ) << 32 |
-                             tHashableKeySignature( mY ) << 16 |
-                             tHashableKeySignature( mZ );
+    mCachedHashedSignature = tHashableKeySignature( tHashableKeySignature( mX ) + sgSignedKeyComponentRangeShift ) << 32 |
+                             tHashableKeySignature( tHashableKeySignature( mY ) + sgSignedKeyComponentRangeShift ) << 16 |
+                             tHashableKeySignature( tHashableKeySignature( mZ ) + sgSignedKeyComponentRangeShift );
 
     mCacheValid = true;
 }

@@ -40,7 +40,7 @@ GenFace( eNF_Index iFace, int factor, int factor2, float* iData, int iX, int iY,
 void
 GenTopFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
-	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ;
 
@@ -69,7 +69,7 @@ GenTopFace(float* iData,int iIndex,float iX,float iY,float iZ)
 void
 GenBotFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
-	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY + 1.f;
     iData[ ++iIndex ]       = iZ;
 
@@ -98,7 +98,7 @@ GenBotFace(float* iData,int iIndex,float iX,float iY,float iZ)
 void
 GenFrontFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
-	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ;
 
@@ -127,7 +127,7 @@ GenFrontFace(float* iData,int iIndex,float iX,float iY,float iZ)
 void
 GenBackFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
-	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ + 1.f;
 
@@ -156,7 +156,7 @@ GenBackFace(float* iData,int iIndex,float iX,float iY,float iZ)
 void
 GenLeftFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
-	iData[ ++iIndex ]       = iX;
+    iData[ ++iIndex ]       = iX;
     iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ;
 
@@ -185,7 +185,7 @@ GenLeftFace(float* iData,int iIndex,float iX,float iY,float iZ)
 void
 GenRightFace(float* iData,int iIndex,float iX,float iY,float iZ)
 {
-	iData[ ++iIndex ]       = iX + 1.f;
+    iData[ ++iIndex ]       = iX + 1.f;
     iData[ ++iIndex ]       = iY;
     iData[ ++iIndex ]       = iZ;
 

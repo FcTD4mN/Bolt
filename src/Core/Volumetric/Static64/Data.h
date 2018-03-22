@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Volumetric/Static64/Types.h"
 
 
@@ -9,7 +10,6 @@ namespace  nVolumetric
 
 class  cData
 {
-
 public:
     // Construction / Destruction
     cData();
@@ -18,19 +18,17 @@ public:
 
 public:
     // Data Manipulation Interface
-    tByte           GetMaterialField()                                      const;
-    bool            HasNeighbour( eNF_Flag  iDataNeighbourFlag)    const;
-    bool            IsSolid()                                               const;
+    tByte   GetMaterialField()                              const;
+    bool    HasNeighbour( eNF_Flag  iDataNeighbourFlag)     const;
+    bool    IsSolid()                                       const;
 
-    void  SetMaterialField( tByte  iMaterialField );
-    void  SetNeighbour( eNF_Flag  iDataNeighbourFlag, bool iValue );
+    void    SetMaterialField( tByte  iMaterialField );
+    void    SetNeighbour( eNF_Flag  iDataNeighbourFlag, bool iValue );
 
 private:
     // Private Manipulation tools
-    void  SetDataField( const  t2Byte&  iDataField );
-    void  SetNeighbourField( tByte  iNeighbourField );
-    const  t2Byte&  GetDataField()                                          const;
-    tByte           GetNeighbourField()                                     const;
+    void            SetNeighbourField( tByte  iNeighbourField );
+    tByte           GetNeighbourField()                             const;
 
 private:
     // Private Data Members

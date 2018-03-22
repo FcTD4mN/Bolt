@@ -5,13 +5,15 @@
 namespace  nVolumetric
 {
 
-typedef  unsigned  char         tByte;                      // Consider 8 bits, [0, 255]. Smallest addressable unit.
-typedef  unsigned  short  int   t2Byte;                     // Consider 16 bits, [0, 65535]. Typical extended voxel data.
-typedef  short  int             tKeyComponent;              // Consider 16 bits, [−32,767, +32,767]. See also USHRT_MAX
-typedef  long  long  int        tHashableKeySignature;      // Consider 64 bits.
-typedef  long  int              tGlobalDataIndex;           // Consider 32 bits, [−2,147,483,647, +2,147,483,647]
-typedef  tByte                  tLocalDataIndex;            // Consider 8 bits.
-static  const  tByte            sgEmptyMaterial = 0;
+typedef  unsigned  char                 tByte;                      // Consider 8 bits, [0, 255]. Smallest addressable unit.
+typedef  unsigned  short  int           t2Byte;                     // Consider 16 bits, [0, 65535]. Typical extended voxel data.
+typedef  short  int                     tKeyComponent;              // Consider 16 bits, [−32,767, +32,767]. See also USHRT_MAX
+typedef  short  int                     tUKeyComponent;             // Consider 16 bits, [0, 65535]. Extended range for signed data field handling
+typedef  long  long  unsigned  int      tHashableKeySignature;      // Consider 64 bits, [0, +18,446,744,073,709,551,615]
+typedef  long  int                      tGlobalDataIndex;           // Consider 32 bits, [−2,147,483,647, +2,147,483,647]
+typedef  tByte                          tLocalDataIndex;            // Consider 8 bits.
+static  const  tByte                    sgEmptyMaterial = 0;
+static  const  tHashableKeySignature    sgSignedKeyComponentRangeShift= 0x7FFF;
 
 #ifndef BUFFER_OFFSET
     #define BUFFER_OFFSET(offset) ((char*)NULL + (offset))

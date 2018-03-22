@@ -61,7 +61,6 @@ cData::SetMaterialField( tByte  iMaterialField )
 void
 cData::SetNeighbour( eNF_Flag  iDataNeighbourFlag, bool iValue )
 {
-    tByte neighbourField = GetNeighbourField();
     if( iValue )
         SetNeighbourField( GetNeighbourField() | iDataNeighbourFlag );
     else
@@ -74,23 +73,9 @@ cData::SetNeighbour( eNF_Flag  iDataNeighbourFlag, bool iValue )
 
 
 void
-cData::SetDataField( const  t2Byte&  iDataField )
-{
-    mDataField.mData = iDataField;
-}
-
-
-void
 cData::SetNeighbourField( tByte  iNeighbourField )
 {
     mDataField.mField[1] = iNeighbourField;
-}
-
-
-const  t2Byte&
-cData::GetDataField()  const
-{
-    return  mDataField.mData;
 }
 
 
