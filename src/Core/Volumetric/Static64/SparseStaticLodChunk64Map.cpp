@@ -51,14 +51,16 @@ cSparseStaticLodChunk64Map::ChunkAtKey( const  cHashable3DKey&  iKey )
 //----------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------ Chunk cmd
 
-void
+cStaticLodChunk64*
 cSparseStaticLodChunk64Map::MkChunk( const  cHashable3DKey&  iKey )
 {
     if( ChunkExists( iKey ) )
-        return;
+        return  ChunkAtKey( iKey );
 
-    mChunks.emplace( iKey.HashedSignature(), new cStaticLodChunk64(0) );
+    auto chunk = new cStaticLodChunk64(0);
+    mChunks.emplace( iKey.HashedSignature(), chunk );
     UpdateChunkNeighbours( iKey );
+    return  chunk;
 }
 
 
@@ -68,7 +70,9 @@ cSparseStaticLodChunk64Map::RmChunk( const  cHashable3DKey&  iKey )
     if( !ChunkExists( iKey ) )
         return;
 
-    mChunks.erase( iKey.HashedSignature() );
+    auto it = mChunks.find( iKey.HashedSignature() );
+    delete  it->second;
+    mChunks.erase( it );
     UpdateChunkNeighbours( iKey );
 }
 
@@ -135,11 +139,10 @@ void
 cSparseStaticLodChunk64Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ, tByte iValue )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
-    MkChunk( key );
+    auto chunk = MkChunk( key );
     tByte dataX = tByte( tKeyComponent( iX ) - key.GetX() * 64 );
     tByte dataY = tByte( tKeyComponent( iY ) - key.GetY() * 64 );
     tByte dataZ = tByte( tKeyComponent( iZ ) - key.GetZ() * 64 );
-    auto chunk = ChunkAtKey( key );
     chunk->SetMaterial( dataX, dataY, dataZ, iValue );
 }
 

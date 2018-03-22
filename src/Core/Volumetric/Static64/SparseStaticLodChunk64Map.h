@@ -26,7 +26,7 @@ public:
 
 public:
     // Chunk cmd
-    void  MkChunk( const  cHashable3DKey&  iKey );
+    cStaticLodChunk64*  MkChunk( const  cHashable3DKey&  iKey );
     void  RmChunk( const  cHashable3DKey&  iKey );
     void  UpdateChunkNeighbours( const  cHashable3DKey&  iKey );
     void  PurgeEmptyChunks();

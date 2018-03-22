@@ -33,7 +33,7 @@ public:
 
 public:
     // Volume Manipulation
-    void  Fill( tByte iVal );
+    void    Fill( tByte iVal );
 
 public:
     // Material Accessors
@@ -48,10 +48,10 @@ public:
 
 private:
     // Data Manipulation
-    cData*          DataHandle( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ );
-    void            UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ );
+    cData*              DataHandle( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ );
+    void                UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ );
 
-    cData*  GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
+    cData*              GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
     cStaticLodChunk64*  GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
 
 public:

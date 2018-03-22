@@ -55,30 +55,6 @@ cOpenGLRenderSceneScreen::Initialize()
     ::nBoltScript::Env()->Print( "version:" + std::to_string( settings.majorVersion ) + "\n" );
     window->setVerticalSyncEnabled(true);
 
-    ::nVolumetric::cHashable3DKey k( -110, -3648, -500 );
-    ::nVolumetric::cHashable3DKey k1( -500, 0, 0 );
-    ::nVolumetric::cHashable3DKey k2( 0, 2000, -1 );
-    ::nVolumetric::tHashableKeySignature s = k.HashedSignature();
-    ::nVolumetric::tHashableKeySignature s1 = k1.HashedSignature();
-    ::nVolumetric::tHashableKeySignature s2 = k2.HashedSignature();
-    ::nVolumetric::cHashable3DKey q( s );
-    ::nVolumetric::cHashable3DKey q1( s1 );
-    ::nVolumetric::cHashable3DKey q2( s2 );
-
-    ::nVolumetric::tKeyComponent qx = q.GetX();
-    ::nVolumetric::tKeyComponent qy = q.GetY();
-    ::nVolumetric::tKeyComponent qz = q.GetZ();
-    
-    ::nVolumetric::tKeyComponent q1x = q1.GetX();
-    ::nVolumetric::tKeyComponent q1y = q1.GetY();
-    ::nVolumetric::tKeyComponent q1z = q1.GetZ();
-
-    ::nVolumetric::tKeyComponent q2x = q2.GetX();
-    ::nVolumetric::tKeyComponent q2y = q2.GetY();
-    ::nVolumetric::tKeyComponent q2z = q2.GetZ();
-
-    auto dummy = 0;
-
     int st = 3;
     for( int i = 0; i < st; ++i )
     {
@@ -90,9 +66,6 @@ cOpenGLRenderSceneScreen::Initialize()
             }
         }
     }
-
-    mMap.SafeSetMaterial( 0, 0, 0, 0 );
-
 
     glViewport(0, 0, window->getSize().x, window->getSize().y);
     glEnable(GL_DEPTH_TEST);
