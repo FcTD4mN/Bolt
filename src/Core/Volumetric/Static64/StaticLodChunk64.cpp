@@ -389,7 +389,7 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
     int index = 0;
     std::vector< sf::Vector3f > vertices;
     vertices.resize( mNVBOElem );
-    int memsize = mVBOElemBSize * mNVBOElem;
+    int memsize = sizeof( vertices[0] ) * mNVBOElem;
 
     eNF_Flag neighbourFlag = NF_IndexToFlag( iVBO_ID_index );
 
@@ -432,7 +432,6 @@ cStaticLodChunk64::DrawVBO( eNF_Index  iVBO_ID_index )
     glDisableVertexAttribArray( 0 );
 
     glBindBuffer( GL_ARRAY_BUFFER, 0 );
-
 
 }
 
