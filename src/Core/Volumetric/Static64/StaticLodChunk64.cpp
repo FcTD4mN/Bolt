@@ -409,12 +409,6 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
         }
     }
 
-    auto a = vertices[0];
-    auto b = vertices[1];
-    auto c = vertices[2];
-
-    auto dummy = 0;
-
     glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
 
         glBufferData( GL_ARRAY_BUFFER, memsize, &vertices[0], GL_STATIC_DRAW );
