@@ -55,6 +55,9 @@ cOpenGLRenderSceneScreen::Initialize()
     ::nBoltScript::Env()->Print( "version:" + std::to_string( settings.majorVersion ) + "\n" );
     window->setVerticalSyncEnabled(true);
 
+    window->setActive();
+    glewInit();
+
     int st = 3;
     for( int i = 0; i < st; ++i )
     {
@@ -67,6 +70,8 @@ cOpenGLRenderSceneScreen::Initialize()
         }
     }
 
+    mMap.UpdateChunksVBOs();
+
     glViewport(0, 0, window->getSize().x, window->getSize().y);
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
@@ -74,7 +79,6 @@ cOpenGLRenderSceneScreen::Initialize()
     glLoadIdentity();
     double ratio = double(window->getSize().x) / double(window->getSize().y);
     gluPerspective(50.f, ratio, 5.f, 500.f);
-    glewInit();
 
     sf::Vector3f Vertices[6];
     Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);

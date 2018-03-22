@@ -6,9 +6,8 @@ namespace  nVolumetric
 {
 
 void
-GenFace( eNF_Index iFace, int factor, int factor2, float* iData, int iX, int iY, int iZ )
+GenFace( eNF_Index iFace, int iIndex, float* iData, int iX, int iY, int iZ )
 {
-    int index = iX + iY * factor + iZ * factor2;
     float x = float( iX );
     float y = float( iY );
     float z = float( iZ );
@@ -16,22 +15,22 @@ GenFace( eNF_Index iFace, int factor, int factor2, float* iData, int iX, int iY,
     switch( iFace )
     {
     case kIndexTop:
-        GenTopFace( iData, index, x, y, z );
+        GenTopFace( iData, iIndex, x, y, z );
         break;
     case kIndexBot:
-        GenBotFace( iData, index, x, y, z );
+        GenBotFace( iData, iIndex, x, y, z );
         break;
     case kIndexFront:
-        GenFrontFace( iData, index, x, y, z );
+        GenFrontFace( iData, iIndex, x, y, z );
         break;
     case kIndexBack:
-        GenBackFace( iData, index, x, y, z );
+        GenBackFace( iData, iIndex, x, y, z );
         break;
     case kIndexLeft:
-        GenLeftFace( iData, index, x, y, z );
+        GenLeftFace( iData, iIndex, x, y, z );
         break;
     case kIndexRight:
-        GenRightFace( iData, index, x, y, z );
+        GenRightFace( iData, iIndex, x, y, z );
         break;
     }
 }

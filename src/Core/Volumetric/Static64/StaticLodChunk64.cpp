@@ -18,6 +18,7 @@ cStaticLodChunk64::~cStaticLodChunk64()
 cStaticLodChunk64::cStaticLodChunk64() :
     mOccupiedVolume( 0 )
 {
+    InitVBOs();
 }
 
 
@@ -25,6 +26,7 @@ cStaticLodChunk64::cStaticLodChunk64() :
     mOccupiedVolume( 0 )
 {
     Fill( iVal );
+    InitVBOs();
 }
 
 
@@ -334,6 +336,26 @@ cStaticLodChunk64::UpdateVBOs()
 
 
 void
+cStaticLodChunk64::InitVBOs()
+{
+    glGenBuffers( 6, mVBO_ID );
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ eNF_Index::kIndexTop ] );
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ eNF_Index::kIndexBot ] );
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ eNF_Index::kIndexFront ] );
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ eNF_Index::kIndexBot ] );
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ eNF_Index::kIndexLeft ] );
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ eNF_Index::kIndexRight ] );
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+    glBindBuffer( GL_ARRAY_BUFFER, 0 );
+}
+
+
+void
 cStaticLodChunk64::DestroyVBOs()
 {
     glDeleteBuffers( 6, mVBO_ID );
@@ -348,7 +370,9 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
 
     glGenBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
 
-    int size = mOccupiedVolume * 6 * 3;
+    int stride = 6 * 3;
+    int size = OccupiedVolume() * stride;
+    int index = 0;
     float* vertices = new float[ size ];
     eNF_Flag neighbourFlag = NF_IndexToFlag( iVBO_ID_index );
 
@@ -361,7 +385,8 @@ cStaticLodChunk64::UpdateVBO( eNF_Index  iVBO_ID_index )
                 cData* data = DataHandle( i, j, k );
                 if( data->IsSolid() && !data->HasNeighbour( neighbourFlag ) )
                 {
-                    GenFace( iVBO_ID_index, 64, 4096, vertices, i, j, k );
+                    GenFace( iVBO_ID_index, index, vertices, i, j, k );
+                    index += stride;
                 }
             }
         }

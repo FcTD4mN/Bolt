@@ -66,6 +66,7 @@ public:
 
 private:
     // Private OpenGL Object Building
+    void  InitVBOs();
     void  DestroyVBOs();
     void  UpdateVBO( eNF_Index  iVBO_ID_index );
 
