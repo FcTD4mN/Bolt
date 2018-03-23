@@ -221,9 +221,9 @@ cStaticLodChunk16::GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataInde
         return  NULL;
 
     int w = int( msSize );
-    tLocalDataIndex safeX = iX % w + ( iX % w < 0 ? w : 0);
-    tLocalDataIndex safeY = iY % w + ( iY % w < 0 ? w : 0);
-    tLocalDataIndex safeZ = iZ % w + ( iZ % w < 0 ? w : 0);
+    tLocalDataIndex safeX = tLocalDataIndex( iX % w + ( iX % w < 0 ? w : 0) );
+    tLocalDataIndex safeY = tLocalDataIndex( iY % w + ( iY % w < 0 ? w : 0) );
+    tLocalDataIndex safeZ = tLocalDataIndex( iZ % w + ( iZ % w < 0 ? w : 0) );
     return  chunk->DataHandle( safeX, safeY, safeZ );
 }
 
