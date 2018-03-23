@@ -7,6 +7,7 @@
 
 #include "GameMockup/GameApplication.h"
 
+#include <iostream>
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -53,6 +54,9 @@ cOpenGLRenderSceneScreen::Initialize()
     ::nBoltScript::Env()->Print( "stencil bits:" + std::to_string( settings.stencilBits ) + "\n" );
     ::nBoltScript::Env()->Print( "antialiasing level:" + std::to_string( settings.antialiasingLevel ) + "\n" );
     ::nBoltScript::Env()->Print( "version:" + std::to_string( settings.majorVersion ) + "\n" );
+
+    std::cout << glGetString(GL_VERSION) << std::endl;
+
     window->setVerticalSyncEnabled(true);
 
     window->setActive();
