@@ -64,7 +64,7 @@ cData::SetNeighbour( eNF_Flag  iDataNeighbourFlag, bool iValue )
     if( iValue )
         SetNeighbourField( GetNeighbourField() | iDataNeighbourFlag );
     else
-        SetNeighbourField( GetNeighbourField() & !iDataNeighbourFlag );
+        SetNeighbourField( GetNeighbourField() & ~iDataNeighbourFlag );
 }
 
 

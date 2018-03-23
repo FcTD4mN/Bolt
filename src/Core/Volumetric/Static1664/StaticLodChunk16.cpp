@@ -322,13 +322,11 @@ void
 cStaticLodChunk16::DrawVBOs()
 {
     DrawVBO( eNF_Index::kIndexTop );
-    /*
     DrawVBO( eNF_Index::kIndexBot );
     DrawVBO( eNF_Index::kIndexFront );
     DrawVBO( eNF_Index::kIndexBack );
     DrawVBO( eNF_Index::kIndexLeft );
     DrawVBO( eNF_Index::kIndexRight );
-    */
 }
 
 
@@ -340,13 +338,11 @@ void
 cStaticLodChunk16::UpdateVBOs()
 {
     UpdateVBO( eNF_Index::kIndexTop );
-    /*
     UpdateVBO( eNF_Index::kIndexBot );
     UpdateVBO( eNF_Index::kIndexFront );
     UpdateVBO( eNF_Index::kIndexBack );
     UpdateVBO( eNF_Index::kIndexLeft );
     UpdateVBO( eNF_Index::kIndexRight );
-    */
 }
 
 
