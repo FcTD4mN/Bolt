@@ -88,6 +88,9 @@
     <Filter Include="Fichiers sources\Volumetric\Static64">
       <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Base\Threading">
+      <UniqueIdentifier>{e207a4d3-f609-4f35-aef5-7548720d59d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -252,6 +255,12 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\VUtils.cpp">
       <Filter>Fichiers sources\Volumetric\Static64</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Thread-ParallelThread.cpp">
+      <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Thread-BasicProcessor.cpp">
+      <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -415,6 +424,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\VUtils.h">
       <Filter>Fichiers sources\Volumetric\Static64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Base\Thread-ParallelThread.h">
+      <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Base\Thread-BasicProcessor.h">
+      <Filter>Fichiers sources\Base\Threading</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
