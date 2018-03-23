@@ -62,7 +62,7 @@ cOpenGLRenderSceneScreen::Initialize()
     window->setActive();
     glewInit();
 
-    int st = 64;
+    int st = 50;
     for( int i = 0; i < st; ++i )
     {
         for( int j = 0; j < st; ++j )

@@ -261,6 +261,9 @@
     <ClCompile Include="..\..\..\src\Core\Base\Thread-BasicProcessor.cpp">
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.cpp">
+      <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -429,6 +432,9 @@
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Thread-BasicProcessor.h">
+      <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.h">
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClInclude>
   </ItemGroup>

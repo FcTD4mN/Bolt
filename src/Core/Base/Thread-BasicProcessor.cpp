@@ -33,11 +33,9 @@ cBasicThreadProcessor::RunInRange( int iStart, int iEnd )
     int rangePerThread = totalCount / coreCount;
     int leftOver = totalCount % coreCount;
 
-    for( unsigned int i = 0; i < totalCount; ++i )
+    for( int i = 0; i < totalCount; ++i )
     {
-        if( i >= coreCount )
+        if( unsigned int(i) >= coreCount )
             break;
-
     }
-
 }

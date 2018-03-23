@@ -1,12 +1,16 @@
 #pragma once
 
-#include "ECS/Core/System.h"
+#include "Base/Thread-TriangleSpliterProcessor.h"
 
-#include <SFML/Graphics.hpp>
+#include "ECS/Core/System.h"
 
 #include "Math/Edge.h"
 
+#include <SFML/Graphics.hpp>
+
+#include <queue>
 #include <thread>
+
 
 class cSightSystem :
     public cSystem
@@ -42,7 +46,12 @@ private:
     sf::FloatRect                   mFOVBBox;
     std::vector< sf::VertexArray >  mTriangles;
 
-    std::vector< std::thread >      mThread;
+
+    // MultiThread variables
+    cTriangleSplitterProcessor*                                         mProcessor;
+    std::vector< sf::VertexArray >*                                     mOutputTriangles;
+    std::queue< cTriangleSplitterProcessor::eAssociatedTriangle >*      mTriangleQueue;
+    std::vector< sf::VertexArray >*                                     mAllPolygonsInFOV;
 
     // The watcher referential is like this :
 

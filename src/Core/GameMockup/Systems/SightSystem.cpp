@@ -1,7 +1,6 @@
 #include "SightSystem.h"
 
-#include "Math/Utils.h"
-#include "Math/Ray.h"
+#include "Base/Thread-TriangleSpliterProcessor.h"
 
 #include "ECS/Core/Entity.h"
 #include "ECS/Utilities/EntityParser.h"
@@ -14,6 +13,9 @@
 #include "GameMockup/Components/Direction.h"
 
 #include "Mapping/PhysicEntityGrid.h"
+
+#include "Math/Utils.h"
+#include "Math/Ray.h"
 
 #include "SFML/Graphics.hpp"
 
@@ -46,12 +48,25 @@ cSightSystem::cSightSystem() :
 void
 cSightSystem::Initialize()
 {
+    mOutputTriangles = new std::vector< sf::VertexArray >();
+    mTriangleQueue = new std::queue< cTriangleSplitterProcessor::eAssociatedTriangle >();
+    mAllPolygonsInFOV = new std::vector< sf::VertexArray >();
+
+
+    mProcessor = new cTriangleSplitterProcessor( mOutputTriangles, mTriangleQueue, mAllPolygonsInFOV );
+    mProcessor->Start();
 }
 
 
 void
 cSightSystem::Finalize()
 {
+    mProcessor->Stop();
+    delete  mProcessor;
+
+    delete  mOutputTriangles;
+    delete  mTriangleQueue;
+    delete  mAllPolygonsInFOV;
 }
 
 
@@ -77,43 +92,40 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
     }
 }
 
-void Oui( std::vector< int >* oSubTrianglesOutput )
-{
-    //oSubTrianglesOutput->clear();
-    oSubTrianglesOutput->push_back( 5 );
-}
 
 void
 cSightSystem::Update( unsigned int iDeltaTime )
 {
+    // ========================================
+    // ============== MULTI THREAD ============
+    // ========================================
+
+    // If threads are not done computing previous iteration, we skip
+    if( !mTriangleQueue->empty() )
+        return;
+
+
     cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
     mFOVDrawer.clear();
-    unsigned int cpus = std::thread::hardware_concurrency();
 
     for( int i = 0; i < mWatchers.size(); ++i )
     {
         cEntity* entity = mWatchers[ i ];
-
-        //mTransformationAngleSort = mTransformationAngleSort.Identity;
-        mTriangles.clear();
 
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         auto size = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
         auto direction = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
         auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
 
-        // This is the transformation that allows to go in the watcher's referential
-        //mTransformationAngleSort.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) ) );
-        //mTransformationAngleSort.translate( -position->mPosition );
+        std::vector< sf::VertexArray > trianglesToComputeVector;    // Needed to extract bbox
         sf::VertexArray subFov;
 
         // Important points of main FOV
-        sf::Vector2f fovOrigin;
+        sf::Vector2f fovOrigin = position->mPosition; // Base point of the triangle
         sf::Vector2f fovB;
 
         // Get FOV triangles
-        fovOrigin = position->mPosition; // Base point of the triangle
         float semiAngle = float(fieldofview->mAngle / 2.0F);
         sf::Transform rotation;
         rotation.rotate( semiAngle );
@@ -136,14 +148,16 @@ cSightSystem::Update( unsigned int iDeltaTime )
             // for the Nth triangle
             fovB = rotation.transformPoint( fovB );
             subFov.append( fovB + fovOrigin );
-            mTriangles.push_back( subFov );
+
+            trianglesToComputeVector.push_back( subFov );
         }
 
-        mFOVBBox = GetTriangleSetBBox( mTriangles );
+        mFOVBBox = GetTriangleSetBBox( trianglesToComputeVector );
 
         std::vector< cEntity* > entitiesInFOVBBox;
         entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
+        mAllPolygonsInFOV->clear();
         for( auto v : entitiesInFOVBBox )
         {
             // We don't analyse the watcher itself
@@ -159,56 +173,118 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
 
-            mThread.reserve( mTriangles.size() );
-            std::vector< std::vector< sf::VertexArray >* > subTriangles;
+            mAllPolygonsInFOV->push_back( analysisVisibleBox );
+        }
 
-            for( int i = 0; i < mTriangles.size(); ++i )
-            {
-                std::vector< sf::VertexArray >* gogo = new std::vector< sf::VertexArray >();
-                subTriangles.push_back( gogo );
+        // We do this in a second time, after all polygon are update, so threads don't start to run with old polygon list
+        for( auto triangle : trianglesToComputeVector )
+        {
+            cTriangleSplitterProcessor::eAssociatedTriangle associatedTriangle;
+            associatedTriangle.mTriangle = triangle;
 
-                //mThread.push_back( std::thread( &TriangleSubDivisionUsingPolygonMultiThreadCall, gogo, &mTriangles[ i ], &analysisVisibleBox ) );
-                TriangleSubDivisionUsingPolygon( gogo, mTriangles[ i ], analysisVisibleBox );
-            }
+            mTriangleQueue->push( associatedTriangle );
+        }
 
-
-
-            //std::vector< std::vector< sf::VertexArray > > vec;
-            //for( int i = 0; i < 2; ++i )
-            //{
-            //    //vec.push_back( std::vector< sf::VertexArray >() );
-            //    //std::vector< sf::VertexArray >* vector = &vec[ vec.size() - 1 ];
-
-            //    std::vector< int >* merde = new std::vector< int >;
-            //    merde->push_back( 1 );
-            //    merde->push_back( 2 );
-            //    mThread.push_back( std::thread( &Oui, merde ) );
-            //}
-
-            for( int i = 0; i < mThread.size(); ++i )
-            {
-                mThread[ i ].join();
-            }
-
-            if( subTriangles.size() > 0 )
-            {
-                mTriangles.clear();
-                for( auto sub : subTriangles )
-                {
-                    for( int i = 0; i < sub->size(); ++i )
-                    {
-                        mTriangles.push_back( (*sub)[ i ] );
-                    }
-
-                }
-            }
-            subTriangles.clear();
-            mThread.clear();
-
-        }// for all entities
-
-        mFOVDrawer.push_back( mTriangles );
+        mFOVDrawer.push_back( *mOutputTriangles );
     }
+
+
+    // ========================================
+    // ============= SINGLE THREAD ============
+    // ========================================
+
+    //cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
+
+    //mFOVDrawer.clear();
+
+    //for( int i = 0; i < mWatchers.size(); ++i )
+    //{
+    //    cEntity* entity = mWatchers[ i ];
+
+    //    //mTransformationAngleSort = mTransformationAngleSort.Identity;
+    //    mTriangles.clear();
+
+    //    auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+    //    auto size = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
+    //    auto direction = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
+    //    auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
+
+    //    // This is the transformation that allows to go in the watcher's referential
+    //    //mTransformationAngleSort.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) ) );
+    //    //mTransformationAngleSort.translate( -position->mPosition );
+    //    sf::VertexArray subFov;
+
+    //    // Important points of main FOV
+    //    sf::Vector2f fovOrigin;
+    //    sf::Vector2f fovB;
+
+    //    // Get FOV triangles
+    //    fovOrigin = position->mPosition; // Base point of the triangle
+    //    float semiAngle = float( fieldofview->mAngle / 2.0F );
+    //    sf::Transform rotation;
+    //    rotation.rotate( semiAngle );
+
+    //    // This vector is the vector of the bisectrice of the FOV
+    //    sf::Vector2f baseVector = direction->mDirection * float( fieldofview->mDistance );
+    //    fovB = rotation.transformPoint( baseVector ); // This will be the most top left point of the first triangle
+    //                                                  // Reset the rotation
+    //    rotation = rotation.Identity;
+    //    // Set it to FOV angle / number of split, negative so it goes right and not left
+    //    rotation.rotate( float( -fieldofview->mAngle ) / FOVSplitThreshold );
+
+    //    for( int i = 0; i < FOVSplitThreshold; ++i )
+    //    {
+    //        // We start a new triangle, that has ptA and ptB from the previous
+    //        subFov.clear();
+    //        subFov.append( fovOrigin );
+    //        subFov.append( fovOrigin + fovB );
+    //        // And for each split, we apply the rotation to the top left point, creating the top right point
+    //        // for the Nth triangle
+    //        fovB = rotation.transformPoint( fovB );
+    //        subFov.append( fovB + fovOrigin );
+    //        mTriangles.push_back( subFov );
+    //    }
+
+    //    mFOVBBox = GetTriangleSetBBox( mTriangles );
+
+    //    std::vector< cEntity* > entitiesInFOVBBox;
+    //    entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
+
+    //    for( auto v : entitiesInFOVBBox )
+    //    {
+    //        // We don't analyse the watcher itself
+    //        if( v == entity )
+    //            continue;
+
+    //        auto positionENT = dynamic_cast< cPosition* >( v->GetComponentByName( "position" ) );
+    //        auto sizeENT = dynamic_cast< cSize* >( v->GetComponentByName( "size" ) );
+
+    //        sf::VertexArray analysisVisibleBox( sf::Points, 4 );
+    //        analysisVisibleBox[ 0 ] = positionENT->mPosition;
+    //        analysisVisibleBox[ 1 ] = positionENT->mPosition + sf::Vector2f( 0.0F, sizeENT->mSize.y );
+    //        analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
+    //        analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
+
+    //        // No threading
+    //        std::vector< sf::VertexArray >  subTriangles;
+    //        for( int i = int( mTriangles.size() - 1 ); i >= 0; --i )
+    //        {
+    //            TriangleSubDivisionUsingPolygon( &subTriangles, mTriangles[ i ], analysisVisibleBox );
+
+    //            if( subTriangles.size() > 0 )
+    //            {
+    //                mTriangles.erase( mTriangles.begin() + i );
+    //                for( auto sub : subTriangles )
+    //                {
+    //                    mTriangles.push_back( sub );
+    //                }
+    //            }
+    //        }// /No threading
+
+    //    }// for all entities
+
+    //    mFOVDrawer.push_back( mTriangles );
+    //}
 }
 
 

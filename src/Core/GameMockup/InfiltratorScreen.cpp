@@ -105,8 +105,7 @@ cInfiltratorScreen::Initialize()
     light->AddComponent( new cSimplePhysic( 650.0F, 100.0F, 1.0F, 1.0F, cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( light );
 
-    /*
-    int swall = 1;
+    int swall = 20;
     for( int i = 0; i < swall; ++i )
     {
         for( int j = 0; j < swall; ++j )
@@ -120,7 +119,6 @@ cInfiltratorScreen::Initialize()
             world->AddEntity( wall );
         }
     }
-    */
 
     mRotationFOV.rotate( 2.0F );
 }
