@@ -36,13 +36,14 @@ cTriangleSplitterProcessor::ThreadMethod()
 
     while( !mTerminate )
     {
+        mMutex.lock();
         if( mTrianglesToCompute->empty() )
         {
+            mMutex.unlock();
             std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
             continue;
         }
 
-        mMutex.lock();
             eAssociatedTriangle assocTriangle = mTrianglesToCompute->front();
             mTrianglesToCompute->pop();
         mMutex.unlock();
@@ -109,5 +110,13 @@ cTriangleSplitterProcessor::Stop()
     {
         mThreads[ i ].join();
     }
+}
+
+
+void
+cTriangleSplitterProcessor::WaitIteration()
+{
+    while( !mTrianglesToCompute->empty() )
+        std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
 }
 

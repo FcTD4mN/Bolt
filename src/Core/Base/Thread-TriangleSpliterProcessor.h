@@ -26,6 +26,7 @@ public:
     void ThreadMethod();
     void Start();
     void Stop();
+    void WaitIteration();
 
 protected:
     std::vector< std::thread >              mThreads;
