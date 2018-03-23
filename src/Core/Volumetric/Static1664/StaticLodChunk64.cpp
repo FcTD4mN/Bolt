@@ -1,5 +1,5 @@
-#include "Volumetric/Static64/StaticLodChunk64.h"
-#include "Volumetric/Static64/VUtils.h"
+#include "Volumetric/Static1664/StaticLodChunk64.h"
+#include "Volumetric/Static1664/VUtils.h"
 
 
 namespace  nVolumetric

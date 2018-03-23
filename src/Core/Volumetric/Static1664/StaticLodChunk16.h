@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "Volumetric/Static64/Data.h"
-#include "Volumetric/Static64/Types.h"
+#include "Volumetric/Static1664/Data.h"
+#include "Volumetric/Static1664/Types.h"
 
 
 #include <GL/glew.h>
@@ -15,15 +15,15 @@ namespace  nVolumetric
 {
 
 
-class  cStaticLodChunk64
+class  cStaticLodChunk16
 {
 
 public:
     // Construction / Destruction
-    ~cStaticLodChunk64();
-    cStaticLodChunk64();
-    cStaticLodChunk64( tByte iVal );
-    cStaticLodChunk64( const  cStaticLodChunk64& ) = delete;
+    ~cStaticLodChunk16();
+    cStaticLodChunk16();
+    cStaticLodChunk16( tByte iVal );
+    cStaticLodChunk16( const  cStaticLodChunk16& ) = delete;
 
 public:
     // Volume Information
@@ -45,8 +45,8 @@ public:
 
 public:
     // Neighbour Accessors
-    cStaticLodChunk64*  GetNeighbour( eNF_Index  iNeighbourIndex )  const;
-    void                SetNeighbour( eNF_Index  iNeighbourIndex, cStaticLodChunk64* iAdress );
+    cStaticLodChunk16*  GetNeighbour( eNF_Index  iNeighbourIndex )  const;
+    void                SetNeighbour( eNF_Index  iNeighbourIndex, cStaticLodChunk16* iAdress );
 
 private:
     // Data Manipulation
@@ -54,7 +54,7 @@ private:
     void                UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ );
 
     cData*              GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
-    cStaticLodChunk64*  GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
+    cStaticLodChunk16*  GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ );
 
 public:
     // Naive Rendering
@@ -78,14 +78,13 @@ private:
 
 private:
     // Private Data Members
-    static  const  tByte            msSize = 64;
+    static  const  tByte            msSize = 16;
     static  const  unsigned  int    msCapacity = msSize * msSize * msSize; // size^3
     unsigned  int                   mOccupiedVolume;
-    cStaticLodChunk64*              mNeighbour[6] = { 0, 0, 0, 0, 0, 0 };   // six neighbours
+    cStaticLodChunk16*              mNeighbour[6] = { 0, 0, 0, 0, 0, 0 };   // six neighbours
     cData                           mData[msSize][msSize][msSize];          // data
     GLuint                          mVBO_ID[6] = { 0, 0, 0, 0, 0, 0 };      // six VBO faces
     GLuint                          mNVBOElem;
-    static  const  GLuint           mVBOElemBSize = sizeof( sf::Vector3f );
 };
 
 

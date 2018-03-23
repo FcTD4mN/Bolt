@@ -1,4 +1,4 @@
-#include "Volumetric/Static64/SparseStaticLodChunk64Map.h"
+#include "Volumetric/Static1664/SparseStaticLodChunk16Map.h"
 
 
 #include <GL/glew.h>
@@ -10,13 +10,13 @@ namespace  nVolumetric
 {
 
 
-cSparseStaticLodChunk64Map::~cSparseStaticLodChunk64Map()
+cSparseStaticLodChunk16Map::~cSparseStaticLodChunk16Map()
 {
     PurgeAllChunks();
 }
 
 
-cSparseStaticLodChunk64Map::cSparseStaticLodChunk64Map() :
+cSparseStaticLodChunk16Map::cSparseStaticLodChunk16Map() :
     mChunks()
 {
 }
@@ -27,24 +27,24 @@ cSparseStaticLodChunk64Map::cSparseStaticLodChunk64Map() :
 
 
 cHashable3DKey
-cSparseStaticLodChunk64Map::KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )  const
+cSparseStaticLodChunk16Map::KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )  const
 {
-    tKeyComponent keyX = tKeyComponent( floor( double(iX) / 64. ) );
-    tKeyComponent keyY = tKeyComponent( floor( double(iY) / 64. ) );
-    tKeyComponent keyZ = tKeyComponent( floor( double(iZ) / 64. ) );
+    tKeyComponent keyX = tKeyComponent( floor( double(iX) / 16. ) );
+    tKeyComponent keyY = tKeyComponent( floor( double(iY) / 16. ) );
+    tKeyComponent keyZ = tKeyComponent( floor( double(iZ) / 16. ) );
     return  cHashable3DKey( keyX, keyY, keyZ );
 }
 
 
 bool
-cSparseStaticLodChunk64Map::ChunkExists( const  cHashable3DKey&  iKey )  const
+cSparseStaticLodChunk16Map::ChunkExists( const  cHashable3DKey&  iKey )  const
 {
     return  ( ! ( mChunks.find( iKey.HashedSignature() ) == mChunks.end() ) );
 }
 
 
-cStaticLodChunk64*
-cSparseStaticLodChunk64Map::ChunkAtKey( const  cHashable3DKey&  iKey )
+cStaticLodChunk16*
+cSparseStaticLodChunk16Map::ChunkAtKey( const  cHashable3DKey&  iKey )
 {
     auto it = mChunks.find( iKey.HashedSignature() );
     if( it != mChunks.end() )
@@ -57,13 +57,13 @@ cSparseStaticLodChunk64Map::ChunkAtKey( const  cHashable3DKey&  iKey )
 //----------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------ Chunk cmd
 
-cStaticLodChunk64*
-cSparseStaticLodChunk64Map::MkChunk( const  cHashable3DKey&  iKey )
+cStaticLodChunk16*
+cSparseStaticLodChunk16Map::MkChunk( const  cHashable3DKey&  iKey )
 {
     if( ChunkExists( iKey ) )
         return  ChunkAtKey( iKey );
 
-    auto chunk = new cStaticLodChunk64(0);
+    auto chunk = new cStaticLodChunk16(0);
     mChunks.emplace( iKey.HashedSignature(), chunk );
     UpdateChunkNeighbours( iKey );
     return  chunk;
@@ -71,7 +71,7 @@ cSparseStaticLodChunk64Map::MkChunk( const  cHashable3DKey&  iKey )
 
 
 void
-cSparseStaticLodChunk64Map::RmChunk( const  cHashable3DKey&  iKey )
+cSparseStaticLodChunk16Map::RmChunk( const  cHashable3DKey&  iKey )
 {
     if( !ChunkExists( iKey ) )
         return;
@@ -84,7 +84,7 @@ cSparseStaticLodChunk64Map::RmChunk( const  cHashable3DKey&  iKey )
 
 
 void
-cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey )
+cSparseStaticLodChunk16Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey )
 {
     auto chunk  = ChunkAtKey( iKey );           // can be NULL
     auto top    = ChunkAtKey( iKey.Top() );     // can be NULL
@@ -114,7 +114,7 @@ cSparseStaticLodChunk64Map::UpdateChunkNeighbours( const  cHashable3DKey&  iKey 
 
 
 void
-cSparseStaticLodChunk64Map::PurgeEmptyChunks()
+cSparseStaticLodChunk16Map::PurgeEmptyChunks()
 {
     for ( auto it : mChunks )
     {
@@ -126,7 +126,7 @@ cSparseStaticLodChunk64Map::PurgeEmptyChunks()
 
 
 void
-cSparseStaticLodChunk64Map::PurgeAllChunks()
+cSparseStaticLodChunk16Map::PurgeAllChunks()
 {
     for ( auto it : mChunks )
     {
@@ -138,7 +138,7 @@ cSparseStaticLodChunk64Map::PurgeAllChunks()
 
 
 void
-cSparseStaticLodChunk64Map::UpdateChunksVBOs()
+cSparseStaticLodChunk16Map::UpdateChunksVBOs()
 {
     for ( auto it : mChunks )
     {
@@ -154,25 +154,25 @@ cSparseStaticLodChunk64Map::UpdateChunksVBOs()
 
 
 tByte
-cSparseStaticLodChunk64Map::operator()( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
+cSparseStaticLodChunk16Map::operator()( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
-    tByte dataX = tByte( tKeyComponent( iX ) - key.GetX() * 64 );
-    tByte dataY = tByte( tKeyComponent( iY ) - key.GetY() * 64 );
-    tByte dataZ = tByte( tKeyComponent( iZ ) - key.GetZ() * 64 );
+    tByte dataX = tByte( tKeyComponent( iX ) - key.GetX() * 16 );
+    tByte dataY = tByte( tKeyComponent( iY ) - key.GetY() * 16 );
+    tByte dataZ = tByte( tKeyComponent( iZ ) - key.GetZ() * 16 );
     auto chunk = ChunkAtKey( key );
     return  chunk->GetMaterial( dataX, dataY, dataZ );
 }
 
 
 void
-cSparseStaticLodChunk64Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ, tByte iValue )
+cSparseStaticLodChunk16Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ, tByte iValue )
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     auto chunk = MkChunk( key );
-    tByte dataX = tByte( tKeyComponent( iX ) - key.GetX() * 64 );
-    tByte dataY = tByte( tKeyComponent( iY ) - key.GetY() * 64 );
-    tByte dataZ = tByte( tKeyComponent( iZ ) - key.GetZ() * 64 );
+    tByte dataX = tByte( tKeyComponent( iX ) - key.GetX() * 16 );
+    tByte dataY = tByte( tKeyComponent( iY ) - key.GetY() * 16 );
+    tByte dataZ = tByte( tKeyComponent( iZ ) - key.GetZ() * 16 );
     chunk->SetMaterial( dataX, dataY, dataZ, iValue );
 }
 
@@ -182,7 +182,7 @@ cSparseStaticLodChunk64Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataInd
 
 
 void
-cSparseStaticLodChunk64Map::DirectDraw()
+cSparseStaticLodChunk16Map::DirectDraw()
 {
     for ( auto it : mChunks )
     {
@@ -191,7 +191,7 @@ cSparseStaticLodChunk64Map::DirectDraw()
         cHashable3DKey key( hashedKey );
 
         glPushMatrix();
-        glTranslatef( key.GetX() * 64.f, key.GetY() * 64.f, key.GetZ() * 64.f );
+        glTranslatef( key.GetX() * 16.f, key.GetY() * 16.f, key.GetZ() * 16.f );
         chunk->DirectDraw();
         glPopMatrix();
 
@@ -200,7 +200,7 @@ cSparseStaticLodChunk64Map::DirectDraw()
 
 
 void
-cSparseStaticLodChunk64Map::RenderVBOs()
+cSparseStaticLodChunk16Map::RenderVBOs()
 {
     for ( auto it : mChunks )
     {
@@ -209,7 +209,7 @@ cSparseStaticLodChunk64Map::RenderVBOs()
         cHashable3DKey key( hashedKey );
 
         glPushMatrix();
-        glTranslatef( key.GetX() * 64.f, key.GetY() * 64.f, key.GetZ() * 64.f );
+        glTranslatef( key.GetX() * 16.f, key.GetY() * 16.f, key.GetZ() * 16.f );
         chunk->DrawVBOs();
         glPopMatrix();
 

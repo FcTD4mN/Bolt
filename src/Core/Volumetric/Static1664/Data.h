@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Volumetric/Static64/Types.h"
+#include "Volumetric/Static1664/Types.h"
 
 
 namespace  nVolumetric

@@ -278,11 +278,13 @@
     <ClCompile Include="..\..\..\src\Core\Screen\Screen.cpp" />
     <ClCompile Include="..\..\..\src\Core\Screen\ScreenMainMenu.cpp" />
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Shortcuts.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\Data.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\Hashable3DKey.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\SparseStaticLodChunk64Map.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\StaticLodChunk64.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static64\VUtils.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\Data.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\Hashable3DKey.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk16Map.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk64Map.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\StaticLodChunk16.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\StaticLodChunk64.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\VUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h" />
@@ -336,12 +338,14 @@
     <ClInclude Include="..\..\..\src\Core\Screen\Screen.h" />
     <ClInclude Include="..\..\..\src\Core\Screen\ScreenMainMenu.h" />
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\Data.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\Hashable3DKey.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\SparseStaticLodChunk64Map.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\StaticLodChunk64.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\Types.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static64\VUtils.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Data.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Hashable3DKey.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk16Map.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk64Map.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\StaticLodChunk16.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\StaticLodChunk64.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Types.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\VUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

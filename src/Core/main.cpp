@@ -15,7 +15,7 @@
 
 #include "Benchmark/Benchmark.h"
 
-#include "Volumetric/Static64/Data.h"
+#include "Volumetric/Static1664/Data.h"
 
 
 int
