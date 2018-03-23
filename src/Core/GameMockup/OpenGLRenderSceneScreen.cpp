@@ -80,6 +80,28 @@ cOpenGLRenderSceneScreen::Initialize()
         }
     }
 
+    for( int i = -10; i < 10; ++i )
+    {
+        for( int j = -10; j < 10; ++j )
+        {
+            for( int k = -10; k < 10; ++k )
+            {
+                mMap.SafeSetMaterial( i, j, k, 0 );
+            }
+        }
+    }
+
+    for( int i = -5; i < 5; ++i )
+    {
+        for( int j = 0; j < 30; ++j )
+        {
+            for( int k = -5; k < 5; ++k )
+            {
+                mMap.SafeSetMaterial( i, j, k, 0 );
+            }
+        }
+    }
+
     mMap.UpdateChunksVBOs();
 
     glViewport(0, 0, window->getSize().x, window->getSize().y);
