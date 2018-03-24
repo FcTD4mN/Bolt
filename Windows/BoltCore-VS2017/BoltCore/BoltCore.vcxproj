@@ -277,6 +277,7 @@
     <ClCompile Include="..\..\..\src\Core\Math\Utils.cpp" />
     <ClCompile Include="..\..\..\src\Core\Screen\Screen.cpp" />
     <ClCompile Include="..\..\..\src\Core\Screen\ScreenMainMenu.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Shader\Shader.cpp" />
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Shortcuts.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\Data.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\Hashable3DKey.cpp" />
@@ -335,6 +336,7 @@
     <ClInclude Include="..\..\..\src\Core\Math\Utils.h" />
     <ClInclude Include="..\..\..\src\Core\Screen\Screen.h" />
     <ClInclude Include="..\..\..\src\Core\Screen\ScreenMainMenu.h" />
+    <ClInclude Include="..\..\..\src\Core\Shader\Shader.h" />
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Data.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Hashable3DKey.h" />

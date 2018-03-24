@@ -80,7 +80,6 @@ cOpenGLRenderSceneScreen::Initialize()
         }
     }
 
-    /*
     for( int i = -10; i < 10; ++i )
     {
         for( int j = -10; j < 10; ++j )
@@ -102,7 +101,6 @@ cOpenGLRenderSceneScreen::Initialize()
             }
         }
     }
-    */
 
     mMap.UpdateChunksVBOs();
 

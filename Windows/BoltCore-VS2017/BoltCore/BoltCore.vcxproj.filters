@@ -91,6 +91,9 @@
     <Filter Include="Fichiers sources\Volumetric\Static1664">
       <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Shader">
+      <UniqueIdentifier>{9f3bba9a-dacd-47ba-a345-ce19889269d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -264,6 +267,9 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk16Map.cpp">
       <Filter>Fichiers sources\Volumetric\Static1664</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Shader\Shader.cpp">
+      <Filter>Fichiers sources\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -436,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk16Map.h">
       <Filter>Fichiers sources\Volumetric\Static1664</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Shader\Shader.h">
+      <Filter>Fichiers sources\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
