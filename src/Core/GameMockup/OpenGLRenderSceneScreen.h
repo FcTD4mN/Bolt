@@ -2,7 +2,6 @@
 
 #include "Screen/Screen.h"
 #include "GUI/ConsoleWidget.h"
-#include "Volumetric/Static1664/SparseStaticLodChunk64Map.h"
 #include "Volumetric/Static1664/SparseStaticLodChunk16Map.h"
 
 
