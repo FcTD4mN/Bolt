@@ -411,12 +411,13 @@ cStaticLodChunk16::UpdateVBO( eNF_Index  iVBO_ID_index )
                 if( data->IsSolid() && !data->HasNeighbour( neighbourFlag ) )
                 {
                     GenFace( iVBO_ID_index, index, vertices, i, j, k );
-                    colors[index + 0] = sf::Vector3f( 0.0f , 1.0f, 0.0f );
-                    colors[index + 1] = sf::Vector3f( 0.0f , 1.0f, 0.0f );
-                    colors[index + 2] = sf::Vector3f( 0.0f , 1.0f, 0.0f );
-                    colors[index + 3] = sf::Vector3f( 0.0f , 1.0f, 0.0f );
-                    colors[index + 4] = sf::Vector3f( 0.0f , 1.0f, 0.0f );
-                    colors[index + 5] = sf::Vector3f( 0.0f , 1.0f, 0.0f );
+                    sf::Vector3f color = ColorFromVGAMaterial( data->GetMaterialField() );
+                    colors[index + 0] = color;
+                    colors[index + 1] = color;
+                    colors[index + 2] = color;
+                    colors[index + 3] = color;
+                    colors[index + 4] = color;
+                    colors[index + 5] = color;
                     index += stride;
                     colorindex += colorstride;
                 }

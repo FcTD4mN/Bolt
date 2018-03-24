@@ -114,5 +114,15 @@ GenRightFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,fl
 }
 
 
+sf::Vector3f
+ColorFromVGAMaterial( tByte iMaterial )
+{
+    float r = float( ( iMaterial & 0b11100000 ) >> 5 ) / 3.f;
+    float g = float( ( iMaterial & 0b00011100 ) >> 2 ) / 7.f;
+    float b = float( ( iMaterial & 0b00000011 ) ) / 7.f;
+    return  sf::Vector3f( r, g, b );
+}
+
+
 } // namespace  nVolumetric
 

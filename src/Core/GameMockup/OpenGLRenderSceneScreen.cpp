@@ -75,7 +75,7 @@ cOpenGLRenderSceneScreen::Initialize()
                 int y = j - 20;
                 int z = k - 20;
                 if( sqrt( x*x + y*y + z*z ) < 20.0 )
-                    mMap.SafeSetMaterial( x, y, z, 1 );
+                    mMap.SafeSetMaterial( x, y, z, ( rand()%254 ) + 1 );
             }
         }
     }

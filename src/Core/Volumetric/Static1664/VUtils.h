@@ -17,5 +17,8 @@ void  GenBackFace(  std::vector< sf::Vector3f >& iData ,  int iIndex, float iX, 
 void  GenLeftFace(  std::vector< sf::Vector3f >& iData ,  int iIndex, float iX, float iY, float iZ );
 void  GenRightFace( std::vector< sf::Vector3f >& iData ,  int iIndex, float iX, float iY, float iZ );
 
+sf::Vector3f  ColorFromVGAMaterial( tByte iMaterial );
+
+
 } // namespace  nVolumetric
 
