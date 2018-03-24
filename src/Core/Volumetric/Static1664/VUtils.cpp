@@ -42,6 +42,10 @@ GenTopFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,floa
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ - 1.f    );
+
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
+    iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ - 1.f    );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ - 1.f    );
 }
 
 
@@ -51,6 +55,10 @@ GenBotFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,floa
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ - 1.f    );
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ          );
+
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ          );
+    iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ - 1.f    );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ - 1.f    );
 }
 
 
@@ -60,6 +68,10 @@ GenFrontFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,fl
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
+
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
+    iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ          );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ          );
 }
 
 
@@ -69,6 +81,10 @@ GenBackFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,flo
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ - 1.f    );
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ - 1.f    );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ - 1.f    );
+
+    iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ - 1.f    );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ - 1.f    );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ - 1.f    );
 }
 
 
@@ -78,6 +94,10 @@ GenLeftFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,flo
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ - 1.f    );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ          );
+
+    iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ          );
+    iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ - 1.f    );
+    iData[ iIndex++ ]   = sf::Vector3f( iX,         iY - 1.f,   iZ - 1.f    );
 }
 
 
@@ -87,6 +107,10 @@ GenRightFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,fl
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ - 1.f    );
+
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ - 1.f    );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ          );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY - 1.f,   iZ - 1.f    );
 }
 
 

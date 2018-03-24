@@ -83,8 +83,11 @@ private:
     unsigned  int                   mOccupiedVolume;
     cStaticLodChunk16*              mNeighbour[6] = { 0, 0, 0, 0, 0, 0 };   // six neighbours
     cData                           mData[msSize][msSize][msSize];          // data
-    GLuint                          mVBO_ID[6] = { 0, 0, 0, 0, 0, 0 };      // six VBO faces
-    GLuint                          mNVBOElem;
+    GLuint                          mVBO_ID[6] = { 0, 0, 0, 0, 0, 0 };
+    GLuint                          mNVerticesVBOElem;
+    GLuint                          mNColorsVBOElem;
+    static  const  int              msElementSize = sizeof( sf::Vector3f );
+    GLuint                          mVerticesMsize;
 };
 
 
