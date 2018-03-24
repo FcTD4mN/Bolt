@@ -454,7 +454,7 @@ cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index )
     glDrawArrays( GL_TRIANGLES, 0, mNVerticesVBOElem );
 
     glDisableVertexAttribArray( 0 );
-    glDisableVertexAttribArray( 1 );
+    //glDisableVertexAttribArray( 1 );
 
     glBindBuffer( GL_ARRAY_BUFFER, 0 );
 }

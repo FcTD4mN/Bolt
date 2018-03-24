@@ -43,8 +43,8 @@ GenTopFace( std::vector< sf::Vector3f >& iData,int iIndex,float iX,float iY,floa
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ - 1.f    );
 
-    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX,         iY,         iZ - 1.f    );
+    iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ          );
     iData[ iIndex++ ]   = sf::Vector3f( iX + 1.f,   iY,         iZ - 1.f    );
 }
 

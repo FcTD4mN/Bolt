@@ -64,22 +64,23 @@ cOpenGLRenderSceneScreen::Initialize()
     window->setActive();
     glewInit();
 
-    int st = 60;
+    int st = 40;
     for( int i = 0; i < st; ++i )
     {
         for( int j = 0; j < st; ++j )
         {
             for( int k = 0; k < st; ++k )
             {
-                int x = i - 30;
-                int y = j - 30;
-                int z = k - 30;
-                if( sqrt( x*x + y*y + z*z ) < 30.0 )
+                int x = i - 20;
+                int y = j - 20;
+                int z = k - 20;
+                if( sqrt( x*x + y*y + z*z ) < 20.0 )
                     mMap.SafeSetMaterial( x, y, z, 1 );
             }
         }
     }
 
+    /*
     for( int i = -10; i < 10; ++i )
     {
         for( int j = -10; j < 10; ++j )
@@ -101,12 +102,16 @@ cOpenGLRenderSceneScreen::Initialize()
             }
         }
     }
+    */
 
     mMap.UpdateChunksVBOs();
 
     glViewport(0, 0, window->getSize().x, window->getSize().y);
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
+    glFrontFace(GL_CCW);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     double ratio = double(window->getSize().x) / double(window->getSize().y);
@@ -156,7 +161,7 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef( 0.f, 0.f, -80.0f );
+    glTranslatef( 0.f, 0.f, -50.0f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
