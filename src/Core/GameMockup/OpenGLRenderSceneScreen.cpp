@@ -115,6 +115,8 @@ cOpenGLRenderSceneScreen::Initialize()
     double ratio = double(window->getSize().x) / double(window->getSize().y);
     gluPerspective(50.f, ratio, 5.f, 500.f);
 
+    mShader = cShader( "resources/Shared/Shaders/couleur3D.vert", "resources/Shared/Shaders/couleur3D.frag" );
+
     /*
     std::vector< sf::Vector3f > Vertices;
     Vertices.resize( NVERTICES );
@@ -164,9 +166,11 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
 
+    //glUseProgram(mShader.getProgramID());
     glPushMatrix();
     mMap.RenderVBOs();
     glPopMatrix();
+    //glUseProgram(0);
 
     /*
     glEnableVertexAttribArray(0);

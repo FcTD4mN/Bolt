@@ -5,7 +5,7 @@
 //------------------------------------------------------------------- Construction / Destruction
 
 
-Shader::~Shader()
+cShader::~cShader()
 {
     glDeleteShader(m_vertexID);
     glDeleteShader(m_fragmentID);
@@ -13,7 +13,7 @@ Shader::~Shader()
 }
 
 
-Shader::Shader() :
+cShader::cShader() :
     m_vertexID(0),
     m_fragmentID(0),
     m_programID(0),
@@ -23,7 +23,7 @@ Shader::Shader() :
 }
 
 
-Shader::Shader( Shader const &iShader )
+cShader::cShader( cShader const &iShader )
 {
     m_vertexSource = iShader.m_vertexSource;
     m_fragmentSource = iShader.m_fragmentSource;
@@ -31,7 +31,7 @@ Shader::Shader( Shader const &iShader )
 }
 
 
-Shader::Shader( std::string iVertexSource, std::string iFragmentSource ) :
+cShader::cShader( std::string iVertexSource, std::string iFragmentSource ) :
     m_vertexID(0),
     m_fragmentID(0),
     m_programID(0),
@@ -41,7 +41,7 @@ Shader::Shader( std::string iVertexSource, std::string iFragmentSource ) :
 }
 
 
-Shader& Shader::operator=( Shader const &iShader )
+cShader& cShader::operator=( cShader const &iShader )
 {
     m_vertexSource = iShader.m_vertexSource;
     m_fragmentSource = iShader.m_fragmentSource;
@@ -56,7 +56,7 @@ Shader& Shader::operator=( Shader const &iShader )
 //----------------------------------------------------------------------------- Public Interface
 
 
-bool Shader::Load()
+bool cShader::Load()
 {
     // Destruction before rebuild
     if(glIsShader(m_vertexID) == GL_TRUE)
@@ -123,7 +123,7 @@ bool Shader::Load()
 }
 
 
-bool Shader::CompileShader( GLuint &iShader, GLenum iType, std::string const &iSourceFile )
+bool cShader::CompileShader( GLuint &iShader, GLenum iType, std::string const &iSourceFile )
 {
     // Creation
     iShader = glCreateShader( iType );
@@ -204,7 +204,7 @@ bool Shader::CompileShader( GLuint &iShader, GLenum iType, std::string const &iS
 
 // Getter
 
-GLuint Shader::getProgramID() const
+GLuint cShader::getProgramID() const
 {
     return m_programID;
 }

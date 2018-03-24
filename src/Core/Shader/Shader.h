@@ -9,15 +9,15 @@
 #include <fstream>
 
 
-class Shader
+class cShader
 {
 public:
     // Construction / Destruction
-    ~Shader();
-    Shader();
-    Shader( Shader const &iShader );
-    Shader( std::string iVertexSource, std::string iFragmentSource );
-    Shader& operator=( Shader const &iShader );
+    ~cShader();
+    cShader();
+    cShader( cShader const &iShader );
+    cShader( std::string iVertexSource, std::string iFragmentSource );
+    cShader& operator=( cShader const &iShader );
 
 public:
     // Public Interface

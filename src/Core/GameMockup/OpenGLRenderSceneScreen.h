@@ -3,6 +3,7 @@
 #include "Screen/Screen.h"
 #include "GUI/ConsoleWidget.h"
 #include "Volumetric/Static1664/SparseStaticLodChunk16Map.h"
+#include "Shader/Shader.h"
 
 
 class cOpenGLRenderSceneScreen :
@@ -48,5 +49,6 @@ private:
     ::nGUI::cConsoleWidget*  mConsoleWidget;
     sf::Clock  mClock;
     ::nVolumetric::cSparseStaticLodChunk16Map mMap;
+    cShader mShader;
 };
 
