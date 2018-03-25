@@ -449,7 +449,7 @@ cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index )
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET( 0 ) );
     glEnableVertexAttribArray( 0 );
 
-    glColorPointer(3, GL_FLOAT, 0, BUFFER_OFFSET( mVerticesMsize ) );
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET( mVerticesMsize ) );
     glEnableVertexAttribArray( 1 );
 
     glDrawArrays( GL_TRIANGLES, 0, mNVerticesVBOElem );
