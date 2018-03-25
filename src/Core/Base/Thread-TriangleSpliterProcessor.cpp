@@ -92,11 +92,9 @@ cTriangleSplitterProcessor::ThreadMethod()
 void
 cTriangleSplitterProcessor::Start()
 {
-    unsigned int coreCount = std::thread::hardware_concurrency();
-
-    for( unsigned int i = 0; i < coreCount; ++i )
+    while( 1 )
     {
-        mThreads.push_back( std::thread( &cTriangleSplitterProcessor::ThreadMethod, this ) );
+        //AffectFunctionToThreadAndStart( &cTriangleSplitterProcessor::ThreadMethod, this )
     }
 }
 

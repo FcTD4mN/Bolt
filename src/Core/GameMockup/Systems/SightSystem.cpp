@@ -54,7 +54,6 @@ cSightSystem::Initialize()
 
 
     mProcessor = new cTriangleSplitterProcessor( mOutputTriangles, mTriangleQueue, mAllPolygonsInFOV );
-    mProcessor->Start();
 }
 
 
@@ -177,16 +176,63 @@ cSightSystem::Update( unsigned int iDeltaTime )
         }
 
         // We do this in a second time, after all polygon are update, so threads don't start to run with old polygon list
-        for( auto triangle : trianglesToComputeVector )
-        {
-            cTriangleSplitterProcessor::eAssociatedTriangle associatedTriangle;
-            associatedTriangle.mTriangle = triangle;
+        //for( auto triangle : trianglesToComputeVector )
+        //{
+        //    cTriangleSplitterProcessor::eAssociatedTriangle associatedTriangle;
+        //    associatedTriangle.mTriangle = triangle;
 
-            mTriangleQueue->push( associatedTriangle );
-        }
+        //    mTriangleQueue->push( associatedTriangle );
+        //}
 
         mFOVDrawer.push_back( *mOutputTriangles );
     }
+
+
+
+
+
+    /*
+    Way to go would be :
+
+    Classic start :
+        Get first FOV mTriangles
+
+        Get BBox + get all entities from EMap
+
+
+    Single thread type iteration :
+        for all entities : get bbox
+        {
+
+            at this point, we need a vector of vector of triangles : outputSubTriangles ( as it is in previous commits )
+            for all triangles in order i = 0; < mTriangles.Size : clip entity's bbox
+            {
+                then, with the triangle + clipedPoly + a vector to output, that is personnal to every thread, we can process :
+                --> Send those to TriangleSplitter in a thread (lambda)
+                Capture whole scope
+                threadMethod = [ & ]( int iIndex ){
+
+                    TriangleSubDivisionUsingPolygon( &outputSubTriangles[ iIndex ], triangle, clipedPoly );
+                }
+                handle = ThreadManager->WaitForThread( threadMethod )
+            }
+
+    Finally :
+            Wait for all thread to finish
+            mTriangles.clear()
+            for each vector in outputSubTriangles
+                for each triangle in vector
+                    mTriangle.push_back( triangle )
+
+        }
+
+
+    */
+
+
+
+
+
 
 
     // ========================================

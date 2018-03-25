@@ -243,12 +243,6 @@
     <ClCompile Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.cpp">
       <Filter>Fichiers sources\GameMockup\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Thread-ParallelThread.cpp">
-      <Filter>Fichiers sources\Base\Threading</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Thread-BasicProcessor.cpp">
-      <Filter>Fichiers sources\Base\Threading</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.cpp">
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClCompile>
@@ -281,6 +275,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.cpp">
       <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Thread-Thread.cpp">
+      <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp">
+      <Filter>Fichiers sources\Base\Threading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -428,12 +428,6 @@
     <ClInclude Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.h">
       <Filter>Fichiers sources\GameMockup\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Thread-ParallelThread.h">
-      <Filter>Fichiers sources\Base\Threading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Thread-BasicProcessor.h">
-      <Filter>Fichiers sources\Base\Threading</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.h">
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClInclude>
@@ -469,6 +463,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.h">
       <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Base\Thread-Thread.h">
+      <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.h">
+      <Filter>Fichiers sources\Base\Threading</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
