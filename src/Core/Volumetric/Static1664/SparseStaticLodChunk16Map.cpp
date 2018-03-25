@@ -128,11 +128,19 @@ cSparseStaticLodChunk16Map::PurgeEmptyChunks()
 void
 cSparseStaticLodChunk16Map::PurgeAllChunks()
 {
+    std::vector< cHashable3DKey > toRemove;
+    toRemove.reserve( mChunks.size() );
+
     for ( auto it : mChunks )
     {
         auto hashedKey = it.first;
         auto chunk = it.second;
-        RmChunk( cHashable3DKey( hashedKey ) );
+        toRemove.push_back( cHashable3DKey( hashedKey ) );
+    }
+
+    for( int i = 0; i < toRemove.size(); ++i )
+    {
+        RmChunk( toRemove[i] );
     }
 }
 
