@@ -73,7 +73,7 @@ cOpenGLRenderSceneScreen::Initialize()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     double ratio = double(window->getSize().x) / double(window->getSize().y);
-    gluPerspective(50.f, ratio, 5.f, 500.f);
+    gluPerspective(50.f, ratio, 5.f, 1500.f);
 
     mShader = cShader( "resources/Shared/Shaders/basicLight.vert", "resources/Shared/Shaders/basicLight.frag" );
 
@@ -146,21 +146,19 @@ cOpenGLRenderSceneScreen::Initialize()
         /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        int ray = 5;
+        int ray = 7;
         int diam = ray *2;
-        int n = 11;
+        int n = 25;
         int nshift = - n / 2;
         int shift = - diam / 2;
-        int padding = diam * 2;
+        int padding = diam;
 
         for( int i = 0; i < n; ++i )
         {
-            for( int j = 0; j < n; ++j )
-            {
                 for( int k = 0; k < n; ++k )
                 {
                     float xbase = ( i + nshift ) * padding;
-                    float ybase = ( j + nshift ) * padding;
+                    float ybase = ( 20 );
                     float zbase = ( k + nshift ) * padding;
 
                     for( int l = 0; l < diam; ++l )
@@ -181,27 +179,7 @@ cOpenGLRenderSceneScreen::Initialize()
                     }
 
                 }
-            }
         }
-
-        int sak = 50;
-        for( int i = -sak; i < sak; ++i )
-        {
-            for( int j = -sak; j < sak; ++j )
-            {
-                for( int k = -sak; k < sak; ++k )
-                {
-                    float x = i;
-                    float y = j;
-                    float z = k;
-                    float lenght = sqrt( x*x + y*y + z*z );
-                    if( lenght < float( sak ) )
-                        mMap.SafeSetMaterial( x, y + sak / 2, z, 0 );
-
-                }
-            }
-        }
-
 
         ////////////////////////////////////////////////////////////////
 
@@ -274,7 +252,7 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    int a = 0+4;
+    int a = 0;
     glTranslatef( 0.f, 0.f, -400.f );
     //glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
     glRotatef( 45.f, 1.f, 0.f, 0.f );

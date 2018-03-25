@@ -283,8 +283,10 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\VUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -344,8 +346,10 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Types.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\VUtils.h" />
   </ItemGroup>

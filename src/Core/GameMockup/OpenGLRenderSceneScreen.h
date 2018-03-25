@@ -4,6 +4,7 @@
 #include "GUI/ConsoleWidget.h"
 #include "Volumetric/Static/SparseStaticLodChunk16Map.h"
 #include "Volumetric/Static/SparseStaticLodChunk32Map.h"
+#include "Volumetric/Static/SparseStaticLodChunk64Map.h"
 #include "Shader/Shader.h"
 
 
@@ -49,7 +50,7 @@ public:
 private:
     ::nGUI::cConsoleWidget*  mConsoleWidget;
     sf::Clock  mClock;
-    ::nVolumetric::cSparseStaticLodChunk32Map mMap;
+    ::nVolumetric::cSparseStaticLodChunk64Map mMap;
     cShader mShader;
 };
 
