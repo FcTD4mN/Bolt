@@ -58,7 +58,7 @@ private:
 
 public:
     // Naive Rendering
-    void  DrawVBOs();
+    void  DrawVBOs( GLuint iShaderProgramID );
 
 public:
     // VBO Interface
@@ -72,8 +72,8 @@ private:
 
 private:
     // Private OpenGL Object Rendering
-    void  DrawVBO( eNF_Index  iVBO_ID_index );
-    void  SendUniformNormal( eNF_Index  iVBO_ID_index );
+    void  DrawVBO( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID  );
+    void  SendUniformNormal( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID  );
 
 private:
     // Private Data Members

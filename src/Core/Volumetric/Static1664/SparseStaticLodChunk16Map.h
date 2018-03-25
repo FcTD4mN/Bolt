@@ -42,7 +42,7 @@ public:
 
 public:
     // Naive Rendering
-    void  RenderVBOs();
+    void  RenderVBOs( GLuint iShaderProgramID );
 
 private:
     // Private Data Members

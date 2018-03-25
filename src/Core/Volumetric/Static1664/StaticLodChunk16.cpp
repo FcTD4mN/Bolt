@@ -264,14 +264,14 @@ cStaticLodChunk16::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
 
 
 void
-cStaticLodChunk16::DrawVBOs()
+cStaticLodChunk16::DrawVBOs( GLuint iShaderProgramID )
 {
-    DrawVBO( eNF_Index::kIndexTop );
-    DrawVBO( eNF_Index::kIndexBot );
-    DrawVBO( eNF_Index::kIndexFront );
-    DrawVBO( eNF_Index::kIndexBack );
-    DrawVBO( eNF_Index::kIndexLeft );
-    DrawVBO( eNF_Index::kIndexRight );
+    DrawVBO( eNF_Index::kIndexTop   , iShaderProgramID );
+    DrawVBO( eNF_Index::kIndexBot   , iShaderProgramID );
+    DrawVBO( eNF_Index::kIndexFront , iShaderProgramID );
+    DrawVBO( eNF_Index::kIndexBack  , iShaderProgramID );
+    DrawVBO( eNF_Index::kIndexLeft  , iShaderProgramID );
+    DrawVBO( eNF_Index::kIndexRight , iShaderProgramID );
 }
 
 
@@ -387,9 +387,9 @@ cStaticLodChunk16::UpdateVBO( eNF_Index  iVBO_ID_index )
 
 
 void
-cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index )
+cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID )
 {
-    SendUniformNormal( iVBO_ID_index );
+    SendUniformNormal( iVBO_ID_index, iShaderProgramID );
 
     glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
 
@@ -409,9 +409,11 @@ cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index )
 
 
 void
-cStaticLodChunk16::SendUniformNormal( eNF_Index  iVBO_ID_index )
+cStaticLodChunk16::SendUniformNormal( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID  )
 {
-
+    int location = glGetUniformLocation( iShaderProgramID, "normal" );
+    auto normal = sgUniformFaceNormals[ iVBO_ID_index ];
+    glUniform3f(location, normal.x, normal.y, normal.z );
 }
 
 

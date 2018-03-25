@@ -171,14 +171,12 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glRotatef( 45.f, 1.f, 0.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
 
-    glUseProgram(mShader.getProgramID());
 
-    int location = glGetUniformLocation(mShader.getProgramID(), "normal");
-    auto normal = sf::Vector3f( 0, 1, 0 );
-    glUniform3f(location, normal.x, normal.y, normal.z );
+    GLuint shaderProgramID = mShader.getProgramID();
+    glUseProgram( shaderProgramID );
 
     glPushMatrix();
-    mMap.RenderVBOs();
+    mMap.RenderVBOs( shaderProgramID );
     glPopMatrix();
 
     glUseProgram(0);

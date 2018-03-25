@@ -190,7 +190,7 @@ cSparseStaticLodChunk16Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataInd
 
 
 void
-cSparseStaticLodChunk16Map::RenderVBOs()
+cSparseStaticLodChunk16Map::RenderVBOs( GLuint iShaderProgramID )
 {
     for ( auto it : mChunks )
     {
@@ -200,7 +200,7 @@ cSparseStaticLodChunk16Map::RenderVBOs()
 
         glPushMatrix();
         glTranslatef( key.GetX() * 16.f, key.GetY() * 16.f, key.GetZ() * 16.f );
-        chunk->DrawVBOs();
+        chunk->DrawVBOs( iShaderProgramID );
         glPopMatrix();
 
     }
