@@ -1,5 +1,4 @@
-﻿#include "Thread-ParallelThread.h"
-#include "Thread-Thread.h"
+﻿#include "Thread-Thread.h"
 
 
 // ==========================================================================
@@ -17,7 +16,7 @@ cThread::cThread() :
     mThreadFunction( 0 ),
     mThreadFunctionIndex( -1 ),
     mState( kIdle ),
-    mLocked( false ),
+    mLocked( true ),
     mRunning( false )
 {
 }

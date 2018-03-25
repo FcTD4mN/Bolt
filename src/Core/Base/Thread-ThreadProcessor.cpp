@@ -1,4 +1,4 @@
-﻿#include "Thread-BasicProcessor.h"
+﻿#include "Thread-ThreadProcessor.h"
 
 #include "Thread-Thread.h"
 
@@ -37,10 +37,10 @@ void
 cThreadProcessor::Initialize()
 {
     unsigned int cpuCores = std::thread::hardware_concurrency();
-    for( int i = 0; i < cpuCores; ++i )
+    for( unsigned int i = 0; i < cpuCores; ++i )
     {
-        mThreads.push_back( cThread() );
-        mThreads.back().CreateAndLaunchThread();
+        mThreads.push_back( new cThread() );
+        mThreads.back()->CreateAndLaunchThread();
     }
 }
 
@@ -50,12 +50,25 @@ cThreadProcessor::Finalize()
 {
     for( int i = 0; i < mThreads.size(); ++i )
     {
-        mThreads[ i ].Stop();
+        cThread* thread = mThreads[ i ];
+
+        thread->SetThreadFunction( 0, 0 );
+        thread->Stop();
+
+        std::unique_lock< std::mutex > lock( thread->IdleMutex() );
+        thread->UnlockThread();
+        lock.unlock();
+        thread->CV().notify_one();
     }
 
     for( int i = 0; i < mThreads.size(); ++i )
     {
-        mThreads[ i ].Join();
+        mThreads[ i ]->Join();
+    }
+
+    for( int i = 0; i < mThreads.size(); ++i )
+    {
+        delete mThreads[ i ];
     }
 }
 
@@ -77,7 +90,7 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
 {
     for( int i = 0; i < mThreads.size(); ++i )
     {
-        if( mThreads[ i ].State() == cThread::eThreadState::kIdle )
+        if( mThreads[ i ]->State() == cThread::eThreadState::kIdle )
             return  SetThreadToWork( i, iFunction, iIndex );
     }
 
@@ -93,15 +106,15 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
 cThreadHandle
 cThreadProcessor::SetThreadToWork( int iThreadIndex, std::function<void( int )> iFunction, int iIndex )
 {
-    cThread& thread = mThreads[ iThreadIndex ];
-    std::unique_lock< std::mutex > lock( thread.IdleMutex() );
+    cThread* thread = mThreads[ iThreadIndex ];
+    std::unique_lock< std::mutex > lock( thread->IdleMutex() );
 
-    thread.SetThreadFunction( iFunction, iIndex );
+    thread->SetThreadFunction( iFunction, iIndex );
 
-    thread.UnlockThread();
+    thread->UnlockThread();
     lock.unlock();
-    thread.CV().notify_one();
+    thread->CV().notify_one();
 
-    return  cThreadHandle( &thread );
+    return  cThreadHandle( thread );
 }
 

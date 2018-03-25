@@ -1,6 +1,7 @@
 #include "Application/Application.h"
 
 #include "Screen/Screen.h"
+#include "Base/Thread-ThreadProcessor.h"
 
 
 // Game.Application, not here, this is just for testing purposes
@@ -64,6 +65,8 @@ cApplication::Initialize()
     settings.minorVersion = 0;
 
     mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Bolt", sf::Style::Default, settings );
+
+    cThreadProcessor::Instance();
 }
 
 
@@ -71,6 +74,10 @@ void
 cApplication::Finalize()
 {
     delete  mMainWindow;
+
+    cThreadProcessor* threadProc = cThreadProcessor::Instance();
+    threadProc->Finalize();
+    delete threadProc;
 }
 
 

@@ -31,6 +31,6 @@ private:
     cThreadHandle SetThreadToWork( int iThreadIndex, std::function< void( int ) > iFunction, int iIndex );
 
 protected:
-    std::vector< cThread >  mThreads;
+    std::vector< cThread* >  mThreads;
 };
 

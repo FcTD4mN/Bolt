@@ -9,6 +9,7 @@
 class cComponent;
 class cSystem;
 class cWorld;
+class cEntityParser;
 
 
 namespace
@@ -23,10 +24,15 @@ namespace
 
 class cEntity
 {
+    // Both friends so they have the right to call delete on entities
+    friend cWorld;
+    friend cEntityParser;
+
+private: // So nobody except for friends can delete entities
+    ~cEntity();
 
 public:
     // Contruction/Destruction
-    ~cEntity();
     cEntity( cWorld* iWorld );
     cEntity( const cEntity& iEntity );
 

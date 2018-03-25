@@ -145,6 +145,8 @@ main(int argc, char *argv[])
         window->display();
     }
 
+    app->Finalize();
+
     if (Py_FinalizeEx() < 0) {
         exit(120);
     }
