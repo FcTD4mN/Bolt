@@ -1,5 +1,5 @@
-#include "Volumetric/Static1664/StaticLodChunk16.h"
-#include "Volumetric/Static1664/VUtils.h"
+#include "Volumetric/Static/StaticLodChunk32.h"
+#include "Volumetric/Static/VUtils.h"
 
 
 namespace  nVolumetric
@@ -17,13 +17,13 @@ static  const  sf::Vector3f  sgUniformFaceNormals[6] = { sf::Vector3f(  0.f,    
 //------------------------------------------------------------------- Construction / Destruction
 
 
-cStaticLodChunk16::~cStaticLodChunk16()
+cStaticLodChunk32::~cStaticLodChunk32()
 {
     DestroyVBOs();
 }
 
 
-cStaticLodChunk16::cStaticLodChunk16() :
+cStaticLodChunk32::cStaticLodChunk32() :
     mOccupiedVolume( 0 ),
     mNVerticesVBOElem( 0 ),
     mDebugColor( sf::Vector3f() )
@@ -32,7 +32,7 @@ cStaticLodChunk16::cStaticLodChunk16() :
 }
 
 
- cStaticLodChunk16::cStaticLodChunk16( tByte iVal ) :
+ cStaticLodChunk32::cStaticLodChunk32( tByte iVal ) :
     mOccupiedVolume( 0 ),
     mNVerticesVBOElem( 0 ),
     mDebugColor( sf::Vector3f() )
@@ -46,35 +46,35 @@ cStaticLodChunk16::cStaticLodChunk16() :
 //--------------------------------------------------------------------------- Volume Information
 
 
-tByte cStaticLodChunk16::Size()  const
+tByte cStaticLodChunk32::Size()  const
 {
     return  msSize;
 }
 
 
 unsigned  int 
-cStaticLodChunk16::Capacity()  const
+cStaticLodChunk32::Capacity()  const
 {
     return  msCapacity;
 }
 
 
 unsigned  int
-cStaticLodChunk16::OccupiedVolume()  const
+cStaticLodChunk32::OccupiedVolume()  const
 {
     return  mOccupiedVolume;
 }
 
 
 bool
-cStaticLodChunk16::IsFull()  const
+cStaticLodChunk32::IsFull()  const
 {
     return  mOccupiedVolume == msCapacity;
 }
 
 
 bool
-cStaticLodChunk16::IsEmpty()  const
+cStaticLodChunk32::IsEmpty()  const
 {
     return  mOccupiedVolume == 0;
 }
@@ -85,7 +85,7 @@ cStaticLodChunk16::IsEmpty()  const
 
 
 void
-cStaticLodChunk16::Fill(tByte iVal)
+cStaticLodChunk32::Fill(tByte iVal)
 {
     for( tLocalDataIndex  i = 0; i < msSize; ++i )
     {
@@ -110,21 +110,21 @@ cStaticLodChunk16::Fill(tByte iVal)
 
 
 bool
-cStaticLodChunk16::IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
+cStaticLodChunk32::IsSolid( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
 {
     return  mData[iX][iY][iZ].IsSolid();
 }
 
 
 tByte
-cStaticLodChunk16::GetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
+cStaticLodChunk32::GetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )  const
 {
     return  mData[iX][iY][iZ].GetMaterialField();
 }
 
 
 void
-cStaticLodChunk16::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue )
+cStaticLodChunk32::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ, tByte iValue )
 {
     tByte oldMat = GetMaterial( iX, iY, iZ );
     mData[iX][iY][iZ].SetMaterialField( iValue );
@@ -149,14 +149,14 @@ cStaticLodChunk16::SetMaterial( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDa
 //-------------------------------------------------------------------------- Neighbour Accessors
 
 
-cStaticLodChunk16*
-cStaticLodChunk16::GetNeighbour( eNF_Index  iNeighbour )  const
+cStaticLodChunk32*
+cStaticLodChunk32::GetNeighbour( eNF_Index  iNeighbour )  const
 {
     return  mNeighbour[ iNeighbour ];
 }
 
 
-void cStaticLodChunk16::SetNeighbour( eNF_Index iNeighbour, cStaticLodChunk16* iAdress )
+void cStaticLodChunk32::SetNeighbour( eNF_Index iNeighbour, cStaticLodChunk32* iAdress )
 {
     mNeighbour[ iNeighbour ] = iAdress;
 }
@@ -167,14 +167,14 @@ void cStaticLodChunk16::SetNeighbour( eNF_Index iNeighbour, cStaticLodChunk16* i
 
 
 cData*
-cStaticLodChunk16::DataHandle( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
+cStaticLodChunk32::DataHandle( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
 {
     return  &mData[iX][iY][iZ];
 }
 
 
 void
-cStaticLodChunk16::UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
+cStaticLodChunk32::UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY, tLocalDataIndex iZ )
 {
     cData* currentHandle    = DataHandle( iX, iY, iZ );
     bool  currentIsSolid    = currentHandle->IsSolid();
@@ -224,7 +224,7 @@ cStaticLodChunk16::UpdateDataNeighbours( tLocalDataIndex iX, tLocalDataIndex iY,
 
 
 cData*
-cStaticLodChunk16::GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
+cStaticLodChunk32::GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
 {
     auto chunk = GetSafeExternChunkHandle( iX, iY, iZ );
     if( !chunk )
@@ -238,8 +238,8 @@ cStaticLodChunk16::GetSafeExternDataHandle( tGlobalDataIndex iX, tGlobalDataInde
 }
 
 
- cStaticLodChunk16*
-cStaticLodChunk16::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
+ cStaticLodChunk32*
+cStaticLodChunk32::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )
 {
     if( ( iX >= 0 && iX < msSize ) &&
         ( iY >= 0 && iY < msSize ) &&
@@ -266,7 +266,7 @@ cStaticLodChunk16::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
 
 
 void
-cStaticLodChunk16::DrawVBOs( GLuint iShaderProgramID )
+cStaticLodChunk32::DrawVBOs( GLuint iShaderProgramID )
 {
     SendUniformDebugColor( iShaderProgramID );
     DrawVBO( eNF_Index::kIndexTop   , iShaderProgramID );
@@ -279,7 +279,7 @@ cStaticLodChunk16::DrawVBOs( GLuint iShaderProgramID )
 
 
 void
-cStaticLodChunk16::SetDebugColor( const  sf::Vector3f& iDebugColor )
+cStaticLodChunk32::SetDebugColor( const  sf::Vector3f& iDebugColor )
 {
     mDebugColor = iDebugColor;
 }
@@ -290,7 +290,7 @@ cStaticLodChunk16::SetDebugColor( const  sf::Vector3f& iDebugColor )
 
 
 void
-cStaticLodChunk16::UpdateVBOs()
+cStaticLodChunk32::UpdateVBOs()
 {
     UpdateVBO( eNF_Index::kIndexTop );
     UpdateVBO( eNF_Index::kIndexBot );
@@ -306,7 +306,7 @@ cStaticLodChunk16::UpdateVBOs()
 
 
 void
-cStaticLodChunk16::InitVBOs()
+cStaticLodChunk32::InitVBOs()
 {
     glGenBuffers( 6, mVBO_ID );
     glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ eNF_Index::kIndexTop ] );
@@ -326,14 +326,14 @@ cStaticLodChunk16::InitVBOs()
 
 
 void
-cStaticLodChunk16::DestroyVBOs()
+cStaticLodChunk32::DestroyVBOs()
 {
     glDeleteBuffers( 6, mVBO_ID );
 }
 
 
 void
-cStaticLodChunk16::UpdateVBO( eNF_Index  iVBO_ID_index )
+cStaticLodChunk32::UpdateVBO( eNF_Index  iVBO_ID_index )
 {
     if(glIsBuffer( mVBO_ID[ iVBO_ID_index ] ) == GL_TRUE)
         glDeleteBuffers( 1, &mVBO_ID[ iVBO_ID_index ] );
@@ -397,7 +397,7 @@ cStaticLodChunk16::UpdateVBO( eNF_Index  iVBO_ID_index )
 
 
 void
-cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID )
+cStaticLodChunk32::DrawVBO( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID )
 {
     SendUniformNormal( iVBO_ID_index, iShaderProgramID );
 
@@ -419,7 +419,7 @@ cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID )
 
 
 void
-cStaticLodChunk16::SendUniformNormal( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID  )
+cStaticLodChunk32::SendUniformNormal( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID  )
 {
     int location = glGetUniformLocation( iShaderProgramID, "normal" );
     auto normal = sgUniformFaceNormals[ iVBO_ID_index ];
@@ -428,7 +428,7 @@ cStaticLodChunk16::SendUniformNormal( eNF_Index  iVBO_ID_index, GLuint iShaderPr
 
 
 void
-cStaticLodChunk16::SendUniformDebugColor( GLuint iShaderProgramID  )
+cStaticLodChunk32::SendUniformDebugColor( GLuint iShaderProgramID  )
 {
     int location = glGetUniformLocation( iShaderProgramID, "debugColor" );
     glUniform3f(location, mDebugColor.x, mDebugColor.y, mDebugColor.z );

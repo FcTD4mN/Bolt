@@ -1,4 +1,4 @@
-#include "Volumetric/Static1664/SparseStaticLodChunk16Map.h"
+#include "Volumetric/Static/SparseStaticLodChunk16Map.h"
 
 
 #include <GL/glew.h>

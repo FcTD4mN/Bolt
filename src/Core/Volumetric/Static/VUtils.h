@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "SFML/Graphics.hpp"
-#include "Volumetric/Static1664/Types.h"
+#include "Volumetric/Static/Types.h"
 
 namespace  nVolumetric
 {

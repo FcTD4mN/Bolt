@@ -59,7 +59,7 @@ cOpenGLRenderSceneScreen::Initialize()
 
     std::cout << glGetString(GL_VERSION) << std::endl;
 
-    window->setVerticalSyncEnabled(true);
+    //window->setVerticalSyncEnabled(true);
 
     window->setActive();
     glewInit();
@@ -143,12 +143,15 @@ cOpenGLRenderSceneScreen::Initialize()
             mMap.SafeSetMaterial( +4, i, +4, ( 110 ) + 1 );
         }*/
 
-        int ray = 10;
+        /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        int ray = 5;
         int diam = ray *2;
-        int n = 5;
+        int n = 11;
         int nshift = - n / 2;
         int shift = - diam / 2;
-        int padding = ray;
+        int padding = diam * 2;
 
         for( int i = 0; i < n; ++i )
         {
@@ -181,23 +184,45 @@ cOpenGLRenderSceneScreen::Initialize()
             }
         }
 
-        for( int i = -36; i < 36; ++i )
+        int sak = 50;
+        for( int i = -sak; i < sak; ++i )
         {
-            for( int j = -36; j < 36; ++j )
+            for( int j = -sak; j < sak; ++j )
             {
-                for( int k = -36; k < 36; ++k )
+                for( int k = -sak; k < sak; ++k )
                 {
                     float x = i;
                     float y = j;
                     float z = k;
                     float lenght = sqrt( x*x + y*y + z*z );
-                    if( lenght < 30.0f )
-                        mMap.SafeSetMaterial( x, y + 15, z, 0 );
+                    if( lenght < float( sak ) )
+                        mMap.SafeSetMaterial( x, y + sak / 2, z, 0 );
 
                 }
             }
         }
 
+
+        ////////////////////////////////////////////////////////////////
+
+        /*
+        int sak = 16*2;
+        for( int i = -sak; i < sak; ++i )
+        {
+            for( int j = -sak; j < sak; ++j )
+            {
+                for( int k = -sak; k < sak; ++k )
+                {
+                    float x = i;
+                    float y = j;
+                    float z = k;
+                    mMap.SafeSetMaterial( x, y, z, 12 );
+
+                }
+            }
+        }
+
+        */
         mMap.UpdateChunksVBOs();
     };
 
@@ -249,8 +274,8 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    int a = 0014;
-    glTranslatef( 0.f, 0.f, -200.f );
+    int a = 0+4;
+    glTranslatef( 0.f, 0.f, -400.f );
     //glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
     glRotatef( 45.f, 1.f, 0.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );

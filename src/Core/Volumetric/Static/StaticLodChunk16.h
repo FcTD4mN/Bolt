@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "Volumetric/Static1664/Data.h"
-#include "Volumetric/Static1664/Types.h"
+#include "Volumetric/Static/Data.h"
+#include "Volumetric/Static/Types.h"
 
 
 #include <GL/glew.h>

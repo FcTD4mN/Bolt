@@ -88,11 +88,11 @@
     <Filter Include="Fichiers sources\Base\Threading">
       <UniqueIdentifier>{e207a4d3-f609-4f35-aef5-7548720d59d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Volumetric\Static1664">
-      <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Shader">
       <UniqueIdentifier>{9f3bba9a-dacd-47ba-a345-ce19889269d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Volumetric\Static">
+      <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -252,23 +252,29 @@
     <ClCompile Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.cpp">
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\StaticLodChunk16.cpp">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\VUtils.cpp">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\Data.cpp">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\Hashable3DKey.cpp">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk16Map.cpp">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Shader\Shader.cpp">
       <Filter>Fichiers sources\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Data.cpp">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.cpp">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.cpp">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.cpp">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.cpp">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.cpp">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\VUtils.cpp">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -425,26 +431,32 @@
     <ClInclude Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.h">
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\StaticLodChunk16.h">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Types.h">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\VUtils.h">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Data.h">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\Hashable3DKey.h">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static1664\SparseStaticLodChunk16Map.h">
-      <Filter>Fichiers sources\Volumetric\Static1664</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Shader\Shader.h">
       <Filter>Fichiers sources\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Data.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Types.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\VUtils.h">
+      <Filter>Fichiers sources\Volumetric\Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
