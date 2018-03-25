@@ -117,6 +117,7 @@ cOpenGLRenderSceneScreen::Initialize()
 
     mShader = cShader( "resources/Shared/Shaders/couleur3D.vert", "resources/Shared/Shaders/couleur3D.frag" );
 
+    /*
     sf::Vector3f Vertices[6];
     Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
     Vertices[1] = sf::Vector3f(1.0f, -1.0f, 0.0f);
@@ -130,6 +131,7 @@ cOpenGLRenderSceneScreen::Initialize()
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), &Vertices[0].x, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    */
 
 }
 
@@ -159,23 +161,24 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef( 0.f, 0.f, -20.0f );
+    glTranslatef( 0.f, 0.f, -200.0f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
 
     glUseProgram(mShader.getProgramID());
-    /*
+
     glPushMatrix();
     mMap.RenderVBOs();
     glPopMatrix();
-    */
 
+    glUseProgram(0);
+
+    /*
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glDisableVertexAttribArray(0);
-
-    glUseProgram(0);
+    */
 
     window->pushGLStates();
 
