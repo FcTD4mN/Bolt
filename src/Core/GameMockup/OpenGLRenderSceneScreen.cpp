@@ -148,7 +148,7 @@ cOpenGLRenderSceneScreen::Initialize()
         int n = 5;
         int nshift = - n / 2;
         int shift = - diam / 2;
-        int padding = diam+1;
+        int padding = ray;
 
         for( int i = 0; i < n; ++i )
         {
@@ -176,6 +176,23 @@ cOpenGLRenderSceneScreen::Initialize()
                             }
                         }
                     }
+
+                }
+            }
+        }
+
+        for( int i = -36; i < 36; ++i )
+        {
+            for( int j = -36; j < 36; ++j )
+            {
+                for( int k = -36; k < 36; ++k )
+                {
+                    float x = i;
+                    float y = j;
+                    float z = k;
+                    float lenght = sqrt( x*x + y*y + z*z );
+                    if( lenght < 30.0f )
+                        mMap.SafeSetMaterial( x, y + 15, z, 0 );
 
                 }
             }
