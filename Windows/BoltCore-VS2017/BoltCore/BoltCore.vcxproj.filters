@@ -94,6 +94,12 @@
     <Filter Include="Fichiers sources\Volumetric\Static">
       <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Components\BehaviourTree">
+      <UniqueIdentifier>{152594b6-c17c-4046-a370-0e4acd12ff9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\AI">
+      <UniqueIdentifier>{d9324535-d2df-4eb2-9415-aa9d34b4b3a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -282,6 +288,18 @@
     <ClCompile Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp">
       <Filter>Fichiers sources\Base\Threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.cpp">
+      <Filter>Fichiers sources\GameMockup\Components\BehaviourTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourTree.cpp">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourNode.cpp">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourService.cpp">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -469,6 +487,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.h">
       <Filter>Fichiers sources\Base\Threading</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.h">
+      <Filter>Fichiers sources\GameMockup\Components\BehaviourTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourTree.h">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourNode.h">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourService.h">
+      <Filter>Fichiers sources\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

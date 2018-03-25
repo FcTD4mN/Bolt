@@ -226,6 +226,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourNode.cpp" />
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourService.cpp" />
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourTree.cpp" />
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\Clipboard.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\ClipboardWin32.cpp" />
@@ -243,6 +246,7 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Core\World.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\EntityParser.cpp" />
+    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Color.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Direction.cpp" />
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.cpp" />
@@ -290,6 +294,9 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\VUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourNode.h" />
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourService.h" />
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourTree.h" />
     <ClInclude Include="..\..\..\src\Core\Application\Application.h" />
     <ClInclude Include="..\..\..\src\Core\Base\Clipboard.h" />
     <ClInclude Include="..\..\..\src\Core\Base\Drawable.h" />
@@ -307,6 +314,7 @@
     <ClInclude Include="..\..\..\src\Core\ECS\Core\World.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\EntityParser.h" />
+    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Color.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Direction.h" />
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.h" />
