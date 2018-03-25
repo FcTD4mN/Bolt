@@ -164,6 +164,10 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
 
     glUseProgram(mShader.getProgramID());
 
+    int location = glGetUniformLocation(mShader.getProgramID(), "normal");
+    auto normal = sf::Vector3f( 0, 1, 0 );
+    glUniform3f(location, normal.x, normal.y, normal.z );
+
     glPushMatrix();
     mMap.RenderVBOs();
     glPopMatrix();

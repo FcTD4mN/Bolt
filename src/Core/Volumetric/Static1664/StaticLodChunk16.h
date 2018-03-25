@@ -75,6 +75,7 @@ private:
 private:
     // Private OpenGL Object Rendering
     void  DrawVBO( eNF_Index  iVBO_ID_index );
+    void  SendUniformNormal( eNF_Index  iVBO_ID_index );
 
 private:
     // Private Data Members

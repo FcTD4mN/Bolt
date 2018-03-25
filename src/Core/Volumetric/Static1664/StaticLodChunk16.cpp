@@ -5,6 +5,14 @@
 namespace  nVolumetric
 {
 
+
+static  const  sf::Vector3f  sgUniformFaceNormals[6] = { sf::Vector3f(  0.f,    +1.f,   0.f     ),      // Top
+                                                         sf::Vector3f(  0.f,    -1.f,   0.f     ),      // Bot
+                                                         sf::Vector3f(  0.f,    0.f,    +1.f    ),      // Front
+                                                         sf::Vector3f(  0.f,    0.f,    -1.f    ),      // Back
+                                                         sf::Vector3f(  -1.f,   0.f,    0.f     ),      // Left
+                                                         sf::Vector3f(  +1.f,   0.f,    0.f     ) };    // Right
+
 //----------------------------------------------------------------------------------------------
 //------------------------------------------------------------------- Construction / Destruction
 
@@ -444,6 +452,8 @@ cStaticLodChunk16::UpdateVBO( eNF_Index  iVBO_ID_index )
 void
 cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index )
 {
+    SendUniformNormal( iVBO_ID_index );
+
     glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET( 0 ) );
@@ -458,6 +468,13 @@ cStaticLodChunk16::DrawVBO( eNF_Index  iVBO_ID_index )
     glDisableVertexAttribArray( 1 );
 
     glBindBuffer( GL_ARRAY_BUFFER, 0 );
+}
+
+
+void
+cStaticLodChunk16::SendUniformNormal( eNF_Index  iVBO_ID_index )
+{
+
 }
 
 
