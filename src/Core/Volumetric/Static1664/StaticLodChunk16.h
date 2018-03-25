@@ -58,8 +58,6 @@ private:
 
 public:
     // Naive Rendering
-    void  DirectDraw();
-    void  DirectDrawCube( tByte iMaterial );
     void  DrawVBOs();
 
 public:

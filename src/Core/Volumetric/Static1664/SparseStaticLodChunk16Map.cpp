@@ -182,24 +182,6 @@ cSparseStaticLodChunk16Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataInd
 
 
 void
-cSparseStaticLodChunk16Map::DirectDraw()
-{
-    for ( auto it : mChunks )
-    {
-        auto hashedKey = it.first;
-        auto chunk = it.second;
-        cHashable3DKey key( hashedKey );
-
-        glPushMatrix();
-        glTranslatef( key.GetX() * 16.f, key.GetY() * 16.f, key.GetZ() * 16.f );
-        chunk->DirectDraw();
-        glPopMatrix();
-
-    }
-}
-
-
-void
 cSparseStaticLodChunk16Map::RenderVBOs()
 {
     for ( auto it : mChunks )

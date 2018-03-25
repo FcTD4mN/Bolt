@@ -264,69 +264,6 @@ cStaticLodChunk16::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
 
 
 void
-cStaticLodChunk16::DirectDraw()
-{
-    for( tLocalDataIndex  i = 0; i < msSize; ++i )
-    {
-        for( tLocalDataIndex  j = 0; j < msSize; ++j )
-        {
-            for( tLocalDataIndex  k = 0; k < msSize; ++k )
-            {
-                glPushMatrix();
-                glTranslatef( i, j, k );
-
-                if( IsSolid( i, j, k ) )
-                    DirectDrawCube( GetMaterial( i, j, k ) );
-
-                glPopMatrix();
-            }
-        }
-    }
-}
-
-
-void
-cStaticLodChunk16::DirectDrawCube( tByte iMaterial )
-{
-    float g = float( iMaterial ) / 255.f;
-    glBegin(GL_QUADS);
-    glColor3f( g, g, g );
-
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(-0.5f,  0.5f, -0.5f);
-    glVertex3f( 0.5f,  0.5f, -0.5f);
-    glVertex3f( 0.5f, -0.5f, -0.5f);
-
-    glVertex3f(-0.5f, -0.5f, 0.5f);
-    glVertex3f(-0.5f,  0.5f, 0.5f);
-    glVertex3f( 0.5f,  0.5f, 0.5f);
-    glVertex3f( 0.5f, -0.5f, 0.5f);
-
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(-0.5f,  0.5f, -0.5f);
-    glVertex3f(-0.5f,  0.5f,  0.5f);
-    glVertex3f(-0.5f, -0.5f,  0.5f);
-
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f,  0.5f, -0.5f);
-    glVertex3f(0.5f,  0.5f,  0.5f);
-    glVertex3f(0.5f, -0.5f,  0.5f);
-
-    glVertex3f(-0.5f, -0.5f,  0.5f);
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f( 0.5f, -0.5f, -0.5f);
-    glVertex3f( 0.5f, -0.5f,  0.5f);
-
-    glVertex3f(-0.5f, 0.5f,  0.5f);
-    glVertex3f(-0.5f, 0.5f, -0.5f);
-    glVertex3f( 0.5f, 0.5f, -0.5f);
-    glVertex3f( 0.5f, 0.5f,  0.5f);
-
-    glEnd();
-}
-
-
-void
 cStaticLodChunk16::DrawVBOs()
 {
     DrawVBO( eNF_Index::kIndexTop );

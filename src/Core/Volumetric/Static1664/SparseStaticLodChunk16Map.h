@@ -42,7 +42,6 @@ public:
 
 public:
     // Naive Rendering
-    void  DirectDraw();
     void  RenderVBOs();
 
 private:
