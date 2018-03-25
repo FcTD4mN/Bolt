@@ -115,7 +115,7 @@ cOpenGLRenderSceneScreen::Initialize()
     double ratio = double(window->getSize().x) / double(window->getSize().y);
     gluPerspective(50.f, ratio, 5.f, 500.f);
 
-    mShader = cShader( "resources/Shared/Shaders/couleur3D.vert", "resources/Shared/Shaders/couleur3D.frag" );
+    mShader = cShader( "resources/Shared/Shaders/template.vert", "resources/Shared/Shaders/template.frag" );
 
     /*
     sf::Vector3f Vertices[6];
