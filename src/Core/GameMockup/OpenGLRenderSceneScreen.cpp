@@ -75,7 +75,7 @@ cOpenGLRenderSceneScreen::Initialize()
     double ratio = double(window->getSize().x) / double(window->getSize().y);
     gluPerspective(50.f, ratio, 5.f, 500.f);
 
-    mShader = cShader( "resources/Shared/Shaders/template.vert", "resources/Shared/Shaders/template.frag" );
+    mShader = cShader( "resources/Shared/Shaders/basicLight.vert", "resources/Shared/Shaders/basicLight.frag" );
 
     std::function< void( void )> f = [=]( void ) {
         mMap.PurgeAllChunks();
@@ -166,7 +166,7 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef( 0.f, 0.f, -200.0f );
+    glTranslatef( 0.f, 0.f, -50.f );
     //glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
     glRotatef( 45.f, 1.f, 0.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
@@ -174,6 +174,10 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
 
     GLuint shaderProgramID = mShader.getProgramID();
     glUseProgram( shaderProgramID );
+
+    int location = glGetUniformLocation( shaderProgramID, "lightDirection" );
+    auto direction = sf::Vector3f( 0.365148f, -0.912871f, -0.182574f );
+    glUniform3f(location, direction.x, direction.y, direction.z );
 
     glPushMatrix();
     mMap.RenderVBOs( shaderProgramID );
