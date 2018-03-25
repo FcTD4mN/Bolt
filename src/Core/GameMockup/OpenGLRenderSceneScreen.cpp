@@ -83,7 +83,7 @@ cOpenGLRenderSceneScreen::Initialize()
     };
 
     std::function< void( void )> g = [=]( void ) {
-        int st = 40;
+        /*int st = 40;
         for( int i = 0; i < st; ++i )
         {
             for( int k = 0; k < st; ++k )
@@ -115,6 +115,44 @@ cOpenGLRenderSceneScreen::Initialize()
             mMap.SafeSetMaterial( -5, i, +4, ( 110 ) + 1 );
             mMap.SafeSetMaterial( +4, i, -5, ( 110 ) + 1 );
             mMap.SafeSetMaterial( +4, i, +4, ( 110 ) + 1 );
+        }*/
+
+        int ray = 10;
+        int diam = ray *2;
+        int n = 3;
+        int nshift = - n / 2;
+        int shift = - diam / 2;
+        int padding = diam * 1.5;
+
+        for( int i = 0; i < n; ++i )
+        {
+            for( int j = 0; j < n; ++j )
+            {
+                for( int k = 0; k < n; ++k )
+                {
+                    float xbase = ( i + nshift ) * padding;
+                    float ybase = ( j + nshift ) * padding;
+                    float zbase = ( k + nshift ) * padding;
+
+                    for( int l = 0; l < diam; ++l )
+                    {
+                        for( int m = 0; m < diam; ++m )
+                        {
+                            for( int o = 0; o < diam; ++o )
+                            {
+                                float x = ( l + shift );
+                                float y = ( m + shift );
+                                float z = ( o + shift );
+                                float lenght = sqrt( x*x + y*y + z*z );
+                                if( lenght < float( ray ) )
+                                    mMap.SafeSetMaterial( xbase + x, ybase + y, zbase + z, 14 );
+
+                            }
+                        }
+                    }
+
+                }
+            }
         }
 
         mMap.UpdateChunksVBOs();
@@ -168,7 +206,7 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef( 0.f, 0.f, -50.f );
+    glTranslatef( 0.f, 0.f, -150.f );
     //glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
     glRotatef( 45.f, 1.f, 0.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
