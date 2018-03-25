@@ -67,39 +67,35 @@ cOpenGLRenderSceneScreen::Initialize()
     int st = 40;
     for( int i = 0; i < st; ++i )
     {
-        for( int j = 0; j < st; ++j )
+        for( int k = 0; k < st; ++k )
         {
-            for( int k = 0; k < st; ++k )
-            {
-                int x = i - 20;
-                int y = j - 20;
-                int z = k - 20;
-                if( sqrt( x*x + y*y + z*z ) < 20.0 )
-                    mMap.SafeSetMaterial( x, y, z, ( rand()%254 ) + 1 );
-            }
+            int x = i - 20;
+            int y = 0;
+            int z = k - 20;
+            if( sqrt( x*x + z*z ) < 20.0 )
+                mMap.SafeSetMaterial( x, y, z, ( 89 ) + 1 );
         }
     }
 
-    for( int i = -10; i < 10; ++i )
+    st = 10;
+    for( int i = 0; i < st; ++i )
     {
-        for( int j = -10; j < 10; ++j )
+        for( int k = 0; k < st; ++k )
         {
-            for( int k = -10; k < 10; ++k )
-            {
-                mMap.SafeSetMaterial( i, j, k, 0 );
-            }
+            int x = i - 5;
+            int y = 10;
+            int z = k - 5;
+            mMap.SafeSetMaterial( x, y, z, ( 110 ) + 1 );
         }
     }
 
-    for( int i = -5; i < 5; ++i )
+    st = 10;
+    for( int i = 1; i < st; ++i )
     {
-        for( int j = 0; j < 30; ++j )
-        {
-            for( int k = -5; k < 5; ++k )
-            {
-                mMap.SafeSetMaterial( i, j, k, 0 );
-            }
-        }
+        mMap.SafeSetMaterial( -5, i, -5, ( 110 ) + 1 );
+        mMap.SafeSetMaterial( -5, i, +4, ( 110 ) + 1 );
+        mMap.SafeSetMaterial( +4, i, -5, ( 110 ) + 1 );
+        mMap.SafeSetMaterial( +4, i, +4, ( 110 ) + 1 );
     }
 
     mMap.UpdateChunksVBOs();
@@ -162,9 +158,9 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef( 0.f, 0.f, -200.0f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
+    //glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
+    glRotatef( 45.f, 1.f, 0.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
-    glRotatef( mClock.getElapsedTime().asSeconds() * 80.f, 1.f, 0.f, 0.f );
 
     glUseProgram(mShader.getProgramID());
 
