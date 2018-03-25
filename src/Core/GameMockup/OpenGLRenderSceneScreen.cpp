@@ -64,42 +64,6 @@ cOpenGLRenderSceneScreen::Initialize()
     window->setActive();
     glewInit();
 
-    int st = 40;
-    for( int i = 0; i < st; ++i )
-    {
-        for( int k = 0; k < st; ++k )
-        {
-            int x = i - 20;
-            int y = 0;
-            int z = k - 20;
-            if( sqrt( x*x + z*z ) < 20.0 )
-                mMap.SafeSetMaterial( x, y, z, ( 89 ) + 1 );
-        }
-    }
-
-    st = 10;
-    for( int i = 0; i < st; ++i )
-    {
-        for( int k = 0; k < st; ++k )
-        {
-            int x = i - 5;
-            int y = 10;
-            int z = k - 5;
-            mMap.SafeSetMaterial( x, y, z, ( 110 ) + 1 );
-        }
-    }
-
-    st = 10;
-    for( int i = 1; i < st; ++i )
-    {
-        mMap.SafeSetMaterial( -5, i, -5, ( 110 ) + 1 );
-        mMap.SafeSetMaterial( -5, i, +4, ( 110 ) + 1 );
-        mMap.SafeSetMaterial( +4, i, -5, ( 110 ) + 1 );
-        mMap.SafeSetMaterial( +4, i, +4, ( 110 ) + 1 );
-    }
-
-    mMap.UpdateChunksVBOs();
-
     glViewport(0, 0, window->getSize().x, window->getSize().y);
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
@@ -113,6 +77,51 @@ cOpenGLRenderSceneScreen::Initialize()
 
     mShader = cShader( "resources/Shared/Shaders/template.vert", "resources/Shared/Shaders/template.frag" );
 
+    std::function< void( void )> f = [=]( void ) {
+        mMap.PurgeAllChunks();
+        mMap.UpdateChunksVBOs();
+    };
+
+    std::function< void( void )> g = [=]( void ) {
+        int st = 40;
+        for( int i = 0; i < st; ++i )
+        {
+            for( int k = 0; k < st; ++k )
+            {
+                int x = i - 20;
+                int y = 0;
+                int z = k - 20;
+                if( sqrt( x*x + z*z ) < 20.0 )
+                    mMap.SafeSetMaterial( x, y, z, ( 89 ) + 1 );
+            }
+        }
+
+        st = 10;
+        for( int i = 0; i < st; ++i )
+        {
+            for( int k = 0; k < st; ++k )
+            {
+                int x = i - 5;
+                int y = 10;
+                int z = k - 5;
+                mMap.SafeSetMaterial( x, y, z, ( 110 ) + 1 );
+            }
+        }
+
+        st = 10;
+        for( int i = 1; i < st; ++i )
+        {
+            mMap.SafeSetMaterial( -5, i, -5, ( 110 ) + 1 );
+            mMap.SafeSetMaterial( -5, i, +4, ( 110 ) + 1 );
+            mMap.SafeSetMaterial( +4, i, -5, ( 110 ) + 1 );
+            mMap.SafeSetMaterial( +4, i, +4, ( 110 ) + 1 );
+        }
+
+        mMap.UpdateChunksVBOs();
+    };
+
+    ::nBoltScript::Env()->RegisterFunction( "clearMap", f );
+    ::nBoltScript::Env()->RegisterFunction( "genTest", g );
     /*
     sf::Vector3f Vertices[6];
     Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
