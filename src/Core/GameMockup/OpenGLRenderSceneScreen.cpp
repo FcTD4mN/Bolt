@@ -122,6 +122,8 @@ cOpenGLRenderSceneScreen::Initialize()
 
     ::nBoltScript::Env()->RegisterFunction( "clearMap", f );
     ::nBoltScript::Env()->RegisterFunction( "genTest", g );
+
+    ::nBoltScript::Env()->ProcessRawString( "genTest" );
     /*
     sf::Vector3f Vertices[6];
     Vertices[0] = sf::Vector3f(-1.0f, -1.0f, 0.0f);
@@ -175,9 +177,27 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     GLuint shaderProgramID = mShader.getProgramID();
     glUseProgram( shaderProgramID );
 
-    int location = glGetUniformLocation( shaderProgramID, "lightDirection" );
-    auto direction = sf::Vector3f( 0.365148f, -0.912871f, -0.182574f );
-    glUniform3f(location, direction.x, direction.y, direction.z );
+    int location = 0;
+    location = glGetUniformLocation( shaderProgramID, "ambiantColor" );
+    sf::Vector3f ambientColor = sf::Vector3f( 0.6f, 0.56f, 0.7f );
+    glUniform3f(location, ambientColor.x, ambientColor.y, ambientColor.z );
+
+    location = glGetUniformLocation( shaderProgramID, "ambiantIntensity" );
+    float ambiantIntensity = 0.8f;
+    glUniform1f(location, ambiantIntensity );
+
+    location = glGetUniformLocation( shaderProgramID, "diffuseColor" );
+    sf::Vector3f diffuseColor = sf::Vector3f( 0.95f, 0.9f, 0.5f );
+    glUniform3f(location, diffuseColor.x, diffuseColor.y, diffuseColor.z );
+
+    location = glGetUniformLocation( shaderProgramID, "diffuseDirection" );
+    sf::Vector3f diffuseDirection = sf::Vector3f( 0.365148f, -0.912871f, -0.182574f );
+    glUniform3f(location, diffuseDirection.x, diffuseDirection.y, diffuseDirection.z );
+
+    location = glGetUniformLocation( shaderProgramID, "diffuseIntensity" );
+    float diffuseIntensity = 1.0f;
+    glUniform1f(location, diffuseIntensity );
+
 
     glPushMatrix();
     mMap.RenderVBOs( shaderProgramID );
