@@ -36,8 +36,8 @@ cBoltScriptEnvironment::BoltScriptEnvironment()
     if( !gBoltScriptEnvironment )
     {
         gBoltScriptEnvironment = new cBoltScriptEnvironment( DefaultOutputRedirectionFunction );
-		gBoltScriptEnvironment->RegisterFunction("output:native", ResetOutputRedirectionFunction);
-		gBoltScriptEnvironment->RegisterFunction("python", [=](void) { PyRun_SimpleString( "print (sys.version)\r\n" ); });
+        gBoltScriptEnvironment->RegisterFunction("output:native", ResetOutputRedirectionFunction);
+        gBoltScriptEnvironment->RegisterFunction("python", [=](void) { PyRun_SimpleString( "print (sys.version)\r\n" ); });
     }
 
     return  gBoltScriptEnvironment;

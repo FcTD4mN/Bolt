@@ -77,6 +77,32 @@ cOpenGLRenderSceneScreen::Initialize()
 
     mShader = cShader( "resources/Shared/Shaders/basicLight.vert", "resources/Shared/Shaders/basicLight.frag" );
 
+    GLuint shaderProgramID = mShader.getProgramID();
+    glUseProgram( shaderProgramID );
+
+    int location = 0;
+    location = glGetUniformLocation( shaderProgramID, "ambiantColor" );
+    sf::Vector3f ambientColor = sf::Vector3f( 0.6f, 0.56f, 0.7f );
+    glUniform3f(location, ambientColor.x, ambientColor.y, ambientColor.z );
+
+    location = glGetUniformLocation( shaderProgramID, "ambiantIntensity" );
+    float ambiantIntensity = 0.8f;
+    glUniform1f(location, ambiantIntensity );
+
+    location = glGetUniformLocation( shaderProgramID, "diffuseColor" );
+    sf::Vector3f diffuseColor = sf::Vector3f( 0.95f, 0.9f, 0.5f );
+    glUniform3f(location, diffuseColor.x, diffuseColor.y, diffuseColor.z );
+
+    location = glGetUniformLocation( shaderProgramID, "diffuseDirection" );
+    sf::Vector3f diffuseDirection = sf::Vector3f( 0.365148f, -0.912871f, -0.182574f );
+    glUniform3f(location, diffuseDirection.x, diffuseDirection.y, diffuseDirection.z );
+
+    location = glGetUniformLocation( shaderProgramID, "diffuseIntensity" );
+    float diffuseIntensity = 1.0f;
+    glUniform1f(location, diffuseIntensity );
+
+    glUseProgram(0);
+
     std::function< void( void )> f = [=]( void ) {
         mMap.PurgeAllChunks();
         mMap.UpdateChunksVBOs();
@@ -119,10 +145,10 @@ cOpenGLRenderSceneScreen::Initialize()
 
         int ray = 10;
         int diam = ray *2;
-        int n = 3;
+        int n = 5;
         int nshift = - n / 2;
         int shift = - diam / 2;
-        int padding = diam * 1.5;
+        int padding = diam+1;
 
         for( int i = 0; i < n; ++i )
         {
@@ -206,40 +232,16 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef( 0.f, 0.f, -150.f );
+    int a = 0014;
+    glTranslatef( 0.f, 0.f, -200.f );
     //glRotatef( mClock.getElapsedTime().asSeconds() * 50.f, 0.f, 0.f, -1.f );
     glRotatef( 45.f, 1.f, 0.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
 
-
     GLuint shaderProgramID = mShader.getProgramID();
     glUseProgram( shaderProgramID );
 
-    int location = 0;
-    location = glGetUniformLocation( shaderProgramID, "ambiantColor" );
-    sf::Vector3f ambientColor = sf::Vector3f( 0.6f, 0.56f, 0.7f );
-    glUniform3f(location, ambientColor.x, ambientColor.y, ambientColor.z );
-
-    location = glGetUniformLocation( shaderProgramID, "ambiantIntensity" );
-    float ambiantIntensity = 0.8f;
-    glUniform1f(location, ambiantIntensity );
-
-    location = glGetUniformLocation( shaderProgramID, "diffuseColor" );
-    sf::Vector3f diffuseColor = sf::Vector3f( 0.95f, 0.9f, 0.5f );
-    glUniform3f(location, diffuseColor.x, diffuseColor.y, diffuseColor.z );
-
-    location = glGetUniformLocation( shaderProgramID, "diffuseDirection" );
-    sf::Vector3f diffuseDirection = sf::Vector3f( 0.365148f, -0.912871f, -0.182574f );
-    glUniform3f(location, diffuseDirection.x, diffuseDirection.y, diffuseDirection.z );
-
-    location = glGetUniformLocation( shaderProgramID, "diffuseIntensity" );
-    float diffuseIntensity = 1.0f;
-    glUniform1f(location, diffuseIntensity );
-
-
-    glPushMatrix();
     mMap.RenderVBOs( shaderProgramID );
-    glPopMatrix();
 
     glUseProgram(0);
 

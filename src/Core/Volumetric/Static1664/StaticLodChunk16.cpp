@@ -25,7 +25,8 @@ cStaticLodChunk16::~cStaticLodChunk16()
 
 cStaticLodChunk16::cStaticLodChunk16() :
     mOccupiedVolume( 0 ),
-    mNVerticesVBOElem( 0 )
+    mNVerticesVBOElem( 0 ),
+    mDebugColor( sf::Vector3f() )
 {
     InitVBOs();
 }
@@ -33,7 +34,8 @@ cStaticLodChunk16::cStaticLodChunk16() :
 
  cStaticLodChunk16::cStaticLodChunk16( tByte iVal ) :
     mOccupiedVolume( 0 ),
-    mNVerticesVBOElem( 0 )
+    mNVerticesVBOElem( 0 ),
+    mDebugColor( sf::Vector3f() )
 {
     Fill( iVal );
     InitVBOs();
@@ -266,12 +268,20 @@ cStaticLodChunk16::GetSafeExternChunkHandle( tGlobalDataIndex iX, tGlobalDataInd
 void
 cStaticLodChunk16::DrawVBOs( GLuint iShaderProgramID )
 {
+    SendUniformDebugColor( iShaderProgramID );
     DrawVBO( eNF_Index::kIndexTop   , iShaderProgramID );
     DrawVBO( eNF_Index::kIndexBot   , iShaderProgramID );
     DrawVBO( eNF_Index::kIndexFront , iShaderProgramID );
     DrawVBO( eNF_Index::kIndexBack  , iShaderProgramID );
     DrawVBO( eNF_Index::kIndexLeft  , iShaderProgramID );
     DrawVBO( eNF_Index::kIndexRight , iShaderProgramID );
+}
+
+
+void
+cStaticLodChunk16::SetDebugColor( const  sf::Vector3f& iDebugColor )
+{
+    mDebugColor = iDebugColor;
 }
 
 
@@ -415,6 +425,15 @@ cStaticLodChunk16::SendUniformNormal( eNF_Index  iVBO_ID_index, GLuint iShaderPr
     auto normal = sgUniformFaceNormals[ iVBO_ID_index ];
     glUniform3f(location, normal.x, normal.y, normal.z );
 }
+
+
+void
+cStaticLodChunk16::SendUniformDebugColor( GLuint iShaderProgramID  )
+{
+    int location = glGetUniformLocation( iShaderProgramID, "debugColor" );
+    glUniform3f(location, mDebugColor.x, mDebugColor.y, mDebugColor.z );
+}
+
 
 
 } // namespace  nVolumetric

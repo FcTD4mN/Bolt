@@ -10,6 +10,22 @@ namespace  nVolumetric
 {
 
 
+static  const  sf::Vector3f  sgDebugColor[14] = {   sf::Vector3f(   237.f,  028.f,  036.f   )   /   255.f,
+                                                    sf::Vector3f(   255.f,  127.f,  039.f   )   /   255.f,
+                                                    sf::Vector3f(   255.f,  242.f,  000.f   )   /   255.f,
+                                                    sf::Vector3f(   037.f,  177.f,  076.f   )   /   255.f,
+                                                    sf::Vector3f(   000.f,  162.f,  232.f   )   /   255.f,
+                                                    sf::Vector3f(   063.f,  072.f,  204.f   )   /   255.f,
+                                                    sf::Vector3f(   163.f,  073.f,  164.f   )   /   255.f,
+                                                    sf::Vector3f(   255.f,  172.f,  204.f   )   /   255.f,
+                                                    sf::Vector3f(   255.f,  201.f,  014.f   )   /   255.f,
+                                                    sf::Vector3f(   239.f,  228.f,  176.f   )   /   255.f,
+                                                    sf::Vector3f(   181.f,  230.f,  029.f   )   /   255.f,
+                                                    sf::Vector3f(   153.f,  217.f,  234.f   )   /   255.f,
+                                                    sf::Vector3f(   112.f,  146.f,  190.f   )   /   255.f,
+                                                    sf::Vector3f(   200.f,  191.f,  231.f   )   /   255.f };
+
+
 cSparseStaticLodChunk16Map::~cSparseStaticLodChunk16Map()
 {
     PurgeAllChunks();
@@ -17,7 +33,8 @@ cSparseStaticLodChunk16Map::~cSparseStaticLodChunk16Map()
 
 
 cSparseStaticLodChunk16Map::cSparseStaticLodChunk16Map() :
-    mChunks()
+    mChunks(),
+    mUseDebugColors( 1 )
 {
 }
 
@@ -60,10 +77,14 @@ cSparseStaticLodChunk16Map::ChunkAtKey( const  cHashable3DKey&  iKey )
 cStaticLodChunk16*
 cSparseStaticLodChunk16Map::MkChunk( const  cHashable3DKey&  iKey )
 {
+    static int debugColorIndex= 0;
+
     if( ChunkExists( iKey ) )
         return  ChunkAtKey( iKey );
 
     auto chunk = new cStaticLodChunk16(0);
+    chunk->SetDebugColor( sgDebugColor[debugColorIndex%14] );
+    debugColorIndex++;
     mChunks.emplace( iKey.HashedSignature(), chunk );
     UpdateChunkNeighbours( iKey );
     return  chunk;
@@ -192,6 +213,9 @@ cSparseStaticLodChunk16Map::SafeSetMaterial( tGlobalDataIndex iX, tGlobalDataInd
 void
 cSparseStaticLodChunk16Map::RenderVBOs( GLuint iShaderProgramID )
 {
+    int location = glGetUniformLocation( iShaderProgramID, "useDebugColor" );
+    glUniform1i(location, mUseDebugColors );
+
     for ( auto it : mChunks )
     {
         auto hashedKey = it.first;

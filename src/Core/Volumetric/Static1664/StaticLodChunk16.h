@@ -59,6 +59,7 @@ private:
 public:
     // Naive Rendering
     void  DrawVBOs( GLuint iShaderProgramID );
+    void  SetDebugColor( const  sf::Vector3f& iDebugColor );
 
 public:
     // VBO Interface
@@ -74,6 +75,7 @@ private:
     // Private OpenGL Object Rendering
     void  DrawVBO( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID  );
     void  SendUniformNormal( eNF_Index  iVBO_ID_index, GLuint iShaderProgramID  );
+    void  SendUniformDebugColor( GLuint iShaderProgramID  );
 
 private:
     // Private Data Members
@@ -87,6 +89,7 @@ private:
     GLuint                          mNColorsVBOElem;
     static  const  int              msElementSize = sizeof( sf::Vector3f );
     GLuint                          mVerticesMsize;
+    sf::Vector3f                    mDebugColor;
 };
 
 

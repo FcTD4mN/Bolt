@@ -47,6 +47,7 @@ public:
 private:
     // Private Data Members
     std::unordered_map< tHashableKeySignature, cStaticLodChunk16* > mChunks; // Owning
+    int  mUseDebugColors;
 };
 
 
