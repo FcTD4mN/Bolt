@@ -96,8 +96,14 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
 
     // From here, all thread are busy, we can either be non blocant, and return
     // Or, we can block and wait for a thread
-    if( iBlockant )
-        return  SetThreadToWork( 0, iFunction, iIndex );
+    while( iBlockant )
+    {
+        for( int i = 0; i < mThreads.size(); ++i )
+        {
+            if( mThreads[ i ]->State() == cThread::eThreadState::kIdle )
+                return  SetThreadToWork( i, iFunction, iIndex );
+        }
+    }
 
     return  cThreadHandle( 0 ); // No thread available
 }

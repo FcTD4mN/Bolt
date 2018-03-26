@@ -35,6 +35,7 @@ public:
     void CreateAndLaunchThread();
     void Stop();
     void Join();
+    void WaitEndOfTask();
 
 private:
     // Private functions

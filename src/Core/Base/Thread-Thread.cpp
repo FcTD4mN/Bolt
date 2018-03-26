@@ -1,5 +1,6 @@
 ﻿#include "Thread-Thread.h"
 
+#include <iostream>
 
 // ==========================================================================
 // ================================================= Construction/Destruction
@@ -97,6 +98,15 @@ cThread::Join()
 }
 
 
+void
+cThread::WaitEndOfTask()
+{
+    std::unique_lock< std::mutex > locker( mIdleMutex );
+    while( mState != kIdle )
+        mCV.wait( locker ); // equivalent to mCV.wait( locker, [ &mLocked ]() { return  mState == kIdle; } );
+}
+
+
 // ==========================================================================
 // =======================================================  Private functions
 // ==========================================================================
@@ -113,7 +123,7 @@ cThread::RunningFunction()
             mCV.wait( locker ); // equivalent to mCV.wait( locker, [ &mLocked ]() { return  !mLocked; } );
 
         mState = kBusy;
-
+        std::cout << " ThreadID : " << mThread.get_id() << std::endl;
         if( mThreadFunction )
             mThreadFunction( mThreadFunctionIndex );
 

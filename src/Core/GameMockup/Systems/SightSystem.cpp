@@ -1,6 +1,8 @@
 #include "SightSystem.h"
 
 #include "Base/Thread-TriangleSpliterProcessor.h"
+#include "Base/Thread-ThreadProcessor.h"
+#include "Base/Thread-Thread.h"
 
 #include "ECS/Core/Entity.h"
 #include "ECS/Utilities/EntityParser.h"
@@ -214,7 +216,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                     TriangleSubDivisionUsingPolygon( &outputSubTriangles[ iIndex ], triangle, clipedPoly );
                 }
-                handle = ThreadManager->WaitForThread( threadMethod )
+                handle = ThreadManager->StartThreadBlocking( threadMethod )
             }
 
     Finally :
