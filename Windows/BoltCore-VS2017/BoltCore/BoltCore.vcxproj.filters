@@ -300,6 +300,12 @@
     <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourService.cpp">
       <Filter>Fichiers sources\AI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoard.cpp">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.cpp">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -498,6 +504,12 @@
       <Filter>Fichiers sources\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourService.h">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BlackBoard.h">
+      <Filter>Fichiers sources\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.h">
       <Filter>Fichiers sources\AI</Filter>
     </ClInclude>
   </ItemGroup>

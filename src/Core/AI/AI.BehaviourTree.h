@@ -13,6 +13,9 @@ class cBehaviourTree :
 	public ::nAI::cBehaviourNode
 {
 public:
+	typedef  ::nAI::cBehaviourNode tSuperClass;
+
+public:
 	/** The destructor */
 	~cBehaviourTree();
 
@@ -27,7 +30,7 @@ public:
 	virtual void InsertNode( int iIndex, ::nAI::cBehaviourNode* iNode ) override;
 
 private:
-	//cBlackBoard mBlackBoard;
+	cBlackBoard mBlackBoard;
 };
 
 }// namespace nAI

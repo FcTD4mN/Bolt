@@ -22,7 +22,7 @@ cBehaviourService::Execute(cBlackBoard* ioBlackBoard)
 {
 	std::chrono::high_resolution_clock::time_point currenttime = std::chrono::high_resolution_clock::now();
 
-	if (mLastTime.time_since_epoch + mTimer < currenttime)
+	if (mLastTime.time_since_epoch().count() + mTimer < currenttime.time_since_epoch().count())
 	{
 		mFunction(ioBlackBoard);
 		mLastTime = currenttime;

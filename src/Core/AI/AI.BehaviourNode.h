@@ -5,6 +5,14 @@
 
 namespace nAI {
 
+enum eStatus
+{
+	kSuccess = 0,
+	kFail,
+	kRunnning,
+	kError,
+};
+
 /*
 	BehaviourNode is the base of the BahaviourTree, it can contain nodes but also services
 	services executes at their own timing, while the node is active, and before any node is executed
@@ -53,15 +61,15 @@ public:
 
 public:
 	/** Executes the node ( the services and then the node itself ) */
-	tErrorCode Execute(double iDeltaTime, cBlackBoard* ioBlackBoard);
+	eStatus Execute(double iDeltaTime, cBlackBoard* ioBlackBoard);
 
 protected:
 	/** Executes only the node itself, not the services */
-	virtual tErrorCode ExecuteNode(double iDeltaTime, cBlackBoard* ioBlackBoard) = 0;
+	virtual eStatus ExecuteNode(double iDeltaTime, cBlackBoard* ioBlackBoard) = 0;
 
 private:
 	/** Executes the services only not the node */
-	tErrorCode ExecuteServices(double iDeltaTime, cBlackBoard* ioBlackBoard);
+	eStatus ExecuteServices(double iDeltaTime, cBlackBoard* ioBlackBoard);
 
 private:
 	std::vector< cBehaviourNode* > mNodes;
