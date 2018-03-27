@@ -50,12 +50,13 @@ cSightSystem::cSightSystem() :
 void
 cSightSystem::Initialize()
 {
-    mOutputTriangles = new std::vector< sf::VertexArray >();
-    mTriangleQueue = new std::queue< cTriangleSplitterProcessor::eAssociatedTriangle >();
-    mAllPolygonsInFOV = new std::vector< sf::VertexArray >();
+    //mOutputTriangles = new std::vector< sf::VertexArray >();
+    //mTriangleQueue = new std::queue< cTriangleSplitterProcessor::eAssociatedTriangle >();
+    //mAllPolygonsInFOV = new std::vector< sf::VertexArray >();
 
 
-    mProcessor = new cTriangleSplitterProcessor( mOutputTriangles, mTriangleQueue, mAllPolygonsInFOV );
+    //mProcessor = new cTriangleSplitterProcessor( mOutputTriangles, mTriangleQueue, mAllPolygonsInFOV );
+    mThreadHandles.reserve( std::thread::hardware_concurrency() );
 }
 
 
@@ -94,17 +95,32 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
 }
 
 
+
+static
+void
+Test( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray& iTriangle, const sf::VertexArray& iPolygon )
+{
+    std::vector< sf::VertexArray > monTest;
+    oSubTrianglesOutput->clear();
+    sf::VertexArray trianglePourri( sf::PrimitiveType::Triangles, 3 );
+    trianglePourri.append( sf::Vector2f( 0, 0 ) );
+    trianglePourri.append( sf::Vector2f( 0, 10 ) );
+    trianglePourri.append( sf::Vector2f( 0, 20 ) );
+
+    oSubTrianglesOutput->push_back( trianglePourri );
+    //oSubTrianglesOutput->push_back( iTriangle );
+
+    return;
+}
+
+
+
 void
 cSightSystem::Update( unsigned int iDeltaTime )
 {
-    // ========================================
-    // ============== MULTI THREAD ============
-    // ========================================
-
-    // If threads are not done computing previous iteration, we skip
-    if( !mTriangleQueue->empty() )
-        return;
-
+    //// ========================================
+    //// ============== MULTI THREAD ============
+    //// ========================================
 
     cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
@@ -112,6 +128,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
     for( int i = 0; i < mWatchers.size(); ++i )
     {
+
         cEntity* entity = mWatchers[ i ];
 
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
@@ -139,6 +156,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         // Set it to FOV angle / number of split, negative so it goes right and not left
         rotation.rotate( float( -fieldofview->mAngle ) / FOVSplitThreshold );
 
+        mTriangles.clear();
         for( int i = 0; i < FOVSplitThreshold; ++i )
         {
             // We start a new triangle, that has ptA and ptB from the previous
@@ -149,16 +167,15 @@ cSightSystem::Update( unsigned int iDeltaTime )
             // for the Nth triangle
             fovB = rotation.transformPoint( fovB );
             subFov.append( fovB + fovOrigin );
-
-            trianglesToComputeVector.push_back( subFov );
+            mTriangles.push_back( subFov );
         }
 
-        mFOVBBox = GetTriangleSetBBox( trianglesToComputeVector );
+        mFOVBBox = GetTriangleSetBBox( mTriangles );
 
         std::vector< cEntity* > entitiesInFOVBBox;
         entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
-        mAllPolygonsInFOV->clear();
+        //mAllPolygonsInFOV->clear();
         for( auto v : entitiesInFOVBBox )
         {
             // We don't analyse the watcher itself
@@ -174,68 +191,46 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
 
-            mAllPolygonsInFOV->push_back( analysisVisibleBox );
-        }
+            std::vector< std::vector< sf::VertexArray >* > subTriangles;
+            mThreadHandles.clear();
 
-        // We do this in a second time, after all polygon are update, so threads don't start to run with old polygon list
-        //for( auto triangle : trianglesToComputeVector )
-        //{
-        //    cTriangleSplitterProcessor::eAssociatedTriangle associatedTriangle;
-        //    associatedTriangle.mTriangle = triangle;
-
-        //    mTriangleQueue->push( associatedTriangle );
-        //}
-
-        mFOVDrawer.push_back( *mOutputTriangles );
-    }
-
-
-
-
-
-    /*
-    Way to go would be :
-
-    Classic start :
-        Get first FOV mTriangles
-
-        Get BBox + get all entities from EMap
-
-
-    Single thread type iteration :
-        for all entities : get bbox
-        {
-
-            at this point, we need a vector of vector of triangles : outputSubTriangles ( as it is in previous commits )
-            for all triangles in order i = 0; < mTriangles.Size : clip entity's bbox
+            for( int i = 0; i < mTriangles.size(); ++i )
             {
-                then, with the triangle + clipedPoly + a vector to output, that is personnal to every thread, we can process :
-                --> Send those to TriangleSplitter in a thread (lambda)
-                Capture whole scope
-                threadMethod = [ & ]( int iIndex ){
+                std::vector< sf::VertexArray >* oui = new std::vector< sf::VertexArray >();
+                subTriangles.push_back( oui );
 
-                    TriangleSubDivisionUsingPolygon( &outputSubTriangles[ iIndex ], triangle, clipedPoly );
-                }
-                handle = ThreadManager->StartThreadBlocking( threadMethod )
+                auto threadMethod = [ oui, this, &analysisVisibleBox ]( int iIndex ){
+                    TriangleSubDivisionUsingPolygon( oui, mTriangles[ iIndex ], analysisVisibleBox );
+                };
+
+                mThreadHandles.push_back( cThreadProcessor::Instance()->AffectFunctionToThreadAndStartAtIndex( threadMethod, i, true ) );
             }
 
-    Finally :
-            Wait for all thread to finish
-            mTriangles.clear()
-            for each vector in outputSubTriangles
-                for each triangle in vector
-                    mTriangle.push_back( triangle )
+            for( int i = 0; i < mThreadHandles.size(); ++i )
+            {
+                cThreadHandle& handle = mThreadHandles[ i ];
+                cThread* t = handle.GetThread();
+                if( t )
+                    t->WaitEndOfTask();
+            }
 
+            mTriangles.clear();
+            for( auto triangleSet : subTriangles )
+            {
+                for( auto triangle : *triangleSet )
+                {
+                    mTriangles.push_back( triangle );
+                }
+            }
+
+            for( int i = 0; i < subTriangles.size(); ++i )
+            {
+                delete subTriangles[ i ];
+            }
         }
 
-
-    */
-
-
-
-
-
-
+        mFOVDrawer.push_back( mTriangles );
+    }
 
     // ========================================
     // ============= SINGLE THREAD ============

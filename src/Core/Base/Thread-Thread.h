@@ -29,6 +29,8 @@ public:
     unsigned int    ID() const;
     eThreadState    State() const;
 
+    bool            Locked() const;
+
 
 public:
     // Thread operations

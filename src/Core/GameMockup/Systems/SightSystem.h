@@ -11,6 +11,7 @@
 #include <queue>
 #include <thread>
 
+class cThreadHandle;
 
 class cSightSystem :
     public cSystem
@@ -52,6 +53,8 @@ private:
     std::vector< sf::VertexArray >*                                     mOutputTriangles;
     std::queue< cTriangleSplitterProcessor::eAssociatedTriangle >*      mTriangleQueue;
     std::vector< sf::VertexArray >*                                     mAllPolygonsInFOV;
+    std::vector< cThreadHandle >                                        mThreadHandles;
+    std::mutex                                                          mMutex;
 
     // The watcher referential is like this :
 

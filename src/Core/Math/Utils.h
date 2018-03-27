@@ -5,6 +5,9 @@
 #include "Math/Edge.h"
 #include "Math/Ray.h"
 
+#include <chrono>
+#include <ctime>
+
 /** Constant : PI in float format. */
 #define kPIF (3.1415926535897932384626F)
 
@@ -18,7 +21,6 @@
 static sf::Vector2f gYAxisVector( 0.0F, 1.0F );
 static sf::Vector2f gXAxisVector( 1.0F, 0.0F );
 static sf::Vector2f gNULLVector( 0.0F, 0.0F );
-
 
 
 // Geometry
@@ -50,6 +52,18 @@ bool            VertexesAreNeighboorInPolygon( const  sf::VertexArray& iPolygon,
 
 void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, const sf::Transform& iTransformation );
 bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray, int* oIndexOfExisting );
+
+
+// Time stuff
+inline
+__int64
+GetCurrentTime()
+{
+    auto time_point = std::chrono::high_resolution_clock::now();
+    auto timeEpoch = time_point.time_since_epoch();
+    return  timeEpoch.count();
+}
+
 
 // ===================================================
 // ===================================================

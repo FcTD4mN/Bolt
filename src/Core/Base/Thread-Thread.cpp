@@ -1,6 +1,11 @@
 ﻿#include "Thread-Thread.h"
 
+#include "Math/Utils.h"
+
 #include <iostream>
+#include <chrono>
+#include <string>
+#include <ctime>
 
 // ==========================================================================
 // ================================================= Construction/Destruction
@@ -64,6 +69,13 @@ cThread::State() const
 }
 
 
+bool
+cThread::Locked() const
+{
+    return  mLocked;
+}
+
+
 unsigned int
 cThread::ID() const
 {
@@ -101,9 +113,12 @@ cThread::Join()
 void
 cThread::WaitEndOfTask()
 {
+    if( mLocked )
+        return;
+
     std::unique_lock< std::mutex > locker( mIdleMutex );
-    while( mState != kIdle )
-        mCV.wait( locker ); // equivalent to mCV.wait( locker, [ &mLocked ]() { return  mState == kIdle; } );
+    while( !mLocked )
+        mCV.wait( locker ); // equivalent to mCV.wait( locker, [ &mLocked ]() { return  mLocked; } );
 }
 
 
@@ -121,18 +136,17 @@ cThread::RunningFunction()
 
         while( mLocked )
             mCV.wait( locker ); // equivalent to mCV.wait( locker, [ &mLocked ]() { return  !mLocked; } );
-
         mState = kBusy;
-        std::cout << " ThreadID : " << mThread.get_id() << std::endl;
         if( mThreadFunction )
             mThreadFunction( mThreadFunctionIndex );
 
-        mState = kIdle;
         mID = ( mID + 1 ) % 9999; // So id never overflows, 9999 should be enough to kill any handle
         mLocked = true;
 
         locker.unlock();
         mCV.notify_all();
+
+        mState = kIdle;
     }
 }
 

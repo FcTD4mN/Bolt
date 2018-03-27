@@ -596,6 +596,12 @@ AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArra
 }
 
 
+void
+PrintCurrentTime()
+{
+}
+
+
 // Adds an element to a vector only if it is not already in
 template<>
 bool

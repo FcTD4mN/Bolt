@@ -90,7 +90,7 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
 {
     for( int i = 0; i < mThreads.size(); ++i )
     {
-        if( mThreads[ i ]->State() == cThread::eThreadState::kIdle )
+        if( mThreads[ i ]->Locked() )
             return  SetThreadToWork( i, iFunction, iIndex );
     }
 
@@ -100,7 +100,7 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
     {
         for( int i = 0; i < mThreads.size(); ++i )
         {
-            if( mThreads[ i ]->State() == cThread::eThreadState::kIdle )
+            if( mThreads[ i ]->Locked() )
                 return  SetThreadToWork( i, iFunction, iIndex );
         }
     }
