@@ -141,9 +141,9 @@ main(int argc, char *argv[])
 
             //nBenchmark::DrawStressTest( app->Window() );
 
-            //float fps = 1 / frameTime.asSeconds();
-            //std::cout << std::to_string( fps ) << "\n";
-            //std::cout << "==============" << std::to_string( cGameApplication::App()->World()->EntityCount() ) << "\n";
+            float fps = 1 / frameTime.asSeconds();
+            std::cout << std::to_string( fps ) << "\n";
+            std::cout << "==============" << std::to_string( cGameApplication::App()->World()->EntityCount() ) << "\n";
 
         }
         // PERF TESTS============================================================

@@ -1,6 +1,5 @@
 #include "SightSystem.h"
 
-#include "Base/Thread-TriangleSpliterProcessor.h"
 #include "Base/Thread-ThreadProcessor.h"
 #include "Base/Thread-Thread.h"
 
@@ -50,25 +49,18 @@ cSightSystem::cSightSystem() :
 void
 cSightSystem::Initialize()
 {
-    //mOutputTriangles = new std::vector< sf::VertexArray >();
-    //mTriangleQueue = new std::queue< cTriangleSplitterProcessor::eAssociatedTriangle >();
-    //mAllPolygonsInFOV = new std::vector< sf::VertexArray >();
+    mOutputTriangles = new std::vector< sf::VertexArray >();
+    mTriangleQueue = new std::queue< eAssociatedTriangle >();
 
-
-    //mProcessor = new cTriangleSplitterProcessor( mOutputTriangles, mTriangleQueue, mAllPolygonsInFOV );
-    mThreadHandles.reserve( std::thread::hardware_concurrency() );
+    mThreadHandles.reserve( 256 );
 }
 
 
 void
 cSightSystem::Finalize()
 {
-    mProcessor->Stop();
-    delete  mProcessor;
-
     delete  mOutputTriangles;
     delete  mTriangleQueue;
-    delete  mAllPolygonsInFOV;
 }
 
 
@@ -95,26 +87,6 @@ cSightSystem::Draw( sf::RenderTarget* iRenderTarget )
 }
 
 
-
-static
-void
-Test( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray& iTriangle, const sf::VertexArray& iPolygon )
-{
-    std::vector< sf::VertexArray > monTest;
-    oSubTrianglesOutput->clear();
-    sf::VertexArray trianglePourri( sf::PrimitiveType::Triangles, 3 );
-    trianglePourri.append( sf::Vector2f( 0, 0 ) );
-    trianglePourri.append( sf::Vector2f( 0, 10 ) );
-    trianglePourri.append( sf::Vector2f( 0, 20 ) );
-
-    oSubTrianglesOutput->push_back( trianglePourri );
-    //oSubTrianglesOutput->push_back( iTriangle );
-
-    return;
-}
-
-
-
 void
 cSightSystem::Update( unsigned int iDeltaTime )
 {
@@ -124,12 +96,18 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
     cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
 
+    // Draw container
     mFOVDrawer.clear();
 
     for( int i = 0; i < mWatchers.size(); ++i )
     {
-
         cEntity* entity = mWatchers[ i ];
+
+        // MutliThread sync variables
+        mWorkingThreadCount.store( 0 );
+        mFinished.store( false );
+        mAllPolygonsInFOV.clear();
+        mOutputTriangles->clear();
 
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         auto size = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
@@ -168,6 +146,10 @@ cSightSystem::Update( unsigned int iDeltaTime )
             fovB = rotation.transformPoint( fovB );
             subFov.append( fovB + fovOrigin );
             mTriangles.push_back( subFov );
+
+            eAssociatedTriangle assocTriangle;
+            assocTriangle.mTriangle = subFov;
+            mTriangleQueue->push( assocTriangle );
         }
 
         mFOVBBox = GetTriangleSetBBox( mTriangles );
@@ -175,15 +157,15 @@ cSightSystem::Update( unsigned int iDeltaTime )
         std::vector< cEntity* > entitiesInFOVBBox;
         entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
-        //mAllPolygonsInFOV->clear();
+        mAllPolygonsInFOV.clear();
         for( auto v : entitiesInFOVBBox )
         {
             // We don't analyse the watcher itself
             if( v == entity )
                 continue;
 
-            auto positionENT = dynamic_cast< cPosition* >( v->GetComponentByName( "position" ) );
-            auto sizeENT = dynamic_cast< cSize* >( v->GetComponentByName( "size" ) );
+            auto positionENT = dynamic_cast<cPosition*>( v->GetComponentByName( "position" ) );
+            auto sizeENT = dynamic_cast<cSize*>( v->GetComponentByName( "size" ) );
 
             sf::VertexArray analysisVisibleBox( sf::Points, 4 );
             analysisVisibleBox[ 0 ] = positionENT->mPosition;
@@ -191,45 +173,99 @@ cSightSystem::Update( unsigned int iDeltaTime )
             analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
             analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
 
-            std::vector< std::vector< sf::VertexArray >* > subTriangles;
-            mThreadHandles.clear();
-
-            for( int i = 0; i < mTriangles.size(); ++i )
-            {
-                std::vector< sf::VertexArray >* oui = new std::vector< sf::VertexArray >();
-                subTriangles.push_back( oui );
-
-                auto threadMethod = [ oui, this, &analysisVisibleBox ]( int iIndex ){
-                    TriangleSubDivisionUsingPolygon( oui, mTriangles[ iIndex ], analysisVisibleBox );
-                };
-
-                mThreadHandles.push_back( cThreadProcessor::Instance()->AffectFunctionToThreadAndStartAtIndex( threadMethod, i, true ) );
-            }
-
-            for( int i = 0; i < mThreadHandles.size(); ++i )
-            {
-                cThreadHandle& handle = mThreadHandles[ i ];
-                cThread* t = handle.GetThread();
-                if( t )
-                    t->WaitEndOfTask();
-            }
-
-            mTriangles.clear();
-            for( auto triangleSet : subTriangles )
-            {
-                for( auto triangle : *triangleSet )
-                {
-                    mTriangles.push_back( triangle );
-                }
-            }
-
-            for( int i = 0; i < subTriangles.size(); ++i )
-            {
-                delete subTriangles[ i ];
-            }
+            mAllPolygonsInFOV.push_back( analysisVisibleBox );
         }
 
-        mFOVDrawer.push_back( mTriangles );
+        mThreadHandles.clear();
+
+        unsigned int availableThreadsCount = cThreadProcessor::Instance()->GetAvailableThreadCount();
+        for( unsigned int i = 0; i < availableThreadsCount; ++i )
+        {
+            auto threadMethod = [ this ]( int iIndex ){
+
+                std::vector < sf::VertexArray > output;
+                output.reserve( 256 );
+
+                while( mFinished.load() == false )
+                {
+                    eAssociatedTriangle triangleToCompute;
+
+                    std::unique_lock< std::mutex > lck( mMutex );
+                    if( !mTriangleQueue->empty() )
+                    {
+                        triangleToCompute = mTriangleQueue->front();
+                        mTriangleQueue->pop();
+                        ++mWorkingThreadCount;
+
+                        lck.unlock();
+                    }
+                    else if( mFinished.load() == false ) // because it could have changed since the while ! :) :) :)
+                    {
+                        mSynchronizeCV.wait( lck );
+                        continue;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                    int collisisonPolyIndex = -1;
+
+                    for( int j = 0; j < mAllPolygonsInFOV.size(); ++j )
+                    {
+                        if( VectorContainsElement( triangleToCompute.mVisitedPolygonIndexes, j ) )
+                            continue;
+
+                        TriangleSubDivisionUsingPolygon( &output, triangleToCompute.mTriangle, mAllPolygonsInFOV[ j ] );
+
+                        // This will push associated index every time we got sub triangles
+                        // So polyIndex count == number of times we generated sub triangles
+                        if( output.size() > 1 )
+                        {
+                            collisisonPolyIndex = j;
+                            break;
+                        }
+                    }
+
+                    // Writing results in one lock
+                    std::unique_lock< std::mutex > lck2( mMutex );
+
+                    if( collisisonPolyIndex == -1 )
+                    {
+                        mOutputTriangles->push_back( triangleToCompute.mTriangle );
+                    }
+                    else
+                    {
+                        for( auto triangle : output )
+                        {
+                            eAssociatedTriangle subTriangle = triangleToCompute;
+                            subTriangle.mTriangle = triangle;
+                            subTriangle.mVisitedPolygonIndexes.push_back( collisisonPolyIndex );
+                            mTriangleQueue->push( subTriangle );
+                        }
+                    }
+
+                    --mWorkingThreadCount;
+                    if( mWorkingThreadCount == 0 && mTriangleQueue->empty() )
+                        mFinished.store( true );
+
+                    lck2.unlock();
+                    mSynchronizeCV.notify_all();
+                }
+            };
+
+            mThreadHandles.push_back( cThreadProcessor::Instance()->AffectFunctionToThreadAndStart( threadMethod, true ) );
+        }
+
+        for( int i = 0; i < mThreadHandles.size(); ++i )
+        {
+            cThreadHandle& handle = mThreadHandles[ i ];
+            cThread* t = handle.GetThread();
+            if( t )
+                t->WaitEndOfTask();
+        }
+
+        mFOVDrawer.push_back( *mOutputTriangles );
     }
 
     // ========================================

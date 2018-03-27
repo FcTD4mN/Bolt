@@ -140,7 +140,7 @@ cThread::RunningFunction()
         if( mThreadFunction )
             mThreadFunction( mThreadFunctionIndex );
 
-        mID = ( mID + 1 ) % 9999; // So id never overflows, 9999 should be enough to kill any handle
+        mID = ( mID + 1 ) % 9999; // So it never overflows, 9999 should be enough to kill any handle
         mLocked = true;
 
         locker.unlock();

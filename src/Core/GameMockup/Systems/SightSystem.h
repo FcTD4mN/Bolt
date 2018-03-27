@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Base/Thread-TriangleSpliterProcessor.h"
-
 #include "ECS/Core/System.h"
 
 #include "Math/Edge.h"
 
 #include <SFML/Graphics.hpp>
 
+#include <atomic>
+#include <mutex>
 #include <queue>
 #include <thread>
 
@@ -18,6 +18,13 @@ class cSightSystem :
 {
 public:
     typedef  cSystem  tSuperClass;
+
+public:
+    struct eAssociatedTriangle
+    {
+        sf::VertexArray     mTriangle;
+        std::vector< int >  mVisitedPolygonIndexes;
+    };
 
 public:
     virtual  ~cSightSystem();
@@ -49,12 +56,14 @@ private:
 
 
     // MultiThread variables
-    cTriangleSplitterProcessor*                                         mProcessor;
-    std::vector< sf::VertexArray >*                                     mOutputTriangles;
-    std::queue< cTriangleSplitterProcessor::eAssociatedTriangle >*      mTriangleQueue;
-    std::vector< sf::VertexArray >*                                     mAllPolygonsInFOV;
-    std::vector< cThreadHandle >                                        mThreadHandles;
-    std::mutex                                                          mMutex;
+    std::vector< sf::VertexArray >*     mOutputTriangles;
+    std::queue< eAssociatedTriangle >*  mTriangleQueue;
+    std::vector< sf::VertexArray >      mAllPolygonsInFOV;
+    std::vector< cThreadHandle >        mThreadHandles;
+    std::mutex                          mMutex;
+    std::condition_variable             mSynchronizeCV;
+    std::atomic_int                     mWorkingThreadCount;
+    std::atomic_bool                    mFinished;
 
     // The watcher referential is like this :
 

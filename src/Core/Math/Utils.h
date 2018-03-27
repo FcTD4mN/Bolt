@@ -54,6 +54,20 @@ void            TransformPolygonUsingTransformation( sf::VertexArray* oPolygon, 
 bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::VertexArray* oVArray, int* oIndexOfExisting );
 
 
+template< class T >
+bool
+VectorContainsElement( const std::vector< T >& iVector, const T& iElm )
+{
+    for( T el : iVector )
+    {
+        if( el == iElm )
+            return  true;
+    }
+
+    return  false;
+}
+
+
 // Time stuff
 inline
 __int64

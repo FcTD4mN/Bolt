@@ -37,6 +37,7 @@ void
 cThreadProcessor::Initialize()
 {
     unsigned int cpuCores = std::thread::hardware_concurrency();
+    //cpuCores = 1;
     for( unsigned int i = 0; i < cpuCores; ++i )
     {
         mThreads.push_back( new cThread() );
@@ -70,6 +71,20 @@ cThreadProcessor::Finalize()
     {
         delete mThreads[ i ];
     }
+}
+
+
+unsigned int
+cThreadProcessor::GetAvailableThreadCount() const
+{
+    unsigned int count = 0;
+    for( int i = 0; i < mThreads.size(); ++i )
+    {
+        if( mThreads[ i ]->Locked() )
+            ++count;
+    }
+
+    return  count;
 }
 
 

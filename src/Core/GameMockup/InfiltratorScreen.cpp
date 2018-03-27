@@ -111,10 +111,10 @@ cInfiltratorScreen::Initialize()
         for( int j = 0; j < swall; ++j )
         {
             cEntity* wall = new cEntity( world );
-            wall->AddComponent( new cPosition( double(i) * 800.0 / double( swall ), double( j ) * 600.0 / double( swall ) ) );
+            wall->AddComponent( new cPosition( float(i) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ) ) );
             wall->AddComponent( new cSize( 5.0f, 5.0f ) );
             wall->AddComponent( new cColor( 20, 180, 20 ) );
-            wall->AddComponent( new cSimplePhysic( double( i ) * 800.0 / double( swall ), double( j ) * 600.0 / double( swall ), 5.0f, 5.0f, cSimplePhysic::eType::kDynamic ) );
+            wall->AddComponent( new cSimplePhysic( float( i ) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ), 5.0f, 5.0f, cSimplePhysic::eType::kDynamic ) );
             wall->AddTag( "wall" );
             world->AddEntity( wall );
         }

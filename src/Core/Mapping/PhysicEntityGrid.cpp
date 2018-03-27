@@ -16,8 +16,8 @@ cEntityGrid::~cEntityGrid()
 
 cEntityGrid::cEntityGrid() :
     mGridMap(),
-    mWidth( 1024 ),
-    mHeight( 1024 ),
+    mWidth( 100 ),
+    mHeight( 100 ),
     mCellSize( 32 )
 {
     mGridMap.reserve( mWidth );

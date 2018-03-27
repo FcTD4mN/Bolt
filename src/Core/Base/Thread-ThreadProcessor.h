@@ -23,6 +23,9 @@ public:
     void Finalize();
 
 public:
+    unsigned int GetAvailableThreadCount() const;
+
+public:
     // Thread execution
     cThreadHandle  AffectFunctionToThreadAndStart( std::function< void( int ) > iFunction, bool iBlockant );
     cThreadHandle  AffectFunctionToThreadAndStartAtIndex( std::function< void( int ) > iFunction,  int iIndex, bool iBlockant );
