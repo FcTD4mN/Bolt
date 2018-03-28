@@ -493,7 +493,7 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.h">
       <Filter>Fichiers sources\Base\Threading</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.h">
       <Filter>Fichiers sources\GameMockup\Components\BehaviourTree</Filter>
     </ClInclude>
