@@ -7,6 +7,7 @@
 
 #include <chrono>
 #include <ctime>
+#include <functional>
 
 /** Constant : PI in float format. */
 #define kPIF (3.1415926535897932384626F)
@@ -21,6 +22,11 @@
 static sf::Vector2f gYAxisVector( 0.0F, 1.0F );
 static sf::Vector2f gXAxisVector( 1.0F, 0.0F );
 static sf::Vector2f gNULLVector( 0.0F, 0.0F );
+
+
+// Enumerators
+bool EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< void( bool* oStop, const cEdgeF& iEdge ) > iFunction );
+bool EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< void( bool* oStop, const sf::Vector2f& iPt1, const sf::Vector2f& iPt2 ) > iFunction );
 
 
 // Geometry

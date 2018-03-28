@@ -1,5 +1,47 @@
 ﻿#include "Math/Utils.h"
 
+
+
+bool
+EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< void( bool* oStop, const cEdgeF& iEdge ) > iFunction )
+{
+    size_t count = iPolygon.getVertexCount();
+    if( count == 0 )
+        return  false;
+
+    bool stop = false;
+    for( int i = 0; i < count; ++i )
+    {
+        int next = ( i + 1 ) % count;
+        cEdgeF edge = cEdgeF::MakePointPoint( iPolygon[ i ].position, iPolygon[ next ].position );
+        iFunction( &stop, edge );
+        if( stop )
+            return  true;
+    }
+    return  false;
+}
+
+
+bool
+EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< void( bool* oStop, const sf::Vector2f& iPt1, const sf::Vector2f& iPt2 ) > iFunction )
+{
+    size_t count = iPolygon.getVertexCount();
+
+    if( count == 0 )
+        return  false;
+
+    bool stop = false;
+    for( int i = 0; i < count; ++i )
+    {
+        int next = ( i + 1 ) % count;
+        iFunction( &stop, iPolygon[ i ].position, iPolygon[ next ].position );
+        if( stop )
+            return  true;
+    }
+    return  false;
+}
+
+
 bool IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 )
 {
     bool b1, b2, b3;
@@ -55,30 +97,25 @@ sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA
 {
     sf::VertexArray intersectionList;
 
-    for( int i = 0; i < iPolygonA.getVertexCount() - 1; ++i )
-    {
-        int nextVertexA = ( i + 1 ) % iPolygonA.getVertexCount();
-        cEdgeF pAEdge = cEdgeF::MakePointPoint( iPolygonA[ i ].position, iPolygonA[ nextVertexA ].position );
-        for( int j = 0; j < iPolygonB.getVertexCount() - 1; ++j )
+    EnumerateEdgesFromPolygon( iPolygonA, [ &iPolygonB, &intersectionList ]( bool* oStop, const cEdgeF& iEdgeA )
         {
-            int nextVertexB = ( j + 1 ) % iPolygonB.getVertexCount();
-            cEdgeF pBEdge = cEdgeF::MakePointPoint( iPolygonB[ j ].position, iPolygonB[ nextVertexB ].position );
-
-            float parameterA = 0.0F;
-            float parameterB = 0.0F;
-            if( cEdgeF::Intersect( &parameterA, &parameterB, pAEdge, pBEdge ) )
-            {
-                sf::Vector2f interPt = pAEdge.mPoint + parameterA * pAEdge.mDirection;
-
-                if( (parameterA >= 0.0F && parameterA <= 1.0F)
-                    && parameterB >= 0.0F && parameterB <= 1.0F
-                    && !VertexArrayContainsVertex( intersectionList, interPt ) )
+            EnumerateEdgesFromPolygon( iPolygonB, [ &iEdgeA, &intersectionList ]( bool* oStop, const cEdgeF& iEdgeB )
                 {
-                    intersectionList.append( interPt );
-                }
-            }
-        }
-    }
+                    float parameterA = 0.0F;
+                    float parameterB = 0.0F;
+                    if( cEdgeF::Intersect( &parameterA, &parameterB, iEdgeA, iEdgeB ) )
+                    {
+                        sf::Vector2f interPt = iEdgeA.mPoint + parameterA * iEdgeA.mDirection;
+
+                        if( (parameterA >= 0.0F && parameterA <= 1.0F)
+                            && parameterB >= 0.0F && parameterB <= 1.0F
+                            && !VertexArrayContainsVertex( intersectionList, interPt ) )
+                        {
+                            intersectionList.append( interPt );
+                        }
+                    }
+                });
+        });
 
     return  intersectionList;
 }
@@ -111,45 +148,29 @@ CCWWindedPolygonContainsPoint( const sf::VertexArray & iPolygon, const sf::Vecto
 {
     std::vector< cEdgeF > edgeList;
 
-    for( int i = 0; i < iPolygon.getVertexCount(); ++i )
-    {
-        int nextVertex = ( i + 1 ) % iPolygon.getVertexCount();
-        cEdgeF edge = cEdgeF::MakePointPoint( iPolygon[ i ].position, iPolygon[ nextVertex ].position );
+    return  !EnumerateEdgesFromPolygon( iPolygon, [ &iPoint ]( bool* oStop, const cEdgeF& iEdge )
+        {
 
-        sf::Vector2f normal = Orthogonal( edge.mDirection );
-        cEdgeF orthogonalite( cEdgeF::MakePointDirection( iPoint, normal ) );
+            sf::Vector2f normal = Orthogonal( iEdge.mDirection );
+            cEdgeF orthogonalite( cEdgeF::MakePointDirection( iPoint, normal ) );
 
-        float parameterA = 0.0F;
-        float parameterB = 0.0F;
+            float parameterA = 0.0F;
+            float parameterB = 0.0F;
 
-        cEdgeF::Intersect( &parameterA, &parameterB, edge, orthogonalite );
-        sf::Vector2f projection = edge.mPoint + parameterA * edge.mDirection;
+            cEdgeF::Intersect( &parameterA, &parameterB, iEdge, orthogonalite );
 
-        sf::Vector2f vecProjection = iPoint - projection;
+            // This means the point is ON the edge, so it's considered IN the polygon
+            if( abs( parameterB ) < kEpsilonF )
+                return;
 
-        double angle = GetAngleBetweenVectors( edge.mDirection, vecProjection );
-        if( angle < 0.0 )
-            return  false;
-    }
+            sf::Vector2f projection = iEdge.mPoint + parameterA * iEdge.mDirection;
 
-    return  true;
-}
+            sf::Vector2f vecProjection = iPoint - projection;
 
-
-void
-ExtractEdgesFromPolygon( std::vector<cEdgeF>* oEdges, const sf::VertexArray& iPolygon )
-{
-    if( iPolygon.getVertexCount() == 0 )
-        return;
-
-    (*oEdges).clear();
-    (*oEdges).reserve( iPolygon.getVertexCount() );
-
-    for( int i = 0; i < iPolygon.getVertexCount() - 1; ++i )
-    {
-        (*oEdges).push_back( cEdgeF::MakePointPoint( iPolygon[ i ].position, iPolygon[ i + 1 ].position ) );
-    }
-    (*oEdges).push_back( cEdgeF::MakePointPoint( iPolygon[ iPolygon.getVertexCount() - 1 ].position, iPolygon[ 0 ].position ) );
+            double angle = GetAngleBetweenVectors( iEdge.mDirection, vecProjection );
+            if( angle < 0.0 )
+                *oStop = true;
+        } );
 }
 
 
