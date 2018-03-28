@@ -209,6 +209,7 @@ cApplication::HandleEvents( sf::Event & iEvent )
     }
 }
 
+
 void
 cApplication::Closed( const sf::Event& iEvent )
 {
