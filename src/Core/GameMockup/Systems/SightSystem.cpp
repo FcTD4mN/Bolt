@@ -158,7 +158,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
         mAllPolygonsInFOV.clear();
-        for( auto v : entitiesInFOVBBox )
+        for( auto &v : entitiesInFOVBBox )
         {
             // We don't analyse the watcher itself
             if( v == entity )

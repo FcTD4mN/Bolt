@@ -54,21 +54,21 @@ sf::Vector2f CenterOfGravity( const sf::VertexArray & iPolygon )
 sf::VertexArray PolygonPolygonInterectionList( const sf::VertexArray & iPolygonA, const sf::VertexArray & iPolygonB )
 {
     sf::VertexArray intersectionList;
-    std::vector< cEdgeF > polygonAEdges;
-    std::vector< cEdgeF > polygonBEdges;
 
-    ExtractEdgesFromPolygon( &polygonAEdges, iPolygonA );
-    ExtractEdgesFromPolygon( &polygonBEdges, iPolygonB );
-
-    for( int i = 0; i < polygonAEdges.size(); ++i )
+    for( int i = 0; i < iPolygonA.getVertexCount() - 1; ++i )
     {
-        for( int j = 0; j < polygonBEdges.size(); ++j )
+        int nextVertexA = ( i + 1 ) % iPolygonA.getVertexCount();
+        cEdgeF pAEdge = cEdgeF::MakePointPoint( iPolygonA[ i ].position, iPolygonA[ nextVertexA ].position );
+        for( int j = 0; j < iPolygonB.getVertexCount() - 1; ++j )
         {
+            int nextVertexB = ( j + 1 ) % iPolygonB.getVertexCount();
+            cEdgeF pBEdge = cEdgeF::MakePointPoint( iPolygonB[ j ].position, iPolygonB[ nextVertexB ].position );
+
             float parameterA = 0.0F;
             float parameterB = 0.0F;
-            if( cEdgeF::Intersect( &parameterA, &parameterB, polygonAEdges[ i ], polygonBEdges[ j ] ) )
+            if( cEdgeF::Intersect( &parameterA, &parameterB, pAEdge, pBEdge ) )
             {
-                sf::Vector2f interPt = polygonAEdges[ i ].mPoint + parameterA * polygonAEdges[ i ].mDirection;
+                sf::Vector2f interPt = pAEdge.mPoint + parameterA * pAEdge.mDirection;
 
                 if( (parameterA >= 0.0F && parameterA <= 1.0F)
                     && parameterB >= 0.0F && parameterB <= 1.0F
@@ -110,22 +110,24 @@ bool
 CCWWindedPolygonContainsPoint( const sf::VertexArray & iPolygon, const sf::Vector2f & iPoint )
 {
     std::vector< cEdgeF > edgeList;
-    ExtractEdgesFromPolygon( &edgeList, iPolygon );
 
-    for( auto v : edgeList )
+    for( int i = 0; i < iPolygon.getVertexCount(); ++i )
     {
-        sf::Vector2f normal = Orthogonal( v.mDirection );
+        int nextVertex = ( i + 1 ) % iPolygon.getVertexCount();
+        cEdgeF edge = cEdgeF::MakePointPoint( iPolygon[ i ].position, iPolygon[ nextVertex ].position );
+
+        sf::Vector2f normal = Orthogonal( edge.mDirection );
         cEdgeF orthogonalite( cEdgeF::MakePointDirection( iPoint, normal ) );
 
         float parameterA = 0.0F;
         float parameterB = 0.0F;
 
-        cEdgeF::Intersect( &parameterA, &parameterB, v, orthogonalite );
-        sf::Vector2f projection = v.mPoint + parameterA * v.mDirection;
+        cEdgeF::Intersect( &parameterA, &parameterB, edge, orthogonalite );
+        sf::Vector2f projection = edge.mPoint + parameterA * edge.mDirection;
 
         sf::Vector2f vecProjection = iPoint - projection;
 
-        double angle = GetAngleBetweenVectors( v.mDirection, vecProjection );
+        double angle = GetAngleBetweenVectors( edge.mDirection, vecProjection );
         if( angle < 0.0 )
             return  false;
     }
@@ -596,19 +598,13 @@ AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArra
 }
 
 
-void
-PrintCurrentTime()
-{
-}
-
-
 // Adds an element to a vector only if it is not already in
 template<>
 bool
 AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* oVector, int* oIndexOfExisting )
 {
     *oIndexOfExisting = -1;
-    for( auto elm : *oVector )
+    for( auto& elm : *oVector )
     {
         *oIndexOfExisting += 1;
         sf::Vector2f diff = elm - iElement;
@@ -626,7 +622,7 @@ bool
 AddElementToVectorUnique( cEdgeF & iElement, std::vector<cEdgeF>* oVector, int* oIndexOfExisting )
 {
     *oIndexOfExisting = -1;
-    for( auto elm : *oVector )
+    for( auto& elm : *oVector )
     {
         *oIndexOfExisting += 1;
         if( CollinearUsingAngles( iElement.mDirection, elm.mDirection ) || IsVectorEqualToVector( iElement.mDirection, elm.mDirection ) )
@@ -643,7 +639,7 @@ bool
 AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector, int* oIndexOfExisting )
 {
     *oIndexOfExisting = -1;
-    for( auto elm : *oVector )
+    for( auto& elm : *oVector )
     {
         *oIndexOfExisting += 1;
         if( CollinearUsingAngles( iElement.mRay.mDirection, elm.mRay.mDirection ) || IsVectorEqualToVector( iElement.mRay.mDirection, elm.mRay.mDirection ) )

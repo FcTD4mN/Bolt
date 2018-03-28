@@ -36,12 +36,15 @@ cThreadProcessor::Instance()
 void
 cThreadProcessor::Initialize()
 {
-    unsigned int cpuCores = std::thread::hardware_concurrency();
-    //cpuCores = 1;
-    for( unsigned int i = 0; i < cpuCores; ++i )
+    mTotalCoreCount = std::thread::hardware_concurrency();
+    mTotalCoreCount = 2;
+    if( mTotalCoreCount > 1 )
     {
-        mThreads.push_back( new cThread() );
-        mThreads.back()->CreateAndLaunchThread();
+        for( unsigned int i = 0; i < mTotalCoreCount; ++i )
+        {
+            mThreads.push_back( new cThread() );
+            mThreads.back()->CreateAndLaunchThread();
+        }
     }
 }
 
@@ -103,6 +106,12 @@ cThreadProcessor::AffectFunctionToThreadAndStart( std::function< void( int ) > i
 cThreadHandle
 cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int )> iFunction, int iIndex, bool iBlockant )
 {
+    if( mTotalCoreCount == 1 )
+    {
+        iFunction( iIndex );
+        return  cThreadHandle( 0 ); // No thread available
+    }
+
     for( int i = 0; i < mThreads.size(); ++i )
     {
         if( mThreads[ i ]->Locked() )

@@ -55,6 +55,7 @@ bool            AddElementToVertexArrayUnique( sf::Vector2f& iElement, sf::Verte
 
 
 template< class T >
+inline
 bool
 VectorContainsElement( const std::vector< T >& iVector, const T& iElm )
 {
