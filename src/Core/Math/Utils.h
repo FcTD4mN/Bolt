@@ -37,14 +37,12 @@ sf::Vector2f    CenterOfGravity( const  sf::VertexArray& iPolygon );
 sf::VertexArray PolygonPolygonInterectionList( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
 sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
 bool            CCWWindedPolygonContainsPoint( const  sf::VertexArray& iPolygon, const sf::Vector2f& iPoint );
-void            ExtractEdgesFromPolygon( std::vector< cEdgeF >* oEdges, const  sf::VertexArray& iPolygon );
 sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTriangleSet );
 void            GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, const sf::VertexArray& iPolygon );
 sf::VertexArray GetPointsFromPolygonInBetweenVectorsCCW( const  sf::VertexArray& iPolygon, const sf::Vector2f& iFirstPoint, const sf::Vector2f& iSecondPoint );
 
 // TriangleSubDivisionUsingPolygon
-void  TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray& iTriangle, const sf::VertexArray& iPolygon );
-void  TriangleSubDivisionUsingPolygonMultiThreadCall( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray* iTriangle, const sf::VertexArray* iPolygon );
+bool  TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray& iTriangle, const sf::VertexArray& iPolygon );
 
 // Sorts
 sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );

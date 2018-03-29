@@ -258,7 +258,7 @@ GetPointsFromPolygonInBetweenVectorsCCW( const sf::VertexArray & iPolygon, const
 }
 
 
-void
+bool
 TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray& iTriangle, const sf::VertexArray& iPolygon )
 {
     oSubTrianglesOutput->clear();
@@ -268,7 +268,7 @@ TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOu
     if( clipedPol.getVertexCount() == 0 )
     {
         oSubTrianglesOutput->push_back( iTriangle );
-        return;
+        return  false;
     }
 
     // End points of right fov
@@ -366,13 +366,8 @@ TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOu
         if( !Collinear( subTriangle[ 1 ].position - subTriangle[ 0 ].position, subTriangle[ 2 ].position - subTriangle[ 0 ].position ) )
             ( *oSubTrianglesOutput ).push_back( subTriangle );
     }
-}
 
-
-void
-TriangleSubDivisionUsingPolygonMultiThreadCall( std::vector<sf::VertexArray>* oSubTrianglesOutput, const sf::VertexArray * iTriangle, const sf::VertexArray * iPolygon )
-{
-    TriangleSubDivisionUsingPolygon( oSubTrianglesOutput, *iTriangle, *iPolygon );
+    return  true;
 }
 
 

@@ -37,7 +37,6 @@ void
 cThreadProcessor::Initialize()
 {
     mTotalCoreCount = std::thread::hardware_concurrency();
-    mTotalCoreCount = 1;
     if( mTotalCoreCount > 1 )
     {
         for( unsigned int i = 0; i < mTotalCoreCount; ++i )

@@ -180,6 +180,9 @@ cThreadHandle::cThreadHandle( cThread* iThread ) :
 bool
 cThreadHandle::IsValid() const
 {
+    if( !mThread )
+        return  false;
+
     return  mThreadID == mThread->ID();
 }
 

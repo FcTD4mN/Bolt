@@ -178,82 +178,86 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
         mThreadHandles.clear();
 
+        auto threadMethod = [ this ]( int iIndex ){
+
+            std::vector < sf::VertexArray > output;
+            output.reserve( 256 );
+
+            while( mFinished.load() == false )
+            {
+                eAssociatedTriangle triangleToCompute;
+
+                std::unique_lock< std::mutex > lck( mMutex );
+                if( !mTriangleQueue->empty() )
+                {
+                    triangleToCompute = mTriangleQueue->front();
+                    mTriangleQueue->pop();
+                    ++mWorkingThreadCount;
+
+                    lck.unlock();
+                }
+                else if( mFinished.load() == false ) // because it could have changed since the while ! :) :) :)
+                {
+                    mSynchronizeCV.wait( lck );
+                    continue;
+                }
+                else
+                {
+                    continue;
+                }
+
+                int collisisonPolyIndex = -1;
+
+                for( int j = 0; j < mAllPolygonsInFOV.size(); ++j )
+                {
+                    if( VectorContainsElement( triangleToCompute.mVisitedPolygonIndexes, j ) )
+                        continue;
+
+                    bool generatedSubTriangles = TriangleSubDivisionUsingPolygon( &output, triangleToCompute.mTriangle, mAllPolygonsInFOV[ j ] );
+
+                    // This will push associated index every time we got sub triangles
+                    // So polyIndex count == number of times we generated sub triangles
+                    if( generatedSubTriangles )
+                    {
+                        collisisonPolyIndex = j;
+                        break;
+                    }
+                }
+
+                // Writing results in one lock
+                std::unique_lock< std::mutex > lck2( mMutex );
+
+                if( collisisonPolyIndex == -1 )
+                {
+                    mOutputTriangles->push_back( triangleToCompute.mTriangle );
+                }
+                else
+                {
+                    for( auto triangle : output )
+                    {
+                        eAssociatedTriangle subTriangle = triangleToCompute;
+                        subTriangle.mTriangle = triangle;
+                        subTriangle.mVisitedPolygonIndexes.push_back( collisisonPolyIndex );
+                        mTriangleQueue->push( subTriangle );
+                    }
+                }
+
+                --mWorkingThreadCount;
+                if( mWorkingThreadCount == 0 && mTriangleQueue->empty() )
+                    mFinished.store( true );
+
+                lck2.unlock();
+                mSynchronizeCV.notify_all();
+            }
+        };
+
         unsigned int availableThreadsCount = cThreadProcessor::Instance()->GetAvailableThreadCount();
+
+        if( availableThreadsCount == 0 )
+            availableThreadsCount = 1;
+
         for( unsigned int i = 0; i < availableThreadsCount; ++i )
         {
-            auto threadMethod = [ this ]( int iIndex ){
-
-                std::vector < sf::VertexArray > output;
-                output.reserve( 256 );
-
-                while( mFinished.load() == false )
-                {
-                    eAssociatedTriangle triangleToCompute;
-
-                    std::unique_lock< std::mutex > lck( mMutex );
-                    if( !mTriangleQueue->empty() )
-                    {
-                        triangleToCompute = mTriangleQueue->front();
-                        mTriangleQueue->pop();
-                        ++mWorkingThreadCount;
-
-                        lck.unlock();
-                    }
-                    else if( mFinished.load() == false ) // because it could have changed since the while ! :) :) :)
-                    {
-                        mSynchronizeCV.wait( lck );
-                        continue;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-                    int collisisonPolyIndex = -1;
-
-                    for( int j = 0; j < mAllPolygonsInFOV.size(); ++j )
-                    {
-                        if( VectorContainsElement( triangleToCompute.mVisitedPolygonIndexes, j ) )
-                            continue;
-
-                        TriangleSubDivisionUsingPolygon( &output, triangleToCompute.mTriangle, mAllPolygonsInFOV[ j ] );
-
-                        // This will push associated index every time we got sub triangles
-                        // So polyIndex count == number of times we generated sub triangles
-                        if( output.size() > 1 )
-                        {
-                            collisisonPolyIndex = j;
-                            break;
-                        }
-                    }
-
-                    // Writing results in one lock
-                    std::unique_lock< std::mutex > lck2( mMutex );
-
-                    if( collisisonPolyIndex == -1 )
-                    {
-                        mOutputTriangles->push_back( triangleToCompute.mTriangle );
-                    }
-                    else
-                    {
-                        for( auto triangle : output )
-                        {
-                            eAssociatedTriangle subTriangle = triangleToCompute;
-                            subTriangle.mTriangle = triangle;
-                            subTriangle.mVisitedPolygonIndexes.push_back( collisisonPolyIndex );
-                            mTriangleQueue->push( subTriangle );
-                        }
-                    }
-
-                    --mWorkingThreadCount;
-                    if( mWorkingThreadCount == 0 && mTriangleQueue->empty() )
-                        mFinished.store( true );
-
-                    lck2.unlock();
-                    mSynchronizeCV.notify_all();
-                }
-            };
-
             mThreadHandles.push_back( cThreadProcessor::Instance()->AffectFunctionToThreadAndStart( threadMethod, true ) );
         }
 
