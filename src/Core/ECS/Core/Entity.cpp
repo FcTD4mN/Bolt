@@ -60,6 +60,7 @@ cEntity::cEntity( const cEntity& iEntity ) :
         pair.value = it->value->Clone();
         mComponents.push_back( pair );
     }
+    ++sgEntityCount;
 }
 
 
