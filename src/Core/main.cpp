@@ -26,6 +26,8 @@
 #include "QtWidgets/qapplication.h"
 #include "QtWidgets/qframe.h"
 
+#include "QtWidgets/TestCanvas.h"
+
 #endif // EDITOR
 
 
@@ -168,8 +170,6 @@ BoltMain( int argc, char *argv[] )
     }
     PyMem_RawFree( program );
 
-    return 0;
-
     return  0;
 }
 
@@ -186,8 +186,8 @@ QTMain( int argc, char *argv[] )
     MainFrame->show();
 
     // Create a SFML view inside the main frame
-    //MyCanvas* SFMLView = new MyCanvas( MainFrame, QPoint( 20, 20 ), QSize( 360, 360 ) );
-    //SFMLView->show();
+    MyCanvas* SFMLView = new MyCanvas( MainFrame, QPoint( 20, 20 ), QSize( 360, 360 ) );
+    SFMLView->show();
 
     return App.exec();
 }

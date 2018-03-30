@@ -65,13 +65,6 @@ cWorld::AddEntity( cEntity* iEntity )
 
 
 void
-cWorld::RemoveEntity( cEntity* iEntity )
-{
-    mEntity.erase( iEntity->ID() );
-}
-
-
-void
 cWorld::UpdateWorldWithEntity( cEntity* iEntity )
 {
     for( int i = 0; i < mSystems.size(); ++i )
@@ -91,6 +84,7 @@ cWorld::DestroyEntity( cEntity * iEntity )
 void
 cWorld::DestroyEntityByID( const  std::string& iID )
 {
+    mEntitiesToDestroy.push_back( mEntity[ iID ] );
     mEntity.erase( iID );
 }
 
@@ -149,9 +143,20 @@ cWorld::EntityCount() const
 }
 
 
+// -------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------- Private
+// -------------------------------------------------------------------------------------
+
+
+void
+cWorld::RemoveEntity( cEntity* iEntity )
+{
+    mEntity.erase( iEntity->ID() );
+}
+
+
 void cWorld::PurgeEntities()
 {
-    //OPTI: This is not ideal, as remove entity is o(n) worst case
     while( mEntitiesToDestroy.size() > 0 )
     {
         cEntity* ent = mEntitiesToDestroy.back();

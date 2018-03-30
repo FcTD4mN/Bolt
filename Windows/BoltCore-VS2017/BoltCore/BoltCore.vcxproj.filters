@@ -13,504 +13,534 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers sources\MainMenu">
-      <UniqueIdentifier>{dcc41c62-9c8b-4b18-9d68-fb05dd98c86d}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Core">
+      <UniqueIdentifier>{69a98c29-1571-4ad8-8156-78fa107f73af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\MainMenu\MenuItem">
-      <UniqueIdentifier>{4c8fd09a-275c-411c-930e-7605db518da9}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Core\AI">
+      <UniqueIdentifier>{d9324535-d2df-4eb2-9415-aa9d34b4b3a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Math">
-      <UniqueIdentifier>{f6a9514b-0f3f-4f6f-a0d2-71faf71a4aee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Base">
-      <UniqueIdentifier>{69422064-0814-4d12-a7d2-43701b7f32c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Application">
+    <Filter Include="Fichiers sources\Core\Application">
       <UniqueIdentifier>{232d7918-3cd6-4d59-b8b4-936c5f186440}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\MainMenu\MenuPage">
-      <UniqueIdentifier>{4d84369f-0a37-4cd7-b9fe-29d345e2d646}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Core\Base">
+      <UniqueIdentifier>{69422064-0814-4d12-a7d2-43701b7f32c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Screen">
-      <UniqueIdentifier>{0f703fee-c5a5-4e0b-83ec-37618d5aa7d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\ECS">
-      <UniqueIdentifier>{d8e5d294-2be5-4c3a-961f-861ce111568f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup">
-      <UniqueIdentifier>{b50f1859-08f7-4914-884c-54e69f6291bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Components">
-      <UniqueIdentifier>{dde68560-6861-4777-a9b1-d2dfcd00794b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Systems">
-      <UniqueIdentifier>{f9f48c9d-0a63-4da9-b8bf-b7cf0559cc44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Shortcuts">
-      <UniqueIdentifier>{9ebf1ece-30d3-4e0b-965a-f54de889bdee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\ECS\Core">
-      <UniqueIdentifier>{af6311e2-2111-45fb-97a5-1ae14a28c52f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\ECS\Utilities">
-      <UniqueIdentifier>{6cfe0a1c-4e17-4c4c-b863-941432fd3e8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GUI">
-      <UniqueIdentifier>{3e2414e1-847a-4625-bdb6-68016e8fd720}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\BoltScript">
-      <UniqueIdentifier>{6c3a8a3e-fd2d-40fe-937c-0663830d863c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Benchmark">
-      <UniqueIdentifier>{f1202c71-c577-4710-91db-9a8f8da3112e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Components\Physic">
-      <UniqueIdentifier>{f1382b64-569f-42c0-b230-21ddd3a0f04e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Systems\Render">
-      <UniqueIdentifier>{76e22e6e-9efb-49c1-877e-2e7ea225e16c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Components\Basics">
-      <UniqueIdentifier>{e3bdbd12-7057-42a3-ba84-174dc290983a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Systems\Physic">
-      <UniqueIdentifier>{768750aa-a5ac-4c08-911e-26443566ce7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Mapping">
-      <UniqueIdentifier>{7631d07f-cf4b-4261-9edb-2e7e2f657a3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Screens">
-      <UniqueIdentifier>{fa7cf3ce-9ec2-4ab3-a228-36a4678e253c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Volumetric">
-      <UniqueIdentifier>{d4e58ea6-bd6f-464c-b5cb-1bb79e2ca74e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Base\Threading">
+    <Filter Include="Fichiers sources\Core\Base\Threading">
       <UniqueIdentifier>{e207a4d3-f609-4f35-aef5-7548720d59d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Shader">
-      <UniqueIdentifier>{9f3bba9a-dacd-47ba-a345-ce19889269d7}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Core\Benchmark">
+      <UniqueIdentifier>{f1202c71-c577-4710-91db-9a8f8da3112e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Volumetric\Static">
-      <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Core\BoltScript">
+      <UniqueIdentifier>{6c3a8a3e-fd2d-40fe-937c-0663830d863c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\GameMockup\Components\BehaviourTree">
+    <Filter Include="Fichiers sources\Core\ECS">
+      <UniqueIdentifier>{d8e5d294-2be5-4c3a-961f-861ce111568f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\ECS\Core">
+      <UniqueIdentifier>{af6311e2-2111-45fb-97a5-1ae14a28c52f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\ECS\Utilities">
+      <UniqueIdentifier>{6cfe0a1c-4e17-4c4c-b863-941432fd3e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup">
+      <UniqueIdentifier>{b50f1859-08f7-4914-884c-54e69f6291bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup\Components">
+      <UniqueIdentifier>{dde68560-6861-4777-a9b1-d2dfcd00794b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup\Components\Physic">
+      <UniqueIdentifier>{f1382b64-569f-42c0-b230-21ddd3a0f04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup\Components\Basics">
+      <UniqueIdentifier>{e3bdbd12-7057-42a3-ba84-174dc290983a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup\Components\BehaviourTree">
       <UniqueIdentifier>{152594b6-c17c-4046-a370-0e4acd12ff9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\AI">
-      <UniqueIdentifier>{d9324535-d2df-4eb2-9415-aa9d34b4b3a8}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Core\GameMockup\Systems">
+      <UniqueIdentifier>{f9f48c9d-0a63-4da9-b8bf-b7cf0559cc44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup\Systems\Render">
+      <UniqueIdentifier>{76e22e6e-9efb-49c1-877e-2e7ea225e16c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup\Systems\Physic">
+      <UniqueIdentifier>{768750aa-a5ac-4c08-911e-26443566ce7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GameMockup\Screens">
+      <UniqueIdentifier>{fa7cf3ce-9ec2-4ab3-a228-36a4678e253c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\GUI">
+      <UniqueIdentifier>{3e2414e1-847a-4625-bdb6-68016e8fd720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\MainMenu">
+      <UniqueIdentifier>{dcc41c62-9c8b-4b18-9d68-fb05dd98c86d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\MainMenu\MenuItem">
+      <UniqueIdentifier>{4c8fd09a-275c-411c-930e-7605db518da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\MainMenu\MenuPage">
+      <UniqueIdentifier>{4d84369f-0a37-4cd7-b9fe-29d345e2d646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Mapping">
+      <UniqueIdentifier>{7631d07f-cf4b-4261-9edb-2e7e2f657a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Math">
+      <UniqueIdentifier>{f6a9514b-0f3f-4f6f-a0d2-71faf71a4aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Screen">
+      <UniqueIdentifier>{0f703fee-c5a5-4e0b-83ec-37618d5aa7d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Shader">
+      <UniqueIdentifier>{9f3bba9a-dacd-47ba-a345-ce19889269d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Shortcuts">
+      <UniqueIdentifier>{9ebf1ece-30d3-4e0b-965a-f54de889bdee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Volumetric">
+      <UniqueIdentifier>{d4e58ea6-bd6f-464c-b5cb-1bb79e2ca74e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\Volumetric\Static">
+      <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Editor">
+      <UniqueIdentifier>{a52387ab-c877-4436-96cd-0702ba28549f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Editor\QTWidgets">
+      <UniqueIdentifier>{6943bc39-966f-4647-82d2-8ee8eeeb2b5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Editor\Application">
+      <UniqueIdentifier>{9e151828-9d5b-4872-8286-552d1843c9e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
-      <Filter>Fichiers sources\Application</Filter>
+      <Filter>Fichiers sources\Core\Application</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Clipboard.cpp">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\ClipboardWin32.cpp">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Drawable.cpp">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\ResourceManager.cpp">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Benchmark\Benchmark.cpp">
-      <Filter>Fichiers sources\Benchmark</Filter>
+      <Filter>Fichiers sources\Core\Benchmark</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp">
-      <Filter>Fichiers sources\BoltScript</Filter>
+      <Filter>Fichiers sources\Core\BoltScript</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Core\System.cpp">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Core\World.cpp">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Core\Component.cpp">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Core\Entity.cpp">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.cpp">
-      <Filter>Fichiers sources\ECS\Utilities</Filter>
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\EntityParser.cpp">
-      <Filter>Fichiers sources\ECS\Utilities</Filter>
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Color.cpp">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Position.cpp">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Size.cpp">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Text.cpp">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.cpp">
-      <Filter>Fichiers sources\GameMockup\Components\Physic</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Physic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\SpriteAnimated.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\UserInput.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems\Physic</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems\Physic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SquareController.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\GameApplication.cpp">
-      <Filter>Fichiers sources\GameMockup</Filter>
+      <Filter>Fichiers sources\Core\GameMockup</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GUI\ConsoleWidget.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
+      <Filter>Fichiers sources\Core\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\MainMenu\MainMenu.cpp">
-      <Filter>Fichiers sources\MainMenu</Filter>
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.cpp">
-      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.cpp">
-      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.cpp">
-      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.cpp">
-      <Filter>Fichiers sources\MainMenu\MenuPage</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuPage</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.cpp">
-      <Filter>Fichiers sources\Mapping</Filter>
+      <Filter>Fichiers sources\Core\Mapping</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Math\Utils.cpp">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Screen\Screen.cpp">
-      <Filter>Fichiers sources\Screen</Filter>
+      <Filter>Fichiers sources\Core\Screen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Screen\ScreenMainMenu.cpp">
-      <Filter>Fichiers sources\Screen</Filter>
+      <Filter>Fichiers sources\Core\Screen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Shortcuts.cpp">
-      <Filter>Fichiers sources\Shortcuts</Filter>
+      <Filter>Fichiers sources\Core\Shortcuts</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Utilities.cpp">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\ConsoleScreen.cpp">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\GameScreen.cpp">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.cpp">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Direction.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.cpp">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.cpp">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Math\Triangle.cpp">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Math\Edge.cpp">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Math\Ray.cpp">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.cpp">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.cpp">
-      <Filter>Fichiers sources\Base\Threading</Filter>
+      <Filter>Fichiers sources\Core\Base\Threading</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Shader\Shader.cpp">
-      <Filter>Fichiers sources\Shader</Filter>
+      <Filter>Fichiers sources\Core\Shader</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Data.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\VUtils.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.cpp">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Thread-Thread.cpp">
-      <Filter>Fichiers sources\Base\Threading</Filter>
+      <Filter>Fichiers sources\Core\Base\Threading</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp">
-      <Filter>Fichiers sources\Base\Threading</Filter>
+      <Filter>Fichiers sources\Core\Base\Threading</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.cpp">
-      <Filter>Fichiers sources\GameMockup\Components\BehaviourTree</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\BehaviourTree</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourTree.cpp">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourNode.cpp">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourService.cpp">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoard.cpp">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.cpp">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Editor\QtWidgets\QSFMLCanvas.cpp">
+      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Editor\Application\EditorApplication.cpp">
+      <Filter>Fichiers sources\Editor\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Editor\QtWidgets\TestCanvas.cpp">
+      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
-      <Filter>Fichiers sources\Application</Filter>
+      <Filter>Fichiers sources\Core\Application</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Clipboard.h">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Drawable.h">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\GeneralEnums.h">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\ResourceManager.h">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Benchmark\Benchmark.h">
-      <Filter>Fichiers sources\Benchmark</Filter>
+      <Filter>Fichiers sources\Core\Benchmark</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h">
-      <Filter>Fichiers sources\BoltScript</Filter>
+      <Filter>Fichiers sources\Core\BoltScript</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Entity.h">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Core\System.h">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Core\World.h">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Component.h">
-      <Filter>Fichiers sources\ECS\Core</Filter>
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\EntityParser.h">
-      <Filter>Fichiers sources\ECS\Utilities</Filter>
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h">
-      <Filter>Fichiers sources\ECS\Utilities</Filter>
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Text.h">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Color.h">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Position.h">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Size.h">
-      <Filter>Fichiers sources\GameMockup\Components\Basics</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.h">
-      <Filter>Fichiers sources\GameMockup\Components\Physic</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\Physic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\UserInput.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\SpriteAnimated.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.h">
-      <Filter>Fichiers sources\GameMockup\Systems\Physic</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems\Physic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.h">
-      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.h">
-      <Filter>Fichiers sources\GameMockup\Systems\Render</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.h">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SquareController.h">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\GameApplication.h">
-      <Filter>Fichiers sources\GameMockup</Filter>
+      <Filter>Fichiers sources\Core\GameMockup</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GUI\ConsoleWidget.h">
-      <Filter>Fichiers sources\GUI</Filter>
+      <Filter>Fichiers sources\Core\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\MainMenu\MainMenu.h">
-      <Filter>Fichiers sources\MainMenu</Filter>
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.h">
-      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.h">
-      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.h">
-      <Filter>Fichiers sources\MainMenu\MenuItem</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.h">
-      <Filter>Fichiers sources\MainMenu\MenuPage</Filter>
+      <Filter>Fichiers sources\Core\MainMenu\MenuPage</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.h">
-      <Filter>Fichiers sources\Mapping</Filter>
+      <Filter>Fichiers sources\Core\Mapping</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Math\Utils.h">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Screen\Screen.h">
-      <Filter>Fichiers sources\Screen</Filter>
+      <Filter>Fichiers sources\Core\Screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Screen\ScreenMainMenu.h">
-      <Filter>Fichiers sources\Screen</Filter>
+      <Filter>Fichiers sources\Core\Screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h">
-      <Filter>Fichiers sources\Shortcuts</Filter>
+      <Filter>Fichiers sources\Core\Shortcuts</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Utilities.h">
-      <Filter>Fichiers sources\Base</Filter>
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\ConsoleScreen.h">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\GameScreen.h">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.h">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Direction.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.h">
-      <Filter>Fichiers sources\GameMockup\Components</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.h">
-      <Filter>Fichiers sources\GameMockup\Systems</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Math\Triangle.h">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Math\Edge.h">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Math\Ray.h">
-      <Filter>Fichiers sources\Math</Filter>
+      <Filter>Fichiers sources\Core\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.h">
-      <Filter>Fichiers sources\GameMockup\Screens</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.h">
-      <Filter>Fichiers sources\Base\Threading</Filter>
+      <Filter>Fichiers sources\Core\Base\Threading</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Shader\Shader.h">
-      <Filter>Fichiers sources\Shader</Filter>
+      <Filter>Fichiers sources\Core\Shader</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Data.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Types.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\VUtils.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.h">
-      <Filter>Fichiers sources\Volumetric\Static</Filter>
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Thread-Thread.h">
-      <Filter>Fichiers sources\Base\Threading</Filter>
+      <Filter>Fichiers sources\Core\Base\Threading</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.h">
-      <Filter>Fichiers sources\Base\Threading</Filter>
+      <Filter>Fichiers sources\Core\Base\Threading</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.h">
-      <Filter>Fichiers sources\GameMockup\Components\BehaviourTree</Filter>
+      <Filter>Fichiers sources\Core\GameMockup\Components\BehaviourTree</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourTree.h">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourNode.h">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourService.h">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BlackBoard.h">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.h">
-      <Filter>Fichiers sources\AI</Filter>
+      <Filter>Fichiers sources\Core\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h">
+      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Editor\Application\EditorApplication.h">
+      <Filter>Fichiers sources\Editor\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Editor\QtWidgets\TestCanvas.h">
+      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

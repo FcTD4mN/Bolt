@@ -25,7 +25,6 @@ public:
 public:
     // Entity
     void  AddEntity( cEntity* iEntity );
-    void  RemoveEntity( cEntity* iEntity );
     void  UpdateWorldWithEntity( cEntity* iEntity );
     void  DestroyEntity( cEntity* iEntity );
     void  DestroyEntityByID( const  std::string& iID );
@@ -42,6 +41,8 @@ public:
     size_t EntityCount() const;
 
 private:
+    // Private
+    void  RemoveEntity( cEntity* iEntity );
     void  PurgeEntities();
 
 public:

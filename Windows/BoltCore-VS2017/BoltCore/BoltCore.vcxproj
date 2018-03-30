@@ -436,6 +436,9 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\VUtils.cpp" />
+    <ClCompile Include="..\..\..\src\Editor\Application\EditorApplication.cpp" />
+    <ClCompile Include="..\..\..\src\Editor\QtWidgets\QSFMLCanvas.cpp" />
+    <ClCompile Include="..\..\..\src\Editor\QtWidgets\TestCanvas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourNode.h" />
@@ -506,6 +509,9 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Types.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\VUtils.h" />
+    <ClInclude Include="..\..\..\src\Editor\Application\EditorApplication.h" />
+    <ClInclude Include="..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h" />
+    <ClInclude Include="..\..\..\src\Editor\QtWidgets\TestCanvas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
