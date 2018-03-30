@@ -23,22 +23,22 @@
 
 
 int
-main(int argc, char *argv[])
+BoltMain( int argc, char *argv[] )
 {
 
     //nBenchmark::RunVectorVsHMapvsMapBenchmark();
     //nBenchmark::EntityStressTest();
 
-    srand( unsigned int(time( NULL )) );
+    srand( unsigned int( time( NULL ) ) );
 
     cGameApplication* app = cGameApplication::App();
     app->Initialize();
 
 
-    ::nBoltScript::Env()->RegisterFunction( "exit", [=]( void ) { app->Window()->close(); } );
+    ::nBoltScript::Env()->RegisterFunction( "exit", [ = ]( void ){ app->Window()->close(); } );
 #ifdef  CONSOLEDEBUG
 
-    cGameApplication::App()->PushScreen(new cConsoleScreen() );
+    cGameApplication::App()->PushScreen( new cConsoleScreen() );
 
 #endif //  CONSOLEDEBUG
 
@@ -46,34 +46,35 @@ main(int argc, char *argv[])
     ::nBoltScript::Env()->Print( ">>> Size of Volumetric Atomic Data: " + std::to_string( sizeof( ::nVolumetric::cData ) ) + "Bytes\n" );
 
     // PYTHON TEST
-    wchar_t *program = Py_DecodeLocale(argv[0], NULL);
-    if (program == NULL) {
-        fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
-        exit(1);
+    wchar_t *program = Py_DecodeLocale( argv[ 0 ], NULL );
+    if( program == NULL )
+    {
+        fprintf( stderr, "Fatal error: cannot decode argv[0]\n" );
+        exit( 1 );
     }
 
-    PyImport_AppendInittab("PyBolt", &::nBoltScript::PyInit_PyBolt);
+    PyImport_AppendInittab( "PyBolt", &::nBoltScript::PyInit_PyBolt );
 
-    Py_SetProgramName(program);
+    Py_SetProgramName( program );
     Py_Initialize();
-    PyRun_SimpleString("import PyBolt\n");
-    PyRun_SimpleString("PyBolt.PyBoltPrint(\"\")\n");
-    PyRun_SimpleString("class Monitor:\n"
-                       "    def __init__(self):\n"
-                       "      self\n"
-                       "\n"
-                       "    def write(self, s):\n"
-                       "      if s.rstrip() != \"\":\n"
-                       "        PyBolt.PyBoltPrint(s)\n"
-                       "\n" );
-    PyRun_SimpleString("monitorQ = Monitor()\n");
-    PyRun_SimpleString("print(\"Redirecting output...\")\n"
-                       "import sys\n"
-                       "sys.stdout = monitorQ\n"
-                       "sys.stderr = monitorQ\n" );
+    PyRun_SimpleString( "import PyBolt\n" );
+    PyRun_SimpleString( "PyBolt.PyBoltPrint(\"\")\n" );
+    PyRun_SimpleString( "class Monitor:\n"
+                        "    def __init__(self):\n"
+                        "      self\n"
+                        "\n"
+                        "    def write(self, s):\n"
+                        "      if s.rstrip() != \"\":\n"
+                        "        PyBolt.PyBoltPrint(s)\n"
+                        "\n" );
+    PyRun_SimpleString( "monitorQ = Monitor()\n" );
+    PyRun_SimpleString( "print(\"Redirecting output...\")\n"
+                        "import sys\n"
+                        "sys.stdout = monitorQ\n"
+                        "sys.stderr = monitorQ\n" );
 
-    PyRun_SimpleString("print(\"Python says i love Bolt\")\n" );
-    PyRun_SimpleString("print(\"Python says i can't wait to see your little voxels\")\n" );
+    PyRun_SimpleString( "print(\"Python says i love Bolt\")\n" );
+    PyRun_SimpleString( "print(\"Python says i can't wait to see your little voxels\")\n" );
 
 
     printf( "\n" );
@@ -94,12 +95,12 @@ main(int argc, char *argv[])
 
 
     // Drawing entityMap
-        //sf::Vector2f position;
-        //sf::RectangleShape square;
-        //square.setSize( sf::Vector2f( 32, 32 ) );
-        //square.setFillColor( sf::Color( 0, 0, 0, 0 ) );
-        //square.setOutlineColor( sf::Color( 255, 0, 0, 120 ) );
-        //square.setOutlineThickness( 1.0F );
+    //sf::Vector2f position;
+    //sf::RectangleShape square;
+    //square.setSize( sf::Vector2f( 32, 32 ) );
+    //square.setFillColor( sf::Color( 0, 0, 0, 0 ) );
+    //square.setOutlineColor( sf::Color( 255, 0, 0, 120 ) );
+    //square.setOutlineThickness( 1.0F );
     // /Drawing entityMap
 
     while( window->isOpen() )
@@ -118,17 +119,17 @@ main(int argc, char *argv[])
         // PERF TESTS============================================================
 
         // Draw entityMapGrid
-            //for( int x = 0; x < 32; ++x )
-            //{
-            //    for( int y = 0; y < 32; ++y )
-            //    {
-            //        position.x = x * 32;
-            //        position.y = y * 32;
-            //        square.setPosition( position );
+        //for( int x = 0; x < 32; ++x )
+        //{
+        //    for( int y = 0; y < 32; ++y )
+        //    {
+        //        position.x = x * 32;
+        //        position.y = y * 32;
+        //        square.setPosition( position );
 
-            //        window->draw( square );
-            //    }
-            //}
+        //        window->draw( square );
+        //    }
+        //}
         // /Drawing entityMap
 
         if( 1 )
@@ -153,10 +154,32 @@ main(int argc, char *argv[])
 
     app->Finalize();
 
-    if (Py_FinalizeEx() < 0) {
-        exit(120);
+    if( Py_FinalizeEx() < 0 )
+    {
+        exit( 120 );
     }
-    PyMem_RawFree(program);
+    PyMem_RawFree( program );
 
     return 0;
+
+    return  0;
+}
+
+
+int
+QTMain( int argc, char *argv[] )
+{
+
+    return  0;
+}
+
+
+int
+main( int argc, char *argv[] )
+{
+    #ifdef EDITOR
+        return  QTMain( argc, argv );
+    #else
+        return  BoltMain( argc, argv );
+    #endif
 }
