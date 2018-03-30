@@ -21,6 +21,14 @@
 
 #include <chrono>
 
+#ifdef EDITOR
+
+#include "QtWidgets/qapplication.h"
+#include "QtWidgets/qframe.h"
+
+#endif // EDITOR
+
+
 
 int
 BoltMain( int argc, char *argv[] )
@@ -169,8 +177,19 @@ BoltMain( int argc, char *argv[] )
 int
 QTMain( int argc, char *argv[] )
 {
+    QApplication App( argc, argv );
 
-    return  0;
+    // Create the main frame
+    QFrame* MainFrame = new QFrame;
+    MainFrame->setWindowTitle( "Qt SFML" );
+    MainFrame->resize( 400, 400 );
+    MainFrame->show();
+
+    // Create a SFML view inside the main frame
+    //MyCanvas* SFMLView = new MyCanvas( MainFrame, QPoint( 20, 20 ), QSize( 360, 360 ) );
+    //SFMLView->show();
+
+    return App.exec();
 }
 
 
