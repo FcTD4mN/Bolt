@@ -173,7 +173,7 @@ BoltMain( int argc, char *argv[] )
     return  0;
 }
 
-
+#ifdef EDITOR
 int
 QTMain( int argc, char *argv[] )
 {
@@ -191,7 +191,7 @@ QTMain( int argc, char *argv[] )
 
     return App.exec();
 }
-
+#endif
 
 int
 main( int argc, char *argv[] )
