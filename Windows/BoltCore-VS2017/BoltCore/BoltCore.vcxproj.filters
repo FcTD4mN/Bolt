@@ -103,15 +103,6 @@
     <Filter Include="Fichiers sources\Core\Volumetric\Static">
       <UniqueIdentifier>{eee8d9ae-50db-4753-aa23-dac0261e1189}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Editor">
-      <UniqueIdentifier>{a52387ab-c877-4436-96cd-0702ba28549f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Editor\QTWidgets">
-      <UniqueIdentifier>{6943bc39-966f-4647-82d2-8ee8eeeb2b5a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Editor\Application">
-      <UniqueIdentifier>{9e151828-9d5b-4872-8286-552d1843c9e5}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -318,15 +309,6 @@
     <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.cpp">
       <Filter>Fichiers sources\Core\AI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Editor\QtWidgets\QSFMLCanvas.cpp">
-      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Editor\Application\EditorApplication.cpp">
-      <Filter>Fichiers sources\Editor\Application</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Editor\QtWidgets\TestCanvas.cpp">
-      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -532,15 +514,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.h">
       <Filter>Fichiers sources\Core\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h">
-      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Editor\Application\EditorApplication.h">
-      <Filter>Fichiers sources\Editor\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Editor\QtWidgets\TestCanvas.h">
-      <Filter>Fichiers sources\Editor\QTWidgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -167,7 +167,7 @@ cGameScreen::KeyReleased( const sf::Event& iEvent )
     }
     else if( iEvent.key.code == sf::Keyboard::Key::T )
     {
-        cEntity* entity = cEntityParser::Instance()->CreateEntityFromFile( "resources/Core/Entities/test.entity" );
+        cEntity* entity = cEntityParser::Instance()->CreateEntityFromFile( "resources/Core/Entities/test.entity", cGameApplication::App()->World() );
         cGameApplication::App()->World()->AddEntity( entity );
     }
     else if( iEvent.key.code == sf::Keyboard::Key::A )

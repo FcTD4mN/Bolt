@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="QtResources">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{a2681645-1477-4577-82fd-e7eb2c455950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QtUIFiles">
+      <UniqueIdentifier>{542003fd-2c55-42fb-abd9-e460ade8e6b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor">
+      <UniqueIdentifier>{3362eaa8-1b5d-4f15-ab72-aeb6969143aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\QtWidgets">
+      <UniqueIdentifier>{8235149a-3048-4dbf-9f68-b308e9aab9d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Application">
+      <UniqueIdentifier>{22872b93-245a-4dbd-9d11-55443c1cd397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore">
+      <UniqueIdentifier>{754f97d7-e511-428d-9754-7ae8518a63ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\Application">
+      <UniqueIdentifier>{07c89257-cb4e-4e5e-9960-73c739a28e7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\Base">
+      <UniqueIdentifier>{e88b93a1-8bfa-41f5-86ee-3c3ecd5d8eb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\BoltScript">
+      <UniqueIdentifier>{ec7b71ec-81bf-4379-bb3e-e9afb41168bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\ECS">
+      <UniqueIdentifier>{f69063d4-2d3c-40fb-aab6-1528545aea19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\ECS\Core">
+      <UniqueIdentifier>{47debc4f-bcb7-4203-a610-70c583c56dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\ECS\Utilities">
+      <UniqueIdentifier>{2f68d402-2106-46e8-8b57-0317f544f5d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\tmpMainMenu">
+      <UniqueIdentifier>{eb1f1c96-2194-43c3-b0d4-a0d8df0ad556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\tmpMainMenu\MenuPage">
+      <UniqueIdentifier>{dc42e283-0cb0-40c3-98fb-8b598fa642a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\tmpMainMenu\MenuItem">
+      <UniqueIdentifier>{7a8a9227-8bd9-477e-94d7-4ee740484686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\Mapping">
+      <UniqueIdentifier>{3c35e8d8-a135-4fb1-ac0e-ff496f8249df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\Math">
+      <UniqueIdentifier>{fb83a70c-327d-470a-a5c5-74cc7006e53f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\Screen">
+      <UniqueIdentifier>{109287a5-8045-40d2-b934-38d1b1f8a9d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoltCore\Shader">
+      <UniqueIdentifier>{a3e475c3-e92e-43b3-9e59-0d7c8652d6f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\QtMainWindows">
+      <UniqueIdentifier>{69fcca02-38b3-4f53-bc8f-95b3f1bf22f7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="..\..\..\..\src\Editor\QtUIFiles\BoltEditor.ui">
+      <Filter>QtUIFiles</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="..\..\..\..\src\Editor\QtResourceFiles\BoltEditor.qrc">
+      <Filter>QtResources</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.cpp">
+      <Filter>src\Editor\QtWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\QtWidgets\TestCanvas.cpp">
+      <Filter>src\Editor\QtWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\editormain.cpp">
+      <Filter>src\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\Application\EditorApplication.cpp">
+      <Filter>src\Editor\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Application\Application.cpp">
+      <Filter>src\BoltCore\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\ResourceManager.cpp">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Thread-Thread.cpp">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Utilities.cpp">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp">
+      <Filter>src\BoltCore\BoltScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Entity.cpp">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\System.cpp">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\World.cpp">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Component.cpp">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\ComponentRegistry.cpp">
+      <Filter>src\BoltCore\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\EntityParser.cpp">
+      <Filter>src\BoltCore\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MainMenu.cpp">
+      <Filter>src\BoltCore\tmpMainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuPage\MenuPage.cpp">
+      <Filter>src\BoltCore\tmpMainMenu\MenuPage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.cpp">
+      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.cpp">
+      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.cpp">
+      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Mapping\PhysicEntityGrid.cpp">
+      <Filter>src\BoltCore\Mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Utils.cpp">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Screen\Screen.cpp">
+      <Filter>src\BoltCore\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Shader\Shader.cpp">
+      <Filter>src\BoltCore\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\QtMainWindows\BoltEditor.cpp">
+      <Filter>src\Editor\QtMainWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Drawable.cpp">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Edge.cpp">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Triangle.cpp">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Ray.cpp">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h">
+      <Filter>src\Editor\QtWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\TestCanvas.h">
+      <Filter>src\Editor\QtWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\Application\EditorApplication.h">
+      <Filter>src\Editor\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Application\Application.h">
+      <Filter>src\BoltCore\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Utilities.h">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\GeneralEnums.h">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\ResourceManager.h">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Thread-Thread.h">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Thread-ThreadProcessor.h">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h">
+      <Filter>src\BoltCore\BoltScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Component.h">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Entity.h">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\System.h">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\World.h">
+      <Filter>src\BoltCore\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\EntityParser.h">
+      <Filter>src\BoltCore\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h">
+      <Filter>src\BoltCore\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MainMenu.h">
+      <Filter>src\BoltCore\tmpMainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuPage\MenuPage.h">
+      <Filter>src\BoltCore\tmpMainMenu\MenuPage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.h">
+      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.h">
+      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.h">
+      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Mapping\PhysicEntityGrid.h">
+      <Filter>src\BoltCore\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Utils.h">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Screen\Screen.h">
+      <Filter>src\BoltCore\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Shader\Shader.h">
+      <Filter>src\BoltCore\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Drawable.h">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Edge.h">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Ray.h">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Triangle.h">
+      <Filter>src\BoltCore\Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\..\..\..\src\Editor\QtMainWindows\BoltEditor.h">
+      <Filter>src\Editor\QtMainWindows</Filter>
+    </QtMoc>
+  </ItemGroup>
+</Project>

@@ -7,10 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoltCore", "BoltCore.vcxpro
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		BoltEditorDebug|x64 = BoltEditorDebug|x64
-		BoltEditorDebug|x86 = BoltEditorDebug|x86
-		BoltEditorRelease|x64 = BoltEditorRelease|x64
-		BoltEditorRelease|x86 = BoltEditorRelease|x86
 		ConsoleDebug|x64 = ConsoleDebug|x64
 		ConsoleDebug|x86 = ConsoleDebug|x86
 		Debug|x64 = Debug|x64
@@ -19,14 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorDebug|x64.ActiveCfg = BoltEditorDebug|x64
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorDebug|x64.Build.0 = BoltEditorDebug|x64
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorDebug|x86.ActiveCfg = BoltEditorDebug|Win32
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorDebug|x86.Build.0 = BoltEditorDebug|Win32
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorRelease|x64.ActiveCfg = BoltEditorRelease|x64
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorRelease|x64.Build.0 = BoltEditorRelease|x64
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorRelease|x86.ActiveCfg = BoltEditorRelease|Win32
-		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.BoltEditorRelease|x86.Build.0 = BoltEditorRelease|Win32
 		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.ConsoleDebug|x64.ActiveCfg = ConsoleDebug|x64
 		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.ConsoleDebug|x64.Build.0 = ConsoleDebug|x64
 		{9819E07A-14C5-46F6-A99A-9306FF2D138D}.ConsoleDebug|x86.ActiveCfg = ConsoleDebug|Win32

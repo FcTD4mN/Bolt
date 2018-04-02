@@ -1,8 +1,7 @@
 #include "EntityParser.h"
 
 #include "ECS/Core/Entity.h"
-
-#include "GameMockup/GameApplication.h"
+#include "ECS/Core/World.h" 
 
 #include "SFML/System.hpp"
 #include "tinyxml2.h"
@@ -49,7 +48,7 @@ cEntityParser::Instance()
 
 
 void
-cEntityParser::Initialize()
+cEntityParser::Initialize( cWorld* iWorld )
 {
     WinParseEntityDir();
     tinyxml2::XMLDocument doc;
@@ -63,7 +62,7 @@ cEntityParser::Initialize()
         if( error )
             continue;
 
-        cEntity* entity = new cEntity( cGameApplication::App()->World() );
+        cEntity* entity = new cEntity( iWorld );
         entity->LoadXML( doc.FirstChildElement( "entity" ) );
 
         mEntities[ entity->ID() ] = entity;
@@ -120,14 +119,14 @@ cEntityParser::WinParseEntityDir()
 
 
 cEntity*
-cEntityParser::CreateEntityFromFile( const std::string& iFile )
+cEntityParser::CreateEntityFromFile( const std::string& iFile, cWorld* iWorld )
 {
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLError error = doc.LoadFile( iFile.c_str() );
     if( error )
         return  0;
 
-    cEntity* entity = new cEntity( cGameApplication::App()->World() );
+    cEntity* entity = new cEntity( iWorld );
     entity->LoadXML( doc.FirstChildElement( "entity" ) );
 
     return  entity;

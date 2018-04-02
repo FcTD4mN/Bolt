@@ -16,6 +16,15 @@
 #include "GameMockup/Systems/SquareController.h"
 #include "GameMockup/Systems/SightSystem.h"
 
+#include "GameMockup/Components/Color.h"
+#include "GameMockup/Components/Direction.h"
+#include "GameMockup/Components/FieldOfView.h"
+#include "GameMockup/Components/Position.h"
+#include "GameMockup/Components/Size.h"
+#include "GameMockup/Components/SimplePhysic.h"
+#include "GameMockup/Components/SpriteAnimated.h"
+#include "GameMockup/Components/UserInput.h"
+
 #include "MainMenu/MainMenu.h"
 #include "MainMenu/MenuItem/MenuItem.Callback.h"
 #include "MainMenu/MenuItem/MenuItem.PageSwaper.h"
@@ -109,7 +118,16 @@ cGameApplication::Initialize()
 
     // Following call may need world
     cComponentRegistry::Instance()->Initialize();
-    cEntityParser::Instance()->Initialize();
+    cComponentRegistry::Instance()->RegisterComponent( new cColor() );
+    cComponentRegistry::Instance()->RegisterComponent( new cDirection() );
+    cComponentRegistry::Instance()->RegisterComponent( new cFieldOfView() );
+    cComponentRegistry::Instance()->RegisterComponent( new cPosition() );
+    cComponentRegistry::Instance()->RegisterComponent( new cSize() );
+    cComponentRegistry::Instance()->RegisterComponent( new cSpriteAnimated() );
+    cComponentRegistry::Instance()->RegisterComponent( new cUserInput() );
+    cComponentRegistry::Instance()->RegisterComponent( new cSimplePhysic() );
+
+    cEntityParser::Instance()->Initialize( mWorld );
 
     // =========== GENERAL CONFIG ===========
     mMainWindow->setKeyRepeatEnabled( false );

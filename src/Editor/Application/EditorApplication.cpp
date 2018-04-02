@@ -1,4 +1,4 @@
-#include "Application/EditorApplication.h"
+#include "EditorApplication.h"
 
 
 #include "ECS/Core/Entity.h"
@@ -68,7 +68,7 @@ cEditorApplication::Initialize()
 
     // Following call may need world
     cComponentRegistry::Instance()->Initialize();
-    cEntityParser::Instance()->Initialize();
+    cEntityParser::Instance()->Initialize( mWorld );
 
 
     // ========= MAIN MENU =========

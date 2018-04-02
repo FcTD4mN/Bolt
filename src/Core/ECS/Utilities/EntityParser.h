@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 class cEntity;
+class cWorld;
 
 
 class cEntityParser
@@ -20,7 +21,7 @@ public:
 
 public:
     // Initialize/Finalize
-    void  Initialize();
+    void  Initialize( cWorld* iWorld );
     void  Finalize();
 
 public:
@@ -29,7 +30,7 @@ public:
 
 public:
     // Functions
-    cEntity* CreateEntityFromFile( const std::string& iFile );
+    cEntity* CreateEntityFromFile( const std::string& iFile, cWorld* iWorld );
     cEntity* CreateEntityFromPrototypeMap( const std::string& iEntityName );
 
 private:
