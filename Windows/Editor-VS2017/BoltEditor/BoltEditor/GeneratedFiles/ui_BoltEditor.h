@@ -16,6 +16,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -25,9 +26,10 @@ QT_BEGIN_NAMESPACE
 class Ui_BoltEditorClass
 {
 public:
+    QWidget *centralWidget;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
-    QWidget *centralWidget;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *BoltEditorClass)
@@ -35,15 +37,19 @@ public:
         if (BoltEditorClass->objectName().isEmpty())
             BoltEditorClass->setObjectName(QStringLiteral("BoltEditorClass"));
         BoltEditorClass->resize(600, 400);
+        centralWidget = new QWidget(BoltEditorClass);
+        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(400, 300, 191, 28));
+        BoltEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BoltEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 600, 26));
         BoltEditorClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(BoltEditorClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        BoltEditorClass->addToolBar(mainToolBar);
-        centralWidget = new QWidget(BoltEditorClass);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        BoltEditorClass->setCentralWidget(centralWidget);
+        BoltEditorClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(BoltEditorClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         BoltEditorClass->setStatusBar(statusBar);
@@ -56,6 +62,7 @@ public:
     void retranslateUi(QMainWindow *BoltEditorClass)
     {
         BoltEditorClass->setWindowTitle(QApplication::translate("BoltEditorClass", "BoltEditor", nullptr));
+        pushButton->setText(QApplication::translate("BoltEditorClass", "PetitTestPrometteur", nullptr));
     } // retranslateUi
 
 };
