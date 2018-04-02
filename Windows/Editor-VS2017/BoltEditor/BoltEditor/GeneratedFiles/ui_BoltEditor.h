@@ -15,9 +15,10 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -29,13 +30,14 @@ QT_BEGIN_NAMESPACE
 class Ui_BoltEditorClass
 {
 public:
+    QAction *actionExit;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     MyCanvas *widget;
     QVBoxLayout *verticalLayout;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton;
+    QListWidget *listWidget;
     QMenuBar *menuBar;
+    QMenu *menuFiles;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -44,6 +46,8 @@ public:
         if (BoltEditorClass->objectName().isEmpty())
             BoltEditorClass->setObjectName(QStringLiteral("BoltEditorClass"));
         BoltEditorClass->resize(600, 400);
+        actionExit = new QAction(BoltEditorClass);
+        actionExit->setObjectName(QStringLiteral("actionExit"));
         centralWidget = new QWidget(BoltEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -58,15 +62,15 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        listWidget = new QListWidget(centralWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+        listWidget->setSizePolicy(sizePolicy);
 
-        verticalLayout->addWidget(pushButton_2);
-
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(listWidget);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
@@ -75,6 +79,8 @@ public:
         menuBar = new QMenuBar(BoltEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 600, 26));
+        menuFiles = new QMenu(menuBar);
+        menuFiles->setObjectName(QStringLiteral("menuFiles"));
         BoltEditorClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(BoltEditorClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -82,6 +88,9 @@ public:
         statusBar = new QStatusBar(BoltEditorClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         BoltEditorClass->setStatusBar(statusBar);
+
+        menuBar->addAction(menuFiles->menuAction());
+        menuFiles->addAction(actionExit);
 
         retranslateUi(BoltEditorClass);
 
@@ -91,8 +100,8 @@ public:
     void retranslateUi(QMainWindow *BoltEditorClass)
     {
         BoltEditorClass->setWindowTitle(QApplication::translate("BoltEditorClass", "BoltEditor", nullptr));
-        pushButton_2->setText(QApplication::translate("BoltEditorClass", "PushButtonTop", nullptr));
-        pushButton->setText(QApplication::translate("BoltEditorClass", "PetitTestPrometteur", nullptr));
+        actionExit->setText(QApplication::translate("BoltEditorClass", "Exit", nullptr));
+        menuFiles->setTitle(QApplication::translate("BoltEditorClass", "Files", nullptr));
     } // retranslateUi
 
 };
