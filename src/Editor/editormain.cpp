@@ -1,8 +1,5 @@
 #include "QtMainWindows/BoltEditor.h"
 
-#include "QtWidgets/TestCanvas.h"
-#include "QtMainWindows/BoltEditor.h"
-
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
 
@@ -19,10 +16,6 @@ MainFunction( int argc, char *argv[] )
     MainWindow->setWindowTitle( "Qt SFML" );
     MainWindow->resize( 800, 600 );
     MainWindow->show();
-
-    // Create a SFML view inside the main frame
-    MyCanvas* SFMLView = new MyCanvas( MainWindow, QPoint( 20, 20 ), QSize( 360, 360 ) );
-    SFMLView->show();
 
     return App.exec();
 }

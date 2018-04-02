@@ -10,6 +10,7 @@ class QSFMLCanvas :
 public:
     virtual ~QSFMLCanvas();
     QSFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size, unsigned int FrameTime = 0 );
+    QSFMLCanvas( QWidget* Parent );
 
 
 public:

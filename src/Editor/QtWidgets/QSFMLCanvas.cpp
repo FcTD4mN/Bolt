@@ -27,6 +27,23 @@ QSFMLCanvas::QSFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& 
 }
 
 
+QSFMLCanvas::QSFMLCanvas( QWidget * Parent ) :
+    QWidget( Parent ),
+    mInitialized( false )
+{
+    // Setup some states to allow direct rendering into the widget
+    setAttribute( Qt::WA_PaintOnScreen );
+    setAttribute( Qt::WA_OpaquePaintEvent );
+    setAttribute( Qt::WA_NoSystemBackground );
+
+    // Set strong focus to enable keyboard events to be received
+    setFocusPolicy( Qt::StrongFocus );
+
+    // Setup the timer
+    mTimer.setInterval( 0 );
+}
+
+
 void
 QSFMLCanvas::showEvent( QShowEvent* )
 {

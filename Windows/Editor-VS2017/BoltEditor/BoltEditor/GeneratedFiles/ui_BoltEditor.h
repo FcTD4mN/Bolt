@@ -13,13 +13,16 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "QtWidgets/TestCanvas.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -27,6 +30,10 @@ class Ui_BoltEditorClass
 {
 public:
     QWidget *centralWidget;
+    QHBoxLayout *horizontalLayout_2;
+    MyCanvas *widget;
+    QVBoxLayout *verticalLayout;
+    QPushButton *pushButton_2;
     QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -39,9 +46,31 @@ public:
         BoltEditorClass->resize(600, 400);
         centralWidget = new QWidget(BoltEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        horizontalLayout_2 = new QHBoxLayout(centralWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        widget = new MyCanvas(centralWidget);
+        widget->setObjectName(QStringLiteral("widget"));
+
+        horizontalLayout_2->addWidget(widget);
+
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+
+        verticalLayout->addWidget(pushButton_2);
+
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(400, 300, 191, 28));
+
+        verticalLayout->addWidget(pushButton);
+
+
+        horizontalLayout_2->addLayout(verticalLayout);
+
         BoltEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BoltEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -62,6 +91,7 @@ public:
     void retranslateUi(QMainWindow *BoltEditorClass)
     {
         BoltEditorClass->setWindowTitle(QApplication::translate("BoltEditorClass", "BoltEditor", nullptr));
+        pushButton_2->setText(QApplication::translate("BoltEditorClass", "PushButtonTop", nullptr));
         pushButton->setText(QApplication::translate("BoltEditorClass", "PetitTestPrometteur", nullptr));
     } // retranslateUi
 
