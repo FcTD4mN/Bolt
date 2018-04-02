@@ -3,13 +3,14 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_BoltEditor.h"
 
-class BoltEditor : public QMainWindow
+class cBoltEditor :
+    public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	BoltEditor(QWidget *parent = Q_NULLPTR);
+    cBoltEditor(QWidget *parent = Q_NULLPTR);
 
 private:
-	Ui::BoltEditorClass ui;
+    Ui::BoltEditorClass ui;
 };

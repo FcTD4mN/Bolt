@@ -70,7 +70,6 @@ cEditorApplication::Initialize()
     cComponentRegistry::Instance()->Initialize();
     cEntityParser::Instance()->Initialize( mWorld );
 
-
     // ========= MAIN MENU =========
     sf::Vector2u winSize( 360, 360 );
 

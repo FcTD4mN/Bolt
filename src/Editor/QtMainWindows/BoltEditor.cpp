@@ -1,7 +1,7 @@
 #include "BoltEditor.h"
 
-BoltEditor::BoltEditor(QWidget *parent)
-	: QMainWindow(parent)
+cBoltEditor::cBoltEditor( QWidget *parent ) :
+    QMainWindow( parent )
 {
-	ui.setupUi(this);
+    ui.setupUi( this );
 }
