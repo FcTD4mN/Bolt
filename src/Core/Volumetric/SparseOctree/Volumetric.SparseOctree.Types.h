@@ -19,18 +19,21 @@ typedef  uint64_t   tLargeByteSize;
 typedef  uint64_t   tHashableKeySignature;
 static  const  tHashableKeySignature  sgSignedKeyComponentRangeShift= 0x7FFF;
 
+static  const  tLargeByteSize  sgGPU_BUS_MAX = 500000;
+
+
 enum  eLod2N : t2Byte
 {
-    kLod0 = 1,
-    kLod1 = 2,
-    kLod2 = 4,
-    kLod3 = 8,
-    kLod4 = 16,
-    kLod5 = 32,
-    kLod6 = 64,
-    kLod7 = 128,
-    kLod8 = 256,
-    kLod9 = 512,
+    kLod1   = 1,
+    kLod2   = 2,
+    kLod4   = 4,
+    kLod8   = 8,
+    kLod16  = 16,
+    kLod32  = 32,
+    kLod64  = 64,
+    kLod128 = 128,
+    kLod256 = 256,
+    kLod512 = 512,
 };
 
 

@@ -10,7 +10,10 @@ cROMSConfig::~cROMSConfig()
 }
 
 
-cROMSConfig::cROMSConfig()
+cROMSConfig::cROMSConfig() :
+    mMacroscopicLODGranularity( eLod2N::kLod64 ),
+    mMicroscopicLODGranularity( eLod2N::kLod16 ),
+    mGPU_BUS_MAX( sgGPU_BUS_MAX )
 {
 }
 

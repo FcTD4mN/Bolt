@@ -30,7 +30,7 @@ public:
 private:
     // Private Member Data
     cROMSConfig  mROMSConfig;
-    cSMapW* map;
+    cSMapW*  mMap;
 };
 
 
