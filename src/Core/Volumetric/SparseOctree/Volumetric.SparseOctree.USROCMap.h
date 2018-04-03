@@ -29,7 +29,7 @@ public:
 
 private:
     // Private Member Data
-    std::unordered_map< tHashableKeySignature, cROMSChunk< LOD, Atomic >* > mChunks; // Owning
+    std::unordered_map< tHashableKeySignature, cROMSChunk< LOD, Atomic >* >  mChunks; // Owning
 };
 
 

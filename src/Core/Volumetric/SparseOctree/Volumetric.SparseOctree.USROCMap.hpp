@@ -12,7 +12,8 @@ inline  cUSROCMap< LOD, Atomic>::~cUSROCMap()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cUSROCMap< LOD, Atomic >::cUSROCMap()
+inline  cUSROCMap< LOD, Atomic >::cUSROCMap() :
+    mChunks()
 {
 }
 

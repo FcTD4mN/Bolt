@@ -14,8 +14,9 @@ inline  cSMapW< Atomic >::~cSMapW()
 template< typename Atomic >
 inline  cSMapW< Atomic >::cSMapW() :
     mROMSConfig( cROMSConfig() ),
+    mMap( 0 )
 {
-    map = new  cUSROCMap< mROMSConfig.MacroscopicLODGranularity(), Atomic >();
+    mMap = new  cUSROCMap< mROMSConfig.MacroscopicLODGranularity(), Atomic >();
 }
 
 
