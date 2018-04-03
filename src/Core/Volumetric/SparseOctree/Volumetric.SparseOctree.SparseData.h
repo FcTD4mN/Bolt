@@ -4,6 +4,9 @@
 #include "Volumetric.SparseOctree.Data.h"
 
 
+#define  HALVED( i )  static_cast< eLod2N >( tSize( i ) / 2 )
+
+
 namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
@@ -31,13 +34,16 @@ public:
 
 private:
     // Private Member Data
-    cROMSChunk< LOD, Atomic >*  mOct[8];
+    cROMSChunk< HALVED( LOD ), Atomic >*  mOct[8];
 
 };
 
 
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
+
+
+#undef  HALVED
 
 
 #include "Volumetric.SparseOctree.SparseData.hpp"

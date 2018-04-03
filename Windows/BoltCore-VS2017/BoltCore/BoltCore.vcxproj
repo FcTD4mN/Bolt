@@ -292,6 +292,7 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedData.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSConfig.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SparseData.cpp" />
@@ -379,6 +380,8 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.hpp" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSConfig.h" />

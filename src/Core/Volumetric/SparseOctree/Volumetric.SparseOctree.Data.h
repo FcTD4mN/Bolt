@@ -24,10 +24,17 @@ public:
     virtual  eSubType   SubType()       const  = 0;
 
 public:
-    // Template Accessors
+    // Template Data Container Accessors
     eLod2N  LOD()       const;
     tSize   Size()      const;
     tVolume Capacity()  const;
+
+public:
+    // Data Accessors
+    virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const  = 0;
+    virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
+
+
 
 private:
     // Private Member Data

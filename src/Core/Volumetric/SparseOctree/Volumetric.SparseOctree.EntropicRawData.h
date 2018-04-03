@@ -2,6 +2,7 @@
 
 
 #include "Volumetric.SparseOctree.EntropicData.h"
+#include "Volumetric.SparseOctree.RawStorage.h"
 
 
 namespace  nVolumetric      {
@@ -24,6 +25,9 @@ public:
     virtual  bool       Compressed()    const;
     virtual  eSubType   SubType()       const;
 
+private:
+    // Private Member Data
+    cRawStorage< LOD, Atomic >  mStorage;
 };
 
 

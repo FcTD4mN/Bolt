@@ -345,6 +345,9 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -615,6 +618,12 @@
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClInclude>
   </ItemGroup>
