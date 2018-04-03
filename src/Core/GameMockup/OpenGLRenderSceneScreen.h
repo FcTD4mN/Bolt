@@ -7,6 +7,8 @@
 #include "Volumetric/Static/SparseStaticLodChunk64Map.h"
 #include "Shader/Shader.h"
 
+#include "Volumetric/SparseOctree/Volumetric.SparseOctree.USROCMap.h"
+
 
 class cOpenGLRenderSceneScreen :
     public cScreen
@@ -52,5 +54,7 @@ private:
     sf::Clock  mClock;
     ::nVolumetric::cSparseStaticLodChunk64Map mMap;
     cShader mShader;
+
+    ::nVolumetric::nSparseOctree::cUSROCMap< ::nVolumetric::nSparseOctree::eLod2N::kLod64, ::nVolumetric::nSparseOctree::tByte > mMap2;
 };
 

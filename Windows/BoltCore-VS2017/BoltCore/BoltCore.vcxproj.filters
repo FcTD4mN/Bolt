@@ -351,9 +351,6 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Hashable3DKey.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SMapW.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -633,12 +630,6 @@
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Hashable3DKey.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SMapW.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SMapW.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClInclude>
   </ItemGroup>

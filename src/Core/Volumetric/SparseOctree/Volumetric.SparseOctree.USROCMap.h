@@ -6,6 +6,7 @@
 
 #include "Volumetric.SparseOctree.Types.h"
 #include "Volumetric.SparseOctree.ROMSChunk.h"
+#include "Volumetric.SparseOctree.ROMSConfig.h"
 
 
 namespace  nVolumetric      {
@@ -29,6 +30,7 @@ public:
 
 private:
     // Private Member Data
+    cROMSConfig  mROMSConfig;
     std::unordered_map< tHashableKeySignature, cROMSChunk< LOD, Atomic >* >  mChunks; // Owning
 };
 
