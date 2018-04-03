@@ -1,4 +1,5 @@
 #include "Volumetric/Static/Data.h"
+#include "..\SparseOctree\Volumetric.SparseOctree.Data.h"
 
 
 namespace  nVolumetric
