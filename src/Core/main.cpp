@@ -109,7 +109,7 @@ BoltMain( int argc, char *argv[] )
             app->HandleEvents( event );
         }
 
-        app->Update( frameTime.asMilliseconds() );
+        app->Update( frameTime.asMicroseconds() );
         window->clear( sf::Color( 200, 200, 200 ) );
         app->Draw( window );
 

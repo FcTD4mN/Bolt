@@ -17,6 +17,8 @@ public:
     // Grid management
     void AddEntity( cEntity* iEntity );
 
+    void ClearEntityMap();
+
         // This asssumes that iEntity still has the same position as when it was added
         // It allows for a fast removal
     void RemoveEntityNotUpdated( cEntity* iEntity );

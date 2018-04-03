@@ -62,6 +62,19 @@ cEntityGrid::AddEntity( cEntity* iEntity )
 
 
 void
+cEntityGrid::ClearEntityMap()
+{
+    for( int i = 0; i <= mWidth; ++i )
+    {
+        for( int j = 0; j <= mHeight; ++j )
+        {
+            mGridMap[ i ][ j ].clear();
+        }
+    }
+}
+
+
+void
 cEntityGrid::RemoveEntityNotUpdated( cEntity* iEntity )
 {
     int x, y, x2, y2;

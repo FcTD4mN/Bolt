@@ -191,6 +191,10 @@ cEntity::ID() const
 void
 cEntity::Destroy()
 {
+    // To prevent unneeded multiple destructions
+    if( mDead )
+        return;
+
     mWorld->DestroyEntity( this );
 
     for( int i = 0; i < mObserverSystems.size(); ++i )
