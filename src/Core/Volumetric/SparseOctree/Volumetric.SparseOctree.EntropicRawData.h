@@ -14,7 +14,7 @@ class  cEntropicRawData :
     public  cEntropicData< LOD, Atomic >
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cEntropicRawData();
     cEntropicRawData();

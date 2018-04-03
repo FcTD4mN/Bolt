@@ -20,7 +20,7 @@ class  cSparseData :
     public  cData< LOD, Atomic >
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cSparseData();
     cSparseData();

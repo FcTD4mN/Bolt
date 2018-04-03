@@ -1,11 +1,7 @@
 #pragma once
 
 
-#include <unordered_map>
-
-
-#include "Volumetric.SparseOctree.Types.h"
-#include "Volumetric.SparseOctree.ROMSChunk.h"
+#include "Volumetric.SparseOctree.ROMSConfig.h"
 
 
 namespace  nVolumetric      {
@@ -13,14 +9,18 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-class  cUSROCMap
+class  cUSROCMap;
+
+
+template< typename Atomic >
+class  cSMapW
 {
 
 public:
     // Construction / Destruction
-    virtual  ~cUSROCMap();
-    cUSROCMap();
-    cUSROCMap( const  cUSROCMap& ) = delete;
+    virtual  ~cSMapW();
+    cSMapW();
+    cSMapW( const  cSMapW& ) = delete;
 
 public:
     // Accessors
@@ -29,7 +29,8 @@ public:
 
 private:
     // Private Member Data
-    std::unordered_map< tHashableKeySignature, cROMSChunk< LOD, Atomic >* > mChunks; // Owning
+    cROMSConfig  mROMSConfig;
+    cSMapW* map;
 };
 
 
@@ -37,5 +38,5 @@ private:
 }  // namespace  nVolumetric
 
 
-#include "Volumetric.SparseOctree.USROCMap.hpp"
+#include "Volumetric.SparseOctree.SMapW.hpp"
 

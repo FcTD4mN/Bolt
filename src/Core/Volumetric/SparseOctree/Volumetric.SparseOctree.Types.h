@@ -12,6 +12,7 @@ typedef  uint8_t    tByte;
 typedef  uint16_t   t2Byte;
 typedef  uint16_t   tIndex;
 typedef  uint16_t   tSize;
+typedef  int32_t    tGlobalIndex;
 typedef  uint64_t   tVolume;
 typedef  uint64_t   tLargeByteSize;
 

@@ -13,7 +13,7 @@ class  cEntropicRLEData :
     public  cEntropicData< LOD, Atomic >
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cEntropicRLEData() = 0; // TODO: Remove pure virtual when implemented
     cEntropicRLEData();

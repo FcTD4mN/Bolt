@@ -16,11 +16,16 @@ template< eLod2N LOD, typename Atomic >
 class  cROMSChunk
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cROMSChunk();
     cROMSChunk();
     cROMSChunk( const  cROMSChunk& ) = delete;
+
+public:
+    // Data Accessors
+    const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const;
+    void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue );
 
 private:
     // Private Member Data

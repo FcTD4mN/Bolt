@@ -12,7 +12,7 @@ template< eLod2N LOD, typename Atomic >
 class  cRawStorage
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cRawStorage();
     cRawStorage();
