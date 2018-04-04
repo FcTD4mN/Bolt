@@ -43,7 +43,7 @@ cPrimitiveType::SetValue( const tType& iValue )
 
 template< type tType >
 void
-cVariant::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+cPrimitiveType::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
     iNode->SetAttribute( "value", mValue );
 }
@@ -51,10 +51,10 @@ cVariant::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument
 
 template< type tType >
 void
-cVariant::LoadXML( tinyxml2::XMLElement* iNode )
+cPrimitiveType::LoadXML( tinyxml2::XMLElement* iNode )
 {
     if( !iNode->QueryValueAttribute( "value", &mValue ) )
-        printf( "PrimitiveType Loading error !\n" );
+        printf( "PrimitiveType Loading error ! You need to derivate this class and implement your own loading method\n" );
 }
 
 
