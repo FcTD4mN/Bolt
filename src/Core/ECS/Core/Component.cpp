@@ -1,53 +1,61 @@
-#include "Component.h"
+#pragma once
 
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------ Construction
-// -------------------------------------------------------------------------------------
+#include "Base/PrimitiveType.h"
 
+#include <string>
+#include "tinyxml2.h"
 
-cComponent::~cComponent()
+class cComponent
 {
-}
+
+public:
+    // Contruction/Destruction
+    virtual  ~cComponent() = 0;
+    cComponent( const std::string& iName );
+    cComponent( const cComponent& iComponent );
+
+public:
+    // Copy
+    virtual  cComponent* Clone() = 0;
+
+public:
+    // Access/Get
+    const  std::string&  Name() const;
+
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
+
+protected:
+    std::string mName;
+};
 
 
-cComponent::cComponent( const std::string& iName ) :
-    mName( iName )
+class cComponentGeneric
 {
-}
+public:
+    // Contruction/Destruction
+    virtual  ~cComponent() = 0;
+    cComponent( const std::string& iName );
+    cComponent( const cComponent& iComponent );
 
+public:
+    // Copy
+    virtual  cComponent* Clone() = 0;
 
-cComponent::cComponent( const cComponent & iComponent ) :
-    mName( iComponent.mName )
-{
-}
+public:
+    // Access/Get
+    const  std::string&  Name() const;
+    const cVariant&     GetVar( const std::string& iVarName ) const;
+    void                SetVar( const std::string& iVarName, const cVariant& iValue );
 
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------- Access/Get
-// -------------------------------------------------------------------------------------
-
-
-const std::string&
-cComponent::Name() const
-{
-    return  mName;
-}
-
-
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------- Access/Get
-// -------------------------------------------------------------------------------------
-
-
-void
-cComponent::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument )
-{
-    iNode->SetAttribute( "name", mName.c_str() );
-}
-
-
-void
-cComponent::LoadXML( tinyxml2::XMLElement * iNode )
-{
-    mName = iNode->Attribute( "name" );
-}
+protected:
+    std::string mName;
+    std::unordered_map< std::string, cVariant > mVars;
+};
