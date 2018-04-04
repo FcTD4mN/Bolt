@@ -88,14 +88,14 @@ cComponentGeneric::Name() const
 
 
 const cVariant&
-cComponentGeneric::GetVar( const std::string& iVarName ) const
+cComponentGeneric::GetVar( const std::string& iVarName )
 {
     return  mVars[ iVarName ];
 }
 
 
 void
-cComponentGeneric::SetVar( const std::string& iVarName, const cVariant& iValue )
+cComponentGeneric::SetVar( const std::string& iVarName, cVariant& iValue )
 {
     mVars[ iVarName ] = iValue;
 }
@@ -116,7 +116,7 @@ cComponentGeneric::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument*
     {
         tinyxml2::XMLElement* variable = iDocument->NewElement( "variable" );
 
-            var->SaveXML( variable, iDocument );
+            var.second.SaveXML( variable, iDocument );
 
         vars->LinkEndChild( variable );
     }
@@ -133,7 +133,7 @@ cComponentGeneric::LoadXML( tinyxml2::XMLElement * iNode )
     tinyxml2::XMLElement* variables = iNode->FirstChildElement( "variables" );
     for( tinyxml2::XMLElement* variable = variables->FirstChildElement( "variable" ); variable; variable = variable->NextSiblingElement() )
     {
-        cVariant var();
+        cVariant var;
         var.LoadXML( variable );
     }
 }

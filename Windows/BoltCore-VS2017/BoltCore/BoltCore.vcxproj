@@ -240,6 +240,7 @@
     <ClCompile Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.cpp" />
     <ClCompile Include="..\..\..\src\Core\Base\Utilities.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Base\Variant.cpp" />
     <ClCompile Include="..\..\..\src\Core\Benchmark\Benchmark.cpp" />
     <ClCompile Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Core\Component.cpp" />
@@ -312,6 +313,7 @@
     <ClInclude Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.h" />
     <ClInclude Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.h" />
     <ClInclude Include="..\..\..\src\Core\Base\Utilities.h" />
+    <ClInclude Include="..\..\..\src\Core\Base\Variant.h" />
     <ClInclude Include="..\..\..\src\Core\Benchmark\Benchmark.h" />
     <ClInclude Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Component.h" />

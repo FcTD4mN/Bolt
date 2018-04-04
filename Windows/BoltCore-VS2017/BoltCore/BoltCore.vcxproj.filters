@@ -345,6 +345,9 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSConfig.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Variant.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -604,6 +607,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataConverterProtocol.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Base\Variant.h">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
