@@ -33,6 +33,11 @@ public:
     cEntity* CreateEntityFromFile( const std::string& iFile, cWorld* iWorld );
     cEntity* CreateEntityFromPrototypeMap( const std::string& iEntityName );
 
+public:
+    // Accessors
+    const std::string& GetEntityNameAtIndex( int iIndex ) const;
+    int EntityCount() const;
+
 private:
     std::vector< std::wstring > mAllEntityFiles;
     std::unordered_map< std::string, cEntity* > mEntities;

@@ -1,7 +1,7 @@
 #include "EntityParser.h"
 
 #include "ECS/Core/Entity.h"
-#include "ECS/Core/World.h" 
+#include "ECS/Core/World.h"
 
 #include "SFML/System.hpp"
 #include "tinyxml2.h"
@@ -144,3 +144,22 @@ cEntityParser::CreateEntityFromPrototypeMap( const std::string& iEntityName )
         return  0;
 }
 
+
+// -------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------- Accessors
+// -------------------------------------------------------------------------------------
+
+
+const std::string&
+GetEntityNameAtIndex( int iIndex ) const
+{
+    auto iterator =  mEntities.begin() + iIndex;
+    return  iterator->first;
+}
+
+
+int
+EntityCount() const
+{
+    return  mEntities.size();
+}
