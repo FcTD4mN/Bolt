@@ -1,5 +1,6 @@
 #include "QtMainWindows/BoltEditor.h"
 
+
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
 
@@ -11,10 +12,12 @@ MainFunction( int argc, char *argv[] )
 {
     QApplication App( argc, argv );
 
+
     // Creates the main window
     cBoltEditor* MainWindow = new cBoltEditor();
     MainWindow->setWindowTitle( "Qt SFML" );
     MainWindow->resize( 800, 600 );
+    MainWindow->Setup();
     MainWindow->show();
 
     return App.exec();

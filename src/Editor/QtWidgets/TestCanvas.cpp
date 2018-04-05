@@ -15,10 +15,15 @@ MyCanvas::MyCanvas( QWidget* Parent ) :
 
 
 void
+MyCanvas::SetEditorApp( cEditorApplication * iEditorApp )
+{
+    mEditorApp = iEditorApp;
+}
+
+
+void
 MyCanvas::OnInit()
 {
-    mEditorApp = cEditorApplication::App();
-    mEditorApp->Initialize();
 }
 
 void

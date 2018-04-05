@@ -6,7 +6,7 @@ cEntityListModel::cEntityListModel( QObject* iParent ) :
     tSuperClass( iParent ),
     mParserInstance( cEntityParser::Instance() )
 {
-
+    int a = 1;
 }
 
 // --------------------------------------------------------------------------------------------------------------

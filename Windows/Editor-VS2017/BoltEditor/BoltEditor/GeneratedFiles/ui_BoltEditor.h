@@ -15,7 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QListWidget>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -35,7 +35,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     MyCanvas *widget;
     QVBoxLayout *verticalLayout;
-    QListWidget *listWidget;
+    QListView *listView;
     QMenuBar *menuBar;
     QMenu *menuFiles;
     QToolBar *mainToolBar;
@@ -62,15 +62,15 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        listWidget = new QListWidget(centralWidget);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        listView = new QListView(centralWidget);
+        listView->setObjectName(QStringLiteral("listView"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
-        listWidget->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
+        listView->setSizePolicy(sizePolicy);
 
-        verticalLayout->addWidget(listWidget);
+        verticalLayout->addWidget(listView);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
@@ -78,7 +78,7 @@ public:
         BoltEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BoltEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 26));
+        menuBar->setGeometry(QRect(0, 0, 600, 21));
         menuFiles = new QMenu(menuBar);
         menuFiles->setObjectName(QStringLiteral("menuFiles"));
         BoltEditorClass->setMenuBar(menuBar);
