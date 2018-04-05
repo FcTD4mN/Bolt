@@ -17,7 +17,7 @@ class  cEntropicRawData final :
 public:
     // Construction / Destruction
     virtual  ~cEntropicRawData();
-    cEntropicRawData();
+    cEntropicRawData( const  cROMSConfig*  iROMSConfig );
     cEntropicRawData( const  cEntropicRawData& ) = delete;
 
 public:

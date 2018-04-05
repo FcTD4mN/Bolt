@@ -16,7 +16,8 @@ inline  cOrderedEmptyData< LOD, Atomic >::~cOrderedEmptyData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cOrderedEmptyData< LOD, Atomic >::cOrderedEmptyData()
+inline  cOrderedEmptyData< LOD, Atomic >::cOrderedEmptyData( const  cROMSConfig*  iROMSConfig ) :
+    cOrderedData( iROMSConfig )
 {
 }
 

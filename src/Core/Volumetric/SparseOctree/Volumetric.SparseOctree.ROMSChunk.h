@@ -29,8 +29,8 @@ public:
 
 private:
     // Private Member Data
-    cData< LOD, Atomic >*  mData;
-    cROMSConfig*  mROMSConfig;
+    cData< LOD, Atomic >*  mData; // Owning
+    const  cROMSConfig*  mROMSConfig;
 };
 
 

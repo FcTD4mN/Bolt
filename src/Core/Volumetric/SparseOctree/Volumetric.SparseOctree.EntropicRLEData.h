@@ -15,8 +15,8 @@ class  cEntropicRLEData final :
 
 public:
     // Construction / Destruction
-    virtual  ~cEntropicRLEData() = 0; // TODO: Remove pure virtual when implemented
-    cEntropicRLEData();
+    virtual  ~cEntropicRLEData();
+    cEntropicRLEData( const  cROMSConfig*  iROMSConfig );
     cEntropicRLEData( const  cEntropicRLEData& ) = delete;
 
 public:

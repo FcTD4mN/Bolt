@@ -30,7 +30,7 @@ public:
 
 private:
     // Private Member Data
-    cROMSConfig  mROMSConfig;
+    cROMSConfig  mROMSConfig; // Owning
     std::unordered_map< tHashableKeySignature, cROMSChunk< LOD, Atomic >* >  mChunks; // Owning
 };
 

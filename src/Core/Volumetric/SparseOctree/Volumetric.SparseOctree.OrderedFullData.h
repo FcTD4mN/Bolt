@@ -16,7 +16,7 @@ class  cOrderedFullData final :
 public:
     // Construction / Destruction
     virtual  ~cOrderedFullData();
-    cOrderedFullData();
+    cOrderedFullData( const  cROMSConfig*  iROMSConfig );
     cOrderedFullData( const  cOrderedFullData& ) = delete;
 
 public:

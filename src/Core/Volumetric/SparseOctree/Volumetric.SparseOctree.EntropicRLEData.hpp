@@ -16,7 +16,8 @@ inline  cEntropicRLEData< LOD, Atomic >::~cEntropicRLEData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cEntropicRLEData< LOD, Atomic >::cEntropicRLEData()
+inline  cEntropicRLEData< LOD, Atomic >::cEntropicRLEData( const  cROMSConfig*  iROMSConfig ) :
+    cEntropicData( iROMSConfig )
 {
 }
 

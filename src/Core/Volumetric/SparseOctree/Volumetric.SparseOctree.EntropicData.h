@@ -15,7 +15,8 @@ class  cEntropicData :
 
 protected:
     // Construction / Destruction
-    virtual  ~cEntropicData() = 0;
+    virtual  ~cEntropicData();
+    cEntropicData( const  cROMSConfig*  iROMSConfig );
     cEntropicData( const  cEntropicData& ) = delete;
 
 public:

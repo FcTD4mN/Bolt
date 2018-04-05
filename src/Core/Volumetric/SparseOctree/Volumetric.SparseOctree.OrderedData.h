@@ -15,7 +15,8 @@ class  cOrderedData :
 
 protected:
     // Construction / Destruction
-    virtual  ~cOrderedData() = 0;
+    virtual  ~cOrderedData();
+    cOrderedData( const  cROMSConfig*  iROMSConfig );
     cOrderedData( const  cOrderedData& ) = delete;
 
 public:

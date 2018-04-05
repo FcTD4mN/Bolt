@@ -16,7 +16,8 @@ inline  cSparseData< LOD, Atomic >::~cSparseData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cSparseData< LOD, Atomic >::cSparseData()
+inline  cSparseData< LOD, Atomic >::cSparseData( const  cROMSConfig*  iROMSConfig ) :
+    cData( iROMSConfig )
 {
 }
 

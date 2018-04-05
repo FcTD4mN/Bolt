@@ -15,16 +15,17 @@ namespace  nSparseOctree    {
 template< eLod2N LOD, typename Atomic >
 inline  cROMSChunk< LOD, Atomic >::~cROMSChunk()
 {
-    delete  mData;
+    delete  mData; // Owning
+    mROMSConfig = 0; // Non-Owning
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig ) :
-    mROMSConfig( iROMSConfig )
+    mROMSConfig( iROMSConfig ) // Non-Owning
 {
     assert( mROMSConfig );
-    mData = new  cOrderedEmptyData< LOD, Atomic >();
+    mData = new  cOrderedEmptyData< LOD, Atomic >( mROMSConfig ); / Owning
 }
 
 

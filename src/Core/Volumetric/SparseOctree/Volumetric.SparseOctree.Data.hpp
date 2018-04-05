@@ -6,6 +6,24 @@ namespace  nSparseOctree    {
 
 
 //----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- Construction / Destruction
+
+
+template<eLod2N LOD,typename Atomic>
+inline cData<LOD,Atomic>::~cData()
+{
+    mROMSConfig = 0; // Non-Owning
+}
+
+
+template<eLod2N LOD,typename Atomic>
+inline cData<LOD,Atomic>::cData( const cROMSConfig * iROMSConfig ) :
+    mROMSConfig( iROMSConfig )
+{
+}
+
+
+//----------------------------------------------------------------------------------------------
 //------------------------------------------------------------ Template Data Container Accessors
 
 

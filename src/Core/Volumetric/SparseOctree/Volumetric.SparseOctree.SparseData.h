@@ -23,7 +23,7 @@ class  cSparseData final :
 public:
     // Construction / Destruction
     virtual  ~cSparseData();
-    cSparseData();
+    cSparseData( const  cROMSConfig*  iROMSConfig );
     cSparseData( const  cSparseData& ) = delete;
 
 public:

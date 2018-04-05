@@ -8,13 +8,17 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
+class  cROMSConfig;
+
+
 template< eLod2N LOD, typename Atomic >
 class  cData
 {
 
 protected:
     // Construction / Destruction
-    virtual  ~cData() = 0;
+    virtual  ~cData();
+    cData( const  cROMSConfig*  iROMSConfig );
     cData( const  cData& ) = delete;
 
 public:
@@ -39,6 +43,7 @@ public:
 private:
     // Private Member Data
     const  tVolume  mCapacity  =  LOD * LOD * LOD;
+    const  cROMSConfig*  mROMSConfig; // Non-Owning
 
 };
 

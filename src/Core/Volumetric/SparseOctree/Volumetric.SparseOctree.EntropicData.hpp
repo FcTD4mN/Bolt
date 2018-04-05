@@ -6,6 +6,23 @@ namespace  nSparseOctree    {
 
 
 //----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- Construction / Destruction
+
+
+template< eLod2N LOD, typename Atomic >
+inline  cEntropicData< LOD, Atomic >::~cEntropicData()
+{
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  cEntropicData< LOD, Atomic >::cEntropicData( const  cROMSConfig*  iROMSConfig ) :
+    cData( iROMSConfig )
+{
+}
+
+
+//----------------------------------------------------------------------------------------------
 //-------------------------------------------------------- Virtual Runtime Information Overrides
 
 

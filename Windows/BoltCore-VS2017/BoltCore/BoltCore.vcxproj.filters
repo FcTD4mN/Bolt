@@ -312,43 +312,10 @@
     <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.cpp">
       <Filter>Fichiers sources\Core\AI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Data.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicData.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRawData.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRLEData.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Hashable3DKey.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedData.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSConfig.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SparseData.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree</Filter>
     </ClCompile>
   </ItemGroup>
