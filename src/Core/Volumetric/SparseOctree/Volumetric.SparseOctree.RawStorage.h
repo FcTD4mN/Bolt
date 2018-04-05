@@ -18,6 +18,11 @@ public:
     cRawStorage();
     cRawStorage( const  cRawStorage& ) = delete;
 
+public:
+    // Data Accessors
+    virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const;
+    virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue );
+
 private:
     // Private Member Data
     static  const  tSize  mSize = tSize( LOD );
