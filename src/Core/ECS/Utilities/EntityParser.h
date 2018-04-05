@@ -36,7 +36,7 @@ public:
 public:
     // Accessors
     const std::string& GetEntityNameAtIndex( int iIndex ) const;
-    int EntityCount() const;
+    unsigned int EntityCount() const;
 
 private:
     std::vector< std::wstring > mAllEntityFiles;

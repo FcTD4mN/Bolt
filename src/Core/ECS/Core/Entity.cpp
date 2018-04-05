@@ -126,6 +126,20 @@ cEntity::GetComponentByName( const std::string & iComponentName )
 }
 
 
+cComponent*
+cEntity::GetComponentAtIndex( int iIndex )
+{
+    return  mComponents[ iIndex ].value;
+}
+
+
+unsigned int
+cEntity::GetComponentCount() const
+{
+    return  unsigned int( mComponents.size() );
+}
+
+
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------- Tags
 // -------------------------------------------------------------------------------------
@@ -159,6 +173,20 @@ cEntity::HasTag( const std::string & iTag )
     }
 
     return  false;
+}
+
+
+const std::string&
+cEntity::GetTagAtIndex( int iIndex )
+{
+    return  mTags[ iIndex ];
+}
+
+
+unsigned int
+cEntity::GetTagCount() const
+{
+    return  unsigned int( mTags.size() );
 }
 
 

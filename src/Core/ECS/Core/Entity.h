@@ -46,12 +46,18 @@ public:
     void  RemoveComponent( cComponent* iComponent );
     void  RemoveComponentByName( const std::string& iComponentName );
     cComponent*  GetComponentByName( const std::string& iComponentName );
+    cComponent*  GetComponentAtIndex( int iIndex );
+
+    unsigned int GetComponentCount() const;
 
 public:
     // Tags
     void  AddTag( const std::string& iTag );
     void  RemoveTag( const std::string& iTag );
     bool  HasTag( const std::string& iTag );
+    const std::string&  GetTagAtIndex( int iIndex );
+
+    unsigned int GetTagCount() const;
 
 public:
     // Access/Get
@@ -60,6 +66,7 @@ public:
     const std::string& ID() const;
     void Destroy();
     void AddSystemObserver( cSystem* iSystem );
+
 
 public:
     // Input/Output

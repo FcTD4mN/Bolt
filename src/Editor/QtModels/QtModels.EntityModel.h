@@ -1,4 +1,4 @@
-#include "QAbstractTableModel.h"
+#include "QtCore/QAbstractTableModel"
 
 class cEntity;
 

@@ -151,15 +151,20 @@ cEntityParser::CreateEntityFromPrototypeMap( const std::string& iEntityName )
 
 
 const std::string&
-GetEntityNameAtIndex( int iIndex ) const
+cEntityParser::GetEntityNameAtIndex( int iIndex ) const
 {
-    auto iterator =  mEntities.begin() + iIndex;
+    // Can we do this better than a for loop like this ? like accessing index in unordered map ? even though it's not working like that
+    auto iterator = mEntities.begin();
+    for( int i = 0; i < iIndex; ++i )
+    {
+        ++iterator;
+    }
     return  iterator->first;
 }
 
 
-int
-EntityCount() const
+unsigned int
+cEntityParser::EntityCount() const
 {
-    return  mEntities.size();
+    return  unsigned int(mEntities.size());
 }

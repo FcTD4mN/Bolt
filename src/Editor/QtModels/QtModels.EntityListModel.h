@@ -1,4 +1,4 @@
-#include "QAbstractListModel.h"
+#include "QtCore/QAbstractListModel"
 
 class cEntityParser;
 

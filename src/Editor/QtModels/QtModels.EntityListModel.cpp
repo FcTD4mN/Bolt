@@ -1,7 +1,8 @@
-#include "Editor.Qt.EntityListModel.h"
+#include "QtModels.EntityListModel.h"
 
+#include "ECS/Utilities/EntityParser.h"
 
-cEntityListModel::cEntityListModel( QObject* iParent = 0 ) :
+cEntityListModel::cEntityListModel( QObject* iParent ) :
     tSuperClass( iParent ),
     mParserInstance( cEntityParser::Instance() )
 {
@@ -14,7 +15,7 @@ cEntityListModel::cEntityListModel( QObject* iParent = 0 ) :
 
 
 int
-cEntityListModel::rowCount( const QModelIndex& iParent = QModelIndex() ) const
+cEntityListModel::rowCount( const QModelIndex& iParent ) const
 {
     return  mParserInstance->EntityCount();
 }
@@ -26,9 +27,9 @@ cEntityListModel::data( const QModelIndex& iIndex, int iRole ) const
     if( !iIndex.isValid() )
         return  QVariant();
 
-    if( role == Qt::DisplayRole )
+    if( iRole == Qt::DisplayRole )
     {
-        return  mParserInstance->GetEntityNameAtIndex( iIndex.row() );
+        return  mParserInstance->GetEntityNameAtIndex( iIndex.row() ).c_str();
     }
 
     return  QVariant();
@@ -36,13 +37,13 @@ cEntityListModel::data( const QModelIndex& iIndex, int iRole ) const
 
 
 QVariant
-cEntityListModel::headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const
+cEntityListModel::headerData( int iSection, Qt::Orientation iOrientation, int iRole ) const
 {
-    if( role != Qt::DisplayRole )
+    if( iRole != Qt::DisplayRole )
         return  QVariant();
 
     if( iOrientation == Qt::Horizontal )
-        return  tr( "Entities" )
+        return  tr( "Entities" );
 
     return  QVariant();
 }

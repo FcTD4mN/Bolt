@@ -76,6 +76,9 @@
     <Filter Include="src\Editor\QtMainWindows">
       <UniqueIdentifier>{69fcca02-38b3-4f53-bc8f-95b3f1bf22f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Editor\QtModels">
+      <UniqueIdentifier>{125eb6de-8e17-492e-93d4-0a11e220f2e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\QtUIFiles\BoltEditor.ui">
@@ -178,6 +181,15 @@
     <ClCompile Include="..\..\..\..\src\Core\Math\Ray.cpp">
       <Filter>src\BoltCore\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityListModel.cpp">
+      <Filter>src\Editor\QtModels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityModel.cpp">
+      <Filter>src\Editor\QtModels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Variant.cpp">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h">
@@ -267,10 +279,19 @@
     <ClInclude Include="..\..\..\..\src\Core\Math\Triangle.h">
       <Filter>src\BoltCore\Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Variant.h">
+      <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\..\..\src\Editor\QtMainWindows\BoltEditor.h">
       <Filter>src\Editor\QtMainWindows</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityModel.h">
+      <Filter>src\Editor\QtModels</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityListModel.h">
+      <Filter>src\Editor\QtModels</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\..\..\src\Core\Base\Thread-Thread.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Base\Utilities.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\Base\Variant.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Component.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Entity.cpp" />
@@ -45,6 +46,8 @@
     <ClCompile Include="..\..\..\..\src\Editor\Application\EditorApplication.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\editormain.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\QtMainWindows\BoltEditor.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityListModel.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityModel.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\QtWidgets\TestCanvas.cpp" />
   </ItemGroup>
@@ -56,6 +59,7 @@
     <ClInclude Include="..\..\..\..\src\Core\Base\Thread-Thread.h" />
     <ClInclude Include="..\..\..\..\src\Core\Base\Thread-ThreadProcessor.h" />
     <ClInclude Include="..\..\..\..\src\Core\Base\Utilities.h" />
+    <ClInclude Include="..\..\..\..\src\Core\Base\Variant.h" />
     <ClInclude Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Component.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Entity.h" />
@@ -77,6 +81,8 @@
     <ClInclude Include="..\..\..\..\src\Core\Shader\Shader.h" />
     <ClInclude Include="..\..\..\..\src\Editor\Application\EditorApplication.h" />
     <QtMoc Include="..\..\..\..\src\Editor\QtMainWindows\BoltEditor.h" />
+    <QtMoc Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityModel.h" />
+    <QtMoc Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityListModel.h" />
     <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h" />
     <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\TestCanvas.h" />
   </ItemGroup>
