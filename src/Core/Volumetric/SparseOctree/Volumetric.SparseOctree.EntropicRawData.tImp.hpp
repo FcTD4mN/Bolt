@@ -47,13 +47,14 @@ inline  eSubType  cEntropicRawData< LOD, Atomic >::SubType()  const
 template< eLod2N LOD, typename Atomic >
 inline  const  Atomic&  cEntropicRawData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    // TODO: insert return statement here
+    mStorage.Get( iX, iY, iZ );
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  void  cEntropicRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
+    mStorage.Set( iX, iY, iZ, iValue );
 }
 
 

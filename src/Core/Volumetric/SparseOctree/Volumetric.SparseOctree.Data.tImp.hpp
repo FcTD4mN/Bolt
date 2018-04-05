@@ -48,6 +48,13 @@ inline  tVolume  cData< LOD, Atomic >::Capacity()  const
 }
 
 
+template< eLod2N LOD, typename Atomic >
+inline  const  cROMSConfig&  cData< LOD, Atomic >::ROMSConfig()  const
+{
+    return  *mROMSConfig;
+}
+
+
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
 

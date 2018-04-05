@@ -33,6 +33,8 @@ public:
     tSize   Size()      const;
     tVolume Capacity()  const;
 
+    const  cROMSConfig&  ROMSConfig()  const;
+
 public:
     // Data Accessors
     virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          = 0;

@@ -40,13 +40,16 @@ inline  eSubType  cOrderedFullData< LOD, Atomic >::SubType()  const
 template< eLod2N LOD, typename Atomic >
 inline  const  Atomic&  cOrderedFullData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    // TODO: insert return statement here
+    // The same everywhere
+    return  mValue;
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  void  cOrderedFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
+    // Should never be called on Full Data
+    assert( 0 );
 }
 
 
