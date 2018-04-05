@@ -37,5 +37,5 @@ public:
 }  // namespace  nVolumetric
 
 
-#include "Volumetric.SparseOctree.EntropicData.hpp"
+#include "Volumetric.SparseOctree.EntropicData.tImp.hpp"
 
