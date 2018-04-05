@@ -15,6 +15,7 @@ cROMSConfig::cROMSConfig() :
     mMicroscopicLODGranularity( eLod2N::kLod16 ),
     mGPU_BUS_MAX( sgGPU_BUS_MAX )
 {
+    assert( mMacroscopicLODGranularity > mMicroscopicLODGranularity );
 }
 
 
@@ -25,6 +26,7 @@ cROMSConfig::cROMSConfig( const  eLod2N&  iMacroscopicLODGranularity,
     mMicroscopicLODGranularity( iMicroscopicLODGranularity ),
     mGPU_BUS_MAX( iGPU_BUS_MAX )
 {
+    assert( mMacroscopicLODGranularity > mMicroscopicLODGranularity );
 }
 
 
@@ -52,6 +54,7 @@ void
 cROMSConfig::MacroscopicLODGranularity(const eLod2N & iMacroscopicLODGranularity)
 {
     mMacroscopicLODGranularity = iMacroscopicLODGranularity;
+    assert( mMacroscopicLODGranularity > mMicroscopicLODGranularity );
 }
 
 
@@ -59,6 +62,7 @@ void
 cROMSConfig::MicroscopicLODGranularity(const eLod2N & iMacroscopicLODGranularity)
 {
     mMicroscopicLODGranularity = iMacroscopicLODGranularity;
+    assert( mMacroscopicLODGranularity > mMicroscopicLODGranularity );
 }
 
 

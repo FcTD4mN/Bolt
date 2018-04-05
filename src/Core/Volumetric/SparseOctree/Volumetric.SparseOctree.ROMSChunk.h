@@ -18,8 +18,8 @@ class  cROMSChunk
 
 public:
     // Construction / Destruction
-    virtual  ~cROMSChunk();
-    cROMSChunk();
+    ~cROMSChunk();
+    cROMSChunk( const  cROMSConfig*  iROMSConfig );
     cROMSChunk( const  cROMSChunk& ) = delete;
 
 public:

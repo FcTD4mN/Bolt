@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="ConsoleDebug|Win32">
@@ -368,30 +368,20 @@
     <ClInclude Include="..\..\..\src\Core\Shader\Shader.h" />
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Data.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Data.hpp" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRawData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRawData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRLEData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRLEData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Hashable3DKey.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSConfig.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SparseData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SparseData.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Types.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Data.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.h" />
@@ -402,6 +392,21 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Types.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\Static\VUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Data.hpp">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicData.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRawData.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRLEData.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedData.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SparseData.hpp" />
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
