@@ -28,6 +28,18 @@ public:
     const  Atomic&  Get( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ )  const;
     void  Set( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ, Atomic  iValue );
 
+
+private:
+    // Sparse Volume Information
+    cHashable3DKey      KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )  const;
+    bool                ChunkExists( const  cHashable3DKey&  iKey )                                     const;
+    cROMSChunk< LOD, Atomic >*  ChunkAtKey( const  cHashable3DKey&  iKey )                              const;
+
+private:
+    // Chunk Manipulation
+    cROMSChunk< LOD, Atomic >*  MkChunk( const  cHashable3DKey&  iKey );
+    void  RmChunk( const  cHashable3DKey&  iKey );
+
 private:
     // Private Member Data
     cROMSConfig  mROMSConfig; // Owning

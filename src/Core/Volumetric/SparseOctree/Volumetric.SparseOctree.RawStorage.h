@@ -25,8 +25,7 @@ public:
 
 private:
     // Private Member Data
-    static  const  tSize  mSize = tSize( LOD );
-    Atomic  mCore[mSize][mSize][mSize];
+    Atomic  mCore[ tSize( LOD ) ][ tSize( LOD ) ][ tSize( LOD ) ];
 };
 
 
