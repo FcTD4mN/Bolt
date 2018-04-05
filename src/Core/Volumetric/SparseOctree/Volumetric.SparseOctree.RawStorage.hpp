@@ -5,6 +5,10 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- Construction / Destruction
+
+
 template< eLod2N LOD, typename Atomic >
 inline  cRawStorage< LOD, Atomic >::~cRawStorage()
 {

@@ -8,7 +8,7 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
-class  cROMSConfig
+class  cROMSConfig final
 {
 
 public:

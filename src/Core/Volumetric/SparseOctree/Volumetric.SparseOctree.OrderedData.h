@@ -20,9 +20,14 @@ protected:
 
 public:
     // Virtual Runtime Information Overrides
-    virtual  bool       Compressed()    const;
-    virtual  eType      Type()          const;
+    virtual  bool       Compressed()    const  override;
+    virtual  eType      Type()          const  override;
     virtual  eSubType   SubType()       const  = 0;
+
+public:
+    // Data Accessors
+    virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          = 0;
+    virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   = 0;
 
 };
 

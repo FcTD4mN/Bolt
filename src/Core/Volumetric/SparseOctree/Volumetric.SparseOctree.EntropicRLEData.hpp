@@ -5,6 +5,10 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- Construction / Destruction
+
+
 template< eLod2N LOD, typename Atomic >
 inline  cEntropicRLEData< LOD, Atomic >::~cEntropicRLEData()
 {
@@ -17,6 +21,10 @@ inline  cEntropicRLEData< LOD, Atomic >::cEntropicRLEData()
 }
 
 
+//----------------------------------------------------------------------------------------------
+//-------------------------------------------------------- Virtual Runtime Information Overrides
+
+
 template< eLod2N LOD, typename Atomic >
 inline  bool  cEntropicRLEData< LOD, Atomic >::Compressed()  const
 {
@@ -27,6 +35,23 @@ template< eLod2N LOD, typename Atomic >
 inline  eSubType  cEntropicRLEData< LOD, Atomic >::SubType()  const
 {
     return  eSubType::kRLE;
+}
+
+
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------- Data Accessors
+
+
+template< eLod2N LOD, typename Atomic >
+inline  const  Atomic&  cEntropicRLEData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+{
+    // TODO: insert return statement here
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cEntropicRLEData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
+{
 }
 
 

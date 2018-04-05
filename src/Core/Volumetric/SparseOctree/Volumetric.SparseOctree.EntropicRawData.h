@@ -10,7 +10,7 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-class  cEntropicRawData :
+class  cEntropicRawData final :
     public  cEntropicData< LOD, Atomic >
 {
 
@@ -22,8 +22,13 @@ public:
 
 public:
     // Virtual Runtime Information Overrides
-    virtual  bool       Compressed()    const;
-    virtual  eSubType   SubType()       const;
+    virtual  bool       Compressed()    const  override;
+    virtual  eSubType   SubType()       const  override;
+
+public:
+    // Data Accessors
+    virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          override;
+    virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
 private:
     // Private Member Data

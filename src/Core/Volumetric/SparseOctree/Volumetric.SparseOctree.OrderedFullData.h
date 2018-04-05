@@ -9,7 +9,7 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-class  cOrderedFullData :
+class  cOrderedFullData final :
     public  cOrderedData< LOD, Atomic >
 {
 
@@ -21,7 +21,12 @@ public:
 
 public:
     // Virtual Runtime Information Overrides
-    virtual  eSubType  SubType()  const;
+    virtual  eSubType  SubType()  const  override;
+
+public:
+    // Data Accessors
+    virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          override;
+    virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
 private:
     // Private Member Data

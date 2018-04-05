@@ -5,6 +5,10 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------ Template Data Container Accessors
+
+
 template< eLod2N LOD, typename Atomic >
 inline  eLod2N  cData< LOD, Atomic >::LOD()  const
 {

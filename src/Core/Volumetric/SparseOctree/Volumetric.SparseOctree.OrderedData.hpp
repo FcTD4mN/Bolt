@@ -5,6 +5,10 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
+//----------------------------------------------------------------------------------------------
+//-------------------------------------------------------- Virtual Runtime Information Overrides
+
+
 template< eLod2N LOD, typename Atomic >
 inline  bool  cOrderedData< LOD, Atomic >::Compressed()  const
 {

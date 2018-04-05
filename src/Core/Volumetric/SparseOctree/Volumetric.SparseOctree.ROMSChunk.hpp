@@ -8,6 +8,10 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------- Construction / Destruction
+
+
 template< eLod2N LOD, typename Atomic >
 inline  cROMSChunk< LOD, Atomic >::~cROMSChunk()
 {
@@ -22,6 +26,10 @@ inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig 
     assert( mROMSConfig );
     mData = new  cOrderedEmptyData< LOD, Atomic >();
 }
+
+
+//----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------- Data Accessors
 
 
 template< eLod2N LOD, typename Atomic >

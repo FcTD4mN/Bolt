@@ -14,12 +14,12 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-class  cUSROCMap
+class  cUSROCMap final
 {
 
 public:
     // Construction / Destruction
-    virtual  ~cUSROCMap();
+    ~cUSROCMap();
     cUSROCMap();
     cUSROCMap( const  cUSROCMap& ) = delete;
 
