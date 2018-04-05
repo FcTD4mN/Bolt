@@ -12,6 +12,7 @@ namespace  nSparseOctree    {
 template< eLod2N LOD, typename Atomic >
 inline  cOrderedEmptyData< LOD, Atomic >::~cOrderedEmptyData()
 {
+    ~cOrderedData();
 }
 
 
@@ -40,7 +41,7 @@ inline  eSubType  cOrderedEmptyData< LOD, Atomic >::SubType()  const
 template< eLod2N LOD, typename Atomic >
 inline  const  Atomic&  cOrderedEmptyData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    return  Atomic();
+    return  Atomic( 0 );
 }
 
 

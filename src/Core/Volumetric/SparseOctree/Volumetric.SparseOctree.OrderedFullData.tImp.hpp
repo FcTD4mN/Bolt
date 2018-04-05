@@ -12,6 +12,9 @@ namespace  nSparseOctree    {
 template< eLod2N LOD, typename Atomic >
 inline  cOrderedFullData< LOD, Atomic >::~cOrderedFullData()
 {
+    mValue = Atomic( 0 );
+
+    ~cOrderedData();
 }
 
 

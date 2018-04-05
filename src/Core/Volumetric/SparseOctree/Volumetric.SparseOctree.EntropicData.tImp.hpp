@@ -12,6 +12,7 @@ namespace  nSparseOctree    {
 template< eLod2N LOD, typename Atomic >
 inline  cEntropicData< LOD, Atomic >::~cEntropicData()
 {
+    ~cData();
 }
 
 

@@ -26,6 +26,8 @@ inline  cSparseData< LOD, Atomic >::~cSparseData()
     delete  mOct[5];
     delete  mOct[6];
     delete  mOct[7];
+
+    ~cData();
 }
 
 
