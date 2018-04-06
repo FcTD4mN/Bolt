@@ -59,6 +59,17 @@ inline  void  cEntropicRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex
 }
 
 
+//----------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------- Data Transform Analysis
+
+
+template< eLod2N LOD, typename Atomic >
+inline  cDataPreCheckAnalysis  cEntropicRawData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+{
+    return  cDataPreCheckAnalysis( cDataPreCheckAnalysis::eTransformOperationStatus::kNotRequired );
+}
+
+
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
 

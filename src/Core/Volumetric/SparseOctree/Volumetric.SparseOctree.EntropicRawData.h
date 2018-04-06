@@ -31,6 +31,10 @@ public:
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
 private:
+    // Data Transform Analysis
+    virtual  cDataPreCheckAnalysis  PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
+
+private:
     // Private Member Data
     cRawStorage< LOD, Atomic >  mStorage;
 };
