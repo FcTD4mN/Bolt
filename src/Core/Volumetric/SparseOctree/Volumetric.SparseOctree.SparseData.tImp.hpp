@@ -92,9 +92,10 @@ inline  void  cSparseData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, 
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataPreCheckAnalysis  cSparseData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
-    return  cDataPreCheckAnalysis( cDataPreCheckAnalysis::eTransformOperationStatus::kNotRequired );
+    return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kNotRequired,
+                                 cDataReportAnalysis::eProcessOperationStatus::kProcess );
 }
 
 

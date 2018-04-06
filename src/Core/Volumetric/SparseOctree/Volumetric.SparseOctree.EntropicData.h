@@ -32,7 +32,7 @@ public:
 
 private:
     // Data Transform Analysis
-    virtual  cDataPreCheckAnalysis  PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
+    virtual  cDataReportAnalysis  PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
 };
 

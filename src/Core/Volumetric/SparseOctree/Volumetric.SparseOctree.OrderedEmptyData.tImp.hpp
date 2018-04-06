@@ -58,16 +58,20 @@ inline  void  cOrderedEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tInde
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataPreCheckAnalysis  cOrderedEmptyData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cOrderedEmptyData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
-    if( LOD == cData::ROMSConfig() )
-        return  cDataPreCheckAnalysis( cDataPreCheckAnalysis::eTransformOperationStatus::kRequired,
-                                       eType::kOrdered, eSubType::kEmpty,
-                                       eType::kEntropic, eSubType::kRaw );
+    if( LOD > ROMSConfig().MicroscopicLODGranularity() )
+        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,
+                                     cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                     eType::kOrdered, eSubType::kEmpty,
+                                     eType::kSparse, eSubType::kNone );
+    else if( LOD == ROMSConfig().MicroscopicLODGranularity() )
+        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,
+                                     cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                     eType::kOrdered, eSubType::kEmpty,
+                                     eType::kEntropic, eSubType::kRaw );
     else
-        return  cDataPreCheckAnalysis( cDataPreCheckAnalysis::eTransformOperationStatus::kRequired,
-                                       eType::kOrdered, eSubType::kEmpty,
-                                       eType::kSparse, eSubType::kNone );
+        assert( false ); // Crash
 }
 
 

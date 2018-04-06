@@ -13,7 +13,7 @@ class  cROMSConfig;
 
 
 // PreCheckAnalysis Spider Struct
-struct  cDataPreCheckAnalysis
+struct  cDataReportAnalysis
 {
     enum  eTransformOperationStatus
     {
@@ -21,12 +21,20 @@ struct  cDataPreCheckAnalysis
         kNotRequired,
     };
 
-    cDataPreCheckAnalysis( eTransformOperationStatus   iTransformOperationRequired,
+    enum  eProcessOperationStatus
+    {
+        kProcess,
+        kDiscard,
+    };
+
+    cDataReportAnalysis( eTransformOperationStatus    iTransformOperationStatus,
+                           eProcessOperationStatus      iProcessOperationStatus,
                            eType       iFromType,
                            eSubType    iFromSubType,
                            eType       iToType,
                            eSubType    iToSubType ) :
-    mTransformOperationRequired( iTransformOperationRequired ),
+    mTransformOperationStatus( iTransformOperationStatus ),
+    mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( iFromType ),
     mFromSubType( iFromSubType ),
     mToType( iToType ),
@@ -34,8 +42,10 @@ struct  cDataPreCheckAnalysis
     {
     }
 
-    cDataPreCheckAnalysis( eTransformOperationStatus   iTransformOperationRequired ) :
-    mTransformOperationRequired( iTransformOperationRequired ),
+    cDataReportAnalysis( eTransformOperationStatus    iTransformOperationStatus,
+                           eProcessOperationStatus      iProcessOperationStatus ) :
+    mTransformOperationStatus( iTransformOperationStatus ),
+    mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( eType() ),
     mFromSubType( eSubType() ),
     mToType( eType() ),
@@ -43,7 +53,8 @@ struct  cDataPreCheckAnalysis
     {
     }
 
-    eTransformOperationStatus   mTransformOperationRequired;
+    eTransformOperationStatus   mTransformOperationStatus;
+    eProcessOperationStatus     mProcessOperationStatus;
     eType       mFromType;
     eSubType    mFromSubType;
 
@@ -83,7 +94,7 @@ public:
 
 private:
     // Data Transform Analysis
-    virtual  cDataPreCheckAnalysis  PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
+    virtual  cDataReportAnalysis  PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
 private:
     // Private Member Data
