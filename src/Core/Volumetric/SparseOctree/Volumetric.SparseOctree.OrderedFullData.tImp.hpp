@@ -56,6 +56,24 @@ inline  void  cOrderedFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex
 }
 
 
+//----------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------- Data Transform Analysis
+
+
+template< eLod2N LOD, typename Atomic >
+inline  cDataPreCheckAnalysis  cOrderedData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+{
+    if( LOD == cData::ROMSConfig() )
+        return  cDataPreCheckAnalysis( cDataPreCheckAnalysis::eTransformOperationStatus::kRequired,
+                                       eType::kOrdered, eSubType::kEmpty,
+                                       eType::kEntropic, eSubType::kRaw );
+    else
+        return  cDataPreCheckAnalysis( cDataPreCheckAnalysis::eTransformOperationStatus::kRequired,
+                                       eType::kOrdered, eSubType::kEmpty,
+                                       eType::kSparse, eSubType::kNone );
+}
+
+
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
 
