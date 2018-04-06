@@ -58,7 +58,7 @@ inline  void  cOrderedEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tInde
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis  cOrderedEmptyData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cOrderedEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( LOD > ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,

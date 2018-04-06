@@ -39,7 +39,7 @@ public:
 
 private:
     // Data Transform Analysis
-    virtual  cDataReportAnalysis  PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
+    virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 
 private:
     // Private Member Data

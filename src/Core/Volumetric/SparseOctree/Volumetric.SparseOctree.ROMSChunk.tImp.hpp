@@ -45,7 +45,7 @@ template< eLod2N LOD, typename Atomic >
 inline  void
 cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 {
-    auto analysis = mData->PreCheckOnSet( iX, iY, iZ, iValue );
+    cDataReportAnalysis  analysis = mData->AnteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
     mData->Set( iX, iY, iZ, iValue );
 }
 

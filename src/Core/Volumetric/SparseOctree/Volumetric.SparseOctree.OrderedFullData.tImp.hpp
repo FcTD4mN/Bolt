@@ -61,7 +61,7 @@ inline  void  cOrderedFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis  cOrderedFullData< LOD, Atomic >::PreCheckOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cOrderedFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
         return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kNotRequired,
