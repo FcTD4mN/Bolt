@@ -46,7 +46,21 @@ inline  void
 cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 {
     cDataReportAnalysis  analysis = mData->AnteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
+    eTransformOperationStatus
+    AnteriorDataTransformFromReport( analysis );
     mData->Set( iX, iY, iZ, iValue );
+}
+
+
+//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------- Data Sensitive Operation
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::AnteriorDataTransformFromReport( const  cDataReportAnalysis&  iDataReportAnalysis )
+{
+    if( iDataReportAnalysis.mTransformOperationStatus == cDataReportAnalysis::eTransformOperationStatus::kNotRequired )
+        return;
 }
 
 

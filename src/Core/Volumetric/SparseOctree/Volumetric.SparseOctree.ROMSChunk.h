@@ -28,6 +28,11 @@ public:
     const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const;
     void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue );
 
+public:
+    // Data Sensitive Operation
+    void  AnteriorDataTransformFromReport( const  cDataReportAnalysis&  iDataReportAnalysis );
+
+
 private:
     // Private Member Data
     cData< LOD, Atomic >*  mData; // Owning
