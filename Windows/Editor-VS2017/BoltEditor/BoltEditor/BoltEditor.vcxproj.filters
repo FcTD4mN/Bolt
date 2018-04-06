@@ -79,6 +79,9 @@
     <Filter Include="src\Editor\QtModels">
       <UniqueIdentifier>{125eb6de-8e17-492e-93d4-0a11e220f2e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\BoltCore\ECS\BasicComponents">
+      <UniqueIdentifier>{e501dc76-a3cc-4e40-a021-bf980ac6e5a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\QtUIFiles\BoltEditor.ui">
@@ -190,6 +193,24 @@
     <ClCompile Include="..\..\..\..\src\Core\Base\Variant.cpp">
       <Filter>src\BoltCore\Base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Color.cpp">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Position.cpp">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.cpp">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.cpp">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.cpp">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.cpp">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h">
@@ -281,6 +302,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\Base\Variant.h">
       <Filter>src\BoltCore\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Color.h">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Position.h">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.h">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.h">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.h">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.h">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

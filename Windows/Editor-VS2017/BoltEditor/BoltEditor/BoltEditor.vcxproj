@@ -25,6 +25,12 @@
     <ClCompile Include="..\..\..\..\src\Core\Base\Utilities.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Base\Variant.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Color.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Position.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Component.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\System.cpp" />
@@ -61,6 +67,12 @@
     <ClInclude Include="..\..\..\..\src\Core\Base\Utilities.h" />
     <ClInclude Include="..\..\..\..\src\Core\Base\Variant.h" />
     <ClInclude Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Color.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Position.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Component.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Entity.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\System.h" />

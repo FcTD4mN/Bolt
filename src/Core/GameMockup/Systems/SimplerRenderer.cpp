@@ -1,11 +1,13 @@
  #include "SimplerRenderer.h"
 
 #include "ECS/Core/Entity.h"
+
+#include "ECS/BasicComponents/Color.h"
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/Size.h"
+
 #include "GameMockup/GameApplication.h"
-#include "GameMockup/Components/Color.h"
 #include "GameMockup/Components/Direction.h"
-#include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/Size.h"
 
 #include "Math/Utils.h"
 

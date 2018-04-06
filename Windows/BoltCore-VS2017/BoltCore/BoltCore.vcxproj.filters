@@ -49,12 +49,6 @@
     <Filter Include="Fichiers sources\Core\GameMockup\Components">
       <UniqueIdentifier>{dde68560-6861-4777-a9b1-d2dfcd00794b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Components\Physic">
-      <UniqueIdentifier>{f1382b64-569f-42c0-b230-21ddd3a0f04e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Components\Basics">
-      <UniqueIdentifier>{e3bdbd12-7057-42a3-ba84-174dc290983a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Core\GameMockup\Components\BehaviourTree">
       <UniqueIdentifier>{152594b6-c17c-4046-a370-0e4acd12ff9b}</UniqueIdentifier>
     </Filter>
@@ -133,6 +127,9 @@
     <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion">
       <UniqueIdentifier>{f2fbf0f2-3a6c-444c-8730-22fbe91f17dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Core\ECS\BasicComponents">
+      <UniqueIdentifier>{0d55e8e8-61f8-4751-9459-ace909df2452}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -173,24 +170,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\EntityParser.cpp">
       <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Color.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Position.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Size.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Text.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\SpriteAnimated.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Components\UserInput.cpp">
       <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
@@ -348,6 +327,24 @@
     <ClCompile Include="..\..\..\src\Core\Base\Variant.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Color.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Position.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Size.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Text.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -389,25 +386,7 @@
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h">
       <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Text.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Color.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Position.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Size.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\SimplePhysic.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components\Physic</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Components\UserInput.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\SpriteAnimated.h">
       <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.h">
@@ -610,6 +589,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Base\Variant.h">
       <Filter>Fichiers sources\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.h">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Color.h">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Position.h">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Size.h">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Text.h">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.h">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,11 @@
  #include "SimplePhysics.h"
 
 #include "ECS/Core/Entity.h"
+
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/SimplePhysic.h"
+
 #include "GameMockup/GameApplication.h"
-#include "GameMockup/Components/SimplePhysic.h"
-#include "GameMockup/Components/Position.h"
 
 
 // -------------------------------------------------------------------------------------

@@ -7,10 +7,11 @@
 #include "ECS/Utilities/EntityParser.h"
 #include "ECS/Core/World.h"
 
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/Size.h"
+
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/Components/FieldOfView.h"
-#include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/Size.h"
 #include "GameMockup/Components/Direction.h"
 
 #include "Mapping/PhysicEntityGrid.h"

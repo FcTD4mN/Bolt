@@ -6,6 +6,13 @@
 #include "ECS/Utilities/ComponentRegistry.h"
 #include "ECS/Utilities/EntityParser.h"
 
+#include "ECS/BasicComponents/Color.h"
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/SimplePhysic.h"
+#include "ECS/BasicComponents/Size.h"
+#include "ECS/BasicComponents/SpriteAnimated.h"
+
+
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/InfiltratorScreen.h"
 #include "GameMockup/OpenGLRenderSceneScreen.h"
@@ -16,13 +23,8 @@
 #include "GameMockup/Systems/SquareController.h"
 #include "GameMockup/Systems/SightSystem.h"
 
-#include "GameMockup/Components/Color.h"
 #include "GameMockup/Components/Direction.h"
 #include "GameMockup/Components/FieldOfView.h"
-#include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/Size.h"
-#include "GameMockup/Components/SimplePhysic.h"
-#include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
 
 #include "MainMenu/MainMenu.h"

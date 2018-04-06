@@ -1,16 +1,14 @@
 #include "Benchmark.h"
 
-
-
 #include "ECS/Core/World.h"
 #include "ECS/Core/Entity.h"
 #include "ECS/Core/Component.h"
 
+#include "ECS/BasicComponents/Color.h"
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/Size.h"
+#include "ECS/BasicComponents/Text.h"
 
-#include "GameMockup/Components/Text.h"
-#include "GameMockup/Components/Color.h"
-#include "GameMockup/Components/Size.h"
-#include "GameMockup/Components/Position.h"
 #include "GameMockup/Systems/InputConverter.h"
 #include "GameMockup/Systems/SimplerRenderer.h"
 

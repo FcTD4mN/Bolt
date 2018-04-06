@@ -4,13 +4,14 @@
 #include "ECS/Utilities/EntityParser.h"
 #include "ECS/Core/World.h"
 
+#include "ECS/BasicComponents/Color.h"
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/SimplePhysic.h"
+#include "ECS/BasicComponents/Size.h"
+#include "ECS/BasicComponents/SpriteAnimated.h"
+
 #include "GameMockup/GameApplication.h"
-#include "GameMockup/Components/Color.h"
-#include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/Size.h"
-#include "GameMockup/Components/SpriteAnimated.h"
 #include "GameMockup/Components/UserInput.h"
-#include "GameMockup/Components/SimplePhysic.h"
 
 #include <iostream>
 

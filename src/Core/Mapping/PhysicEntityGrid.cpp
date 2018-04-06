@@ -2,7 +2,8 @@
 
 
 #include "ECS/Core/Entity.h"
-#include "GameMockup/Components/SimplePhysic.h"
+
+#include "ECS/BasicComponents/SimplePhysic.h"
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------- Contruction/Destruction

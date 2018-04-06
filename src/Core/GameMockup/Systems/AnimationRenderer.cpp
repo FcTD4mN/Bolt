@@ -1,9 +1,11 @@
  #include "AnimationRenderer.h"
 
 #include "ECS/Core/Entity.h"
+
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/SpriteAnimated.h"
+
 #include "GameMockup/GameApplication.h"
-#include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/SpriteAnimated.h"
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
