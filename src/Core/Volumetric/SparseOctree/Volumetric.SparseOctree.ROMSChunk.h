@@ -30,7 +30,20 @@ public:
 
 public:
     // Data Sensitive Operation
-    void  AnteriorDataTransformFromReport( const  cDataReportAnalysis&  iDataReportAnalysis );
+
+    // Base
+    void  ProcessAnteriorDataTransformFromReportFrom( const  cDataReportAnalysis&  iDataReportAnalysis );
+
+    // Tier
+    void  ProcessAnteriorDataTransformFromReportFromOrdered( const  cDataReportAnalysis&  iDataReportAnalysis );
+    void  ProcessAnteriorDataTransformFromReportFromEntropic( const  cDataReportAnalysis&  iDataReportAnalysis );
+
+    //Final
+    void  ProcessAnteriorDataTransformFromReportFromOrderedEmpty( const  cDataReportAnalysis&  iDataReportAnalysis );
+    void  ProcessAnteriorDataTransformFromReportFromOrderedFull( const  cDataReportAnalysis&  iDataReportAnalysis );
+    void  ProcessAnteriorDataTransformFromReportFromEntropicSparse( const  cDataReportAnalysis&  iDataReportAnalysis );
+    void  ProcessAnteriorDataTransformFromReportFromEntropicRaw( const  cDataReportAnalysis&  iDataReportAnalysis );
+    void  ProcessAnteriorDataTransformFromReportFromEntropicRLE( const  cDataReportAnalysis&  iDataReportAnalysis );
 
 
 private:
