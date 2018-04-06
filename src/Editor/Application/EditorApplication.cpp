@@ -6,10 +6,15 @@
 #include "ECS/Utilities/ComponentRegistry.h"
 #include "ECS/Utilities/EntityParser.h"
 
-#include "MainMenu/MainMenu.h"
-#include "MainMenu/MenuItem/MenuItem.Callback.h"
-#include "MainMenu/MenuItem/MenuItem.PageSwaper.h"
-#include "MainMenu/MenuPage/MenuPage.h"
+#include "ECS/BasicComponents/Color.h"
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/SimplePhysic.h"
+#include "ECS/BasicComponents/Size.h"
+#include "ECS/BasicComponents/SpriteAnimated.h"
+#include "ECS/BasicComponents/Text.h"
+
+#include "ECS/BasicSystems/AnimationRenderer.h"
+#include "ECS/BasicSystems/SimplerRenderer.h"
 
 
 // -------------------------------------------------------------------------------------
@@ -68,37 +73,16 @@ cEditorApplication::Initialize()
 
     // Following call may need world
     cComponentRegistry::Instance()->Initialize();
+    cComponentRegistry::Instance()->RegisterComponent( new cColor() );
+    cComponentRegistry::Instance()->RegisterComponent( new cPosition() );
+    cComponentRegistry::Instance()->RegisterComponent( new cSize() );
+    cComponentRegistry::Instance()->RegisterComponent( new cSpriteAnimated() );
+    cComponentRegistry::Instance()->RegisterComponent( new cSimplePhysic() );
+
+    mWorld->AddSystem( new cSimplerRenderer() );
+    mWorld->AddSystem( new cAnimationRenderer() );
+
     cEntityParser::Instance()->Initialize( mWorld );
-
-    // ========= MAIN MENU =========
-    sf::Vector2u winSize( 360, 360 );
-
-    mMMenu = new cMainMenu();
-    cMenuPage* pageOne = new cMenuPage( mMMenu );
-    pageOne->Size( float(winSize.x), float(winSize.y) );
-
-    cMenuPage* pageTwo = new cMenuPage( mMMenu );
-    pageTwo->Size( float(winSize.x), float(winSize.y) );
-
-    sf::RectangleShape rect( sf::Vector2f( 200, 50 ) );
-
-    cItemPageSwaper* itemOne  = new cItemPageSwaper( mMMenu, "FirstPage0", rect, 1 );
-    cItemPageSwaper* itemOne2 = new cItemPageSwaper( mMMenu, "FirstPage1", rect, 1 );
-
-    cItemPageSwaper* itemTwo  = new cItemPageSwaper( mMMenu, "SecondPage0", rect, 0 );
-    cItemCallback*   itemTwo2 = new cItemCallback( mMMenu, "SecondPage1", rect, []()
-    {
-        cEditorApplication::App()->Window()->setTitle( "CLICK" );
-    } );
-
-    pageOne->AddItem( itemOne );
-    pageOne->AddItem( itemOne2 );
-    pageTwo->AddItem( itemTwo );
-    pageTwo->AddItem( itemTwo2 );
-
-    mMMenu->AddPage( pageOne );
-    mMMenu->AddPage( pageTwo );
-    mMMenu->CurrentPage( 0 );
 }
 
 
@@ -127,5 +111,4 @@ void
 cEditorApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
     mWorld->Draw( iRenderTarget );
-    mMMenu->Draw( iRenderTarget );
 }

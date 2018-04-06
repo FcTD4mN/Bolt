@@ -55,9 +55,6 @@
     <Filter Include="Fichiers sources\Core\GameMockup\Systems">
       <UniqueIdentifier>{f9f48c9d-0a63-4da9-b8bf-b7cf0559cc44}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Systems\Render">
-      <UniqueIdentifier>{76e22e6e-9efb-49c1-877e-2e7ea225e16c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Core\GameMockup\Systems\Physic">
       <UniqueIdentifier>{768750aa-a5ac-4c08-911e-26443566ce7c}</UniqueIdentifier>
     </Filter>
@@ -130,6 +127,9 @@
     <Filter Include="Fichiers sources\Core\ECS\BasicComponents">
       <UniqueIdentifier>{0d55e8e8-61f8-4751-9459-ace909df2452}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Core\ECS\BasicSystems">
+      <UniqueIdentifier>{4eb415e0-49b5-4305-bc71-d6e8894f9271}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -171,22 +171,10 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\EntityParser.cpp">
       <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\UserInput.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.cpp">
       <Filter>Fichiers sources\Core\GameMockup\Systems\Physic</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SquareController.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.cpp">
       <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\GameMockup\GameApplication.cpp">
@@ -345,6 +333,18 @@
     <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.cpp">
       <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\UserInput.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicSystems\InputConverter.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.cpp">
+      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Application\Application.h">
@@ -386,20 +386,8 @@
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h">
       <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\UserInput.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.h">
       <Filter>Fichiers sources\Core\GameMockup\Systems\Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplerRenderer.h">
-      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\AnimationRenderer.h">
-      <Filter>Fichiers sources\Core\GameMockup\Systems\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\InputConverter.h">
-      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SquareController.h">
       <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
@@ -607,6 +595,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.h">
       <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\UserInput.h">
+      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.h">
+      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicSystems\InputConverter.h">
+      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.h">
+      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

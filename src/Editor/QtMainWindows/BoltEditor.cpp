@@ -30,5 +30,10 @@ cBoltEditor::Setup()
     mModel = new cEntityListModel( 0 );
     ui.listView->setModel( mModel );
 
+    connect(
+        ui.listView, &QListView::clicked,
+        ui.widget, &MyCanvas::CurrentPrototypeChanged
+    );
+
 }
 

@@ -13,6 +13,9 @@ public:
     cShortcuts();
 
 public:
+    static cShortcuts* Instance();
+
+public:
     // Init/Finalize
     void Initialize();
     void Finalize();

@@ -9,11 +9,11 @@
 #include "ECS/BasicComponents/SimplePhysic.h"
 #include "ECS/BasicComponents/Size.h"
 #include "ECS/BasicComponents/SpriteAnimated.h"
+#include "ECS/BasicComponents/UserInput.h"
 
 #include "GameMockup/GameApplication.h"
 #include "GameMockup/Components/Direction.h"
 #include "GameMockup/Components/FieldOfView.h"
-#include "GameMockup/Components/UserInput.h"
 
 #include "Math/Utils.h"
 

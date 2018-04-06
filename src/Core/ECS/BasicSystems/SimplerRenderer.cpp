@@ -6,9 +6,6 @@
 #include "ECS/BasicComponents/Position.h"
 #include "ECS/BasicComponents/Size.h"
 
-#include "GameMockup/GameApplication.h"
-#include "GameMockup/Components/Direction.h"
-
 #include "Math/Utils.h"
 
 // -------------------------------------------------------------------------------------
@@ -63,27 +60,11 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
         auto position   = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
         auto color      = dynamic_cast< cColor* >( entity->GetComponentByName( "color" ) );
-        auto direction      = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
 
-        if( direction )
-        {
-            triangle.setPosition( position->mPosition );
-            triangle.setRadius( size->mSize.x );
-            triangle.setFillColor( color->mColor );
-            triangle.setOrigin( size->mSize );
-
-            double angle = GetAngleBetweenVectors( gXAxisVector, direction->mDirection );
-
-            triangle.setRotation( float(RadToDeg( angle ) ) );
-            iRenderTarget->draw( triangle );
-        }
-        else
-        {
-            rect.setSize( size->mSize );
-            rect.setPosition( position->mPosition );
-            rect.setFillColor( color->mColor );
-            iRenderTarget->draw( rect );
-        }
+        rect.setSize( size->mSize );
+        rect.setPosition( position->mPosition );
+        rect.setFillColor( color->mColor );
+        iRenderTarget->draw( rect );
     }
 }
 

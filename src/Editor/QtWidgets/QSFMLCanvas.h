@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-#include <QtWidgets/qwidget.h>
-#include <QtCore/qtimer.h>
+#include <QtWidgets/QWidget>
+#include <QtCore/QTimer>
 
 class QSFMLCanvas :
     public QWidget,

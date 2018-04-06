@@ -18,6 +18,17 @@ cShortcuts::cShortcuts()
 }
 
 
+cShortcuts*
+cShortcuts::Instance()
+{
+    static cShortcuts* gShortcuts = 0;
+    if( !gShortcuts )
+        gShortcuts = new cShortcuts();
+
+    return  gShortcuts;
+}
+
+
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------- Init/Finalize
 // -------------------------------------------------------------------------------------

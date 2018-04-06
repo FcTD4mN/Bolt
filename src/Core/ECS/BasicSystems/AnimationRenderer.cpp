@@ -5,7 +5,6 @@
 #include "ECS/BasicComponents/Position.h"
 #include "ECS/BasicComponents/SpriteAnimated.h"
 
-#include "GameMockup/GameApplication.h"
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -59,7 +58,7 @@ cAnimationRenderer::Draw( sf::RenderTarget* iRenderTarget )
 
         // Because sprite's origin is set to be the very center of the image, we need to
         // reposition it so it matches top left format given by position
-        spriteanimated->mSprite.setPosition( spriteanimated->mSprite.getPosition() + spriteanimated->mSprite.getOrigin() );
+        spriteanimated->mSprite.setPosition( position->mPosition + spriteanimated->mSprite.getOrigin() );
 
         iRenderTarget->draw( spriteanimated->mSprite );
     }

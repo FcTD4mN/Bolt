@@ -9,9 +9,8 @@
 #include "ECS/BasicComponents/Size.h"
 #include "ECS/BasicComponents/Text.h"
 
-#include "GameMockup/Systems/InputConverter.h"
-#include "GameMockup/Systems/SimplerRenderer.h"
-
+#include "ECS/BasicSystems/InputConverter.h"
+#include "ECS/BasicSystems/SimplerRenderer.h"
 
 #include <iostream>
 #include <chrono>

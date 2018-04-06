@@ -1,4 +1,8 @@
 <entity id="bullet">
-	<components/>
+	<components>
+		<component name="color" r="255" g="20" b="20" />
+		<component name="position" x="10" y="10"/>
+		<component name="size" w="40" h="64"/>
+	</components>
 	<tags/>
 </entity>

@@ -11,21 +11,22 @@
 #include "ECS/BasicComponents/SimplePhysic.h"
 #include "ECS/BasicComponents/Size.h"
 #include "ECS/BasicComponents/SpriteAnimated.h"
+#include "ECS/BasicComponents/UserInput.h"
+
+#include "ECS/BasicSystems/AnimationRenderer.h"
+#include "ECS/BasicSystems/InputConverter.h"
+#include "ECS/BasicSystems/SimplerRenderer.h"
 
 
 #include "GameMockup/GameScreen.h"
 #include "GameMockup/InfiltratorScreen.h"
 #include "GameMockup/OpenGLRenderSceneScreen.h"
-#include "GameMockup/Systems/AnimationRenderer.h"
-#include "GameMockup/Systems/InputConverter.h"
 #include "GameMockup/Systems/SimplePhysics.h"
-#include "GameMockup/Systems/SimplerRenderer.h"
 #include "GameMockup/Systems/SquareController.h"
 #include "GameMockup/Systems/SightSystem.h"
 
 #include "GameMockup/Components/Direction.h"
 #include "GameMockup/Components/FieldOfView.h"
-#include "GameMockup/Components/UserInput.h"
 
 #include "MainMenu/MainMenu.h"
 #include "MainMenu/MenuItem/MenuItem.Callback.h"
@@ -184,7 +185,7 @@ cGameApplication::Initialize()
     PushScreen( mainMenuScreen );
 
     // =======Shortcuts=======
-    mShortcutEngine = new cShortcuts();
+    mShortcutEngine = cShortcuts::Instance();
     mShortcutEngine->Initialize();
 }
 

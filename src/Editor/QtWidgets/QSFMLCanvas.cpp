@@ -100,7 +100,7 @@ QPaintEngine* QSFMLCanvas::paintEngine() const
 void
 QSFMLCanvas::paintEvent( QPaintEvent* )
 {
-    mRenderWindow->clear();
+    mRenderWindow->clear( sf::Color( 200, 200, 200 ) );
     // Let the derived class do its specific stuff
     OnUpdate();
     mRenderWindow->display();

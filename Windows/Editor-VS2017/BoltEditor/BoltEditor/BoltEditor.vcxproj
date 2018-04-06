@@ -31,6 +31,9 @@
     <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\UserInput.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Component.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Entity.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\System.cpp" />
@@ -73,6 +76,9 @@
     <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\UserInput.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Component.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Entity.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\System.h" />

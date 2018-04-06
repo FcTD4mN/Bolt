@@ -82,6 +82,9 @@
     <Filter Include="src\BoltCore\ECS\BasicComponents">
       <UniqueIdentifier>{e501dc76-a3cc-4e40-a021-bf980ac6e5a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\BoltCore\ECS\BasicSystems">
+      <UniqueIdentifier>{6aa6ea21-141d-4a36-ae46-56cc6aa77854}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\QtUIFiles\BoltEditor.ui">
@@ -211,6 +214,15 @@
     <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.cpp">
       <Filter>src\BoltCore\ECS\BasicComponents</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.cpp">
+      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.cpp">
+      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\UserInput.cpp">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h">
@@ -319,6 +331,15 @@
       <Filter>src\BoltCore\ECS\BasicComponents</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.h">
+      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.h">
+      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.h">
+      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\UserInput.h">
       <Filter>src\BoltCore\ECS\BasicComponents</Filter>
     </ClInclude>
   </ItemGroup>
