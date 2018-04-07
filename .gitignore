@@ -38,17 +38,7 @@ TestResult.xml
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
-dlldata.c
-Windows/BoltCore-VS2017/BoltCore/.vs/*
-Windows/BoltCore-VS2017/BoltCore/Lib/*
-Windows/BoltCore-VS2017/BoltCore/resources/*
-Windows/BoltCore-VS2017/BoltCore/x64 /*
-Windows/Editor-VS2017/BoldEditor/.vs/*
-Windows/Editor-VS2017/BoldEditor/BoltEditor/Lib/*
-Windows/Editor-VS2017/BoldEditor/BoltEditor/Resources/*
-Windows/Editor-VS2017/BoldEditor/BoltEditor/x64/*
-Windows/Editor-VS2017/BoldEditor/BoltEditor/GeneratedFiles/*
-Windows/Editor-VS2017/BoldEditor/x64/*
+dlldata.c 
 
 # DNX
 project.lock.json
@@ -273,3 +263,9 @@ __pycache__/
 
 # Dynamic libraries .dll binary files
 *.dll
+
+Windows/BoltCore-VS2017/BoltCore/Lib/*
+Windows/BoltCore-VS2017/BoltCore/resources/* 
+Windows/Editor-VS2017/BoldEditor/BoltEditor/Lib/*
+Windows/Editor-VS2017/BoldEditor/BoltEditor/Resources/* 
+Windows/Editor-VS2017/BoldEditor/BoltEditor/GeneratedFiles/* 
