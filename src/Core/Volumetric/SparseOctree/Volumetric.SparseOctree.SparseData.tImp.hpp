@@ -26,8 +26,6 @@ inline  cSparseData< LOD, Atomic >::~cSparseData()
     delete  mOct[5];
     delete  mOct[6];
     delete  mOct[7];
-
-    ~cData();
 }
 
 
@@ -92,9 +90,9 @@ inline  void  cSparseData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, 
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis< Atomic >  cSparseData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
-    return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kNotRequired,
+    return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                  cDataReportAnalysis::eProcessOperationStatus::kProcess );
 }
 

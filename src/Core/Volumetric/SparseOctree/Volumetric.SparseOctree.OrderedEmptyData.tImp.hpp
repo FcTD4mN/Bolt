@@ -12,7 +12,6 @@ namespace  nSparseOctree    {
 template< eLod2N LOD, typename Atomic >
 inline  cOrderedEmptyData< LOD, Atomic >::~cOrderedEmptyData()
 {
-    ~cOrderedData();
 }
 
 
@@ -58,15 +57,15 @@ inline  void  cOrderedEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tInde
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis  cOrderedEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis< Atomic >  cOrderedEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( LOD > ROMSConfig().MicroscopicLODGranularity() )
-        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kOrdered, eSubType::kEmpty,
                                      eType::kSparse, eSubType::kNone );
     else if( LOD == ROMSConfig().MicroscopicLODGranularity() )
-        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kOrdered, eSubType::kEmpty,
                                      eType::kEntropic, eSubType::kRaw );

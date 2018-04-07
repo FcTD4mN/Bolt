@@ -130,6 +130,9 @@
     <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Utils">
       <UniqueIdentifier>{cffb90b3-a4b5-4c27-a7c7-7dc2d4d440de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion">
+      <UniqueIdentifier>{f2fbf0f2-3a6c-444c-8730-22fbe91f17dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
@@ -595,6 +598,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataConverterProtocol.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataConverterProtocol.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

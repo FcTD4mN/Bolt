@@ -13,8 +13,6 @@ template< eLod2N LOD, typename Atomic >
 inline  cOrderedFullData< LOD, Atomic >::~cOrderedFullData()
 {
     mValue = Atomic( 0 );
-
-    ~cOrderedData();
 }
 
 
@@ -61,19 +59,19 @@ inline  void  cOrderedFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis  cOrderedFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis< Atomic >  cOrderedFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
-        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kNotRequired,
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                        cDataReportAnalysis::eProcessOperationStatus::kDiscard );
 
     if( LOD > ROMSConfig().MicroscopicLODGranularity() )
-        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kOrdered, eSubType::kFull,
                                      eType::kSparse, eSubType::kNone );
     else if( LOD == ROMSConfig().MicroscopicLODGranularity() )
-        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kOrdered, eSubType::kFull,
                                      eType::kEntropic, eSubType::kRaw );

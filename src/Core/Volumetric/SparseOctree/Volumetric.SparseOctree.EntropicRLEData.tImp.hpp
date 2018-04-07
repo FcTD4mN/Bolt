@@ -12,7 +12,6 @@ namespace  nSparseOctree    {
 template< eLod2N LOD, typename Atomic >
 inline  cEntropicRLEData< LOD, Atomic >::~cEntropicRLEData()
 {
-    ~cEntropicData();
 }
 
 
@@ -62,13 +61,13 @@ inline  void  cEntropicRLEData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis  cEntropicRLEData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis< Atomic >  cEntropicRLEData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
-        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kNotRequired,
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kDiscard );
     else
-        return  cDataReportAnalysis( cDataReportAnalysis::eTransformOperationStatus::kRequired,
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kEntropic, eSubType::kRLE,
                                      eType::kEntropic, eSubType::kRaw );

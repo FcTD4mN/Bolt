@@ -12,10 +12,32 @@ namespace  nSparseOctree    {
 class  cROMSConfig;
 
 
+// Runtime Information Enums
+enum  eType
+{
+    kOrdered,
+    kSparse,
+    kEntropic
+};
+
+
+enum  eSubType
+{
+    kEmpty,
+    kFull,
+
+    kNone,
+
+    kRaw,
+    kRLE
+};
+
+
 // PreCheckAnalysis Spider Struct
+template< typename Atomic >
 struct  cDataReportAnalysis
 {
-    enum  eTransformOperationStatus
+    enum  eConversionOperationStatus
     {
         kRequired,
         kNotRequired,
@@ -27,39 +49,44 @@ struct  cDataReportAnalysis
         kDiscard,
     };
 
-    cDataReportAnalysis( eTransformOperationStatus    iTransformOperationStatus,
-                           eProcessOperationStatus      iProcessOperationStatus,
-                           eType       iFromType,
-                           eSubType    iFromSubType,
-                           eType       iToType,
-                           eSubType    iToSubType ) :
-    mTransformOperationStatus( iTransformOperationStatus ),
+    cDataReportAnalysis( eConversionOperationStatus iConversionOperationStatus,
+                         eProcessOperationStatus    iProcessOperationStatus,
+                         eType       iFromType,
+                         eSubType    iFromSubType,
+                         eType       iToType,
+                         eSubType    iToSubType,
+                         Atomic      iValue ) :
+    mConversionOperationStatus( iConversionOperationStatus ),
     mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( iFromType ),
     mFromSubType( iFromSubType ),
     mToType( iToType ),
-    mToSubType( iToSubType )
+    mToSubType( iToSubType ),
+    mValue( iValue )
     {
     }
 
-    cDataReportAnalysis( eTransformOperationStatus    iTransformOperationStatus,
-                           eProcessOperationStatus      iProcessOperationStatus ) :
-    mTransformOperationStatus( iTransformOperationStatus ),
+    cDataReportAnalysis( eConversionOperationStatus iConversionOperationStatus,
+                         eProcessOperationStatus    iProcessOperationStatus ) :
+    mConversionOperationStatus( iConversionOperationStatus ),
     mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( eType() ),
     mFromSubType( eSubType() ),
     mToType( eType() ),
-    mToSubType( eSubType() )
+    mToSubType( eSubType() ),
+    mValue( Atomic( 0 ) )
     {
     }
 
-    eTransformOperationStatus   mTransformOperationStatus;
+    eConversionOperationStatus  mConversionOperationStatus;
     eProcessOperationStatus     mProcessOperationStatus;
     eType       mFromType;
     eSubType    mFromSubType;
 
     eType       mToType;
     eSubType    mToSubType;
+
+    Atomic      mValue;
 };
 
 
@@ -67,7 +94,7 @@ template< eLod2N LOD, typename Atomic >
 class  cData
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cData();
     cData( const  cROMSConfig*  iROMSConfig );
@@ -94,7 +121,7 @@ public:
 
 private:
     // Data Transform Analysis
-    virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
+    virtual  cDataReportAnalysis< Atomic >  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
 private:
     // Private Member Data

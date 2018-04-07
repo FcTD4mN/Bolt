@@ -38,25 +38,6 @@ enum  eLod2N : t2Byte
 };
 
 
-// Runtime Information Enums
-enum  eType
-{
-    kOrdered,
-    kSparse,
-    kEntropic
-};
-
-enum  eSubType
-{
-    kEmpty,
-    kFull,
-
-    kNone,
-
-    kRaw,
-    kRLE
-};
-
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
 

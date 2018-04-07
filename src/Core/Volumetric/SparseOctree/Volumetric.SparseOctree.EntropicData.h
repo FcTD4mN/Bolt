@@ -13,7 +13,7 @@ class  cEntropicData :
     public  cData< LOD, Atomic >
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cEntropicData();
     cEntropicData( const  cROMSConfig*  iROMSConfig );
@@ -32,7 +32,7 @@ public:
 
 private:
     // Data Transform Analysis
-    virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
+    virtual  cDataReportAnalysis< Atomic >  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
 };
 

@@ -18,7 +18,7 @@ inline cData<LOD,Atomic>::~cData()
 
 template<eLod2N LOD,typename Atomic>
 inline cData<LOD,Atomic>::cData( const cROMSConfig * iROMSConfig ) :
-    mROMSConfig( iROMSConfig )
+    mROMSConfig( iROMSConfig ) // Non-Owning
 {
 }
 

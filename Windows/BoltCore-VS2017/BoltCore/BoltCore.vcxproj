@@ -357,6 +357,8 @@
     <ClInclude Include="..\..\..\src\Core\Shader\Shader.h" />
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Data.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataConverterProtocol.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataConverterProtocol.tImp.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicData.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRawData.h" />
