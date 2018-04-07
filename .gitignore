@@ -39,7 +39,16 @@ TestResult.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
-Windows/BoltCore-VS2017/BoltCore/*
+Windows/BoltCore-VS2017/BoltCore/.vs
+Windows/BoltCore-VS2017/BoltCore/Lib
+Windows/BoltCore-VS2017/BoltCore/resources
+Windows/BoltCore-VS2017/BoltCore/x64 
+Windows/Editor-VS2017/BoltCore/.vs
+Windows/Editor-VS2017/BoltCore/BoltEditor/Lib
+Windows/Editor-VS2017/BoltCore/BoltEditor/Resources
+Windows/Editor-VS2017/BoltCore/BoltEditor/x64
+Windows/Editor-VS2017/BoltCore/BoltEditor/GeneratedFiles
+Windows/Editor-VS2017/BoltCore/x64 
 
 # DNX
 project.lock.json
