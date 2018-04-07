@@ -1,0 +1,93 @@
+<world>
+    <entities>
+        <entity id="idontknow4">
+            <components>
+                <component name="position" x="0" y="500"/>
+                <component name="size" w="800" h="100"/>
+                <component name="color" colorr="180" colorg="185" colorb="183" colora="255"/>
+                <component name="simplephysic" x="0" y="500" w="800" h="100" veloX="0" veloY="0" type="0"/>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow5">
+            <components>
+                <component name="position" x="421" y="300"/>
+                <component name="size" w="100" h="90"/>
+                <component name="color" colorr="20" colorg="20" colorb="200" colora="255"/>
+                <component name="userinput"/>
+                <component name="simplephysic" x="421" y="300" w="100" h="90" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags>
+                <tag name="hero"/>
+            </tags>
+        </entity>
+        <entity id="idontknow6">
+            <components>
+                <component name="position" x="150" y="100"/>
+                <component name="size" w="1" h="1"/>
+                <component name="color" colorr="180" colorg="20" colorb="20" colora="255"/>
+                <component name="fieldofview" angle="90" distance="1000"/>
+                <component name="direction" directionx="0" directiony="1"/>
+                <component name="simplephysic" x="150" y="100" w="1" h="1" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="idontknow7">
+            <components>
+                <component name="position" x="650" y="100"/>
+                <component name="size" w="1" h="1"/>
+                <component name="color" colorr="180" colorg="20" colorb="20" colora="255"/>
+                <component name="fieldofview" angle="90" distance="1000"/>
+                <component name="direction" directionx="0" directiony="1"/>
+                <component name="simplephysic" x="650" y="100" w="1" h="1" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="idontknow8">
+            <components>
+                <component name="position" x="0" y="0"/>
+                <component name="size" w="5" h="5"/>
+                <component name="color" colorr="20" colorg="180" colorb="20" colora="255"/>
+                <component name="simplephysic" x="0" y="0" w="5" h="5" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow9">
+            <components>
+                <component name="position" x="0" y="300"/>
+                <component name="size" w="5" h="5"/>
+                <component name="color" colorr="20" colorg="180" colorb="20" colora="255"/>
+                <component name="simplephysic" x="0" y="300" w="5" h="5" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow10">
+            <components>
+                <component name="position" x="400" y="0"/>
+                <component name="size" w="5" h="5"/>
+                <component name="color" colorr="20" colorg="180" colorb="20" colora="255"/>
+                <component name="simplephysic" x="400" y="0" w="5" h="5" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow11">
+            <components>
+                <component name="position" x="400" y="300"/>
+                <component name="size" w="5" h="5"/>
+                <component name="color" colorr="20" colorg="180" colorb="20" colora="255"/>
+                <component name="simplephysic" x="400" y="300" w="5" h="5" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+    </entities>
+</world>
