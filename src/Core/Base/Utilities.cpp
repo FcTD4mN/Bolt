@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+namespace nBase {
+
 std::vector<std::string>
 Split( char iSplitChar, const std::string & iString )
 {
@@ -15,3 +17,6 @@ Split( char iSplitChar, const std::string & iString )
 
     return  strings;
 }
+
+} //nBase
+

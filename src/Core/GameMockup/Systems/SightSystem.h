@@ -11,7 +11,9 @@
 #include <queue>
 #include <thread>
 
-class cThreadHandle;
+namespace nBase { namespace nThread { class cThreadHandle; } }
+
+namespace nECS {
 
 class cSightSystem :
     public cSystem
@@ -59,7 +61,7 @@ private:
     std::vector< sf::VertexArray >*     mOutputTriangles;
     std::queue< eAssociatedTriangle >*  mTriangleQueue;
     std::vector< sf::VertexArray >      mAllPolygonsInFOV;
-    std::vector< cThreadHandle >        mThreadHandles;
+    std::vector< ::nBase::nThread::cThreadHandle >  mThreadHandles;
     std::mutex                          mMutex;
     std::condition_variable             mSynchronizeCV;
     std::atomic_int                     mWorkingThreadCount;
@@ -91,3 +93,4 @@ private:
     std::vector< std::vector< sf::VertexArray > >  mFOVDrawer;
 };
 
+} //nECS

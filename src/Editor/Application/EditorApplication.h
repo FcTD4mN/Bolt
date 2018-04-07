@@ -2,8 +2,10 @@
 
 #include "Application/Application.h"
 
-class cWorld;
-class cMainMenu;
+namespace nECS { class cWorld; }
+namespace nMainMenu { class cMainMenu; }
+
+namespace nApplication {
 
 class cEditorApplication :
     public cApplication
@@ -19,7 +21,7 @@ public:
 
 public:
     // Access
-    cWorld*         World();
+    ::nECS::cWorld*         World();
 
 public:
     void Initialize();
@@ -30,7 +32,9 @@ public:
     void Draw( sf::RenderTarget* iRenderTarget );
 
 private:
-    cWorld*     mWorld;
-    cMainMenu*  mMMenu;
+    ::nECS::cWorld*     mWorld;
+    ::nMainMenu::cMainMenu*  mMMenu;
 };
+
+} //nApplication
 

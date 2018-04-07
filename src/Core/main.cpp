@@ -28,7 +28,7 @@ BoltMain( int argc, char *argv[] )
 
     srand( unsigned int( time( NULL ) ) );
 
-    cGameApplication* app = cGameApplication::App();
+    ::nApplication::cGameApplication* app = ::nApplication::cGameApplication::App();
     app->Initialize();
 
 
@@ -80,7 +80,7 @@ BoltMain( int argc, char *argv[] )
 
     ////////////////////////////////////////////////////////////
 
-    sf::RenderWindow* window = cGameApplication::App()->Window();
+    sf::RenderWindow* window = ::nApplication::cGameApplication::App()->Window();
     window->setFramerateLimit( 144 );
     sf::Vector2u size = window->getSize();
 
@@ -141,7 +141,7 @@ BoltMain( int argc, char *argv[] )
 
             float fps = 1 / frameTime.asSeconds();
             std::cout << std::to_string( fps ) << "\n";
-            std::cout << "==============" << std::to_string( cGameApplication::App()->World()->EntityCount() ) << "\n";
+            std::cout << "==============" << std::to_string( ::nApplication::cGameApplication::App()->World()->EntityCount() ) << "\n";
 
         }
         // PERF TESTS============================================================

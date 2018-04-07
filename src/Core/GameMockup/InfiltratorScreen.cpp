@@ -19,6 +19,8 @@
 
 #include <iostream>
 
+namespace nScreen {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
 // -------------------------------------------------------------------------------------
@@ -42,17 +44,17 @@ cInfiltratorScreen::cInfiltratorScreen()
 void
 cInfiltratorScreen::Initialize()
 {
-    sf::Window* window = cGameApplication::App()->Window();
+    sf::Window* window = ::nApplication::cGameApplication::App()->Window();
     sf::Vector2u windowSize = window->getSize();
 
-    cWorld* world = cGameApplication::App()->World();
+    ::nECS::cWorld* world = ::nApplication::cGameApplication::App()->World();
 
-    cEntity* wall1 = new cEntity( world );
-    wall1->AddComponent( new cPosition( 0.0F, 500.0F ) );
-    wall1->AddComponent( new cSize( 800.0F, 100.0F ) );
-    wall1->AddComponent( new cColor( 180, 185, 183 ) );
+    ::nECS::cEntity* wall1 = new ::nECS::cEntity( world );
+    wall1->AddComponent( new ::nECS::cPosition( 0.0F, 500.0F ) );
+    wall1->AddComponent( new ::nECS::cSize( 800.0F, 100.0F ) );
+    wall1->AddComponent( new ::nECS::cColor( 180, 185, 183 ) );
     wall1->AddTag( "wall" );
-    wall1->AddComponent( new cSimplePhysic( 0.0F, 500.0F, 800.0F, 100.0F, cSimplePhysic::eType::kStatic ) );
+    wall1->AddComponent( new ::nECS::cSimplePhysic( 0.0F, 500.0F, 800.0F, 100.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
     world->AddEntity( wall1 );
 
     //cEntity* wall2 = new cEntity( world );
@@ -79,47 +81,47 @@ cInfiltratorScreen::Initialize()
     //wall4->AddComponent( new cSimplePhysic( 450.0F, 200.0F, 64.0F, 256.0F, cSimplePhysic::eType::kStatic ) );
     //world->AddEntity( wall4 );
 
-    cEntity* hero = new cEntity( world );
-    hero->AddComponent( new cPosition( 350.0F, 350.0F ) );
-    hero->AddComponent( new cSize( 100.0F, 90.0F ) );
-    hero->AddComponent( new cColor( 20, 20, 200 ) );
-    hero->AddComponent( new cUserInput() );
+    ::nECS::cEntity* hero = new ::nECS::cEntity( world );
+    hero->AddComponent( new ::nECS::cPosition( 350.0F, 350.0F ) );
+    hero->AddComponent( new ::nECS::cSize( 100.0F, 90.0F ) );
+    hero->AddComponent( new ::nECS::cColor( 20, 20, 200 ) );
+    hero->AddComponent( new ::nECS::cUserInput() );
     hero->AddTag( "hero" );
-    hero->AddComponent( new cSimplePhysic( 350.0F, 350.0F, 100.0F, 90.0F, cSimplePhysic::eType::kDynamic ) );
+    hero->AddComponent( new ::nECS::cSimplePhysic( 350.0F, 350.0F, 100.0F, 90.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( hero );
 
-    mMechant = new cEntity( world );
-    mMechant->AddComponent( new cPosition( 150.0F, 100.0F ) );
-    mMechant->AddComponent( new cSize( 1.0F, 1.0F ) );
-    mMechant->AddComponent( new cColor( 180, 20, 20 ) );
-    mMechant->AddComponent( new cFieldOfView( 90, 1000 ) );
-    mMechant->AddComponent( new cDirection( Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
-    mMechant->AddComponent( new cSimplePhysic( 150.0F, 100.0F, 1.0F, 1.0F, cSimplePhysic::eType::kDynamic ) );
+    mMechant = new ::nECS::cEntity( world );
+    mMechant->AddComponent( new ::nECS::cPosition( 150.0F, 100.0F ) );
+    mMechant->AddComponent( new ::nECS::cSize( 1.0F, 1.0F ) );
+    mMechant->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
+    mMechant->AddComponent( new ::nECS::cFieldOfView( 90, 1000 ) );
+    mMechant->AddComponent( new ::nECS::cDirection( ::nMath::Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
+    mMechant->AddComponent( new ::nECS::cSimplePhysic( 150.0F, 100.0F, 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( mMechant );
 
-    cEntity* light = new cEntity( world );
-    light->AddComponent( new cPosition( 650.0F, 100.0F ) );
-    light->AddComponent( new cSize( 1.0F, 1.0F ) );
-    light->AddComponent( new cColor( 180, 20, 20 ) );
-    light->AddComponent( new cFieldOfView( 90, 1000 ) );
-    light->AddComponent( new cDirection( Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
-    light->AddComponent( new cSimplePhysic( 650.0F, 100.0F, 1.0F, 1.0F, cSimplePhysic::eType::kDynamic ) );
+    ::nECS::cEntity* light = new ::nECS::cEntity( world );
+    light->AddComponent( new ::nECS::cPosition( 650.0F, 100.0F ) );
+    light->AddComponent( new ::nECS::cSize( 1.0F, 1.0F ) );
+    light->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
+    light->AddComponent( new ::nECS::cFieldOfView( 90, 1000 ) );
+    light->AddComponent( new ::nECS::cDirection( ::nMath::Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
+    light->AddComponent( new ::nECS::cSimplePhysic( 650.0F, 100.0F, 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( light );
 
-    //int swall = 20;
-    //for( int i = 0; i < swall; ++i )
-    //{
-    //    for( int j = 0; j < swall; ++j )
-    //    {
-    //        cEntity* wall = new cEntity( world );
-    //        wall->AddComponent( new cPosition( float(i) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ) ) );
-    //        wall->AddComponent( new cSize( 5.0f, 5.0f ) );
-    //        wall->AddComponent( new cColor( 20, 180, 20 ) );
-    //        wall->AddComponent( new cSimplePhysic( float( i ) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ), 5.0f, 5.0f, cSimplePhysic::eType::kDynamic ) );
-    //        wall->AddTag( "wall" );
-    //        world->AddEntity( wall );
-    //    }
-    //}
+    int swall = 2;
+    for( int i = 0; i < swall; ++i )
+    {
+        for( int j = 0; j < swall; ++j )
+        {
+            ::nECS::cEntity* wall = new ::nECS::cEntity( world );
+            wall->AddComponent( new ::nECS::cPosition( float(i) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ) ) );
+            wall->AddComponent( new ::nECS::cSize( 5.0f, 5.0f ) );
+            wall->AddComponent( new ::nECS::cColor( 20, 180, 20 ) );
+            wall->AddComponent( new ::nECS::cSimplePhysic( float( i ) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ), 5.0f, 5.0f, ::nECS::cSimplePhysic::eType::kDynamic ) );
+            wall->AddTag( "wall" );
+            world->AddEntity( wall );
+        }
+    }
 
     mRotationFOV.rotate( 2.0F );
 }
@@ -172,12 +174,12 @@ cInfiltratorScreen::KeyPressed( const sf::Event& iEvent )
 {
     if( iEvent.key.code == sf::Keyboard::Key::X )
     {
-        auto direction = dynamic_cast< cDirection* >( mMechant->GetComponentByName( "direction" ) );
+        auto direction = dynamic_cast< ::nECS::cDirection* >( mMechant->GetComponentByName( "direction" ) );
         direction->mDirection = mRotationFOV.transformPoint( direction->mDirection );
     }
     else if( iEvent.key.code == sf::Keyboard::Key::C )
     {
-        auto direction = dynamic_cast< cDirection* >( mMechant->GetComponentByName( "direction" ) );
+        auto direction = dynamic_cast< ::nECS::cDirection* >( mMechant->GetComponentByName( "direction" ) );
         mRotationFOV = mRotationFOV.getInverse();
         direction->mDirection = mRotationFOV.transformPoint( direction->mDirection );
         mRotationFOV = mRotationFOV.getInverse();
@@ -321,7 +323,7 @@ cInfiltratorScreen::SaveXML()
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement* elm = doc.NewElement( "world" );
 
-    cGameApplication::App()->World()->SaveXML( elm, &doc );
+    ::nApplication::cGameApplication::App()->World()->SaveXML( elm, &doc );
 
     doc.InsertFirstChild( elm );
 
@@ -339,7 +341,7 @@ cInfiltratorScreen::LoadXML()
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLError error = doc.LoadFile( "test.xml" );
 
-    cGameApplication::App()->World()->LoadXML( doc.FirstChildElement( "world" ) );
+    ::nApplication::cGameApplication::App()->World()->LoadXML( doc.FirstChildElement( "world" ) );
 
     if( !error )
         std::cout << "Successfuly loaded " << std::endl;
@@ -348,7 +350,7 @@ cInfiltratorScreen::LoadXML()
     //mMechant = cGameApplication::App()->World()->GetEntityByID( "idontknow9" );
 }
 
-
+} //nScreen
 
 
 

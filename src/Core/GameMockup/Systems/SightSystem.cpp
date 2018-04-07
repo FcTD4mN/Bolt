@@ -26,6 +26,8 @@
 
 #define FOVSplitThreshold 1
 
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -95,7 +97,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //// ============== MULTI THREAD ============
     //// ========================================
 
-    cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
+    ::nMapping::cEntityGrid* entityMap = ::nApplication::cGameApplication::App()->EntityMap();
 
     // Draw container
     mFOVDrawer.clear();
@@ -153,9 +155,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
             mTriangleQueue->push( assocTriangle );
         }
 
-        mFOVBBox = GetTriangleSetBBox( mTriangles );
+        mFOVBBox = ::nMath::GetTriangleSetBBox( mTriangles );
 
-        std::vector< cEntity* > entitiesInFOVBBox;
+        std::vector< ::nECS::cEntity* > entitiesInFOVBBox;
         entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
         mAllPolygonsInFOV.clear();
@@ -211,10 +213,10 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
                 for( int j = 0; j < mAllPolygonsInFOV.size(); ++j )
                 {
-                    if( VectorContainsElement( triangleToCompute.mVisitedPolygonIndexes, j ) )
+                    if( ::nMath::VectorContainsElement( triangleToCompute.mVisitedPolygonIndexes, j ) )
                         continue;
 
-                    bool generatedSubTriangles = TriangleSubDivisionUsingPolygon( &output, triangleToCompute.mTriangle, mAllPolygonsInFOV[ j ] );
+                    bool generatedSubTriangles = ::nMath::TriangleSubDivisionUsingPolygon( &output, triangleToCompute.mTriangle, mAllPolygonsInFOV[ j ] );
 
                     // This will push associated index every time we got sub triangles
                     // So polyIndex count == number of times we generated sub triangles
@@ -252,20 +254,20 @@ cSightSystem::Update( unsigned int iDeltaTime )
             }
         };
 
-        unsigned int availableThreadsCount = cThreadProcessor::Instance()->GetAvailableThreadCount();
+        unsigned int availableThreadsCount = ::nBase::nThread::cThreadProcessor::Instance()->GetAvailableThreadCount();
 
         if( availableThreadsCount == 0 )
             availableThreadsCount = 1;
 
         for( unsigned int i = 0; i < availableThreadsCount; ++i )
         {
-            mThreadHandles.push_back( cThreadProcessor::Instance()->AffectFunctionToThreadAndStart( threadMethod, true ) );
+            mThreadHandles.push_back( ::nBase::nThread::cThreadProcessor::Instance()->AffectFunctionToThreadAndStart( threadMethod, true ) );
         }
 
         for( int i = 0; i < mThreadHandles.size(); ++i )
         {
-            cThreadHandle& handle = mThreadHandles[ i ];
-            cThread* t = handle.GetThread();
+            ::nBase::nThread::cThreadHandle& handle = mThreadHandles[ i ];
+            ::nBase::nThread::cThread* t = handle.GetThread();
             if( t )
                 t->WaitEndOfTask();
         }
@@ -422,5 +424,5 @@ cSightSystem::EntityLost( cEntity * iEntity )
     tSuperClass::EntityLost( iEntity );
 }
 
-
+} //nECS
 

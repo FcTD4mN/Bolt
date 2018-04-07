@@ -40,6 +40,8 @@
 
 #include "Shortcuts/Shortcuts.h"
 
+namespace nApplication
+{
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -73,21 +75,21 @@ cGameApplication::App()
 // -------------------------------------------------------------------------------------
 
 
-cWorld*
+::nECS::cWorld*
 cGameApplication::World()
 {
     return mWorld;
 }
 
 
-cShortcuts*
+::nShortcuts::cShortcuts*
 cGameApplication::ShortcutEngine()
 {
     return  mShortcutEngine;
 }
 
 
-cEntityGrid*
+::nMapping::cEntityGrid*
 cGameApplication::EntityMap()
 {
     return  mEntityMap;
@@ -105,32 +107,32 @@ cGameApplication::Initialize()
     tSuperClass::Initialize();
     //SetAppDefaultResolution( 1024, 768 ); //TODO: menu is shitty as fuck when not in 800*600 ........
 
-    mEntityMap = new cEntityGrid();
+    mEntityMap = new ::nMapping::cEntityGrid();
     // =======ECS WORLD=======
-    mWorld = new cWorld();
-    mWorld->AddSystem( new cSimplerRenderer() );
+    mWorld = new ::nECS::cWorld();
+    mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
 
-    cInputConverter* ic = new cInputConverter();
+    ::nECS::cInputConverter* ic = new ::nECS::cInputConverter();
     mWorld->AddSystem( ic );
     mWorld->ConnectSystemToEvents( ic );
 
-    mWorld->AddSystem( new cAnimationRenderer() );
-    mWorld->AddSystem( new cSightSystem() );
-    mWorld->AddSystem( new cSimplePhysics() );
-    mWorld->AddSystem( new cSquareController() );
+    mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
+    mWorld->AddSystem( new ::nECS::cSightSystem() );
+    mWorld->AddSystem( new ::nECS::cSimplePhysics() );
+    mWorld->AddSystem( new ::nECS::cSquareController() );
 
     // Following call may need world
-    cComponentRegistry::Instance()->Initialize();
-    cComponentRegistry::Instance()->RegisterComponent( new cColor() );
-    cComponentRegistry::Instance()->RegisterComponent( new cDirection() );
-    cComponentRegistry::Instance()->RegisterComponent( new cFieldOfView() );
-    cComponentRegistry::Instance()->RegisterComponent( new cPosition() );
-    cComponentRegistry::Instance()->RegisterComponent( new cSize() );
-    cComponentRegistry::Instance()->RegisterComponent( new cSpriteAnimated() );
-    cComponentRegistry::Instance()->RegisterComponent( new cUserInput() );
-    cComponentRegistry::Instance()->RegisterComponent( new cSimplePhysic() );
+    ::nECS::cComponentRegistry::Instance()->Initialize();
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cColor() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cDirection() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cFieldOfView() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cPosition() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSize() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSpriteAnimated() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cUserInput() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSimplePhysic() );
 
-    cEntityParser::Instance()->Initialize( mWorld );
+    ::nECS::cEntityParser::Instance()->Initialize( mWorld );
 
     // =========== GENERAL CONFIG ===========
     mMainWindow->setKeyRepeatEnabled( false );
@@ -138,35 +140,35 @@ cGameApplication::Initialize()
     sf::Vector2u winSize = mMainWindow->getSize();
 
     // ========= MAIN MENU =========
-    cMainMenu* menu = new cMainMenu();
-    cMenuPage* pageOne = new cMenuPage( menu );
+    ::nMainMenu::cMainMenu* menu = new ::nMainMenu::cMainMenu();
+    ::nMainMenu::cMenuPage* pageOne = new ::nMainMenu::cMenuPage( menu );
     pageOne->Size( float(winSize.x), float(winSize.y) );
 
-    cMenuPage* pageTwo = new cMenuPage( menu );
+    ::nMainMenu::cMenuPage* pageTwo = new ::nMainMenu::cMenuPage( menu );
     pageTwo->Size( float(winSize.x), float(winSize.y) );
 
     sf::RectangleShape rect( sf::Vector2f( 200, 50 ) );
 
-    cItemPageSwaper* itemOne  = new cItemPageSwaper( menu, "FirstPage0", rect, 1 );
-    cItemPageSwaper* itemOne2 = new cItemPageSwaper( menu, "FirstPage1", rect, 1 );
+    ::nMainMenu::cItemPageSwaper* itemOne  = new ::nMainMenu::cItemPageSwaper( menu, "FirstPage0", rect, 1 );
+    ::nMainMenu::cItemPageSwaper* itemOne2 = new ::nMainMenu::cItemPageSwaper( menu, "FirstPage1", rect, 1 );
 
-    cItemPageSwaper* itemTwo  = new cItemPageSwaper( menu, "SecondPage0", rect, 0 );
-    cItemCallback*   itemTwo2 = new cItemCallback( menu, "SecondPage1", rect, []()
+    ::nMainMenu::cItemPageSwaper* itemTwo  = new ::nMainMenu::cItemPageSwaper( menu, "SecondPage0", rect, 0 );
+    ::nMainMenu::cItemCallback*   itemTwo2 = new ::nMainMenu::cItemCallback( menu, "SecondPage1", rect, []()
     {
         cGameApplication::App()->Window()->setTitle( "CLICK" );
     } );
 
-    cItemCallback*   gameScreenSwap = new cItemCallback( menu, "Game", rect, []()
+    ::nMainMenu::cItemCallback*   gameScreenSwap = new ::nMainMenu::cItemCallback( menu, "Game", rect, []()
     {
-        cGameApplication::App()->PushScreen( new cGameScreen() );
+        cGameApplication::App()->PushScreen( new ::nScreen::cGameScreen() );
     } );
 
-    cItemCallback*   infiltratorScreenSwap = new cItemCallback( menu, "Infiltrator", rect, [](){
-        cGameApplication::App()->PushScreen( new cInfiltratorScreen() );
+    ::nMainMenu::cItemCallback*   infiltratorScreenSwap = new ::nMainMenu::cItemCallback( menu, "Infiltrator", rect, [](){
+        cGameApplication::App()->PushScreen( new ::nScreen::cInfiltratorScreen() );
     } );
 
-    cItemCallback*   openGLRenderSceneScreenSwap = new cItemCallback( menu, "OpenGL", rect, [](){
-        cGameApplication::App()->PushScreen( new cOpenGLRenderSceneScreen() );
+    ::nMainMenu::cItemCallback*   openGLRenderSceneScreenSwap = new ::nMainMenu::cItemCallback( menu, "OpenGL", rect, [](){
+        cGameApplication::App()->PushScreen( new ::nScreen::cOpenGLRenderSceneScreen() );
     } );
 
     pageOne->AddItem( itemOne );
@@ -181,11 +183,11 @@ cGameApplication::Initialize()
     menu->AddPage( pageTwo );
     menu->CurrentPage( 0 );
 
-    cScreenMainMenu* mainMenuScreen = new cScreenMainMenu( menu );
+    ::nScreen::cScreenMainMenu* mainMenuScreen = new ::nScreen::cScreenMainMenu( menu );
     PushScreen( mainMenuScreen );
 
     // =======Shortcuts=======
-    mShortcutEngine = cShortcuts::Instance();
+    mShortcutEngine = ::nShortcuts::cShortcuts::Instance();
     mShortcutEngine->Initialize();
 }
 
@@ -195,7 +197,7 @@ cGameApplication::Finalize()
 {
     tSuperClass::Finalize();
 
-    cComponentRegistry::Instance()->Finalize();
+    ::nECS::cComponentRegistry::Instance()->Finalize();
 
     delete mWorld;
 }
@@ -242,3 +244,4 @@ cGameApplication::KeyReleased( const sf::Event& iEvent )
     mWorld->KeyReleased( iEvent );
 }
 
+} // nApplication

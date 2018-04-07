@@ -12,6 +12,8 @@
 #include "Screen/ScreenMainMenu.h"
 // ----------------------------------------
 
+namespace nApplication {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -66,7 +68,7 @@ cApplication::Initialize()
 
     mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Bolt", sf::Style::Default, settings );
 
-    cThreadProcessor::Instance();
+    ::nBase::nThread::cThreadProcessor::Instance();
 }
 
 
@@ -75,7 +77,7 @@ cApplication::Finalize()
 {
     delete  mMainWindow;
 
-    cThreadProcessor* threadProc = cThreadProcessor::Instance();
+    ::nBase::nThread::cThreadProcessor* threadProc = ::nBase::nThread::cThreadProcessor::Instance();
     threadProc->Finalize();
     delete threadProc;
 }
@@ -106,7 +108,7 @@ cApplication::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cApplication::PushScreen( cScreen * iScreen )
+cApplication::PushScreen( ::nScreen::cScreen * iScreen )
 {
     mScreenStack.push_back( iScreen );
     iScreen->Initialize();
@@ -117,7 +119,7 @@ cApplication::PushScreen( cScreen * iScreen )
 void
 cApplication::PopScreen()
 {
-    cScreen* currentScreen = mScreenStack.back();
+    ::nScreen::cScreen* currentScreen = mScreenStack.back();
     currentScreen->Finalize();
 
     mScreenStack.pop_back();
@@ -365,3 +367,5 @@ cApplication::SensorChanged( const sf::Event& iEvent )
 {
     mCurrentScreen->SensorChanged( iEvent );
 }
+
+} //nApplication

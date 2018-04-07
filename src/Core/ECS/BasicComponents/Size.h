@@ -6,11 +6,13 @@
 
 #include "tinyxml2.h"
 
+namespace nECS {
+
 class cSize :
-    public cComponent
+    public ::nECS::cComponent
 {
 public:
-    typedef  cComponent  tSuperClass;
+    typedef  ::nECS::cComponent  tSuperClass;
 
 public:
     virtual  ~cSize();
@@ -21,7 +23,7 @@ public:
 
 public:
     // Copy
-    virtual  cComponent* Clone();
+    virtual  ::nECS::cComponent* Clone();
 
 public:
     // Input/Output
@@ -31,3 +33,5 @@ public:
 public:
     sf::Vector2f  mSize;
 };
+
+} //nECS

@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace nMainMenu {
 
 cItemCallback::cItemCallback( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox, std::function< void() > iFunction ) :
    tSuperClass( iMasterMenu, iText, iBox ),
@@ -20,4 +21,4 @@ cItemCallback::ClickAction()
     mFunction();
 }
 
-
+} //nMainMenu

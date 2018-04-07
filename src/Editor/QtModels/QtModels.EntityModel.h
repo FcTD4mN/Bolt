@@ -1,6 +1,9 @@
 #include "QtCore/QAbstractTableModel"
 
-class cEntity;
+namespace  nECS { class cEntity; }
+
+namespace  nQt {
+namespace  nModels {
 
 class  cEntityModel :
     public QAbstractTableModel
@@ -11,7 +14,7 @@ public:
     typedef QAbstractTableModel tSuperClass;
 
 public:
-    cEntityModel( cEntity* iEntity, QObject* iParent = 0 );
+    cEntityModel( ::nECS::cEntity* iEntity, QObject* iParent = 0 );
 
 public:
     // Interface overrides
@@ -21,5 +24,8 @@ public:
     virtual  QVariant headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const override;
 
 private:
-    cEntity* mEntity;
+    ::nECS::cEntity* mEntity;
 };
+
+} //nQt
+} //nModels

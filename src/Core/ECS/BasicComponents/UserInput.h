@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace nECS {
+
 class cUserInput :
     public cComponent
 {
@@ -23,3 +25,4 @@ public:
     std::vector< std::string > mActions;
 };
 
+} //nECS

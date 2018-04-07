@@ -2,6 +2,7 @@
 
 #include "ECS/Core/Component.h"
 
+namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -72,3 +73,5 @@ cComponentRegistry::CreateComponentFromName( const std::string & iName )
 {
     return  mComponents[ iName ]->Clone();
 }
+
+} //nECS

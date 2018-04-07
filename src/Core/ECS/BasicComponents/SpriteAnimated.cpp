@@ -2,6 +2,8 @@
 
 #include "Base/ResourceManager.h"
 
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -99,7 +101,7 @@ cSpriteAnimated::Unflip()
 void
 cSpriteAnimated::SetSpriteSheet( const std::string & iFile, int iW, int iH )
 {
-    mSpriteSheet = cResourceManager::Instance()->GetTexture( iFile );
+    mSpriteSheet = ::nBase::cResourceManager::Instance()->GetTexture( iFile );
     mSprite.setTexture( *mSpriteSheet );
     mSprite.setTextureRect( mCurrentSpriteRect );
     mSprite.setOrigin( sf::Vector2f( float( iW / 2 ), float( iH / 2 ) ) );
@@ -139,3 +141,4 @@ cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
     SetSpriteSheet( mFileName, width, height );
 }
 
+} //nECS

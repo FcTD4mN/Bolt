@@ -4,6 +4,8 @@
 
 #include "Math/Edge.h"
 
+namespace nMath {
+
 class cRay
 {
 public:
@@ -23,3 +25,4 @@ public:
     eRayType    mRayType;
 };
 
+} //nMath

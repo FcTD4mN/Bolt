@@ -5,6 +5,7 @@
 #include "ECS/BasicComponents/Position.h"
 #include "ECS/BasicComponents/SpriteAnimated.h"
 
+namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -103,6 +104,6 @@ cAnimationRenderer::IncomingEntity( cEntity * iEntity )
         AcceptEntity( iEntity );
 }
 
-
+} //nECS
 
 

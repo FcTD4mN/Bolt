@@ -4,15 +4,18 @@
 #include "ECS/Utilities/EntityParser.h"
 #include "ECS/Core/World.h"
 
+#include "ECS/BasicComponents/SimplePhysic.h"
+#include "ECS/BasicComponents/SpriteAnimated.h"
+#include "ECS/BasicComponents/Position.h"
+#include "ECS/BasicComponents/UserInput.h"
+
 #include "GameMockup/GameApplication.h"
-#include "GameMockup/Components/SimplePhysic.h"
-#include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/SpriteAnimated.h"
-#include "GameMockup/Components/UserInput.h"
 
 #include "SFML/Graphics.hpp"
 
 #include <iostream>
+
+namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -124,7 +127,7 @@ cSquareController::Update( unsigned int iDeltaTime )
                 phys->mHitBox.top = y;
 
                 phys->mVelocity.x = 0.1f;
-                cGameApplication::App()->World()->AddEntity( bullet );
+                ::nApplication::cGameApplication::App()->World()->AddEntity( bullet );
                 userinput->mActions.erase( userinput->mActions.begin() + i );
             }
 
@@ -154,3 +157,4 @@ cSquareController::IncomingEntity( cEntity * iEntity )
         AcceptEntity( iEntity );
 }
 
+} //nECS

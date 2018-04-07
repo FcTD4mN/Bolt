@@ -21,8 +21,7 @@
 
 #include <windows.h>
 
-namespace  nBenchmark
-{
+namespace  nBenchmark {
 	struct  cVectorEntry
 	{
 		std::string key;
@@ -118,27 +117,24 @@ namespace  nBenchmark
 	}
 
 
-
-
-
     void EntityStressTest()
     {
-        cWorld* world = new cWorld();
+        ::nECS::cWorld* world = new ::nECS::cWorld();
 
         auto start = std::chrono::high_resolution_clock::now();
 
         for( int i = 1; i <= 100; ++i )
         {
-            cEntity* ent = new cEntity( world );
-            ent->AddComponent( new cSize( 10.0F, 10.0F ) );
-            ent->AddComponent( new cPosition( 10.0F, 100.0F ) );
-            ent->AddComponent( new cText( "Test" ) );
-            ent->AddComponent( new cColor( 255, 255, 0, 255 ) );
+            ::nECS::cEntity* ent = new ::nECS::cEntity( world );
+            ent->AddComponent( new ::nECS::cSize( 10.0F, 10.0F ) );
+            ent->AddComponent( new ::nECS::cPosition( 10.0F, 100.0F ) );
+            ent->AddComponent( new ::nECS::cText( "Test" ) );
+            ent->AddComponent( new ::nECS::cColor( 255, 255, 0, 255 ) );
 
             world->AddEntity( ent );
 
-            world->AddSystem( new cInputConverter() );
-            world->AddSystem( new cSimplerRenderer() );
+            world->AddSystem( new ::nECS::cInputConverter() );
+            world->AddSystem( new ::nECS::cSimplerRenderer() );
         }
 
         auto end = std::chrono::high_resolution_clock::now() - start;

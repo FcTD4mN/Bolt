@@ -1,6 +1,9 @@
 #include "QtCore/QAbstractListModel"
 
-class cEntityParser;
+namespace  nECS { class cEntityParser; }
+
+namespace  nQt {
+namespace  nModels {
 
 class  cEntityListModel :
     public QAbstractListModel
@@ -20,5 +23,8 @@ public:
     virtual  QVariant headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const override;
 
 private:
-    cEntityParser* mParserInstance;
+    ::nECS::cEntityParser* mParserInstance;
 };
+
+} //nQt
+} //nModels

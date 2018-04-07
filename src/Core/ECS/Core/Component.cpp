@@ -1,5 +1,8 @@
 #include "Component.h"
 
+
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
 // -------------------------------------------------------------------------------------
@@ -87,7 +90,7 @@ cComponentGeneric::Name() const
 }
 
 
-const cVariant&
+const ::nBase::cVariant&
 cComponentGeneric::GetVar( const std::string& iVarName )
 {
     return  mVars[ iVarName ];
@@ -95,7 +98,7 @@ cComponentGeneric::GetVar( const std::string& iVarName )
 
 
 void
-cComponentGeneric::SetVar( const std::string& iVarName, cVariant& iValue )
+cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant& iValue )
 {
     mVars[ iVarName ] = iValue;
 }
@@ -133,7 +136,9 @@ cComponentGeneric::LoadXML( tinyxml2::XMLElement * iNode )
     tinyxml2::XMLElement* variables = iNode->FirstChildElement( "variables" );
     for( tinyxml2::XMLElement* variable = variables->FirstChildElement( "variable" ); variable; variable = variable->NextSiblingElement() )
     {
-        cVariant var;
+        ::nBase::cVariant var;
         var.LoadXML( variable );
     }
 }
+
+} //nECS

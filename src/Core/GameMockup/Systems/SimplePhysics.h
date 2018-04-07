@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include "Mapping/PhysicEntityGrid.h"
 
+namespace nECS {
+
 class cSimplePhysics :
     public cSystem
 {
@@ -37,3 +39,4 @@ private:
     std::vector< cEntity* > mDynamicEntities;
 };
 
+} //nECS

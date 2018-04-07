@@ -3,10 +3,12 @@
 #include <vector>
 #include "Base/Drawable.h"
 
+
+namespace nMainMenu {
 class cMenuPage;
 
 class cMainMenu :
-    public cDrawable
+    public ::nBase::cDrawable
 {
 public:
     cMainMenu();
@@ -24,3 +26,4 @@ protected:
     int mCurrentPage;
 };
 
+} //nMainMenu

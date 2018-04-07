@@ -2,6 +2,8 @@
 
 #include <string>
 
+namespace nBase {
+
 enum eType
 {
     kInvalid = 0,
@@ -171,3 +173,4 @@ private:
     uAllTypes   mValue;
 };
 
+} //nBase

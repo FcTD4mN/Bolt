@@ -2,6 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 
+namespace nMath {
 
 class cEdgeF
 {
@@ -24,3 +25,4 @@ public:
     sf::Vector2f mDirection;
 };
 
+} //nMath

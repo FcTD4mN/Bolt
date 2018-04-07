@@ -5,6 +5,7 @@
 
 #include "QtWidgets/qtableview.h"
 
+namespace nQt {
 
 cBoltEditor::~cBoltEditor()
 {
@@ -22,12 +23,12 @@ cBoltEditor::cBoltEditor( QWidget *parent ) :
 void
 cBoltEditor::Setup()
 {
-    mApp = cEditorApplication::App();
+    mApp = ::nApplication::cEditorApplication::App();
     mApp->Initialize();
 
     ui.widget->SetEditorApp( mApp );
 
-    mModel = new cEntityListModel( 0 );
+    mModel = new ::nQt::nModels::cEntityListModel( 0 );
     ui.listView->setModel( mModel );
 
     connect(
@@ -37,3 +38,4 @@ cBoltEditor::Setup()
 
 }
 
+} //nQt

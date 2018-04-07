@@ -105,5 +105,3 @@ QSFMLCanvas::paintEvent( QPaintEvent* )
     OnUpdate();
     mRenderWindow->display();
 }
-
-

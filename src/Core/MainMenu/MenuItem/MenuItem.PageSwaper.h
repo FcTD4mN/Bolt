@@ -2,6 +2,8 @@
 
 #include "MainMenu/MenuItem/MenuItem.h"
 
+namespace nMainMenu {
+
 class cItemPageSwaper :
     public cMenuItem
 {
@@ -17,4 +19,6 @@ public:
 private:
     int mPageToSwapTo;
 };
+
+} //nMainMenu
 

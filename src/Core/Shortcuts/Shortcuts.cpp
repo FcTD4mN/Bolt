@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 
+namespace nShortcuts {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -111,3 +113,5 @@ cShortcuts::LoadXML()
         mShortcuts[ sf::Keyboard::Key( entry->Int64Attribute( "key" ) ) ] = entry->Attribute( "action" );
     }
 }
+
+} //nShortcuts

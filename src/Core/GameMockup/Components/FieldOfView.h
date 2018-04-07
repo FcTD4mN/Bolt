@@ -4,6 +4,8 @@
 
 #include "tinyxml2.h"
 
+namespace nECS {
+
 class cFieldOfView :
     public cComponent
 {
@@ -30,3 +32,4 @@ public:
     double  mDistance;
 };
 
+} //nECS

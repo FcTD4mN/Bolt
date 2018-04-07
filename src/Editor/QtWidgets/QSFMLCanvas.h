@@ -3,6 +3,7 @@
 #include <QtWidgets/QWidget>
 #include <QtCore/QTimer>
 
+
 class QSFMLCanvas :
     public QWidget,
     public sf::RenderWindow
@@ -28,4 +29,3 @@ protected:
     QTimer mTimer;
     bool   mInitialized;
 };
-

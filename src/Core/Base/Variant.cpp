@@ -3,6 +3,7 @@
 #include <string>
 
 
+namespace nBase {
 
 cNumber::~cNumber()
 {
@@ -196,3 +197,5 @@ cVariant::LoadXML( tinyxml2::XMLElement* iNode )
             break;
     }
 }
+
+} //nBase

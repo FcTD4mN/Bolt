@@ -1,6 +1,9 @@
 #pragma once
 
 
+namespace nBase
+{
+
 enum eFormat
 {
     kTop    = 1 << 0,
@@ -16,3 +19,5 @@ enum  eDirection
     kHorizontal = 0,
     kVertical
 };
+
+} //nBase

@@ -6,11 +6,13 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 
+
+namespace nMainMenu {
 class cMainMenu;
 class cMenuItem;
 
 class cMenuPage :
-    public cDrawable
+    public ::nBase::cDrawable
 {
 public:
     cMenuPage( cMainMenu* iMasterMenu );
@@ -21,7 +23,7 @@ public:
 
 public:
     // Setup
-    void  Format( eFormat iFormat );
+    void  Format( ::nBase::eFormat iFormat );
     void  Spacing( float iSpacing );
     void  Rectangle( const sf::Rect< float >& iRectangle );
     void  Position( float iX, float iY );
@@ -41,8 +43,10 @@ public:
 protected:
     cMainMenu*                  mMasterMenu;
     std::vector< cMenuItem* >   mItems;
-    eFormat                     mFormat;
+    ::nBase::eFormat            mFormat;
     float                       mSpacing;
     sf::Rect< float >           mPageBounding;
 };
+
+} //nMainMenu
 

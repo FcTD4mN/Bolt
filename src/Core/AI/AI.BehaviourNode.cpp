@@ -2,7 +2,7 @@
 #include "AI.BehaviourNode.h"
 
 namespace nAI {
-	
+
 cBehaviourNode::~cBehaviourNode()
 {
 }

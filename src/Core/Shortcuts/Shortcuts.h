@@ -5,6 +5,8 @@
 
 #include "tinyxml2.h"
 
+namespace nShortcuts {
+
 class cShortcuts
 {
 public:
@@ -34,4 +36,4 @@ public:
     std::unordered_map < sf::Keyboard::Key, std::string > mShortcuts;
 };
 
-
+} //nShortcuts

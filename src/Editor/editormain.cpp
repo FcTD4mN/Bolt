@@ -14,7 +14,7 @@ MainFunction( int argc, char *argv[] )
 
 
     // Creates the main window
-    cBoltEditor* MainWindow = new cBoltEditor();
+    ::nQt::cBoltEditor* MainWindow = new ::nQt::cBoltEditor();
     MainWindow->setWindowTitle( "Qt SFML" );
     MainWindow->resize( 800, 600 );
     MainWindow->Setup();

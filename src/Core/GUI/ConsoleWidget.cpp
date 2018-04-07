@@ -7,8 +7,7 @@
 #define  CHECK_COLLAPSED if( mCollapsed ) return;
 
 
-namespace  nGUI
-{
+namespace  nGUI {
 
 // -------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------- Default Values
@@ -986,7 +985,7 @@ cConsoleWidget::ProcessCTRLCPressed()
         return;
 
     std::string  str = SelectionString();
-    SetClipboardText( str );
+    ::nBase::SetClipboardText( str );
 }
 
 
@@ -1008,7 +1007,7 @@ cConsoleWidget::ProcessCTRLVPressed()
         ClearSelection();
 
     // Append clipboard text content to input content
-    std::string clipboardStr = GetClipboardText();
+    std::string clipboardStr = ::nBase::GetClipboardText();
     int end = int( clipboardStr.find( char( '\r\n' ) ) );
     clipboardStr = clipboardStr.substr( 0, end );
 

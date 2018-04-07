@@ -1,6 +1,8 @@
  #include "SimplePhysic.h"
 
 
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -86,5 +88,5 @@ cSimplePhysic::LoadXML( tinyxml2::XMLElement* iNode )
     mType = eType( iNode->IntAttribute( "type", 0 ) );
 }
 
-
+} //nECS
 

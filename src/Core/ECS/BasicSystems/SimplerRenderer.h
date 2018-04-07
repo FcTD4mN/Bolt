@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace nECS {
+
 class cSimplerRenderer :
     public cSystem
 {
@@ -30,4 +32,6 @@ public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
 };
+
+} //nECS
 

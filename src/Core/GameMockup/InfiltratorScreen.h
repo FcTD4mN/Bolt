@@ -3,7 +3,9 @@
 #include "Screen/Screen.h"
 #include "GUI/ConsoleWidget.h"
 
-class cEntity;
+namespace nECS { class cEntity; }
+
+namespace nScreen {
 
 class cInfiltratorScreen :
     public cScreen
@@ -50,8 +52,10 @@ public:
     virtual  void LoadXML();
 
 private:
-    cEntity* mMechant;
+    ::nECS::cEntity* mMechant;
 
     sf::Transform mRotationFOV;
 };
+
+} //nScreen
 

@@ -3,6 +3,7 @@
 
 #include "MainMenu/MenuItem/MenuItem.h"
 
+namespace nMainMenu {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -11,7 +12,7 @@
 
 cMenuPage::cMenuPage( cMainMenu* iMasterMenu ) :
     mMasterMenu( iMasterMenu ),
-    mFormat( kCenter ),
+    mFormat( ::nBase::kCenter ),
     mSpacing( 5 ),
     mPageBounding()
 {
@@ -49,7 +50,7 @@ cMenuPage::AddItem( cMenuItem* iItem )
 
 
 void
-cMenuPage::Format( eFormat iFormat )
+cMenuPage::Format( ::nBase::eFormat iFormat )
 {
     mFormat = iFormat;
 }
@@ -152,4 +153,4 @@ cMenuPage::MouseClick( int iX, int iY )
     }
 }
 
-
+} //nMainMenu

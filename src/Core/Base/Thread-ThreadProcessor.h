@@ -4,9 +4,11 @@
 #include <vector>
 
 
+
+namespace nBase {
+namespace nThread {
 class cThread;
 class cThreadHandle;
-
 
 class cThreadProcessor
 {
@@ -38,3 +40,5 @@ protected:
     unsigned int            mTotalCoreCount;
 };
 
+} //nThread
+} //nBase

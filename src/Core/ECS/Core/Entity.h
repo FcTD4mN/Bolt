@@ -6,11 +6,13 @@
 #include "tinyxml2.h"
 
 
+
+namespace nECS {
+
 class cComponent;
 class cSystem;
 class cWorld;
 class cEntityParser;
-
 
 namespace
 {
@@ -20,7 +22,6 @@ namespace
         cComponent* value;
     };
 }
-
 
 class cEntity
 {
@@ -140,5 +141,5 @@ private:
 
     //};
 
-
+} //nECS
 

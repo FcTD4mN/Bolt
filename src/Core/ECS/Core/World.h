@@ -6,6 +6,9 @@
 
 #include <unordered_map>
 
+
+namespace nECS {
+
 class cEntity;
 class cSystem;
 
@@ -80,3 +83,4 @@ protected:
     std::vector< cSystem* > mEventRelatedSystems;
 };
 
+} //nECS

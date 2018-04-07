@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+namespace nBase {
+
 cResourceManager::~cResourceManager()
 {
     for( auto it = mTextures.begin(); it != mTextures.end(); ++it )
@@ -45,3 +47,5 @@ cResourceManager::GetTexture( const std::string& iFileName )
     ++(result.mCounter);
     return  result.mTexture;
 }
+
+} //nBase

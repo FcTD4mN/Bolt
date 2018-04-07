@@ -7,6 +7,10 @@
 #include <string>
 #include <ctime>
 
+
+namespace nBase {
+namespace nThread {
+
 // ==========================================================================
 // ================================================= Construction/Destruction
 // ==========================================================================
@@ -195,3 +199,6 @@ cThreadHandle::GetThread()
     else
         return  0;
 }
+
+} //nThread
+} // nBase

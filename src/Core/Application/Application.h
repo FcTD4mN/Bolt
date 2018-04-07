@@ -2,7 +2,9 @@
 
 #include "SFML/Graphics.hpp"
 
-class cScreen;
+namespace nScreen { class cScreen; }
+
+namespace nApplication {
 
 class cApplication
 {
@@ -24,7 +26,7 @@ public:
 
 public:
     // Screen
-    void PushScreen( cScreen* iScreen );
+    void PushScreen( ::nScreen::cScreen* iScreen );
     void PopScreen();
 
 public:
@@ -57,6 +59,8 @@ public:
 
 protected:
     sf::RenderWindow*       mMainWindow;
-    std::vector< cScreen* > mScreenStack;
-    cScreen*                mCurrentScreen;
+    std::vector< ::nScreen::cScreen* > mScreenStack;
+    ::nScreen::cScreen*     mCurrentScreen;
 };
+
+} // namespace nApplication

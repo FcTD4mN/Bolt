@@ -1,8 +1,7 @@
 #include "BoltScriptEnvironment.h"
 
 
-namespace  nBoltScript
-{
+namespace  nBoltScript {
 
 
 // -------------------------------------------------------------------------------------

@@ -2,6 +2,8 @@
 
 #include "ECS/Utilities/ComponentRegistry.h"
 
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -66,4 +68,6 @@ cDirection::LoadXML( tinyxml2::XMLElement* iNode )
     mDirection.x = iNode->FloatAttribute( "directionx", 0.0F );
     mDirection.y = iNode->FloatAttribute( "directiony", 0.0F );
 }
+
+} //nECS
 

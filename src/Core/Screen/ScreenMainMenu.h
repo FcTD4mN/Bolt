@@ -2,7 +2,9 @@
 
 #include "Screen/Screen.h"
 
-class cMainMenu;
+namespace nMainMenu { class cMainMenu; }
+
+namespace nScreen {
 
 class cScreenMainMenu :
     public  cScreen
@@ -11,7 +13,7 @@ class cScreenMainMenu :
 public:
     // Contruction/Destruction
     virtual  ~cScreenMainMenu() override;
-    cScreenMainMenu( cMainMenu* iMainMenu );
+    cScreenMainMenu( ::nMainMenu::cMainMenu* iMainMenu );
 
 public:
     virtual  void  Initialize() override;
@@ -44,6 +46,7 @@ public:
     virtual  void  SensorChanged( const sf::Event& iEvent ) override;          ///< A sensor value changed (data in event.sensor)
 
 protected:
-    cMainMenu* mMainMenu;
+    ::nMainMenu::cMainMenu* mMainMenu;
 };
 
+} //nScreen

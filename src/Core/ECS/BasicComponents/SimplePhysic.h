@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace nECS {
+
 class cSimplePhysic :
     public cComponent
 {
@@ -38,3 +40,4 @@ public:
     eType               mType;
 };
 
+} //nECS

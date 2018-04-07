@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+namespace nScreen {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -35,8 +36,8 @@ cOpenGLRenderSceneScreen::cOpenGLRenderSceneScreen() :
 void
 cOpenGLRenderSceneScreen::Initialize()
 {
-    cGameApplication::App()->SetAppTitle( "OpenGL Render Scene" );
-    auto window  = cGameApplication::App()->Window();
+    ::nApplication::cGameApplication::App()->SetAppTitle( "OpenGL Render Scene" );
+    auto window  = ::nApplication::cGameApplication::App()->Window();
     mConsoleWidget = new  ::nGUI::cConsoleWidget();
     sf::Vector2f  availableGeometry = sf::Vector2f( float( window->getSize().x ),
                                                     float( window->getSize().y ) );
@@ -48,7 +49,7 @@ cOpenGLRenderSceneScreen::Initialize()
     mConsoleWidget->SetPosition( position );
     //mConsoleWidget->ToggleVisibility();
 
-    cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
+    ::nApplication::cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
 
     // Init OpenGL stuff
     sf::ContextSettings settings = window->getSettings();
@@ -75,7 +76,7 @@ cOpenGLRenderSceneScreen::Initialize()
     double ratio = double(window->getSize().x) / double(window->getSize().y);
     gluPerspective(50.f, ratio, 5.f, 1500.f);
 
-    mShader = cShader( "resources/Shared/Shaders/basicLight.vert", "resources/Shared/Shaders/basicLight.frag" );
+    mShader = ::nShaders::cShader( "resources/Shared/Shaders/basicLight.vert", "resources/Shared/Shaders/basicLight.frag" );
 
     GLuint shaderProgramID = mShader.getProgramID();
     glUseProgram( shaderProgramID );
@@ -246,7 +247,7 @@ cOpenGLRenderSceneScreen::Finalize()
 void
 cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
-    auto window = ::cGameApplication::App()->Window();
+    auto window = ::nApplication::cGameApplication::App()->Window();
     glClearDepth(1.f);
     glClearColor(0.f, 0.f, 0.f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -429,3 +430,4 @@ cOpenGLRenderSceneScreen::SensorChanged( const sf::Event& iEvent )
     // Does nothing
 }
 
+} //nScreen

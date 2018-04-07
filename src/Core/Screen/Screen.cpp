@@ -4,6 +4,7 @@
 // ------------------------------------------------------------------------ Construction
 // -------------------------------------------------------------------------------------
 
+namespace nScreen {
 
 cScreen::~cScreen()
 {
@@ -177,7 +178,7 @@ cScreen::SensorChanged( const sf::Event& iEvent )
     // Does nothing
 }
 
-
+} //nScreen
 
 
 

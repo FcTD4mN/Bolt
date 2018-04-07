@@ -4,6 +4,9 @@
 #include <mutex>
 #include <thread>
 
+namespace nBase {
+namespace nThread {
+
 class cThread
 {
 public:
@@ -79,3 +82,5 @@ private:
     unsigned int mThreadID;
 };
 
+} // nThread
+} // nBase

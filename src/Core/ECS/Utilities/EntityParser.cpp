@@ -9,6 +9,7 @@
 #include <iostream>
 #include <Windows.h>
 
+namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -168,3 +169,5 @@ cEntityParser::EntityCount() const
 {
     return  unsigned int(mEntities.size());
 }
+
+} //nECS

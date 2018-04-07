@@ -3,6 +3,8 @@
 
 #ifndef  _WIN32
 
+namespace nBase {
+
 std::string
 GetClipboardText()
 {
@@ -16,6 +18,7 @@ SetClipboardText( const  std::string&  iString )
 {
 }
 
+}//nBase
 
 #endif // ! _WIN32
 

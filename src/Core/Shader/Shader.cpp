@@ -1,5 +1,6 @@
 #include "Shader.h"
 
+namespace nShaders {
 
 //----------------------------------------------------------------------------------------------
 //------------------------------------------------------------------- Construction / Destruction
@@ -208,3 +209,5 @@ GLuint cShader::getProgramID() const
 {
     return m_programID;
 }
+
+} //nShaders

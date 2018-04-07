@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace nBase {
+
 class cDrawable
 {
 public:
@@ -10,4 +12,6 @@ public:
 public:
     virtual  void Draw( sf::RenderTarget* iRenderTarget ) = 0;
 };
+
+} //nBase
 

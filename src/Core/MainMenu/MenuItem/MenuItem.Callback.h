@@ -4,6 +4,8 @@
 
 #include <functional>
 
+
+namespace nMainMenu {
 class cMainMenu;
 
 class cItemCallback :
@@ -22,3 +24,4 @@ private:
 	std::function< void() > mFunction;
 };
 
+} //nMainMenu

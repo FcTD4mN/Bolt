@@ -16,6 +16,7 @@
 #include "ECS/BasicSystems/AnimationRenderer.h"
 #include "ECS/BasicSystems/SimplerRenderer.h"
 
+namespace  nApplication {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -49,7 +50,7 @@ cEditorApplication::App()
 // -------------------------------------------------------------------------------------
 
 
-cWorld*
+::nECS::cWorld*
 cEditorApplication::World()
 {
     return mWorld;
@@ -69,27 +70,27 @@ cEditorApplication::Initialize()
     // The behaviour is different when embeded into editor
 
     // =======ECS WORLD=======
-    mWorld = new cWorld();
+    mWorld = new ::nECS::cWorld();
 
     // Following call may need world
-    cComponentRegistry::Instance()->Initialize();
-    cComponentRegistry::Instance()->RegisterComponent( new cColor() );
-    cComponentRegistry::Instance()->RegisterComponent( new cPosition() );
-    cComponentRegistry::Instance()->RegisterComponent( new cSize() );
-    cComponentRegistry::Instance()->RegisterComponent( new cSpriteAnimated() );
-    cComponentRegistry::Instance()->RegisterComponent( new cSimplePhysic() );
+    ::nECS::cComponentRegistry::Instance()->Initialize();
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cColor() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cPosition() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSize() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSpriteAnimated() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSimplePhysic() );
 
-    mWorld->AddSystem( new cSimplerRenderer() );
-    mWorld->AddSystem( new cAnimationRenderer() );
+    mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
+    mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
 
-    cEntityParser::Instance()->Initialize( mWorld );
+    ::nECS::cEntityParser::Instance()->Initialize( mWorld );
 }
 
 
 void
 cEditorApplication::Finalize()
 {
-    cComponentRegistry::Instance()->Finalize();
+    ::nECS::cComponentRegistry::Instance()->Finalize();
 
     delete mWorld;
 }
@@ -112,3 +113,6 @@ cEditorApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
     mWorld->Draw( iRenderTarget );
 }
+
+} //nApplication
+

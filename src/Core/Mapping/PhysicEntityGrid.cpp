@@ -5,6 +5,8 @@
 
 #include "ECS/BasicComponents/SimplePhysic.h"
 
+namespace nMapping {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------- Contruction/Destruction
 // -------------------------------------------------------------------------------------
@@ -24,7 +26,7 @@ cEntityGrid::cEntityGrid() :
     mGridMap.reserve( mWidth );
     for( int i = 0; i < mWidth; ++i )
     {
-        mGridMap.push_back( std::vector< std::vector< cEntity* > >( mHeight ) );
+        mGridMap.push_back( std::vector< std::vector< ::nECS::cEntity* > >( mHeight ) );
     }
 }
 
@@ -35,9 +37,9 @@ cEntityGrid::cEntityGrid() :
 
 
 void
-cEntityGrid::AddEntity( cEntity* iEntity )
+cEntityGrid::AddEntity( ::nECS::cEntity* iEntity )
 {
-    auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+    auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
     if( !simplephysic )
         return;
 
@@ -76,7 +78,7 @@ cEntityGrid::ClearEntityMap()
 
 
 void
-cEntityGrid::RemoveEntityNotUpdated( cEntity* iEntity )
+cEntityGrid::RemoveEntityNotUpdated( ::nECS::cEntity* iEntity )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
@@ -105,7 +107,7 @@ cEntityGrid::RemoveEntityNotUpdated( cEntity* iEntity )
 
 
 void
-cEntityGrid::GetSurroundingEntitiesOf( std::vector<cEntity*>* oEntities, cEntity* iEntity )
+cEntityGrid::GetSurroundingEntitiesOf( std::vector< ::nECS::cEntity* >* oEntities, ::nECS::cEntity* iEntity )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
@@ -122,7 +124,7 @@ cEntityGrid::GetSurroundingEntitiesOf( std::vector<cEntity*>* oEntities, cEntity
         {
             for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
             {
-                cEntity* ent = mGridMap[ i ][ j ][ k ];
+                ::nECS::cEntity* ent = mGridMap[ i ][ j ][ k ];
                 if( ent != iEntity && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                     ( *oEntities ).push_back( ent );
             }
@@ -132,7 +134,7 @@ cEntityGrid::GetSurroundingEntitiesOf( std::vector<cEntity*>* oEntities, cEntity
 
 
 void
-cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::vector<cEntity*>* oEntities, cEntity * iEntity, const sf::Vector2f & iVector )
+cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::vector< ::nECS::cEntity* >* oEntities, ::nECS::cEntity* iEntity, const sf::Vector2f & iVector )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
@@ -146,7 +148,7 @@ cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::vector<cEntity*>* oEntiti
     {
         for( int k = 0; k < mGridMap[ xLookupToInt ][ yLookupToInt ].size(); ++k )
         {
-            cEntity* ent = mGridMap[ xLookupToInt ][ yLookupToInt ][ k ];
+            ::nECS::cEntity* ent = mGridMap[ xLookupToInt ][ yLookupToInt ][ k ];
             if( ent != iEntity && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                 ( *oEntities ).push_back( ent );
         }
@@ -159,7 +161,7 @@ cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::vector<cEntity*>* oEntiti
 
 
 void
-cEntityGrid::GetEntitiesInBoundingBox( std::vector<cEntity*>* oEntities, const sf::Rect<float>& iBBox )
+cEntityGrid::GetEntitiesInBoundingBox( std::vector< ::nECS::cEntity*>* oEntities, const sf::Rect<float>& iBBox )
 {
     int x, y, x2, y2;
     GetBBoxArea( &x, &y, &x2, &y2, iBBox );
@@ -170,7 +172,7 @@ cEntityGrid::GetEntitiesInBoundingBox( std::vector<cEntity*>* oEntities, const s
         {
             for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
             {
-                cEntity* ent = mGridMap[ i ][ j ][ k ];
+                ::nECS::cEntity* ent = mGridMap[ i ][ j ][ k ];
                 if( std::find( (*oEntities).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                     ( *oEntities ).push_back( ent );
             }
@@ -185,9 +187,9 @@ cEntityGrid::GetEntitiesInBoundingBox( std::vector<cEntity*>* oEntities, const s
 
 
 void
-cEntityGrid::GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, cEntity* iEntity )
+cEntityGrid::GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, ::nECS::cEntity* iEntity )
 {
-    auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+    auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
 
     GetBBoxArea( oX, oY, oX2, oY2, simplephysic->mHitBox.left, simplephysic->mHitBox.top, simplephysic->mHitBox.left + simplephysic->mHitBox.width, simplephysic->mHitBox.top + simplephysic->mHitBox.height );
 }
@@ -226,3 +228,5 @@ void cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float i
     if( *oY2 > mHeight - 1 )
         *oY2 = mHeight - 1;
 }
+
+} //nMapping

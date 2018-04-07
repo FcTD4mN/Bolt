@@ -249,9 +249,6 @@
     <ClCompile Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.cpp">
       <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.cpp">
-      <Filter>Fichiers sources\Core\Base\Threading</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Shader\Shader.cpp">
       <Filter>Fichiers sources\Core\Shader</Filter>
     </ClCompile>
@@ -460,9 +457,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.h">
       <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Thread-TriangleSpliterProcessor.h">
-      <Filter>Fichiers sources\Core\Base\Threading</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Shader\Shader.h">
       <Filter>Fichiers sources\Core\Shader</Filter>

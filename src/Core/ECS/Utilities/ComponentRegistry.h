@@ -2,6 +2,9 @@
 
 #include <unordered_map>
 
+
+namespace nECS {
+
 class cComponent;
 
 class cComponentRegistry
@@ -28,4 +31,6 @@ public:
 private:
     std::unordered_map< std::string, cComponent* > mComponents;
 };
+
+} //nECS
 

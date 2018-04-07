@@ -6,6 +6,8 @@
 
 #include "tinyxml2.h"
 
+namespace nECS {
+
 class cDirection :
     public cComponent
 {
@@ -31,3 +33,4 @@ public:
     sf::Vector2f mDirection;
 };
 
+} //nECS

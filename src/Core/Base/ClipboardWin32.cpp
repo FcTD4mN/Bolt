@@ -5,6 +5,8 @@
 
 #include <Windows.h>
 
+namespace nBase {
+
 std::string GetClipboardText()
 {
     std::string defaultStr = "";
@@ -49,6 +51,8 @@ SetClipboardText( const  std::string&  iString )
     SetClipboardData(CF_TEXT, hMem);
     CloseClipboard();
 }
+
+} //nBase
 
 #endif // _WIN32
 

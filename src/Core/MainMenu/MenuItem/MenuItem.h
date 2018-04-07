@@ -4,10 +4,12 @@
 #include "SFML/Graphics.hpp"
 #include "Base/Drawable.h"
 
+
+namespace nMainMenu {
 class cMainMenu;
 
 class cMenuItem :
-    public cDrawable
+    public ::nBase::cDrawable
 {
 public:
     cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox );
@@ -37,3 +39,4 @@ protected:
     cMainMenu*          mMasterMenu;
 };
 
+} //nMainMenu

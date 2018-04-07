@@ -2,9 +2,11 @@
 
 #include "Application/Application.h"
 
-class cWorld;
-class cShortcuts;
-class cEntityGrid;
+namespace nECS { class cWorld; }
+namespace nShortcuts { class cShortcuts; }
+namespace nMapping { class cEntityGrid; }
+
+namespace nApplication {
 
 class cGameApplication :
     public cApplication
@@ -20,9 +22,9 @@ public:
 
 public:
     // Access
-    cWorld*         World();
-    cShortcuts*     ShortcutEngine();
-    cEntityGrid*    EntityMap();
+    ::nECS::cWorld*         World();
+    ::nShortcuts::cShortcuts*     ShortcutEngine();
+    ::nMapping::cEntityGrid*    EntityMap();
 
 public:
     void Initialize();
@@ -37,8 +39,9 @@ public:
     virtual  void  KeyReleased( const sf::Event& iEvent );  ///< A key was released (data in event.key)
 
 private:
-    cWorld*             mWorld;
-    cShortcuts*         mShortcutEngine;
-    cEntityGrid*        mEntityMap;
+    ::nECS::cWorld*             mWorld;
+    ::nShortcuts::cShortcuts*   mShortcutEngine;
+    ::nMapping::cEntityGrid*    mEntityMap;
 };
 
+} // nApplication

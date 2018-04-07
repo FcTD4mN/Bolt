@@ -1,5 +1,6 @@
 #include "Position.h"
 
+namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -72,4 +73,6 @@ cPosition::LoadXML( tinyxml2::XMLElement* iNode )
     mPosition.x = iNode->FloatAttribute( "x", 0.0F );
     mPosition.y = iNode->FloatAttribute( "y", 0.0F );
 }
+
+} //nECS
 

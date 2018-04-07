@@ -2,7 +2,7 @@
 
 #include <vector>
 
-
+namespace nBase {
 
 std::vector< std::string >  Split( char iSplitChar, const std::string & iString );
 
@@ -20,3 +20,5 @@ VectorContains( const std::vector< T >& iVector, const T& iElement )
 
     return  false;
 }
+
+} //Base

@@ -3,7 +3,10 @@
 #include "ECS/Core/Entity.h"
 #include "ECS/Core/Component.h"
 
-cEntityModel::cEntityModel( cEntity* iEntity, QObject* iParent ) :
+namespace  nQt {
+namespace  nModels {
+
+cEntityModel::cEntityModel( ::nECS::cEntity* iEntity, QObject* iParent ) :
     tSuperClass( iParent ),
     mEntity( iEntity )
 {
@@ -68,3 +71,5 @@ cEntityModel::headerData( int iSection, Qt::Orientation iOrientation, int iRole 
     return  QVariant();
 }
 
+} //nQt
+} //nModels

@@ -9,6 +9,9 @@
 // ==========================================================================
 
 
+namespace nBase {
+namespace nThread {
+
 cThreadProcessor::~cThreadProcessor()
 {
 }
@@ -41,7 +44,7 @@ cThreadProcessor::Initialize()
     {
         for( unsigned int i = 0; i < mTotalCoreCount; ++i )
         {
-            mThreads.push_back( new cThread() );
+            mThreads.push_back( new ::nBase::nThread::cThread() );
             mThreads.back()->CreateAndLaunchThread();
         }
     }
@@ -53,7 +56,7 @@ cThreadProcessor::Finalize()
 {
     for( int i = 0; i < mThreads.size(); ++i )
     {
-        cThread* thread = mThreads[ i ];
+        ::nBase::nThread::cThread* thread = mThreads[ i ];
 
         thread->SetThreadFunction( 0, 0 );
         thread->Stop();
@@ -147,3 +150,5 @@ cThreadProcessor::SetThreadToWork( int iThreadIndex, std::function<void( int )> 
     return  cThreadHandle( thread );
 }
 
+} //nThread
+} //nBase

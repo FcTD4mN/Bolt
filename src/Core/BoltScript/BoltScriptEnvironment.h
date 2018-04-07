@@ -5,8 +5,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace  nBoltScript
-{
+namespace  nBoltScript {
 
 
 class  cBoltScriptEnvironment

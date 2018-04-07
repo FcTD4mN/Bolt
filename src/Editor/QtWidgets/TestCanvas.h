@@ -2,7 +2,8 @@
 
 #include <QtCore/QModelIndex>
 
-class cEditorApplication;
+namespace nApplication { class cEditorApplication; }
+
 
 class MyCanvas :
     public QSFMLCanvas
@@ -15,7 +16,7 @@ public:
     MyCanvas( QWidget* Parent );
 
 public:
-    void SetEditorApp( cEditorApplication* iEditorApp );
+    void SetEditorApp( ::nApplication::cEditorApplication* iEditorApp );
 
 private:
     virtual void OnInit();
@@ -31,7 +32,8 @@ public slots:
     void CurrentPrototypeChanged( const QModelIndex& iIndex );
 
 private:
-    cEditorApplication* mEditorApp;
-    QModelIndex         mCurrentPrototypeEntitySelected;
+    ::nApplication::cEditorApplication* mEditorApp;
+    QModelIndex                         mCurrentPrototypeEntitySelected;
 };
+
 

@@ -4,6 +4,7 @@
 
 #include <unordered_map>
 
+namespace nBase {
 
 // This structure allows to store a texture with a counter for how many time this texture was asked
 // When hash map reaches a size too large, we will then be able to remove the least used texture from cache
@@ -32,4 +33,6 @@ public:
 private:
     std::unordered_map< std::string, stTexture > mTextures;
 };
+
+} //nBase
 

@@ -13,6 +13,7 @@
 #include "GameMockup/Components/UserInput.h"
 */
 
+namespace nScreen {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -38,15 +39,15 @@ cConsoleScreen::cConsoleScreen() :
 void
 cConsoleScreen::Initialize()
 {
-    cGameApplication::App()->SetAppTitle( "CONSOLE" );
+    ::nApplication::cGameApplication::App()->SetAppTitle( "CONSOLE" );
 
     mConsoleWidget = new  ::nGUI::cConsoleWidget();
-    sf::Vector2f  availableGeometry = sf::Vector2f( float( cGameApplication::App()->Window()->getSize().x ),
-                                                    float( cGameApplication::App()->Window()->getSize().y ) );
+    sf::Vector2f  availableGeometry = sf::Vector2f( float( ::nApplication::cGameApplication::App()->Window()->getSize().x ),
+                                                    float( ::nApplication::cGameApplication::App()->Window()->getSize().y ) );
     mConsoleWidget->SetSize( availableGeometry );
     mConsoleWidget->SetPosition( sf::Vector2f() );
 
-    cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
+    ::nApplication::cGameApplication::App()->Window()->setKeyRepeatEnabled( true );
 }
 
 
@@ -223,3 +224,4 @@ cConsoleScreen::SensorChanged( const sf::Event& iEvent )
     // Does nothing
 }
 
+} //nScreen

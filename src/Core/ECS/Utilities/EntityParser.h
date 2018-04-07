@@ -4,9 +4,11 @@
 #include <vector>
 #include <unordered_map>
 
+
+namespace nECS {
+
 class cEntity;
 class cWorld;
-
 
 class cEntityParser
 {
@@ -43,3 +45,4 @@ private:
     std::unordered_map< std::string, cEntity* > mEntities;
 };
 
+} //nECS

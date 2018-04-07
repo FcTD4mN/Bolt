@@ -1,0 +1,8 @@
+<entity id="superTruc">
+	<components>
+		<component name="color" r="10" g="200" b="20" />
+		<component name="position" x="100" y="50"/>
+		<component name="size" w="50" h="100"/>
+	</components>
+	<tags/>
+</entity>

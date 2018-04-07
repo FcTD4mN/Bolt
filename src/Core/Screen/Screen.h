@@ -2,6 +2,8 @@
 
 #include "SFML/Graphics.hpp"
 
+namespace nScreen {
+
 class cScreen
 {
 public:
@@ -41,3 +43,4 @@ public:
     virtual  void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
  };
 
+} //nScreen

@@ -4,6 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace nECS {
+
 class cInputConverter :
     public cSystem
 {
@@ -37,3 +39,4 @@ public:
 
 };
 
+} //nECS

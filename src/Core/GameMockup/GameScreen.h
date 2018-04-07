@@ -3,6 +3,8 @@
 #include "Screen/Screen.h"
 #include "GUI/ConsoleWidget.h"
 
+namespace nScreen {
+
 class cGameScreen :
     public cScreen
 {
@@ -50,4 +52,6 @@ public:
 private:
     ::nGUI::cConsoleWidget  mConsoleWidget;
 };
+
+} //nScreen
 

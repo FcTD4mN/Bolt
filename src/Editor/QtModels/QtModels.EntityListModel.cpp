@@ -2,9 +2,12 @@
 
 #include "ECS/Utilities/EntityParser.h"
 
+namespace  nQt {
+namespace  nModels {
+
 cEntityListModel::cEntityListModel( QObject* iParent ) :
     tSuperClass( iParent ),
-    mParserInstance( cEntityParser::Instance() )
+    mParserInstance( ::nECS::cEntityParser::Instance() )
 {
     int a = 1;
 }
@@ -48,3 +51,5 @@ cEntityListModel::headerData( int iSection, Qt::Orientation iOrientation, int iR
     return  QVariant();
 }
 
+} //nQt
+} //nModels

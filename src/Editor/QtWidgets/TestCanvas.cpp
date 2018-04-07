@@ -3,9 +3,13 @@
 #include "Application/EditorApplication.h"
 
 #include "ECS/Utilities/EntityParser.h"
+#include "ECS/Core/Entity.h"
 #include "ECS/Core/World.h"
 
+#include "ECS/BasicComponents/Position.h"
+
 #include <QtGui/QInputEvent>
+
 
 MyCanvas::MyCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size ) :
     QSFMLCanvas( Parent, Position, Size )
@@ -20,7 +24,7 @@ MyCanvas::MyCanvas( QWidget* Parent ) :
 
 
 void
-MyCanvas::SetEditorApp( cEditorApplication * iEditorApp )
+MyCanvas::SetEditorApp( ::nApplication::cEditorApplication * iEditorApp )
 {
     mEditorApp = iEditorApp;
 }
@@ -62,10 +66,17 @@ MyCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 void
 MyCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
 {
-    cEntityParser* ep = cEntityParser::Instance();
+    ::nECS::cEntityParser* ep = ::nECS::cEntityParser::Instance();
 
     std::string name = mCurrentPrototypeEntitySelected.data( Qt::DisplayRole ).toString().toStdString();
-    mEditorApp->World()->AddEntity( ep->CreateEntityFromPrototypeMap( name.c_str() ) );
+    ::nECS::cEntity* theEnti = ep->CreateEntityFromPrototypeMap( name.c_str() );
+    auto position = dynamic_cast< ::nECS::cPosition* >( theEnti->GetComponentByName( "position" ) );
+    if( position )
+    {
+        position->mPosition.x = iEvent->localPos().x();
+        position->mPosition.y = iEvent->localPos().y();
+    }
+    mEditorApp->World()->AddEntity( theEnti );
 
     printf( "Added : %s\n", name.c_str() );
 
@@ -78,3 +89,4 @@ MyCanvas::CurrentPrototypeChanged( const QModelIndex& iIndex )
 {
     mCurrentPrototypeEntitySelected = iIndex;
 }
+

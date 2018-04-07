@@ -2,6 +2,8 @@
 
 #include "SFML/Graphics.hpp"
 
+namespace nMath {
+
 class cTriangleF
 {
 
@@ -20,3 +22,4 @@ public:
     sf::Vector2f mC;
 };
 
+} //nMath

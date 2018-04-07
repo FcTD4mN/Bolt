@@ -8,6 +8,8 @@
 
 #include <iostream>
 
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -92,7 +94,7 @@ cInputConverter::KeyPressed( const sf::Event & iEvent )
         cEntity* entity = mEntityGroup[ i ];
 
         auto userinput = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
-        userinput->mActions.push_back( cShortcuts::Instance()->GetActionForKey( iEvent.key.code ) );
+        userinput->mActions.push_back( ::nShortcuts:: cShortcuts::Instance()->GetActionForKey( iEvent.key.code ) );
     }
 }
 
@@ -108,10 +110,10 @@ cInputConverter::KeyReleased( const sf::Event & iEvent )
 
         for( int i = 0; i < userinput->mActions.size(); ++i )
         {
-            if( userinput->mActions[ i ] == cShortcuts::Instance()->GetActionForKey( iEvent.key.code ) )
+            if( userinput->mActions[ i ] == ::nShortcuts::cShortcuts::Instance()->GetActionForKey( iEvent.key.code ) )
                 userinput->mActions.erase( userinput->mActions.begin() + i );
         }
     }
 }
 
-
+} //nECS

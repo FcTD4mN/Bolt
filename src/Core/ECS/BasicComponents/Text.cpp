@@ -2,6 +2,8 @@
 
 #include "ECS/Utilities/ComponentRegistry.h"
 
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -65,3 +67,4 @@ cText::LoadXML( tinyxml2::XMLElement* iNode )
     mText = iNode->Attribute( "text" );
 }
 
+} //nECS

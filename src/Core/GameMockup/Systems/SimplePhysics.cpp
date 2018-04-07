@@ -7,6 +7,7 @@
 
 #include "GameMockup/GameApplication.h"
 
+namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -93,7 +94,7 @@ void
 cSimplePhysics::Update( unsigned int iDeltaTime )
 {
     sf::Rect< float > projection;
-    cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
+    ::nMapping::cEntityGrid* entityMap = ::nApplication::cGameApplication::App()->EntityMap();
     for( int i = 0; i < mDynamicEntities.size(); ++i )
     {
         cEntity* entity = mDynamicEntities[ i ];
@@ -156,7 +157,7 @@ cSimplePhysics::IncomingEntity( cEntity * iEntity )
     if( simplephysic )
     {
         AcceptEntity( iEntity );
-        cGameApplication::App()->EntityMap()->AddEntity( iEntity );
+        ::nApplication::cGameApplication::App()->EntityMap()->AddEntity( iEntity );
 
         if( simplephysic->mType == cSimplePhysic::eType::kStatic )
             mStaticEntities.push_back( iEntity );
@@ -190,9 +191,9 @@ cSimplePhysics::EntityLost( cEntity * iEntity )
     }
 
     tSuperClass::EntityLost( iEntity );
-    cGameApplication::App()->EntityMap()->RemoveEntityNotUpdated( iEntity );
+    ::nApplication::cGameApplication::App()->EntityMap()->RemoveEntityNotUpdated( iEntity );
 }
 
-
+} //nECS
 
 

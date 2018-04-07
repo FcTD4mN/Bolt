@@ -2,6 +2,8 @@
 
 #include "ECS/Utilities/ComponentRegistry.h"
 
+namespace nECS {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -79,3 +81,4 @@ cColor::LoadXML( tinyxml2::XMLElement* iNode )
     mColor.a = iNode->IntAttribute( "colora", 255 );
 }
 
+} //nECS

@@ -6,6 +6,8 @@
 
 #include "tinyxml2.h"
 
+namespace nECS {
+
 class cSpriteAnimated :
     public cComponent
 {
@@ -47,3 +49,5 @@ public:
     bool            mPaused;            // Is the animation paused ?
     sf::Clock       mClock;             // Animation clock
 };
+
+} //nECS

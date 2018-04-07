@@ -1,5 +1,6 @@
  #include "UserInput.h"
 
+namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -34,5 +35,5 @@ cUserInput::Clone()
     return  new cUserInput( *this );
 }
 
-
+} //nECS
 

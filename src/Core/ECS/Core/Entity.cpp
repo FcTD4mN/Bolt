@@ -6,6 +6,9 @@
 
 #include "ECS/Utilities/ComponentRegistry.h"
 
+
+namespace nECS {
+
 static unsigned int sgEntityCount = 0;
 
 
@@ -82,7 +85,7 @@ cEntity::Clone()
 
 
 void
-cEntity::AddComponent( cComponent * iComponent )
+cEntity::AddComponent( ::nECS::cComponent * iComponent )
 {
     sPair pair;
     pair.key = iComponent->Name();
@@ -519,4 +522,6 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
 //    }
 //}
 //
+
+} //nECS
 

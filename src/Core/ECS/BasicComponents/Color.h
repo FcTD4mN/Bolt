@@ -6,6 +6,8 @@
 
 #include "tinyxml2.h"
 
+namespace nECS {
+
 class cColor :
     public cComponent
 {
@@ -32,3 +34,4 @@ public:
     sf::Color mColor;
 };
 
+} //nECS

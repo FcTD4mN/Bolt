@@ -2,6 +2,8 @@
 
 #include "MainMenu/MainMenu.h"
 
+namespace nScreen {
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
 // -------------------------------------------------------------------------------------
@@ -12,7 +14,7 @@ cScreenMainMenu::~cScreenMainMenu()
 }
 
 
-cScreenMainMenu::cScreenMainMenu( cMainMenu* iMainMenu ) :
+cScreenMainMenu::cScreenMainMenu( ::nMainMenu::cMainMenu* iMainMenu ) :
     mMainMenu( iMainMenu )
 {
 }
@@ -193,7 +195,7 @@ cScreenMainMenu::SensorChanged( const sf::Event& iEvent )
     // Does nothing
 }
 
-
+} //nScreen
 
 
 

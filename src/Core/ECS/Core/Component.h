@@ -7,6 +7,8 @@
 #include <string>
 #include <unordered_map>
 
+namespace nECS {
+
 class cComponent
 {
 
@@ -49,8 +51,8 @@ public:
 public:
     // Access/Get
     const  std::string&  Name() const;
-    const cVariant&     GetVar( const std::string& iVarName );
-    void                SetVar( const std::string& iVarName, cVariant& iValue );
+    const ::nBase::cVariant&    GetVar( const std::string& iVarName );
+    void                        SetVar( const std::string& iVarName, ::nBase::cVariant& iValue );
 
 public:
     // Input/Output
@@ -59,5 +61,8 @@ public:
 
 protected:
     std::string mName;
-    std::unordered_map< std::string, cVariant > mVars;
+    std::unordered_map< std::string, ::nBase::cVariant > mVars;
 };
+
+} //nECS
+

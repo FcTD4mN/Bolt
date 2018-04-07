@@ -8,6 +8,7 @@
 #include <string>
 #include <fstream>
 
+namespace nShaders {
 
 class cShader
 {
@@ -35,3 +36,4 @@ private:
     std::string m_fragmentSource;
 };
 
+} //nShader

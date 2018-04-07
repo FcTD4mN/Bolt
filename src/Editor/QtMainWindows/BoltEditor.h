@@ -3,8 +3,10 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_BoltEditor.h"
 
-class cEditorApplication;
-class cEntityListModel;
+namespace  nApplication { class cEditorApplication; }
+namespace  nQt { namespace  nModels { class cEntityListModel; } }
+
+namespace  nQt {
 
 class cBoltEditor :
     public QMainWindow
@@ -19,6 +21,8 @@ public:
 
 private:
     Ui::BoltEditorClass ui;
-    cEntityListModel* mModel;
-    cEditorApplication* mApp;
+    ::nQt::nModels::cEntityListModel* mModel;
+    ::nApplication::cEditorApplication* mApp;
 };
+
+} //nQt

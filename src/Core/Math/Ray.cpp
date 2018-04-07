@@ -3,6 +3,7 @@
 
 #include "Math/Utils.h"
 
+namespace nMath {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -19,3 +20,5 @@ cRay::cRay( const cEdgeF& iEdge, eRayType iRayType ) :
     mRayType( iRayType )
 {
 }
+
+} //nMath
