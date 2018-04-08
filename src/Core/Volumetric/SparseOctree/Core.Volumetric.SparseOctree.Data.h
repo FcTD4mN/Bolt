@@ -24,7 +24,6 @@ enum  eType
 
 
 // PreCheckAnalysis Spider Struct
-template< typename Atomic >
 struct  cDataReportAnalysis
 {
     enum  eConversionOperationStatus
@@ -42,13 +41,11 @@ struct  cDataReportAnalysis
     cDataReportAnalysis( eConversionOperationStatus iConversionOperationStatus,
                          eProcessOperationStatus    iProcessOperationStatus,
                          eType       iFromType,
-                         eType       iToType,
-                         Atomic      iValue ) :
+                         eType       iToType ) :
     mConversionOperationStatus( iConversionOperationStatus ),
     mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( iFromType ),
-    mToType( iToType ),
-    mValue( iValue )
+    mToType( iToType )
     {
     }
 
@@ -57,18 +54,15 @@ struct  cDataReportAnalysis
     mConversionOperationStatus( iConversionOperationStatus ),
     mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( eType() ),
-    mToType( eType() ),
-    mValue( Atomic( 0 ) )
+    mToType( eType() )
     {
     }
 
     eConversionOperationStatus  mConversionOperationStatus;
     eProcessOperationStatus     mProcessOperationStatus;
     eType       mFromType;
-
     eType       mToType;
 
-    Atomic      mValue;
 };
 
 
@@ -102,7 +96,7 @@ public:
 
 private:
     // Data Transform Analysis
-    virtual  cDataReportAnalysis< Atomic >  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
+    virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
 private:
     // Private Member Data

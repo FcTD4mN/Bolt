@@ -47,9 +47,43 @@ template< eLod2N LOD, typename Atomic >
 inline  void
 cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 {
-    cDataReportAnalysis< Atomic >  analysis = mData->AnteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
-    cDataConverterProtocol< LOD, Atomic >::ProcessDataReportAnalysis( analysis );
+    cDataReportAnalysis  analysis = mData->AnteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
+    cDataConverterProtocol::ProcessDataReportAnalysis( analysis );
     mData->Set( iX, iY, iZ, iValue );
+}
+
+
+//----------------------------------------------------------------------------------------------
+//---------------------------------------------- Virtual Conversion Protocol Functions Overrides
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::ConvertToEmpty( const  cDataReportAnalysis&  iDataReportAnalysis )
+{
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::ConvertToFull( const  cDataReportAnalysis&  iDataReportAnalysis )
+{
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::ConvertToSparse( const  cDataReportAnalysis&  iDataReportAnalysis )
+{
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::ConvertToRaw( const  cDataReportAnalysis&  iDataReportAnalysis )
+{
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::ConvertToRLE( const  cDataReportAnalysis&  iDataReportAnalysis )
+{
 }
 
 

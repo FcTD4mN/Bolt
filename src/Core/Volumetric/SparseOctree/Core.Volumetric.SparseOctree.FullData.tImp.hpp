@@ -66,7 +66,7 @@ inline  void  cFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, co
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis< Atomic >  cFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
@@ -75,13 +75,11 @@ inline  cDataReportAnalysis< Atomic >  cFullData< LOD, Atomic >::AnteriorReportA
     if( LOD > ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
-                                     eType::kOrdered, eSubType::kFull,
-                                     eType::kSparse, eSubType::kNone );
+                                     eType::kFull, eType::kSparse );
     else if( LOD == ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
-                                     eType::kOrdered, eSubType::kFull,
-                                     eType::kEntropic, eSubType::kRaw );
+                                     eType::kFull, eType::kRaw );
     else
         assert( false ); // Crash
 }

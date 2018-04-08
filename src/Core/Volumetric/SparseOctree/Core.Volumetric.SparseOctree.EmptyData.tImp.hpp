@@ -64,18 +64,16 @@ inline  void  cEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, c
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis< Atomic >  cEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( LOD > ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
-                                     eType::kOrdered, eSubType::kEmpty,
-                                     eType::kSparse, eSubType::kNone );
+                                     eType::kEmpty, eType::kSparse );
     else if( LOD == ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
-                                     eType::kOrdered, eSubType::kEmpty,
-                                     eType::kEntropic, eSubType::kRaw );
+                                     eType::kEmpty, eType::kRaw );
     else
         assert( false ); // Crash
 }

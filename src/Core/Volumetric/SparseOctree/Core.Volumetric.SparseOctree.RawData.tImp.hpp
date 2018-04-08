@@ -63,7 +63,7 @@ inline  void  cRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, con
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis< Atomic >  cRawData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cRawData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,

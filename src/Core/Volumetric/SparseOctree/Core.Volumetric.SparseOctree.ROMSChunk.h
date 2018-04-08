@@ -16,7 +16,7 @@ class  cROMSConfig;
 
 template< eLod2N LOD, typename Atomic >
 class  cROMSChunk final :
-    private cDataConverterProtocol< LOD, Atomic >
+    private cDataConverterProtocol
 {
 
 public:
@@ -29,6 +29,14 @@ public:
     // Data Accessors
     const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const;
     void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue );
+
+private:
+    // Virtual Conversion Protocol Functions Overrides
+    virtual  void  ConvertToEmpty(  const  cDataReportAnalysis&  iDataReportAnalysis )  override;
+    virtual  void  ConvertToFull(   const  cDataReportAnalysis&  iDataReportAnalysis )  override;
+    virtual  void  ConvertToSparse( const  cDataReportAnalysis&  iDataReportAnalysis )  override;
+    virtual  void  ConvertToRaw(    const  cDataReportAnalysis&  iDataReportAnalysis )  override;
+    virtual  void  ConvertToRLE(    const  cDataReportAnalysis&  iDataReportAnalysis )  override;
 
 private:
     // Private Member Data

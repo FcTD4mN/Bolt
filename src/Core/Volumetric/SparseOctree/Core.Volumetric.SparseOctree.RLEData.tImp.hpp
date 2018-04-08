@@ -61,7 +61,7 @@ inline  void  cRLEData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, con
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis< Atomic >  cRLEData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis  cRLEData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
@@ -69,8 +69,7 @@ inline  cDataReportAnalysis< Atomic >  cRLEData< LOD, Atomic >::AnteriorReportAn
     else
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
-                                     eType::kEntropic, eSubType::kRLE,
-                                     eType::kEntropic, eSubType::kRaw );
+                                     eType::kRLE, eType::kRaw );
 }
 
 

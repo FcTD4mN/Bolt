@@ -11,7 +11,6 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
-template< eLod2N LOD, typename Atomic >
 class  cDataConverterProtocol
 {
 
@@ -21,20 +20,20 @@ protected:
     cDataConverterProtocol();
     cDataConverterProtocol( const  cDataConverterProtocol& ) = delete;
 
-protected:
+private:
     // Conversion Protocol Functions
-    void  ProcessDataReportAnalysis( const  cDataReportAnalysis< Atomic >&  iDataReportAnalysis, cData< LOD, Atomic >** iData );
+    void  ProcessDataReportAnalysis( const  cDataReportAnalysis&  iDataReportAnalysis );
 
-    void  ConvertToEmpty( const  cDataReportAnalysis< Atomic >&  iDataReportAnalysis, cData< LOD, Atomic >** iData );
-    void  ConvertToFull( const  cDataReportAnalysis< Atomic >&  iDataReportAnalysis, cData< LOD, Atomic >** iData );
-    void  ConvertToSparse( const  cDataReportAnalysis< Atomic >&  iDataReportAnalysis, cData< LOD, Atomic >** iData );
-    void  ConvertToRaw( const  cDataReportAnalysis< Atomic >&  iDataReportAnalysis, cData< LOD, Atomic >** iData );
-    void  ConvertToRLE( const  cDataReportAnalysis< Atomic >&  iDataReportAnalysis, cData< LOD, Atomic >** iData );
+    virtual  void  ConvertToEmpty(  const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;
+    virtual  void  ConvertToFull(   const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;
+    virtual  void  ConvertToSparse( const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;
+    virtual  void  ConvertToRaw(    const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;
+    virtual  void  ConvertToRLE(    const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;
 
 private:
     // Data Members
-    typedef  void  ( cDataConverterProtocol::*tVoidMemberFunctionPointer )();
-    typedef std::map< eType, tVoidMemberFunctionPointer >  tProcessMap;
+    typedef  void  ( cDataConverterProtocol::*tFctPtr )( const  cDataReportAnalysis& );
+    typedef std::map< eType, tFctPtr >  tProcessMap;
 
     tProcessMap  mProcessMap;
 
@@ -43,7 +42,4 @@ private:
 
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
-
-
-#include "Core.Volumetric.SparseOctree.DataConverterProtocol.tImp.hpp"
 
