@@ -87,6 +87,13 @@ inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::AnteriorReportAnalysisO
 }
 
 
+template< eLod2N LOD, typename Atomic >
+inline  glm::vec3  cSparseData< LOD, Atomic >::OctDebugColor()
+{
+    return glm::vec3( 0.0f, 0.5f, 1.0f );
+}
+
+
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
 

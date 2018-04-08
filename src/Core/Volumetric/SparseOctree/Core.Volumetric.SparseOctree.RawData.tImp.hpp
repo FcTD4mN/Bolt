@@ -26,7 +26,8 @@ inline  cRawData< LOD, Atomic >::~cRawData()
 
 template< eLod2N LOD, typename Atomic >
 inline  cRawData< LOD, Atomic >::cRawData( const  cROMSConfig*  iROMSConfig, const  Atomic& iFillValue ) :
-    cData< LOD, Atomic >( iROMSConfig )
+    cData< LOD, Atomic >( iROMSConfig ),
+    mOccupiedVolume( 0 )
 {
     mCore = new  Atomic**[ LOD ];
     for( int i = 0; i < LOD; ++i )
@@ -41,6 +42,9 @@ inline  cRawData< LOD, Atomic >::cRawData( const  cROMSConfig*  iROMSConfig, con
             }
         }
     }
+
+    if( iFillValue > Atomic( 0 ) )
+        mOccupiedVolume = cData< LOD, Atomic >::Capacity();
 }
 
 
@@ -101,7 +105,13 @@ inline  cDataReportAnalysis  cRawData< LOD, Atomic >::AnteriorReportAnalysisOnSe
     else
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess );
+}
 
+
+template< eLod2N LOD, typename Atomic >
+inline  glm::vec3  cRawData< LOD, Atomic >::OctDebugColor()
+{
+    return glm::vec3( 1.0f, 0.0f, 0.0f );
 }
 
 

@@ -40,6 +40,9 @@ public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 
+public:
+    virtual  glm::vec3  OctDebugColor()  override;
+
 private:
     // Private Member Data
     cROMSChunk< HALVED( LOD ), Atomic >*  mOct[8];

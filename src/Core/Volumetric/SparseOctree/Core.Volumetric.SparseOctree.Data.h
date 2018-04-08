@@ -6,6 +6,9 @@
 #include "Core.Volumetric.SparseOctree.Utils.h"
 
 
+#include <glm/vec3.hpp>
+
+
 namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
@@ -81,8 +84,9 @@ public:
 
 public:
     // Template Data Container Accessors
-    eLod2N   LODLevel()  const;
+    eLod2N      LODLevel()  const;
     tSize       Size()      const;
+    float       Sizef()      const;
     tVolume     Capacity()  const;
 
     const  cROMSConfig&  ROMSConfig()  const;
@@ -96,9 +100,13 @@ public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
+public:
+    virtual  glm::vec3  OctDebugColor();
+    void  RenderOctDebug();
+
 private:
     // Private Member Data
-    const  tVolume  mCapacity  =  ( LOD * LOD * LOD );
+    const  tVolume  mCapacity  = ( LOD * LOD * LOD );
     const  cROMSConfig*  mROMSConfig; // Non-Owning
 
 };

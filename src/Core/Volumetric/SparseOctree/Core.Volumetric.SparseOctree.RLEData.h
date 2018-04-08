@@ -30,6 +30,9 @@ public:
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
 public:
+    virtual  glm::vec3  OctDebugColor()  override;
+
+public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 
