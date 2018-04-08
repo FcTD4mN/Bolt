@@ -35,6 +35,10 @@ inline  cRawData< LOD, Atomic >::cRawData( const  cROMSConfig*  iROMSConfig, con
         for( int j = 0; j < LOD; ++j )
         {
             mCore[i][j] = new Atomic[ LOD ];
+            for( int k = 0; k < LOD; ++k )
+            {
+                mCore[i][j][k] = iFillValue;
+            }
         }
     }
 }
