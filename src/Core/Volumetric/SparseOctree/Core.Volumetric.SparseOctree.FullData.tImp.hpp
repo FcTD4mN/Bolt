@@ -17,8 +17,9 @@ inline  cFullData< LOD, Atomic >::~cFullData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cFullData< LOD, Atomic >::cFullData( const  cROMSConfig*  iROMSConfig ) :
-    cOrderedData( iROMSConfig )
+inline  cFullData< LOD, Atomic >::cFullData( const  cROMSConfig*  iROMSConfig, const  Atomic& iValue ) :
+    cData< LOD, Atomic >( iROMSConfig ),
+    mValue( iValue )
 {
 }
 
@@ -37,7 +38,7 @@ inline  bool  cFullData< LOD, Atomic >::Compressed()  const
 template< eLod2N LOD, typename Atomic >
 inline  eType  cFullData< LOD, Atomic >::Type()  const
 {
-    return  eSubType::kFull;
+    return  eType::kFull;
 }
 
 
@@ -72,11 +73,11 @@ inline  cDataReportAnalysis  cFullData< LOD, Atomic >::AnteriorReportAnalysisOnS
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                        cDataReportAnalysis::eProcessOperationStatus::kDiscard );
 
-    if( LOD > ROMSConfig().MicroscopicLODGranularity() )
+    if( LOD > cData< LOD, Atomic >::ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kFull, eType::kSparse );
-    else if( LOD == ROMSConfig().MicroscopicLODGranularity() )
+    else if( LOD == cData< LOD, Atomic >::ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kFull, eType::kRaw );

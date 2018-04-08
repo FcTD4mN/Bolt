@@ -1,9 +1,6 @@
 #include "Core.Volumetric.SparseOctree.SparseData.h"
 
 
-#include "Core.Volumetric.SparseOctree.ROMSChunk.h"
-
-
 namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
@@ -30,17 +27,17 @@ inline  cSparseData< LOD, Atomic >::~cSparseData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cSparseData< LOD, Atomic >::cSparseData( const  cROMSConfig*  iROMSConfig ) :
-    cData( iROMSConfig )
+inline  cSparseData< LOD, Atomic >::cSparseData( const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
+    cData< LOD, Atomic >( iROMSConfig )
 {
-    mOct[0] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
-    mOct[1] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
-    mOct[2] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
-    mOct[3] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
-    mOct[4] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
-    mOct[5] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
-    mOct[6] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
-    mOct[7] = new  cROMSChunk< HALVED( LOD ), Atomic >( &ROMSConfig() );
+    mOct[0] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[1] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[2] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[3] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[4] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[5] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[6] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[7] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
 }
 
 

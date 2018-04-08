@@ -12,13 +12,31 @@ namespace  nSparseOctree    {
 template< eLod2N LOD, typename Atomic >
 inline  cRawData< LOD, Atomic >::~cRawData()
 {
+    for( int i = 0; i < LOD; ++i )
+    {
+        for( int j = 0; j < LOD; ++j )
+        {
+            delete  mCore[i][j];
+        }
+        delete  mCore[i];
+    }
+    delete  mCore;
 }
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cRawData< LOD, Atomic >::cRawData( const  cROMSConfig*  iROMSConfig ) :
-    cEntropicData( iROMSConfig )
+inline  cRawData< LOD, Atomic >::cRawData( const  cROMSConfig*  iROMSConfig, const  Atomic& iFillValue ) :
+    cData< LOD, Atomic >( iROMSConfig )
 {
+    mCore = new  Atomic**[ LOD ];
+    for( int i = 0; i < LOD; ++i )
+    {
+        mCore[i] = new Atomic*[ LOD ];
+        for( int j = 0; j < LOD; ++j )
+        {
+            mCore[i][j] = new Atomic[ LOD ];
+        }
+    }
 }
 
 
@@ -47,14 +65,22 @@ inline  eType  cRawData< LOD, Atomic >::Type()  const
 template< eLod2N LOD, typename Atomic >
 inline  const  Atomic&  cRawData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    mStorage.Get( iX, iY, iZ );
+    auto size = tSize( LOD );
+    assert( iX > 0 && iX < size );
+    assert( iY > 0 && iY < size );
+    assert( iZ > 0 && iZ < size );
+    return  mCore[ iX ][ iY ][ iZ ];
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  void  cRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
-    mStorage.Set( iX, iY, iZ, iValue );
+    auto size = tSize( LOD );
+    assert( iX > 0 && iX < size );
+    assert( iY > 0 && iY < size );
+    assert( iZ > 0 && iZ < size );
+    mCore[ iX ][ iY ][ iZ ] = iValue;
 }
 
 

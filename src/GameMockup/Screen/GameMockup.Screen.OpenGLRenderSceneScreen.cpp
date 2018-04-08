@@ -107,8 +107,8 @@ cOpenGLRenderSceneScreen::Initialize()
     glUseProgram(0);
 
     std::function< void( void )> f = [=]( void ) {
-        mMap.PurgeAllChunks();
-        mMap.UpdateChunksVBOs();
+        //mMap.PurgeAllChunks();
+        //mMap.UpdateChunksVBOs();
     };
 
     std::function< void( void )> g = [=]( void ) {
@@ -205,7 +205,7 @@ cOpenGLRenderSceneScreen::Initialize()
         }
 
         */
-        mMap.UpdateChunksVBOs();
+        //mMap.UpdateChunksVBOs();
     };
 
     ::nBoltScript::Env()->RegisterFunction( "clearMap", f );
@@ -227,7 +227,6 @@ cOpenGLRenderSceneScreen::Initialize()
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
     */
-
 }
 
 
@@ -265,7 +264,7 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     GLuint shaderProgramID = mShader.getProgramID();
     glUseProgram( shaderProgramID );
 
-    mMap.RenderVBOs( shaderProgramID );
+    //mMap.RenderVBOs( shaderProgramID );
 
     glUseProgram(0);
 

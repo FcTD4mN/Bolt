@@ -16,7 +16,7 @@ class  cFullData final :
 public:
     // Construction / Destruction
     virtual  ~cFullData();
-    cFullData( const  cROMSConfig*  iROMSConfig );
+    cFullData( const  cROMSConfig*  iROMSConfig, const  Atomic& iValue );
     cFullData( const  cFullData& ) = delete;
 
 public:
@@ -29,7 +29,7 @@ public:
     virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          override;
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
-private:
+public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 

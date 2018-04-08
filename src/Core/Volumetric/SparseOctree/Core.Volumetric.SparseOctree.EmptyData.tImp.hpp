@@ -17,7 +17,7 @@ inline  cEmptyData< LOD, Atomic >::~cEmptyData()
 
 template< eLod2N LOD, typename Atomic >
 inline  cEmptyData< LOD, Atomic >::cEmptyData( const  cROMSConfig*  iROMSConfig ) :
-    cOrderedData( iROMSConfig )
+    cData< LOD, Atomic >( iROMSConfig )
 {
 }
 
@@ -67,13 +67,14 @@ template< eLod2N LOD, typename Atomic >
 inline  cDataReportAnalysis  cEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( iValue == Atomic( 0 ) )
-        return;
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                     cDataReportAnalysis::eProcessOperationStatus::kDiscard );
 
-    if( LOD > ROMSConfig().MicroscopicLODGranularity() )
+    if( LOD > cData< LOD, Atomic >::ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kEmpty, eType::kSparse );
-    else if( LOD == ROMSConfig().MicroscopicLODGranularity() )
+    else if( LOD == cData< LOD, Atomic >::ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kEmpty, eType::kRaw );

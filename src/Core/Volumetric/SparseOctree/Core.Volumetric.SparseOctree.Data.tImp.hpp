@@ -28,7 +28,7 @@ inline cData<LOD,Atomic>::cData( const cROMSConfig * iROMSConfig ) :
 
 
 template< eLod2N LOD, typename Atomic >
-inline  eLod2N  cData< LOD, Atomic >::LOD()  const
+inline  eLod2N  cData< LOD, Atomic >::LODLevel()  const
 {
     return  LOD;
 }

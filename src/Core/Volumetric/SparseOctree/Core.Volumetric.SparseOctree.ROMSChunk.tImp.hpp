@@ -12,9 +12,8 @@ namespace  nSparseOctree    {
 //------------------------------------------------------------------- Construction / Destruction
 
 
-
 template<eLod2N LOD,typename Atomic>
-inline cROMSChunk<LOD,Atomic>::~cROMSChunk()
+inline  cROMSChunk<LOD,Atomic>::~cROMSChunk()
 {
     delete  mData; // Owning
     mROMSConfig = 0; // Non-Owning
@@ -22,12 +21,38 @@ inline cROMSChunk<LOD,Atomic>::~cROMSChunk()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig ) :
-    cDataConverterProtocol< LOD, Atomic >(),
+inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
+    cDataConverterProtocol(),
     mROMSConfig( iROMSConfig ) // Non-Owning
 {
     assert( mROMSConfig );
-    mData = new  cEmptyData< LOD, Atomic >( mROMSConfig ); // Owning
+
+    switch( iDataStartType )
+    {
+        case eType::kEmpty:
+            mData = new  cEmptyData< LOD, Atomic >( mROMSConfig );
+            break;
+
+        case eType::kFull:
+            mData = new  cFullData< LOD, Atomic >( mROMSConfig, iStartValue );
+            break;
+
+        case eType::kSparse:
+            assert( false );
+            break;
+
+        case eType::kRaw:
+            mData = new  cFullData< LOD, Atomic >( mROMSConfig, iStartValue );
+            break;
+
+        case eType::kRLE:
+            assert( false );
+            break;
+
+        default:
+            assert( false );
+            break;
+    }
 }
 
 
@@ -60,30 +85,90 @@ cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToEmpty( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
+    delete  mData;
+    mData = new  cEmptyData< LOD, Atomic >( mROMSConfig );
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToFull( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
+    auto val = mData->Get( 0, 0, 0 );
+
+    if( val == Atomic( 0 ) )
+        assert( false );
+
+    delete  mData;
+    mData = new  cFullData< LOD, Atomic >( mROMSConfig, val );
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToSparse( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
+    delete  mData;
+
+    switch( iDataReportAnalysis.mFromType )
+    {
+        case eType::kEmpty:
+        {
+            mData = new  cSparseData< LOD, Atomic >( mROMSConfig, eType::kEmpty );
+            break;
+        }
+
+        case eType::kFull:
+        {
+            auto val = mData->Get( 0, 0, 0 );
+
+            if( val == Atomic( 0 ) )
+                assert( false );
+            mData = new  cSparseData< LOD, Atomic >( mROMSConfig, eType::kFull, val );
+            break;
+        }
+
+        default:
+        {
+            assert( false );
+            break;
+        }
+    }
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToRaw( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
+    switch( iDataReportAnalysis.mFromType )
+    {
+        case eType::kEmpty:
+        {
+            mData = new  cRawData< LOD, Atomic >( mROMSConfig, Atomic( 0 ) );
+            break;
+        }
+
+        case eType::kFull:
+        {
+            auto val = mData->Get( 0, 0, 0 );
+
+            if( val == Atomic( 0 ) )
+                assert( false );
+            mData = new  cRawData< LOD, Atomic >( mROMSConfig, val );
+            break;
+        }
+
+        default:
+        {
+            assert( false );
+            break;
+        }
+    }
 }
 
 
 template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToRLE( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
+    assert( false );
 }
 
 

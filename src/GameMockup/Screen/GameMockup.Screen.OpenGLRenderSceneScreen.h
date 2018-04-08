@@ -4,7 +4,6 @@
 #include "Core.Screen.Screen.h"
 
 #include "Core.GUI.ConsoleWidget.h"
-#include "Core.Volumetric.Static.SparseStaticLodChunk64Map.h"
 #include "Core.Volumetric.SparseOctree.USROCMap.h"
 #include "Core.Shader.Shader.h"
 
@@ -55,7 +54,6 @@ public:
 private:
     ::nGUI::cConsoleWidget*  mConsoleWidget;
     sf::Clock  mClock;
-    ::nVolumetric::nStatic::cSparseStaticLodChunk64Map mMap;
     ::nShaders::cShader mShader;
 
     ::nVolumetric::nSparseOctree::cUSROCMap< ::nVolumetric::nSparseOctree::eLod2N::kLod64, ::nVolumetric::nSparseOctree::tByte > mMap2;

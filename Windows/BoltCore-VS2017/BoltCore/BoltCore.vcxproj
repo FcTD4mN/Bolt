@@ -282,6 +282,7 @@
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Hashable3DKey.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSConfig.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Utils.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Data.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -372,13 +373,13 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.cpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataIncludes.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Utils.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawData.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RLEData.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Hashable3DKey.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EmptyData.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.FullData.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSChunk.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSConfig.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.h" />
@@ -429,7 +430,6 @@
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RLEData.tImp.hpp" />
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EmptyData.tImp.hpp" />
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.FullData.tImp.hpp" />
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.tImp.hpp" />
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSChunk.tImp.hpp" />
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.tImp.hpp" />
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.tImp.hpp" />

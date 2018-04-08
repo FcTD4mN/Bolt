@@ -22,7 +22,7 @@ class  cROMSChunk final :
 public:
     // Construction / Destruction
     virtual  ~cROMSChunk();
-    cROMSChunk( const  cROMSConfig*  iROMSConfig );
+    cROMSChunk( const  cROMSConfig*  iROMSConfig, eType iDataStartType = eType::kEmpty, const  Atomic& iStartValue = Atomic( 0 ) );
     cROMSChunk( const  cROMSChunk& ) = delete;
 
 public:

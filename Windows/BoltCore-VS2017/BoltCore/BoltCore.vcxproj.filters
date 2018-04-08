@@ -82,9 +82,6 @@
     <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Chunk">
       <UniqueIdentifier>{f3a1bfa9-dd4d-483d-bd51-749f449c56c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage">
-      <UniqueIdentifier>{8efcdc8f-cc5d-4f24-92fe-edf79e68b415}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Map">
       <UniqueIdentifier>{84fbc97e-d4d0-42a7-acc0-0f5372b2690e}</UniqueIdentifier>
     </Filter>
@@ -324,6 +321,9 @@
     <ClCompile Include="..\..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.cpp">
       <Filter>Fichiers sources\GameMockup\ECS\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Utils.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
@@ -449,9 +449,6 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>
     </ClInclude>
@@ -572,6 +569,9 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Utils.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSChunk.tImp.hpp">
@@ -579,9 +579,6 @@
     </None>
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage</Filter>
     </None>
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>

@@ -2,14 +2,12 @@
 
 
 #include "Core.Volumetric.SparseOctree.Types.h"
+#include "Core.Volumetric.SparseOctree.ROMSConfig.h"
+#include "Core.Volumetric.SparseOctree.Utils.h"
 
 
 namespace  nVolumetric      {
 namespace  nSparseOctree    {
-
-
-// Forward Declaration of cROMSConfig
-class  cROMSConfig;
 
 
 // Runtime Information Enums
@@ -83,9 +81,9 @@ public:
 
 public:
     // Template Data Container Accessors
-    eLod2N  LOD()       const;
-    tSize   Size()      const;
-    tVolume Capacity()  const;
+    eLod2N   LODLevel()  const;
+    tSize       Size()      const;
+    tVolume     Capacity()  const;
 
     const  cROMSConfig&  ROMSConfig()  const;
 
@@ -94,13 +92,13 @@ public:
     virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          = 0;
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   = 0;
 
-private:
+public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
 private:
     // Private Member Data
-    const  tVolume  mCapacity  =  LOD * LOD * LOD;
+    const  tVolume  mCapacity  =  ( LOD * LOD * LOD );
     const  cROMSConfig*  mROMSConfig; // Non-Owning
 
 };

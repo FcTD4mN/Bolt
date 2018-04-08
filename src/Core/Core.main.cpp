@@ -1,3 +1,5 @@
+#include "Core.Volumetric.SparseOctree.RawData.h"
+
 #include "Core.Benchmark.h"
 #include "Core.BoltScript.BoltScriptEnvironment.h"
 #include "Core.MainMenu.MainMenu.h"

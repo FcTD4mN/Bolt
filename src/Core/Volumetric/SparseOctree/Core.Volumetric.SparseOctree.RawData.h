@@ -2,7 +2,6 @@
 
 
 #include "Core.Volumetric.SparseOctree.Data.h"
-#include "Core.Volumetric.SparseOctree.RawStorage.h"
 
 
 namespace  nVolumetric      {
@@ -17,7 +16,7 @@ class  cRawData final :
 public:
     // Construction / Destruction
     virtual  ~cRawData();
-    cRawData( const  cROMSConfig*  iROMSConfig );
+    cRawData( const  cROMSConfig*  iROMSConfig, const  Atomic& iFillValue );
     cRawData( const  cRawData& ) = delete;
 
 public:
@@ -30,14 +29,13 @@ public:
     virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          override;
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
-private:
+public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 
 private:
     // Private Member Data
-    cRawStorage< LOD, Atomic >  mStorage;
-
+    Atomic***  mCore;
 };
 
 

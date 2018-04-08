@@ -20,10 +20,12 @@ protected:
     cDataConverterProtocol();
     cDataConverterProtocol( const  cDataConverterProtocol& ) = delete;
 
-private:
-    // Conversion Protocol Functions
+protected:
+    // Conversion Protocol Selection
     void  ProcessDataReportAnalysis( const  cDataReportAnalysis&  iDataReportAnalysis );
 
+private:
+    // Conversion Protocol Functions
     virtual  void  ConvertToEmpty(  const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;
     virtual  void  ConvertToFull(   const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;
     virtual  void  ConvertToSparse( const  cDataReportAnalysis&  iDataReportAnalysis )  = 0;

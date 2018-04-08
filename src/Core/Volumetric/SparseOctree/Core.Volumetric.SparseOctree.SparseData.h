@@ -23,7 +23,7 @@ class  cSparseData final :
 public:
     // Construction / Destruction
     virtual  ~cSparseData();
-    cSparseData( const  cROMSConfig*  iROMSConfig );
+    cSparseData( const  cROMSConfig*  iROMSConfig, eType iDataStartType = eType::kEmpty, const  Atomic& iStartValue = Atomic( 0 ) );
     cSparseData( const  cSparseData& ) = delete;
 
 public:
@@ -36,7 +36,7 @@ public:
     virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          override;
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
-private:
+public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 

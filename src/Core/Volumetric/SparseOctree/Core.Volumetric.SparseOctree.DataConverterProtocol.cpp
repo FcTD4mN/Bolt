@@ -29,7 +29,7 @@ cDataConverterProtocol::cDataConverterProtocol() :
 
 
 //----------------------------------------------------------------------------------------------
-//---------------------------------------------------------------- Conversion Protocol Functions
+//---------------------------------------------------------------- Conversion Protocol Selection
 
 
 inline  void  cDataConverterProtocol::ProcessDataReportAnalysis( const  cDataReportAnalysis&  iDataReportAnalysis )

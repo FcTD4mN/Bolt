@@ -1,5 +1,7 @@
 #include "Core.Volumetric.SparseOctree.ROMSConfig.h"
 
+#include "Core.Volumetric.SparseOctree.Utils.h"
+
 
 namespace  nVolumetric      {
 namespace  nSparseOctree    {

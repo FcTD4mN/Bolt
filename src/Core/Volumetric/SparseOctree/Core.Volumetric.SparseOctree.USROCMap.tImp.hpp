@@ -96,7 +96,7 @@ inline cROMSChunk<LOD,Atomic>* cUSROCMap<LOD,Atomic>::MkChunk(const cHashable3DK
     if( ChunkExists( iKey ) )
         return  ChunkAtKey( iKey );
 
-    auto chunk = new  cROMSChunk< LOD, Atomic >( &ROMSConfig() );
+    auto chunk = new  cROMSChunk< LOD, Atomic >( &ROMSConfig(), eType::kEmpty, Atomic( 0 ) );
     mChunks.emplace( iKey.HashedSignature(), chunk );
     return  chunk;
 }
