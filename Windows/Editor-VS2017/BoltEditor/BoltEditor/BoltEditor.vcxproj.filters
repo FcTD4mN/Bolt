@@ -25,65 +25,62 @@
     <Filter Include="src\Editor">
       <UniqueIdentifier>{3362eaa8-1b5d-4f15-ab72-aeb6969143aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Editor\QtWidgets">
-      <UniqueIdentifier>{8235149a-3048-4dbf-9f68-b308e9aab9d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Editor\Application">
       <UniqueIdentifier>{22872b93-245a-4dbd-9d11-55443c1cd397}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore">
+    <Filter Include="src\Core">
       <UniqueIdentifier>{754f97d7-e511-428d-9754-7ae8518a63ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\Application">
+    <Filter Include="src\Core\Application">
       <UniqueIdentifier>{07c89257-cb4e-4e5e-9960-73c739a28e7c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\Base">
+    <Filter Include="src\Core\Base">
       <UniqueIdentifier>{e88b93a1-8bfa-41f5-86ee-3c3ecd5d8eb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\BoltScript">
+    <Filter Include="src\Core\BoltScript">
       <UniqueIdentifier>{ec7b71ec-81bf-4379-bb3e-e9afb41168bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\ECS">
+    <Filter Include="src\Core\ECS">
       <UniqueIdentifier>{f69063d4-2d3c-40fb-aab6-1528545aea19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\ECS\Core">
+    <Filter Include="src\Core\ECS\Core">
       <UniqueIdentifier>{47debc4f-bcb7-4203-a610-70c583c56dcc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\ECS\Utilities">
+    <Filter Include="src\Core\ECS\Utilities">
       <UniqueIdentifier>{2f68d402-2106-46e8-8b57-0317f544f5d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\tmpMainMenu">
-      <UniqueIdentifier>{eb1f1c96-2194-43c3-b0d4-a0d8df0ad556}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BoltCore\tmpMainMenu\MenuPage">
-      <UniqueIdentifier>{dc42e283-0cb0-40c3-98fb-8b598fa642a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BoltCore\tmpMainMenu\MenuItem">
-      <UniqueIdentifier>{7a8a9227-8bd9-477e-94d7-4ee740484686}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BoltCore\Mapping">
+    <Filter Include="src\Core\Mapping">
       <UniqueIdentifier>{3c35e8d8-a135-4fb1-ac0e-ff496f8249df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\Math">
+    <Filter Include="src\Core\Math">
       <UniqueIdentifier>{fb83a70c-327d-470a-a5c5-74cc7006e53f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\Screen">
+    <Filter Include="src\Core\Screen">
       <UniqueIdentifier>{109287a5-8045-40d2-b934-38d1b1f8a9d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\Shader">
+    <Filter Include="src\Core\Shader">
       <UniqueIdentifier>{a3e475c3-e92e-43b3-9e59-0d7c8652d6f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Editor\QtMainWindows">
-      <UniqueIdentifier>{69fcca02-38b3-4f53-bc8f-95b3f1bf22f7}</UniqueIdentifier>
+    <Filter Include="src\Core\Base\Thread">
+      <UniqueIdentifier>{00cbbd28-cf6f-4c8e-b636-077f14903340}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Editor\QtModels">
-      <UniqueIdentifier>{125eb6de-8e17-492e-93d4-0a11e220f2e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\BoltCore\ECS\BasicComponents">
+    <Filter Include="src\Core\ECS\Component">
       <UniqueIdentifier>{e501dc76-a3cc-4e40-a021-bf980ac6e5a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\BoltCore\ECS\BasicSystems">
+    <Filter Include="src\Core\ECS\System">
       <UniqueIdentifier>{6aa6ea21-141d-4a36-ae46-56cc6aa77854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\MainMenu">
+      <UniqueIdentifier>{eb1f1c96-2194-43c3-b0d4-a0d8df0ad556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\BoltQtMainWindows">
+      <UniqueIdentifier>{69fcca02-38b3-4f53-bc8f-95b3f1bf22f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\BoltQtModels">
+      <UniqueIdentifier>{125eb6de-8e17-492e-93d4-0a11e220f2e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\BoltQtWidgets">
+      <UniqueIdentifier>{8235149a-3048-4dbf-9f68-b308e9aab9d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -97,261 +94,316 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.cpp">
-      <Filter>src\Editor\QtWidgets</Filter>
+    <ClCompile Include="..\..\..\..\src\Core\Application\Core.Application.Application.cpp">
+      <Filter>src\Core\Application</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\QtWidgets\TestCanvas.cpp">
-      <Filter>src\Editor\QtWidgets</Filter>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.Clipboard.cpp">
+      <Filter>src\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\editormain.cpp">
+    <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.ClipboardWin32.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.Drawable.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.ResourceManager.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.Utilities.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.Variant.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.cpp">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.cpp">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.cpp">
+      <Filter>src\Core\BoltScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Color.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SquareController.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.System.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.World.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Component.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.cpp">
+      <Filter>src\Core\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.cpp">
+      <Filter>src\Core\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.cpp">
+      <Filter>src\Core\Mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Core.Math.Ray.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Core.Math.Triangle.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Core.Math.Utils.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Math\Core.Math.Edge.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Screen\Core.Screen.Screen.cpp">
+      <Filter>src\Core\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.cpp">
+      <Filter>src\Core\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader.cpp">
+      <Filter>src\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.cpp">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemPageSwaper.cpp">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MainMenu.cpp">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MenuItem.cpp">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MenuPage.cpp">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.cpp">
+      <Filter>src\Editor\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\Editor.main.cpp">
       <Filter>src\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\Application\EditorApplication.cpp">
-      <Filter>src\Editor\Application</Filter>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.cpp">
+      <Filter>src\Editor\BoltQtMainWindows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Application\Application.cpp">
-      <Filter>src\BoltCore\Application</Filter>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.cpp">
+      <Filter>src\Editor\BoltQtModels</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Base\ResourceManager.cpp">
-      <Filter>src\BoltCore\Base</Filter>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.cpp">
+      <Filter>src\Editor\BoltQtModels</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Base\Thread-Thread.cpp">
-      <Filter>src\BoltCore\Base</Filter>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.cpp">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp">
-      <Filter>src\BoltCore\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Base\Utilities.cpp">
-      <Filter>src\BoltCore\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp">
-      <Filter>src\BoltCore\BoltScript</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Entity.cpp">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\System.cpp">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\World.cpp">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Component.cpp">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\ComponentRegistry.cpp">
-      <Filter>src\BoltCore\ECS\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\EntityParser.cpp">
-      <Filter>src\BoltCore\ECS\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MainMenu.cpp">
-      <Filter>src\BoltCore\tmpMainMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuPage\MenuPage.cpp">
-      <Filter>src\BoltCore\tmpMainMenu\MenuPage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.cpp">
-      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.cpp">
-      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.cpp">
-      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Mapping\PhysicEntityGrid.cpp">
-      <Filter>src\BoltCore\Mapping</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Math\Utils.cpp">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Screen\Screen.cpp">
-      <Filter>src\BoltCore\Screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Shader\Shader.cpp">
-      <Filter>src\BoltCore\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\QtMainWindows\BoltEditor.cpp">
-      <Filter>src\Editor\QtMainWindows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Base\Drawable.cpp">
-      <Filter>src\BoltCore\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Math\Edge.cpp">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Math\Triangle.cpp">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Math\Ray.cpp">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityListModel.cpp">
-      <Filter>src\Editor\QtModels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityModel.cpp">
-      <Filter>src\Editor\QtModels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Base\Variant.cpp">
-      <Filter>src\BoltCore\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Color.cpp">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Position.cpp">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.cpp">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.cpp">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.cpp">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.cpp">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.cpp">
-      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.cpp">
-      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\BasicComponents\UserInput.cpp">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.cpp">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\QSFMLCanvas.h">
-      <Filter>src\Editor\QtWidgets</Filter>
+    <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
+      <Filter>src\Core\Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\QtWidgets\TestCanvas.h">
-      <Filter>src\Editor\QtWidgets</Filter>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.Clipboard.h">
+      <Filter>src\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\Application\EditorApplication.h">
+    <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.Drawable.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.GeneralEnums.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.ResourceManager.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.Utilities.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.Variant.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.h">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.h">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.h">
+      <Filter>src\Core\BoltScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Color.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SquareController.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.System.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.World.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Component.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.h">
+      <Filter>src\Core\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.h">
+      <Filter>src\Core\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.h">
+      <Filter>src\Core\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Core.Math.Edge.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Core.Math.Ray.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Core.Math.Triangle.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Math\Core.Math.Utils.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.h">
+      <Filter>src\Core\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Screen\Core.Screen.Screen.h">
+      <Filter>src\Core\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader.h">
+      <Filter>src\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.h">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemPageSwaper.h">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MainMenu.h">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MenuItem.h">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MenuPage.h">
+      <Filter>src\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.h">
       <Filter>src\Editor\Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Application\Application.h">
-      <Filter>src\BoltCore\Application</Filter>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.h">
+      <Filter>src\Editor\BoltQtMainWindows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Base\Utilities.h">
-      <Filter>src\BoltCore\Base</Filter>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Base\GeneralEnums.h">
-      <Filter>src\BoltCore\Base</Filter>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.QtModels.EntityModel.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Base\ResourceManager.h">
-      <Filter>src\BoltCore\Base</Filter>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Base\Thread-Thread.h">
-      <Filter>src\BoltCore\Base</Filter>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Base\Thread-ThreadProcessor.h">
-      <Filter>src\BoltCore\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h">
-      <Filter>src\BoltCore\BoltScript</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Component.h">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Entity.h">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\System.h">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\Core\World.h">
-      <Filter>src\BoltCore\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\EntityParser.h">
-      <Filter>src\BoltCore\ECS\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h">
-      <Filter>src\BoltCore\ECS\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MainMenu.h">
-      <Filter>src\BoltCore\tmpMainMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuPage\MenuPage.h">
-      <Filter>src\BoltCore\tmpMainMenu\MenuPage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.h">
-      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.h">
-      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\MainMenu\MenuItem\MenuItem.h">
-      <Filter>src\BoltCore\tmpMainMenu\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Mapping\PhysicEntityGrid.h">
-      <Filter>src\BoltCore\Mapping</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Math\Utils.h">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Screen\Screen.h">
-      <Filter>src\BoltCore\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Shader\Shader.h">
-      <Filter>src\BoltCore\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Base\Drawable.h">
-      <Filter>src\BoltCore\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Math\Edge.h">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Math\Ray.h">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Math\Triangle.h">
-      <Filter>src\BoltCore\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Base\Variant.h">
-      <Filter>src\BoltCore\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Color.h">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Position.h">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.h">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Size.h">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.h">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\Text.h">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.h">
-      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.h">
-      <Filter>src\BoltCore\ECS\BasicSystems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\BasicComponents\UserInput.h">
-      <Filter>src\BoltCore\ECS\BasicComponents</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="..\..\..\..\src\Editor\QtMainWindows\BoltEditor.h">
-      <Filter>src\Editor\QtMainWindows</Filter>
-    </QtMoc>
-    <QtMoc Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityModel.h">
-      <Filter>src\Editor\QtModels</Filter>
-    </QtMoc>
-    <QtMoc Include="..\..\..\..\src\Editor\QtModels\QtModels.EntityListModel.h">
-      <Filter>src\Editor\QtModels</Filter>
-    </QtMoc>
   </ItemGroup>
 </Project>

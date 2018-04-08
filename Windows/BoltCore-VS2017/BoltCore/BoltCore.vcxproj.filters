@@ -246,9 +246,6 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.VUtils.cpp">
       <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Core.main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.cpp">
       <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClCompile>
@@ -314,6 +311,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.cpp">
       <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Core.main.cpp">
+      <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

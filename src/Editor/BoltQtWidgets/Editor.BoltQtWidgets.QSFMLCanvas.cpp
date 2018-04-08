@@ -1,4 +1,4 @@
-#include "QSFMLCanvas.h"
+#include "Editor.BoltQtWidgets.QSFMLCanvas.h"
 
 
 QSFMLCanvas::~QSFMLCanvas()

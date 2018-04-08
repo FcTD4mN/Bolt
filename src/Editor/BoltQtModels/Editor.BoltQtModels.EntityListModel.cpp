@@ -1,6 +1,6 @@
-#include "QtModels.EntityListModel.h"
+#include "Editor.BoltQtModels.EntityListModel.h"
 
-#include "ECS/Utilities/EntityParser.h"
+#include "Core.ECS.Utilities.EntityParser.h"
 
 namespace  nQt {
 namespace  nModels {

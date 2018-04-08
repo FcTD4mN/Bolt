@@ -23,7 +23,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "QtWidgets/TestCanvas.h"
+#include "Editor.BoltQtWidgets.TestCanvas.h"
 
 QT_BEGIN_NAMESPACE
 

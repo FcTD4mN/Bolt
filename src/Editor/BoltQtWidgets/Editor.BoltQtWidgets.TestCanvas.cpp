@@ -1,12 +1,12 @@
-#include "TestCanvas.h"
+#include "Editor.BoltQtWidgets.TestCanvas.h"
 
-#include "Application/EditorApplication.h"
+#include "Editor.Application.EditorApplication.h"
 
-#include "ECS/Utilities/EntityParser.h"
-#include "ECS/Core/Entity.h"
-#include "ECS/Core/World.h"
+#include "Core.ECS.Utilities.EntityParser.h"
+#include "Core.ECS.Core.Entity.h"
+#include "Core.ECS.Core.World.h"
 
-#include "ECS/BasicComponents/Position.h"
+#include "Core.ECS.Component.Position.h"
 
 #include <QtGui/QInputEvent>
 

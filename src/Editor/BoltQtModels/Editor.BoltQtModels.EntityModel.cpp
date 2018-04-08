@@ -1,7 +1,7 @@
-#include "QtModels.EntityModel.h"
+#include "Editor.BoltQtModels.EntityModel.h"
 
-#include "ECS/Core/Entity.h"
-#include "ECS/Core/Component.h"
+#include "Core.ECS.Core.Entity.h"
+#include "Core.ECS.Core.Component.h"
 
 namespace  nQt {
 namespace  nModels {

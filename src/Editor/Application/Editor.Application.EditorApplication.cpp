@@ -1,20 +1,20 @@
-#include "EditorApplication.h"
+#include "Editor.Application.EditorApplication.h"
 
 
-#include "ECS/Core/Entity.h"
-#include "ECS/Core/World.h"
-#include "ECS/Utilities/ComponentRegistry.h"
-#include "ECS/Utilities/EntityParser.h"
+#include "Core.ECS.Core.Entity.h"
+#include "Core.ECS.Core.World.h"
+#include "Core.ECS.Utilities.ComponentRegistry.h"
+#include "Core.ECS.Utilities.EntityParser.h"
 
-#include "ECS/BasicComponents/Color.h"
-#include "ECS/BasicComponents/Position.h"
-#include "ECS/BasicComponents/SimplePhysic.h"
-#include "ECS/BasicComponents/Size.h"
-#include "ECS/BasicComponents/SpriteAnimated.h"
-#include "ECS/BasicComponents/Text.h"
+#include "Core.ECS.Component.Color.h"
+#include "Core.ECS.Component.Position.h"
+#include "Core.ECS.Component.SimplePhysic.h"
+#include "Core.ECS.Component.Size.h"
+#include "Core.ECS.Component.SpriteAnimated.h"
+#include "Core.ECS.Component.Text.h"
 
-#include "ECS/BasicSystems/AnimationRenderer.h"
-#include "ECS/BasicSystems/SimplerRenderer.h"
+#include "Core.ECS.System.AnimationRenderer.h"
+#include "Core.ECS.System.SimplerRenderer.h"
 
 namespace  nApplication {
 

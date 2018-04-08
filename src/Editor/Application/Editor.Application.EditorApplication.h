@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Application/Application.h"
+#include "Core.Application.Application.h"
 
 namespace nECS { class cWorld; }
 namespace nMainMenu { class cMainMenu; }

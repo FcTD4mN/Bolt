@@ -1,4 +1,4 @@
-#include "QtMainWindows/BoltEditor.h"
+#include "Editor.BoltQtMainWindows.BoltEditor.h"
 
 
 #include <QtWidgets/QApplication>

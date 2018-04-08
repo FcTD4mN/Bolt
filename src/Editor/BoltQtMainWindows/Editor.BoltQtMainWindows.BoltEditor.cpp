@@ -1,7 +1,7 @@
-#include "BoltEditor.h"
+#include "Editor.BoltQtMainWindows.BoltEditor.h"
 
-#include "Application/EditorApplication.h"
-#include "QtModels/QtModels.EntityListModel.h"
+#include "Editor.Application.EditorApplication.h"
+#include "Editor.BoltQtModels.EntityListModel.h"
 
 #include "QtWidgets/qtableview.h"
 
