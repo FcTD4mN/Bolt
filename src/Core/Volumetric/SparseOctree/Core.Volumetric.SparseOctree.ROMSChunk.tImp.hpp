@@ -27,7 +27,7 @@ inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig 
     mROMSConfig( iROMSConfig ) // Non-Owning
 {
     assert( mROMSConfig );
-    mData = new  cOrderedEmptyData< LOD, Atomic >( mROMSConfig ); // Owning
+    mData = new  cEmptyData< LOD, Atomic >( mROMSConfig ); // Owning
 }
 
 

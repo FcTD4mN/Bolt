@@ -76,9 +76,6 @@
     <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Data\Base">
       <UniqueIdentifier>{715ea4d9-0923-447c-9cc2-1f7205cf536e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier">
-      <UniqueIdentifier>{b4f39f10-5701-4027-8f30-c15870f8a045}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Data\Final">
       <UniqueIdentifier>{2e4822b5-84a8-484a-8dd9-0faccf3614e2}</UniqueIdentifier>
     </Filter>
@@ -452,29 +449,11 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRawData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRLEData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedEmptyData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedFullData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>
@@ -581,22 +560,22 @@
     <ClInclude Include="..\..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.h">
       <Filter>Fichiers sources\GameMockup\ECS\System</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RLEData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EmptyData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.FullData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSChunk.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Chunk</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRawData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRLEData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedEmptyData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedFullData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
     </None>
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
@@ -604,14 +583,20 @@
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage</Filter>
     </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
-    </None>
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RLEData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EmptyData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.FullData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
     </None>
   </ItemGroup>
 </Project>

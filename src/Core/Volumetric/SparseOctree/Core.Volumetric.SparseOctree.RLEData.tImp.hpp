@@ -1,4 +1,4 @@
-#include "Core.Volumetric.SparseOctree.EntropicRawData.h"
+#include "Core.Volumetric.SparseOctree.RLEData.h"
 
 
 namespace  nVolumetric      {
@@ -10,13 +10,13 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cEntropicRawData< LOD, Atomic >::~cEntropicRawData()
+inline  cRLEData< LOD, Atomic >::~cRLEData()
 {
 }
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cEntropicRawData< LOD, Atomic >::cEntropicRawData( const  cROMSConfig*  iROMSConfig ) :
+inline  cRLEData< LOD, Atomic >::cRLEData( const  cROMSConfig*  iROMSConfig ) :
     cEntropicData( iROMSConfig )
 {
 }
@@ -27,16 +27,15 @@ inline  cEntropicRawData< LOD, Atomic >::cEntropicRawData( const  cROMSConfig*  
 
 
 template< eLod2N LOD, typename Atomic >
-inline  bool  cEntropicRawData< LOD, Atomic >::Compressed()  const
+inline  bool  cRLEData< LOD, Atomic >::Compressed()  const
 {
-    return  false;
+    return  true;
 }
 
-
 template< eLod2N LOD, typename Atomic >
-inline  eSubType  cEntropicRawData< LOD, Atomic >::SubType()  const
+inline  eType  cRLEData< LOD, Atomic >::Type()  const
 {
-    return  eSubType::kRaw;
+    return  eType::kRLE;
 }
 
 
@@ -45,16 +44,15 @@ inline  eSubType  cEntropicRawData< LOD, Atomic >::SubType()  const
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&  cEntropicRawData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+inline  const  Atomic&  cRLEData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    mStorage.Get( iX, iY, iZ );
+    // TODO: insert return statement here
 }
 
 
 template< eLod2N LOD, typename Atomic >
-inline  void  cEntropicRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
+inline  void  cRLEData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
-    mStorage.Set( iX, iY, iZ, iValue );
 }
 
 
@@ -63,15 +61,16 @@ inline  void  cEntropicRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis< Atomic >  cEntropicRawData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis< Atomic >  cRLEData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kDiscard );
     else
-        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
-                                     cDataReportAnalysis::eProcessOperationStatus::kProcess );
-
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
+                                     cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                     eType::kEntropic, eSubType::kRLE,
+                                     eType::kEntropic, eSubType::kRaw );
 }
 
 

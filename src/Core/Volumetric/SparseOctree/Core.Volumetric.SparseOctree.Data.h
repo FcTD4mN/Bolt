@@ -15,21 +15,11 @@ class  cROMSConfig;
 // Runtime Information Enums
 enum  eType
 {
-    kOrdered,
-    kSparse,
-    kEntropic
-};
-
-
-enum  eSubType
-{
     kEmpty,
     kFull,
-
-    kNone,
-
+    kSparse,
     kRaw,
-    kRLE
+    kRLE,
 };
 
 
@@ -52,16 +42,12 @@ struct  cDataReportAnalysis
     cDataReportAnalysis( eConversionOperationStatus iConversionOperationStatus,
                          eProcessOperationStatus    iProcessOperationStatus,
                          eType       iFromType,
-                         eSubType    iFromSubType,
                          eType       iToType,
-                         eSubType    iToSubType,
                          Atomic      iValue ) :
     mConversionOperationStatus( iConversionOperationStatus ),
     mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( iFromType ),
-    mFromSubType( iFromSubType ),
     mToType( iToType ),
-    mToSubType( iToSubType ),
     mValue( iValue )
     {
     }
@@ -71,9 +57,7 @@ struct  cDataReportAnalysis
     mConversionOperationStatus( iConversionOperationStatus ),
     mProcessOperationStatus( iProcessOperationStatus ),
     mFromType( eType() ),
-    mFromSubType( eSubType() ),
     mToType( eType() ),
-    mToSubType( eSubType() ),
     mValue( Atomic( 0 ) )
     {
     }
@@ -81,10 +65,8 @@ struct  cDataReportAnalysis
     eConversionOperationStatus  mConversionOperationStatus;
     eProcessOperationStatus     mProcessOperationStatus;
     eType       mFromType;
-    eSubType    mFromSubType;
 
     eType       mToType;
-    eSubType    mToSubType;
 
     Atomic      mValue;
 };
@@ -104,7 +86,6 @@ public:
     // Pure Virtual Runtime Information
     virtual  bool       Compressed()    const  = 0;
     virtual  eType      Type()          const  = 0;
-    virtual  eSubType   SubType()       const  = 0;
 
 public:
     // Template Data Container Accessors

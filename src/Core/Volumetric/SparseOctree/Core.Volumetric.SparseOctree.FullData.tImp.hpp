@@ -1,4 +1,4 @@
-#include "Core.Volumetric.SparseOctree.OrderedFullData.h"
+#include "Core.Volumetric.SparseOctree.FullData.h"
 
 
 namespace  nVolumetric      {
@@ -10,14 +10,14 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cOrderedFullData< LOD, Atomic >::~cOrderedFullData()
+inline  cFullData< LOD, Atomic >::~cFullData()
 {
     mValue = Atomic( 0 );
 }
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cOrderedFullData< LOD, Atomic >::cOrderedFullData( const  cROMSConfig*  iROMSConfig ) :
+inline  cFullData< LOD, Atomic >::cFullData( const  cROMSConfig*  iROMSConfig ) :
     cOrderedData( iROMSConfig )
 {
 }
@@ -28,7 +28,14 @@ inline  cOrderedFullData< LOD, Atomic >::cOrderedFullData( const  cROMSConfig*  
 
 
 template< eLod2N LOD, typename Atomic >
-inline  eSubType  cOrderedFullData< LOD, Atomic >::SubType()  const
+inline  bool  cFullData< LOD, Atomic >::Compressed()  const
+{
+    return  true;
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  eType  cFullData< LOD, Atomic >::Type()  const
 {
     return  eSubType::kFull;
 }
@@ -39,7 +46,7 @@ inline  eSubType  cOrderedFullData< LOD, Atomic >::SubType()  const
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&  cOrderedFullData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+inline  const  Atomic&  cFullData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
     // The same everywhere
     return  mValue;
@@ -47,7 +54,7 @@ inline  const  Atomic&  cOrderedFullData< LOD, Atomic >::Get( tIndex iX, tIndex 
 
 
 template< eLod2N LOD, typename Atomic >
-inline  void  cOrderedFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
+inline  void  cFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
     // Should never be called on Full Data
     assert( 0 );
@@ -59,7 +66,7 @@ inline  void  cOrderedFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis< Atomic >  cOrderedFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis< Atomic >  cFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( Get( iX, iY ,iZ ) == iValue )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,

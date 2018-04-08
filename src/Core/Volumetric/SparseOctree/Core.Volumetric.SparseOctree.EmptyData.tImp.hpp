@@ -1,4 +1,4 @@
-#include "Core.Volumetric.SparseOctree.OrderedEmptyData.h"
+#include "Core.Volumetric.SparseOctree.EmptyData.h"
 
 
 namespace  nVolumetric      {
@@ -10,13 +10,13 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cOrderedEmptyData< LOD, Atomic >::~cOrderedEmptyData()
+inline  cEmptyData< LOD, Atomic >::~cEmptyData()
 {
 }
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cOrderedEmptyData< LOD, Atomic >::cOrderedEmptyData( const  cROMSConfig*  iROMSConfig ) :
+inline  cEmptyData< LOD, Atomic >::cEmptyData( const  cROMSConfig*  iROMSConfig ) :
     cOrderedData( iROMSConfig )
 {
 }
@@ -27,9 +27,16 @@ inline  cOrderedEmptyData< LOD, Atomic >::cOrderedEmptyData( const  cROMSConfig*
 
 
 template< eLod2N LOD, typename Atomic >
-inline  eSubType  cOrderedEmptyData< LOD, Atomic >::SubType()  const
+inline  bool  cEmptyData< LOD, Atomic >::Compressed()  const
 {
-    return  eSubType::kEmpty;
+    return  true;
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  eType  cEmptyData< LOD, Atomic >::Type()  const
+{
+    return  eType::kEmpty;
 }
 
 
@@ -38,14 +45,14 @@ inline  eSubType  cOrderedEmptyData< LOD, Atomic >::SubType()  const
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&  cOrderedEmptyData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+inline  const  Atomic&  cEmptyData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
     return  Atomic( 0 );
 }
 
 
 template< eLod2N LOD, typename Atomic >
-inline  void  cOrderedEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
+inline  void  cEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
     // Should never be called on Empty Data
     assert( 0 );
@@ -57,7 +64,7 @@ inline  void  cOrderedEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tInde
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cDataReportAnalysis< Atomic >  cOrderedEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+inline  cDataReportAnalysis< Atomic >  cEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
     if( LOD > ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,

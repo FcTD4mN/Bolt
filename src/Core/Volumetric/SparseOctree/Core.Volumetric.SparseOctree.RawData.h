@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Core.Volumetric.SparseOctree.EntropicData.h"
+#include "Core.Volumetric.SparseOctree.Data.h"
 #include "Core.Volumetric.SparseOctree.RawStorage.h"
 
 
@@ -10,20 +10,20 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-class  cEntropicRawData final :
-    public  cEntropicData< LOD, Atomic >
+class  cRawData final :
+    public  cData< LOD, Atomic >
 {
 
 public:
     // Construction / Destruction
-    virtual  ~cEntropicRawData();
-    cEntropicRawData( const  cROMSConfig*  iROMSConfig );
-    cEntropicRawData( const  cEntropicRawData& ) = delete;
+    virtual  ~cRawData();
+    cRawData( const  cROMSConfig*  iROMSConfig );
+    cRawData( const  cRawData& ) = delete;
 
 public:
     // Virtual Runtime Information Overrides
-    virtual  bool       Compressed()    const  override;
-    virtual  eSubType   SubType()       const  override;
+    virtual  bool   Compressed()    const  override;
+    virtual  eType  Type()          const  override;
 
 public:
     // Data Accessors
@@ -45,5 +45,5 @@ private:
 }  // namespace  nVolumetric
 
 
-#include "Core.Volumetric.SparseOctree.EntropicRawData.tImp.hpp"
+#include "Core.Volumetric.SparseOctree.RawData.tImp.hpp"
 

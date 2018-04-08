@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Core.Volumetric.SparseOctree.OrderedData.h"
+#include "Core.Volumetric.SparseOctree.Data.h"
 
 
 namespace  nVolumetric      {
@@ -9,19 +9,20 @@ namespace  nSparseOctree    {
 
 
 template< eLod2N LOD, typename Atomic >
-class  cOrderedEmptyData final :
-    public  cOrderedData< LOD, Atomic >
+class  cEmptyData final :
+    public  cData< LOD, Atomic >
 {
 
 public:
     // Construction / Destruction
-    virtual  ~cOrderedEmptyData();
-    cOrderedEmptyData( const  cROMSConfig*  iROMSConfig );
-    cOrderedEmptyData( const  cOrderedEmptyData& ) = delete;
+    virtual  ~cEmptyData();
+    cEmptyData( const  cROMSConfig*  iROMSConfig );
+    cEmptyData( const  cEmptyData& ) = delete;
 
 public:
     // Virtual Runtime Information Overrides
-    virtual  eSubType  SubType()  const  override;
+    virtual  bool   Compressed()    const  override;
+    virtual  eType  Type()          const  override;
 
 public:
     // Data Accessors
@@ -39,5 +40,5 @@ private:
 }  // namespace  nVolumetric
 
 
-#include "Core.Volumetric.SparseOctree.OrderedEmptyData.tImp.hpp"
+#include "Core.Volumetric.SparseOctree.EmptyData.tImp.hpp"
 

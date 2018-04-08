@@ -26,15 +26,12 @@ inline  cDataConverterProtocol< LOD, Atomic >::cDataConverterProtocol() :
     mSparseProcessMap(),
     mEntropicProcessMap()
 {
-    mTypeSelectMap[ eType::kOrdered ]   = &mOrderedProcessMap;
-    mTypeSelectMap[ eType::kSparse ]    = &mSparseProcessMap;
-    mTypeSelectMap[ eType::kEntropic ]  = &mEntropicProcessMap;
 
-    mOrderedProcessMap[ eSubType::kEmpty ]  = &cDataConverterProtocol< LOD, Atomic >::ConvertToEmpty;
-    mOrderedProcessMap[ eSubType::kFull ]   = &cDataConverterProtocol< LOD, Atomic >::ConvertToFull;
-    mSparseProcessMap[ eSubType::kNone ]    = &cDataConverterProtocol< LOD, Atomic >::ConvertToSparse;
-    mEntropicProcessMap[ eSubType::kRaw ]   = &cDataConverterProtocol< LOD, Atomic >::ConvertToRaw;
-    mEntropicProcessMap[ eSubType::kRLE ]   = &cDataConverterProtocol< LOD, Atomic >::ConvertToRLE;
+    mProcessMap[ eType::kEmpty ]    = &cDataConverterProtocol< LOD, Atomic >::ConvertToEmpty;
+    mProcessMap[ eType::kFull ]     = &cDataConverterProtocol< LOD, Atomic >::ConvertToFull;
+    mProcessMap[ eType::kSparse ]   = &cDataConverterProtocol< LOD, Atomic >::ConvertToSparse;
+    mProcessMap[ eType::kRaw ]      = &cDataConverterProtocol< LOD, Atomic >::ConvertToRaw;
+    mProcessMap[ eType::kRLE ]      = &cDataConverterProtocol< LOD, Atomic >::ConvertToRLE;
 }
 
 
@@ -46,17 +43,9 @@ template< eLod2N LOD, typename Atomic >
 inline  void  cDataConverterProtocol< LOD, Atomic >::ProcessDataReportAnalysis( const  cDataReportAnalysis< Atomic >&  iDataReportAnalysis, cData< LOD, Atomic >**  iData )
 {
     auto type = iDataReportAnalysis.mToType;
-    auto subtype = iDataReportAnalysis.mToSubType;
     if( KEY_EXISTS( mTypeSelectMap, type ) )
     {
-        if( KEY_EXISTS( ( *mTypeSelectMap[ type ] ), subtype ) )
-        {
-            (this->*( *mTypeSelectMap[ type ] )[ subtype ])();
-        }
-        else
-        {
-            assert( false );
-        }
+            (this->*( *mTypeSelectMap[ type ] ))();
     }
     else
     {

@@ -62,13 +62,6 @@ inline  eType  cSparseData< LOD, Atomic >::Type()  const
 }
 
 
-template< eLod2N LOD, typename Atomic >
-inline  eSubType  cSparseData< LOD, Atomic >::SubType()  const
-{
-    return  eSubType::kNone;
-}
-
-
 //----------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------- Data Accessors
 

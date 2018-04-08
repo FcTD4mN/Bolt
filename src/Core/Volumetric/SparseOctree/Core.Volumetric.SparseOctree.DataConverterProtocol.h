@@ -34,12 +34,9 @@ protected:
 private:
     // Data Members
     typedef  void  ( cDataConverterProtocol::*tVoidMemberFunctionPointer )();
-    typedef std::map< eSubType, tVoidMemberFunctionPointer >  tProcessMap;
+    typedef std::map< eType, tVoidMemberFunctionPointer >  tProcessMap;
 
-    std::map< eType, tProcessMap* >  mTypeSelectMap;
-    tProcessMap  mOrderedProcessMap;
-    tProcessMap  mSparseProcessMap;
-    tProcessMap  mEntropicProcessMap;
+    tProcessMap  mProcessMap;
 
 };
 

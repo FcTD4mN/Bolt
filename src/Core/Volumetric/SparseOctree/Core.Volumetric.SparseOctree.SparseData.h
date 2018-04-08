@@ -28,9 +28,8 @@ public:
 
 public:
     // Virtual Runtime Information Overrides
-    virtual  bool       Compressed()    const  override;
-    virtual  eType      Type()          const  override;
-    virtual  eSubType   SubType()       const  override;
+    virtual  bool   Compressed()    const  override;
+    virtual  eType  Type()          const  override;
 
 public:
     // Data Accessors
