@@ -25,9 +25,6 @@
     <Filter Include="Fichiers sources\Core\Base">
       <UniqueIdentifier>{69422064-0814-4d12-a7d2-43701b7f32c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\Base\Threading">
-      <UniqueIdentifier>{e207a4d3-f609-4f35-aef5-7548720d59d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Core\Benchmark">
       <UniqueIdentifier>{f1202c71-c577-4710-91db-9a8f8da3112e}</UniqueIdentifier>
     </Filter>
@@ -43,35 +40,11 @@
     <Filter Include="Fichiers sources\Core\ECS\Utilities">
       <UniqueIdentifier>{6cfe0a1c-4e17-4c4c-b863-941432fd3e8b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup">
-      <UniqueIdentifier>{b50f1859-08f7-4914-884c-54e69f6291bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Components">
-      <UniqueIdentifier>{dde68560-6861-4777-a9b1-d2dfcd00794b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Components\BehaviourTree">
-      <UniqueIdentifier>{152594b6-c17c-4046-a370-0e4acd12ff9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Systems">
-      <UniqueIdentifier>{f9f48c9d-0a63-4da9-b8bf-b7cf0559cc44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Systems\Physic">
-      <UniqueIdentifier>{768750aa-a5ac-4c08-911e-26443566ce7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\GameMockup\Screens">
-      <UniqueIdentifier>{fa7cf3ce-9ec2-4ab3-a228-36a4678e253c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Core\GUI">
       <UniqueIdentifier>{3e2414e1-847a-4625-bdb6-68016e8fd720}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Core\MainMenu">
       <UniqueIdentifier>{dcc41c62-9c8b-4b18-9d68-fb05dd98c86d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\MainMenu\MenuItem">
-      <UniqueIdentifier>{4c8fd09a-275c-411c-930e-7605db518da9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Core\MainMenu\MenuPage">
-      <UniqueIdentifier>{4d84369f-0a37-4cd7-b9fe-29d345e2d646}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\Core\Mapping">
       <UniqueIdentifier>{7631d07f-cf4b-4261-9edb-2e7e2f657a3c}</UniqueIdentifier>
@@ -124,514 +97,505 @@
     <Filter Include="Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion">
       <UniqueIdentifier>{f2fbf0f2-3a6c-444c-8730-22fbe91f17dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\ECS\BasicComponents">
+    <Filter Include="Fichiers sources\Core\Base\Thread">
+      <UniqueIdentifier>{e207a4d3-f609-4f35-aef5-7548720d59d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameMockup">
+      <UniqueIdentifier>{0ff46217-ea61-49ac-b7a9-dc516639aa64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Application">
+      <UniqueIdentifier>{08e86dec-ca5f-4001-8a57-366dca2ec32c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\GameMockup\Screen">
+      <UniqueIdentifier>{f798cde8-b384-498b-afe7-2b46ddc18a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core\ECS\Component">
       <UniqueIdentifier>{0d55e8e8-61f8-4751-9459-ace909df2452}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Core\ECS\BasicSystems">
+    <Filter Include="Fichiers sources\Core\ECS\System">
       <UniqueIdentifier>{4eb415e0-49b5-4305-bc71-d6e8894f9271}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\Core\Application\Application.cpp">
+    <ClCompile Include="..\..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.cpp">
+      <Filter>Fichiers sources\GameMockup\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.GameScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.InfiltratorScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.OpenGLRenderSceneScreen.cpp">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\Core.AI.BehaviourNode.cpp">
+      <Filter>Fichiers sources\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\Core.AI.BehaviourService.cpp">
+      <Filter>Fichiers sources\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\Core.AI.BehaviourTree.cpp">
+      <Filter>Fichiers sources\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\Core.AI.BlackBoard.cpp">
+      <Filter>Fichiers sources\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\Core.AI.BlackBoardVariable.cpp">
+      <Filter>Fichiers sources\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Application\Core.Application.Application.cpp">
       <Filter>Fichiers sources\Core\Application</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Clipboard.cpp">
+    <ClCompile Include="..\..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.cpp">
+      <Filter>Fichiers sources\Core\Base\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.cpp">
+      <Filter>Fichiers sources\Core\Base\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Core.Base.Clipboard.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\ClipboardWin32.cpp">
+    <ClCompile Include="..\..\..\src\Core\Base\Core.Base.ClipboardWin32.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Drawable.cpp">
+    <ClCompile Include="..\..\..\src\Core\Base\Core.Base.Drawable.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\ResourceManager.cpp">
+    <ClCompile Include="..\..\..\src\Core\Base\Core.Base.ResourceManager.cpp">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Benchmark\Benchmark.cpp">
+    <ClCompile Include="..\..\..\src\Core\Base\Core.Base.Utilities.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Base\Core.Base.Variant.cpp">
+      <Filter>Fichiers sources\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Benchmark\Core.Benchmark.cpp">
       <Filter>Fichiers sources\Core\Benchmark</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.cpp">
+    <ClCompile Include="..\..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.cpp">
       <Filter>Fichiers sources\Core\BoltScript</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\Core\System.cpp">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\Core\World.cpp">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\Core\Component.cpp">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\Core\Entity.cpp">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.cpp">
-      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\EntityParser.cpp">
-      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Systems\Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SquareController.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\GameApplication.cpp">
-      <Filter>Fichiers sources\Core\GameMockup</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GUI\ConsoleWidget.cpp">
+    <ClCompile Include="..\..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp">
       <Filter>Fichiers sources\Core\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\MainMenu\MainMenu.cpp">
+    <ClCompile Include="..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.cpp">
       <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.cpp">
-      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
+    <ClCompile Include="..\..\..\src\Core\MainMenu\Core.MainMenu.ItemPageSwaper.cpp">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.cpp">
-      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
+    <ClCompile Include="..\..\..\src\Core\MainMenu\Core.MainMenu.MainMenu.cpp">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.cpp">
-      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
+    <ClCompile Include="..\..\..\src\Core\MainMenu\Core.MainMenu.MenuItem.cpp">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.cpp">
-      <Filter>Fichiers sources\Core\MainMenu\MenuPage</Filter>
+    <ClCompile Include="..\..\..\src\Core\MainMenu\Core.MainMenu.MenuPage.cpp">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.cpp">
+    <ClCompile Include="..\..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.cpp">
       <Filter>Fichiers sources\Core\Mapping</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Math\Utils.cpp">
+    <ClCompile Include="..\..\..\src\Core\Math\Core.Math.Edge.cpp">
       <Filter>Fichiers sources\Core\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Screen\Screen.cpp">
+    <ClCompile Include="..\..\..\src\Core\Math\Core.Math.Ray.cpp">
+      <Filter>Fichiers sources\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Math\Core.Math.Triangle.cpp">
+      <Filter>Fichiers sources\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Math\Core.Math.Utils.cpp">
+      <Filter>Fichiers sources\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Screen\Core.Screen.Screen.cpp">
       <Filter>Fichiers sources\Core\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Screen\ScreenMainMenu.cpp">
+    <ClCompile Include="..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.cpp">
       <Filter>Fichiers sources\Core\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Shortcuts\Shortcuts.cpp">
-      <Filter>Fichiers sources\Core\Shortcuts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Utilities.cpp">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\ConsoleScreen.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\GameScreen.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\Direction.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Math\Triangle.cpp">
-      <Filter>Fichiers sources\Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Math\Edge.cpp">
-      <Filter>Fichiers sources\Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Math\Ray.cpp">
-      <Filter>Fichiers sources\Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Shader\Shader.cpp">
+    <ClCompile Include="..\..\..\src\Core\Shader\Core.Shader.Shader.cpp">
       <Filter>Fichiers sources\Core\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Data.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
+    <ClCompile Include="..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp">
+      <Filter>Fichiers sources\Core\Shortcuts</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\VUtils.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Thread-Thread.cpp">
-      <Filter>Fichiers sources\Core\Base\Threading</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.cpp">
-      <Filter>Fichiers sources\Core\Base\Threading</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.cpp">
-      <Filter>Fichiers sources\Core\GameMockup\Components\BehaviourTree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourTree.cpp">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourNode.cpp">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\AI\AI.BehaviourService.cpp">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoard.cpp">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.cpp">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Hashable3DKey.cpp">
+    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Hashable3DKey.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSConfig.cpp">
+    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSConfig.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Base\Variant.cpp">
-      <Filter>Fichiers sources\Core\Base</Filter>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Data.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Color.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Hashable3DKey.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Position.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.SparseStaticLodChunk64Map.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Size.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.StaticLodChunk64.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.VUtils.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\Text.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\src\Core\Core.main.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicComponents\UserInput.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Color.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicSystems\InputConverter.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.cpp">
-      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SquareController.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.Component.cpp">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.cpp">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.System.cpp">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.World.cpp">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.cpp">
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.cpp">
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\Core\Application\Application.h">
-      <Filter>Fichiers sources\Core\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Clipboard.h">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Drawable.h">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\GeneralEnums.h">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\ResourceManager.h">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Benchmark\Benchmark.h">
-      <Filter>Fichiers sources\Core\Benchmark</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\BoltScript\BoltScriptEnvironment.h">
-      <Filter>Fichiers sources\Core\BoltScript</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\Core\Entity.h">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\Core\System.h">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\Core\World.h">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\Core\Component.h">
-      <Filter>Fichiers sources\Core\ECS\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\EntityParser.h">
-      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\ComponentRegistry.h">
-      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SimplePhysics.h">
-      <Filter>Fichiers sources\Core\GameMockup\Systems\Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SquareController.h">
-      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\GameApplication.h">
-      <Filter>Fichiers sources\Core\GameMockup</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GUI\ConsoleWidget.h">
-      <Filter>Fichiers sources\Core\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\MainMenu\MainMenu.h">
-      <Filter>Fichiers sources\Core\MainMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.Callback.h">
-      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.h">
-      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuItem\MenuItem.PageSwaper.h">
-      <Filter>Fichiers sources\Core\MainMenu\MenuItem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\MainMenu\MenuPage\MenuPage.h">
-      <Filter>Fichiers sources\Core\MainMenu\MenuPage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Mapping\PhysicEntityGrid.h">
-      <Filter>Fichiers sources\Core\Mapping</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Math\Utils.h">
-      <Filter>Fichiers sources\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Screen\Screen.h">
-      <Filter>Fichiers sources\Core\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Screen\ScreenMainMenu.h">
-      <Filter>Fichiers sources\Core\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Shortcuts\Shortcuts.h">
-      <Filter>Fichiers sources\Core\Shortcuts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Utilities.h">
-      <Filter>Fichiers sources\Core\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\ConsoleScreen.h">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\GameScreen.h">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\InfiltratorScreen.h">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\Direction.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\FieldOfView.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Systems\SightSystem.h">
-      <Filter>Fichiers sources\Core\GameMockup\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Math\Triangle.h">
-      <Filter>Fichiers sources\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Math\Edge.h">
-      <Filter>Fichiers sources\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Math\Ray.h">
-      <Filter>Fichiers sources\Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\OpenGLRenderSceneScreen.h">
-      <Filter>Fichiers sources\Core\GameMockup\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Shader\Shader.h">
-      <Filter>Fichiers sources\Core\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Data.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Hashable3DKey.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk16Map.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk32Map.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk16.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk32.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Types.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\VUtils.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\StaticLodChunk64.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\SparseStaticLodChunk64Map.h">
-      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Thread-Thread.h">
-      <Filter>Fichiers sources\Core\Base\Threading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Thread-ThreadProcessor.h">
-      <Filter>Fichiers sources\Core\Base\Threading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\GameMockup\Components\BehaviourTree.h">
-      <Filter>Fichiers sources\Core\GameMockup\Components\BehaviourTree</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourTree.h">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourNode.h">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\AI\AI.BehaviourService.h">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\AI\AI.BlackBoard.h">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\AI\AI.BlackBoardVariable.h">
-      <Filter>Fichiers sources\Core\AI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Data.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
+    <ClInclude Include="..\..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.h">
+      <Filter>Fichiers sources\GameMockup\Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Data.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
+    <ClInclude Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
+    <ClInclude Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.GameScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
+    <ClInclude Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.InfiltratorScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRawData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    <ClInclude Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.OpenGLRenderSceneScreen.h">
+      <Filter>Fichiers sources\GameMockup\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRLEData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    <ClInclude Include="..\..\..\src\Core\AI\Core.AI.BehaviourNode.h">
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    <ClInclude Include="..\..\..\src\Core\AI\Core.AI.BehaviourService.h">
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    <ClInclude Include="..\..\..\src\Core\AI\Core.AI.BehaviourTree.h">
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SparseData.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    <ClInclude Include="..\..\..\src\Core\AI\Core.AI.BlackBoard.h">
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Chunk</Filter>
+    <ClInclude Include="..\..\..\src\Core\AI\Core.AI.BlackBoardVariable.h">
+      <Filter>Fichiers sources\Core\AI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage</Filter>
+    <ClInclude Include="..\..\..\src\Core\Application\Core.Application.Application.h">
+      <Filter>Fichiers sources\Core\Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Hashable3DKey.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    <ClInclude Include="..\..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.h">
+      <Filter>Fichiers sources\Core\Base\Thread</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSConfig.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    <ClInclude Include="..\..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.h">
+      <Filter>Fichiers sources\Core\Base\Thread</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.Types.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataConverterProtocol.h">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataConverterProtocol.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Base\Variant.h">
+    <ClInclude Include="..\..\..\src\Core\Base\Core.Base.Clipboard.h">
       <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\SpriteAnimated.h">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClInclude Include="..\..\..\src\Core\Base\Core.Base.Drawable.h">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Color.h">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClInclude Include="..\..\..\src\Core\Base\Core.Base.GeneralEnums.h">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Position.h">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClInclude Include="..\..\..\src\Core\Base\Core.Base.ResourceManager.h">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Size.h">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClInclude Include="..\..\..\src\Core\Base\Core.Base.Utilities.h">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\Text.h">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClInclude Include="..\..\..\src\Core\Base\Core.Base.Variant.h">
+      <Filter>Fichiers sources\Core\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\SimplePhysic.h">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClInclude Include="..\..\..\src\Core\Benchmark\Core.Benchmark.h">
+      <Filter>Fichiers sources\Core\Benchmark</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicComponents\UserInput.h">
-      <Filter>Fichiers sources\Core\ECS\BasicComponents</Filter>
+    <ClInclude Include="..\..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.h">
+      <Filter>Fichiers sources\Core\BoltScript</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicSystems\AnimationRenderer.h">
-      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    <ClInclude Include="..\..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h">
+      <Filter>Fichiers sources\Core\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicSystems\InputConverter.h">
-      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    <ClInclude Include="..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.h">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\ECS\BasicSystems\SimplerRenderer.h">
-      <Filter>Fichiers sources\Core\ECS\BasicSystems</Filter>
+    <ClInclude Include="..\..\..\src\Core\MainMenu\Core.MainMenu.ItemPageSwaper.h">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\MainMenu\Core.MainMenu.MainMenu.h">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\MainMenu\Core.MainMenu.MenuItem.h">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\MainMenu\Core.MainMenu.MenuPage.h">
+      <Filter>Fichiers sources\Core\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.h">
+      <Filter>Fichiers sources\Core\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Math\Core.Math.Edge.h">
+      <Filter>Fichiers sources\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Math\Core.Math.Ray.h">
+      <Filter>Fichiers sources\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Math\Core.Math.Triangle.h">
+      <Filter>Fichiers sources\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Math\Core.Math.Utils.h">
+      <Filter>Fichiers sources\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Screen\Core.Screen.Screen.h">
+      <Filter>Fichiers sources\Core\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.h">
+      <Filter>Fichiers sources\Core\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Shader\Core.Shader.Shader.h">
+      <Filter>Fichiers sources\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h">
+      <Filter>Fichiers sources\Core\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSChunk.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Chunk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Data.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Data.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRawData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRLEData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedEmptyData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedFullData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedData.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Hashable3DKey.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSConfig.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Types.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Data.h">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Hashable3DKey.h">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.SparseStaticLodChunk64Map.h">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.StaticLodChunk64.h">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Types.h">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.VUtils.h">
+      <Filter>Fichiers sources\Core\Volumetric\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Color.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SquareController.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.Component.h">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.h">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.System.h">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.World.h">
+      <Filter>Fichiers sources\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.h">
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.h">
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataIncludes.h">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRawData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.EntropicRLEData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedEmptyData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.OrderedFullData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.SparseData.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.ROMSChunk.tImp.hpp">
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSChunk.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Chunk</Filter>
     </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.RawStorage.tImp.hpp">
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRawData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicRLEData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedEmptyData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedFullData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawStorage.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\SubStorage</Filter>
     </None>
-    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.USROCMap.tImp.hpp">
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EntropicData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.OrderedData.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Tier</Filter>
+    </None>
+    <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Map</Filter>
     </None>
   </ItemGroup>
