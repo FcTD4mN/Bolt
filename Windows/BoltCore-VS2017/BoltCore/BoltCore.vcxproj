@@ -370,6 +370,7 @@
     <ClInclude Include="..\..\..\src\Core\Shader\Core.Shader.Shader.h" />
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Data.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Data.tImp.hpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.cpp" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataIncludes.h" />
@@ -423,9 +424,6 @@
     <ClInclude Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.OpenGLRenderSceneScreen.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Data.tImp.hpp">
-      <FileType>Document</FileType>
-    </ClInclude>
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RawData.tImp.hpp" />
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RLEData.tImp.hpp" />
     <None Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.EmptyData.tImp.hpp" />

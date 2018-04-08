@@ -545,9 +545,6 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataIncludes.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Data.tImp.hpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Core.ECS.Core.ScreenEntityMap.h">
       <Filter>Fichiers sources\Core\ECS\Mapping</Filter>
     </ClInclude>
@@ -571,6 +568,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Utils.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Data.tImp.hpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
