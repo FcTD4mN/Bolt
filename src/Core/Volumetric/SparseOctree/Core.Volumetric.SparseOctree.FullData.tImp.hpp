@@ -68,7 +68,7 @@ inline  void  cFullData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, co
 template< eLod2N LOD, typename Atomic >
 inline  cDataReportAnalysis  cFullData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
-    if( Get( iX, iY ,iZ ) == iValue )
+    if( iValue == Get( iX, iY ,iZ ) )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                        cDataReportAnalysis::eProcessOperationStatus::kDiscard );
 

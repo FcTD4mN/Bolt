@@ -66,6 +66,9 @@ inline  void  cEmptyData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, c
 template< eLod2N LOD, typename Atomic >
 inline  cDataReportAnalysis  cEmptyData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
+    if( iValue == Atomic( 0 ) )
+        return;
+
     if( LOD > ROMSConfig().MicroscopicLODGranularity() )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
