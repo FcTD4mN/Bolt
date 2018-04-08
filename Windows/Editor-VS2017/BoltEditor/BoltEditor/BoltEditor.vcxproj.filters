@@ -396,14 +396,14 @@
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.h">
       <Filter>src\Editor\BoltQtModels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.QtModels.EntityModel.h">
-      <Filter>src\Editor\BoltQtModels</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

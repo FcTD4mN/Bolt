@@ -119,7 +119,7 @@
     <ClInclude Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.h" />
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.QtModels.EntityModel.h" />
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h" />
   </ItemGroup>
