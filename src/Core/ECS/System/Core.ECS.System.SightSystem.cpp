@@ -13,6 +13,8 @@
 #include "Core.ECS.Component.FieldOfView.h"
 #include "Core.ECS.Component.Direction.h"
 
+#include "Core.ECS.Core.ScreenEntityMap.h"
+
 #include "Core.Mapping.PhysicEntityGrid.h"
 
 #include "Core.Math.Utils.h"
@@ -100,7 +102,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //// ============== MULTI THREAD ============
     //// ========================================
 
-    ::nMapping::cEntityGrid* entityMap = ::nApplication::cGameApplication::App()->EntityMap();
+    ::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
 
     // Draw container
     mFOVDrawer.clear();

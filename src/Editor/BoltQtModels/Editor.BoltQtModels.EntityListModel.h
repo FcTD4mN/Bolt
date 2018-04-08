@@ -1,4 +1,4 @@
-#include "QtCore/QAbstractListModel"
+#include <QtCore/QAbstractListModel>
 
 namespace  nECS { class cEntityParser; }
 

@@ -26,21 +26,21 @@ namespace QT_NAMESPACE {
 }
 #endif
 
-int QT_RCC_MANGLE_NAMESPACE(qInitResources_BoltEditor)();
-int QT_RCC_MANGLE_NAMESPACE(qInitResources_BoltEditor)()
+int QT_RCC_MANGLE_NAMESPACE(qInitResources_Editor_BoltQtResourceFiles_BoltEditor)();
+int QT_RCC_MANGLE_NAMESPACE(qInitResources_Editor_BoltQtResourceFiles_BoltEditor)()
 {
     return 1;
 }
 
-int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_BoltEditor)();
-int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_BoltEditor)()
+int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_Editor_BoltQtResourceFiles_BoltEditor)();
+int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_Editor_BoltQtResourceFiles_BoltEditor)()
 {
     return 1;
 }
 
 namespace {
    struct initializer {
-       initializer() { QT_RCC_MANGLE_NAMESPACE(qInitResources_BoltEditor)(); }
-       ~initializer() { QT_RCC_MANGLE_NAMESPACE(qCleanupResources_BoltEditor)(); }
+       initializer() { QT_RCC_MANGLE_NAMESPACE(qInitResources_Editor_BoltQtResourceFiles_BoltEditor)(); }
+       ~initializer() { QT_RCC_MANGLE_NAMESPACE(qCleanupResources_Editor_BoltQtResourceFiles_BoltEditor)(); }
    } dummy;
 }

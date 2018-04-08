@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'BoltEditor.ui'
+** Form generated from reading UI file 'Editor.BoltQtUIFiles.BoltEditor.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.10.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_BOLTEDITOR_H
-#define UI_BOLTEDITOR_H
+#ifndef UI_EDITOR_H
+#define UI_EDITOR_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -23,7 +23,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "Editor.BoltQtWidgets.TestCanvas.h"
+#include "BoltQtWidgets/Editor.BoltQtWidgets.TestCanvas.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -112,4 +112,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_BOLTEDITOR_H
+#endif // UI_EDITOR_H

@@ -18,7 +18,7 @@ class cEntityGrid
 public:
     // Contruction/Destruction
     ~cEntityGrid();
-    cEntityGrid();
+    cEntityGrid( int iWidth, int iHeight, int iCellSize );
 
 public:
     // Grid management

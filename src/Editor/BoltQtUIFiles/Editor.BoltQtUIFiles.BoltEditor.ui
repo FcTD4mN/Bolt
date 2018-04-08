@@ -71,12 +71,12 @@
   <customwidget>
    <class>MyCanvas</class>
    <extends>QWidget</extends>
-   <header>QtWidgets/TestCanvas.h</header>
+   <header>BoltQtWidgets/Editor.BoltQtWidgets.TestCanvas.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../QtResourceFiles/BoltEditor.qrc"/>
+  <include location="../BoltQtResourceFiles/Editor.BoltQtResourceFiles.BoltEditor.qrc"/>
  </resources>
  <connections/>
 </ui>

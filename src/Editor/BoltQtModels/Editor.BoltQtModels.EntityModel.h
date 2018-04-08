@@ -1,4 +1,4 @@
-#include "QtCore/QAbstractTableModel"
+#include <QtCore/QAbstractTableModel>
 
 namespace  nECS { class cEntity; }
 

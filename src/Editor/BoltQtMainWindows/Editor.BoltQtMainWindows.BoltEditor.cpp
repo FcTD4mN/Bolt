@@ -3,7 +3,7 @@
 #include "Editor.Application.EditorApplication.h"
 #include "Editor.BoltQtModels.EntityListModel.h"
 
-#include "QtWidgets/qtableview.h"
+#include <QtWidgets/QTableView>
 
 namespace nQt {
 

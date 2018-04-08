@@ -1,4 +1,4 @@
-#include "Core.ECS.System.SquareController.h"
+#include "GameMockup.ECS.System.SquareController.h"
 
 
 #include "Core.ECS.Core.Entity.h"

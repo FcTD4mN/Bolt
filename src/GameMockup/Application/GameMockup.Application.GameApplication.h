@@ -40,8 +40,6 @@ public:
 
 private:
     ::nECS::cWorld*             mWorld;
-    ::nShortcuts::cShortcuts*   mShortcutEngine;
-    ::nMapping::cEntityGrid*    mEntityMap;
 };
 
 } // nApplication

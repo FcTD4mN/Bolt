@@ -82,14 +82,20 @@
     <Filter Include="src\Editor\BoltQtWidgets">
       <UniqueIdentifier>{8235149a-3048-4dbf-9f68-b308e9aab9d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Core\Shortcuts">
+      <UniqueIdentifier>{9d434e9e-8c22-4405-bc09-fbabc64c0101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\ECS\Mapping">
+      <UniqueIdentifier>{e29f129d-143f-487a-8153-1365e47739f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="..\..\..\..\src\Editor\QtUIFiles\BoltEditor.ui">
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtUIFiles\Editor.BoltQtUIFiles.BoltEditor.ui">
       <Filter>QtUIFiles</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="..\..\..\..\src\Editor\QtResourceFiles\BoltEditor.qrc">
+    <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc">
       <Filter>QtResources</Filter>
     </QtRcc>
   </ItemGroup>
@@ -167,9 +173,6 @@
       <Filter>src\Core\ECS\System</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.cpp">
-      <Filter>src\Core\ECS\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SquareController.cpp">
       <Filter>src\Core\ECS\System</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.System.cpp">
@@ -250,6 +253,12 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.cpp">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp">
+      <Filter>src\Core\Shortcuts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.ScreenEntityMap.cpp">
+      <Filter>src\Core\ECS\Mapping</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -327,9 +336,6 @@
     <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.h">
       <Filter>src\Core\ECS\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SquareController.h">
-      <Filter>src\Core\ECS\System</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.h">
       <Filter>src\Core\ECS\Core</Filter>
     </ClInclude>
@@ -390,20 +396,28 @@
     <ClInclude Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.h">
       <Filter>src\Editor\Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.h">
-      <Filter>src\Editor\BoltQtMainWindows</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.h">
-      <Filter>src\Editor\BoltQtModels</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.h">
-      <Filter>src\Editor\BoltQtModels</Filter>
+    <ClInclude Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h">
+      <Filter>src\Core\Shortcuts</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.ScreenEntityMap.h">
+      <Filter>src\Core\ECS\Mapping</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.h">
+      <Filter>src\Editor\BoltQtMainWindows</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

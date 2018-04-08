@@ -18,11 +18,11 @@ cEntityGrid::~cEntityGrid()
 }
 
 
-cEntityGrid::cEntityGrid() :
+cEntityGrid::cEntityGrid( int iWidth, int iHeight, int iCellSize ) :
     mGridMap(),
-    mWidth( 100 ),
-    mHeight( 100 ),
-    mCellSize( 32 )
+    mWidth( iWidth ),
+    mHeight( iHeight ),
+    mCellSize( iCellSize )
 {
     mGridMap.reserve( mWidth );
     for( int i = 0; i < mWidth; ++i )

@@ -12,36 +12,34 @@
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 #include "Core.ECS.Component.UserInput.h"
+#include "Core.ECS.Component.Direction.h"
+#include "Core.ECS.Component.FieldOfView.h"
 
 #include "Core.ECS.System.AnimationRenderer.h"
 #include "Core.ECS.System.InputConverter.h"
 #include "Core.ECS.System.SimplerRenderer.h"
-
-
-#include "GameMockup.Screen.GameScreen.h"
-#include "GameMockup.Screen.InfiltratorScreen.h"
-#include "GameMockup.Screen.OpenGLRenderSceneScreen.h"
-
 #include "Core.ECS.System.SimplePhysics.h"
-#include "Core.ECS.System.SquareController.h"
 #include "Core.ECS.System.SightSystem.h"
 
-#include "Core.ECS.Component.Direction.h"
-#include "Core.ECS.Component.FieldOfView.h"
+#include "Core.ECS.Core.ScreenEntityMap.h"
 
 #include "Core.MainMenu.MainMenu.h"
 #include "Core.MainMenu.ItemCallback.h"
 #include "Core.MainMenu.ItemPageSwaper.h"
 #include "Core.MainMenu.MenuPage.h"
 
-
-#include "Core.Mapping.PhysicEntityGrid.h"
-
 #include "Core.Screen.Screen.h"
 #include "Core.Screen.ScreenMainMenu.h"
 
-
 #include "Core.Shortcuts.Shortcuts.h"
+
+
+#include "GameMockup.ECS.System.SquareController.h"
+
+#include "GameMockup.Screen.GameScreen.h"
+#include "GameMockup.Screen.InfiltratorScreen.h"
+#include "GameMockup.Screen.OpenGLRenderSceneScreen.h"
+
 
 namespace nApplication
 {
@@ -85,20 +83,6 @@ cGameApplication::World()
 }
 
 
-::nShortcuts::cShortcuts*
-cGameApplication::ShortcutEngine()
-{
-    return  mShortcutEngine;
-}
-
-
-::nMapping::cEntityGrid*
-cGameApplication::EntityMap()
-{
-    return  mEntityMap;
-}
-
-
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------- Init/Finalize
 // -------------------------------------------------------------------------------------
@@ -110,7 +94,8 @@ cGameApplication::Initialize()
     tSuperClass::Initialize();
     //SetAppDefaultResolution( 1024, 768 ); //TODO: menu is shitty as fuck when not in 800*600 ........
 
-    mEntityMap = new ::nMapping::cEntityGrid();
+    ::nECS::cScreenEntityMap::Instance()->Initialize( 100, 100, 32 );
+
     // =======ECS WORLD=======
     mWorld = new ::nECS::cWorld();
     mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
@@ -190,8 +175,7 @@ cGameApplication::Initialize()
     PushScreen( mainMenuScreen );
 
     // =======Shortcuts=======
-    mShortcutEngine = ::nShortcuts::cShortcuts::Instance();
-    mShortcutEngine->Initialize();
+    ::nShortcuts::cShortcuts::Instance()->Initialize();
 }
 
 
