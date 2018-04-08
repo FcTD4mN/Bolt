@@ -35,6 +35,7 @@ public:
 
 public:
     sf::Vector2f  mSize;
+
 };
 
 

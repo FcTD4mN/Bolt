@@ -97,6 +97,7 @@ private:
 
 
     std::vector< std::vector< sf::VertexArray > >  mFOVDrawer;
+
 };
 
 

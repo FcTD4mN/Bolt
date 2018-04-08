@@ -282,11 +282,31 @@
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Hashable3DKey.cpp" />
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.ROMSConfig.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Data.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Hashable3DKey.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.SparseStaticLodChunk64Map.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.StaticLodChunk64.cpp" />
-    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.VUtils.cpp" />
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Data.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Hashable3DKey.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.SparseStaticLodChunk64Map.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.StaticLodChunk64.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.VUtils.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.cpp" />
     <ClCompile Include="..\..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.cpp" />
     <ClCompile Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.cpp" />
@@ -366,12 +386,36 @@
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.SparseData.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Types.h" />
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.USROCMap.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Data.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Hashable3DKey.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.SparseStaticLodChunk64Map.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.StaticLodChunk64.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Types.h" />
-    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.VUtils.h" />
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Data.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Hashable3DKey.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.SparseStaticLodChunk64Map.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.StaticLodChunk64.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.Types.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Volumetric\Static\Core.Volumetric.Static.VUtils.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.h" />
     <ClInclude Include="..\..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.h" />
     <ClInclude Include="..\..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.h" />

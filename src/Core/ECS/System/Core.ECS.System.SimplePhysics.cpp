@@ -197,5 +197,5 @@ cSimplePhysics::EntityLost( cEntity * iEntity )
 }
 
 
-} //nECS
+} // namespace nECS
 

@@ -10,12 +10,13 @@
 
 namespace nECS {
 
+
 class cEntity;
 class cSystem;
 
+
 class cWorld
 {
-
 public:
     // Contruction/Destruction
     ~cWorld();
@@ -82,6 +83,9 @@ protected:
 
     std::vector< cSystem* > mSystems;
     std::vector< cSystem* > mEventRelatedSystems;
+
 };
 
-} //nECS
+
+} // namespace nECS
+

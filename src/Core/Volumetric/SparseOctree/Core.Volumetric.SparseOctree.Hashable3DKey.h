@@ -46,6 +46,7 @@ private:
     tIndex  mZ;
     mutable  bool  mCacheValid;
     mutable  tHashableKeySignature  mCachedHashedSignature;
+
 };
 
 

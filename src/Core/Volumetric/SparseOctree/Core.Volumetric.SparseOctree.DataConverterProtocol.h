@@ -40,6 +40,7 @@ private:
     tProcessMap  mOrderedProcessMap;
     tProcessMap  mSparseProcessMap;
     tProcessMap  mEntropicProcessMap;
+
 };
 
 

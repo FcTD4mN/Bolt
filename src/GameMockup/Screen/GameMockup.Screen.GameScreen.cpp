@@ -1,5 +1,6 @@
 #include "GameMockup.Screen.GameScreen.h"
 
+
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Core.World.h"
@@ -18,6 +19,7 @@
 
 
 namespace nScreen {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -342,8 +344,6 @@ cGameScreen::LoadXML()
         std::cout << "Failed to load" << std::endl;
 }
 
-} //nScreen
 
-
-
+} // namespace nScreen
 

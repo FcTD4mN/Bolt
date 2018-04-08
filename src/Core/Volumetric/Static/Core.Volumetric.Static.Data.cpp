@@ -1,8 +1,9 @@
 #include "Core.Volumetric.Static.Data.h"
 
 
-namespace  nVolumetric
-{
+namespace  nVolumetric {
+namespace  nStatic {
+
 
 //----------------------------------------------------------------------------------------------
 //------------------------------------------------------------------- Construction / Destruction
@@ -86,5 +87,6 @@ cData::GetNeighbourField()  const
 }
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

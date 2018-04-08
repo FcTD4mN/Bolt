@@ -1,13 +1,18 @@
 #pragma once
 
+
 #include "Core.Screen.Screen.h"
+
 #include "Core.GUI.ConsoleWidget.h"
 
+
 namespace nScreen {
+
 
 class cConsoleScreen :
     public cScreen
 {
+
 public:
     // Contruction/Destruction
     virtual  ~cConsoleScreen();
@@ -46,7 +51,9 @@ public:
 
 private:
     ::nGUI::cConsoleWidget*  mConsoleWidget;
+
 };
 
-} //nScreen
+
+} // namespace nScreen
 

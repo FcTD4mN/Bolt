@@ -35,6 +35,7 @@ public:
 public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
+
 };
 
 

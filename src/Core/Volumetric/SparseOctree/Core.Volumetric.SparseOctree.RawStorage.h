@@ -26,6 +26,7 @@ public:
 private:
     // Private Member Data
     Atomic  mCore[ tSize( LOD ) ][ tSize( LOD ) ][ tSize( LOD ) ];
+
 };
 
 

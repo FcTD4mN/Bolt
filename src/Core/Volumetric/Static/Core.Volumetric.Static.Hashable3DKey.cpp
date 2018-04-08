@@ -1,7 +1,9 @@
 #include "Core.Volumetric.Static.Hashable3DKey.h"
 
-namespace  nVolumetric
-{
+
+namespace  nVolumetric {
+namespace  nStatic {
+
 
 cHashable3DKey::cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ ) :
     mX( iX ),
@@ -165,5 +167,6 @@ cHashable3DKey::UpdateHashedSignatureCache()  const
 }
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

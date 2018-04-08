@@ -6,8 +6,8 @@
 #include "SFML/OpenGL.hpp"
 
 
-namespace  nVolumetric
-{
+namespace  nVolumetric {
+namespace  nStatic {
 
 
 static  const  sf::Vector3f  sgDebugColor[14] = {   sf::Vector3f(   237.f,  028.f,  036.f   )   /   255.f,
@@ -230,5 +230,7 @@ cSparseStaticLodChunk64Map::RenderVBOs( GLuint iShaderProgramID )
     }
 }
 
+
 } // namespace  nVolumetric
+} // namespace  nStatic
 

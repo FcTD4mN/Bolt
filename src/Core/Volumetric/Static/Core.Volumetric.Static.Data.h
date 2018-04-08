@@ -4,12 +4,13 @@
 #include "Core.Volumetric.Static.Types.h"
 
 
-namespace  nVolumetric
-{
+namespace  nVolumetric {
+namespace  nStatic {
 
 
 class  cData
 {
+
 public:
     // Construction / Destruction
     cData();
@@ -43,8 +44,10 @@ private:
     };                      // The whole union occupies 2 Bytes: First Byte is Material Field, Second Byte is Neighbour Field
 
     uDataField  mDataField;
+
 };
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

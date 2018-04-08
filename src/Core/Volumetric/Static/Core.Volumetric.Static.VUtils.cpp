@@ -1,9 +1,12 @@
 ﻿#pragma once
 
+
 #include "Core.Volumetric.Static.VUtils.h"
 
-namespace  nVolumetric
-{
+
+namespace  nVolumetric {
+namespace  nStatic {
+
 
 void
 GenFace( eNF_Index iFace, int iIndex, std::vector< sf::Vector3f >& iData, int iX, int iY, int iZ )
@@ -124,5 +127,6 @@ ColorFromVGAMaterial( tByte iMaterial )
 }
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

@@ -7,12 +7,12 @@
 
 #include <GL/glew.h>
 #include <gl/GLU.h>
-#include "SFML/OpenGL.hpp"
-#include "SFML/Graphics.hpp"
+#include <SFML/OpenGL.hpp>
+#include <SFML/Graphics.hpp>
 
 
-namespace  nVolumetric
-{
+namespace  nVolumetric {
+namespace  nStatic {
 
 
 class  cStaticLodChunk64
@@ -90,8 +90,10 @@ private:
     static  const  int              msElementSize = sizeof( sf::Vector3f );
     GLuint                          mVerticesMsize;
     sf::Vector3f                    mDebugColor;
+
 };
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

@@ -2,8 +2,8 @@
 #include "Core.Volumetric.Static.VUtils.h"
 
 
-namespace  nVolumetric
-{
+namespace  nVolumetric {
+namespace  nStatic {
 
 
 static  const  sf::Vector3f  sgUniformFaceNormals[6] = { sf::Vector3f(  0.f,    +1.f,   0.f     ),      // Top
@@ -436,5 +436,6 @@ cStaticLodChunk64::SendUniformDebugColor( GLuint iShaderProgramID  )
 
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

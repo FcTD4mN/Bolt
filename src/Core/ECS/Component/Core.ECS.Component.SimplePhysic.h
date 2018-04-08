@@ -42,6 +42,7 @@ public:
     sf::Vector2f        mVelocity;
     sf::Rect< float >   mHitBox;
     eType               mType;
+
 };
 
 

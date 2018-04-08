@@ -1,25 +1,21 @@
-#include <SFML/Graphics.hpp>
-#include <cpython/Python.h>
-
+#include "Core.Benchmark.h"
 #include "Core.BoltScript.BoltScriptEnvironment.h"
-
+#include "Core.MainMenu.MainMenu.h"
+#include "Core.MainMenu.MenuPage.h"
+#include "Core.MainMenu.ItemPageSwaper.h"
+#include "Core.MainMenu.ItemCallback.h"
+#include "Core.Volumetric.Static.Data.h"
 #include "GameMockup.Application.GameApplication.h"
 #include "GameMockup.Screen.GameScreen.h"
 #include "GameMockup.Screen.ConsoleScreen.h"
 
 
-#include "Core.MainMenu.MainMenu.h"
-#include "Core.MainMenu.MenuPage.h"
-#include "Core.MainMenu.ItemPageSwaper.h"
-#include "Core.MainMenu.ItemCallback.h"
-
-#include "Core.Benchmark.h"
-
-
-#include "Core.Volumetric.Static.Data.h"
+#include <SFML/Graphics.hpp>
+#include <cpython/Python.h>
 
 
 #include <chrono>
+
 
 int
 BoltMain( int argc, char *argv[] )
@@ -42,7 +38,7 @@ BoltMain( int argc, char *argv[] )
 #endif //  CONSOLEDEBUG
 
     // Small Volumetric benchmark
-    ::nBoltScript::Env()->Print( ">>> Size of Volumetric Atomic Data: " + std::to_string( sizeof( ::nVolumetric::cData ) ) + "Bytes\n" );
+    ::nBoltScript::Env()->Print( ">>> Size of Volumetric Atomic Data: " + std::to_string( sizeof( ::nVolumetric::nStatic::cData ) ) + "Bytes\n" );
 
     // PYTHON TEST
     wchar_t *program = Py_DecodeLocale( argv[ 0 ], NULL );

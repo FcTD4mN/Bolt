@@ -34,6 +34,7 @@ public:
 public:
     double  mAngle;
     double  mDistance;
+
 };
 
 

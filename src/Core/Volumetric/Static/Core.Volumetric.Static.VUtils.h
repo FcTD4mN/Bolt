@@ -1,10 +1,15 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
+
 #include "Core.Volumetric.Static.Types.h"
 
-namespace  nVolumetric
-{
+
+#include <SFML/Graphics.hpp>
+
+
+namespace  nVolumetric {
+namespace  nStatic {
+
 
 inline  static  eNF_Flag    NF_IndexToFlag( eNF_Index iNF_Index )   { return  static_cast< eNF_Flag >( int( pow( 2, int( iNF_Index ) ) ) ); }
 inline  static  eNF_Index   NF_FlagToIndex( eNF_Flag iNF_Flag )     { return  static_cast< eNF_Index >( int( log2( long double( iNF_Flag ) ) ) ); }
@@ -20,5 +25,6 @@ void  GenRightFace( std::vector< sf::Vector3f >& iData ,  int iIndex, float iX, 
 sf::Vector3f  ColorFromVGAMaterial( tByte iMaterial );
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

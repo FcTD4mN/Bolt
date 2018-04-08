@@ -34,6 +34,7 @@ private:
     eLod2N  mMacroscopicLODGranularity;
     eLod2N  mMicroscopicLODGranularity;
     tLargeByteSize  mGPU_BUS_MAX;
+
 };
 
 

@@ -1,15 +1,21 @@
 #pragma once
 
+
 #include "Core.Screen.Screen.h"
+
 #include "Core.GUI.ConsoleWidget.h"
+
 
 namespace nECS { class cEntity; }
 
+
 namespace nScreen {
+
 
 class cInfiltratorScreen :
     public cScreen
 {
+
 public:
     // Contruction/Destruction
     virtual  ~cInfiltratorScreen();
@@ -55,7 +61,9 @@ private:
     ::nECS::cEntity* mMechant;
 
     sf::Transform mRotationFOV;
+
 };
 
-} //nScreen
+
+} // namespace nScreen
 

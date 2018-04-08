@@ -1,25 +1,30 @@
 #include "GameMockup.Screen.InfiltratorScreen.h"
 
+
 #include "Core.ECS.Core.Entity.h"
-#include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Core.World.h"
+#include "Core.ECS.Utilities.EntityParser.h"
 
 #include "Core.ECS.Component.Color.h"
+#include "Core.ECS.Component.Direction.h"
 #include "Core.ECS.Component.Position.h"
+#include "Core.ECS.Component.FieldOfView.h"
 #include "Core.ECS.Component.SimplePhysic.h"
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 #include "Core.ECS.Component.UserInput.h"
-#include "Core.ECS.Component.Direction.h"
-#include "Core.ECS.Component.FieldOfView.h"
-
-#include "GameMockup.Application.GameApplication.h"
 
 #include "Core.Math.Utils.h"
 
+#include "GameMockup.Application.GameApplication.h"
+
+
+
 #include <iostream>
 
+
 namespace nScreen {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -350,8 +355,6 @@ cInfiltratorScreen::LoadXML()
     //mMechant = cGameApplication::App()->World()->GetEntityByID( "idontknow9" );
 }
 
-} //nScreen
 
-
-
+} // namespace nScreen
 

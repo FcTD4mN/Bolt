@@ -1,17 +1,21 @@
 #pragma once
 
+
 #include "Core.Screen.Screen.h"
+
 #include "Core.GUI.ConsoleWidget.h"
 #include "Core.Volumetric.Static.SparseStaticLodChunk64Map.h"
+#include "Core.Volumetric.SparseOctree.USROCMap.h"
 #include "Core.Shader.Shader.h"
 
-#include "Core.Volumetric.SparseOctree.USROCMap.h"
 
 namespace nScreen {
+
 
 class cOpenGLRenderSceneScreen :
     public cScreen
 {
+
 public:
     // Contruction/Destruction
     virtual  ~cOpenGLRenderSceneScreen();
@@ -51,10 +55,13 @@ public:
 private:
     ::nGUI::cConsoleWidget*  mConsoleWidget;
     sf::Clock  mClock;
-    ::nVolumetric::cSparseStaticLodChunk64Map mMap;
+    ::nVolumetric::nStatic::cSparseStaticLodChunk64Map mMap;
     ::nShaders::cShader mShader;
 
     ::nVolumetric::nSparseOctree::cUSROCMap< ::nVolumetric::nSparseOctree::eLod2N::kLod64, ::nVolumetric::nSparseOctree::tByte > mMap2;
+
 };
 
-} //nScreen
+
+} // namespace nScreen
+

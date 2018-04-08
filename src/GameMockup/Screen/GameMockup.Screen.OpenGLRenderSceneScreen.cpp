@@ -1,15 +1,18 @@
+#include "GameMockup.Screen.OpenGLRenderSceneScreen.h"
+
+#include "GameMockup.Application.GameApplication.h"
+
+
 #include <GL/glew.h>
 #include <gl/GLU.h>
 #include <SFML/OpenGL.hpp>
 
 
-#include "GameMockup.Screen.OpenGLRenderSceneScreen.h"
-#include "GameMockup.Application.GameApplication.h"
-
-
 #include <iostream>
 
+
 namespace nScreen {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -430,4 +433,6 @@ cOpenGLRenderSceneScreen::SensorChanged( const sf::Event& iEvent )
     // Does nothing
 }
 
-} //nScreen
+
+} // namespace nScreen
+

@@ -1,10 +1,11 @@
 #pragma once
 
+
 #include "Core.Volumetric.Static.Types.h"
 
 
-namespace  nVolumetric
-{
+namespace  nVolumetric {
+namespace  nStatic {
 
 
 class  cHashable3DKey
@@ -45,9 +46,10 @@ private:
     tKeyComponent  mZ;
     mutable  bool  mCacheValid;
     mutable  tHashableKeySignature  mCachedHashedSignature;
+
 };
 
 
-
+} // namespace  nStatic
 } // namespace  nVolumetric
 

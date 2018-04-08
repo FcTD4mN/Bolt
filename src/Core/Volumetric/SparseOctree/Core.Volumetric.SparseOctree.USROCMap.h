@@ -5,6 +5,7 @@
 
 
 #include "Core.Volumetric.SparseOctree.Types.h"
+#include "Core.Volumetric.SparseOctree.Hashable3DKey.h"
 #include "Core.Volumetric.SparseOctree.ROMSChunk.h"
 #include "Core.Volumetric.SparseOctree.ROMSConfig.h"
 
@@ -31,7 +32,7 @@ public:
 
 private:
     // Sparse Volume Information
-    cHashable3DKey      KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )  const;
+    cHashable3DKey      KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ )  const;
     bool                ChunkExists( const  cHashable3DKey&  iKey )                                     const;
     cROMSChunk< LOD, Atomic >*  ChunkAtKey( const  cHashable3DKey&  iKey )                              const;
 
@@ -44,6 +45,7 @@ private:
     // Private Member Data
     cROMSConfig  mROMSConfig; // Owning
     std::unordered_map< tHashableKeySignature, cROMSChunk< LOD, Atomic >* >  mChunks; // Owning
+
 };
 
 

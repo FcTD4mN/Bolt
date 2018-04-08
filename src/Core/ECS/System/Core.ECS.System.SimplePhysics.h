@@ -2,13 +2,14 @@
 
 #include "Core.ECS.Core.System.h"
 
-#include <SFML/Graphics.hpp>
-
-
 #include "Core.Mapping.PhysicEntityGrid.h"
 
 
+#include <SFML/Graphics.hpp>
+
+
 namespace nECS {
+
 
 class cSimplePhysics :
     public cSystem
@@ -40,6 +41,9 @@ public:
 private:
     std::vector< cEntity* > mStaticEntities;
     std::vector< cEntity* > mDynamicEntities;
+
 };
 
-} //nECS
+
+} // namespace nECS
+

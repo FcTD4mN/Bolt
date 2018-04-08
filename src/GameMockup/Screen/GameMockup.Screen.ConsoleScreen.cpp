@@ -1,19 +1,11 @@
 #include "GameMockup.Screen.ConsoleScreen.h"
 
-//#include "ECS/Entity.h"
-//#include "ECS/EntityParser.h"
-//#include "ECS/World.h"
 
 #include "GameMockup.Application.GameApplication.h"
-/*
-#include "GameMockup/Components/Color.h"
-#include "GameMockup/Components/Position.h"
-#include "GameMockup/Components/Size.h"
-#include "GameMockup/Components/SpriteAnimated.h"
-#include "GameMockup/Components/UserInput.h"
-*/
+
 
 namespace nScreen {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -224,4 +216,6 @@ cConsoleScreen::SensorChanged( const sf::Event& iEvent )
     // Does nothing
 }
 
-} //nScreen
+
+} // namespace nScreen
+

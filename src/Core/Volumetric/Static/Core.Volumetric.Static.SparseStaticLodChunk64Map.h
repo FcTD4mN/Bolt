@@ -1,14 +1,17 @@
 #pragma once
 
-#include <unordered_map>
 
 #include "Core.Volumetric.Static.Types.h"
 #include "Core.Volumetric.Static.StaticLodChunk64.h"
 #include "Core.Volumetric.Static.Hashable3DKey.h"
 
 
-namespace  nVolumetric
-{
+#include <unordered_map>
+
+
+namespace  nVolumetric {
+namespace  nStatic {
+
 
 class  cSparseStaticLodChunk64Map
 {
@@ -48,8 +51,10 @@ private:
     // Private Data Members
     std::unordered_map< tHashableKeySignature, cStaticLodChunk64* > mChunks; // Owning
     int  mUseDebugColors;
+
 };
 
 
+} // namespace  nStatic
 } // namespace  nVolumetric
 

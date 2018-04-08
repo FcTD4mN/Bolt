@@ -41,8 +41,8 @@
 #include "GameMockup.Screen.OpenGLRenderSceneScreen.h"
 
 
-namespace nApplication
-{
+namespace nApplication {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -231,4 +231,6 @@ cGameApplication::KeyReleased( const sf::Event& iEvent )
     mWorld->KeyReleased( iEvent );
 }
 
-} // nApplication
+
+} // namespace nApplication
+

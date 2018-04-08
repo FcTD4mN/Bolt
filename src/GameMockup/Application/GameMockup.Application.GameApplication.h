@@ -1,12 +1,16 @@
 #pragma once
 
+
 #include "Core.Application.Application.h"
+
 
 namespace nECS { class cWorld; }
 namespace nShortcuts { class cShortcuts; }
 namespace nMapping { class cEntityGrid; }
 
+
 namespace nApplication {
+
 
 class cGameApplication :
     public cApplication
@@ -40,6 +44,11 @@ public:
 
 private:
     ::nECS::cWorld*             mWorld;
+    ::nShortcuts::cShortcuts*   mShortcutEngine;
+    ::nMapping::cEntityGrid*    mEntityMap;
+
 };
 
-} // nApplication
+
+} // namespace nApplication
+

@@ -58,7 +58,7 @@ cUSROCMap<LOD,Atomic>::Set(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ,Atomi
 
 
 template<eLod2N LOD,typename Atomic>
-inline cHashable3DKey cUSROCMap<LOD,Atomic>::KeyForIndices(tGlobalDataIndex iX,tGlobalDataIndex iY,tGlobalDataIndex iZ) const
+inline cHashable3DKey cUSROCMap<LOD,Atomic>::KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ)  const
 {
     double  size = double( LOD );
     tKeyComponent keyX = tKeyComponent( floor( iX / size ) );

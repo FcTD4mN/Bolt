@@ -1,9 +1,12 @@
 ﻿#pragma once
 
+
 #include <limits>
 
-namespace  nVolumetric
-{
+
+namespace  nVolumetric {
+namespace  nStatic {
+
 
 typedef  unsigned  char                 tByte;                      // Consider 8 bits, [0, 255]. Smallest addressable unit.
 typedef  unsigned  short  int           t2Byte;                     // Consider 16 bits, [0, 65535]. Typical extended voxel data.
@@ -40,5 +43,7 @@ enum  eNF_Index : tByte
     kIndexRight     = 5,
 };
 
+
+} // namespace  nStatic
 } // namespace  nVolumetric
 

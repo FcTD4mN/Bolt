@@ -36,6 +36,7 @@ public:
 
 private:
     std::unordered_map< std::string, stTexture > mTextures;
+
 };
 
 

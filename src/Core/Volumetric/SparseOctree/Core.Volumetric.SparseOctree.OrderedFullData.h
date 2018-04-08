@@ -35,6 +35,7 @@ private:
 private:
     // Private Member Data
     Atomic  mValue;
+
 };
 
 

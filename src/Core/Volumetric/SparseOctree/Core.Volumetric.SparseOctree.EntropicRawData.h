@@ -37,6 +37,7 @@ private:
 private:
     // Private Member Data
     cRawStorage< LOD, Atomic >  mStorage;
+
 };
 
 
