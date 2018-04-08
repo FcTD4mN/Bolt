@@ -1,4 +1,4 @@
-#include "Qt.DataModel.TreeWrapper.h"
+#include "Qt.Models.TreeWrapper.h"
 
 
 namespace nQt {
@@ -11,6 +11,8 @@ namespace nModels {
 
 cTreeWrapperNode::~cTreeWrapperNode()
 {
+    for( auto& i : mChildren )
+        delete  i;
 }
 
 
@@ -37,7 +39,7 @@ cTreeWrapperNode::ChildrenCount() const
 cTreeWrapperNode*
 cTreeWrapperNode::ChildAtColumn( int iColumn )
 {
-    return  mChildren[ iIndex ];
+    return  mChildren[ iColumn ];
 }
 
 
@@ -49,9 +51,9 @@ cTreeWrapperNode::Parent()
 
 
 void
-cTreeWrapperNode::AddChild( cTreeWrapperNode* iChild )
+cTreeWrapperNode::AddChild( eType iType, void* iData )
 {
-    mChildren.push_back( iChild );
+    mChildren.push_back( new cTreeWrapperNode( iType, iData, this ) );
 }
 
 
@@ -63,11 +65,11 @@ cTreeWrapperNode::AddChild( cTreeWrapperNode* iChild )
 void*
 cTreeWrapperNode::Data()
 {
-    return  mData;
+    return  mDataPointer;
 }
 
 
-eType
+cTreeWrapperNode::eType
 cTreeWrapperNode::DataType()
 {
     return  mDataType;

@@ -23,7 +23,7 @@ public:
     int ChildrenCount() const;
     cTreeWrapperNode* ChildAtColumn( int iColumn );
     cTreeWrapperNode* Parent();
-    void AddChild( cTreeWrapperNode* iChild );
+    void AddChild( eType iType, void* iData );
 
     // Data
     void* Data();
