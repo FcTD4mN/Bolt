@@ -1,10 +1,14 @@
 #pragma once
 
+
 #include <SFML/Graphics.hpp>
+
 
 namespace nScreen { class cScreen; }
 
+
 namespace nApplication {
+
 
 class cApplication
 {
@@ -61,7 +65,9 @@ protected:
     sf::RenderWindow*       mMainWindow;
     std::vector< ::nScreen::cScreen* > mScreenStack;
     ::nScreen::cScreen*     mCurrentScreen;
+
 };
+
 
 } // namespace nApplication
 

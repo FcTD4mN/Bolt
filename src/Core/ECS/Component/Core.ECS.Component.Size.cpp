@@ -1,6 +1,8 @@
 #include "Core.ECS.Component.Size.h"
 
+
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -74,4 +76,6 @@ cSize::LoadXML( tinyxml2::XMLElement* iNode )
     mSize.y = iNode->FloatAttribute( "h", 0.0F );
 }
 
-} //nECS
+
+} // namespace nECS
+

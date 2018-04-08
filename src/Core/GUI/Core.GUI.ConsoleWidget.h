@@ -1,7 +1,11 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+
 #include "Core.BoltScript.BoltScriptEnvironment.h"
+
+
+#include <SFML/Graphics.hpp>
+
 
 namespace  nGUI {
 
@@ -165,6 +169,7 @@ private:
 
     std::vector< std::string >  mPrintCache;
     int                         mPrintCacheIndex;
+
 };
 
 

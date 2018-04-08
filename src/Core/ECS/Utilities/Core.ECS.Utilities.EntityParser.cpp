@@ -1,5 +1,6 @@
 #include "Core.ECS.Utilities.EntityParser.h"
 
+
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.World.h"
 
@@ -9,10 +10,13 @@
 
 
 #include <iostream>
+
+
 #include <Windows.h>
 
 
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -173,4 +177,6 @@ cEntityParser::EntityCount() const
     return  unsigned int(mEntities.size());
 }
 
-} //nECS
+
+} // namespace ECS
+

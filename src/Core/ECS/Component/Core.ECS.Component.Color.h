@@ -10,6 +10,7 @@
 
 namespace nECS {
 
+
 class cColor :
     public cComponent
 {
@@ -34,7 +35,8 @@ public:
 
 public:
     sf::Color mColor;
+
 };
 
-} //nECS
 
+} // namespace nECS

@@ -2,6 +2,8 @@
 
 
 #include "Core.Base.Drawable.h"
+
+
 #include "Core.Base.GeneralEnums.h"
 
 
@@ -50,7 +52,9 @@ protected:
     ::nBase::eFormat            mFormat;
     float                       mSpacing;
     sf::Rect< float >           mPageBounding;
+
 };
 
-} //nMainMenu
+
+} // namespace nMainMenu
 

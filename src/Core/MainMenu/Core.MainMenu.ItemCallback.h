@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.MainMenu.MenuItem.h"
 
 
@@ -7,7 +8,10 @@
 
 
 namespace nMainMenu {
+
+
 class cMainMenu;
+
 
 class cItemCallback :
     public cMenuItem
@@ -23,6 +27,9 @@ public:
 
 private:
     std::function< void() > mFunction;
+
 };
 
-} //nMainMenu
+
+} // namespace nMainMenu
+

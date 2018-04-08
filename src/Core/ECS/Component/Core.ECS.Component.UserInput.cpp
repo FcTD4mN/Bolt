@@ -1,6 +1,8 @@
  #include "Core.ECS.Component.UserInput.h"
 
+
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -35,5 +37,6 @@ cUserInput::Clone()
     return  new cUserInput( *this );
 }
 
-} //nECS
+
+} // namespace nECS
 

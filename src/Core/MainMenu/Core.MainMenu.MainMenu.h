@@ -1,11 +1,17 @@
 #pragma once
 
-#include <vector>
+
 #include "Core.Base.Drawable.h"
 
 
+#include <vector>
+
+
 namespace nMainMenu {
+
+
 class cMenuPage;
+
 
 class cMainMenu :
     public ::nBase::cDrawable
@@ -24,6 +30,9 @@ public:
 protected:
     std::vector< cMenuPage* > mPages;
     int mCurrentPage;
+
 };
 
-} //nMainMenu
+
+} // namespace nMainMenu
+

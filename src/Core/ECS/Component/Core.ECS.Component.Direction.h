@@ -1,12 +1,15 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
+
 
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
 
 
 namespace nECS {
+
 
 class cDirection :
     public cComponent
@@ -31,6 +34,9 @@ public:
 
 public:
     sf::Vector2f mDirection;
+
 };
 
-} //nECS
+
+} // namespace nECS
+

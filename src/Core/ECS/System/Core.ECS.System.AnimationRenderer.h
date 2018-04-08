@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.System.h"
 
 
@@ -7,6 +8,7 @@
 
 
 namespace nECS {
+
 
 class cAnimationRenderer :
     public cSystem
@@ -33,6 +35,9 @@ public:
 public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
+
 };
 
-} //nECS
+
+} // namespace nECS
+

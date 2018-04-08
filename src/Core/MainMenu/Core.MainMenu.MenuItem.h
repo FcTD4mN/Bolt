@@ -11,7 +11,10 @@
 
 
 namespace nMainMenu {
+
+
 class cMainMenu;
+
 
 class cMenuItem :
     public ::nBase::cDrawable
@@ -42,6 +45,9 @@ protected:
     sf::Font            mFont;
     sf::RectangleShape  mRectangle;
     cMainMenu*          mMasterMenu;
+
 };
 
-} //nMainMenu
+
+} // namespace nMainMenu
+

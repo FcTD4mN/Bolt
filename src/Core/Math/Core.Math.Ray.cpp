@@ -3,7 +3,9 @@
 
 #include "Core.Math.Utils.h"
 
+
 namespace nMath {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -21,4 +23,6 @@ cRay::cRay( const cEdgeF& iEdge, eRayType iRayType ) :
 {
 }
 
-} //nMath
+
+} // namespace nMath
+

@@ -6,7 +6,9 @@
 
 namespace nECS {
 
+
 class cComponent;
+
 
 class cComponentRegistry
 {
@@ -31,7 +33,9 @@ public:
 
 private:
     std::unordered_map< std::string, cComponent* > mComponents;
+
 };
 
-} //nECS
+
+} // namespace ECS
 

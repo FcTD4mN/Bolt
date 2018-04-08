@@ -1,5 +1,6 @@
 #include "Core.ECS.Core.Entity.h"
 
+
 #include "Core.ECS.Core.Component.h"
 #include "Core.ECS.Core.World.h"
 #include "Core.ECS.Core.System.h"
@@ -8,6 +9,7 @@
 
 
 namespace nECS {
+
 
 static unsigned int sgEntityCount = 0;
 
@@ -523,5 +525,6 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
 //}
 //
 
-} //nECS
+
+} // namespace nECS
 

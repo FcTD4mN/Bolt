@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
 
 
@@ -7,6 +8,7 @@
 
 
 namespace nECS {
+
 
 class cFieldOfView :
     public cComponent
@@ -34,4 +36,6 @@ public:
     double  mDistance;
 };
 
-} //nECS
+
+} // namespace nECS
+

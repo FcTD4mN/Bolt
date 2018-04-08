@@ -4,10 +4,12 @@
 #include "Core.Math.Utils.h"
 #include "Core.Base.Clipboard.h"
 
-#define  CHECK_COLLAPSED if( mCollapsed ) return;
-
 
 namespace  nGUI {
+
+
+#define  CHECK_COLLAPSED if( mCollapsed ) return;
+
 
 // -------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------- Default Values
@@ -30,6 +32,7 @@ namespace  nGUI {
 
 
 #define KEY_EXISTS( iMap, iKey )            ( ! ( iMap.find( iKey ) == iMap.end() ) )
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -1142,4 +1145,6 @@ cConsoleWidget::ProcessCtrlShiftEndPressed()
     UpdateSelectionGeometry();
 }
 
+
 } // namespace  nGUI
+

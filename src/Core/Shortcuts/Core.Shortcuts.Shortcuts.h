@@ -10,6 +10,7 @@
 
 namespace nShortcuts {
 
+
 class cShortcuts
 {
 public:
@@ -37,6 +38,9 @@ private:
 
 public:
     std::unordered_map < sf::Keyboard::Key, std::string > mShortcuts;
+
 };
 
-} //nShortcuts
+
+} // namespace nShortcuts
+

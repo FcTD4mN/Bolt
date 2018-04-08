@@ -1,12 +1,14 @@
 #pragma once
 
+
 #include <SFML/Graphics.hpp>
+
 
 namespace nMath {
 
+
 class cEdgeF
 {
-
 public:
     // Contruction/Destruction
     ~cEdgeF();
@@ -23,6 +25,9 @@ public:
 public:
     sf::Vector2f mPoint;
     sf::Vector2f mDirection;
+
 };
 
-} //nMath
+
+} // namespace nMath
+

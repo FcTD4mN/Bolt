@@ -1,9 +1,15 @@
 #pragma once
+#pragma once
+
 
 #include "Core.AI.BehaviourService.h"
+
+
 #include <vector>
 
+
 namespace nAI {
+
 
 enum eStatus
 {
@@ -74,6 +80,9 @@ private:
 private:
     std::vector< cBehaviourNode* > mNodes;
     std::vector< cBehaviourService* > mServices;
+
 };
 
+
 }// namespace nAI
+

@@ -11,7 +11,9 @@
 #define ITEM_FONT "resources/Shared/Fonts/arial.ttf"
 #define ITEM_CHARACTER_SIZE 24
 
+
 namespace nMainMenu {
+
 
 cMenuItem::cMenuItem( cMainMenu* iMasterMenu, const std::string& iText, const sf::RectangleShape& iBox ) :
     mText(),
@@ -108,4 +110,6 @@ cMenuItem::ContainsCoordinates( float iX, float iY ) const
     return  mRectangle.getGlobalBounds().contains( iX, iY );
 }
 
-} // nMainMenu
+
+} // namespace nMainMenu
+

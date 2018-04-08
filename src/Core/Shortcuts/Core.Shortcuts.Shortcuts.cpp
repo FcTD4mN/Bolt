@@ -1,9 +1,12 @@
 ﻿ #include "Core.Shortcuts.Shortcuts.h"
 
+
 #include <fstream>
 #include <sstream>
 
+
 namespace nShortcuts {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -114,4 +117,6 @@ cShortcuts::LoadXML()
     }
 }
 
-} //nShortcuts
+
+} // namespace nShortcuts
+

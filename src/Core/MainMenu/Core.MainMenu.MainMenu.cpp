@@ -1,6 +1,8 @@
 #include "Core.MainMenu.MainMenu.h"
 
+
 #include "Core.MainMenu.MenuPage.h"
+
 
 namespace nMainMenu {
 
@@ -37,4 +39,6 @@ cMainMenu::Draw( sf::RenderTarget* iRenderTarget )
     mPages[ mCurrentPage ]->Draw( iRenderTarget );
 }
 
-} //nMainMenu
+
+} // namespace nMainMenu
+

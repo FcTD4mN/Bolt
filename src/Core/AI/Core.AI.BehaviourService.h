@@ -1,10 +1,15 @@
 #pragma once
 
+
 #include "Core.AI.BlackBoard.h"
+
+
 #include <functional>
 #include <chrono>
 
+
 namespace nAI {
+
 
 /*
     BehaviourService is a linked to a behaviour node and executed while the node is active before any children node is called
@@ -28,7 +33,9 @@ private:
     std::function< void(cBlackBoard*) > mFunction;
 
     std::chrono::high_resolution_clock::time_point mLastTime;
+
 };
+
 
 }// namespace nAI
 

@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
 
 
@@ -8,6 +9,7 @@
 
 
 namespace nECS {
+
 
 class cPosition :
     public cComponent
@@ -33,6 +35,9 @@ public:
 
 public:
     sf::Vector2f  mPosition;
+
 };
 
-} //nECS
+
+} // namespace nECS
+

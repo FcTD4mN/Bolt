@@ -3,6 +3,7 @@
 
 namespace nMath {
 
+
 bool
 EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< void( bool* oStop, const cEdgeF& iEdge ) > iFunction )
 {
@@ -667,6 +668,6 @@ AddElementToVectorUnique( cRay& iElement, std::vector< cRay >* oVector, int* oIn
     return  true;
 }
 
-} //nMath
 
-//...
+} // namespace nMath
+

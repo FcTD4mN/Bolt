@@ -27,5 +27,6 @@ cBlackBoardVariable::Name(const std::string& iName)
     mName = iName;
 }
 
+
 }// namespace nAI
 

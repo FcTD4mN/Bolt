@@ -8,11 +8,8 @@
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Core.World.h"
 
-
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.Size.h"
-
-#include "GameMockup.Application.GameApplication.h"
 #include "Core.ECS.Component.FieldOfView.h"
 #include "Core.ECS.Component.Direction.h"
 
@@ -21,14 +18,18 @@
 #include "Core.Math.Utils.h"
 #include "Core.Math.Ray.h"
 
+#include "GameMockup.Application.GameApplication.h"
+
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
 
+namespace nECS {
+
+
 #define FOVSplitThreshold 1
 
-namespace nECS {
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -426,5 +427,6 @@ cSightSystem::EntityLost( cEntity * iEntity )
     tSuperClass::EntityLost( iEntity );
 }
 
-} //nECS
+
+} // namespace ECS
 

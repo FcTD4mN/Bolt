@@ -202,6 +202,7 @@ cThreadHandle::GetThread()
         return  0;
 }
 
+
 } //nThread
 } // nBase
 

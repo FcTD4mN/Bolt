@@ -1,9 +1,14 @@
 #pragma once
 
+
 #include "Core.AI.BlackBoardVariable.h"
+
+
 #include <vector>
 
+
 namespace nAI {
+
 
 /*
     BehaviourTree is a BehaviourNode, so we can include behaviourtrees in other behaviourtrees
@@ -33,7 +38,9 @@ public:
 
 private:
     std::vector< cBlackBoardVariable* > mVariables;
+
 };
+
 
 }// namespace nAI
 

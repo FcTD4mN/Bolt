@@ -1,14 +1,15 @@
 #include "Core.ECS.System.SquareController.h"
 
+
 #include "Core.ECS.Core.Entity.h"
-#include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Core.World.h"
 
-
+#include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
-#include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.UserInput.h"
+
+#include "Core.ECS.Utilities.EntityParser.h"
 
 #include "GameMockup.Application.GameApplication.h"
 
@@ -20,6 +21,7 @@
 
 
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -161,4 +163,6 @@ cSquareController::IncomingEntity( cEntity * iEntity )
         AcceptEntity( iEntity );
 }
 
-} //nECS
+
+} // namespace ECS
+

@@ -3,9 +3,11 @@
 
 namespace nBase {
 
+
 cDrawable::cDrawable()
 {
 }
+
 
 } //nBase
 

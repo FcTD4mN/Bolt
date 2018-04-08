@@ -1,18 +1,17 @@
 #include "Core.Application.Application.h"
 
-#include "Core.Screen.Screen.h"
+
 #include "Core.Base.Thread.ThreadProcessor.h"
-
-
-// Game.Application, not here, this is just for testing purposes
 #include "Core.MainMenu.MainMenu.h"
 #include "Core.MainMenu.ItemCallback.h"
 #include "Core.MainMenu.ItemPageSwaper.h"
 #include "Core.MainMenu.MenuPage.h"
 #include "Core.Screen.ScreenMainMenu.h"
-// ----------------------------------------
+#include "Core.Screen.Screen.h"
+
 
 namespace nApplication {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -368,4 +367,6 @@ cApplication::SensorChanged( const sf::Event& iEvent )
     mCurrentScreen->SensorChanged( iEvent );
 }
 
+
 } //nApplication
+

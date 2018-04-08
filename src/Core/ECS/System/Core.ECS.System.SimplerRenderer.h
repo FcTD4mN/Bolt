@@ -9,6 +9,7 @@
 
 namespace nECS {
 
+
 class cSimplerRenderer :
     public cSystem
 {
@@ -36,5 +37,6 @@ public:
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
 };
 
-} //nECS
+
+} // namespace ECS
 

@@ -1,12 +1,14 @@
 #pragma once
 
+
 #include <SFML/Graphics.hpp>
+
 
 namespace nMath {
 
+
 class cTriangleF
 {
-
 public:
     // Contruction/Destruction
     ~cTriangleF();
@@ -20,6 +22,9 @@ public:
     sf::Vector2f mA;
     sf::Vector2f mB;
     sf::Vector2f mC;
+
 };
 
-} //nMath
+
+} // namespace nMath
+

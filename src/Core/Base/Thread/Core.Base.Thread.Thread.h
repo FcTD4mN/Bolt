@@ -9,6 +9,7 @@
 namespace nBase {
 namespace nThread {
 
+
 class cThread
 {
 public:
@@ -61,6 +62,7 @@ protected:
     eThreadState            mState;
     bool                    mLocked;
     bool                    mRunning;
+
 };
 
 
@@ -82,7 +84,9 @@ public:
 private:
     cThread * mThread;
     unsigned int mThreadID;
+
 };
+
 
 } // nThread
 } // nBase

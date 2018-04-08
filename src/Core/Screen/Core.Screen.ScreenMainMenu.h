@@ -1,15 +1,18 @@
 #pragma once
 
+
 #include "Core.Screen.Screen.h"
+
 
 namespace nMainMenu { class cMainMenu; }
 
+
 namespace nScreen {
+
 
 class cScreenMainMenu :
     public  cScreen
 {
-
 public:
     // Contruction/Destruction
     virtual  ~cScreenMainMenu() override;
@@ -47,6 +50,10 @@ public:
 
 protected:
     ::nMainMenu::cMainMenu* mMainMenu;
+
 };
 
-} //nScreen
+
+} // namespace nScreen
+
+

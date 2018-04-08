@@ -8,8 +8,10 @@
 
 namespace nECS {
 
+
 class cEntity;
 class cWorld;
+
 
 class cEntityParser
 {
@@ -44,6 +46,9 @@ public:
 private:
     std::vector< std::wstring > mAllEntityFiles;
     std::unordered_map< std::string, cEntity* > mEntities;
+
 };
 
-} //nECS
+
+} // namespace ECS
+

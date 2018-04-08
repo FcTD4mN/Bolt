@@ -1,18 +1,16 @@
 #include "Core.ECS.System.InputConverter.h"
 
 
-#include "Core.ECS.Core.Entity.h"
-
-
 #include "Core.ECS.Component.UserInput.h"
-
-
+#include "Core.ECS.Core.Entity.h"
 #include "Core.Shortcuts.Shortcuts.h"
 
 
 #include <iostream>
 
+
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -120,4 +118,6 @@ cInputConverter::KeyReleased( const sf::Event & iEvent )
     }
 }
 
-} //nECS
+
+} // namespace nECS
+

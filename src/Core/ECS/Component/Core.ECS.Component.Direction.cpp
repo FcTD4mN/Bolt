@@ -6,6 +6,7 @@
 
 namespace nECS {
 
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -71,5 +72,6 @@ cDirection::LoadXML( tinyxml2::XMLElement* iNode )
     mDirection.y = iNode->FloatAttribute( "directiony", 0.0F );
 }
 
-} //nECS
+
+} // namespace nECS
 

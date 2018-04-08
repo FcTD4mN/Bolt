@@ -41,7 +41,9 @@ private:
 protected:
     std::vector< cThread* >  mThreads;
     unsigned int            mTotalCoreCount;
+
 };
+
 
 } //nThread
 } //nBase

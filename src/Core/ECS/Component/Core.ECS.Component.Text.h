@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
 
 
@@ -8,6 +9,7 @@
 
 
 namespace nECS {
+
 
 class cText :
     public cComponent
@@ -32,6 +34,9 @@ public:
 
 public:
     std::string mText;
+
 };
 
-} //nECS
+
+} // namespace nECS
+

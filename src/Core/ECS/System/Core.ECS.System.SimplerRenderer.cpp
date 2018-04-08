@@ -1,16 +1,17 @@
  #include "Core.ECS.System.SimplerRenderer.h"
 
-#include "Core.ECS.Core.Entity.h"
-
 
 #include "Core.ECS.Component.Color.h"
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.Size.h"
 
+#include "Core.ECS.Core.Entity.h"
+
 #include "Core.Math.Utils.h"
 
 
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -95,6 +96,6 @@ cSimplerRenderer::IncomingEntity( cEntity * iEntity )
         AcceptEntity( iEntity );
 }
 
-} //nECS
 
+} //nECS
 

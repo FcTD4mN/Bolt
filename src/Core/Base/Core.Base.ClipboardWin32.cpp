@@ -7,6 +7,7 @@
 
 namespace nBase {
 
+
 std::string GetClipboardText()
 {
     std::string defaultStr = "";
@@ -52,7 +53,9 @@ SetClipboardText( const  std::string&  iString )
     CloseClipboard();
 }
 
+
 } //nBase
+
 
 #endif // _WIN32
 

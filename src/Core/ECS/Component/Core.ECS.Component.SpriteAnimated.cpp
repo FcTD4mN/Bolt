@@ -6,6 +6,7 @@
 
 namespace nECS {
 
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -143,4 +144,6 @@ cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
     SetSpriteSheet( mFileName, width, height );
 }
 
-} //nECS
+
+} // namespace nECS
+

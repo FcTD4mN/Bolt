@@ -15,6 +15,7 @@
 namespace nBase {
 namespace nThread {
 
+
 cThreadProcessor::~cThreadProcessor()
 {
 }
@@ -152,6 +153,7 @@ cThreadProcessor::SetThreadToWork( int iThreadIndex, std::function<void( int )> 
 
     return  cThreadHandle( thread );
 }
+
 
 } //nThread
 } //nBase

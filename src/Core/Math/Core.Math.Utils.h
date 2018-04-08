@@ -22,7 +22,9 @@
 /** Constant : some small epsilon in float format to handle float representing pixels */
 #define kEpsilonPixelF 1.0F
 
+
 namespace nMath {
+
 
 static sf::Vector2f gYAxisVector( 0.0F, 1.0F );
 static sf::Vector2f gXAxisVector( 1.0F, 0.0F );
@@ -269,5 +271,6 @@ RoundVector( const sf::Vector2f& iVector )
     return  sf::Vector2f( round( iVector.x ), round( iVector.y ) );
 }
 
-} //nMath
-//...
+
+} // namespace nMath
+

@@ -39,5 +39,6 @@ cBlackBoard::RemoveAllVariables()
     mVariables.clear();
 }
 
+
 }// namespace nAI
 

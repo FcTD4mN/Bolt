@@ -6,6 +6,7 @@
 
 namespace nMainMenu {
 
+
 class cItemPageSwaper :
     public cMenuItem
 {
@@ -20,7 +21,9 @@ public:
 
 private:
     int mPageToSwapTo;
+
 };
 
-} //nMainMenu
+
+} // namespace nMainMenu
 

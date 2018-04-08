@@ -33,6 +33,7 @@ public:
 
 private:
     cBlackBoard mBlackBoard;
+
 };
 
 }// namespace nAI

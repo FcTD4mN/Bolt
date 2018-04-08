@@ -3,7 +3,9 @@
 
 #include "Core.MainMenu.MenuItem.h"
 
+
 namespace nMainMenu {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -153,4 +155,6 @@ cMenuPage::MouseClick( int iX, int iY )
     }
 }
 
-} //nMainMenu
+
+} // namespace nMainMenu
+

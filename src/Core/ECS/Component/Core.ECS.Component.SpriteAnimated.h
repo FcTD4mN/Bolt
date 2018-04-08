@@ -1,12 +1,15 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
+
 
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
 
 
 namespace nECS {
+
 
 class cSpriteAnimated :
     public cComponent
@@ -48,6 +51,9 @@ public:
     float           mFrameRate;         // Animation's frame rate
     bool            mPaused;            // Is the animation paused ?
     sf::Clock       mClock;             // Animation clock
+
 };
 
-} //nECS
+
+} // namespace nECS
+

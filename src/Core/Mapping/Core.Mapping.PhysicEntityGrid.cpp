@@ -1,11 +1,12 @@
 #include "Core.Mapping.PhysicEntityGrid.h"
 
 
+#include "Core.ECS.Component.SimplePhysic.h"
 #include "Core.ECS.Core.Entity.h"
 
-#include "Core.ECS.Component.SimplePhysic.h"
 
 namespace nMapping {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------- Contruction/Destruction
@@ -229,4 +230,5 @@ void cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float i
         *oY2 = mHeight - 1;
 }
 
-} //nMapping
+} // namespace nMapping
+

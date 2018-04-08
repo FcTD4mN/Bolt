@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
 
 
@@ -7,6 +8,7 @@
 
 
 namespace nECS {
+
 
 class cUserInput :
     public cComponent
@@ -25,6 +27,9 @@ public:
 
 public:
     std::vector< std::string > mActions;
+
 };
 
-} //nECS
+
+} // namespace nECS
+

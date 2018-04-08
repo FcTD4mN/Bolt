@@ -119,6 +119,7 @@ cBoltScriptEnvironment::RegisterFunction( const  std::string&  iStr, std::functi
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------
 
+
 // Wrapping accessor
 cBoltScriptEnvironment*
 Env()

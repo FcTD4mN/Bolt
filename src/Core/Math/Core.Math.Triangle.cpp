@@ -3,7 +3,9 @@
 
 #include "Core.Math.Utils.h"
 
+
 namespace nMath {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -43,4 +45,6 @@ cTriangleF::Contains( const sf::Vector2f& iPoint )
     return  ( ( b1 == b2 ) && ( b2 == b3 ) );
 }
 
-} //nMath
+
+} // namespace nMath
+

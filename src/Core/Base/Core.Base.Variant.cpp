@@ -200,4 +200,6 @@ cVariant::LoadXML( tinyxml2::XMLElement* iNode )
     }
 }
 
-} //nBase
+
+} // namespace  nBase
+

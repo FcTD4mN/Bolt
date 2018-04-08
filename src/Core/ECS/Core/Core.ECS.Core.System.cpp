@@ -1,8 +1,11 @@
 #include "Core.ECS.Core.System.h"
 
+
 #include "Core.ECS.Core.Entity.h"
 
+
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -199,7 +202,6 @@ cSystem::SensorChanged( const sf::Event& iEvent )
     // Does nothing
 }
 
-} //nECS
 
-
+} // namespace nECS
 

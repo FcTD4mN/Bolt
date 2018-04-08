@@ -5,7 +5,10 @@
 
 
 namespace nECS {
+
+
 class cEntity;
+
 
 class cSystem
 {
@@ -55,7 +58,9 @@ public:
 
 protected:
     std::vector< cEntity* > mEntityGroup;
+
 };
 
-} //nECS
+
+} // namespace nECS
 

@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.System.h"
 
 #include "Core.Math.Edge.h"
@@ -16,7 +17,9 @@
 
 namespace nBase { namespace nThread { class cThreadHandle; } }
 
+
 namespace nECS {
+
 
 class cSightSystem :
     public cSystem
@@ -96,4 +99,7 @@ private:
     std::vector< std::vector< sf::VertexArray > >  mFOVDrawer;
 };
 
-} //nECS
+
+} // namespace ECS
+
+

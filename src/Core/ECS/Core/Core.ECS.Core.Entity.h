@@ -10,10 +10,12 @@
 
 namespace nECS {
 
+
 class cComponent;
 class cSystem;
 class cWorld;
 class cEntityParser;
+
 
 namespace
 {
@@ -142,5 +144,6 @@ private:
 
     //};
 
-} //nECS
+
+} // namespace nECS
 

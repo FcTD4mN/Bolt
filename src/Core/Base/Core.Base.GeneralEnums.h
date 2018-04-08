@@ -4,6 +4,7 @@
 namespace nBase
 {
 
+
 enum eFormat
 {
     kTop    = 1 << 0,
@@ -20,4 +21,6 @@ enum  eDirection
     kVertical
 };
 
+
 } //nBase
+

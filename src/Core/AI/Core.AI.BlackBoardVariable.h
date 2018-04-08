@@ -29,6 +29,7 @@ public:
 
 private:
     std::string mName;
+
 };
 
 
@@ -83,6 +84,7 @@ cBlackBoardVariableT< T >::Value(const T& iValue)
 {
     mValue = iValue;
 }
+
 
 }// namespace nAI
 

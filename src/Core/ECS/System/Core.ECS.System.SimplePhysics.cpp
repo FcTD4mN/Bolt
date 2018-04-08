@@ -1,14 +1,17 @@
  #include "Core.ECS.System.SimplePhysics.h"
 
-#include "Core.ECS.Core.Entity.h"
+
 
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
+
+#include "Core.ECS.Core.Entity.h"
 
 #include "GameMockup.Application.GameApplication.h"
 
 
 namespace nECS {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
@@ -195,6 +198,6 @@ cSimplePhysics::EntityLost( cEntity * iEntity )
     ::nApplication::cGameApplication::App()->EntityMap()->RemoveEntityNotUpdated( iEntity );
 }
 
-} //nECS
 
+} //nECS
 

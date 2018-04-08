@@ -6,6 +6,7 @@
 
 namespace nECS {
 
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
@@ -73,5 +74,6 @@ cFieldOfView::LoadXML( tinyxml2::XMLElement* iNode )
     mDistance = iNode->DoubleAttribute( "distance", 0.0 );
 }
 
-} //nECS
+
+} // namespace nECS
 

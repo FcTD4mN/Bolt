@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
 
 
@@ -8,6 +9,7 @@
 
 
 namespace nECS {
+
 
 class cSize :
     public ::nECS::cComponent
@@ -35,4 +37,6 @@ public:
     sf::Vector2f  mSize;
 };
 
-} //nECS
+
+} // namespace nECS
+

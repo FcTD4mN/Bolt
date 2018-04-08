@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.ECS.Core.Component.h"
 
 
@@ -7,6 +8,7 @@
 
 
 namespace nECS {
+
 
 class cSimplePhysic :
     public cComponent
@@ -42,4 +44,6 @@ public:
     eType               mType;
 };
 
-} //nECS
+
+} // namespace nECS
+

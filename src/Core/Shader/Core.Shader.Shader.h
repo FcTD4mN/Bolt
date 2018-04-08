@@ -11,6 +11,7 @@
 
 namespace nShaders {
 
+
 class cShader
 {
 public:
@@ -35,6 +36,9 @@ private:
 
     std::string m_vertexSource;
     std::string m_fragmentSource;
+
 };
 
-} //nShader
+
+} // namespace nShader
+

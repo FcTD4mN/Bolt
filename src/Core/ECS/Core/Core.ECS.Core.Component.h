@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Core.Base.Variant.h"
 
 
@@ -11,6 +12,7 @@
 
 
 namespace nECS {
+
 
 class cComponent
 {
@@ -36,6 +38,7 @@ public:
 
 protected:
     std::string mName;
+
 };
 
 
@@ -65,7 +68,9 @@ public:
 protected:
     std::string mName;
     std::unordered_map< std::string, ::nBase::cVariant > mVars;
+
 };
 
-} //nECS
+
+} // namespace nECS
 

@@ -1,12 +1,17 @@
 #pragma once
 
-#include <vector>
 
 #include <SFML/Graphics.hpp>
 
+
+#include <vector>
+
+
 namespace nECS { class cEntity; }
 
+
 namespace nMapping {
+
 
 class cEntityGrid
 {
@@ -40,6 +45,9 @@ private:
     int mWidth;     // Rows
     int mHeight;    // Columns
     int mCellSize;  // Being a square shape, only one size value needed
+
 };
 
-} //nMapping
+
+} // namespace nMapping
+

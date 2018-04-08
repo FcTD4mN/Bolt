@@ -1,10 +1,14 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 
 #include "Core.Math.Edge.h"
 
+
+#include <SFML/Graphics.hpp>
+
+
 namespace nMath {
+
 
 class cRay
 {
@@ -23,6 +27,9 @@ public:
 public:
     cEdgeF      mRay;
     eRayType    mRayType;
+
 };
 
-} //nMath
+
+} // namespace nMath
+

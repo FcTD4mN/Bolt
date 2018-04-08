@@ -3,7 +3,9 @@
 
 #include "Core.Math.Utils.h"
 
+
 namespace nMath {
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -79,5 +81,6 @@ cEdgeF::Intersect( float* oParameterA, float* oParameterB, const cEdgeF & iEdgeA
     return  iEdgeA.Intersect( oParameterA, oParameterB, iEdgeB );
 }
 
-} //nMath
+
+} // namespace nMath
 
