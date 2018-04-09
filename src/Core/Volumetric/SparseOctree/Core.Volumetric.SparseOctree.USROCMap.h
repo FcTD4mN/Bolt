@@ -14,7 +14,7 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
-template< eLod2N LOD, typename Atomic >
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
 class  cUSROCMap final
 {
 

@@ -14,15 +14,17 @@ namespace  nSparseOctree    {
 //------------------------------------------------------------------- Construction / Destruction
 
 
-template< eLod2N LOD, typename Atomic >
-inline  cUSROCMap< LOD, Atomic>::~cUSROCMap()
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline
+cUSROCMap< LOD, Micro, Atomic>::~cUSROCMap()
 {
 }
 
 
-template< eLod2N LOD, typename Atomic >
-inline  cUSROCMap< LOD, Atomic >::cUSROCMap() :
-    mROMSConfig( cROMSConfig() ),
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline
+cUSROCMap< LOD, Micro, Atomic>::cUSROCMap() :
+    mROMSConfig( cROMSConfig( LOD, Micro, 0 ) ),
     mChunks()
 {
 }
@@ -32,9 +34,9 @@ inline  cUSROCMap< LOD, Atomic >::cUSROCMap() :
 //------------------------------------------------------------------------------- Data Accessors
 
 
-template< eLod2N LOD, typename Atomic >
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
 inline  const  Atomic&
-cUSROCMap<LOD,Atomic>::Get(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ)  const
+cUSROCMap< LOD, Micro, Atomic>::Get(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ)  const
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     auto chunk = ChunkAtKey( key );
@@ -45,9 +47,9 @@ cUSROCMap<LOD,Atomic>::Get(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ)  con
 }
 
 
-template<eLod2N LOD,typename Atomic>
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
 inline  void
-cUSROCMap<LOD,Atomic>::Set(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ,Atomic iValue)
+cUSROCMap< LOD, Micro, Atomic>::Set(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ,Atomic iValue)
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     auto chunk = MkChunk( key );
@@ -62,8 +64,9 @@ cUSROCMap<LOD,Atomic>::Set(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ,Atomi
 //-------------------------------------------------------------------- Sparse Volume Information
 
 
-template<eLod2N LOD,typename Atomic>
-inline cHashable3DKey cUSROCMap<LOD,Atomic>::KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ)  const
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline  cHashable3DKey
+cUSROCMap< LOD, Micro, Atomic>::KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ)  const
 {
     double  size = double( LOD );
     tIndex keyX = tIndex( floor( iX / size ) );
@@ -73,15 +76,17 @@ inline cHashable3DKey cUSROCMap<LOD,Atomic>::KeyForIndices( tGlobalIndex iX, tGl
 }
 
 
-template<eLod2N LOD,typename Atomic>
-inline bool cUSROCMap<LOD,Atomic>::ChunkExists(const cHashable3DKey & iKey) const
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline  bool
+cUSROCMap< LOD, Micro, Atomic>::ChunkExists(const cHashable3DKey & iKey) const
 {
     return  ( ! ( mChunks.find( iKey.HashedSignature() ) == mChunks.end() ) );
 }
 
 
-template<eLod2N LOD,typename Atomic>
-inline cROMSChunk<LOD,Atomic>* cUSROCMap<LOD,Atomic>::ChunkAtKey(const cHashable3DKey & iKey) const
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline  cROMSChunk<LOD,Atomic>*
+cUSROCMap< LOD, Micro, Atomic>::ChunkAtKey(const cHashable3DKey & iKey) const
 {
     auto it = mChunks.find( iKey.HashedSignature() );
     if( it != mChunks.end() )
@@ -95,8 +100,9 @@ inline cROMSChunk<LOD,Atomic>* cUSROCMap<LOD,Atomic>::ChunkAtKey(const cHashable
 //--------------------------------------------------------------------------- Chunk Manipulation
 
 
-template<eLod2N LOD,typename Atomic>
-inline cROMSChunk<LOD,Atomic>* cUSROCMap<LOD,Atomic>::MkChunk(const cHashable3DKey & iKey)
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline  cROMSChunk<LOD,Atomic>*
+cUSROCMap< LOD, Micro, Atomic>::MkChunk(const cHashable3DKey & iKey)
 {
     if( ChunkExists( iKey ) )
         return  ChunkAtKey( iKey );
@@ -107,8 +113,9 @@ inline cROMSChunk<LOD,Atomic>* cUSROCMap<LOD,Atomic>::MkChunk(const cHashable3DK
 }
 
 
-template<eLod2N LOD,typename Atomic>
-inline void cUSROCMap<LOD,Atomic>::RmChunk(const cHashable3DKey & iKey)
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline  void
+cUSROCMap< LOD, Micro, Atomic>::RmChunk(const cHashable3DKey & iKey)
 {
     if( !ChunkExists( iKey ) )
         return;
@@ -119,8 +126,9 @@ inline void cUSROCMap<LOD,Atomic>::RmChunk(const cHashable3DKey & iKey)
 }
 
 
-template< eLod2N LOD, typename Atomic >
-inline  void  cUSROCMap< LOD, Atomic >::RenderOctDebug()
+template< eLod2N LOD, eLod2N Micro, typename Atomic >
+inline  void
+cUSROCMap< LOD, Micro, Atomic>::RenderOctDebug()
 {
     for ( auto it : mChunks )
     {

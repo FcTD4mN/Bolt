@@ -206,8 +206,7 @@ cOpenGLRenderSceneScreen::Initialize()
 
         */
         //mMap.UpdateChunksVBOs();
-        mMap2.Set( 32, 32, 32, 1 );
-        mMap2.Set( 129, 0, 0, 1 );
+        mMap2.Set( 0, 0, 0, 1 );
     };
 
     ::nBoltScript::Env()->RegisterFunction( "clearMap", f );
