@@ -74,7 +74,11 @@ inline  const  Atomic*  cSparseData< LOD, Atomic >::Get( tIndex iX, tIndex iY, t
 template< eLod2N LOD, typename Atomic >
 inline  void  cSparseData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
-    return  mOct[0]->Set( iX, iY, iZ, iValue );
+    glm::vec3 key = OctKeyForCoord( iX, iY, iZ );
+    glm::vec3 vec = glm::vec3( float( iX ), float( iY ), float( iZ ) );
+    glm::vec3 res = vec - ( key * ( cData< LOD, Atomic >::Sizef() / 2.f ) );
+    tByte ind = OctIndexForKey( key );
+    return  mOct[ind]->Set( tIndex( res.x ), tIndex( res.y ), tIndex( res.z ), iValue );
 }
 
 
@@ -97,14 +101,65 @@ template< eLod2N LOD, typename Atomic >
 inline  void  cSparseData< LOD, Atomic >::RenderOctDebug()
 {
     cData< LOD, Atomic >::RenderOctDebug();
-    mOct[0]->RenderOctDebug();
-    mOct[1]->RenderOctDebug();
-    mOct[2]->RenderOctDebug();
-    mOct[3]->RenderOctDebug();
-    mOct[4]->RenderOctDebug();
-    mOct[5]->RenderOctDebug();
-    mOct[6]->RenderOctDebug();
-    mOct[7]->RenderOctDebug();
+    float  hsizef = float( HALVED( LOD ) );
+
+    auto f = [&]( tByte iIndex  ) {
+        glPushMatrix();
+            auto  pos = OctKeyForIndex( iIndex ) * hsizef;
+            glTranslatef( pos.x, pos.y, pos.z );
+            mOct[iIndex]->RenderOctDebug();
+        glPopMatrix();
+    };
+
+    for( int i=0; i<8; ++i )
+        f(i);
+
+}
+
+
+//----------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------- Internal Oct Operations
+
+
+template< eLod2N LOD, typename Atomic >
+inline  glm::vec3  cSparseData< LOD, Atomic >::OctKeyForIndex( tByte iIndex )
+{
+    assert( iIndex >= 0 );
+    assert( iIndex < 8 );
+    float x = float( iIndex & 0b0001 );
+    float y = float( ( iIndex & 0b0010 ) >> 1 );
+    float z = float( ( iIndex & 0b0100 ) >> 2 );
+    return  glm::vec3( x, y, z );
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  tByte  cSparseData< LOD, Atomic >::OctIndexForKey( const  glm::vec3&  iKey )
+{
+    assert( iKey.x == 0.f || iKey.x == 1.f );
+    assert( iKey.y == 0.f || iKey.y == 1.f );
+    assert( iKey.z == 0.f || iKey.z == 1.f );
+    return  tByte( iKey.x ) | ( tByte( iKey.y ) << 1 ) | ( tByte( iKey.z ) << 2 );
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  glm::vec3  cSparseData< LOD, Atomic >::OctKeyForCoord( tIndex iX, tIndex iY, tIndex iZ )
+{
+    auto sizef = cData< LOD, Atomic >::Sizef();
+    assert( iX >= 0.f && iX < sizef );
+    assert( iY >= 0.f && iY < sizef );
+    assert( iZ >= 0.f && iZ < sizef );
+
+    float x = roundf( iX / sizef );
+    float y = roundf( iY / sizef );
+    float z = roundf( iZ / sizef );
+
+    assert( x == 0.f || x == 1.f );
+    assert( y == 0.f || y == 1.f );
+    assert( z == 0.f || z == 1.f );
+
+    return  glm::vec3( x, y, z );
 }
 
 

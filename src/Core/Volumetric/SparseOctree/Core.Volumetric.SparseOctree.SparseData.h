@@ -4,6 +4,9 @@
 #include "Core.Volumetric.SparseOctree.Data.h"
 
 
+#include <glm/vec3.hpp>
+
+
 #define  HALVED( i )  static_cast< eLod2N >( tSize( i ) / 2 )
 
 
@@ -43,6 +46,22 @@ public:
 public:
     virtual  glm::vec3  OctDebugColor()  override;
     virtual  void  RenderOctDebug()  override;
+
+private:
+    // Internal Oct Operations
+    // 000 0
+    // 001 1
+    // 010 2
+    // 011 3
+    // 100 4
+    // 101 5
+    // 110 6
+    // 111 7
+    glm::vec3  OctKeyForIndex( tByte  iIndex );
+    tByte OctIndexForKey( const  glm::vec3&  iKey );
+    glm::vec3  OctKeyForCoord( tIndex iX, tIndex iY, tIndex iZ );
+
+
 
 private:
     // Private Member Data

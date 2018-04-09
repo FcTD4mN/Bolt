@@ -47,7 +47,7 @@ inline  tSize  cData< LOD, Atomic >::Size()  const
 
 
 template<eLod2N LOD,typename Atomic>
-inline float cData<LOD,Atomic>::Sizef() const
+inline  float cData<LOD,Atomic>::Sizef() const
 {
     return  float( Size() );
 }
