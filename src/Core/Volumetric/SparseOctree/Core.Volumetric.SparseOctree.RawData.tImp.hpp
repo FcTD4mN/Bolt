@@ -84,11 +84,21 @@ inline  const  Atomic*  cRawData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tInd
 template< eLod2N LOD, typename Atomic >
 inline  void  cRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
+    Atomic  oldValue = *Get( iX, iY, iZ );
     auto size = tSize( LOD );
     assert( iX >= 0 && iX < size );
     assert( iY >= 0 && iY < size );
     assert( iZ >= 0 && iZ < size );
     mCore[ iX ][ iY ][ iZ ] = iValue;
+
+    Atomic flag = Atomic( bool( oldValue ) ) << 1 | Atomic( bool( iValue ) );
+    // Bitfield manipulation:
+    // 11   old solid - new solid   - 3 - no change
+    // 10   old solid - new empty   - 2 - decrease occupied volume
+    // 01   old empty - new solid   - 1 - increase occupied volume
+    // 00   old empty - new empty   - 0 - no change
+    if( flag == 2 ) --mOccupiedVolume;
+    if( flag == 1 ) ++mOccupiedVolume;
 }
 
 

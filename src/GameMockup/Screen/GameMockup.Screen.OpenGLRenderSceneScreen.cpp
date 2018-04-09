@@ -187,26 +187,19 @@ cOpenGLRenderSceneScreen::Initialize()
 
         ////////////////////////////////////////////////////////////////
 
-        /*
-        int sak = 16*2;
-        for( int i = -sak; i < sak; ++i )
+        int sak = 16;
+        for( int i = 0; i < sak; ++i )
         {
-            for( int j = -sak; j < sak; ++j )
+            for( int j = 0; j < sak; ++j )
             {
-                for( int k = -sak; k < sak; ++k )
+                for( int k = 0; k < sak; ++k )
                 {
-                    float x = i;
-                    float y = j;
-                    float z = k;
-                    mMap.SafeSetMaterial( x, y, z, 12 );
+                    mMap2.Set( i, j, k, 12 );
 
                 }
             }
         }
 
-        */
-        //mMap.UpdateChunksVBOs();
-        mMap2.Set( 0, 0, 0, 1 );
         mMap2.Set( 0, 0, 0, 0 );
     };
 

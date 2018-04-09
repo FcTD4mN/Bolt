@@ -118,12 +118,12 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToFull( const  cDataReportAnalys
 template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToSparse( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
-    delete  mData;
 
     switch( iDataReportAnalysis.mFromType )
     {
         case eType::kEmpty:
         {
+            delete  mData;
             mData = new  cSparseData< LOD, Atomic >( mROMSConfig, eType::kEmpty );
             break;
         }
@@ -134,6 +134,8 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToSparse( const  cDataReportAnal
 
             if( val == Atomic( 0 ) )
                 assert( false );
+
+            delete  mData;
             mData = new  cSparseData< LOD, Atomic >( mROMSConfig, eType::kFull, val );
             break;
         }
