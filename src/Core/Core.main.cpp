@@ -88,9 +88,6 @@ BoltMain( int argc, char *argv[] )
     sf::Time frameTime;
     sf::Event event;
 
-
-
-
     // Drawing entityMap
     //sf::Vector2f position;
     //sf::RectangleShape square;

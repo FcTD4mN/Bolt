@@ -74,9 +74,9 @@ template< eLod2N LOD, typename Atomic >
 inline  const  Atomic&  cRawData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
     auto size = tSize( LOD );
-    assert( iX > 0 && iX < size );
-    assert( iY > 0 && iY < size );
-    assert( iZ > 0 && iZ < size );
+    assert( iX >= 0 && iX < size );
+    assert( iY >= 0 && iY < size );
+    assert( iZ >= 0 && iZ < size );
     return  mCore[ iX ][ iY ][ iZ ];
 }
 
@@ -85,9 +85,9 @@ template< eLod2N LOD, typename Atomic >
 inline  void  cRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic& iValue )
 {
     auto size = tSize( LOD );
-    assert( iX > 0 && iX < size );
-    assert( iY > 0 && iY < size );
-    assert( iZ > 0 && iZ < size );
+    assert( iX >= 0 && iX < size );
+    assert( iY >= 0 && iY < size );
+    assert( iZ >= 0 && iZ < size );
     mCore[ iX ][ iY ][ iZ ] = iValue;
 }
 
