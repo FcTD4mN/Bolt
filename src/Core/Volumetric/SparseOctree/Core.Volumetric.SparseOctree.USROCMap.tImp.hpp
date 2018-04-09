@@ -69,9 +69,9 @@ inline  cHashable3DKey
 cUSROCMap< LOD, Micro, Atomic>::KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ)  const
 {
     double  size = double( LOD );
-    tIndex keyX = tIndex( floor( iX / size ) );
-    tIndex keyY = tIndex( floor( iY / size ) );
-    tIndex keyZ = tIndex( floor( iZ / size ) );
+    tKeyComponent keyX = tKeyComponent( floor( iX / size ) );
+    tKeyComponent keyY = tKeyComponent( floor( iY / size ) );
+    tKeyComponent keyZ = tKeyComponent( floor( iZ / size ) );
     return  cHashable3DKey( keyX, keyY, keyZ );
 }
 

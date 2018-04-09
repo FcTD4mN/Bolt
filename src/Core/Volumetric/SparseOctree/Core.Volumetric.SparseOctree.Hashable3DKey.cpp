@@ -5,7 +5,7 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
-cHashable3DKey::cHashable3DKey( tIndex iX, tIndex iY, tIndex iZ ) :
+cHashable3DKey::cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ ) :
     mX( iX ),
     mY( iY ),
     mZ( iZ ),
@@ -27,7 +27,7 @@ cHashable3DKey::cHashable3DKey( tHashableKeySignature iHashedSignature ) :
 
 
 void
-cHashable3DKey::Set( tIndex iX, tIndex iY, tIndex iZ )
+cHashable3DKey::Set( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ )
 {
     mX = iX;
     mY = iY;
@@ -42,14 +42,14 @@ cHashable3DKey::Set( tHashableKeySignature iHashedSignature )
     mCachedHashedSignature = iHashedSignature;
     mCacheValid = true;
 
-    mX = tIndex( (   ( mCachedHashedSignature & tHashableKeySignature( 0x0000FFFF00000000 ) ) >> 32 )    - sgSignedKeyComponentRangeShift );
-    mY = tIndex( (   ( mCachedHashedSignature & tHashableKeySignature( 0x00000000FFFF0000 ) ) >> 16 )    - sgSignedKeyComponentRangeShift );
-    mZ = tIndex( (     mCachedHashedSignature & tHashableKeySignature( 0x000000000000FFFF ) )            - sgSignedKeyComponentRangeShift );
+    mX = tKeyComponent( (   ( mCachedHashedSignature & tHashableKeySignature( 0x0000FFFF00000000 ) ) >> 32 )    - sgSignedKeyComponentRangeShift );
+    mY = tKeyComponent( (   ( mCachedHashedSignature & tHashableKeySignature( 0x00000000FFFF0000 ) ) >> 16 )    - sgSignedKeyComponentRangeShift );
+    mZ = tKeyComponent( (     mCachedHashedSignature & tHashableKeySignature( 0x000000000000FFFF ) )            - sgSignedKeyComponentRangeShift );
 }
 
 
 void
-cHashable3DKey::SetX( tIndex iValue )
+cHashable3DKey::SetX( tKeyComponent iValue )
 {
     mX = iValue;
     InvalidCache();
@@ -57,7 +57,7 @@ cHashable3DKey::SetX( tIndex iValue )
 
 
 void
-cHashable3DKey::SetY( tIndex iValue )
+cHashable3DKey::SetY( tKeyComponent iValue )
 {
     mX = iValue;
     InvalidCache();
@@ -65,28 +65,28 @@ cHashable3DKey::SetY( tIndex iValue )
 
 
 void
-cHashable3DKey::SetZ( tIndex iValue )
+cHashable3DKey::SetZ( tKeyComponent iValue )
 {
     mX = iValue;
     InvalidCache();
 }
 
 
-tIndex
+tKeyComponent
 cHashable3DKey::GetX()  const
 {
     return  mX;
 }
 
 
-tIndex
+tKeyComponent
 cHashable3DKey::GetY()  const
 {
     return  mY;
 }
 
 
-tIndex
+tKeyComponent
 cHashable3DKey::GetZ()  const
 {
     return  mZ;

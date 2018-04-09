@@ -186,7 +186,7 @@ cOpenGLRenderSceneScreen::Initialize()
         */
 
         ////////////////////////////////////////////////////////////////
-
+        /*
         int sak = 16;
         for( int i = 0; i < sak; ++i )
         {
@@ -199,8 +199,17 @@ cOpenGLRenderSceneScreen::Initialize()
                 }
             }
         }
+        */
 
-        mMap2.Set( 0, 0, 0, 0 );
+        mMap2.Set( 0, 0, 0, 1 );
+        mMap2.Set( -1, 0, 0, 1 );
+        mMap2.Set( -1, 0, -1, 1 );
+        mMap2.Set( -0, 0, -1, 1 );
+        mMap2.Set( 0, -1, 0, 1 );
+        mMap2.Set( -1, -1, 0, 1 );
+        mMap2.Set( -1, -1, -1, 1 );
+        mMap2.Set( -0, -1, -1, 1 );
+
     };
 
     ::nBoltScript::Env()->RegisterFunction( "clearMap", f );

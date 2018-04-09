@@ -12,19 +12,19 @@ class  cHashable3DKey
 {
 
 public:
-    cHashable3DKey( tIndex iX, tIndex iY, tIndex iZ );
+    cHashable3DKey( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ );
     cHashable3DKey( tHashableKeySignature iHashedSignature );
 
 public:
-    void  Set( tIndex iX, tIndex iY, tIndex iZ );
+    void  Set( tKeyComponent iX, tKeyComponent iY, tKeyComponent iZ );
     void  Set( tHashableKeySignature iHashedSignature );
-    void  SetX( tIndex iValue );
-    void  SetY( tIndex iValue );
-    void  SetZ( tIndex iValue );
+    void  SetX( tKeyComponent iValue );
+    void  SetY( tKeyComponent iValue );
+    void  SetZ( tKeyComponent iValue );
 
-    tIndex  GetX()  const;
-    tIndex  GetY()  const;
-    tIndex  GetZ()  const;
+    tKeyComponent  GetX()  const;
+    tKeyComponent  GetY()  const;
+    tKeyComponent  GetZ()  const;
 
     const  tHashableKeySignature&  HashedSignature()  const;
 
@@ -41,9 +41,9 @@ private:
 
 private:
     // Private Data Members
-    tIndex  mX;
-    tIndex  mY;
-    tIndex  mZ;
+    tKeyComponent  mX;
+    tKeyComponent  mY;
+    tKeyComponent  mZ;
     mutable  bool  mCacheValid;
     mutable  tHashableKeySignature  mCachedHashedSignature;
 
