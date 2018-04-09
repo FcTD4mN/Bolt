@@ -34,6 +34,9 @@ cDataConverterProtocol::cDataConverterProtocol() :
 
 void  cDataConverterProtocol::ProcessDataReportAnalysis( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
+    if( iDataReportAnalysis.mConversionOperationStatus == cDataReportAnalysis::eConversionOperationStatus::kNotRequired )
+        return;
+
     auto type = iDataReportAnalysis.mToType;
     if( KEY_EXISTS( mProcessMap, type ) )
             ( this->*( mProcessMap[ type ] ) )( iDataReportAnalysis );

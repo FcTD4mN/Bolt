@@ -77,6 +77,9 @@ cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 
     if( analysis.mProcessOperationStatus == cDataReportAnalysis::eProcessOperationStatus::kProcess )
         mData->Set( iX, iY, iZ, iValue );
+
+    analysis = mData->PosteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
+    ProcessDataReportAnalysis( analysis );
 }
 
 

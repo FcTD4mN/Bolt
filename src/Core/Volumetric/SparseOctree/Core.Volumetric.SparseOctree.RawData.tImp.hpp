@@ -144,6 +144,12 @@ inline  cDataReportAnalysis  cRawData< LOD, Atomic >::PosteriorReportAnalysisOnS
                                          cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                          eType::kRaw, eType::kFull );
     }
+    else if( mOccupiedVolume == 0 )
+    {
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
+                                         cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                         eType::kRaw, eType::kEmpty );
+    }
 
     return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                  cDataReportAnalysis::eProcessOperationStatus::kDiscard );

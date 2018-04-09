@@ -95,18 +95,15 @@ inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::PosteriorReportAnalysis
 {
     auto baseType = mOct[0]->Data()->Type();
     bool uniqueType = true;
-    const  Atomic*  baseVal = mOct[0]->Get( 0, 0, 0 );
-    bool uniqueVal = true;
 
     for( int i = 0; i < 8; ++i )
     {
         auto type = mOct[i]->Data()->Type();
-        const  Atomic*  val = mOct[i]->Get( 0, 0, 0 );
         if( type != baseType )
+        {
             uniqueType = false;
-
-        if( *val != *baseVal )
-            uniqueVal = false;
+            break;
+        }
     }
 
     if( !uniqueType )
@@ -121,6 +118,19 @@ inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::PosteriorReportAnalysis
     }
     else if( baseType == eType::kFull )
     {
+        const  Atomic*  baseVal = mOct[0]->Get( 0, 0, 0 );
+        bool uniqueVal = true;
+
+        for( int i = 0; i < 8; ++i )
+        {
+            const  Atomic*  val = mOct[i]->Get( 0, 0, 0 );
+            if( *val != *baseVal )
+            {
+                uniqueVal = false;
+                break;
+            }
+        }
+
         if( !uniqueVal )
             return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                         cDataReportAnalysis::eProcessOperationStatus::kProcess );
