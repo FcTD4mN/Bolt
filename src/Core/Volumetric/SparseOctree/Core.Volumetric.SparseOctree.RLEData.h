@@ -35,6 +35,7 @@ public:
 public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
+    virtual  cDataReportAnalysis  PosteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 
 };
 

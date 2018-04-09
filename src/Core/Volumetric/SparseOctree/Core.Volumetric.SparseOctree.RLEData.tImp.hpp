@@ -74,6 +74,14 @@ inline  cDataReportAnalysis  cRLEData< LOD, Atomic >::AnteriorReportAnalysisOnSe
 
 
 template< eLod2N LOD, typename Atomic >
+inline  cDataReportAnalysis  cRLEData< LOD, Atomic >::PosteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+{
+    return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                 cDataReportAnalysis::eProcessOperationStatus::kProcess );
+}
+
+
+template< eLod2N LOD, typename Atomic >
 inline  glm::vec3  cRLEData< LOD, Atomic >::OctDebugColor()
 {
     return glm::vec3( 0.0f, 1.0f, 1.0f );

@@ -92,6 +92,14 @@ inline  cDataReportAnalysis  cEmptyData< LOD, Atomic >::AnteriorReportAnalysisOn
 
 
 template< eLod2N LOD, typename Atomic >
+inline  cDataReportAnalysis  cEmptyData< LOD, Atomic >::PosteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+{
+    return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                 cDataReportAnalysis::eProcessOperationStatus::kProcess );
+}
+
+
+template< eLod2N LOD, typename Atomic >
 inline  glm::vec3  cEmptyData< LOD, Atomic >::OctDebugColor()
 {
     return glm::vec3( 1.0f, 1.0f, 0.0f );

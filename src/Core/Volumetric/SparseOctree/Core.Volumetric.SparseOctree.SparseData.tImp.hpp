@@ -91,6 +91,51 @@ inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::AnteriorReportAnalysisO
 
 
 template< eLod2N LOD, typename Atomic >
+inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::PosteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+{
+    auto baseType = mOct[0]->Data()->Type();
+    bool uniqueType = true;
+    const  Atomic*  baseVal = mOct[0]->Get( 0, 0, 0 );
+    bool uniqueVal = true;
+
+    for( int i = 0; i < 8; ++i )
+    {
+        auto type = mOct[i]->Data()->Type();
+        const  Atomic*  val = mOct[i]->Get( 0, 0, 0 );
+        if( type != baseType )
+            uniqueType = false;
+
+        if( *val != *baseVal )
+            uniqueVal = false;
+    }
+
+    if( !uniqueType )
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                        cDataReportAnalysis::eProcessOperationStatus::kProcess );
+
+    if( baseType == eType::kEmpty )
+    {
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
+                                        cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                        eType::kSparse, eType::kEmpty );
+    }
+    else if( baseType == eType::kFull )
+    {
+        if( !uniqueVal )
+            return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                        cDataReportAnalysis::eProcessOperationStatus::kProcess );
+
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
+                                        cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                        eType::kSparse, eType::kFull );
+    }
+
+    return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                 cDataReportAnalysis::eProcessOperationStatus::kProcess );
+}
+
+
+template< eLod2N LOD, typename Atomic >
 inline  glm::vec3  cSparseData< LOD, Atomic >::OctDebugColor()
 {
     return glm::vec3( 0.0f, 0.5f, 1.0f );

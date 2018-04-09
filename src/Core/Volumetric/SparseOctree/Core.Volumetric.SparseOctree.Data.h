@@ -99,6 +99,7 @@ public:
 public:
     // Data Transform Analysis
     virtual  cDataReportAnalysis  AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
+    virtual  cDataReportAnalysis  PosteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  = 0;
 
 public:
     virtual  glm::vec3  OctDebugColor();

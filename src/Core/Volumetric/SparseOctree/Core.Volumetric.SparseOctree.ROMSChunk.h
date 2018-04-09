@@ -30,6 +30,8 @@ public:
     const  Atomic*  Get( tIndex iX, tIndex iY, tIndex iZ )  const;
     void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue );
 
+    cData< LOD, Atomic >*  Data();
+
 private:
     // Virtual Conversion Protocol Functions Overrides
     virtual  void  ConvertToEmpty(  const  cDataReportAnalysis&  iDataReportAnalysis )  override;

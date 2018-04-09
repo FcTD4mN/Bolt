@@ -80,6 +80,13 @@ cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 }
 
 
+template< eLod2N LOD, typename Atomic >
+inline  cData< LOD, Atomic >*  cROMSChunk< LOD, Atomic >::Data()
+{
+    return  mData;
+}
+
+
 //----------------------------------------------------------------------------------------------
 //---------------------------------------------- Virtual Conversion Protocol Functions Overrides
 

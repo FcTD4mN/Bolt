@@ -109,6 +109,48 @@ inline  cDataReportAnalysis  cRawData< LOD, Atomic >::AnteriorReportAnalysisOnSe
 
 
 template< eLod2N LOD, typename Atomic >
+inline  cDataReportAnalysis  cRawData< LOD, Atomic >::PosteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
+{
+    if( mOccupiedVolume == cData< LOD, Atomic >::Capacity() )
+    {
+        const  Atomic* baseVal = Get( 0, 0, 0 );
+        bool uniqueVal = true;
+        for( int i = 0; i < LOD; ++i )
+        {
+            for( int j = 0; j < LOD; ++j )
+            {
+                for( int k = 0; k < LOD; ++k )
+                {
+                    const  Atomic* val = Get( i, j , k );
+                    if( *val != *baseVal )
+                    {
+                        uniqueVal = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if( !uniqueVal )
+            return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                         cDataReportAnalysis::eProcessOperationStatus::kProcess );
+
+        if( *baseVal == Atomic( 0 ) )
+            return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
+                                         cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                         eType::kRaw, eType::kEmpty );
+        else
+            return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
+                                         cDataReportAnalysis::eProcessOperationStatus::kProcess,
+                                         eType::kRaw, eType::kFull );
+    }
+
+    return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                 cDataReportAnalysis::eProcessOperationStatus::kDiscard );
+}
+
+
+template< eLod2N LOD, typename Atomic >
 inline  glm::vec3  cRawData< LOD, Atomic >::OctDebugColor()
 {
     return glm::vec3( 1.0f, 0.0f, 0.0f );
