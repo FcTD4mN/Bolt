@@ -9,7 +9,6 @@ cEntityListModel::cEntityListModel( QObject* iParent ) :
     tSuperClass( iParent ),
     mParserInstance( ::nECS::cEntityParser::Instance() )
 {
-    int a = 1;
 }
 
 // --------------------------------------------------------------------------------------------------------------

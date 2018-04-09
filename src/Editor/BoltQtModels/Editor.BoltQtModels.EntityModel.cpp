@@ -10,7 +10,6 @@ cEntityModel::cEntityModel( ::nECS::cEntity* iEntity, QObject* iParent ) :
     tSuperClass( iParent ),
     mEntity( iEntity )
 {
-
 }
 
 // --------------------------------------------------------------------------------------------------------------
@@ -69,6 +68,32 @@ cEntityModel::headerData( int iSection, Qt::Orientation iOrientation, int iRole 
         return  tr( "Entity" );
 
     return  QVariant();
+}
+
+
+QModelIndex
+cEntityModel::index( int row, int column, const QModelIndex & parent ) const
+{
+    if( !parent.isValid() )
+    {
+        if( row == 0 )
+        {
+            return  createIndex( row, column );
+        }
+        else if( row == 1 )
+        {
+            return  createIndex( row, column, mEntity->GetComponentAtIndex( column ) );
+        }
+    }
+
+    return  QModelIndex();
+}
+
+
+QModelIndex
+cEntityModel::parent( const QModelIndex & index ) const
+{
+    return QModelIndex();
 }
 
 } //nQt

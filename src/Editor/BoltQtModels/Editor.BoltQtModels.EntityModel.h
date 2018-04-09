@@ -22,6 +22,8 @@ public:
     virtual  int columnCount( const QModelIndex& iParent = QModelIndex() ) const override;
     virtual  QVariant data( const QModelIndex& iIndex, int iRole ) const override;
     virtual  QVariant headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const override;
+    virtual  QModelIndex index( int row, int column, const QModelIndex &parent = QModelIndex() ) const override;
+    virtual  QModelIndex parent( const QModelIndex &index ) const override;
 
 private:
     ::nECS::cEntity* mEntity;

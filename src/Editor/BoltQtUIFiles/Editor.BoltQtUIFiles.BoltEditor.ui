@@ -30,6 +30,9 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="Ui_EntityProperty" name="widget_2" native="true"/>
+      </item>
      </layout>
     </item>
    </layout>
@@ -72,6 +75,12 @@
    <class>MyCanvas</class>
    <extends>QWidget</extends>
    <header>BoltQtWidgets/Editor.BoltQtWidgets.TestCanvas.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Ui_EntityProperty</class>
+   <extends>QWidget</extends>
+   <header>../../Windows/Editor-VS2017/BoltEditor/BoltEditor/GeneratedFiles/ui_Editor.BoltQtUIFiles.EntityPropertyWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
