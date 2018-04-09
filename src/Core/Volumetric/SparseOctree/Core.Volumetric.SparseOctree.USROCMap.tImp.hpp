@@ -1,6 +1,11 @@
 #include "Core.Volumetric.SparseOctree.USROCMap.h"
 
 
+#include <GL/glew.h>
+#include <gl/GLU.h>
+#include <SFML/OpenGL.hpp>
+
+
 namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
@@ -33,9 +38,9 @@ cUSROCMap<LOD,Atomic>::Get(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ)  con
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     auto chunk = ChunkAtKey( key );
-    tIndex  dataX = tIndex( tKeyComponent( iX ) - key.GetX() * tSize( LOD ) );
-    tIndex  dataY = tIndex( tKeyComponent( iY ) - key.GetY() * tSize( LOD ) );
-    tIndex  dataZ = tIndex( tKeyComponent( iZ ) - key.GetZ() * tSize( LOD ) );
+    tIndex  dataX = tIndex( tIndex( iX ) - key.GetX() * tSize( LOD ) );
+    tIndex  dataY = tIndex( tIndex( iY ) - key.GetY() * tSize( LOD ) );
+    tIndex  dataZ = tIndex( tIndex( iZ ) - key.GetZ() * tSize( LOD ) );
     return  chunk->Get( dataX, dataY, dataZ );
 }
 
@@ -46,9 +51,9 @@ cUSROCMap<LOD,Atomic>::Set(tGlobalIndex iX,tGlobalIndex iY,tGlobalIndex iZ,Atomi
 {
     cHashable3DKey  key = KeyForIndices( iX, iY, iZ );
     auto chunk = MkChunk( key );
-    tIndex dataX = tIndex( tKeyComponent( iX ) - key.GetX() * tSize( LOD ) );
-    tIndex dataY = tIndex( tKeyComponent( iY ) - key.GetY() * tSize( LOD ) );
-    tIndex dataZ = tIndex( tKeyComponent( iZ ) - key.GetZ() * tSize( LOD ) );
+    tIndex dataX = tIndex( tIndex( iX ) - key.GetX() * tSize( LOD ) );
+    tIndex dataY = tIndex( tIndex( iY ) - key.GetY() * tSize( LOD ) );
+    tIndex dataZ = tIndex( tIndex( iZ ) - key.GetZ() * tSize( LOD ) );
     chunk->Set( dataX, dataY, dataZ, iValue );
 }
 
@@ -61,9 +66,9 @@ template<eLod2N LOD,typename Atomic>
 inline cHashable3DKey cUSROCMap<LOD,Atomic>::KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ)  const
 {
     double  size = double( LOD );
-    tKeyComponent keyX = tKeyComponent( floor( iX / size ) );
-    tKeyComponent keyY = tKeyComponent( floor( iY / size ) );
-    tKeyComponent keyZ = tKeyComponent( floor( iZ / size ) );
+    tIndex keyX = tIndex( floor( iX / size ) );
+    tIndex keyY = tIndex( floor( iY / size ) );
+    tIndex keyZ = tIndex( floor( iZ / size ) );
     return  cHashable3DKey( keyX, keyY, keyZ );
 }
 
@@ -96,7 +101,7 @@ inline cROMSChunk<LOD,Atomic>* cUSROCMap<LOD,Atomic>::MkChunk(const cHashable3DK
     if( ChunkExists( iKey ) )
         return  ChunkAtKey( iKey );
 
-    auto chunk = new  cROMSChunk< LOD, Atomic >( &ROMSConfig(), eType::kEmpty, Atomic( 0 ) );
+    cROMSChunk< LOD, Atomic >*  chunk = new  cROMSChunk< LOD, Atomic >( &mROMSConfig, eType::kEmpty, Atomic( 0 ) );
     mChunks.emplace( iKey.HashedSignature(), chunk );
     return  chunk;
 }
@@ -111,6 +116,26 @@ inline void cUSROCMap<LOD,Atomic>::RmChunk(const cHashable3DKey & iKey)
     auto it = mChunks.find( iKey.HashedSignature() );
     delete  it->second;
     mChunks.erase( it );
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cUSROCMap< LOD, Atomic >::RenderOctDebug()
+{
+    for ( auto it : mChunks )
+    {
+        auto hashedKey = it.first;
+        auto chunk = it.second;
+        cHashable3DKey key( hashedKey );
+
+        float sizef = float( LOD );
+
+        glPushMatrix();
+        glTranslatef( key.GetX() * sizef, key.GetY() * sizef, key.GetZ() * sizef );
+        chunk->RenderOctDebug();
+        glPopMatrix();
+
+    }
 }
 
 

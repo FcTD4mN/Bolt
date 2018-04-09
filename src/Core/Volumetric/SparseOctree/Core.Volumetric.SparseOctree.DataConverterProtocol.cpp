@@ -32,7 +32,7 @@ cDataConverterProtocol::cDataConverterProtocol() :
 //---------------------------------------------------------------- Conversion Protocol Selection
 
 
-inline  void  cDataConverterProtocol::ProcessDataReportAnalysis( const  cDataReportAnalysis&  iDataReportAnalysis )
+void  cDataConverterProtocol::ProcessDataReportAnalysis( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
     auto type = iDataReportAnalysis.mToType;
     if( KEY_EXISTS( mProcessMap, type ) )

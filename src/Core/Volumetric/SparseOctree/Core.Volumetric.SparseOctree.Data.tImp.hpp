@@ -42,7 +42,7 @@ inline  eLod2N  cData< LOD, Atomic >::LODLevel()  const
 template< eLod2N LOD, typename Atomic >
 inline  tSize  cData< LOD, Atomic >::Size()  const
 {
-    return  tSize( LOD() );
+    return  tSize( LODLevel() );
 }
 
 
@@ -80,27 +80,42 @@ inline void cData<LOD,Atomic>::RenderOctDebug()
     glBegin( GL_LINES );
         glm::vec3 col = OctDebugColor();
         glColor3f( col.x, col.y, col.z );
+        auto sizef = Sizef();
+        glVertex3f( 0.f,    0.f,    0.f     );
+        glVertex3f( sizef,  0.f,    0.f     );
 
-        for( float i=0.f; i <= 1.f; i+= Sizef() )
-        {
-            for( float j=0.f; j <= 1.f; j+= Sizef() )
-            {
-                for( float k=0.f; i <= 1.f; k+= Sizef() )
-                {
-                    glVertex3f( i, j, k );
-                    for( float l=0.f; l <= 1.f; l+= Sizef() )
-                    {
-                        for( float m=0.f; m <= 1.f; m+= Sizef() )
-                        {
-                            for( float n=0.f; n <= 1.f; n+= Sizef() )
-                            {
-                                glVertex3f( l, m, n );
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        glVertex3f( 0.f,    0.f,    0.f     );
+        glVertex3f( 0.f,    sizef,  0.f     );
+
+        glVertex3f( 0.f,    0.f,    0.f     );
+        glVertex3f( 0.f,    0.f,    sizef   );
+
+        glVertex3f( sizef,  sizef,  sizef   );
+        glVertex3f( 0.f,    sizef,  sizef   );
+
+        glVertex3f( sizef,  sizef,  sizef   );
+        glVertex3f( sizef,  0.f,    sizef   );
+
+        glVertex3f( sizef,  sizef,  sizef   );
+        glVertex3f( sizef,  sizef,  0.f     );
+
+        glVertex3f( 0.f,    sizef,  0.f     );
+        glVertex3f( sizef,  sizef,  0.f     );
+
+        glVertex3f( 0.f,    sizef,  0.f     );
+        glVertex3f( 0.f,    sizef,  sizef   );
+
+        glVertex3f( sizef,  0.f,    0.f     );
+        glVertex3f( sizef,  sizef,  0.f     );
+
+        glVertex3f( sizef,  0.f,    0.f     );
+        glVertex3f( sizef,  0.f,    sizef   );
+
+        glVertex3f( 0.f,    0.f,    sizef   );
+        glVertex3f( sizef,  0.f,    sizef   );
+
+        glVertex3f( 0.f,    0.f,    sizef   );
+        glVertex3f( 0.f,    sizef,  sizef   );
     glEnd();
 }
 

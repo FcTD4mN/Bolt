@@ -14,13 +14,13 @@ namespace  nSparseOctree    {
 class  cDataConverterProtocol
 {
 
-protected:
+public:
     // Construction / Destruction
     virtual  ~cDataConverterProtocol();
     cDataConverterProtocol();
     cDataConverterProtocol( const  cDataConverterProtocol& ) = delete;
 
-protected:
+public:
     // Conversion Protocol Selection
     void  ProcessDataReportAnalysis( const  cDataReportAnalysis&  iDataReportAnalysis );
 

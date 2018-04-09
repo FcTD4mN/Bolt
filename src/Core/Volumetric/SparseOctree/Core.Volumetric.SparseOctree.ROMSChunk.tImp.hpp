@@ -73,8 +73,10 @@ inline  void
 cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 {
     cDataReportAnalysis  analysis = mData->AnteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
-    cDataConverterProtocol::ProcessDataReportAnalysis( analysis );
-    mData->Set( iX, iY, iZ, iValue );
+    ProcessDataReportAnalysis( analysis );
+
+    if( analysis.mProcessOperationStatus == cDataReportAnalysis::eProcessOperationStatus::kProcess )
+        mData->Set( iX, iY, iZ, iValue );
 }
 
 
@@ -169,6 +171,13 @@ template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToRLE( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
     assert( false );
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::RenderOctDebug()
+{
+    mData->RenderOctDebug();
 }
 
 

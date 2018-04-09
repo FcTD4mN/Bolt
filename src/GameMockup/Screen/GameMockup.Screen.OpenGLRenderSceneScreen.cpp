@@ -206,6 +206,7 @@ cOpenGLRenderSceneScreen::Initialize()
 
         */
         //mMap.UpdateChunksVBOs();
+        mMap2.Set( 0, 0, 0, 0 );
     };
 
     ::nBoltScript::Env()->RegisterFunction( "clearMap", f );
@@ -261,12 +262,14 @@ cOpenGLRenderSceneScreen::Draw( sf::RenderTarget* iRenderTarget )
     glRotatef( 45.f, 1.f, 0.f, 0.f );
     glRotatef( mClock.getElapsedTime().asSeconds() * 20.f, 0.f, 1.f, 0.f );
 
-    GLuint shaderProgramID = mShader.getProgramID();
-    glUseProgram( shaderProgramID );
+    //GLuint shaderProgramID = mShader.getProgramID();
+    //glUseProgram( shaderProgramID );
 
     //mMap.RenderVBOs( shaderProgramID );
 
-    glUseProgram(0);
+    mMap2.RenderOctDebug();
+
+    //glUseProgram(0);
 
     /*
     glEnableVertexAttribArray(0);

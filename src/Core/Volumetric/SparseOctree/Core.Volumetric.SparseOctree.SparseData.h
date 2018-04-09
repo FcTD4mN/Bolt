@@ -42,6 +42,7 @@ public:
 
 public:
     virtual  glm::vec3  OctDebugColor()  override;
+    virtual  void  RenderOctDebug()  override;
 
 private:
     // Private Member Data

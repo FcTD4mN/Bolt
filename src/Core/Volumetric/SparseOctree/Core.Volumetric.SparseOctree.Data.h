@@ -102,7 +102,7 @@ public:
 
 public:
     virtual  glm::vec3  OctDebugColor();
-    void  RenderOctDebug();
+    virtual  void  RenderOctDebug();
 
 private:
     // Private Member Data

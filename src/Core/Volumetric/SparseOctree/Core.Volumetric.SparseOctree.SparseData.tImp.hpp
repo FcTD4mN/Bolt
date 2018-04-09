@@ -94,6 +94,21 @@ inline  glm::vec3  cSparseData< LOD, Atomic >::OctDebugColor()
 }
 
 
+template< eLod2N LOD, typename Atomic >
+inline  void  cSparseData< LOD, Atomic >::RenderOctDebug()
+{
+    cData< LOD, Atomic >::RenderOctDebug();
+    mOct[0]->RenderOctDebug();
+    mOct[1]->RenderOctDebug();
+    mOct[2]->RenderOctDebug();
+    mOct[3]->RenderOctDebug();
+    mOct[4]->RenderOctDebug();
+    mOct[5]->RenderOctDebug();
+    mOct[6]->RenderOctDebug();
+    mOct[7]->RenderOctDebug();
+}
+
+
 }  // namespace  nSparseOctree
 }  // namespace  nVolumetric
 

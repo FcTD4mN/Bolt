@@ -324,6 +324,9 @@
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Utils.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.cpp">
+      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
@@ -562,9 +565,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.FullData.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Final</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.cpp">
-      <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.Utils.h">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Utils</Filter>

@@ -41,6 +41,9 @@ private:
     cROMSChunk< LOD, Atomic >*  MkChunk( const  cHashable3DKey&  iKey );
     void  RmChunk( const  cHashable3DKey&  iKey );
 
+public:
+    void  RenderOctDebug();
+
 private:
     // Private Member Data
     cROMSConfig  mROMSConfig; // Owning
