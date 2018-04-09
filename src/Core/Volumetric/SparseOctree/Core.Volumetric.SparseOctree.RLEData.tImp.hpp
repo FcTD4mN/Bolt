@@ -44,9 +44,9 @@ inline  eType  cRLEData< LOD, Atomic >::Type()  const
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&  cRLEData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+inline  const  Atomic*  cRLEData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    // TODO: insert return statement here
+    return  NULL;
 }
 
 

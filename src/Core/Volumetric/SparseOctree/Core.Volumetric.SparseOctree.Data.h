@@ -93,7 +93,7 @@ public:
 
 public:
     // Data Accessors
-    virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          = 0;
+    virtual  const  Atomic*  Get( tIndex iX, tIndex iY, tIndex iZ )  const          = 0;
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   = 0;
 
 public:

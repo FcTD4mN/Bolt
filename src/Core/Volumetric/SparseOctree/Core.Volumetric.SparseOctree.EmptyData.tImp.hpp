@@ -45,9 +45,9 @@ inline  eType  cEmptyData< LOD, Atomic >::Type()  const
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&  cEmptyData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+inline  const  Atomic*  cEmptyData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    return  Atomic( 0 );
+    return  NULL;
 }
 
 
@@ -71,15 +71,23 @@ inline  cDataReportAnalysis  cEmptyData< LOD, Atomic >::AnteriorReportAnalysisOn
                                      cDataReportAnalysis::eProcessOperationStatus::kDiscard );
 
     if( LOD > cData< LOD, Atomic >::ROMSConfig().MicroscopicLODGranularity() )
+    {
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kEmpty, eType::kSparse );
+    }
     else if( LOD == cData< LOD, Atomic >::ROMSConfig().MicroscopicLODGranularity() )
+    {
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kProcess,
                                      eType::kEmpty, eType::kRaw );
+    }
     else
+    {
+        return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
+                                     cDataReportAnalysis::eProcessOperationStatus::kDiscard );
         assert( false ); // Crash
+    }
 }
 
 

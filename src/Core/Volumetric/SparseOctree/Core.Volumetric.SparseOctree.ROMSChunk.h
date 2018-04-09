@@ -27,7 +27,7 @@ public:
 
 public:
     // Data Accessors
-    const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const;
+    const  Atomic*  Get( tIndex iX, tIndex iY, tIndex iZ )  const;
     void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue );
 
 private:

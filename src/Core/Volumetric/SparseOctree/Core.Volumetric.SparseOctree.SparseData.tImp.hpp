@@ -64,9 +64,8 @@ inline  eType  cSparseData< LOD, Atomic >::Type()  const
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&  cSparseData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+inline  const  Atomic*  cSparseData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
-    // TODO: insert return statement here
     // TEMPORARY:
     return  mOct[0]->Get( iX, iY, iZ );
 }

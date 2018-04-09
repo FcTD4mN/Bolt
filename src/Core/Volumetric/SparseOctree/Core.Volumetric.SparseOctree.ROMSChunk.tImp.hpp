@@ -61,7 +61,7 @@ inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig,
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&
+inline  const  Atomic*
 cROMSChunk<LOD,Atomic>::Get(tIndex iX,tIndex iY,tIndex iZ)  const
 {
     return  mData->Get( iX, iY, iZ );
@@ -95,7 +95,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToEmpty( const  cDataReportAnaly
 template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToFull( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
-    auto val = mData->Get( 0, 0, 0 );
+    auto val = *mData->Get( 0, 0, 0 );
 
     if( val == Atomic( 0 ) )
         assert( false );
@@ -120,7 +120,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToSparse( const  cDataReportAnal
 
         case eType::kFull:
         {
-            auto val = mData->Get( 0, 0, 0 );
+            auto val = *mData->Get( 0, 0, 0 );
 
             if( val == Atomic( 0 ) )
                 assert( false );
@@ -150,7 +150,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToRaw( const  cDataReportAnalysi
 
         case eType::kFull:
         {
-            auto val = mData->Get( 0, 0, 0 );
+            auto val = *mData->Get( 0, 0, 0 );
 
             if( val == Atomic( 0 ) )
                 assert( false );

@@ -71,13 +71,13 @@ inline  eType  cRawData< LOD, Atomic >::Type()  const
 
 
 template< eLod2N LOD, typename Atomic >
-inline  const  Atomic&  cRawData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
+inline  const  Atomic*  cRawData< LOD, Atomic >::Get( tIndex iX, tIndex iY, tIndex iZ )  const
 {
     auto size = tSize( LOD );
     assert( iX >= 0 && iX < size );
     assert( iY >= 0 && iY < size );
     assert( iZ >= 0 && iZ < size );
-    return  mCore[ iX ][ iY ][ iZ ];
+    return  &mCore[ iX ][ iY ][ iZ ];
 }
 
 
@@ -99,7 +99,7 @@ inline  void  cRawData< LOD, Atomic >::Set( tIndex iX, tIndex iY, tIndex iZ, con
 template< eLod2N LOD, typename Atomic >
 inline  cDataReportAnalysis  cRawData< LOD, Atomic >::AnteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )
 {
-    if( iValue == Get( iX, iY ,iZ ) )
+    if( iValue == *Get( iX, iY ,iZ ) )
         return  cDataReportAnalysis( cDataReportAnalysis::eConversionOperationStatus::kNotRequired,
                                      cDataReportAnalysis::eProcessOperationStatus::kDiscard );
     else

@@ -26,7 +26,7 @@ public:
 
 public:
     // Data Accessors
-    virtual  const  Atomic&  Get( tIndex iX, tIndex iY, tIndex iZ )  const          override;
+    virtual  const  Atomic*  Get( tIndex iX, tIndex iY, tIndex iZ )  const          override;
     virtual  void  Set( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )   override;
 
 public:
