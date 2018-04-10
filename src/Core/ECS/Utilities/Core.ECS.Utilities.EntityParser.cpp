@@ -171,6 +171,13 @@ cEntityParser::GetEntityNameAtIndex( int iIndex ) const
 }
 
 
+cEntity *
+cEntityParser::GetPrototypeByName( const std::string& iName )
+{
+    return  mEntities[ iName ];
+}
+
+
 unsigned int
 cEntityParser::EntityCount() const
 {

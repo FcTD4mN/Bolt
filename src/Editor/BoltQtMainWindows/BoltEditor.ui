@@ -96,10 +96,30 @@
    <extends>QWidget</extends>
    <header>Editor.BoltQtWidgets.EntityProperty.h</header>
    <container>1</container>
+   <slots>
+    <slot>selectedEntityChanged(QModelIndex)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources>
   <include location="../BoltQtResourceFiles/Editor.BoltQtResourceFiles.BoltEditor.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>listView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>entityPropertyWidget</receiver>
+   <slot>selectedEntityChanged(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>446</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>446</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

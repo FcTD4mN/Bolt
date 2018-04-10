@@ -104,6 +104,7 @@ public:
         menuFiles->addAction(actionExit);
 
         retranslateUi(BoltEditorClass);
+        QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), entityPropertyWidget, SLOT(selectedEntityChanged(QModelIndex)));
 
         QMetaObject::connectSlotsByName(BoltEditorClass);
     } // setupUi

@@ -7,6 +7,7 @@
 #include <QtCore/QModelIndex>
 
 namespace nApplication { class cEditorApplication; }
+namespace nECS { class cEntity; }
 
 
 class cEntityProperty :
@@ -21,8 +22,12 @@ public:
     ~cEntityProperty();
     cEntityProperty( QWidget *parent = Q_NULLPTR );
 
+public slots :
+    void selectedEntityChanged( QModelIndex iIndex );
+
 private:
     Ui::EntityProperty ui;
+    ::nECS::cEntity* mEntity;
 };
 
 

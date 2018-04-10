@@ -39,8 +39,9 @@ public:
     cEntity* CreateEntityFromPrototypeMap( const std::string& iEntityName );
 
 public:
-    // Accessors
+    // Accessors--EDITOR mainly
     const std::string& GetEntityNameAtIndex( int iIndex ) const;
+    cEntity*    GetPrototypeByName( const std::string& iName );
     unsigned int EntityCount() const;
 
 private:

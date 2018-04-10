@@ -17,7 +17,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QTreeView>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -31,7 +31,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *labelEntityName;
     QLineEdit *editEntityName;
-    QTreeView *treeView;
+    QTreeWidget *treeWidget;
 
     void setupUi(QWidget *EntityProperty)
     {
@@ -57,10 +57,13 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        treeView = new QTreeView(EntityProperty);
-        treeView->setObjectName(QStringLiteral("treeView"));
+        treeWidget = new QTreeWidget(EntityProperty);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(0, QStringLiteral("1"));
+        treeWidget->setHeaderItem(__qtreewidgetitem);
+        treeWidget->setObjectName(QStringLiteral("treeWidget"));
 
-        verticalLayout->addWidget(treeView);
+        verticalLayout->addWidget(treeWidget);
 
 
         verticalLayout_2->addLayout(verticalLayout);
