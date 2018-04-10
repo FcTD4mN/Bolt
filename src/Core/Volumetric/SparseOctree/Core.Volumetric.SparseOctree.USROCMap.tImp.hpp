@@ -142,7 +142,6 @@ cUSROCMap< LOD, Micro, Atomic>::RenderOctDebug()
         glTranslatef( key.GetX() * sizef, key.GetY() * sizef, key.GetZ() * sizef );
         chunk->RenderOctDebug();
         glPopMatrix();
-
     }
 }
 

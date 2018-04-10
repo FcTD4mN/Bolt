@@ -14,8 +14,8 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
-template< eLod2N LOD, typename Atomic >
-class  cROMSChunk;
+template< eLod2N ParentLOD, eLod2N LOD, typename Atomic >
+class  cNodeROMSChunk;
 
 
 template< eLod2N LOD, typename Atomic >
@@ -66,7 +66,7 @@ private:
 
 private:
     // Private Member Data
-    cROMSChunk< HALVED( LOD ), Atomic >*  mOct[8];
+    cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >*  mOct[8];
 
 };
 

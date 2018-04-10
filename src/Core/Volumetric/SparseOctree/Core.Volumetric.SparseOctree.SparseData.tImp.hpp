@@ -1,3 +1,4 @@
+#include "Core.Volumetric.SparseOctree.NodeROMSChunk.h"
 #include "Core.Volumetric.SparseOctree.SparseData.h"
 
 
@@ -30,14 +31,14 @@ template< eLod2N LOD, typename Atomic >
 inline  cSparseData< LOD, Atomic >::cSparseData( const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
     cData< LOD, Atomic >( iROMSConfig )
 {
-    mOct[0] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
-    mOct[1] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
-    mOct[2] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
-    mOct[3] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
-    mOct[4] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
-    mOct[5] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
-    mOct[6] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
-    mOct[7] = new  cROMSChunk< HALVED( LOD ), Atomic >( iROMSConfig, iDataStartType, iStartValue );
+    mOct[0] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
+    mOct[1] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
+    mOct[2] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
+    mOct[3] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
+    mOct[4] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
+    mOct[5] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
+    mOct[6] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
+    mOct[7] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
 }
 
 
@@ -206,9 +207,14 @@ inline  glm::vec3  cSparseData< LOD, Atomic >::OctKeyForCoord( tIndex iX, tIndex
     assert( iY >= 0.f && iY < sizef );
     assert( iZ >= 0.f && iZ < sizef );
 
+    //#pragma warning( push )
+    //#pragma warning( default : 4723)
+
     float x = roundf( iX / sizef );
     float y = roundf( iY / sizef );
     float z = roundf( iZ / sizef );
+
+    //#pragma warning( pop )
 
     assert( x == 0.f || x == 1.f );
     assert( y == 0.f || y == 1.f );
