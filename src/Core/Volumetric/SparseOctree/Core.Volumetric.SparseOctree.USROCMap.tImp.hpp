@@ -107,7 +107,7 @@ cUSROCMap< LOD, Micro, Atomic>::MkChunk(const cHashable3DKey & iKey)
     if( ChunkExists( iKey ) )
         return  ChunkAtKey( iKey );
 
-    cROMSChunk< LOD, Atomic >*  chunk = new  cROMSChunk< LOD, Atomic >( &mROMSConfig, eType::kEmpty, Atomic( 0 ) );
+    cRootROMSChunk< LOD, Micro, Atomic >*  chunk = new  cRootROMSChunk< LOD, Micro, Atomic >( this, &mROMSConfig, eType::kEmpty, Atomic( 0 ) );
     mChunks.emplace( iKey.HashedSignature(), chunk );
     return  chunk;
 }

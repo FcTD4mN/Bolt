@@ -6,7 +6,7 @@
 
 #include "Core.Volumetric.SparseOctree.Types.h"
 #include "Core.Volumetric.SparseOctree.Hashable3DKey.h"
-#include "Core.Volumetric.SparseOctree.ROMSChunk.h"
+#include "Core.Volumetric.SparseOctree.RootROMSChunk.h"
 #include "Core.Volumetric.SparseOctree.ROMSConfig.h"
 
 
@@ -47,7 +47,7 @@ public:
 private:
     // Private Member Data
     cROMSConfig  mROMSConfig; // Owning
-    std::unordered_map< tHashableKeySignature, cROMSChunk< LOD, Atomic >* >  mChunks; // Owning
+    std::unordered_map< tHashableKeySignature, cRootROMSChunk< LOD, Micro, Atomic >* >  mChunks; // Owning
 
 };
 

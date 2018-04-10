@@ -15,7 +15,7 @@ class  cROMSConfig;
 
 
 template< eLod2N LOD, typename Atomic >
-class  cROMSChunk final :
+class  cROMSChunk :
     public cDataConverterProtocol
 {
 

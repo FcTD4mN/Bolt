@@ -12,8 +12,8 @@ namespace  nSparseOctree    {
 //------------------------------------------------------------------- Construction / Destruction
 
 
-template<eLod2N LOD,typename Atomic>
-inline  cROMSChunk<LOD,Atomic>::~cROMSChunk()
+template< eLod2N LOD, typename Atomic >
+inline  cROMSChunk< LOD, Atomic >::~cROMSChunk()
 {
     delete  mData; // Owning
     mROMSConfig = 0; // Non-Owning
