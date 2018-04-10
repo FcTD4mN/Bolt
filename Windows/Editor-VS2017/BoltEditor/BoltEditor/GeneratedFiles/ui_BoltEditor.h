@@ -19,7 +19,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -38,7 +37,6 @@ public:
     MyCanvas *widget;
     QVBoxLayout *verticalLayout;
     QListView *listView;
-    QSpacerItem *verticalSpacer;
     cEntityProperty *entityPropertyWidget;
     QMenuBar *menuBar;
     QMenu *menuFiles;
@@ -60,6 +58,11 @@ public:
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         widget = new MyCanvas(centralWidget);
         widget->setObjectName(QStringLiteral("widget"));
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy);
 
         horizontalLayout_2->addWidget(widget);
 
@@ -68,20 +71,15 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         listView = new QListView(centralWidget);
         listView->setObjectName(QStringLiteral("listView"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
         listView->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(listView);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
-
         entityPropertyWidget = new cEntityProperty(centralWidget);
         entityPropertyWidget->setObjectName(QStringLiteral("entityPropertyWidget"));
+        sizePolicy.setHeightForWidth(entityPropertyWidget->sizePolicy().hasHeightForWidth());
+        entityPropertyWidget->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(entityPropertyWidget);
 

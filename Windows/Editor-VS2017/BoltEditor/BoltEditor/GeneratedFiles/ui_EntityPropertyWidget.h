@@ -37,7 +37,7 @@ public:
     {
         if (EntityProperty->objectName().isEmpty())
             EntityProperty->setObjectName(QStringLiteral("EntityProperty"));
-        EntityProperty->resize(400, 290);
+        EntityProperty->resize(283, 199);
         verticalLayout_2 = new QVBoxLayout(EntityProperty);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout = new QVBoxLayout();
