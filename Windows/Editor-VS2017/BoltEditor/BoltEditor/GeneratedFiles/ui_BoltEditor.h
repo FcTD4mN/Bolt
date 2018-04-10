@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'Editor.BoltQtUIFiles.BoltEditor.ui'
+** Form generated from reading UI file 'BoltEditor.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.10.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_EDITOR_HD
-#define UI_EDITOR_HD
+#ifndef UI_BOLTEDITOR_H
+#define UI_BOLTEDITOR_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -19,6 +19,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -37,6 +38,7 @@ public:
     MyCanvas *widget;
     QVBoxLayout *verticalLayout;
     QListView *listView;
+    QSpacerItem *verticalSpacer;
     cEntityProperty *entityPropertyWidget;
     QMenuBar *menuBar;
     QMenu *menuFiles;
@@ -66,13 +68,17 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         listView = new QListView(centralWidget);
         listView->setObjectName(QStringLiteral("listView"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
         listView->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(listView);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
 
         entityPropertyWidget = new cEntityProperty(centralWidget);
         entityPropertyWidget->setObjectName(QStringLiteral("entityPropertyWidget"));
@@ -119,4 +125,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_EDITOR_H
+#endif // UI_BOLTEDITOR_H

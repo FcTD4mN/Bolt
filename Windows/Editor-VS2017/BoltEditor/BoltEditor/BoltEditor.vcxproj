@@ -11,10 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="..\..\..\..\src\Editor\BoltQtUIFiles\Editor.BoltQtUIFiles.BoltEditor.ui" />
-    <QtUic Include="..\..\..\..\src\Editor\BoltQtUIFiles\Editor.BoltQtUIFiles.EntityPropertyWidget.ui" />
-  </ItemGroup>
-  <ItemGroup>
     <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +123,10 @@
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtMainWindows\BoltEditor.ui" />
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\EntityPropertyWidget.ui" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>

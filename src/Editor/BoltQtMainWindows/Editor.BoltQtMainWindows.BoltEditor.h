@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "ui_Editor.BoltQtUIFiles.BoltEditor.h"
+#include "ui_BoltEditor.h"
 
 namespace  nApplication { class cEditorApplication; }
 namespace  nQt { namespace  nModels { class cEntityListModel; } }

@@ -2,7 +2,7 @@
 
 #include "Editor.BoltQtWidgets.QSFMLCanvas.h"
 
-#include "ui_Editor.BoltQtUIFiles.EntityPropertyWidget.h"
+#include "ui_EntityPropertyWidget.h"
 
 #include <QtCore/QModelIndex>
 

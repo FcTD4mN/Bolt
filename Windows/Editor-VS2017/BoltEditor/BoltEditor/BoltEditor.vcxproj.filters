@@ -19,9 +19,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{a2681645-1477-4577-82fd-e7eb2c455950}</UniqueIdentifier>
     </Filter>
-    <Filter Include="QtUIFiles">
-      <UniqueIdentifier>{542003fd-2c55-42fb-abd9-e460ade8e6b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Editor">
       <UniqueIdentifier>{3362eaa8-1b5d-4f15-ab72-aeb6969143aa}</UniqueIdentifier>
     </Filter>
@@ -88,14 +85,6 @@
     <Filter Include="src\Core\ECS\Mapping">
       <UniqueIdentifier>{e29f129d-143f-487a-8153-1365e47739f7}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="..\..\..\..\src\Editor\BoltQtUIFiles\Editor.BoltQtUIFiles.BoltEditor.ui">
-      <Filter>QtUIFiles</Filter>
-    </QtUic>
-    <QtUic Include="..\..\..\..\src\Editor\BoltQtUIFiles\Editor.BoltQtUIFiles.EntityPropertyWidget.ui">
-      <Filter>QtUIFiles</Filter>
-    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc">
@@ -428,5 +417,13 @@
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\EntityPropertyWidget.ui">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
+    </QtUic>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtMainWindows\BoltEditor.ui">
+      <Filter>src\Editor\BoltQtMainWindows</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>
