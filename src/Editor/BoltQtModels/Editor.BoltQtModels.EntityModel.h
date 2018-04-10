@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QtCore/QAbstractTableModel>
 
 namespace  nECS { class cEntity; }

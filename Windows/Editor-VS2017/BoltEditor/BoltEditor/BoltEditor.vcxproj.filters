@@ -93,6 +93,9 @@
     <QtUic Include="..\..\..\..\src\Editor\BoltQtUIFiles\Editor.BoltQtUIFiles.BoltEditor.ui">
       <Filter>QtUIFiles</Filter>
     </QtUic>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtUIFiles\Editor.BoltQtUIFiles.EntityPropertyWidget.ui">
+      <Filter>QtUIFiles</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc">
@@ -259,6 +262,9 @@
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.ScreenEntityMap.cpp">
       <Filter>src\Core\ECS\Mapping</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.cpp">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -418,6 +424,9 @@
     </QtMoc>
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.h">
       <Filter>src\Editor\BoltQtModels</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.h">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

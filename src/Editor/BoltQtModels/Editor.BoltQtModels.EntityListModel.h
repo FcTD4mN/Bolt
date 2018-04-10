@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QtCore/QAbstractListModel>
 
 namespace  nECS { class cEntityParser; }

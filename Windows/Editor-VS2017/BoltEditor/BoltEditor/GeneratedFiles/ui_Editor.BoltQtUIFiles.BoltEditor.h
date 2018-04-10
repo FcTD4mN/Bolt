@@ -6,8 +6,8 @@
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_EDITOR_H
-#define UI_EDITOR_H
+#ifndef UI_EDITOR_HD
+#define UI_EDITOR_HD
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -23,7 +23,8 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "BoltQtWidgets/Editor.BoltQtWidgets.TestCanvas.h"
+#include "Editor.BoltQtWidgets.EntityProperty.h"
+#include "Editor.BoltQtWidgets.TestCanvas.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -36,6 +37,7 @@ public:
     MyCanvas *widget;
     QVBoxLayout *verticalLayout;
     QListView *listView;
+    cEntityProperty *entityPropertyWidget;
     QMenuBar *menuBar;
     QMenu *menuFiles;
     QToolBar *mainToolBar;
@@ -71,6 +73,11 @@ public:
         listView->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(listView);
+
+        entityPropertyWidget = new cEntityProperty(centralWidget);
+        entityPropertyWidget->setObjectName(QStringLiteral("entityPropertyWidget"));
+
+        verticalLayout->addWidget(entityPropertyWidget);
 
 
         horizontalLayout_2->addLayout(verticalLayout);

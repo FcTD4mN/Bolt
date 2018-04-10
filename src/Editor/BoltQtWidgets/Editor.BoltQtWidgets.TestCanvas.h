@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Editor.BoltQtWidgets.QSFMLCanvas.h"
 
 #include <QtCore/QModelIndex>
