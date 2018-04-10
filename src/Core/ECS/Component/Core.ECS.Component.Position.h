@@ -39,5 +39,25 @@ public:
 };
 
 
+class cGPosition :
+    public cComponentGeneric
+{
+public:
+    typedef  cComponentGeneric  tSuperClass;
+
+public:
+    virtual  ~cGPosition();
+    cGPosition();
+    cGPosition( float iX, float iY );
+    cGPosition( const sf::Vector2f& iVector );
+    cGPosition( const cGPosition& iPosition );
+
+public:
+    // Copy
+    virtual  cComponentGeneric* Clone();
+
+};
+
+
 } // namespace nECS
 

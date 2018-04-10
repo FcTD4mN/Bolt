@@ -68,13 +68,13 @@ cComponentGeneric::~cComponentGeneric()
 
 
 cComponentGeneric::cComponentGeneric( const std::string& iName ) :
-    mName( iName )
+    tSuperClass( iName )
 {
 }
 
 
 cComponentGeneric::cComponentGeneric( const cComponentGeneric & iComponent ) :
-    mName( iComponent.mName )
+    tSuperClass( iComponent.mName )
 {
 }
 
@@ -82,13 +82,6 @@ cComponentGeneric::cComponentGeneric( const cComponentGeneric & iComponent ) :
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------- Access/Get
 // -------------------------------------------------------------------------------------
-
-
-const std::string&
-cComponentGeneric::Name() const
-{
-    return  mName;
-}
 
 
 const ::nBase::cVariant&
@@ -105,6 +98,35 @@ cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant& iValu
 }
 
 
+int
+cComponentGeneric::VarCount() const
+{
+    return  mVars.size();
+}
+
+
+const ::nBase::cVariant&
+cComponentGeneric::GetVarValueAtIndex( int iIndex ) const
+{
+    auto it = mVars.cbegin();
+    for( int i = 0; i < mVars.size(); ++i )
+        ++it;
+
+    return  it->second;
+}
+
+
+const std::string&
+cComponentGeneric::GetVarNameAtIndex( int iIndex ) const
+{
+    auto it = mVars.cbegin();
+    for( int i = 0; i < mVars.size(); ++i )
+        ++it;
+
+    return  it->first;
+}
+
+
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------- Access/Get
 // -------------------------------------------------------------------------------------
@@ -113,7 +135,7 @@ cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant& iValu
 void
 cComponentGeneric::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument )
 {
-    iNode->SetAttribute( "name", mName.c_str() );
+    tSuperClass::SaveXML( iNode, iDocument );
 
     tinyxml2::XMLElement* vars = iDocument->NewElement( "variables" );
     for( auto& var : mVars )
@@ -132,7 +154,7 @@ cComponentGeneric::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument*
 void
 cComponentGeneric::LoadXML( tinyxml2::XMLElement * iNode )
 {
-    mName = iNode->Attribute( "name" );
+    tSuperClass::LoadXML( iNode );
 
     tinyxml2::XMLElement* variables = iNode->FirstChildElement( "variables" );
     for( tinyxml2::XMLElement* variable = variables->FirstChildElement( "variable" ); variable; variable = variable->NextSiblingElement() )

@@ -7,6 +7,7 @@
 #include <tinyxml2.h>
 
 
+#include <functional>
 #include <string>
 #include <unordered_map>
 
@@ -42,8 +43,12 @@ protected:
 };
 
 
-class cComponentGeneric
+class cComponentGeneric :
+    public cComponent
 {
+public:
+    typedef cComponent tSuperClass;
+
 public:
     // Contruction/Destruction
     virtual  ~cComponentGeneric() = 0;
@@ -51,14 +56,14 @@ public:
     cComponentGeneric( const cComponentGeneric& iComponent );
 
 public:
-    // Copy
-    virtual  cComponentGeneric* Clone() = 0;
-
-public:
     // Access/Get
-    const  std::string&  Name() const;
     const ::nBase::cVariant&    GetVar( const std::string& iVarName );
     void                        SetVar( const std::string& iVarName, ::nBase::cVariant& iValue );
+
+    // EDITOR USED methods
+    int     VarCount() const;
+    const ::nBase::cVariant&    GetVarValueAtIndex( int iIndex ) const;
+    const std::string&    GetVarNameAtIndex( int iIndex ) const;
 
 public:
     // Input/Output
@@ -66,7 +71,6 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::string mName;
     std::unordered_map< std::string, ::nBase::cVariant > mVars;
 
 };

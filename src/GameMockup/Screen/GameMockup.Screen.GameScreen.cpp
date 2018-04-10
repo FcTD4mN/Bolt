@@ -48,27 +48,23 @@ cGameScreen::Initialize()
     sf::Vector2u windowSize = window->getSize();
 
     ::nECS::cWorld* world = ::nApplication::cGameApplication::App()->World();
-
-    for( int i = 0; i < 500; ++i )
-    {
-        int posX = rand() % ( windowSize.x - 10 );
-        int posY = rand() % (windowSize.y - 10);
-
-        ::nECS::cEntity* ent = new ::nECS::cEntity( world );
-        ent->AddComponent( new ::nECS::cSize( 2.0F, 2.0F ) );
-        ent->AddComponent( new ::nECS::cColor( 255, 20, 20 ) );
-        ent->AddComponent( new ::nECS::cPosition( float(posX), float(posY) ) );
-        ent->AddComponent( new ::nECS::cSimplePhysic( float( posX ), float( posY ), 2.0F, 2.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
-        world->AddEntity( ent );
-    }
-
     ::nECS::cEntity* ent = new ::nECS::cEntity( world );
-    ent->AddComponent( new ::nECS::cPosition( 400.0F, 300.0F ) );
+
+    ent->AddComponent( new ::nECS::cGPosition( 400.0F, 300.0F ) );
     ent->AddComponent( new ::nECS::cSize( 5.0F, 5.0F ) );
     ent->AddComponent( new ::nECS::cColor( 20,255,20 ) );
     ent->AddComponent( new ::nECS::cUserInput() );
     ent->AddComponent( new ::nECS::cSimplePhysic( 400.0F, 300.0F, 5.0F, 5.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );
+
+
+
+
+
+
+
+
+
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( ::nApplication::cGameApplication::App()->Window()->getSize().x ),
                                                     float( ::nApplication::cGameApplication::App()->Window()->getSize().y ) );
