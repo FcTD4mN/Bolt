@@ -25,8 +25,8 @@ inline  cRawData< LOD, Atomic >::~cRawData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cRawData< LOD, Atomic >::cRawData( const  cROMSConfig*  iROMSConfig, const  Atomic& iFillValue ) :
-    cData< LOD, Atomic >( iROMSConfig ),
+inline  cRawData< LOD, Atomic >::cRawData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig, const  Atomic& iFillValue ) :
+    cData< LOD, Atomic >( iParent, iROMSConfig ),
     mOccupiedVolume( 0 )
 {
     mCore = new  Atomic**[ LOD ];

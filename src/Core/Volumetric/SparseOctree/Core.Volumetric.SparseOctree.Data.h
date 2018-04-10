@@ -68,13 +68,17 @@ struct  cDataReportAnalysis
 
 
 template< eLod2N LOD, typename Atomic >
+class  cROMSChunk;
+
+
+template< eLod2N LOD, typename Atomic >
 class  cData
 {
 
 public:
     // Construction / Destruction
     virtual  ~cData();
-    cData( const  cROMSConfig*  iROMSConfig );
+    cData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig );
     cData( const  cData& ) = delete;
 
 public:
@@ -109,6 +113,7 @@ private:
     // Private Member Data
     const  tVolume  mCapacity  = ( LOD * LOD * LOD );
     const  cROMSConfig*  mROMSConfig; // Non-Owning
+    cROMSChunk< LOD, Atomic >*  mParent; // Non-Owning
 
 };
 

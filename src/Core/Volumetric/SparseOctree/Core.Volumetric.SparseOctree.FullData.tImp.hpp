@@ -17,8 +17,8 @@ inline  cFullData< LOD, Atomic >::~cFullData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cFullData< LOD, Atomic >::cFullData( const  cROMSConfig*  iROMSConfig, const  Atomic& iValue ) :
-    cData< LOD, Atomic >( iROMSConfig ),
+inline  cFullData< LOD, Atomic >::cFullData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig, const  Atomic& iValue ) :
+    cData< LOD, Atomic >( iParent, iROMSConfig ),
     mValue( iValue )
 {
 }

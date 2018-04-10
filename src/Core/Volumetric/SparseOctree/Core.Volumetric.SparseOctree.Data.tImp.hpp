@@ -18,12 +18,14 @@ template<eLod2N LOD,typename Atomic>
 inline cData<LOD,Atomic>::~cData()
 {
     mROMSConfig = 0; // Non-Owning
+    mParent = 0; // Non-Owning
 }
 
 
 template<eLod2N LOD,typename Atomic>
-inline cData<LOD,Atomic>::cData( const cROMSConfig * iROMSConfig ) :
-    mROMSConfig( iROMSConfig ) // Non-Owning
+inline cData<LOD,Atomic>::cData( cROMSChunk< LOD, Atomic >*  iParent, const cROMSConfig * iROMSConfig ) :
+    mROMSConfig( iROMSConfig ), // Non-Owning
+    mParent( iParent ) // Non-Owning
 {
 }
 

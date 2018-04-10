@@ -30,11 +30,11 @@ inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig,
     switch( iDataStartType )
     {
         case eType::kEmpty:
-            mData = new  cEmptyData< LOD, Atomic >( mROMSConfig );
+            mData = new  cEmptyData< LOD, Atomic >( this, mROMSConfig );
             break;
 
         case eType::kFull:
-            mData = new  cFullData< LOD, Atomic >( mROMSConfig, iStartValue );
+            mData = new  cFullData< LOD, Atomic >( this, mROMSConfig, iStartValue );
             break;
 
         case eType::kSparse:
@@ -42,7 +42,7 @@ inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig,
             break;
 
         case eType::kRaw:
-            mData = new  cFullData< LOD, Atomic >( mROMSConfig, iStartValue );
+            mData = new  cFullData< LOD, Atomic >( this, mROMSConfig, iStartValue );
             break;
 
         case eType::kRLE:
@@ -98,7 +98,7 @@ template< eLod2N LOD, typename Atomic >
 inline  void  cROMSChunk< LOD, Atomic >::ConvertToEmpty( const  cDataReportAnalysis&  iDataReportAnalysis )
 {
     delete  mData;
-    mData = new  cEmptyData< LOD, Atomic >( mROMSConfig );
+    mData = new  cEmptyData< LOD, Atomic >( this, mROMSConfig );
 }
 
 
@@ -111,7 +111,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToFull( const  cDataReportAnalys
         assert( false );
 
     delete  mData;
-    mData = new  cFullData< LOD, Atomic >( mROMSConfig, val );
+    mData = new  cFullData< LOD, Atomic >( this, mROMSConfig, val );
 }
 
 
@@ -124,7 +124,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToSparse( const  cDataReportAnal
         case eType::kEmpty:
         {
             delete  mData;
-            mData = new  cSparseData< LOD, Atomic >( mROMSConfig, eType::kEmpty );
+            mData = new  cSparseData< LOD, Atomic >( this, mROMSConfig, eType::kEmpty );
             break;
         }
 
@@ -136,7 +136,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToSparse( const  cDataReportAnal
                 assert( false );
 
             delete  mData;
-            mData = new  cSparseData< LOD, Atomic >( mROMSConfig, eType::kFull, val );
+            mData = new  cSparseData< LOD, Atomic >( this, mROMSConfig, eType::kFull, val );
             break;
         }
 
@@ -156,7 +156,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToRaw( const  cDataReportAnalysi
     {
         case eType::kEmpty:
         {
-            mData = new  cRawData< LOD, Atomic >( mROMSConfig, Atomic( 0 ) );
+            mData = new  cRawData< LOD, Atomic >( this, mROMSConfig, Atomic( 0 ) );
             break;
         }
 
@@ -166,7 +166,7 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToRaw( const  cDataReportAnalysi
 
             if( val == Atomic( 0 ) )
                 assert( false );
-            mData = new  cRawData< LOD, Atomic >( mROMSConfig, val );
+            mData = new  cRawData< LOD, Atomic >( this, mROMSConfig, val );
             break;
         }
 

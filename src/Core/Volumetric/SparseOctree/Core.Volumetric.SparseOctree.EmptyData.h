@@ -16,7 +16,7 @@ class  cEmptyData final :
 public:
     // Construction / Destruction
     virtual  ~cEmptyData();
-    cEmptyData( const  cROMSConfig*  iROMSConfig );
+    cEmptyData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig );
     cEmptyData( const  cEmptyData& ) = delete;
 
 public:

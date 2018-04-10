@@ -28,8 +28,8 @@ inline  cSparseData< LOD, Atomic >::~cSparseData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cSparseData< LOD, Atomic >::cSparseData( const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
-    cData< LOD, Atomic >( iROMSConfig )
+inline  cSparseData< LOD, Atomic >::cSparseData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
+    cData< LOD, Atomic >( iParent, iROMSConfig )
 {
     mOct[0] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );
     mOct[1] = new  cNodeROMSChunk< LOD, HALVED( LOD ), Atomic >( this, iROMSConfig, iDataStartType, iStartValue );

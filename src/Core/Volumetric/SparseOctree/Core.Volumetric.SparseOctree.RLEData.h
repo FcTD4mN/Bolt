@@ -16,7 +16,7 @@ class  cRLEData final :
 public:
     // Construction / Destruction
     virtual  ~cRLEData();
-    cRLEData( const  cROMSConfig*  iROMSConfig );
+    cRLEData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig );
     cRLEData( const  cRLEData& ) = delete;
 
 public:

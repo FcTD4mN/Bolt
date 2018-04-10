@@ -16,7 +16,7 @@ class  cRawData final :
 public:
     // Construction / Destruction
     virtual  ~cRawData();
-    cRawData( const  cROMSConfig*  iROMSConfig, const  Atomic& iFillValue );
+    cRawData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig, const  Atomic& iFillValue );
     cRawData( const  cRawData& ) = delete;
 
 public:

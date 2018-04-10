@@ -16,8 +16,8 @@ inline  cRLEData< LOD, Atomic >::~cRLEData()
 
 
 template< eLod2N LOD, typename Atomic >
-inline  cRLEData< LOD, Atomic >::cRLEData( const  cROMSConfig*  iROMSConfig ) :
-    cData( iROMSConfig )
+inline  cRLEData< LOD, Atomic >::cRLEData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig ) :
+    cData< LOD, Atomic >( iParent, iROMSConfig )
 {
 }
 

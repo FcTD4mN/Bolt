@@ -26,7 +26,7 @@ class  cSparseData final :
 public:
     // Construction / Destruction
     virtual  ~cSparseData();
-    cSparseData( const  cROMSConfig*  iROMSConfig, eType iDataStartType = eType::kEmpty, const  Atomic& iStartValue = Atomic( 0 ) );
+    cSparseData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig, eType iDataStartType = eType::kEmpty, const  Atomic& iStartValue = Atomic( 0 ) );
     cSparseData( const  cSparseData& ) = delete;
 
 public:

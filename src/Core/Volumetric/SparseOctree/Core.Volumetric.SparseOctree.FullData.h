@@ -16,7 +16,7 @@ class  cFullData final :
 public:
     // Construction / Destruction
     virtual  ~cFullData();
-    cFullData( const  cROMSConfig*  iROMSConfig, const  Atomic& iValue );
+    cFullData( cROMSChunk< LOD, Atomic >*  iParent, const  cROMSConfig*  iROMSConfig, const  Atomic& iValue );
     cFullData( const  cFullData& ) = delete;
 
 public:
