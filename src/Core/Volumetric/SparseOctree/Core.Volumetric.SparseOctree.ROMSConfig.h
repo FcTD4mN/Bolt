@@ -14,8 +14,8 @@ class  cROMSConfig final
 public:
     // Construction / Destruction
     virtual  ~cROMSConfig();
-    cROMSConfig();
     cROMSConfig(  const  eLod2N&  iMacroscopicLODGranularity,
+                  const  eLod2N&  iVBO_LODGranularity,
                   const  eLod2N&  iMicroscopicLODGranularity,
                   const  tLargeByteSize&  iGPU_BUS_MAX );
 
@@ -32,6 +32,7 @@ public:
 private:
     // Private Member Data
     eLod2N  mMacroscopicLODGranularity;
+    eLod2N  mVBO_LODGranularity;
     eLod2N  mMicroscopicLODGranularity;
     tLargeByteSize  mGPU_BUS_MAX;
 

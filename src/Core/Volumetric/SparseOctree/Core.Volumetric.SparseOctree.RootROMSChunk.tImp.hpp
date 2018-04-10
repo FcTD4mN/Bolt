@@ -12,15 +12,15 @@ namespace  nSparseOctree    {
 //------------------------------------------------------------------- Construction / Destruction
 
 
-template< eLod2N LOD, eLod2N Micro, typename Atomic >
-inline  cRootROMSChunk< LOD, Micro, Atomic >::~cRootROMSChunk()
+template< eLod2N Macro, eLod2N VBO, eLod2N Micro, typename Atomic >
+inline  cRootROMSChunk< Macro, VBO, Micro, Atomic >::~cRootROMSChunk()
 {
 }
 
 
-template< eLod2N LOD, eLod2N Micro, typename Atomic >
-inline  cRootROMSChunk< LOD, Micro, Atomic >::cRootROMSChunk( cUSROCMap< LOD, Micro, Atomic >* iParent, const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
-    cROMSChunk< LOD, Atomic >( iROMSConfig, iDataStartType, iStartValue ),
+template< eLod2N Macro, eLod2N VBO, eLod2N Micro, typename Atomic >
+inline  cRootROMSChunk< Macro, VBO, Micro, Atomic >::cRootROMSChunk( cUSROCMap< Macro, VBO, Micro, Atomic >* iParent, const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
+    cROMSChunk< Macro, Atomic >( iROMSConfig, iDataStartType, iStartValue ),
     mParent( iParent )
 {
 }

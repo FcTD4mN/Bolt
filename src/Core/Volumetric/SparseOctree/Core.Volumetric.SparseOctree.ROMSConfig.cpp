@@ -12,19 +12,12 @@ cROMSConfig::~cROMSConfig()
 }
 
 
-cROMSConfig::cROMSConfig() :
-    mMacroscopicLODGranularity( eLod2N::kLod64 ),
-    mMicroscopicLODGranularity( eLod2N::kLod8 ),
-    mGPU_BUS_MAX( sgGPU_BUS_MAX )
-{
-    assert( mMacroscopicLODGranularity > mMicroscopicLODGranularity );
-}
-
-
 cROMSConfig::cROMSConfig( const  eLod2N&  iMacroscopicLODGranularity,
+                          const  eLod2N&  iVBO_LODGranularity,
                           const  eLod2N&  iMicroscopicLODGranularity,
                           const  tLargeByteSize&  iGPU_BUS_MAX ) :
     mMacroscopicLODGranularity( iMacroscopicLODGranularity ),
+    mVBO_LODGranularity( iVBO_LODGranularity ),
     mMicroscopicLODGranularity( iMicroscopicLODGranularity ),
     mGPU_BUS_MAX( iGPU_BUS_MAX )
 {

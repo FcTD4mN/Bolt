@@ -14,7 +14,7 @@ namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
 
-template< eLod2N LOD, eLod2N Micro, typename Atomic >
+template< eLod2N Macro, eLod2N VBO, eLod2N Micro, typename Atomic >
 class  cUSROCMap final
 {
 
@@ -33,12 +33,12 @@ public:
 private:
     // Sparse Volume Information
     cHashable3DKey      KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ )  const;
-    bool                ChunkExists( const  cHashable3DKey&  iKey )                                     const;
-    cROMSChunk< LOD, Atomic >*  ChunkAtKey( const  cHashable3DKey&  iKey )                              const;
+    bool                ChunkExists( const  cHashable3DKey&  iKey )  const;
+    cROMSChunk< Macro, Atomic >*  ChunkAtKey( const  cHashable3DKey&  iKey )  const;
 
 private:
     // Chunk Manipulation
-    cROMSChunk< LOD, Atomic >*  MkChunk( const  cHashable3DKey&  iKey );
+    cROMSChunk< Macro, Atomic >*  MkChunk( const  cHashable3DKey&  iKey );
     void  RmChunk( const  cHashable3DKey&  iKey );
 
 public:
@@ -46,8 +46,8 @@ public:
 
 private:
     // Private Member Data
-    cROMSConfig  mROMSConfig; // Owning
-    std::unordered_map< tHashableKeySignature, cRootROMSChunk< LOD, Micro, Atomic >* >  mChunks; // Owning
+    const  cROMSConfig  mROMSConfig; // Owning
+    std::unordered_map< tHashableKeySignature, cRootROMSChunk< Macro, VBO, Micro, Atomic >* >  mChunks; // Owning
 
 };
 

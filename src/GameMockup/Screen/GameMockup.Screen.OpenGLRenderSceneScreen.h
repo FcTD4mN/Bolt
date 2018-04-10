@@ -56,8 +56,11 @@ private:
     sf::Clock  mClock;
     ::nShaders::cShader mShader;
 
-    ::nVolumetric::nSparseOctree::cUSROCMap< ::nVolumetric::nSparseOctree::eLod2N::kLod512, ::nVolumetric::nSparseOctree::eLod2N::kLod16, ::nVolumetric::nSparseOctree::tByte > mMap2;
-
+    ::nVolumetric::nSparseOctree::cUSROCMap< ::nVolumetric::nSparseOctree::eLod2N::kLod512,
+                                             ::nVolumetric::nSparseOctree::eLod2N::kLod64,
+                                             ::nVolumetric::nSparseOctree::eLod2N::kLod16,
+                                             ::nVolumetric::nSparseOctree::tByte >
+                                             mMap2;
 };
 
 
