@@ -18,6 +18,12 @@ cNumber::cNumber( double iValue ) :
 }
 
 
+cNumber::cNumber( const cNumber& iRHS ) :
+    tSuperClass( iRHS )
+{
+}
+
+
 // ==============================================================================================================
 // =============================================================================================== Input / Output
 // ==============================================================================================================
@@ -50,6 +56,12 @@ cString::~cString()
 
 cString::cString( const std::string & iValue ) :
     tSuperClass( iValue )
+{
+}
+
+
+cString::cString( const cString& iRHS ) :
+    tSuperClass( iRHS )
 {
 }
 
@@ -115,6 +127,20 @@ cVariant::cVariant( eType iType ) :
             printf( "Invalid variant type\n" );
             break;
     }
+}
+
+
+cVariant::cVariant( const cNumber & iValue ) :
+    mType( kNumber )
+{
+    mValue.mNumber = iValue;
+}
+
+
+cVariant::cVariant( const cString & iValue ) :
+    mType( kString )
+{
+    mValue.mString = iValue;
 }
 
 

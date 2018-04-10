@@ -21,6 +21,7 @@ class cPrimitiveType
 public:
     ~cPrimitiveType();
     cPrimitiveType( T iValue );
+    cPrimitiveType( const cPrimitiveType& iRHS );
 
 public:
     T       GetValue() const;
@@ -47,6 +48,13 @@ cPrimitiveType< T >::~cPrimitiveType()
 template< typename T >
 cPrimitiveType< T >::cPrimitiveType( T iValue ) :
     mValue( iValue )
+{
+}
+
+
+template< typename T >
+cPrimitiveType< T >::cPrimitiveType( const cPrimitiveType& iRHS ) :
+    mValue( iRHS.mValue )
 {
 }
 
@@ -96,6 +104,7 @@ public:
 public:
     ~cNumber();
     cNumber( double iValue );
+    cNumber( const cNumber& iRHS );
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
@@ -116,6 +125,7 @@ public:
 public:
     ~cString();
     cString( const std::string& iValue );
+    cString( const cString& iRHS );
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
@@ -138,14 +148,13 @@ public:
         // Constructor/Destructor
         ~uAllTypes() {};
         uAllTypes(){};
+        uAllTypes( const uAllTypes & iRHS) : mNumber( iRHS.mNumber) {};
 
         uAllTypes& operator= ( const uAllTypes& iRHS )
         {
             if( this != &iRHS )
-            {
                 mNumber = iRHS.mNumber;
-                mString = iRHS.mString;
-            }
+
             return  *this;
         }
 
@@ -158,6 +167,8 @@ public:
     ~cVariant();
     cVariant();
     cVariant( eType iType );
+    cVariant( const cNumber& iValue );
+    cVariant( const cString& iValue );
 
 public:
     eType       Type();
