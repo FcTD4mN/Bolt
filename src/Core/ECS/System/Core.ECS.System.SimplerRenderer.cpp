@@ -63,16 +63,10 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
         cEntity* entity = mEntityGroup[ i ];
 
         auto position   = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
-        auto gPosition   = dynamic_cast< cGPosition* >( entity->GetComponentByName( "position" ) );
         auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
         auto color      = dynamic_cast< cColor* >( entity->GetComponentByName( "color" ) );
 
-        sf::Vector2f positionVector;
-        if( position )
-            positionVector = position->mPosition;
-        else if( gPosition )
-            positionVector = sf::Vector2f( gPosition->GetVar( "x" )->GetValueNumber(), gPosition->GetVar( "y" )->GetValueNumber() );
-
+        sf::Vector2f positionVector( position->X(), position->Y() );
 
         rect.setSize( size->mSize );
         rect.setPosition( positionVector );

@@ -12,10 +12,10 @@ namespace nECS {
 
 
 class cPosition :
-    public cComponent
+    public cComponentGeneric
 {
 public:
-    typedef  cComponent  tSuperClass;
+    typedef  cComponentGeneric  tSuperClass;
 
 public:
     virtual  ~cPosition();
@@ -25,37 +25,12 @@ public:
     cPosition( const cPosition& iPosition );
 
 public:
-    // Copy
-    virtual  cComponent* Clone();
+    // Access / Set
+    double X();
+    double Y();
 
-public:
-    // Input/Output
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
-
-public:
-    sf::Vector2f  mPosition;
-
-};
-
-
-class cGPosition :
-    public cComponentGeneric
-{
-public:
-    typedef  cComponentGeneric  tSuperClass;
-
-public:
-    virtual  ~cGPosition();
-    cGPosition();
-    cGPosition( float iX, float iY );
-    cGPosition( const sf::Vector2f& iVector );
-    cGPosition( const cGPosition& iPosition );
-
-public:
-    // Copy
-    virtual  cComponentGeneric* Clone();
-
+    void X( double iX );
+    void Y( double iY );
 };
 
 

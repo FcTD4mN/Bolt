@@ -126,7 +126,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         sf::VertexArray subFov;
 
         // Important points of main FOV
-        sf::Vector2f fovOrigin = position->mPosition; // Base point of the triangle
+        sf::Vector2f fovOrigin( position->X(), position->Y() ); // Base point of the triangle
         sf::Vector2f fovB;
 
         // Get FOV triangles
@@ -173,13 +173,15 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 continue;
 
             auto positionENT = dynamic_cast<cPosition*>( v->GetComponentByName( "position" ) );
+            sf::Vector2f entPosVec( positionENT->X(), positionENT->Y() );
+
             auto sizeENT = dynamic_cast<cSize*>( v->GetComponentByName( "size" ) );
 
             sf::VertexArray analysisVisibleBox( sf::Points, 4 );
-            analysisVisibleBox[ 0 ] = positionENT->mPosition;
-            analysisVisibleBox[ 1 ] = positionENT->mPosition + sf::Vector2f( 0.0F, sizeENT->mSize.y );
-            analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
-            analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
+            analysisVisibleBox[ 0 ] = entPosVec;
+            analysisVisibleBox[ 1 ] = entPosVec + sf::Vector2f( 0.0F, sizeENT->mSize.y );
+            analysisVisibleBox[ 2 ] = entPosVec + sizeENT->mSize;
+            analysisVisibleBox[ 3 ] = entPosVec + sf::Vector2f( sizeENT->mSize.x, 0.0F );
 
             mAllPolygonsInFOV.push_back( analysisVisibleBox );
         }

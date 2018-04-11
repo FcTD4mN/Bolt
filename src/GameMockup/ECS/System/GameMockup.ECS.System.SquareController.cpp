@@ -124,9 +124,10 @@ cSquareController::Update( unsigned int iDeltaTime )
                 cEntity* bullet = cEntityParser::Instance()->CreateEntityFromPrototypeMap( "bullet" );
                 float x = simplephysic->mHitBox.left + simplephysic->mHitBox.width + 5;
                 float y = simplephysic->mHitBox.top - simplephysic->mHitBox.height / 2;
+
                 auto pos = dynamic_cast< cPosition* >( bullet->GetComponentByName( "position" ) );
-                pos->mPosition.x = x;
-                pos->mPosition.y = y;
+                pos->X( x );
+                pos->Y( y );
 
                 auto phys = dynamic_cast< cSimplePhysic* >( bullet->GetComponentByName( "simplephysic" ) );
                 phys->mHitBox.left = x;

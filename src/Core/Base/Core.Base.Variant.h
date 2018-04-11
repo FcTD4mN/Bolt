@@ -19,14 +19,17 @@ class cVariant
 public:
     ~cVariant();
     cVariant();
+    cVariant( const cVariant& iRHS );
 
 public:
     // Makers
     static cVariant* MakeVariant( eType iType );
     static cVariant* MakeVariant( double iNumber );
     static cVariant* MakeVariant( const std::string& iString );
+    virtual  cVariant* Clone() = 0;
 
 public:
+    // Access
     virtual  eType  Type();
 
     double      GetValueNumber() const;
@@ -57,8 +60,14 @@ public:
 public:
     ~cNumber();
     cNumber( double iValue );
+    cNumber( const cNumber& iRHS );
 
 public:
+    // Makers
+    virtual  cVariant*  Clone() override;
+
+public:
+    // Access
     double Value() const;
     void Value( double iValue );
 
@@ -89,6 +98,11 @@ public:
     cString( const cString& iRHS );
 
 public:
+    // Makers
+    virtual  cVariant*  Clone() override;
+
+public:
+    // Access
     const std::string& Value() const;
     void Value( const std::string& iValue );
 

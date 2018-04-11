@@ -88,6 +88,15 @@ cComponentGeneric::cComponentGeneric( const std::string& iName ) :
 cComponentGeneric::cComponentGeneric( const cComponentGeneric & iComponent ) :
     tSuperClass( iComponent.mName )
 {
+    for( auto& var : iComponent.mVars )
+        mVars[ var.first ] = var.second->Clone();
+}
+
+
+cComponent*
+cComponentGeneric::Clone()
+{
+    return  new cComponentGeneric( *this );
 }
 
 
@@ -96,7 +105,7 @@ cComponentGeneric::cComponentGeneric( const cComponentGeneric & iComponent ) :
 // -------------------------------------------------------------------------------------
 
 
-const ::nBase::cVariant*
+::nBase::cVariant*
 cComponentGeneric::GetVar( const std::string& iVarName )
 {
     return  mVars[ iVarName ];
@@ -106,6 +115,7 @@ cComponentGeneric::GetVar( const std::string& iVarName )
 void
 cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant* iValue )
 {
+    delete  mVars[ iVarName ];
     mVars[ iVarName ] = iValue;
 }
 
@@ -173,7 +183,7 @@ cComponentGeneric::LoadXML( tinyxml2::XMLElement * iNode )
     for( tinyxml2::XMLElement* variable = variables->FirstChildElement( "variable" ); variable; variable = variable->NextSiblingElement() )
     {
         ::nBase::cVariant* var = ::nBase::cVariant::MakeFromXML( variable );
-        std::string varName = variable->Attribute( "name", "invalid" );
+        std::string varName = variable->Attribute( "name" );
         mVars[ varName ] = var;
     }
 }

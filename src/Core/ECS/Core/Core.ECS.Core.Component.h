@@ -38,7 +38,7 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::string mName;
+    std::string  mName;
 
 };
 
@@ -51,14 +51,20 @@ public:
 
 public:
     // Contruction/Destruction
-    virtual  ~cComponentGeneric() = 0;
+    virtual  ~cComponentGeneric();
     cComponentGeneric( const std::string& iName );
     cComponentGeneric( const cComponentGeneric& iComponent );
 
 public:
+    // Copy
+    virtual  cComponent* Clone() override;
+
+public:
     // Access/Get
-    const ::nBase::cVariant*    GetVar( const std::string& iVarName );
-    void                        SetVar( const std::string& iVarName, ::nBase::cVariant* iValue );
+        // Yes we can get the variant, and modify it on the stop, so it's faster
+    ::nBase::cVariant*    GetVar( const std::string& iVarName );
+        // Simple setter
+    void                  SetVar( const std::string& iVarName, ::nBase::cVariant* iValue );
 
     // EDITOR USED methods
     int     VarCount() const;

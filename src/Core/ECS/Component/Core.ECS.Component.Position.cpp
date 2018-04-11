@@ -15,89 +15,6 @@ cPosition::~cPosition()
 
 
 cPosition::cPosition() :
-    tSuperClass( "position" ),
-    mPosition( sf::Vector2i( 0, 0 ) )
-{
-}
-
-
-cPosition::cPosition( float iX, float iY ) :
-    tSuperClass( "position" ),
-    mPosition( sf::Vector2f( iX, iY ) )
-{
-}
-
-
-cPosition::cPosition( const sf::Vector2f& iPosition ) :
-    tSuperClass( "position" ),
-    mPosition( iPosition )
-{
-}
-
-
-cPosition::cPosition( const cPosition & iPosition ) :
-    tSuperClass( iPosition ),
-    mPosition( iPosition.mPosition )
-{
-}
-
-
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------- Copy
-// -------------------------------------------------------------------------------------
-
-
-cComponent*
-cPosition::Clone()
-{
-    return  new cPosition( *this );
-}
-
-
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------ Input/Output
-// -------------------------------------------------------------------------------------
-
-
-void
-cPosition::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
-{
-    tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "x", mPosition.x );
-    iNode->SetAttribute( "y", mPosition.y );
-}
-
-
-void
-cPosition::LoadXML( tinyxml2::XMLElement* iNode )
-{
-    tSuperClass::LoadXML( iNode );
-    mPosition.x = iNode->FloatAttribute( "x", 0.0F );
-    mPosition.y = iNode->FloatAttribute( "y", 0.0F );
-}
-
-
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------
-
-
-
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------ Construction/Destruction
-// -------------------------------------------------------------------------------------
-
-
-cGPosition::~cGPosition()
-{
-}
-
-
-cGPosition::cGPosition() :
     tSuperClass( "position" )
 {
     SetVar( "x", ::nBase::cVariant::MakeVariant( 0.0 ) );
@@ -105,7 +22,7 @@ cGPosition::cGPosition() :
 }
 
 
-cGPosition::cGPosition( float iX, float iY ) :
+cPosition::cPosition( float iX, float iY ) :
     tSuperClass( "position" )
 {
     SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
@@ -113,7 +30,7 @@ cGPosition::cGPosition( float iX, float iY ) :
 }
 
 
-cGPosition::cGPosition( const sf::Vector2f& iPosition ) :
+cPosition::cPosition( const sf::Vector2f& iPosition ) :
     tSuperClass( "position" )
 {
     SetVar( "x", ::nBase::cVariant::MakeVariant( iPosition.x ) );
@@ -121,22 +38,44 @@ cGPosition::cGPosition( const sf::Vector2f& iPosition ) :
 }
 
 
-cGPosition::cGPosition( const cGPosition& iPosition ) :
+cPosition::cPosition( const cPosition& iPosition ) :
     tSuperClass( iPosition )
 {
 }
 
 
 // -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------- Copy
+// ------------------------------------------------------------------------ Access / Set
 // -------------------------------------------------------------------------------------
 
 
-cComponentGeneric*
-cGPosition::Clone()
+double
+cPosition::X()
 {
-    return  new cGPosition( *this );
+    return  GetVar( "x" )->GetValueNumber();
 }
+
+
+double
+cPosition::Y()
+{
+    return  GetVar( "y" )->GetValueNumber();
+}
+
+
+void
+cPosition::X( double iX )
+{
+    SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
+}
+
+
+void
+cPosition::Y( double iY )
+{
+    SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
+}
+
 
 } // namespace nECS
 

@@ -102,6 +102,9 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         cEntity* entity = mDynamicEntities[ i ];
         auto simplephysic   = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
         auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        ::nBase::cVariant* positionX = position->GetVar( "x" );
+        ::nBase::cVariant* positionY = position->GetVar( "y" );
+
         bool collided = false;
 
         projection = simplephysic->mHitBox;
@@ -130,13 +133,13 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             // Remove Entity before changing its position, so it's quick and easy
             entityMap->RemoveEntityNotUpdated( entity );
 
-            position->mPosition.x += simplephysic->mVelocity.x;
-            position->mPosition.y += simplephysic->mVelocity.y;
+            positionX->SetValueNumber( positionX->GetValueNumber() + simplephysic->mVelocity.x );
+            positionY->SetValueNumber( positionY->GetValueNumber() + simplephysic->mVelocity.y );
             simplephysic->mHitBox.left += simplephysic->mVelocity.x;
             simplephysic->mHitBox.top += simplephysic->mVelocity.y;
 
             // very basic test just to test
-            if( position->mPosition.x > 900 )
+            if( positionX->GetValueNumber() > 900 )
                 entity->Destroy();
 
             // Add it back at its new position
