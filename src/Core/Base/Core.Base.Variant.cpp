@@ -7,20 +7,172 @@
 namespace nBase {
 
 
+cVariant::~cVariant()
+{
+}
+
+
+cVariant::cVariant()
+{
+}
+
+
+cVariant*
+cVariant::MakeVariant( eType iType )
+{
+    switch( iType )
+    {
+        case kNumber:
+            return  new cNumber( 0.0 );
+
+        case kString:
+            return  new cString( "" );
+            break;
+
+        default:
+            printf( "Invalid variant type\n" );
+            break;
+    }
+
+    return  0;
+}
+
+
+cVariant*
+cVariant::MakeVariant( double iValue )
+{
+    return  new cNumber( iValue );
+}
+
+
+cVariant*
+cVariant::MakeVariant( const std::string& iValue )
+{
+    return  new cString( iValue );
+}
+
+
+// ==============================================================================================================
+// ============================================================================================= Access / Getters
+// ==============================================================================================================
+
+
+eType
+cVariant::Type()
+{
+    return  kInvalid;
+}
+
+
+double
+cVariant::GetValueNumber() const
+{
+    return  dynamic_cast< const cNumber* >( this )->Value();
+}
+
+
+std::string
+cVariant::GetValueString() const
+{
+    return  dynamic_cast< const cString* >( this )->Value();
+}
+
+
+void
+cVariant::SetValueNumber( double iValue )
+{
+    dynamic_cast< cNumber* >( this )->Value( iValue );
+}
+
+
+void
+cVariant::SetValueString( std::string& iValue )
+{
+    dynamic_cast< cString* >( this )->Value( iValue );
+}
+
+
+// ==============================================================================================================
+// =============================================================================================== Input / Output
+// ==============================================================================================================
+
+
+void
+cVariant::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+{
+    iNode->SetAttribute( "type", Type() );
+}
+
+
+void
+cVariant::LoadXML( tinyxml2::XMLElement* iNode )
+{
+    // Empty
+}
+
+
+cVariant*
+cVariant::MakeFromXML( tinyxml2::XMLElement * iNode )
+{
+    eType type = eType( iNode->IntAttribute( "type", 0 ) );
+    cVariant* loadedVar = 0;
+    switch( type )
+    {
+        case eType::kNumber:
+            loadedVar = MakeVariant( kNumber );
+            loadedVar->LoadXML( iNode );
+            break;
+        case eType::kString:
+            loadedVar = MakeVariant( kString );
+            loadedVar->LoadXML( iNode );
+            break;
+
+        default:
+            break;
+    }
+
+    return  loadedVar;
+}
+
+
+
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+
+
+
 cNumber::~cNumber()
 {
 }
 
 
 cNumber::cNumber( double iValue ) :
-    tSuperClass( iValue )
+    tSuperClass(),
+    mValue( iValue )
 {
 }
 
 
-cNumber::cNumber( const cNumber& iRHS ) :
-    tSuperClass( iRHS )
+double
+cNumber::Value() const
 {
+    return  mValue;
+}
+
+
+void
+cNumber::Value( double iValue )
+{
+    mValue = iValue;
 }
 
 
@@ -32,6 +184,7 @@ cNumber::cNumber( const cNumber& iRHS ) :
 void
 cNumber::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
+    tSuperClass::SaveXML( iNode, iDocument );
     iNode->SetAttribute( "value", mValue );
 }
 
@@ -39,6 +192,7 @@ cNumber::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument 
 void
 cNumber::LoadXML( tinyxml2::XMLElement* iNode )
 {
+    tSuperClass::LoadXML( iNode );
     mValue = iNode->DoubleAttribute( "value", 0.0 );
 }
 
@@ -55,7 +209,8 @@ cString::~cString()
 }
 
 cString::cString( const std::string & iValue ) :
-    tSuperClass( iValue )
+    tSuperClass(),
+    mValue( iValue )
 {
 }
 
@@ -63,6 +218,20 @@ cString::cString( const std::string & iValue ) :
 cString::cString( const cString& iRHS ) :
     tSuperClass( iRHS )
 {
+}
+
+
+const std::string&
+cString::Value() const
+{
+    return  mValue;
+}
+
+
+void
+cString::Value( const std::string & iValue )
+{
+    mValue = iValue;
 }
 
 
@@ -74,6 +243,7 @@ cString::cString( const cString& iRHS ) :
 void
 cString::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
+    tSuperClass::SaveXML( iNode, iDocument );
     iNode->SetAttribute( "value", mValue.c_str() );
 }
 
@@ -81,149 +251,8 @@ cString::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument 
 void
 cString::LoadXML( tinyxml2::XMLElement* iNode )
 {
+    tSuperClass::LoadXML( iNode );
     mValue = iNode->Attribute( "value", "" );
-}
-
-
-
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-
-
-cVariant::~cVariant()
-{
-}
-
-
-cVariant::cVariant() :
-    mType( kInvalid )
-{
-}
-
-
-cVariant::cVariant( eType iType ) :
-    mType( iType )
-{
-    switch( iType )
-    {
-        case kNumber :
-            mValue.mNumber = cNumber( 0 );
-            break;
-
-        case kString :
-            mValue.mString = cString( "" );
-            break;
-
-        default:
-            printf( "Invalid variant type\n" );
-            break;
-    }
-}
-
-
-cVariant::cVariant( const cNumber & iValue ) :
-    mType( kNumber )
-{
-    mValue.mNumber = iValue;
-}
-
-
-cVariant::cVariant( const cString & iValue ) :
-    mType( kString )
-{
-    mValue.mString = iValue;
-}
-
-
-// ==============================================================================================================
-// ============================================================================================= Access / Getters
-// ==============================================================================================================
-
-
-eType
-cVariant::Type()
-{
-    return  mType;
-}
-
-
-double
-cVariant::GetValueNumber() const
-{
-    return  mValue.mNumber.GetValue();
-}
-
-
-std::string
-cVariant::GetValueString() const
-{
-    return  mValue.mString.GetValue();
-}
-
-
-void
-cVariant::SetValueNumber( double iValue )
-{
-    mValue.mNumber = iValue;
-}
-
-
-void
-cVariant::SetValueString( std::string& iValue )
-{
-    mValue.mString = iValue;
-}
-
-
-// ==============================================================================================================
-// =============================================================================================== Input / Output
-// ==============================================================================================================
-
-
-void
-cVariant::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
-{
-    iNode->SetAttribute( "type", mType );
-    switch( mType )
-    {
-        case eType::kNumber :
-            mValue.mNumber.SaveXML( iNode, iDocument );
-            break;
-        case eType::kString :
-            mValue.mString.SaveXML( iNode, iDocument );
-            break;
-
-        default:
-            break;
-    }
-}
-
-
-void
-cVariant::LoadXML( tinyxml2::XMLElement* iNode )
-{
-    mType = eType( iNode->IntAttribute( "type", 0 ) );
-    switch( mType )
-    {
-        case eType::kNumber :
-            mValue.mNumber.LoadXML( iNode );
-            break;
-        case eType::kString :
-            mValue.mString.LoadXML( iNode );
-            break;
-
-        default:
-            break;
-    }
 }
 
 

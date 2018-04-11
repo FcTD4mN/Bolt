@@ -71,7 +71,7 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
         if( position )
             positionVector = position->mPosition;
         else if( gPosition )
-            positionVector = sf::Vector2f( gPosition->GetVar( "x" ).GetValueNumber(), gPosition->GetVar( "y" ).GetValueNumber() );
+            positionVector = sf::Vector2f( gPosition->GetVar( "x" )->GetValueNumber(), gPosition->GetVar( "y" )->GetValueNumber() );
 
 
         rect.setSize( size->mSize );

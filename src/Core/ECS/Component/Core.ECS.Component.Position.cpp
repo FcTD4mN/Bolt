@@ -100,30 +100,24 @@ cGPosition::~cGPosition()
 cGPosition::cGPosition() :
     tSuperClass( "position" )
 {
-    ::nBase::cVariant x( 0.0 );
-    ::nBase::cVariant y( 0.0 );
-    SetVar( "x", x );
-    SetVar( "y", y );
+    SetVar( "x", ::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetVar( "y", ::nBase::cVariant::MakeVariant( 0.0 ) );
 }
 
 
 cGPosition::cGPosition( float iX, float iY ) :
     tSuperClass( "position" )
 {
-    ::nBase::cVariant x( iX );
-    ::nBase::cVariant y( iY );
-    SetVar( "x", x );
-    SetVar( "y", y );
+    SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
+    SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
 }
 
 
 cGPosition::cGPosition( const sf::Vector2f& iPosition ) :
     tSuperClass( "position" )
 {
-    ::nBase::cVariant x( iPosition.x );
-    ::nBase::cVariant y( iPosition.y );
-    SetVar( "x", x );
-    SetVar( "y", y );
+    SetVar( "x", ::nBase::cVariant::MakeVariant( iPosition.x ) );
+    SetVar( "y", ::nBase::cVariant::MakeVariant( iPosition.y ) );
 }
 
 

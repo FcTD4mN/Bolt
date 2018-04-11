@@ -1,6 +1,5 @@
 #include "Core.ECS.Core.Component.h"
 
-
 namespace nECS {
 
 
@@ -56,6 +55,17 @@ cComponent::LoadXML( tinyxml2::XMLElement * iNode )
     mName = iNode->Attribute( "name" );
 }
 
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+// ------------------------------------------------------------------------------------ -
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -64,6 +74,8 @@ cComponent::LoadXML( tinyxml2::XMLElement * iNode )
 
 cComponentGeneric::~cComponentGeneric()
 {
+    for( auto var : mVars )
+        delete  var.second;
 }
 
 
@@ -84,7 +96,7 @@ cComponentGeneric::cComponentGeneric( const cComponentGeneric & iComponent ) :
 // -------------------------------------------------------------------------------------
 
 
-const ::nBase::cVariant&
+const ::nBase::cVariant*
 cComponentGeneric::GetVar( const std::string& iVarName )
 {
     return  mVars[ iVarName ];
@@ -92,7 +104,7 @@ cComponentGeneric::GetVar( const std::string& iVarName )
 
 
 void
-cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant& iValue )
+cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant* iValue )
 {
     mVars[ iVarName ] = iValue;
 }
@@ -101,11 +113,11 @@ cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant& iValu
 int
 cComponentGeneric::VarCount() const
 {
-    return  mVars.size();
+    return  int( mVars.size() );
 }
 
 
-const ::nBase::cVariant&
+const ::nBase::cVariant*
 cComponentGeneric::GetVarValueAtIndex( int iIndex ) const
 {
     auto it = mVars.cbegin();
@@ -141,8 +153,9 @@ cComponentGeneric::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument*
     for( auto& var : mVars )
     {
         tinyxml2::XMLElement* variable = iDocument->NewElement( "variable" );
+        variable->SetAttribute( "name", var.first.c_str() );
 
-            var.second.SaveXML( variable, iDocument );
+            var.second->SaveXML( variable, iDocument );
 
         vars->LinkEndChild( variable );
     }
@@ -159,8 +172,9 @@ cComponentGeneric::LoadXML( tinyxml2::XMLElement * iNode )
     tinyxml2::XMLElement* variables = iNode->FirstChildElement( "variables" );
     for( tinyxml2::XMLElement* variable = variables->FirstChildElement( "variable" ); variable; variable = variable->NextSiblingElement() )
     {
-        ::nBase::cVariant var;
-        var.LoadXML( variable );
+        ::nBase::cVariant* var = ::nBase::cVariant::MakeFromXML( variable );
+        std::string varName = variable->Attribute( "name", "invalid" );
+        mVars[ varName ] = var;
     }
 }
 

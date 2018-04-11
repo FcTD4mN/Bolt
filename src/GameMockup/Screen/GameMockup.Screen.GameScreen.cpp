@@ -51,8 +51,8 @@ cGameScreen::Initialize()
     ::nECS::cEntity* ent = new ::nECS::cEntity( world );
 
     ent->AddComponent( new ::nECS::cGPosition( 400.0F, 300.0F ) );
-    ent->AddComponent( new ::nECS::cSize( 5.0F, 5.0F ) );
-    ent->AddComponent( new ::nECS::cColor( 20,255,20 ) );
+    ent->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
+    ent->AddComponent( new ::nECS::cColor( 255,0,0 ) );
     ent->AddComponent( new ::nECS::cUserInput() );
     ent->AddComponent( new ::nECS::cSimplePhysic( 400.0F, 300.0F, 5.0F, 5.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );

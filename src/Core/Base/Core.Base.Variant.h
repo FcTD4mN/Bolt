@@ -14,78 +14,31 @@ enum eType
     kString
 };
 
-// Usefull for python essentially
-template< typename T >
-class cPrimitiveType
+class cVariant
 {
 public:
-    ~cPrimitiveType();
-    cPrimitiveType( T iValue );
-    cPrimitiveType( const cPrimitiveType& iRHS );
+    ~cVariant();
+    cVariant();
 
 public:
-    T       GetValue() const;
-    void    SetValue( const T& iValue );
+    // Makers
+    static cVariant* MakeVariant( eType iType );
+    static cVariant* MakeVariant( double iNumber );
+    static cVariant* MakeVariant( const std::string& iString );
 
 public:
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) = 0; // Can't really be done templatly using tinyxml2
-    virtual  void LoadXML( tinyxml2::XMLElement* iNode ) = 0; // Can't really be done templatly using tinyxml2
+    virtual  eType  Type();
 
-protected:
-    T mValue;
+    double      GetValueNumber() const;
+    std::string GetValueString() const;
+    void        SetValueNumber( double iValue );
+    void        SetValueString( std::string& iValue );
+
+public:
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
+    static  cVariant* MakeFromXML( tinyxml2::XMLElement* iNode );
 };
-
-//==============================================================================================================
-//==============================================================================================================
-
-
-template< typename T >
-cPrimitiveType< T >::~cPrimitiveType()
-{
-}
-
-
-template< typename T >
-cPrimitiveType< T >::cPrimitiveType( T iValue ) :
-    mValue( iValue )
-{
-}
-
-
-template< typename T >
-cPrimitiveType< T >::cPrimitiveType( const cPrimitiveType& iRHS ) :
-    mValue( iRHS.mValue )
-{
-}
-
-
-// ==============================================================================================================
-// ================================================================================================= Access / Get
-// ==============================================================================================================
-
-
-template< typename T >
-T
-cPrimitiveType< T >::GetValue() const
-{
-    return  mValue;
-}
-
-
-template< typename T >
-void
-cPrimitiveType< T >::SetValue( const T& iValue )
-{
-    mValue = iValue;
-}
-
-
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
 
 
 
@@ -95,31 +48,39 @@ cPrimitiveType< T >::SetValue( const T& iValue )
 
 
 class cNumber :
-    public cPrimitiveType< double >
+    public cVariant
 {
 public:
-    typedef cPrimitiveType< double > tSuperClass;
+    typedef cVariant tSuperClass;
 
 
 public:
     ~cNumber();
     cNumber( double iValue );
-    cNumber( const cNumber& iRHS );
+
+public:
+    double Value() const;
+    void Value( double iValue );
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
+
+protected:
+    double  mValue;
 };
 
+
 // ================
 // ================
 // ================
 
+
 class cString :
-    public cPrimitiveType< std::string >
+    public cVariant
 {
 public:
-    typedef cPrimitiveType< std::string > tSuperClass;
+    typedef cVariant tSuperClass;
 
 
 public:
@@ -128,64 +89,17 @@ public:
     cString( const cString& iRHS );
 
 public:
+    const std::string& Value() const;
+    void Value( const std::string& iValue );
+
+public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
+
+protected:
+    std::string  mValue;
 };
 
-
-
-// ==============================================================================================================
-// ==============================================================================================================
-// ==============================================================================================================
-
-
-class cVariant
-{
-// The universal onion
-public:
-    union uAllTypes
-    {
-        // Constructor/Destructor
-        ~uAllTypes() {};
-        uAllTypes(){};
-        uAllTypes( const uAllTypes & iRHS) : mNumber( iRHS.mNumber) {};
-
-        uAllTypes& operator= ( const uAllTypes& iRHS )
-        {
-            if( this != &iRHS )
-                mNumber = iRHS.mNumber;
-
-            return  *this;
-        }
-
-        // Values
-        cNumber   mNumber;
-        cString   mString;
-    };
-
-public:
-    ~cVariant();
-    cVariant();
-    cVariant( eType iType );
-    cVariant( const cNumber& iValue );
-    cVariant( const cString& iValue );
-
-public:
-    eType       Type();
-
-    double      GetValueNumber() const;
-    std::string GetValueString() const;
-    void        SetValueNumber( double iValue );
-    void        SetValueString( std::string& iValue );
-
-public:
-    void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    void LoadXML( tinyxml2::XMLElement* iNode );
-
-private:
-    eType mType;
-    uAllTypes   mValue;
-};
 
 } // namespace nBase
 
