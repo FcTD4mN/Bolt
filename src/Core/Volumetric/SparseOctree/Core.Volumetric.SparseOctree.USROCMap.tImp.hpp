@@ -126,6 +126,25 @@ cUSROCMap< Macro, VBO, Micro, Atomic >::RmChunk( const  cHashable3DKey&  iKey )
 }
 
 
+//----------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------- VBO Related
+
+
+template< eLod2N Macro, eLod2N VBO, eLod2N Micro, typename Atomic >
+inline  void  cUSROCMap< Macro, VBO, Micro, Atomic >::BuildVBODebug()
+{
+    for ( auto it : mChunks )
+    {
+        auto chunk = it.second;
+        chunk->BuildVBODebug();
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------- Render
+
+
 template< eLod2N Macro, eLod2N VBO, eLod2N Micro, typename Atomic >
 inline  void
 cUSROCMap< Macro, VBO, Micro, Atomic >::RenderOctDebug()

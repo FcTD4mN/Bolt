@@ -6,6 +6,11 @@
 #include "Core.Volumetric.SparseOctree.DataConverterProtocol.h"
 
 
+#include <GL/glew.h>
+#include <gl/GLU.h>
+#include <SFML/OpenGL.hpp>
+
+
 namespace  nVolumetric      {
 namespace  nSparseOctree    {
 
@@ -47,6 +52,9 @@ private:
     void  ProcessInvalidStatus(  const  cDataReportAnalysis&  iDataReportAnalysis );
 
 public:
+    void  BuildVBODebug();
+
+public:
     // Render
     void  RenderOctDebug();
 
@@ -56,6 +64,7 @@ private:
     const  cROMSConfig*  mROMSConfig; // Non-Owning
     const  bool  mVBO_Capable;
     bool  mVBO_Valid;
+    GLuint  mVBO_ID;
 
 };
 

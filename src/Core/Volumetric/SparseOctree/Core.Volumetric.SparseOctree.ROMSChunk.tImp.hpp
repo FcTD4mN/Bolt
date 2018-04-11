@@ -25,7 +25,8 @@ inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig,
     cDataConverterProtocol(),
     mROMSConfig( iROMSConfig ), // Non-Owning
     mVBO_Capable( false ),
-    mVBO_Valid( false )
+    mVBO_Valid( false ),
+    mVBO_ID( 0 )
 {
     assert( mROMSConfig );
     InitVBOCapable();
@@ -201,6 +202,10 @@ inline void cROMSChunk<LOD,Atomic>::InitVBOCapable()
     {
         bool* ptr = const_cast< bool* >( &mVBO_Capable );
         *ptr = true;
+        glGenBuffers( 1, &mVBO_ID );
+        glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID );
+        glBufferData( GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW );
+        glBindBuffer( GL_ARRAY_BUFFER, 0 );
     }
 }
 
@@ -221,6 +226,81 @@ inline  void  cROMSChunk< LOD, Atomic >::ProcessInvalidStatus( const  cDataRepor
     if( iDataReportAnalysis.mConversionOperationStatus == cDataReportAnalysis::eConversionOperationStatus::kRequired ||
         iDataReportAnalysis.mProcessOperationStatus == cDataReportAnalysis::eProcessOperationStatus::kProcess )
         InvalidVBO();
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::BuildVBODebug()
+{
+    if( !mVBO_Capable )
+    {
+        if( mData->Type() == eType::kSparse )
+        {
+            cSparseData< LOD, Atomic >* sparseData = dynamic_cast< cSparseData< LOD, Atomic >* >( mData );
+            assert( sparseData );
+            sparseData->BuildVBODebug();
+        }
+
+        return;
+    }
+
+    if( !mVBO_Valid )
+        return;
+
+    if(glIsBuffer( mVBO_ID ) == GL_TRUE)
+        glDeleteBuffers( 1, &mVBO_ID );
+
+    glGenBuffers( 1, &mVBO_ID );
+
+/*
+    int index = 0;
+    std::vector< sf::Vector3f > vertices;
+    vertices.resize( mNVerticesVBOElem );
+    int memsize = msElementSize * mNVerticesVBOElem;
+
+    int colorstride = 6;
+    mNColorsVBOElem = OccupiedVolume() * colorstride;
+    int colorindex = 0;
+    std::vector< sf::Vector3f > colors;
+    colors.resize( mNColorsVBOElem );
+    int memcolorsize = msElementSize * mNColorsVBOElem;
+
+    eNF_Flag neighbourFlag = NF_IndexToFlag( iVBO_ID_index );
+
+    for( tLocalDataIndex  i = 0; i < msSize; ++i )
+    {
+        for( tLocalDataIndex  j = 0; j < msSize; ++j )
+        {
+            for( tLocalDataIndex  k = 0; k < msSize; ++k )
+            {
+                cData* data = DataHandle( i, j, k );
+                if( data->IsSolid() && !data->HasNeighbour( neighbourFlag ) )
+                {
+                    GenFace( iVBO_ID_index, index, vertices, i, j, k );
+                    sf::Vector3f color = ColorFromVGAMaterial( data->GetMaterialField() );
+                    colors[index + 0] = color;
+                    colors[index + 1] = color;
+                    colors[index + 2] = color;
+                    colors[index + 3] = color;
+                    colors[index + 4] = color;
+                    colors[index + 5] = color;
+                    index += stride;
+                    colorindex += colorstride;
+                }
+            }
+        }
+    }
+
+    glBindBuffer( GL_ARRAY_BUFFER, mVBO_ID[ iVBO_ID_index ] );
+
+        glBufferData( GL_ARRAY_BUFFER, memsize + memcolorsize, 0, GL_STATIC_DRAW );
+        glBufferSubData( GL_ARRAY_BUFFER, 0, memsize, &vertices[0] );
+        glBufferSubData( GL_ARRAY_BUFFER, memsize, memcolorsize, &colors[0] );
+
+    glBindBuffer( GL_ARRAY_BUFFER, 0 );
+
+    mVerticesMsize = memsize;
+*/
 }
 
 

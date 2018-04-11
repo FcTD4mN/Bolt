@@ -41,6 +41,11 @@ private:
     void  RmChunk( const  cHashable3DKey&  iKey );
 
 public:
+    // VBO Related
+    void  BuildVBODebug();
+
+public:
+    // Render
     void  RenderOctDebug();
 
 private:

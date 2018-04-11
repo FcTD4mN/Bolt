@@ -69,6 +69,10 @@ inline  const  cROMSConfig&  cData< LOD, Atomic >::ROMSConfig()  const
 }
 
 
+//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------- Render
+
+
 template<eLod2N LOD,typename Atomic>
 inline glm::vec3 cData<LOD,Atomic>::OctDebugColor()
 {

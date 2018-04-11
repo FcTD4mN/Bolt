@@ -45,6 +45,10 @@ public:
     virtual  cDataReportAnalysis  PosteriorReportAnalysisOnSet( tIndex iX, tIndex iY, tIndex iZ, const  Atomic&  iValue )  override;
 
 public:
+    // VBO Related
+    void  BuildVBODebug();
+
+public:
     virtual  glm::vec3  OctDebugColor()  override;
     virtual  void  RenderOctDebug()  override;
 

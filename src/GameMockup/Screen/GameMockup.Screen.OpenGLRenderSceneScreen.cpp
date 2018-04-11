@@ -202,6 +202,7 @@ cOpenGLRenderSceneScreen::Initialize()
         */
 
         mMap2.Set( 0, 0, 0, 1 );
+        mMap2.BuildVBODebug();
 
     };
 

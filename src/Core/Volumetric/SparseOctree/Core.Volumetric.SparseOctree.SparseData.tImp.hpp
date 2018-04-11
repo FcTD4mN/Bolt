@@ -146,6 +146,22 @@ inline  cDataReportAnalysis  cSparseData< LOD, Atomic >::PosteriorReportAnalysis
 }
 
 
+//----------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------- VBO Related
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cSparseData< LOD, Atomic >::BuildVBODebug()
+{
+    for( int i=0; i<8; ++i )
+        mOct[i]->BuildVBODebug();
+}
+
+
+//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------- Render
+
+
 template< eLod2N LOD, typename Atomic >
 inline  glm::vec3  cSparseData< LOD, Atomic >::OctDebugColor()
 {
