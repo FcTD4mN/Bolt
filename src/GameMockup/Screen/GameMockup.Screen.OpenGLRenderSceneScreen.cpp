@@ -202,13 +202,6 @@ cOpenGLRenderSceneScreen::Initialize()
         */
 
         mMap2.Set( 0, 0, 0, 1 );
-        mMap2.Set( -1, 0, 0, 1 );
-        mMap2.Set( -1, 0, -1, 1 );
-        mMap2.Set( -0, 0, -1, 1 );
-        mMap2.Set( 0, -1, 0, 1 );
-        mMap2.Set( -1, -1, 0, 1 );
-        mMap2.Set( -1, -1, -1, 1 );
-        mMap2.Set( -0, -1, -1, 1 );
 
     };
 

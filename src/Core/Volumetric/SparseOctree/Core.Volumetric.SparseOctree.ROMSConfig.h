@@ -22,6 +22,7 @@ public:
 public:
     // Accessors
     const  eLod2N&  MacroscopicLODGranularity()  const;
+    const  eLod2N&  VBOLODGranularity()  const;
     const  eLod2N&  MicroscopicLODGranularity()  const;
     const  tLargeByteSize&  GPU_BUS_MAX()  const;
 

@@ -23,9 +23,12 @@ inline  cROMSChunk< LOD, Atomic >::~cROMSChunk()
 template< eLod2N LOD, typename Atomic >
 inline  cROMSChunk< LOD, Atomic >::cROMSChunk( const  cROMSConfig*  iROMSConfig, eType iDataStartType, const  Atomic& iStartValue ) :
     cDataConverterProtocol(),
-    mROMSConfig( iROMSConfig ) // Non-Owning
+    mROMSConfig( iROMSConfig ), // Non-Owning
+    mVBO_Capable( false ),
+    mVBO_Valid( false )
 {
     assert( mROMSConfig );
+    InitVBOCapable();
 
     switch( iDataStartType )
     {
@@ -74,12 +77,14 @@ cROMSChunk<LOD,Atomic>::Set(tIndex iX,tIndex iY,tIndex iZ,const Atomic & iValue)
 {
     cDataReportAnalysis  analysis = mData->AnteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
     ProcessDataReportAnalysis( analysis );
+    ProcessInvalidStatus( analysis );
 
     if( analysis.mProcessOperationStatus == cDataReportAnalysis::eProcessOperationStatus::kProcess )
         mData->Set( iX, iY, iZ, iValue );
 
     analysis = mData->PosteriorReportAnalysisOnSet( iX, iY, iZ, iValue );
     ProcessDataReportAnalysis( analysis );
+    ProcessInvalidStatus( analysis );
 }
 
 
@@ -163,7 +168,6 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToRaw( const  cDataReportAnalysi
         case eType::kFull:
         {
             auto val = *mData->Get( 0, 0, 0 );
-
             if( val == Atomic( 0 ) )
                 assert( false );
             mData = new  cRawData< LOD, Atomic >( this, mROMSConfig, val );
@@ -184,6 +188,44 @@ inline  void  cROMSChunk< LOD, Atomic >::ConvertToRLE( const  cDataReportAnalysi
 {
     assert( false );
 }
+
+
+//----------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------- VBO Related
+
+
+template<eLod2N LOD,typename Atomic>
+inline void cROMSChunk<LOD,Atomic>::InitVBOCapable()
+{
+    if( LOD == mROMSConfig->VBOLODGranularity() )
+    {
+        bool* ptr = const_cast< bool* >( &mVBO_Capable );
+        *ptr = true;
+    }
+}
+
+
+template<eLod2N LOD,typename Atomic>
+inline void cROMSChunk<LOD,Atomic>::InvalidVBO()
+{
+    mVBO_Valid = false;
+}
+
+
+template< eLod2N LOD, typename Atomic >
+inline  void  cROMSChunk< LOD, Atomic >::ProcessInvalidStatus( const  cDataReportAnalysis&  iDataReportAnalysis )
+{
+    if( !mVBO_Capable )
+        return;
+
+    if( iDataReportAnalysis.mConversionOperationStatus == cDataReportAnalysis::eConversionOperationStatus::kRequired ||
+        iDataReportAnalysis.mProcessOperationStatus == cDataReportAnalysis::eProcessOperationStatus::kProcess )
+        InvalidVBO();
+}
+
+
+//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------- Render
 
 
 template< eLod2N LOD, typename Atomic >

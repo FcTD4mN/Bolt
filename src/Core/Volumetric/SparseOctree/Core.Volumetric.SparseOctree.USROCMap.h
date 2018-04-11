@@ -29,7 +29,6 @@ public:
     const  Atomic&  Get( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ )  const;
     void  Set( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ, Atomic  iValue );
 
-
 private:
     // Sparse Volume Information
     cHashable3DKey      KeyForIndices( tGlobalIndex iX, tGlobalIndex iY, tGlobalIndex iZ )  const;

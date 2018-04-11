@@ -31,6 +31,13 @@ cROMSConfig::MacroscopicLODGranularity()  const
     return  mMacroscopicLODGranularity;
 }
 
+
+const  eLod2N&
+cROMSConfig::VBOLODGranularity()  const
+{
+    return  mVBO_LODGranularity;
+}
+
 const  eLod2N&
 cROMSConfig::MicroscopicLODGranularity()  const
 {

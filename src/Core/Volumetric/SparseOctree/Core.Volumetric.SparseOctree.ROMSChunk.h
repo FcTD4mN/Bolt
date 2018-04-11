@@ -40,13 +40,22 @@ private:
     virtual  void  ConvertToRaw(    const  cDataReportAnalysis&  iDataReportAnalysis )  override;
     virtual  void  ConvertToRLE(    const  cDataReportAnalysis&  iDataReportAnalysis )  override;
 
+private:
+    // VBO Related
+    void  InitVBOCapable();
+    void  InvalidVBO();
+    void  ProcessInvalidStatus(  const  cDataReportAnalysis&  iDataReportAnalysis );
+
 public:
+    // Render
     void  RenderOctDebug();
 
 private:
     // Private Member Data
     cData< LOD, Atomic >*  mData; // Owning
     const  cROMSConfig*  mROMSConfig; // Non-Owning
+    const  bool  mVBO_Capable;
+    bool  mVBO_Valid;
 
 };
 
