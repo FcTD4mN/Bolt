@@ -1,8 +1,6 @@
 #pragma once
 
-
 #include "Core.ECS.Core.Component.h"
-
 
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
@@ -12,31 +10,39 @@ namespace nECS {
 
 
 class cColor :
-    public cComponent
+    public cComponentGeneric
 {
 public:
-    typedef  cComponent  tSuperClass;
+    typedef  cComponentGeneric  tSuperClass;
 
 public:
     virtual  ~cColor();
     cColor();
     cColor( int iR, int iG, int iB, int iA = 255 );
-    cColor( sf::Color );
-    cColor( const cColor& iColor );
+    cColor( const sf::Color& iColor);
+    cColor( const cColor& iRHS );
+
+    void Build( int iR, int iG, int iB, int iA = 255 );
 
 public:
     // Copy
-    virtual  cComponent* Clone();
+    virtual  cColor* Clone() override;
 
 public:
-    // Input/Output
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
+    // Access / Set
+    int R();
+    int G();
+    int B();
+    int A();
 
-public:
-    sf::Color mColor;
+    void R( int iR );
+    void G( int iG );
+    void B( int iB );
+    void A( int iA );
 
+    sf::Color AsSFCOlor();
 };
 
 
 } // namespace nECS
+

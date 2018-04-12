@@ -62,7 +62,7 @@ cAnimationRenderer::Draw( sf::RenderTarget* iRenderTarget )
 
         // Because sprite's origin is set to be the very center of the image, we need to
         // reposition it so it matches top left format given by position
-        sf::Vector2f spritePos( position->X(), position->Y() );
+        sf::Vector2f spritePos( float(position->X()), float(position->Y()) );
         spriteanimated->mSprite.setPosition( spritePos + spriteanimated->mSprite.getOrigin() );
 
         iRenderTarget->draw( spriteanimated->mSprite );
@@ -80,7 +80,7 @@ cAnimationRenderer::Update( unsigned int iDeltaTime )
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
         auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
 
-        sf::Vector2f spritePos( position->X(), position->Y() );
+        sf::Vector2f spritePos( float(position->X()), float(position->Y()) );
         spriteanimated->mSprite.setPosition( spritePos );
 
         if( spriteanimated->mPaused )

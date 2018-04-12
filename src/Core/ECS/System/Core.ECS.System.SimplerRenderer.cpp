@@ -66,11 +66,11 @@ cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
         auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
         auto color      = dynamic_cast< cColor* >( entity->GetComponentByName( "color" ) );
 
-        sf::Vector2f positionVector( position->X(), position->Y() );
+        sf::Vector2f positionVector( float(position->X()), float(position->Y()) );
 
-        rect.setSize( size->mSize );
+        rect.setSize( size->AsVector2F() );
         rect.setPosition( positionVector );
-        rect.setFillColor( color->mColor );
+        rect.setFillColor( color->AsSFCOlor() );
         iRenderTarget->draw( rect );
     }
 }

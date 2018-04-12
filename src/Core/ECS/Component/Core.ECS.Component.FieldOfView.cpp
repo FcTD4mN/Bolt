@@ -1,9 +1,6 @@
 #include "Core.ECS.Component.FieldOfView.h"
 
 
-#include "Core.ECS.Utilities.ComponentRegistry.h"
-
-
 namespace nECS {
 
 
@@ -18,24 +15,23 @@ cFieldOfView::~cFieldOfView()
 
 
 cFieldOfView::cFieldOfView() :
-    tSuperClass( "fieldofview" ),
-    mAngle( 0.0 )
+    tSuperClass( "fieldofview" )
 {
+    SetVar( "angle", ::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetVar( "distance", ::nBase::cVariant::MakeVariant( 0.0 ) );
 }
 
 
 cFieldOfView::cFieldOfView( double iAngle, double iDistance ) :
-    tSuperClass( "fieldofview" ),
-    mAngle( iAngle ),
-    mDistance( iDistance )
+    tSuperClass( "fieldofview" )
 {
+    SetVar( "angle", ::nBase::cVariant::MakeVariant( iAngle ) );
+    SetVar( "distance", ::nBase::cVariant::MakeVariant( iDistance ) );
 }
 
 
-cFieldOfView::cFieldOfView( const cFieldOfView & iFOV ) :
-    tSuperClass( iFOV ),
-    mAngle( iFOV.mAngle ),
-    mDistance( iFOV.mDistance )
+cFieldOfView::cFieldOfView( const cFieldOfView & iRHS ) :
+    tSuperClass( iRHS )
 {
 }
 
@@ -45,7 +41,7 @@ cFieldOfView::cFieldOfView( const cFieldOfView & iFOV ) :
 // -------------------------------------------------------------------------------------
 
 
-cComponent*
+cFieldOfView*
 cFieldOfView::Clone()
 {
     return  new cFieldOfView( *this );
@@ -53,27 +49,36 @@ cFieldOfView::Clone()
 
 
 // -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------ Input/Output
+// ------------------------------------------------------------------------ Access / Set
 // -------------------------------------------------------------------------------------
 
 
-void
-cFieldOfView::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+double
+cFieldOfView::Angle()
 {
-    tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "angle", mAngle );
-    iNode->SetAttribute( "distance", mDistance );
+    return  GetVar( "angle" )->GetValueNumber();
+}
+
+
+double
+cFieldOfView::Distance()
+{
+    return  GetVar( "distance" )->GetValueNumber();
 }
 
 
 void
-cFieldOfView::LoadXML( tinyxml2::XMLElement* iNode )
+cFieldOfView::Angle( double iAngle )
 {
-    tSuperClass::LoadXML( iNode );
-    mAngle = iNode->DoubleAttribute( "angle", 0.0 );
-    mDistance = iNode->DoubleAttribute( "distance", 0.0 );
+    SetVar( "angle", ::nBase::cVariant::MakeVariant( iAngle ) );
 }
 
+
+void
+cFieldOfView::Distance( double iDistance )
+{
+    SetVar( "distance", ::nBase::cVariant::MakeVariant( iDistance ) );
+}
 
 } // namespace nECS
 

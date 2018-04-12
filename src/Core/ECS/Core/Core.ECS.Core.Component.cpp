@@ -93,13 +93,6 @@ cComponentGeneric::cComponentGeneric( const cComponentGeneric & iComponent ) :
 }
 
 
-cComponent*
-cComponentGeneric::Clone()
-{
-    return  new cComponentGeneric( *this );
-}
-
-
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------- Access/Get
 // -------------------------------------------------------------------------------------

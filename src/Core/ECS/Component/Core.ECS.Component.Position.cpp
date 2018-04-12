@@ -38,9 +38,21 @@ cPosition::cPosition( const sf::Vector2f& iPosition ) :
 }
 
 
-cPosition::cPosition( const cPosition& iPosition ) :
-    tSuperClass( iPosition )
+cPosition::cPosition( const cPosition & iRHS ) :
+    tSuperClass( iRHS )
 {
+}
+
+
+// -------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------- Copy
+// -------------------------------------------------------------------------------------
+
+
+cPosition*
+cPosition::Clone()
+{
+    return  new cPosition(*this);
 }
 
 
@@ -74,6 +86,13 @@ void
 cPosition::Y( double iY )
 {
     SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
+}
+
+
+sf::Vector2f
+cPosition::AsVector2F()
+{
+    return  sf::Vector2f( float(X()), float(Y()) );
 }
 
 

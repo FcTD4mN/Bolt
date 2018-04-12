@@ -1,8 +1,6 @@
 #pragma once
 
-
 #include "Core.ECS.Core.Component.h"
-
 
 #include <tinyxml2.h>
 
@@ -11,30 +9,28 @@ namespace nECS {
 
 
 class cFieldOfView :
-    public cComponent
+    public cComponentGeneric
 {
 public:
-    typedef  cComponent  tSuperClass;
+    typedef  cComponentGeneric  tSuperClass;
 
 public:
     virtual  ~cFieldOfView();
     cFieldOfView();
     cFieldOfView( double iAngle, double iDistance );
-    cFieldOfView( const cFieldOfView& iColor );
+    cFieldOfView( const cFieldOfView& iRHS );
 
 public:
     // Copy
-    virtual  cComponent* Clone();
+    virtual  cFieldOfView* Clone() override;
 
 public:
-    // Input/Output
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
+    // Access / Set
+    double Angle();
+    double Distance();
 
-public:
-    double  mAngle;
-    double  mDistance;
-
+    void Angle( double iAngle );
+    void Distance( double iDistance );
 };
 
 

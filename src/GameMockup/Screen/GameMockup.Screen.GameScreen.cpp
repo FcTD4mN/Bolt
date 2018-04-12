@@ -57,15 +57,6 @@ cGameScreen::Initialize()
     ent->AddComponent( new ::nECS::cSimplePhysic( 400.0F, 300.0F, 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );
 
-
-
-
-
-
-
-
-
-
     sf::Vector2f  availableGeometry = sf::Vector2f( float( ::nApplication::cGameApplication::App()->Window()->getSize().x ),
                                                     float( ::nApplication::cGameApplication::App()->Window()->getSize().y ) );
     double posRatio     = 3./5.;

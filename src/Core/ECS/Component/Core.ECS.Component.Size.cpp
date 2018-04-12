@@ -15,30 +15,37 @@ cSize::~cSize()
 
 
 cSize::cSize() :
-    tSuperClass( "size" ),
-    mSize( sf::Vector2f( 0, 0 ) )
+    tSuperClass( "direction" )
 {
+    Build( 0.0F, 0.0F );
 }
 
 
 cSize::cSize( float iW, float iH ) :
-    tSuperClass( "size" ),
-    mSize( sf::Vector2f( iW, iH ) )
+    tSuperClass( "direction" )
+{
+    Build( iW, iH );
+}
+
+
+cSize::cSize( const sf::Vector2f& iPosition ) :
+    tSuperClass( "direction" )
+{
+    Build( iPosition.x, iPosition.y );
+}
+
+
+cSize::cSize( const cSize & iRHS ) :
+    tSuperClass( iRHS )
 {
 }
 
 
-cSize::cSize( const sf::Vector2f& iSize ) :
-    tSuperClass( "size" ),
-    mSize( iSize )
+void
+cSize::Build( float iW, float iH )
 {
-}
-
-
-cSize::cSize( const cSize & iSize ) :
-    tSuperClass( iSize ),
-    mSize( iSize.mSize )
-{
+    SetVar( "w", ::nBase::cVariant::MakeVariant( iW ) );
+    SetVar( "h", ::nBase::cVariant::MakeVariant( iH ) );
 }
 
 
@@ -47,7 +54,7 @@ cSize::cSize( const cSize & iSize ) :
 // -------------------------------------------------------------------------------------
 
 
-cComponent*
+cSize*
 cSize::Clone()
 {
     return  new cSize( *this );
@@ -55,25 +62,50 @@ cSize::Clone()
 
 
 // -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------ Input/Output
+// ------------------------------------------------------------------------ Access / Set
 // -------------------------------------------------------------------------------------
 
 
-void
-cSize::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+double
+cSize::W()
 {
-    tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "w", mSize.x );
-    iNode->SetAttribute( "h", mSize.y );
+    return  GetVar( "w" )->GetValueNumber();
+}
+
+
+double
+cSize::H()
+{
+    return  GetVar( "h" )->GetValueNumber();
 }
 
 
 void
-cSize::LoadXML( tinyxml2::XMLElement* iNode )
+cSize::W( double iW )
 {
-    tSuperClass::LoadXML( iNode );
-    mSize.x = iNode->FloatAttribute( "w", 0.0F );
-    mSize.y = iNode->FloatAttribute( "h", 0.0F );
+    SetVar( "w", ::nBase::cVariant::MakeVariant( iW ) );
+}
+
+
+void
+cSize::H( double iH )
+{
+    SetVar( "h", ::nBase::cVariant::MakeVariant( iH ) );
+}
+
+
+sf::Vector2f
+cSize::AsVector2F()
+{
+    return  sf::Vector2f( float(W()), float(H()) );
+}
+
+
+void
+cSize::SetUsingVector( const sf::Vector2f & iVector )
+{
+    W( iVector.x );
+    H( iVector.y );
 }
 
 

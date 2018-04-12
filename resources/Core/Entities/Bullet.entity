@@ -1,6 +1,14 @@
 <entity id="bullet">
-	<components>
-		<component name="color" r="255" g="20" b="20" />
+	<components> 
+		
+		<component name="color" >
+			<variables>
+				<variable name="r" type="1" value="255" />
+				<variable name="g" type="1" value="20" />
+				<variable name="b" type="1" value="20" />
+				<variable name="a" type="1" value="255" />
+			</variables>
+		</component>
 		
 		<component name="position" >
 			<variables>

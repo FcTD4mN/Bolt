@@ -1,9 +1,6 @@
 #include "Core.ECS.Component.Direction.h"
 
 
-#include "Core.ECS.Utilities.ComponentRegistry.h"
-
-
 namespace nECS {
 
 
@@ -18,22 +15,31 @@ cDirection::~cDirection()
 
 
 cDirection::cDirection() :
-    tSuperClass( "direction" ),
-    mDirection( sf::Vector2f( 0.0F, 0.0F ) )
+    tSuperClass( "direction" )
 {
+    SetVar( "x", ::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetVar( "y", ::nBase::cVariant::MakeVariant( 0.0 ) );
 }
 
 
-cDirection::cDirection( const sf::Vector2f& iDirection ) :
-    tSuperClass( "direction" ),
-    mDirection( iDirection )
+cDirection::cDirection( float iX, float iY ) :
+    tSuperClass( "direction" )
 {
+    SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
+    SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
 }
 
 
-cDirection::cDirection( const cDirection & iDirection ) :
-    tSuperClass( iDirection ),
-    mDirection( iDirection.mDirection )
+cDirection::cDirection( const sf::Vector2f& iPosition ) :
+    tSuperClass( "direction" )
+{
+    SetVar( "x", ::nBase::cVariant::MakeVariant( iPosition.x ) );
+    SetVar( "y", ::nBase::cVariant::MakeVariant( iPosition.y ) );
+}
+
+
+cDirection::cDirection( const cDirection & iRHS ) :
+    tSuperClass( iRHS )
 {
 }
 
@@ -43,7 +49,7 @@ cDirection::cDirection( const cDirection & iDirection ) :
 // -------------------------------------------------------------------------------------
 
 
-cComponent*
+cDirection*
 cDirection::Clone()
 {
     return  new cDirection( *this );
@@ -51,25 +57,50 @@ cDirection::Clone()
 
 
 // -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------ Input/Output
+// ------------------------------------------------------------------------ Access / Set
 // -------------------------------------------------------------------------------------
 
 
-void
-cDirection::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+double
+cDirection::X()
 {
-    tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "directionx", mDirection.x );
-    iNode->SetAttribute( "directiony", mDirection.y );
+    return  GetVar( "x" )->GetValueNumber();
+}
+
+
+double
+cDirection::Y()
+{
+    return  GetVar( "y" )->GetValueNumber();
 }
 
 
 void
-cDirection::LoadXML( tinyxml2::XMLElement* iNode )
+cDirection::X( double iX )
 {
-    tSuperClass::LoadXML( iNode );
-    mDirection.x = iNode->FloatAttribute( "directionx", 0.0F );
-    mDirection.y = iNode->FloatAttribute( "directiony", 0.0F );
+    SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
+}
+
+
+void
+cDirection::Y( double iY )
+{
+    SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
+}
+
+
+sf::Vector2f
+cDirection::AsVector2F()
+{
+    return  sf::Vector2f( float(X()), float(Y()) );
+}
+
+
+void
+cDirection::SetUsingVector( const sf::Vector2f & iVector )
+{
+    X( iVector.x );
+    Y( iVector.y );
 }
 
 

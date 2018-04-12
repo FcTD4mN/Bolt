@@ -1,8 +1,6 @@
 #pragma once
 
-
 #include "Core.ECS.Core.Component.h"
-
 
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
@@ -12,29 +10,32 @@ namespace nECS {
 
 
 class cDirection :
-    public cComponent
+    public cComponentGeneric
 {
 public:
-    typedef  cComponent  tSuperClass;
+    typedef  cComponentGeneric  tSuperClass;
 
 public:
     virtual  ~cDirection();
     cDirection();
-    cDirection( const sf::Vector2f& iDirection );
-    cDirection( const cDirection& iColor );
+    cDirection( float iX, float iY );
+    cDirection( const sf::Vector2f& iVector );
+    cDirection( const cDirection& iRHS );
 
 public:
     // Copy
-    virtual  cComponent* Clone();
+    virtual  cDirection* Clone() override;
 
 public:
-    // Input/Output
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
+    // Access / Set
+    double X();
+    double Y();
 
-public:
-    sf::Vector2f mDirection;
+    void X( double iX );
+    void Y( double iY );
 
+    sf::Vector2f AsVector2F();
+    void SetUsingVector( const sf::Vector2f& iVector );
 };
 
 

@@ -113,7 +113,7 @@ cInfiltratorScreen::Initialize()
     light->AddComponent( new ::nECS::cSimplePhysic( 650.0F, 100.0F, 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( light );
 
-    int swall = 2;
+    int swall = 20;
     for( int i = 0; i < swall; ++i )
     {
         for( int j = 0; j < swall; ++j )
@@ -180,13 +180,13 @@ cInfiltratorScreen::KeyPressed( const sf::Event& iEvent )
     if( iEvent.key.code == sf::Keyboard::Key::X )
     {
         auto direction = dynamic_cast< ::nECS::cDirection* >( mMechant->GetComponentByName( "direction" ) );
-        direction->mDirection = mRotationFOV.transformPoint( direction->mDirection );
+        direction->SetUsingVector( mRotationFOV.transformPoint( direction->AsVector2F() ) );
     }
     else if( iEvent.key.code == sf::Keyboard::Key::C )
     {
         auto direction = dynamic_cast< ::nECS::cDirection* >( mMechant->GetComponentByName( "direction" ) );
         mRotationFOV = mRotationFOV.getInverse();
-        direction->mDirection = mRotationFOV.transformPoint( direction->mDirection );
+        direction->SetUsingVector( mRotationFOV.transformPoint( direction->AsVector2F() ) );
         mRotationFOV = mRotationFOV.getInverse();
     }
     else if( iEvent.key.code == sf::Keyboard::Key::K )

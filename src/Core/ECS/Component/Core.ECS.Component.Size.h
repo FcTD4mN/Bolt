@@ -1,8 +1,6 @@
 #pragma once
 
-
 #include "Core.ECS.Core.Component.h"
-
 
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
@@ -12,30 +10,34 @@ namespace nECS {
 
 
 class cSize :
-    public ::nECS::cComponent
+    public cComponentGeneric
 {
 public:
-    typedef  ::nECS::cComponent  tSuperClass;
+    typedef  cComponentGeneric  tSuperClass;
 
 public:
     virtual  ~cSize();
     cSize();
     cSize( float iW, float iH );
     cSize( const sf::Vector2f& iVector );
-    cSize( const cSize& iSize );
+    cSize( const cSize& iRHS );
+
+    void Build( float iW, float iH );
 
 public:
     // Copy
-    virtual  ::nECS::cComponent* Clone();
+    virtual  cSize* Clone() override;
 
 public:
-    // Input/Output
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
+    // Access / Set
+    double W();
+    double H();
 
-public:
-    sf::Vector2f  mSize;
+    void W( double iW );
+    void H( double iH );
 
+    sf::Vector2f AsVector2F();
+    void SetUsingVector( const sf::Vector2f& iVector );
 };
 
 

@@ -126,21 +126,21 @@ cSightSystem::Update( unsigned int iDeltaTime )
         sf::VertexArray subFov;
 
         // Important points of main FOV
-        sf::Vector2f fovOrigin( position->X(), position->Y() ); // Base point of the triangle
+        sf::Vector2f fovOrigin( float(position->X()), float(position->Y()) ); // Base point of the triangle
         sf::Vector2f fovB;
 
         // Get FOV triangles
-        float semiAngle = float(fieldofview->mAngle / 2.0F);
+        float semiAngle = float(fieldofview->Angle() / 2.0F);
         sf::Transform rotation;
         rotation.rotate( semiAngle );
 
         // This vector is the vector of the bisectrice of the FOV
-        sf::Vector2f baseVector = direction->mDirection * float(fieldofview->mDistance);
+        sf::Vector2f baseVector = direction->AsVector2F() * float(fieldofview->Distance() );
         fovB = rotation.transformPoint( baseVector ); // This will be the most top left point of the first triangle
         // Reset the rotation
         rotation = rotation.Identity;
         // Set it to FOV angle / number of split, negative so it goes right and not left
-        rotation.rotate( float( -fieldofview->mAngle ) / FOVSplitThreshold );
+        rotation.rotate( float( -fieldofview->Angle() ) / FOVSplitThreshold );
 
         mTriangles.clear();
         for( int i = 0; i < FOVSplitThreshold; ++i )
@@ -173,15 +173,15 @@ cSightSystem::Update( unsigned int iDeltaTime )
                 continue;
 
             auto positionENT = dynamic_cast<cPosition*>( v->GetComponentByName( "position" ) );
-            sf::Vector2f entPosVec( positionENT->X(), positionENT->Y() );
+            sf::Vector2f entPosVec( float(positionENT->X()), float(positionENT->Y()) );
 
             auto sizeENT = dynamic_cast<cSize*>( v->GetComponentByName( "size" ) );
 
             sf::VertexArray analysisVisibleBox( sf::Points, 4 );
             analysisVisibleBox[ 0 ] = entPosVec;
-            analysisVisibleBox[ 1 ] = entPosVec + sf::Vector2f( 0.0F, sizeENT->mSize.y );
-            analysisVisibleBox[ 2 ] = entPosVec + sizeENT->mSize;
-            analysisVisibleBox[ 3 ] = entPosVec + sf::Vector2f( sizeENT->mSize.x, 0.0F );
+            analysisVisibleBox[ 1 ] = entPosVec + sf::Vector2f( 0.0F, float(sizeENT->H()) );
+            analysisVisibleBox[ 2 ] = entPosVec + sizeENT->AsVector2F();
+            analysisVisibleBox[ 3 ] = entPosVec + sf::Vector2f( float(sizeENT->W()), 0.0F );
 
             mAllPolygonsInFOV.push_back( analysisVisibleBox );
         }

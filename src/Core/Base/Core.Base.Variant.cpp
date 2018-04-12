@@ -52,6 +52,13 @@ cVariant::MakeVariant( double iValue )
 
 
 cVariant*
+cVariant::MakeVariant( int iValue )
+{
+    return  new cNumber( double(iValue) );
+}
+
+
+cVariant*
 cVariant::MakeVariant( const std::string& iValue )
 {
     return  new cString( iValue );
@@ -206,6 +213,13 @@ cNumber::Value( double iValue )
 }
 
 
+eType
+cNumber::Type()
+{
+    return  kNumber;
+}
+
+
 // ==============================================================================================================
 // =============================================================================================== Input / Output
 // ==============================================================================================================
@@ -280,6 +294,13 @@ void
 cString::Value( const std::string & iValue )
 {
     mValue = iValue;
+}
+
+
+eType
+cString::Type()
+{
+    return  kString;
 }
 
 

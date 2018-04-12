@@ -18,31 +18,39 @@ cColor::~cColor()
 
 
 cColor::cColor() :
-    tSuperClass( "color" ),
-    mColor( sf::Color( 0, 0, 0, 255 ) )
+    tSuperClass( "color" )
 {
+    Build( 0, 0, 0, 0 );
 }
 
 
 cColor::cColor( int iR, int iG, int iB, int iA ) :
-    tSuperClass( "color" ),
-    mColor( sf::Color( iR, iG, iB, iA ) )
+    tSuperClass( "color" )
+{
+    Build( iR, iG, iB, iA );
+}
+
+
+cColor::cColor( const sf::Color& iColor ) :
+    tSuperClass( "color" )
+{
+    Build( iColor.r, iColor.g, iColor.b, iColor.a );
+}
+
+
+cColor::cColor( const cColor & iRHS ) :
+    tSuperClass( iRHS )
 {
 }
 
 
-cColor::cColor( sf::Color iColor ) :
-    tSuperClass( "color" ),
-    mColor( sf::Color( iColor ) )
-
+void
+cColor::Build( int iR, int iG, int iB, int iA )
 {
-}
-
-
-cColor::cColor( const cColor & iColor ) :
-    tSuperClass( iColor ),
-    mColor( iColor.mColor )
-{
+    SetVar( "r", ::nBase::cVariant::MakeVariant( iR ) );
+    SetVar( "g", ::nBase::cVariant::MakeVariant( iG ) );
+    SetVar( "b", ::nBase::cVariant::MakeVariant( iB ) );
+    SetVar( "a", ::nBase::cVariant::MakeVariant( iA ) );
 }
 
 
@@ -51,7 +59,7 @@ cColor::cColor( const cColor & iColor ) :
 // -------------------------------------------------------------------------------------
 
 
-cComponent*
+cColor*
 cColor::Clone()
 {
     return  new cColor( *this );
@@ -59,30 +67,73 @@ cColor::Clone()
 
 
 // -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------ Input/Output
+// ------------------------------------------------------------------------ Access / Set
 // -------------------------------------------------------------------------------------
 
 
-void
-cColor::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+int
+cColor::R()
 {
-    tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "colorr", mColor.r );
-    iNode->SetAttribute( "colorg", mColor.g );
-    iNode->SetAttribute( "colorb", mColor.b );
-    iNode->SetAttribute( "colora", mColor.a );
+    return  int(GetVar( "r" )->GetValueNumber());
+}
+
+
+int
+cColor::G()
+{
+    return  int( GetVar( "g" )->GetValueNumber() );
+}
+
+
+int
+cColor::B()
+{
+    return  int( GetVar( "b" )->GetValueNumber() );
+}
+
+
+int
+cColor::A()
+{
+    return  int( GetVar( "a" )->GetValueNumber() );
+}
+
+
+
+void
+cColor::R( int iR )
+{
+    SetVar( "r", ::nBase::cVariant::MakeVariant( iR ) );
 }
 
 
 void
-cColor::LoadXML( tinyxml2::XMLElement* iNode )
+cColor::G( int iG )
 {
-    tSuperClass::LoadXML( iNode );
-    mColor.r = iNode->IntAttribute( "colorr", 0 );
-    mColor.g = iNode->IntAttribute( "colorg", 0 );
-    mColor.b = iNode->IntAttribute( "colorb", 0 );
-    mColor.a = iNode->IntAttribute( "colora", 255 );
+    SetVar( "g", ::nBase::cVariant::MakeVariant( iG ) );
 }
+
+
+void
+cColor::B( int iB )
+{
+    SetVar( "b", ::nBase::cVariant::MakeVariant( iB ) );
+}
+
+
+void
+cColor::A( int iA )
+{
+    SetVar( "a", ::nBase::cVariant::MakeVariant( iA ) );
+}
+
+
+sf::Color
+cColor::AsSFCOlor()
+{
+    return  sf::Color( R(), G(), B(), A() );
+}
+
 
 
 } // namespace nECS

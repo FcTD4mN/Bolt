@@ -25,6 +25,7 @@ public:
     // Makers
     static cVariant* MakeVariant( eType iType );
     static cVariant* MakeVariant( double iNumber );
+    static cVariant* MakeVariant( int iNumber );
     static cVariant* MakeVariant( const std::string& iString );
     virtual  cVariant* Clone() = 0;
 
@@ -71,6 +72,8 @@ public:
     double Value() const;
     void Value( double iValue );
 
+    virtual  eType  Type() override;
+
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
@@ -105,6 +108,8 @@ public:
     // Access
     const std::string& Value() const;
     void Value( const std::string& iValue );
+
+    virtual  eType  Type() override;
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
