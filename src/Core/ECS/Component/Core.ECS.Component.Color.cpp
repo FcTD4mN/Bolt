@@ -59,7 +59,7 @@ cColor::Build( int iR, int iG, int iB, int iA )
 // -------------------------------------------------------------------------------------
 
 
-cColor*
+cComponent*
 cColor::Clone()
 {
     return  new cColor( *this );
@@ -103,28 +103,28 @@ cColor::A()
 void
 cColor::R( int iR )
 {
-    SetVar( "r", ::nBase::cVariant::MakeVariant( iR ) );
+    GetVar( "r" )->SetValueNumber( iR );
 }
 
 
 void
 cColor::G( int iG )
 {
-    SetVar( "g", ::nBase::cVariant::MakeVariant( iG ) );
+    GetVar( "g" )->SetValueNumber( iG );
 }
 
 
 void
 cColor::B( int iB )
 {
-    SetVar( "b", ::nBase::cVariant::MakeVariant( iB ) );
+    GetVar( "b" )->SetValueNumber( iB );
 }
 
 
 void
 cColor::A( int iA )
 {
-    SetVar( "a", ::nBase::cVariant::MakeVariant( iA ) );
+    GetVar( "a" )->SetValueNumber( iA );
 }
 
 

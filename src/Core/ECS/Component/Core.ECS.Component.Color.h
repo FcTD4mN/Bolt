@@ -26,7 +26,7 @@ public:
 
 public:
     // Copy
-    virtual  cColor* Clone() override;
+    virtual  cComponent* Clone() override;
 
 public:
     // Access / Set

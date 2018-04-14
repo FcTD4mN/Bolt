@@ -49,7 +49,7 @@ cPosition::cPosition( const cPosition & iRHS ) :
 // -------------------------------------------------------------------------------------
 
 
-cPosition*
+cComponent*
 cPosition::Clone()
 {
     return  new cPosition(*this);
@@ -78,14 +78,14 @@ cPosition::Y()
 void
 cPosition::X( double iX )
 {
-    SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
+    GetVar( "x" )->SetValueNumber( iX );
 }
 
 
 void
 cPosition::Y( double iY )
 {
-    SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
+    GetVar( "y" )->SetValueNumber( iY );
 }
 
 

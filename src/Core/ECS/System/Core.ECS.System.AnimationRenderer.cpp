@@ -83,10 +83,10 @@ cAnimationRenderer::Update( unsigned int iDeltaTime )
         sf::Vector2f spritePos( float(position->X()), float(position->Y()) );
         spriteanimated->mSprite.setPosition( spritePos );
 
-        if( spriteanimated->mPaused )
+        if( spriteanimated->Paused ())
             continue;
 
-        if( spriteanimated->mClock.getElapsedTime().asSeconds() > 1 / spriteanimated->mFrameRate )
+        if( spriteanimated->mClock.getElapsedTime().asSeconds() > 1 / spriteanimated->Framerate() )
         {
             spriteanimated->NextFrame();
             spriteanimated->mClock.restart();

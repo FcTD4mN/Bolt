@@ -11,7 +11,8 @@ enum eType
 {
     kInvalid = 0,
     kNumber,
-    kString
+    kString,
+    kBoolean
 };
 
 class cVariant
@@ -27,16 +28,19 @@ public:
     static cVariant* MakeVariant( double iNumber );
     static cVariant* MakeVariant( int iNumber );
     static cVariant* MakeVariant( const std::string& iString );
+    static cVariant* MakeVariant( bool iBoolean );
     virtual  cVariant* Clone() = 0;
 
 public:
     // Access
     virtual  eType  Type();
 
-    double      GetValueNumber() const;
-    std::string GetValueString() const;
-    void        SetValueNumber( double iValue );
-    void        SetValueString( std::string& iValue );
+    double              GetValueNumber() const;
+    const std::string&  GetValueString() const;
+    bool                GetValueBool() const;
+    void                SetValueNumber( double iValue );
+    void                SetValueString( const std::string& iValue );
+    void                SetValueBool( bool iValue );
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
@@ -65,7 +69,7 @@ public:
 
 public:
     // Makers
-    virtual  cVariant*  Clone() override;
+    virtual  cNumber*  Clone() override;
 
 public:
     // Access
@@ -102,7 +106,7 @@ public:
 
 public:
     // Makers
-    virtual  cVariant*  Clone() override;
+    virtual  cString*  Clone() override;
 
 public:
     // Access
@@ -117,6 +121,43 @@ public:
 
 protected:
     std::string  mValue;
+};
+
+
+// ================
+// ================
+// ================
+
+
+class cBoolean :
+    public cVariant
+{
+public:
+    typedef cVariant tSuperClass;
+
+
+public:
+    ~cBoolean();
+    cBoolean( bool iValue );
+    cBoolean( const cBoolean& iRHS );
+
+public:
+    // Makers
+    virtual  cBoolean*  Clone() override;
+
+public:
+    // Access
+    bool Value() const;
+    void Value( bool iValue );
+
+    virtual  eType  Type() override;
+
+public:
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
+    virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
+
+protected:
+    bool  mValue;
 };
 
 

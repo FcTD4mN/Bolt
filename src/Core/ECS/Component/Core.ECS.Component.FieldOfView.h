@@ -22,7 +22,7 @@ public:
 
 public:
     // Copy
-    virtual  cFieldOfView* Clone() override;
+    virtual  cComponent* Clone() override;
 
 public:
     // Access / Set

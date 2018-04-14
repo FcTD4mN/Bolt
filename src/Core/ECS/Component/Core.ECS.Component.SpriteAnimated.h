@@ -12,10 +12,10 @@ namespace nECS {
 
 
 class cSpriteAnimated :
-    public cComponent
+    public cComponentGeneric
 {
 public:
-    typedef  cComponent  tSuperClass;
+    typedef  cComponentGeneric  tSuperClass;
 
 public:
     virtual  ~cSpriteAnimated();
@@ -23,9 +23,21 @@ public:
     cSpriteAnimated( const std::string& iFile, int iW, int iH );
     cSpriteAnimated( const cSpriteAnimated& iSpriteAnimated );
 
+    void Build( const std::string& iFile, int iW, int iH );
+
 public:
     // Copy
-    virtual  cComponent* Clone();
+    virtual  cComponent* Clone() override;
+
+public:
+    // Access
+    const std::string& FileName();
+    double Framerate();
+    bool Paused();
+
+    void FileName( const std::string& iValue );
+    void Framerate( double iValue );
+    void Paused( bool iValue );
 
 public:
     // Handle functions
@@ -43,13 +55,9 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 public:
-    std::string     mFileName;
-
     sf::Texture*    mSpriteSheet;
     sf::Sprite      mSprite;
     sf::IntRect     mCurrentSpriteRect;
-    float           mFrameRate;         // Animation's frame rate
-    bool            mPaused;            // Is the animation paused ?
     sf::Clock       mClock;             // Animation clock
 
 };

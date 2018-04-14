@@ -41,7 +41,7 @@ cFieldOfView::cFieldOfView( const cFieldOfView & iRHS ) :
 // -------------------------------------------------------------------------------------
 
 
-cFieldOfView*
+cComponent*
 cFieldOfView::Clone()
 {
     return  new cFieldOfView( *this );
@@ -70,14 +70,14 @@ cFieldOfView::Distance()
 void
 cFieldOfView::Angle( double iAngle )
 {
-    SetVar( "angle", ::nBase::cVariant::MakeVariant( iAngle ) );
+    GetVar( "angle" )->SetValueNumber( iAngle );
 }
 
 
 void
 cFieldOfView::Distance( double iDistance )
 {
-    SetVar( "distance", ::nBase::cVariant::MakeVariant( iDistance ) );
+    GetVar( "distance" )->SetValueNumber( iDistance );
 }
 
 } // namespace nECS

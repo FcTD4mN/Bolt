@@ -65,6 +65,13 @@ cVariant::MakeVariant( const std::string& iValue )
 }
 
 
+cVariant *
+cVariant::MakeVariant( bool iBoolean )
+{
+    return  new cBoolean( iBoolean );
+}
+
+
 // ==============================================================================================================
 // ============================================================================================= Access / Getters
 // ==============================================================================================================
@@ -84,10 +91,17 @@ cVariant::GetValueNumber() const
 }
 
 
-std::string
+const std::string&
 cVariant::GetValueString() const
 {
     return  dynamic_cast< const cString* >( this )->Value();
+}
+
+
+bool
+cVariant::GetValueBool() const
+{
+    return  dynamic_cast< const cBoolean* >( this )->Value();
 }
 
 
@@ -99,9 +113,16 @@ cVariant::SetValueNumber( double iValue )
 
 
 void
-cVariant::SetValueString( std::string& iValue )
+cVariant::SetValueString( const std::string& iValue )
 {
     dynamic_cast< cString* >( this )->Value( iValue );
+}
+
+
+void
+cVariant::SetValueBool( bool iValue )
+{
+    dynamic_cast< cBoolean* >( this )->Value( iValue );
 }
 
 
@@ -187,7 +208,7 @@ cNumber::cNumber( const cNumber & iRHS ) :
 // ==============================================================================================================
 
 
-cVariant *
+cNumber *
 cNumber::Clone()
 {
     return  new  cNumber( *this );
@@ -271,7 +292,7 @@ cString::cString( const cString& iRHS ) :
 // ==============================================================================================================
 
 
-cVariant *
+cString *
 cString::Clone()
 {
     return  new  cString( *this );
@@ -322,6 +343,90 @@ cString::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mValue = iNode->Attribute( "value", "" );
+}
+
+
+
+// ===================================
+// ===================================
+// ===================================
+
+
+
+cBoolean::~cBoolean()
+{
+}
+
+cBoolean::cBoolean( bool iValue ) :
+    tSuperClass(),
+    mValue( iValue )
+{
+}
+
+
+cBoolean::cBoolean( const cBoolean& iRHS ) :
+    tSuperClass( iRHS ),
+    mValue( iRHS.mValue )
+{
+}
+
+
+// ==============================================================================================================
+// ======================================================================================================= Makers
+// ==============================================================================================================
+
+
+cBoolean *
+cBoolean::Clone()
+{
+    return  new  cBoolean( *this );
+}
+
+
+// ==============================================================================================================
+// ======================================================================================================= Access
+// ==============================================================================================================
+
+
+bool
+cBoolean::Value() const
+{
+    return  mValue;
+}
+
+
+void
+cBoolean::Value( bool iValue )
+{
+    mValue = iValue;
+}
+
+
+eType
+cBoolean::Type()
+{
+    return  kBoolean;
+}
+
+
+// ==============================================================================================================
+// =============================================================================================== Input / Output
+// ==============================================================================================================
+
+
+void
+cBoolean::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+{
+    tSuperClass::SaveXML( iNode, iDocument );
+    iNode->SetAttribute( "value", mValue );
+}
+
+
+void
+cBoolean::LoadXML( tinyxml2::XMLElement* iNode )
+{
+    tSuperClass::LoadXML( iNode );
+    mValue = iNode->BoolAttribute( "value", false );
 }
 
 

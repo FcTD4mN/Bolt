@@ -1,41 +1,34 @@
 #pragma once
 
-
 #include "Core.ECS.Core.Component.h"
-
-
-#include <SFML/Graphics.hpp>
-#include <tinyxml2.h>
 
 
 namespace nECS {
 
 
-class cText :
-    public cComponent
-{
-public:
-    typedef  cComponent  tSuperClass;
+    class cText :
+        public cComponentGeneric
+    {
+    public:
+        typedef  cComponentGeneric  tSuperClass;
 
-public:
-    virtual  ~cText();
-    cText();
-    cText( const std::string& iText );
-    cText( const cText& iColor );
+    public:
+        virtual  ~cText();
+        cText();
+        cText( const std::string& iVector );
+        cText( const cText& iRHS );
 
-public:
-    // Copy
-    virtual  cComponent* Clone();
+        void Build( const std::string& iString );
 
-public:
-    // Input/Output
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
+    public:
+        // Copy
+        virtual  cComponent* Clone() override;
 
-public:
-    std::string mText;
-
-};
+    public:
+        // Access / Set
+        const std::string& Text();
+        void Text( const std::string& iText );
+    };
 
 
 } // namespace nECS

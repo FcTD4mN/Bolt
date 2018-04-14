@@ -76,8 +76,8 @@ cGameScreen::Initialize()
     std::function< void( void )> f = [=]( void ) {
         ::nECS::cEntity* ent = new ::nECS::cEntity( world );
         ::nECS::cSpriteAnimated* animation = new ::nECS::cSpriteAnimated( "resources/Core/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 );
-        animation->mFrameRate = 24;
-        animation->mPaused = false;
+        animation->Framerate( 24.0 );
+        animation->Paused( false );
 
         ent->AddComponent( animation );
         sf::Window* window = ::nApplication::cGameApplication::App()->Window();

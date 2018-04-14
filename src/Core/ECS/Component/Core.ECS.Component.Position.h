@@ -24,7 +24,7 @@ public:
 
 public:
     // Copy
-    virtual  cPosition* Clone() override;
+    virtual  cComponent* Clone() override;
 
 public:
     // Access / Set

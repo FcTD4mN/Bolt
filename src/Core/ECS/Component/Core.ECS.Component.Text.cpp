@@ -18,23 +18,29 @@ cText::~cText()
 
 
 cText::cText() :
-    tSuperClass( "color" ),
-    mText( "nothing" )
+    tSuperClass( "color" )
 {
+    Build( "nothing" );
 }
 
 
 cText::cText( const std::string& iText ) :
-    tSuperClass( "color" ),
-    mText( iText )
+    tSuperClass( "color" )
 {
+    Build( iText );
 }
 
 
 cText::cText( const cText & iText ) :
-    tSuperClass( iText ),
-    mText( iText.mText )
+    tSuperClass( iText )
 {
+}
+
+
+void
+cText::Build( const std::string & iString )
+{
+    SetVar( "text", ::nBase::cVariant::MakeVariant( iString ) );
 }
 
 
@@ -50,24 +56,17 @@ cText::Clone()
 }
 
 
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------ Input/Output
-// -------------------------------------------------------------------------------------
-
-
-void
-cText::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+const std::string&
+cText::Text()
 {
-    tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "text", mText.c_str() );
+    return  GetVar( "text" )->GetValueString();
 }
 
 
 void
-cText::LoadXML( tinyxml2::XMLElement* iNode )
+cText::Text( const std::string & iText )
 {
-    tSuperClass::LoadXML( iNode );
-    mText = iNode->Attribute( "text" );
+    GetVar( "text" )->SetValueString( iText );
 }
 
 

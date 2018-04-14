@@ -18,36 +18,40 @@ cSpriteAnimated::~cSpriteAnimated()
 
 
 cSpriteAnimated::cSpriteAnimated() :
-    tSuperClass( "spriteanimated" ),
-    mFileName( "empty" ),
-    mSpriteSheet( 0 ),
-    mCurrentSpriteRect( 0, 0, 1, 1 ),
-    mFrameRate( 24.0F )
+    tSuperClass( "spriteanimated" )
 {
+    Build( "empty", 1, 1 );
 }
 
 
 cSpriteAnimated::cSpriteAnimated( const std::string& iFile, int iW, int iH ) :
     tSuperClass( "spriteanimated" ),
-    mFileName( iFile ),
-    mSpriteSheet( 0 ),
-    mCurrentSpriteRect( 0, 0, iW, iH ),
-    mFrameRate( 24.0F )
+    mCurrentSpriteRect( 0, 0, iW, iH )
 {
-    SetSpriteSheet( iFile, iW, iH );
+    Build( iFile, iW, iH );
 }
 
 
 cSpriteAnimated::cSpriteAnimated( const cSpriteAnimated & iSpriteAnimated ) :
     tSuperClass( iSpriteAnimated ),
-    mFileName( iSpriteAnimated.mFileName ),
     mSpriteSheet( iSpriteAnimated.mSpriteSheet ), // Copy pointer -> Same object, but this is what we want, we don't copy a same texture ( that's why we have a resource manager )
     mSprite( iSpriteAnimated.mSprite ),
     mCurrentSpriteRect( iSpriteAnimated.mCurrentSpriteRect ),
-    mFrameRate( iSpriteAnimated.mFrameRate ),
-    mPaused( iSpriteAnimated.mPaused ),
     mClock( iSpriteAnimated.mClock )
 {
+}
+
+
+void
+cSpriteAnimated::Build( const std::string & iFile, int iW, int iH )
+{
+    SetVar( "filename", ::nBase::cVariant::MakeVariant( iFile ) );
+    SetVar( "framerate", ::nBase::cVariant::MakeVariant( 24.0 ) );
+    SetVar( "paused", ::nBase::cVariant::MakeVariant( false ) );
+
+    mCurrentSpriteRect = sf::IntRect( 0, 0, iW, iH );
+
+    SetSpriteSheet( iFile, iW, iH );
 }
 
 
@@ -60,6 +64,53 @@ cComponent*
 cSpriteAnimated::Clone()
 {
     return  new cSpriteAnimated( *this );
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ Access
+// -------------------------------------------------------------------------------------
+
+
+const std::string&
+cSpriteAnimated::FileName()
+{
+    return  GetVar( "filename" )->GetValueString();
+}
+
+
+double
+cSpriteAnimated::Framerate()
+{
+    return  GetVar( "framerate" )->GetValueNumber();
+}
+
+
+bool
+cSpriteAnimated::Paused()
+{
+    return  GetVar( "paused" )->GetValueBool();
+}
+
+
+void
+cSpriteAnimated::FileName( const std::string & iValue )
+{
+    GetVar( "filename" )->SetValueString( iValue );
+}
+
+
+void
+cSpriteAnimated::Framerate( double iValue )
+{
+    GetVar( "framerate" )->SetValueNumber( iValue );
+}
+
+
+void
+cSpriteAnimated::Paused( bool iValue )
+{
+    GetVar( "framerate" )->SetValueBool( iValue );
 }
 
 
@@ -120,11 +171,8 @@ void
 cSpriteAnimated::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
     tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "file", mFileName.c_str() );
     iNode->SetAttribute( "width", mCurrentSpriteRect.width );
     iNode->SetAttribute( "height", mCurrentSpriteRect.height );
-    iNode->SetAttribute( "framerate", mFrameRate );
-    iNode->SetAttribute( "paused", mPaused );
 }
 
 
@@ -132,16 +180,13 @@ void
 cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
-    mFileName = iNode->Attribute( "file" );
     int width = iNode->IntAttribute( "width", 0 );
     int height = iNode->IntAttribute( "height", 0 );
-    mFrameRate = iNode->FloatAttribute( "framerate", 24.0F );
-    mPaused = iNode->BoolAttribute( "paused", false );
 
     mCurrentSpriteRect.width = width;
     mCurrentSpriteRect.height = height;
 
-    SetSpriteSheet( mFileName, width, height );
+    SetSpriteSheet( FileName(), width, height );
 }
 
 

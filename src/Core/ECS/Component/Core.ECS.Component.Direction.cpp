@@ -49,7 +49,7 @@ cDirection::cDirection( const cDirection & iRHS ) :
 // -------------------------------------------------------------------------------------
 
 
-cDirection*
+cComponent*
 cDirection::Clone()
 {
     return  new cDirection( *this );
@@ -78,14 +78,14 @@ cDirection::Y()
 void
 cDirection::X( double iX )
 {
-    SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
+    GetVar( "x" )->SetValueNumber( iX );
 }
 
 
 void
 cDirection::Y( double iY )
 {
-    SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
+    GetVar( "y" )->SetValueNumber( iY );
 }
 
 

@@ -54,7 +54,7 @@ cSize::Build( float iW, float iH )
 // -------------------------------------------------------------------------------------
 
 
-cSize*
+cComponent*
 cSize::Clone()
 {
     return  new cSize( *this );
@@ -83,14 +83,14 @@ cSize::H()
 void
 cSize::W( double iW )
 {
-    SetVar( "w", ::nBase::cVariant::MakeVariant( iW ) );
+    GetVar( "w" )->SetValueNumber( iW );
 }
 
 
 void
 cSize::H( double iH )
 {
-    SetVar( "h", ::nBase::cVariant::MakeVariant( iH ) );
+    GetVar( "h" )->SetValueNumber( iH );
 }
 
 
