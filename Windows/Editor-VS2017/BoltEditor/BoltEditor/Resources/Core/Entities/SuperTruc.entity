@@ -14,7 +14,12 @@
 				<variable name="y" type="1" value="50" />
 			</variables>
 		</component>
-		<component name="size" w="50" h="100"/>
+		<component name="size" >
+			<variables>
+				<variable name="w" type="1" value="50" />
+				<variable name="h" type="1" value="100" />
+			</variables>
+		</component>
 	</components>
 	<tags/>
 </entity>

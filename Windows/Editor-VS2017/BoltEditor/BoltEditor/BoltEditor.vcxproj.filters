@@ -254,6 +254,12 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.cpp">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.cpp">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.cpp">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -402,6 +408,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.ScreenEntityMap.h">
       <Filter>src\Core\ECS\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

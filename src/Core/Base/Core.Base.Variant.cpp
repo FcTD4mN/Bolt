@@ -34,6 +34,9 @@ cVariant::MakeVariant( eType iType )
         case kString:
             return  new cString( "" );
             break;
+        case kBoolean:
+            return  new cBoolean( false );
+            break;
 
         default:
             printf( "Invalid variant type\n" );
@@ -160,6 +163,10 @@ cVariant::MakeFromXML( tinyxml2::XMLElement * iNode )
             loadedVar = MakeVariant( kString );
             loadedVar->LoadXML( iNode );
             break;
+        case eType::kBoolean:
+            loadedVar = MakeVariant( kBoolean );
+            loadedVar->LoadXML( iNode );
+            break;
 
         default:
             break;
@@ -238,6 +245,13 @@ eType
 cNumber::Type()
 {
     return  kNumber;
+}
+
+
+std::string
+cNumber::ToString() const
+{
+    return  std::to_string( mValue );
 }
 
 
@@ -325,6 +339,13 @@ cString::Type()
 }
 
 
+std::string
+cString::ToString() const
+{
+    return  mValue;
+}
+
+
 // ==============================================================================================================
 // =============================================================================================== Input / Output
 // ==============================================================================================================
@@ -342,7 +363,7 @@ void
 cString::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
-    mValue = iNode->Attribute( "value", "" );
+    mValue = iNode->Attribute( "value" );
 }
 
 
@@ -406,6 +427,13 @@ eType
 cBoolean::Type()
 {
     return  kBoolean;
+}
+
+
+std::string
+cBoolean::ToString() const
+{
+    return  mValue ? "true" : "false";
 }
 
 

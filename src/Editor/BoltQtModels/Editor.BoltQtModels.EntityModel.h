@@ -7,6 +7,8 @@ namespace  nECS { class cEntity; }
 namespace  nQt {
 namespace  nModels {
 
+class cTreeWrapperNode;
+
 class  cEntityModel :
     public QAbstractTableModel
 {
@@ -16,6 +18,7 @@ public:
     typedef QAbstractTableModel tSuperClass;
 
 public:
+    ~cEntityModel();
     cEntityModel( ::nECS::cEntity* iEntity, QObject* iParent = 0 );
 
 public:
@@ -26,9 +29,16 @@ public:
     virtual  QVariant headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const override;
     virtual  QModelIndex index( int row, int column, const QModelIndex &parent = QModelIndex() ) const override;
     virtual  QModelIndex parent( const QModelIndex &index ) const override;
+    virtual  Qt::ItemFlags flags( const QModelIndex& iIndex ) const override;
+
+public:
+    cTreeWrapperNode*  ExtractTreeWrapper( const QModelIndex& iIndex ) const;
+    void BuildData();
 
 private:
     ::nECS::cEntity* mEntity;
+
+    cTreeWrapperNode* mRootItem;
 };
 
 } //nQt

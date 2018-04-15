@@ -120,11 +120,11 @@ cComponentGeneric::VarCount() const
 }
 
 
-const ::nBase::cVariant*
-cComponentGeneric::GetVarValueAtIndex( int iIndex ) const
+::nBase::cVariant*
+cComponentGeneric::GetVarAtIndex( int iIndex )
 {
     auto it = mVars.cbegin();
-    for( int i = 0; i < mVars.size(); ++i )
+    for( int i = 0; i < iIndex; ++i )
         ++it;
 
     return  it->second;
@@ -135,7 +135,7 @@ const std::string&
 cComponentGeneric::GetVarNameAtIndex( int iIndex ) const
 {
     auto it = mVars.cbegin();
-    for( int i = 0; i < mVars.size(); ++i )
+    for( int i = 0; i < iIndex; ++i )
         ++it;
 
     return  it->first;

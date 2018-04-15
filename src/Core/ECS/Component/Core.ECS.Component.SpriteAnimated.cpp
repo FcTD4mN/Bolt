@@ -51,7 +51,8 @@ cSpriteAnimated::Build( const std::string & iFile, int iW, int iH )
 
     mCurrentSpriteRect = sf::IntRect( 0, 0, iW, iH );
 
-    SetSpriteSheet( iFile, iW, iH );
+    if( iFile != "empty" )
+        SetSpriteSheet( iFile, iW, iH );
 }
 
 

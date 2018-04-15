@@ -1,3 +1,5 @@
+#pragma once
+
 #include <tinyxml2.h>
 
 
@@ -35,12 +37,14 @@ public:
     // Access
     virtual  eType  Type();
 
-    double              GetValueNumber() const;
-    const std::string&  GetValueString() const;
-    bool                GetValueBool() const;
-    void                SetValueNumber( double iValue );
-    void                SetValueString( const std::string& iValue );
-    void                SetValueBool( bool iValue );
+    virtual  double              GetValueNumber() const;
+    virtual  const std::string&  GetValueString() const;
+    virtual  bool                GetValueBool() const;
+    virtual  void                SetValueNumber( double iValue );
+    virtual  void                SetValueString( const std::string& iValue );
+    virtual  void                SetValueBool( bool iValue );
+
+    virtual  std::string         ToString() const = 0;
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
@@ -77,6 +81,9 @@ public:
     void Value( double iValue );
 
     virtual  eType  Type() override;
+
+public:
+    virtual  std::string  ToString() const  override;
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
@@ -116,6 +123,9 @@ public:
     virtual  eType  Type() override;
 
 public:
+    virtual  std::string  ToString()  const  override;
+
+public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
 
@@ -151,6 +161,9 @@ public:
     void Value( bool iValue );
 
     virtual  eType  Type() override;
+
+public:
+    virtual  std::string  ToString()  const  override;
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;

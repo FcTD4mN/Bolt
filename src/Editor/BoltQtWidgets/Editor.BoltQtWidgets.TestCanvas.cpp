@@ -73,8 +73,8 @@ MyCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
     auto position = dynamic_cast< ::nECS::cPosition* >( theEnti->GetComponentByName( "position" ) );
     if( position )
     {
-        position->mPosition.x = iEvent->localPos().x();
-        position->mPosition.y = iEvent->localPos().y();
+        position->X( iEvent->localPos().x() );
+        position->Y( iEvent->localPos().y() );
     }
     mEditorApp->World()->AddEntity( theEnti );
 

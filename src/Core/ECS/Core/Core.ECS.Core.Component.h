@@ -64,7 +64,7 @@ public:
 
     // EDITOR USED methods
     int     VarCount() const;
-    const ::nBase::cVariant*    GetVarValueAtIndex( int iIndex ) const;
+    ::nBase::cVariant*    GetVarAtIndex( int iIndex );
     const std::string&    GetVarNameAtIndex( int iIndex ) const;
 
 public:

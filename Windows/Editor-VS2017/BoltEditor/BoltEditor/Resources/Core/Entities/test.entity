@@ -1,6 +1,12 @@
 <entity id="testUltime">
 	<components>
-		<component name="spriteanimated" file="resources/Core/Images/SpriteSheets/communiste_spritesheet.png" width="40" height="64" framerate="24" paused="false"/>
+		<component name="spriteanimated" width="40" height="64" >
+			<variables>
+				<variable name="filename" type="2" value="resources/Core/Images/SpriteSheets/communiste_spritesheet.png" />
+				<variable name="framerate" type="1" value="24" />
+				<variable name="paused" type="3" value="false" />
+			</variables>
+		</component>
 		<component name="position" >
 			<variables>
 				<variable name="x" type="1" value="10" />

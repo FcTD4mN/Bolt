@@ -16,11 +16,11 @@ cTreeWrapperNode::~cTreeWrapperNode()
 }
 
 
-cTreeWrapperNode::cTreeWrapperNode( eType iType, void* iData, cTreeWrapperNode* iParent ) :
-    mParent( iParent ),
-    mDataType( iType ),
-    mDataPointer( iData )
+cTreeWrapperNode::cTreeWrapperNode( cTreeWrapperNode* iParent ) :
+    mParent( iParent )
 {
+    if( mParent )
+        mParent->AddChild( this );
 }
 
 
@@ -32,14 +32,16 @@ cTreeWrapperNode::cTreeWrapperNode( eType iType, void* iData, cTreeWrapperNode* 
 int
 cTreeWrapperNode::ChildrenCount() const
 {
-    return  mChildren.size();
+    return  int(mChildren.size());
 }
 
 
 cTreeWrapperNode*
-cTreeWrapperNode::ChildAtColumn( int iColumn )
+cTreeWrapperNode::ChildAtRow( int iRow )
 {
-    return  mChildren[ iColumn ];
+    if( mChildren.size() > 0 )
+        return  mChildren[ iRow ];
+    return  0;
 }
 
 
@@ -51,13 +53,20 @@ cTreeWrapperNode::Parent()
 
 
 void
-cTreeWrapperNode::AddChild( eType iType, void* iData )
+cTreeWrapperNode::AddChild( cTreeWrapperNode* iNode )
 {
-    mChildren.push_back( new cTreeWrapperNode( iType, iData, this ) );
+    mChildren.push_back( iNode );
+}
 
-    if( iType == kComponent )
-    {
-    }
+
+int
+cTreeWrapperNode::IndexInParent() const
+{
+    for( int i = 0; i < mParent->mChildren.size(); ++i )
+        if( mParent->mChildren[ i ] == this )
+            return  i;
+
+    return  -1;
 }
 
 
@@ -66,17 +75,24 @@ cTreeWrapperNode::AddChild( eType iType, void* iData )
 // ======================================================================
 
 
-void*
-cTreeWrapperNode::Data()
+QVariant
+cTreeWrapperNode::DataAtColumn( int iColumn )
 {
-    return  mDataPointer;
+    return  mData[ iColumn ];
 }
 
 
-cTreeWrapperNode::eType
-cTreeWrapperNode::DataType()
+void
+cTreeWrapperNode::AppendData( const QVariant & iData )
 {
-    return  mDataType;
+    mData.push_back( iData );
+}
+
+
+std::string
+cTreeWrapperNode::Type() const
+{
+    return  "Invalid";
 }
 
 } //nModels

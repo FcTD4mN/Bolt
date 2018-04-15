@@ -1,40 +1,39 @@
+#pragma once
 
 #include <vector>
+
+#include <QtCore>
 
 namespace nQt {
 namespace nModels {
 
 class cTreeWrapperNode
 {
-private:
-    enum eType
-    {
-        kEntity = 0,
-        kComponent,
-        kVariant
-    };
-
 public:
     ~cTreeWrapperNode();
-    cTreeWrapperNode( eType iType, void* iData, cTreeWrapperNode* iParent );
+    cTreeWrapperNode( cTreeWrapperNode* iParent );
 
 public:
     // Hierarchy
-    int ChildrenCount() const;
-    cTreeWrapperNode* ChildAtColumn( int iColumn );
     cTreeWrapperNode* Parent();
-    void AddChild( eType iType, void* iData );
+    int ChildrenCount() const;
+    cTreeWrapperNode* ChildAtRow( int iRow );
+    void AddChild( cTreeWrapperNode* iNode );
+
+    int IndexInParent() const;
 
     // Data
-    void* Data();
-    eType DataType();
+    QVariant DataAtColumn( int iColumn );
+    void AppendData( const QVariant& iData );
+
+    // Type
+    virtual std::string Type() const;
 
 private:
     cTreeWrapperNode* mParent;
     std::vector< cTreeWrapperNode* > mChildren;
 
-    eType mDataType;
-    void* mDataPointer;
+    QVariantList mData;
 };
 
 } // nModels

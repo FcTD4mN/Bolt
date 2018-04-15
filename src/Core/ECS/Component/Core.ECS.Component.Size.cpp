@@ -15,21 +15,21 @@ cSize::~cSize()
 
 
 cSize::cSize() :
-    tSuperClass( "direction" )
+    tSuperClass( "size" )
 {
     Build( 0.0F, 0.0F );
 }
 
 
 cSize::cSize( float iW, float iH ) :
-    tSuperClass( "direction" )
+    tSuperClass( "size" )
 {
     Build( iW, iH );
 }
 
 
 cSize::cSize( const sf::Vector2f& iPosition ) :
-    tSuperClass( "direction" )
+    tSuperClass( "size" )
 {
     Build( iPosition.x, iPosition.y );
 }
