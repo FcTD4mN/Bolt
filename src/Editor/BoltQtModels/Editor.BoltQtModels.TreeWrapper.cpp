@@ -39,7 +39,7 @@ cTreeWrapperNode::ChildrenCount() const
 cTreeWrapperNode*
 cTreeWrapperNode::ChildAtRow( int iRow )
 {
-    if( mChildren.size() > 0 )
+    if( mChildren.size() > 0 && iRow < mChildren.size() )
         return  mChildren[ iRow ];
     return  0;
 }
@@ -59,6 +59,22 @@ cTreeWrapperNode::AddChild( cTreeWrapperNode* iNode )
 }
 
 
+bool
+cTreeWrapperNode::RemoveChildrenAtIndex( int iIndex, int iCount )
+{
+    if( iIndex < 0 || iIndex + iCount > mChildren.size() )
+        return false;
+
+    for( int i = 0; i < iCount; ++i )
+    {
+        delete  mChildren[ iIndex ];
+        mChildren.erase( mChildren.begin() + iIndex );
+    }
+
+    return  true;
+}
+
+
 int
 cTreeWrapperNode::IndexInParent() const
 {
@@ -75,6 +91,12 @@ cTreeWrapperNode::IndexInParent() const
 // ======================================================================
 
 
+int
+cTreeWrapperNode::DataCount() const
+{
+    return  mData.size();
+}
+
 QVariant
 cTreeWrapperNode::DataAtColumn( int iColumn )
 {
@@ -82,10 +104,48 @@ cTreeWrapperNode::DataAtColumn( int iColumn )
 }
 
 
+bool
+cTreeWrapperNode::SetData( int iIndex, const QVariant & iData )
+{
+    mData[ iIndex ] = iData;
+    return  true;
+}
+
+
 void
 cTreeWrapperNode::AppendData( const QVariant & iData )
 {
     mData.push_back( iData );
+}
+
+
+bool cTreeWrapperNode::AppendColumns( int iIndex, int iCount )
+{
+    if( iIndex < 0 || iIndex > mData.size() )
+        return  false;
+
+    for( int i = 0; i < iCount; ++i )
+        mData.insert( iIndex, QVariant() );
+
+    for( auto child : mChildren )
+        child->AppendColumns( iIndex, iCount );
+
+    return  true;
+}
+
+
+bool cTreeWrapperNode::RemoveColumns( int iIndex, int iCount )
+{
+    if( iIndex < 0 || iIndex + iCount > mData.size() )
+        return false;
+
+    for( int i = 0; i < iCount; ++i )
+        mData.erase( mData.begin() + iIndex );
+
+    for( auto child : mChildren )
+        child->RemoveColumns( iIndex, iCount );
+
+    return true;
 }
 
 

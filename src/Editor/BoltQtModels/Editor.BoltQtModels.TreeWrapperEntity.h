@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace nECS { class cComponent; }
-namespace nBase { class cVariant; }
+namespace nECS { class cComponentGeneric; }
 
 namespace nQt {
 namespace nModels {
@@ -26,6 +26,13 @@ public:
     // Type
     virtual std::string Type() const;
 
+public:
+    // Data
+    virtual  bool SetData( int iIndex, const QVariant& iData ) override;
+
+public:
+    ::nECS::cComponentGeneric* Component();
+
 private:
     ::nECS::cComponent* mComponent;
 };
@@ -39,14 +46,19 @@ public:
 
 public:
     ~cTreeWrapperNodeVariable();
-    cTreeWrapperNodeVariable( cTreeWrapperNode* iParent, ::nBase::cVariant* iVariant );
+    cTreeWrapperNodeVariable( cTreeWrapperNode* iParent, ::nECS::cComponentGeneric* iComponent, int iVarIndex );
 
 public:
     // Type
     virtual std::string Type() const;
 
+public:
+    // Data
+    virtual  bool SetData( int iIndex, const QVariant& iData ) override;
+
 private:
-    ::nBase::cVariant* mVariant;
+    ::nECS::cComponentGeneric* mComponent;
+    int mVarIndex;
 };
 
 

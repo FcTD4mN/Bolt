@@ -40,7 +40,7 @@ cEntityModel::rowCount( const QModelIndex& iParent ) const
 int
 cEntityModel::columnCount( const QModelIndex& iParent ) const
 {
-    return  2;
+    return  mRootItem->DataCount();
 }
 
 
@@ -50,7 +50,7 @@ cEntityModel::data( const QModelIndex& iIndex, int iRole ) const
     if( !iIndex.isValid() )
         return  QVariant();
 
-    if( iRole != Qt::DisplayRole )
+    if( iRole != Qt::DisplayRole && iRole != Qt::EditRole )
         return  QVariant();
 
     cTreeWrapperNode* item = ExtractTreeWrapper( iIndex );
@@ -61,11 +61,8 @@ cEntityModel::data( const QModelIndex& iIndex, int iRole ) const
 QVariant
 cEntityModel::headerData( int iSection, Qt::Orientation iOrientation, int iRole ) const
 {
-    if( iRole != Qt::DisplayRole )
-        return  QVariant();
-
-    if( iOrientation == Qt::Horizontal )
-        return  mRootItem->DataAtColumn( iSection );
+    if( iOrientation == Qt::Horizontal && iRole == Qt::DisplayRole )
+        return mRootItem->DataAtColumn( iSection );
 
     return  QVariant();
 }
@@ -106,9 +103,9 @@ Qt::ItemFlags
 cEntityModel::flags( const QModelIndex & iIndex ) const
 {
     if( !iIndex.isValid() )
-        return  0;
+        return 0;
 
-    return  QAbstractItemModel::flags( iIndex );
+    return Qt::ItemIsEditable | QAbstractItemModel::flags( iIndex );
 }
 
 
@@ -137,8 +134,6 @@ cEntityModel::BuildData()
     {
         ::nECS::cComponent* comp = mEntity->GetComponentAtIndex( i );
         cTreeWrapperNode* compNode = new cTreeWrapperNodeComponent( mRootItem, comp );
-        compNode->AppendData( comp->Name().c_str() );
-        compNode->AppendData( "" );
 
         auto compAsGen = dynamic_cast<::nECS::cComponentGeneric*>( comp );
         if( compAsGen )
@@ -146,12 +141,116 @@ cEntityModel::BuildData()
             for( int j = 0; j < compAsGen->VarCount(); ++j )
             {
                 ::nBase::cVariant* var = compAsGen->GetVarAtIndex( j );
-                cTreeWrapperNode* varNode = new cTreeWrapperNodeVariable( compNode, var );
-                varNode->AppendData( compAsGen->GetVarNameAtIndex( j ).c_str() );
-                varNode->AppendData( var->ToString().c_str() );
+                cTreeWrapperNode* varNode = new cTreeWrapperNodeVariable( compNode, compAsGen, j );
             }
         }
     }
+}
+
+
+bool
+cEntityModel::setData( const QModelIndex & index, const QVariant & value, int role )
+{
+    if( role != Qt::EditRole )
+        return false;
+
+    cTreeWrapperNode *item = ExtractTreeWrapper( index );
+    bool result = item->SetData( index.column(), value );
+
+    if( result )
+        emit dataChanged( index, index );
+
+    return result;
+}
+
+
+bool
+cEntityModel::setHeaderData( int section, Qt::Orientation orientation, const QVariant & value, int role )
+{
+    if( role != Qt::EditRole || orientation != Qt::Horizontal )
+        return false;
+
+    bool result = mRootItem->SetData( section, value );
+
+    if( result )
+        emit headerDataChanged( orientation, section, section );
+
+    return result;
+}
+
+
+bool
+cEntityModel::insertColumns( int position, int columns, const QModelIndex & parent )
+{
+    bool success;
+
+    beginInsertColumns( parent, position, position + columns - 1 );
+    success = mRootItem->AppendColumns( position, columns );
+    endInsertColumns();
+
+    return success;
+}
+
+
+bool
+cEntityModel::removeColumns( int iIndex, int iCount, const QModelIndex & parent )
+{
+    bool success;
+
+    beginRemoveColumns( parent, iIndex, iIndex + iCount - 1 );
+    success = mRootItem->RemoveColumns( iIndex, iCount );
+    endRemoveColumns();
+
+    if( mRootItem->DataCount() == 0 )
+        removeRows( 0, rowCount() );
+
+    return success;
+}
+
+
+bool
+cEntityModel::insertRows( int iIndex, int iCount, const QModelIndex & parent )
+{
+    cTreeWrapperNode *parentItem = ExtractTreeWrapper( parent );
+    bool success;
+
+    beginInsertRows( parent, iIndex, iIndex + iCount - 1 );
+    if( parentItem->Type() == "Entity" )
+    {
+        for( int i = 0; i < iCount; ++i )
+        {
+            cTreeWrapperNodeComponent* comp = new cTreeWrapperNodeComponent( parentItem, 0 );
+            parentItem->AddChild( comp );
+        }
+    }
+    else if( parentItem->Type() == "Component" )
+    {
+        auto nodeAsComp = dynamic_cast<cTreeWrapperNodeComponent *>( parentItem );
+        for( int i = 0; i < iCount; ++i )
+        {
+            cTreeWrapperNodeVariable* var = new cTreeWrapperNodeVariable( parentItem, nodeAsComp->Component(), -1 );
+            parentItem->AddChild( var );
+        }
+    }
+    endInsertRows();
+
+    success = true;
+
+    return success;
+}
+
+
+bool
+cEntityModel::removeRows( int iIndex, int iCount, const QModelIndex & iParent )
+{
+    cTreeWrapperNode *parentItem = ExtractTreeWrapper( iParent );
+    bool success = true;
+
+    beginRemoveRows( iParent, iIndex, iIndex + iCount - 1 );
+    success = parentItem->RemoveChildrenAtIndex( iIndex, iCount );
+    endRemoveRows();
+
+    return success;
 }
 
 } //nQt

@@ -59,6 +59,9 @@ public:
 
         treeView = new QTreeView(EntityProperty);
         treeView->setObjectName(QStringLiteral("treeView"));
+        treeView->setAlternatingRowColors(true);
+        treeView->setSelectionBehavior(QAbstractItemView::SelectItems);
+        treeView->setAllColumnsShowFocus(true);
 
         verticalLayout->addWidget(treeView);
 

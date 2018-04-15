@@ -20,11 +20,18 @@ public:
     cTreeWrapperNode* ChildAtRow( int iRow );
     void AddChild( cTreeWrapperNode* iNode );
 
+    bool RemoveChildrenAtIndex( int iIndex, int iCount );
+
     int IndexInParent() const;
 
     // Data
+    int DataCount() const;
     QVariant DataAtColumn( int iColumn );
+    virtual  bool SetData( int iIndex, const QVariant& iData );
     void AppendData( const QVariant& iData );
+
+    bool AppendColumns( int iIndex, int iCount );
+    bool RemoveColumns( int iIndex, int iCount );
 
     // Type
     virtual std::string Type() const;
