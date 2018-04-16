@@ -3,7 +3,6 @@
 #include "Core.Application.Application.h"
 
 namespace nECS { class cWorld; }
-namespace nMainMenu { class cMainMenu; }
 
 namespace nApplication {
 
@@ -33,7 +32,6 @@ public:
 
 private:
     ::nECS::cWorld*     mWorld;
-    ::nMainMenu::cMainMenu*  mMMenu;
 };
 
 } //nApplication

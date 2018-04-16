@@ -8,6 +8,7 @@ QSFMLCanvas::~QSFMLCanvas()
 
 QSFMLCanvas::QSFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size, unsigned int FrameTime ) :
     QWidget( Parent ),
+    mRenderWindow( 0 ),
     mInitialized( false )
 {
     // Setup some states to allow direct rendering into the widget
@@ -29,6 +30,7 @@ QSFMLCanvas::QSFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& 
 
 QSFMLCanvas::QSFMLCanvas( QWidget * Parent ) :
     QWidget( Parent ),
+    mRenderWindow( 0 ),
     mInitialized( false )
 {
     // Setup some states to allow direct rendering into the widget

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtCore/QAbstractTableModel>
+#include <QtCore/QAbstractItemModel>
 
 namespace  nECS { class cEntity; }
 
@@ -10,12 +10,12 @@ namespace  nModels {
 class cTreeWrapperNode;
 
 class  cEntityModel :
-    public QAbstractTableModel
+    public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
-    typedef QAbstractTableModel tSuperClass;
+    typedef QAbstractItemModel tSuperClass;
 
 public:
     ~cEntityModel();
