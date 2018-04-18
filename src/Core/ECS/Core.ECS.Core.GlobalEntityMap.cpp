@@ -1,4 +1,4 @@
-#include "Core.ECS.Core.ScreenEntityMap.h"
+#include "Core.ECS.Core.GlobalEntityMap.h"
 
 #include "Core.Mapping.PhysicEntityGrid.h"
 
@@ -10,12 +10,12 @@ namespace nECS {
 // ========================================================================================
 
 
-nECS::cScreenEntityMap::~cScreenEntityMap()
+nECS::cGlobalEntityMap::~cGlobalEntityMap()
 {
 }
 
 
-nECS::cScreenEntityMap::cScreenEntityMap() :
+nECS::cGlobalEntityMap::cGlobalEntityMap() :
     mEntityGrid( 0 )
 {
 }
@@ -26,14 +26,14 @@ nECS::cScreenEntityMap::cScreenEntityMap() :
 // ========================================================================================
 
 
-cScreenEntityMap*
-nECS::cScreenEntityMap::Instance()
+cGlobalEntityMap*
+nECS::cGlobalEntityMap::Instance()
 {
-    static cScreenEntityMap* gScreenEntityMap = 0;
-    if( !gScreenEntityMap )
-        gScreenEntityMap = new cScreenEntityMap();
+    static cGlobalEntityMap* gGlobalEMap = 0;
+    if( !gGlobalEMap )
+        gGlobalEMap = new cGlobalEntityMap();
 
-    return  gScreenEntityMap;
+    return  gGlobalEMap;
 }
 
 
@@ -43,14 +43,14 @@ nECS::cScreenEntityMap::Instance()
 
 
 void
-cScreenEntityMap::Initialize( int iWidth, int iHeight, int iCellSize )
+cGlobalEntityMap::Initialize( int iWidth, int iHeight, int iCellSize )
 {
-    mEntityGrid = new ::nMapping::cPhysicEntityGrid( iWidth, iHeight, iCellSize );
+    mEntityGrid = new ::nMapping::cPositionSizeGrid( iWidth, iHeight, iCellSize );
 }
 
 
 void
-cScreenEntityMap::Finalize()
+cGlobalEntityMap::Finalize()
 {
 }
 

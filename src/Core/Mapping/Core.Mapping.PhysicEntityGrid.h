@@ -34,9 +34,10 @@ public:
 
     void GetEntitiesInBoundingBox( std::vector<::nECS::cEntity*>* oEntities, const sf::Rect< float >& iBBox );
 
-private:
+protected:
     // Private computing methods
-    void GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, ::nECS::cEntity* iEntity );
+    virtual  void GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, ::nECS::cEntity* iEntity ) = 0;
+    virtual  bool IsEntityValid( ::nECS::cEntity* iEntity ) const = 0;
     void GetBBoxArea( int* oX, int* oY, int* oX2, int* oY2, const sf::Rect< float >& iBBox );
     void GetBBoxArea( int* oX, int* oY, int* oX2, int* oY2, float iX, float iY, float iX2, float iY2 );
 
@@ -45,6 +46,54 @@ private:
     int mWidth;     // Rows
     int mHeight;    // Columns
     int mCellSize;  // Being a square shape, only one size value needed
+
+};
+
+
+//========================
+//========================
+//========================
+
+
+class cPhysicEntityGrid :
+    public cEntityGrid
+{
+public:
+    typedef  cEntityGrid  tSuperClass;
+
+public:
+    // Contruction/Destruction
+    ~cPhysicEntityGrid();
+    cPhysicEntityGrid( int iWidth, int iHeight, int iCellSize );
+
+protected:
+    // Private computing methods
+    virtual  void GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, ::nECS::cEntity* iEntity ) override;
+    virtual  bool IsEntityValid( ::nECS::cEntity* iEntity ) const override;
+
+};
+
+
+//========================
+//========================
+//========================
+
+
+class cPositionSizeGrid :
+    public cEntityGrid
+{
+public:
+    typedef  cEntityGrid  tSuperClass;
+
+public:
+    // Contruction/Destruction
+    ~cPositionSizeGrid();
+    cPositionSizeGrid( int iWidth, int iHeight, int iCellSize );
+
+protected:
+    // Private computing methods
+    virtual  void GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, ::nECS::cEntity* iEntity ) override;
+    virtual  bool IsEntityValid( ::nECS::cEntity* iEntity ) const override;
 
 };
 

@@ -2,6 +2,8 @@
 
 
 #include "Core.ECS.Component.SimplePhysic.h"
+#include "Core.ECS.Component.Position.h"
+#include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Core.Entity.h"
 
 
@@ -40,8 +42,7 @@ cEntityGrid::cEntityGrid( int iWidth, int iHeight, int iCellSize ) :
 void
 cEntityGrid::AddEntity( ::nECS::cEntity* iEntity )
 {
-    auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
-    if( !simplephysic )
+    if( !IsEntityValid( iEntity ) )
         return;
 
     int x, y, x2, y2;
@@ -188,15 +189,6 @@ cEntityGrid::GetEntitiesInBoundingBox( std::vector< ::nECS::cEntity*>* oEntities
 
 
 void
-cEntityGrid::GetEntityArea( int* oX, int* oY, int* oX2, int* oY2, ::nECS::cEntity* iEntity )
-{
-    auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
-
-    GetBBoxArea( oX, oY, oX2, oY2, simplephysic->mHitBox.left, simplephysic->mHitBox.top, simplephysic->mHitBox.left + simplephysic->mHitBox.width, simplephysic->mHitBox.top + simplephysic->mHitBox.height );
-}
-
-
-void
 cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, const sf::Rect<float>& iBBox )
 {
     GetBBoxArea( oX, oY, oX2, oY2, iBBox.left, iBBox.top, iBBox.left + iBBox.width, iBBox.top + iBBox.height );
@@ -208,8 +200,8 @@ void cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float i
     *oX = int( iX ) / mCellSize;
     *oY = int( iY ) / mCellSize;
 
-    *oX2 = int( iX2 ) / mCellSize;
-    *oY2 = int( iY2 ) / mCellSize;
+    *oX2 = int( iX2 ) / mCellSize + 1; // To grab the last cell as well
+    *oY2 = int( iY2 ) / mCellSize + 1; // To grab the last cell as well
 
     // If an entity wants to be added out of grid bouds, it justs sets ox2 and oy2 so that we won't get in any of the "for" loops
     if( *oX >= mWidth || *oY >= mHeight || *oX2 < 0 || *oY2 < 0 )
@@ -228,6 +220,87 @@ void cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float i
         *oX2 = mWidth - 1;
     if( *oY2 > mHeight - 1 )
         *oY2 = mHeight - 1;
+}
+
+
+// ====================================================================================
+// ====================================================================================
+// ====================================================================================
+
+
+cPhysicEntityGrid::~cPhysicEntityGrid()
+{
+}
+
+
+cPhysicEntityGrid::cPhysicEntityGrid( int iWidth, int iHeight, int iCellSize ) :
+    tSuperClass( iWidth, iHeight, iCellSize )
+{
+}
+
+
+void
+cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nECS::cEntity * iEntity )
+{
+    auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+
+    tSuperClass::GetBBoxArea( oX, oY, oX2, oY2, simplephysic->mHitBox.left, simplephysic->mHitBox.top, simplephysic->mHitBox.left + simplephysic->mHitBox.width, simplephysic->mHitBox.top + simplephysic->mHitBox.height );
+}
+
+
+bool cPhysicEntityGrid::IsEntityValid( ::nECS::cEntity * iEntity ) const
+{
+    auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+    if( !simplephysic )
+        return  false;
+
+    return  true;
+}
+
+
+// ====================================================================================
+// ====================================================================================
+// ====================================================================================
+
+
+cPositionSizeGrid::~cPositionSizeGrid()
+{
+}
+
+
+cPositionSizeGrid::cPositionSizeGrid( int iWidth, int iHeight, int iCellSize ) :
+    tSuperClass( iWidth, iHeight, iCellSize )
+{
+}
+
+
+void
+cPositionSizeGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nECS::cEntity * iEntity )
+{
+    auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
+    double x = position->X();
+    double y = position->Y();
+    float w = 1;
+    float h = 1;
+    auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
+    if( size )
+    {
+        w = size->W();
+        h = size->H();
+    }
+
+    tSuperClass::GetBBoxArea( oX, oY, oX2, oY2, x, y, x + w, y + h );
+}
+
+
+bool
+cPositionSizeGrid::IsEntityValid( ::nECS::cEntity * iEntity ) const
+{
+    auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
+    if( !position )
+        return  false;
+
+    return  true;
 }
 
 } // namespace nMapping

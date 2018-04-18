@@ -16,6 +16,8 @@
 #include "Core.ECS.System.AnimationRenderer.h"
 #include "Core.ECS.System.SimplerRenderer.h"
 
+#include "Core.ECS.Core.GlobalEntityMap.h"
+
 namespace  nApplication {
 
 // -------------------------------------------------------------------------------------
@@ -71,6 +73,8 @@ cEditorApplication::Initialize()
 
     // =======ECS WORLD=======
     mWorld = new ::nECS::cWorld();
+
+    ::nECS::cGlobalEntityMap::Instance()->Initialize( 1024, 1024, 800 );
 
     // Following call may need world
     ::nECS::cComponentRegistry::Instance()->Initialize();

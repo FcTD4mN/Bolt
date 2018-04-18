@@ -21,6 +21,21 @@ cEntityProperty::cEntityProperty( QWidget * Parent ) :
 
 
 void
+cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
+{
+    if( iEntity )
+    {
+        ::nQt::nModels::cEntityModel* model = new ::nQt::nModels::cEntityModel( iEntity );
+        ui.treeView->setModel( model );
+    }
+    else
+    {
+        ui.treeView->setModel( 0 );
+    }
+}
+
+
+void
 cEntityProperty::selectedEntityChanged( QModelIndex iIndex )
 {
     mEntity = ::nECS::cEntityParser::Instance()->GetPrototypeByName( iIndex.data().toString().toStdString() );

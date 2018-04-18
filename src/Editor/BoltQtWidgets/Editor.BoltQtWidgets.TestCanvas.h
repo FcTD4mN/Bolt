@@ -5,11 +5,14 @@
 #include <QtCore/QModelIndex>
 
 namespace nApplication { class cEditorApplication; }
+namespace nECS { class cEntity; }
 
 
 class MyCanvas :
     public QSFMLCanvas
 {
+    Q_OBJECT
+
 public:
     enum eState
     {
@@ -27,6 +30,7 @@ public:
 
 public:
     void SetEditorApp( ::nApplication::cEditorApplication* iEditorApp );
+    void Build();
 
 private:
     virtual void OnInit() override;
@@ -34,6 +38,10 @@ private:
 
     virtual void resizeEvent( QResizeEvent* iEvent ) override;
     virtual void paintEvent( QPaintEvent* ) override;
+
+private:
+    // Draw functions
+    void  DrawSelections() const;
 
 public:
     // Event overrides
@@ -45,13 +53,19 @@ public:
 public slots:
     void CurrentPrototypeChanged( const QModelIndex& iIndex );
 
+signals:
+    void  SelectionChanged( ::nECS::cEntity* iEntity );
+
 private:
     ::nApplication::cEditorApplication* mEditorApp;
     QModelIndex                         mCurrentPrototypeEntitySelected;
 
     sf::Vector2i    mOriginPosition;
-    QRect           mSelectionBox; // Used to draw
+    sf::FloatRect   mSelectionBox; // Used to draw
+    sf::RectangleShape mSelectionShape;
     eState          mState;
+
+    std::vector< ::nECS::cEntity* > mEntitySelection;
 };
 
 

@@ -24,6 +24,7 @@ public:
 
 public slots :
     void selectedEntityChanged( QModelIndex iIndex );
+    void selectedEntitiesChanged( ::nECS::cEntity* iEntity );
 
 private:
     Ui::EntityProperty ui;

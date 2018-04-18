@@ -90,6 +90,9 @@
    <extends>QWidget</extends>
    <header>Editor.BoltQtWidgets.TestCanvas.h</header>
    <container>1</container>
+   <slots>
+    <signal>SelectionChanged(::nECS::cEntity*)</signal>
+   </slots>
   </customwidget>
   <customwidget>
    <class>cEntityProperty</class>
@@ -98,6 +101,7 @@
    <container>1</container>
    <slots>
     <slot>selectedEntityChanged(QModelIndex)</slot>
+    <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -118,6 +122,22 @@
     <hint type="destinationlabel">
      <x>446</x>
      <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>SelectionChanged(::nECS::cEntity*)</signal>
+   <receiver>entityPropertyWidget</receiver>
+   <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>296</y>
     </hint>
    </hints>
   </connection>

@@ -105,6 +105,7 @@ public:
 
         retranslateUi(BoltEditorClass);
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), entityPropertyWidget, SLOT(selectedEntityChanged(QModelIndex)));
+        QObject::connect(widget, SIGNAL(SelectionChanged(::nECS::cEntity*)), entityPropertyWidget, SLOT(selectedEntitiesChanged(::nECS::cEntity*)));
 
         QMetaObject::connectSlotsByName(BoltEditorClass);
     } // setupUi

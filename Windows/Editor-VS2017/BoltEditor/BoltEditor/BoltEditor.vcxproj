@@ -34,6 +34,7 @@
     <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.GlobalEntityMap.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.ScreenEntityMap.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Component.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.GlobalEntityMap.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.ScreenEntityMap.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Component.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.h" />
@@ -126,7 +128,7 @@
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h" />
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h" />
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtMainWindows\BoltEditor.ui" />

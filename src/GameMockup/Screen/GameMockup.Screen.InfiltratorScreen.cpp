@@ -113,7 +113,7 @@ cInfiltratorScreen::Initialize()
     light->AddComponent( new ::nECS::cSimplePhysic( 650.0F, 100.0F, 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( light );
 
-    int swall = 20;
+    int swall = 5;
     for( int i = 0; i < swall; ++i )
     {
         for( int j = 0; j < swall; ++j )
