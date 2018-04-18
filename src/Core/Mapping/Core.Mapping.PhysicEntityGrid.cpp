@@ -280,8 +280,8 @@ cPositionSizeGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nE
     auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
     double x = position->X();
     double y = position->Y();
-    float w = 1;
-    float h = 1;
+    double w = 1;
+    double h = 1;
     auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
     if( size )
     {

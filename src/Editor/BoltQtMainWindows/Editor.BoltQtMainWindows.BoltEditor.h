@@ -19,6 +19,10 @@ public:
 
     void Setup();
 
+public slots:
+    void SaveLevel();
+    void LoadLevel();
+
 private:
     Ui::BoltEditorClass ui;
     ::nQt::nModels::cEntityListModel* mModel;

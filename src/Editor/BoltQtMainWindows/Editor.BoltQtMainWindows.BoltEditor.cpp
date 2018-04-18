@@ -3,7 +3,12 @@
 #include "Editor.Application.EditorApplication.h"
 #include "Editor.BoltQtModels.EntityListModel.h"
 
+#include "Core.ECS.Core.World.h"
+
 #include <QtWidgets/QTableView>
+#include <QFileDialog>
+
+#include "tinyxml2.h"
 
 namespace nQt {
 
@@ -36,6 +41,44 @@ cBoltEditor::Setup()
         ui.widget, &MyCanvas::CurrentPrototypeChanged
     );
 
+    connect( ui.actionSave, &QAction::triggered, this, &cBoltEditor::SaveLevel );
+    connect( ui.actionLoad, &QAction::triggered, this, &cBoltEditor::LoadLevel );
 }
+
+
+void
+cBoltEditor::SaveLevel()
+{
+    QString filename = QFileDialog::getSaveFileName( this, "Save your level" );
+    if( filename != "" )
+    {
+        tinyxml2::XMLDocument doc;
+        tinyxml2::XMLElement* elm = doc.NewElement( "world" );
+
+        mApp->World()->SaveXML( elm, &doc );
+
+        doc.InsertFirstChild( elm );
+
+        tinyxml2::XMLError error = doc.SaveFile( filename.toStdString().c_str() );
+        if( error )
+            return;
+    }
+}
+
+
+void
+cBoltEditor::LoadLevel()
+{
+    QString filename = QFileDialog::getOpenFileName( this, "Load your level" );
+    if( filename != "" )
+    {
+        tinyxml2::XMLDocument doc;
+        tinyxml2::XMLError error = doc.LoadFile( filename.toStdString().c_str() );
+
+        mApp->World()->LoadXML( doc.FirstChildElement( "world" ) );
+    }
+}
+
+
 
 } //nQt

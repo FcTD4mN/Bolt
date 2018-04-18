@@ -32,6 +32,8 @@ class Ui_BoltEditorClass
 {
 public:
     QAction *actionExit;
+    QAction *actionSave;
+    QAction *actionLoad;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     MyCanvas *widget;
@@ -50,6 +52,10 @@ public:
         BoltEditorClass->resize(600, 400);
         actionExit = new QAction(BoltEditorClass);
         actionExit->setObjectName(QStringLiteral("actionExit"));
+        actionSave = new QAction(BoltEditorClass);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
+        actionLoad = new QAction(BoltEditorClass);
+        actionLoad->setObjectName(QStringLiteral("actionLoad"));
         centralWidget = new QWidget(BoltEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -101,6 +107,9 @@ public:
         BoltEditorClass->setStatusBar(statusBar);
 
         menuBar->addAction(menuFiles->menuAction());
+        menuFiles->addAction(actionSave);
+        menuFiles->addAction(actionLoad);
+        menuFiles->addSeparator();
         menuFiles->addAction(actionExit);
 
         retranslateUi(BoltEditorClass);
@@ -114,6 +123,8 @@ public:
     {
         BoltEditorClass->setWindowTitle(QApplication::translate("BoltEditorClass", "BoltEditor", nullptr));
         actionExit->setText(QApplication::translate("BoltEditorClass", "Exit", nullptr));
+        actionSave->setText(QApplication::translate("BoltEditorClass", "Save", nullptr));
+        actionLoad->setText(QApplication::translate("BoltEditorClass", "Load", nullptr));
         menuFiles->setTitle(QApplication::translate("BoltEditorClass", "Files", nullptr));
     } // retranslateUi
 
