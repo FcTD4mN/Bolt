@@ -17,6 +17,8 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -33,6 +35,10 @@ public:
     QLineEdit *editEntityName;
     QLabel *labelComponents;
     QTreeView *treeView;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *buttonAddComponent;
+    QPushButton *buttonRemoveComponent;
 
     void setupUi(QWidget *EntityProperty)
     {
@@ -72,6 +78,26 @@ public:
 
         verticalLayout->addWidget(treeView);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        buttonAddComponent = new QPushButton(EntityProperty);
+        buttonAddComponent->setObjectName(QStringLiteral("buttonAddComponent"));
+
+        horizontalLayout_2->addWidget(buttonAddComponent);
+
+        buttonRemoveComponent = new QPushButton(EntityProperty);
+        buttonRemoveComponent->setObjectName(QStringLiteral("buttonRemoveComponent"));
+        buttonRemoveComponent->setEnabled(false);
+
+        horizontalLayout_2->addWidget(buttonRemoveComponent);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
 
         verticalLayout_2->addLayout(verticalLayout);
 
@@ -84,8 +110,10 @@ public:
     void retranslateUi(QWidget *EntityProperty)
     {
         EntityProperty->setWindowTitle(QApplication::translate("EntityProperty", "Form", nullptr));
-        labelEntityName->setText(QApplication::translate("EntityProperty", "EntityName :", nullptr));
+        labelEntityName->setText(QApplication::translate("EntityProperty", "EntityID :", nullptr));
         labelComponents->setText(QApplication::translate("EntityProperty", "Entity's components", nullptr));
+        buttonAddComponent->setText(QApplication::translate("EntityProperty", "AddComponent", nullptr));
+        buttonRemoveComponent->setText(QApplication::translate("EntityProperty", "RemoveComponent", nullptr));
     } // retranslateUi
 
 };
