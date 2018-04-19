@@ -19,9 +19,10 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "Editor.BoltQtWidgets.EntityProperty.h"
 #include "Editor.BoltQtWidgets.TestCanvas.h"
@@ -36,10 +37,15 @@ public:
     QAction *actionLoad;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
+    QTabWidget *tabWidget;
+    QWidget *WorldEditor;
+    QHBoxLayout *horizontalLayout;
+    QSplitter *splitter_2;
     MyCanvas *widget;
-    QVBoxLayout *verticalLayout;
+    QSplitter *splitter;
     QListView *listView;
     cEntityProperty *entityPropertyWidget;
+    QWidget *PrototypeEditor;
     QMenuBar *menuBar;
     QMenu *menuFiles;
     QToolBar *mainToolBar;
@@ -49,7 +55,7 @@ public:
     {
         if (BoltEditorClass->objectName().isEmpty())
             BoltEditorClass->setObjectName(QStringLiteral("BoltEditorClass"));
-        BoltEditorClass->resize(600, 400);
+        BoltEditorClass->resize(1024, 798);
         actionExit = new QAction(BoltEditorClass);
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionSave = new QAction(BoltEditorClass);
@@ -62,40 +68,65 @@ public:
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        widget = new MyCanvas(centralWidget);
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tabWidget->setTabShape(QTabWidget::Rounded);
+        WorldEditor = new QWidget();
+        WorldEditor->setObjectName(QStringLiteral("WorldEditor"));
+        horizontalLayout = new QHBoxLayout(WorldEditor);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        splitter_2 = new QSplitter(WorldEditor);
+        splitter_2->setObjectName(QStringLiteral("splitter_2"));
+        splitter_2->setOrientation(Qt::Horizontal);
+        widget = new MyCanvas(splitter_2);
         widget->setObjectName(QStringLiteral("widget"));
-        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-        sizePolicy.setHorizontalStretch(0);
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(50);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
         widget->setSizePolicy(sizePolicy);
-
-        horizontalLayout_2->addWidget(widget);
-
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        listView = new QListView(centralWidget);
+        splitter_2->addWidget(widget);
+        splitter = new QSplitter(splitter_2);
+        splitter->setObjectName(QStringLiteral("splitter"));
+        QSizePolicy sizePolicy1(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(splitter->sizePolicy().hasHeightForWidth());
+        splitter->setSizePolicy(sizePolicy1);
+        splitter->setOrientation(Qt::Vertical);
+        listView = new QListView(splitter);
         listView->setObjectName(QStringLiteral("listView"));
-        sizePolicy.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
-        listView->setSizePolicy(sizePolicy);
-
-        verticalLayout->addWidget(listView);
-
-        entityPropertyWidget = new cEntityProperty(centralWidget);
+        QSizePolicy sizePolicy2(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
+        listView->setSizePolicy(sizePolicy2);
+        splitter->addWidget(listView);
+        entityPropertyWidget = new cEntityProperty(splitter);
         entityPropertyWidget->setObjectName(QStringLiteral("entityPropertyWidget"));
-        sizePolicy.setHeightForWidth(entityPropertyWidget->sizePolicy().hasHeightForWidth());
-        entityPropertyWidget->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy3(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(entityPropertyWidget->sizePolicy().hasHeightForWidth());
+        entityPropertyWidget->setSizePolicy(sizePolicy3);
+        splitter->addWidget(entityPropertyWidget);
+        splitter_2->addWidget(splitter);
 
-        verticalLayout->addWidget(entityPropertyWidget);
+        horizontalLayout->addWidget(splitter_2);
 
+        tabWidget->addTab(WorldEditor, QString());
+        PrototypeEditor = new QWidget();
+        PrototypeEditor->setObjectName(QStringLiteral("PrototypeEditor"));
+        tabWidget->addTab(PrototypeEditor, QString());
 
-        horizontalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_2->addWidget(tabWidget);
 
         BoltEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BoltEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 21));
+        menuBar->setGeometry(QRect(0, 0, 1024, 21));
         menuFiles = new QMenu(menuBar);
         menuFiles->setObjectName(QStringLiteral("menuFiles"));
         BoltEditorClass->setMenuBar(menuBar);
@@ -113,8 +144,11 @@ public:
         menuFiles->addAction(actionExit);
 
         retranslateUi(BoltEditorClass);
-        QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), entityPropertyWidget, SLOT(selectedEntityChanged(QModelIndex)));
         QObject::connect(widget, SIGNAL(SelectionChanged(::nECS::cEntity*)), entityPropertyWidget, SLOT(selectedEntitiesChanged(::nECS::cEntity*)));
+        QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), BoltEditorClass, SLOT(PrototypeEditionAsked(QModelIndex)));
+
+        tabWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(BoltEditorClass);
     } // setupUi
@@ -125,6 +159,8 @@ public:
         actionExit->setText(QApplication::translate("BoltEditorClass", "Exit", nullptr));
         actionSave->setText(QApplication::translate("BoltEditorClass", "Save", nullptr));
         actionLoad->setText(QApplication::translate("BoltEditorClass", "Load", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(WorldEditor), QApplication::translate("BoltEditorClass", "WorldEditor", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(PrototypeEditor), QApplication::translate("BoltEditorClass", "PrototypeEditor", nullptr));
         menuFiles->setTitle(QApplication::translate("BoltEditorClass", "Files", nullptr));
     } // retranslateUi
 

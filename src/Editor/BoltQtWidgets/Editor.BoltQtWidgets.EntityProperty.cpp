@@ -34,15 +34,3 @@ cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
     }
 }
 
-
-void
-cEntityProperty::selectedEntityChanged( QModelIndex iIndex )
-{
-    mEntity = ::nECS::cEntityParser::Instance()->GetPrototypeByName( iIndex.data().toString().toStdString() );
-
-    ui.editEntityName->setText( mEntity->ID().c_str() );
-
-    ::nQt::nModels::cEntityModel* model = new ::nQt::nModels::cEntityModel( mEntity );
-    ui.treeView->setModel( model );
-}
-

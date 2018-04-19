@@ -9,8 +9,9 @@
 
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.Size.h"
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.ECS.Component.SpriteAnimated.h"
 
+#include "Core.Mapping.PhysicEntityGrid.h"
 
 #include <QtGui/QInputEvent>
 #include <QtGui/QPainter>
@@ -103,19 +104,38 @@ MyCanvas::DrawSelections() const
 
     for( auto ent : mEntitySelection )
     {
-        auto position = dynamic_cast< ::nECS::cPosition* >( ent->GetComponentByName( "position" ) );
-        sf::Vector2f entiPos = position->AsVector2F() - sf::Vector2f( expansionSize, expansionSize );
-        sf::Vector2f entiSize( 1, 1 );
-        auto size = dynamic_cast< ::nECS::cSize* >( ent->GetComponentByName( "size" ) );
-        if( size )
-            entiSize = size->AsVector2F();
-
-        entiSize += sf::Vector2f( 2 * expansionSize, 2 * expansionSize );
-        entitySelectionBox.setPosition( entiPos );
-        entitySelectionBox.setSize( entiSize );
+        sf::Vector2f selBoxPos;
+        sf::Vector2f selBoxSize;
+        GetEntitySelectionBox( &selBoxPos, &selBoxSize, ent );
+        entitySelectionBox.setPosition( selBoxPos );
+        entitySelectionBox.setSize( selBoxSize );
 
         mRenderWindow->draw( entitySelectionBox );
     }
+}
+
+
+void
+MyCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize, ::nECS::cEntity * iEntity ) const
+{
+    float expansionSize = 2.0;
+
+    auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
+    sf::Vector2f entiPos = position->AsVector2F() - sf::Vector2f( expansionSize, expansionSize );
+    sf::Vector2f entiSize( 1, 1 );
+
+    auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
+    if( size )
+        entiSize = size->AsVector2F();
+
+    auto sprite = dynamic_cast< ::nECS::cSpriteAnimated* >( iEntity->GetComponentByName( "spriteanimated" ) );
+    if( sprite )
+        entiSize = sf::Vector2f( sprite->mCurrentSpriteRect.width, sprite->mCurrentSpriteRect.height );
+
+    entiSize += sf::Vector2f( 2 * expansionSize, 2 * expansionSize );
+
+    *oPosition = entiPos;
+    *oSize = entiSize;
 }
 
 
@@ -133,6 +153,22 @@ MyCanvas::mousePressEvent( QMouseEvent * iEvent )
         mState = kSelecting;
 
     mOriginPosition = sf::Vector2i( iEvent->x(), iEvent->y() );
+
+    for( auto ent : mEntitySelection )
+    {
+        sf::Vector2f selBoxPos;
+        sf::Vector2f selBoxSize;
+        GetEntitySelectionBox( &selBoxPos, &selBoxSize, ent );
+
+        sf::FloatRect entSelBox( selBoxPos, selBoxSize );
+
+        if( entSelBox.contains( mRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) ) )
+        {
+            mState = kMoveEntity;
+            break;
+        }
+    }
+
     tSuperClass::mousePressEvent( iEvent );
 }
 
@@ -176,7 +212,17 @@ MyCanvas::mouseMoveEvent( QMouseEvent * iEvent )
         mSelectionShape.setPosition( xy );
         mSelectionShape.setSize( x2y2 - xy );
         mSelectionBox = sf::FloatRect( xy, x2y2 - xy );
+    }
+    else if( mState == kMoveEntity )
+    {
+        for( auto ent : mEntitySelection )
+        {
+            auto position = dynamic_cast< ::nECS::cPosition* >( ent->GetComponentByName( "position" ) );
+            position->X( position->X() - offset.x );
+            position->Y( position->Y() - offset.y );
+        }
 
+        mOriginPosition = currentPos;
     }
 
     tSuperClass::mouseMoveEvent( iEvent );
@@ -197,18 +243,12 @@ MyCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 
         for( auto ent : entitiesInEMap )
         {
-            auto position = dynamic_cast< ::nECS::cPosition* >( ent->GetComponentByName( "position" ) );
-            sf::Vector2f entiPos = position->AsVector2F();
-            sf::Vector2f entiSize( 1, 1 );
-            auto size = dynamic_cast< ::nECS::cSize* >( ent->GetComponentByName( "size" ) );
-            if( size )
-                entiSize = size->AsVector2F();
+            sf::Vector2f selBoxPos;
+            sf::Vector2f selBoxSize;
+            GetEntitySelectionBox( &selBoxPos, &selBoxSize, ent );
 
-            if( mSelectionBox.contains( entiPos ) && mSelectionBox.contains( entiPos + entiSize ) )
-            {
-                printf( "Selected : %s\n", ent->ID().c_str() );
+            if( mSelectionBox.contains( selBoxPos ) && mSelectionBox.contains( selBoxPos + selBoxSize ) )
                 mEntitySelection.push_back( ent );
-            }
         }
 
         mSelectionBox.height = 0;

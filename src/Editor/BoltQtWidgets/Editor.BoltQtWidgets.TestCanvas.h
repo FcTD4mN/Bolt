@@ -18,7 +18,8 @@ public:
     {
         kIdle,
         kSelecting,
-        kPanningCanvas
+        kPanningCanvas,
+        kMoveEntity
     };
 
 public:
@@ -42,6 +43,7 @@ private:
 private:
     // Draw functions
     void  DrawSelections() const;
+    void  GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize, ::nECS::cEntity * iEntity ) const;
 
 public:
     // Event overrides

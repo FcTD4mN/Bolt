@@ -3,7 +3,11 @@
 #include "Editor.Application.EditorApplication.h"
 #include "Editor.BoltQtModels.EntityListModel.h"
 
+#include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.World.h"
+
+#include "Core.ECS.Core.GlobalEntityMap.h"
+#include "Core.Mapping.PhysicEntityGrid.h"
 
 #include <QtWidgets/QTableView>
 #include <QFileDialog>
@@ -77,8 +81,18 @@ cBoltEditor::LoadLevel()
 
         mApp->World()->LoadXML( doc.FirstChildElement( "world" ) );
     }
+
+    // Add all entities to the EMap
+    for( int i = 0; i < mApp->World()->EntityCount(); ++i )
+        ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->AddEntity( mApp->World()->GetEntityAtIndex( i ) );
 }
 
+
+void
+cBoltEditor::PrototypeEditionAsked( QModelIndex iIndex )
+{
+    ui.tabWidget->setCurrentIndex( 1 );
+}
 
 
 } //nQt

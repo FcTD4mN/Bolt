@@ -20,13 +20,14 @@ public:
     void Setup();
 
 public slots:
-    void SaveLevel();
-    void LoadLevel();
+    void  SaveLevel();
+    void  LoadLevel();
+    void  PrototypeEditionAsked( QModelIndex );
 
 private:
     Ui::BoltEditorClass ui;
-    ::nQt::nModels::cEntityListModel* mModel;
-    ::nApplication::cEditorApplication* mApp;
+    ::nQt::nModels::cEntityListModel*    mModel;
+    ::nApplication::cEditorApplication*  mApp;
 };
 
 } //nQt

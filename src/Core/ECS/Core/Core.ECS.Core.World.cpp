@@ -101,6 +101,16 @@ cWorld::GetEntityByID( const  std::string& iID )
 }
 
 
+cEntity*
+cWorld::GetEntityAtIndex( int iIndex )
+{
+    auto it = mEntity.begin();
+    for( int i = 0; i < iIndex; ++i )
+        ++it;
+    return  it->second;
+}
+
+
 void
 cWorld::DestroyAllEntities()
 {

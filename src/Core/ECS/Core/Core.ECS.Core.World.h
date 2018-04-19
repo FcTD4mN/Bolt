@@ -34,6 +34,7 @@ public:
     void  DestroyEntity( cEntity* iEntity );
     void  DestroyEntityByID( const  std::string& iID );
     cEntity*  GetEntityByID( const  std::string& iID );
+    cEntity*  GetEntityAtIndex( int iIndex );
     void  DestroyAllEntities();
 
 public:

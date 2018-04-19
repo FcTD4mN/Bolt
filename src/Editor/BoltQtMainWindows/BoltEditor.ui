@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>1024</width>
+    <height>798</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,38 +16,133 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="MyCanvas" name="widget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
       </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="WorldEditor">
+       <attribute name="title">
+        <string>WorldEditor</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QSplitter" name="splitter_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="MyCanvas" name="widget" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+             <horstretch>50</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+          <widget class="QSplitter" name="splitter">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <widget class="QListView" name="listView">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+           <widget class="cEntityProperty" name="entityPropertyWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="PrototypeEditor">
+       <attribute name="title">
+        <string>PrototypeEditor</string>
+       </attribute>
+       <widget class="QListView" name="listViewAllPrototypes">
+        <property name="geometry">
+         <rect>
+          <x>720</x>
+          <y>80</y>
+          <width>256</width>
+          <height>461</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>40</y>
+          <width>421</width>
+          <height>541</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QGraphicsView" name="graphicsViewPreview">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>60</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelName">
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEditName"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Components</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTreeView" name="treeView"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
      </widget>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QListView" name="listView">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="cEntityProperty" name="entityPropertyWidget" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
    </layout>
   </widget>
@@ -56,7 +151,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>1024</width>
      <height>21</height>
     </rect>
    </property>
@@ -123,22 +218,6 @@
  </resources>
  <connections>
   <connection>
-   <sender>listView</sender>
-   <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>entityPropertyWidget</receiver>
-   <slot>selectedEntityChanged(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>446</x>
-     <y>138</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>446</x>
-     <y>305</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>widget</sender>
    <signal>SelectionChanged(::nECS::cEntity*)</signal>
    <receiver>entityPropertyWidget</receiver>
@@ -149,10 +228,29 @@
      <y>254</y>
     </hint>
     <hint type="destinationlabel">
-     <x>405</x>
-     <y>296</y>
+     <x>1001</x>
+     <y>755</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>BoltEditorClass</receiver>
+   <slot>PrototypeEditionAsked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>851</x>
+     <y>258</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>232</x>
+     <y>39</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>PrototypeEditionAsked(QModelIndex)</slot>
+ </slots>
 </ui>
