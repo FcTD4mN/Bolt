@@ -85,6 +85,9 @@
     <Filter Include="src\Core\ECS\Mapping">
       <UniqueIdentifier>{e29f129d-143f-487a-8153-1365e47739f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Editor\BoltQtWidgets\Editors">
+      <UniqueIdentifier>{25cfa0b0-0b9b-4763-8960-e166a87976c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc">
@@ -263,6 +266,9 @@
     <ClCompile Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.GlobalEntityMap.cpp">
       <Filter>src\Core\ECS\Mapping</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.cpp">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -435,6 +441,9 @@
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.h">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\EntityPropertyWidget.ui">
@@ -442,6 +451,9 @@
     </QtUic>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtMainWindows\BoltEditor.ui">
       <Filter>src\Editor\BoltQtMainWindows</Filter>
+    </QtUic>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\PrototypeEditor.ui">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
     </QtUic>
   </ItemGroup>
 </Project>

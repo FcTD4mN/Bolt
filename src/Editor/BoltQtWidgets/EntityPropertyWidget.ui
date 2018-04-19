@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>283</width>
-    <height>199</height>
+    <width>471</width>
+    <height>428</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,6 +29,16 @@
         <widget class="QLineEdit" name="editEntityName"/>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelComponents">
+       <property name="text">
+        <string>Entity's components</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QTreeView" name="treeView">

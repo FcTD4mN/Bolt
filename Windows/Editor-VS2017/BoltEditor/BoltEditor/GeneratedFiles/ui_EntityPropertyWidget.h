@@ -31,13 +31,14 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *labelEntityName;
     QLineEdit *editEntityName;
+    QLabel *labelComponents;
     QTreeView *treeView;
 
     void setupUi(QWidget *EntityProperty)
     {
         if (EntityProperty->objectName().isEmpty())
             EntityProperty->setObjectName(QStringLiteral("EntityProperty"));
-        EntityProperty->resize(283, 199);
+        EntityProperty->resize(471, 428);
         verticalLayout_2 = new QVBoxLayout(EntityProperty);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout = new QVBoxLayout();
@@ -56,6 +57,12 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout);
+
+        labelComponents = new QLabel(EntityProperty);
+        labelComponents->setObjectName(QStringLiteral("labelComponents"));
+        labelComponents->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(labelComponents);
 
         treeView = new QTreeView(EntityProperty);
         treeView->setObjectName(QStringLiteral("treeView"));
@@ -78,6 +85,7 @@ public:
     {
         EntityProperty->setWindowTitle(QApplication::translate("EntityProperty", "Form", nullptr));
         labelEntityName->setText(QApplication::translate("EntityProperty", "EntityName :", nullptr));
+        labelComponents->setText(QApplication::translate("EntityProperty", "Entity's components", nullptr));
     } // retranslateUi
 
 };

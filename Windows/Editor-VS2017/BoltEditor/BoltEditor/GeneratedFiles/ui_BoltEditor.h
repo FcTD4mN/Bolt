@@ -24,6 +24,7 @@
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "Editor.BoltQtWidgets.Editors.PrototypeEditor.h"
 #include "Editor.BoltQtWidgets.EntityProperty.h"
 #include "Editor.BoltQtWidgets.TestCanvas.h"
 
@@ -38,14 +39,16 @@ public:
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QTabWidget *tabWidget;
-    QWidget *WorldEditor;
+    QWidget *WorldEditorTab;
     QHBoxLayout *horizontalLayout;
     QSplitter *splitter_2;
     MyCanvas *widget;
     QSplitter *splitter;
     QListView *listView;
     cEntityProperty *entityPropertyWidget;
-    QWidget *PrototypeEditor;
+    QWidget *PrototypeEditorTab;
+    QHBoxLayout *horizontalLayout_3;
+    cPrototypeEditor *PrototypeEditor;
     QMenuBar *menuBar;
     QMenu *menuFiles;
     QToolBar *mainToolBar;
@@ -71,13 +74,13 @@ public:
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setTabShape(QTabWidget::Rounded);
-        WorldEditor = new QWidget();
-        WorldEditor->setObjectName(QStringLiteral("WorldEditor"));
-        horizontalLayout = new QHBoxLayout(WorldEditor);
+        WorldEditorTab = new QWidget();
+        WorldEditorTab->setObjectName(QStringLiteral("WorldEditorTab"));
+        horizontalLayout = new QHBoxLayout(WorldEditorTab);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        splitter_2 = new QSplitter(WorldEditor);
+        splitter_2 = new QSplitter(WorldEditorTab);
         splitter_2->setObjectName(QStringLiteral("splitter_2"));
         splitter_2->setOrientation(Qt::Horizontal);
         widget = new MyCanvas(splitter_2);
@@ -116,10 +119,19 @@ public:
 
         horizontalLayout->addWidget(splitter_2);
 
-        tabWidget->addTab(WorldEditor, QString());
-        PrototypeEditor = new QWidget();
+        tabWidget->addTab(WorldEditorTab, QString());
+        PrototypeEditorTab = new QWidget();
+        PrototypeEditorTab->setObjectName(QStringLiteral("PrototypeEditorTab"));
+        horizontalLayout_3 = new QHBoxLayout(PrototypeEditorTab);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        PrototypeEditor = new cPrototypeEditor(PrototypeEditorTab);
         PrototypeEditor->setObjectName(QStringLiteral("PrototypeEditor"));
-        tabWidget->addTab(PrototypeEditor, QString());
+
+        horizontalLayout_3->addWidget(PrototypeEditor);
+
+        tabWidget->addTab(PrototypeEditorTab, QString());
 
         horizontalLayout_2->addWidget(tabWidget);
 
@@ -146,8 +158,9 @@ public:
         retranslateUi(BoltEditorClass);
         QObject::connect(widget, SIGNAL(SelectionChanged(::nECS::cEntity*)), entityPropertyWidget, SLOT(selectedEntitiesChanged(::nECS::cEntity*)));
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), BoltEditorClass, SLOT(PrototypeEditionAsked(QModelIndex)));
+        QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), PrototypeEditor, SLOT(PrototypeEditionAsked(QModelIndex)));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(BoltEditorClass);
@@ -159,8 +172,8 @@ public:
         actionExit->setText(QApplication::translate("BoltEditorClass", "Exit", nullptr));
         actionSave->setText(QApplication::translate("BoltEditorClass", "Save", nullptr));
         actionLoad->setText(QApplication::translate("BoltEditorClass", "Load", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(WorldEditor), QApplication::translate("BoltEditorClass", "WorldEditor", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(PrototypeEditor), QApplication::translate("BoltEditorClass", "PrototypeEditor", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(WorldEditorTab), QApplication::translate("BoltEditorClass", "WorldEditor", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(PrototypeEditorTab), QApplication::translate("BoltEditorClass", "PrototypeEditor", nullptr));
         menuFiles->setTitle(QApplication::translate("BoltEditorClass", "Files", nullptr));
     } // retranslateUi
 

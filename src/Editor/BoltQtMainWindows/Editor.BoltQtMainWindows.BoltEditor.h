@@ -26,7 +26,7 @@ public slots:
 
 private:
     Ui::BoltEditorClass ui;
-    ::nQt::nModels::cEntityListModel*    mModel;
+    ::nQt::nModels::cEntityListModel*    mPrototypeListModel;
     ::nApplication::cEditorApplication*  mApp;
 };
 

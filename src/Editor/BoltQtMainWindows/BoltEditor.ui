@@ -23,7 +23,7 @@
       <property name="currentIndex">
        <number>1</number>
       </property>
-      <widget class="QWidget" name="WorldEditor">
+      <widget class="QWidget" name="WorldEditorTab">
        <attribute name="title">
         <string>WorldEditor</string>
        </attribute>
@@ -72,75 +72,15 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="PrototypeEditor">
+      <widget class="QWidget" name="PrototypeEditorTab">
        <attribute name="title">
         <string>PrototypeEditor</string>
        </attribute>
-       <widget class="QListView" name="listViewAllPrototypes">
-        <property name="geometry">
-         <rect>
-          <x>720</x>
-          <y>80</y>
-          <width>256</width>
-          <height>461</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QWidget" name="">
-        <property name="geometry">
-         <rect>
-          <x>110</x>
-          <y>40</y>
-          <width>421</width>
-          <height>541</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QGraphicsView" name="graphicsViewPreview">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>60</width>
-               <height>60</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="labelName">
-             <property name="text">
-              <string>Name</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="lineEditName"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Components</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTreeView" name="treeView"/>
-         </item>
-        </layout>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="cPrototypeEditor" name="PrototypeEditor" native="true"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -212,6 +152,15 @@
     <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
    </slots>
   </customwidget>
+  <customwidget>
+   <class>cPrototypeEditor</class>
+   <extends>QWidget</extends>
+   <header>Editor.BoltQtWidgets.Editors.PrototypeEditor.h</header>
+   <container>1</container>
+   <slots>
+    <slot>PrototypeEditionAsked(QModelIndex)</slot>
+   </slots>
+  </customwidget>
  </customwidgets>
  <resources>
   <include location="../BoltQtResourceFiles/Editor.BoltQtResourceFiles.BoltEditor.qrc"/>
@@ -246,6 +195,22 @@
     <hint type="destinationlabel">
      <x>232</x>
      <y>39</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>PrototypeEditionAsked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>873</x>
+     <y>365</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>391</x>
+     <y>344</y>
     </hint>
    </hints>
   </connection>

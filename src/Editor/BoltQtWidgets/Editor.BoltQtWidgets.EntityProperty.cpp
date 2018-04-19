@@ -27,10 +27,12 @@ cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
     {
         ::nQt::nModels::cEntityModel* model = new ::nQt::nModels::cEntityModel( iEntity );
         ui.treeView->setModel( model );
+        ui.editEntityName->setText( iEntity->ID().c_str() );
     }
     else
     {
         ui.treeView->setModel( 0 );
+        ui.editEntityName->setText( "No entity to edit / Multiple selection" );
     }
 }
 

@@ -1,13 +1,16 @@
 #include "Editor.BoltQtMainWindows.BoltEditor.h"
 
-#include "Editor.Application.EditorApplication.h"
-#include "Editor.BoltQtModels.EntityListModel.h"
-
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.World.h"
+#include "Core.ECS.Utilities.EntityParser.h"
+#include "Core.ECS.Utilities.ComponentRegistry.h"
 
 #include "Core.ECS.Core.GlobalEntityMap.h"
 #include "Core.Mapping.PhysicEntityGrid.h"
+
+#include "Editor.Application.EditorApplication.h"
+
+#include "Editor.BoltQtModels.EntityListModel.h"
 
 #include <QtWidgets/QTableView>
 #include <QFileDialog>
@@ -18,7 +21,7 @@ namespace nQt {
 
 cBoltEditor::~cBoltEditor()
 {
-    delete  mModel;
+    delete  mPrototypeListModel;
 }
 
 
@@ -37,8 +40,9 @@ cBoltEditor::Setup()
 
     ui.widget->SetEditorApp( mApp );
 
-    mModel = new ::nQt::nModels::cEntityListModel( 0 );
-    ui.listView->setModel( mModel );
+    mPrototypeListModel = new ::nQt::nModels::cEntityListModel( 0 );
+    ui.listView->setModel( mPrototypeListModel );
+    ui.PrototypeEditor->SetAllPrototypeListModel( mPrototypeListModel );
 
     connect(
         ui.listView, &QListView::clicked,
