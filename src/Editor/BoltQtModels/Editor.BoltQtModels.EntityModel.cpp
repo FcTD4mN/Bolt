@@ -3,6 +3,8 @@
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.Component.h"
 
+#include "Core.ECS.Utilities.ComponentRegistry.h"
+
 #include "Editor.BoltQtModels.TreeWrapper.h"
 #include "Editor.BoltQtModels.TreeWrapperEntity.h"
 
@@ -155,6 +157,40 @@ cEntityModel::setData( const QModelIndex & index, const QVariant & value, int ro
         return false;
 
     cTreeWrapperNode *item = ExtractTreeWrapper( index );
+
+    // Is Qt really that rigid and annoying with models ?
+    // Setting a new component will result in removing the whole component node and replacing it with a new one
+    // This means, it'll add rows in addition to setting the data.
+    // But only here can i send all the beginRemoveRow bullshit
+    // SO i need to get ALL the needed information, so i need to clone a component for no reasons, just to get varcount ...
+    if( index.column() == 0 && item->Type() == "Component" )
+    {
+        // First we remove all variables from current component, we do this explicitely like this to keep the viw up to date
+        if( item->ChildrenCount() > 0 )
+        {
+            beginRemoveRows( index, 0, item->ChildrenCount() );
+
+            item->RemoveChildrenAtIndex( 0, item->ChildrenCount() );
+
+            endRemoveRows();
+        }
+
+        if( item->DataAtColumn( 0 ) != "New Component" )
+            mEntity->RemoveComponentAtIndex( index.row() ); // Removing the component we are replacing from entity
+
+        auto component =::nECS::cComponentRegistry::Instance()->CreateComponentFromName( value.toString().toStdString() );
+        mEntity->AddComponent( component );
+
+        auto genericComp = dynamic_cast< ::nECS::cComponentGeneric* >( component );
+        if( genericComp )
+        {
+            beginInsertRows( index, 0, genericComp->VarCount() );
+            for( int i = 0; i < genericComp->VarCount(); ++i )
+                new cTreeWrapperNodeVariable( item, genericComp, i );
+            endInsertRows();
+        }
+    }
+
     bool result = item->SetData( index.column(), value );
 
     if( result )
@@ -214,25 +250,20 @@ cEntityModel::insertRows( int iIndex, int iCount, const QModelIndex & parent )
     cTreeWrapperNode *parentItem = ExtractTreeWrapper( parent );
     bool success;
 
-    beginInsertRows( parent, iIndex, iIndex + iCount - 1 );
-    if( parentItem->Type() == "Entity" )
+    // We can only add components in this model
+    if( parentItem->Type() == "BaseNode" ) // If we have the root entity node
     {
-        for( int i = 0; i < iCount; ++i )
-        {
-            cTreeWrapperNodeComponent* comp = new cTreeWrapperNodeComponent( parentItem, 0 );
-            parentItem->AddChild( comp );
-        }
+        beginInsertRows( parent, iIndex, iIndex + iCount - 1 );
+
+            for( int i = 0; i < iCount; ++i )
+            {
+                cTreeWrapperNodeComponent* comp = new cTreeWrapperNodeComponent( parentItem, 0 );
+                parentItem->AddChild( comp );
+            }
+
+        endInsertRows();
     }
-    else if( parentItem->Type() == "Component" )
-    {
-        auto nodeAsComp = dynamic_cast<cTreeWrapperNodeComponent *>( parentItem );
-        for( int i = 0; i < iCount; ++i )
-        {
-            cTreeWrapperNodeVariable* var = new cTreeWrapperNodeVariable( parentItem, nodeAsComp->Component(), -1 );
-            parentItem->AddChild( var );
-        }
-    }
-    endInsertRows();
+
 
     success = true;
 
@@ -251,6 +282,42 @@ cEntityModel::removeRows( int iIndex, int iCount, const QModelIndex & iParent )
     endRemoveRows();
 
     return success;
+}
+
+
+bool
+cEntityModel::AddEmptyComponent()
+{
+    QModelIndex baseNode = QModelIndex();
+    beginInsertRows( baseNode, rowCount( baseNode ), rowCount( baseNode ) );
+
+    cTreeWrapperNode* compNode = new cTreeWrapperNodeComponent( mRootItem, 0 );
+
+    endInsertRows();
+
+    return false;
+}
+
+
+bool
+cEntityModel::RemoveComponent( QModelIndex & iIndex )
+{
+    cTreeWrapperNode* item = ExtractTreeWrapper( iIndex );
+    cTreeWrapperNode* parent = item->Parent();
+
+    if( parent && parent->Type() == "BaseNode" )
+    {
+        beginRemoveRows( iIndex.parent(), iIndex.row(), iIndex.row() );
+
+        parent->RemoveChildrenAtIndex( iIndex.row(), 1 );
+        mEntity->RemoveComponentAtIndex( iIndex.row() );
+
+        endRemoveRows();
+
+        return  true;
+    }
+
+    return  false;
 }
 
 } //nQt

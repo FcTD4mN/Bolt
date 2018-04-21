@@ -50,7 +50,10 @@ public:
     void  RemoveComponent( cComponent* iComponent );
     void  RemoveComponentByName( const std::string& iComponentName );
     cComponent*  GetComponentByName( const std::string& iComponentName );
+
+    // EDITOR
     cComponent*  GetComponentAtIndex( int iIndex );
+    void RemoveComponentAtIndex( int iIndex );
 
     unsigned int GetComponentCount() const;
 

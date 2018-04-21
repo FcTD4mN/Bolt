@@ -25,8 +25,8 @@ cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
 {
     if( iEntity )
     {
-        ::nQt::nModels::cEntityModel* model = new ::nQt::nModels::cEntityModel( iEntity );
-        ui.treeView->setModel( model );
+        mModel = new ::nQt::nModels::cEntityModel( iEntity );
+        ui.treeView->setModel( mModel );
         ui.editEntityName->setText( iEntity->ID().c_str() );
     }
     else
@@ -34,5 +34,19 @@ cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
         ui.treeView->setModel( 0 );
         ui.editEntityName->setText( "No entity to edit / Multiple selection" );
     }
+}
+
+
+void
+cEntityProperty::addEmptyComponent()
+{
+    mModel->AddEmptyComponent();
+}
+
+
+void
+cEntityProperty::removeComponent()
+{
+    mModel->RemoveComponent( ui.treeView->currentIndex() );
 }
 

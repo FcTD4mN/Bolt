@@ -74,7 +74,9 @@ cComponentRegistry::RegisterComponent( cComponent * iComponent )
 cComponent*
 cComponentRegistry::CreateComponentFromName( const std::string & iName )
 {
-    return  mComponents[ iName ]->Clone();
+    if( mComponents[ iName ] != nullptr )
+        return  mComponents[ iName ]->Clone();
+    return  0;
 }
 
 

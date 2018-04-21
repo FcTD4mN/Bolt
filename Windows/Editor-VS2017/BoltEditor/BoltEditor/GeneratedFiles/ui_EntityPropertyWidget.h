@@ -91,7 +91,7 @@ public:
 
         buttonRemoveComponent = new QPushButton(EntityProperty);
         buttonRemoveComponent->setObjectName(QStringLiteral("buttonRemoveComponent"));
-        buttonRemoveComponent->setEnabled(false);
+        buttonRemoveComponent->setEnabled(true);
 
         horizontalLayout_2->addWidget(buttonRemoveComponent);
 
@@ -103,6 +103,8 @@ public:
 
 
         retranslateUi(EntityProperty);
+        QObject::connect(buttonAddComponent, SIGNAL(clicked()), EntityProperty, SLOT(addEmptyComponent()));
+        QObject::connect(buttonRemoveComponent, SIGNAL(clicked()), EntityProperty, SLOT(removeComponent()));
 
         QMetaObject::connectSlotsByName(EntityProperty);
     } // setupUi

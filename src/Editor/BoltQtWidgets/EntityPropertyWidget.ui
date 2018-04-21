@@ -78,7 +78,7 @@
        <item>
         <widget class="QPushButton" name="buttonRemoveComponent">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>RemoveComponent</string>
@@ -92,5 +92,42 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonAddComponent</sender>
+   <signal>clicked()</signal>
+   <receiver>EntityProperty</receiver>
+   <slot>addEmptyComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>306</x>
+     <y>407</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonRemoveComponent</sender>
+   <signal>clicked()</signal>
+   <receiver>EntityProperty</receiver>
+   <slot>removeComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>397</x>
+     <y>406</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>366</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addEmptyComponent()</slot>
+  <slot>removeComponent()</slot>
+ </slots>
 </ui>

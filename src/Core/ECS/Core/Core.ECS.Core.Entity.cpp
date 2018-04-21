@@ -138,6 +138,13 @@ cEntity::GetComponentAtIndex( int iIndex )
 }
 
 
+void
+cEntity::RemoveComponentAtIndex( int iIndex )
+{
+    mComponents.erase( mComponents.begin() + iIndex );
+}
+
+
 unsigned int
 cEntity::GetComponentCount() const
 {

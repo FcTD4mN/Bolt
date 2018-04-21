@@ -19,6 +19,7 @@ public:
     int ChildrenCount() const;
     cTreeWrapperNode* ChildAtRow( int iRow );
     void AddChild( cTreeWrapperNode* iNode );
+    virtual void AddChild(); // The add row interface
 
     bool RemoveChildrenAtIndex( int iIndex, int iCount );
 

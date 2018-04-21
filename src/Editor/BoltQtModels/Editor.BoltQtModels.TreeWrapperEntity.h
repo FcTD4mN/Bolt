@@ -5,11 +5,37 @@
 #include <QtCore>
 #include <vector>
 
+namespace nECS { class cEntity; }
 namespace nECS { class cComponent; }
 namespace nECS { class cComponentGeneric; }
 
 namespace nQt {
 namespace nModels {
+
+
+class cTreeWrapperNodeEntity :
+    public cTreeWrapperNode
+{
+public:
+    typedef cTreeWrapperNode tSuperClass;
+
+public:
+    ~cTreeWrapperNodeEntity();
+    cTreeWrapperNodeEntity( cTreeWrapperNode* iParent, ::nECS::cEntity* iEntity );
+
+public:
+    // Type
+    virtual std::string Type() const;
+
+public:
+    virtual  void AddChild() override;
+
+public:
+    ::nECS::cEntity* Entity();
+
+private:
+    ::nECS::cEntity* mEntity;
+};
 
 
 class cTreeWrapperNodeComponent :
@@ -27,8 +53,7 @@ public:
     virtual std::string Type() const;
 
 public:
-    // Data
-    virtual  bool SetData( int iIndex, const QVariant& iData ) override;
+    virtual  void AddChild() override;
 
 public:
     ::nECS::cComponentGeneric* Component();
@@ -36,6 +61,11 @@ public:
 private:
     ::nECS::cComponent* mComponent;
 };
+
+
+// -----------------------------------------------------
+// -----------------------------------------------------
+// -----------------------------------------------------
 
 
 class cTreeWrapperNodeVariable :
@@ -55,6 +85,9 @@ public:
 public:
     // Data
     virtual  bool SetData( int iIndex, const QVariant& iData ) override;
+
+public:
+    virtual  void AddChild() override;
 
 private:
     ::nECS::cComponentGeneric* mComponent;

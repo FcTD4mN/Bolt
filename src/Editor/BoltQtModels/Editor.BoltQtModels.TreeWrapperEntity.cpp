@@ -7,8 +7,50 @@
 namespace nQt {
 namespace nModels {
 
+
+cTreeWrapperNodeEntity::~cTreeWrapperNodeEntity()
+{
+}
+
+
+ cTreeWrapperNodeEntity::cTreeWrapperNodeEntity( cTreeWrapperNode* iParent, ::nECS::cEntity* iEntity ) :
+    tSuperClass( iParent ),
+     mEntity( iEntity )
+{
+     if( mEntity )
+        AppendData( "" );
+     else
+        AppendData( "New Component" );
+
+
+     AppendData( "" );
+}
+
+
+std::string
+cTreeWrapperNodeEntity::Type() const
+{
+    return  "Entity";
+}
+
+
+void
+cTreeWrapperNodeEntity::AddChild()
+{
+    AppendData( "New Component" );
+    AppendData( "" );
+}
+
+
+::nECS::cEntity *
+cTreeWrapperNodeEntity::Entity()
+{
+    return  mEntity;
+}
+
+
 // ======================================================================
-// ============================================================ Hierarchy
+// ======================================================================
 // ======================================================================
 
 
@@ -38,16 +80,12 @@ cTreeWrapperNodeComponent::Type() const
 }
 
 
-bool
-cTreeWrapperNodeComponent::SetData( int iIndex, const QVariant & iData )
+void
+cTreeWrapperNodeComponent::AddChild()
 {
-    if( iIndex == 0 ) // Setting which component
-    {
-        mComponent = ::nECS::cComponentRegistry::Instance()->CreateComponentFromName( iData.toString().toStdString() );
-        tSuperClass::SetData( 0, mComponent->Name().c_str() );
-    }
-
-    return false;
+    mComponent = 0;
+    AppendData( "New Component" );
+    AppendData( "" );
 }
 
 
@@ -120,6 +158,12 @@ cTreeWrapperNodeVariable::SetData( int iIndex, const QVariant & iData )
     }
 
     return false;
+}
+
+
+void
+cTreeWrapperNodeVariable::AddChild()
+{
 }
 
 } //nModels

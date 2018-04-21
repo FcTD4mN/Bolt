@@ -59,6 +59,12 @@ cTreeWrapperNode::AddChild( cTreeWrapperNode* iNode )
 }
 
 
+void cTreeWrapperNode::AddChild()
+{
+    new cTreeWrapperNode( this );
+}
+
+
 bool
 cTreeWrapperNode::RemoveChildrenAtIndex( int iIndex, int iCount )
 {
@@ -152,7 +158,7 @@ bool cTreeWrapperNode::RemoveColumns( int iIndex, int iCount )
 std::string
 cTreeWrapperNode::Type() const
 {
-    return  "Invalid";
+    return  "BaseNode";
 }
 
 } //nModels
