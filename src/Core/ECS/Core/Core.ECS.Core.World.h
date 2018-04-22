@@ -37,6 +37,8 @@ public:
     cEntity*  GetEntityAtIndex( int iIndex );
     void  DestroyAllEntities();
 
+    bool IsIDUnique( const std::string& iID ) const;
+
 public:
     // Systems
     void  AddSystem( cSystem* iSystem );

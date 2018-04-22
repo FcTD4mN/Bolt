@@ -20,7 +20,7 @@ cColor::~cColor()
 cColor::cColor() :
     tSuperClass( "color" )
 {
-    Build( 0, 0, 0, 0 );
+    Build( 0, 0, 0, 255 );
 }
 
 

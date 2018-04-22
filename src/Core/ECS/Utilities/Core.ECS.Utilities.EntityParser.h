@@ -16,6 +16,16 @@ class cWorld;
 class cEntityParser
 {
 public:
+    struct sPairEntityFile
+    {
+        sPairEntityFile() : mEntity( 0 ), mFileName( L"VOID"){}
+
+        cEntity* mEntity;
+        std::wstring mFileName;
+    };
+
+
+public:
     // Contruction/Destruction
     ~cEntityParser();
     cEntityParser();
@@ -30,8 +40,11 @@ public:
     void  Finalize();
 
 public:
+    void  ReparseAll( cWorld* iWorld );
+
+public:
     // TOMOVE
-    void  WinParseEntityDir();
+    void  WinParseEntityDir( std::vector< std::wstring >* oFileNames );
 
 public:
     // Functions
@@ -40,13 +53,17 @@ public:
 
 public:
     // Accessors--EDITOR mainly
-    const std::string& GetEntityNameAtIndex( int iIndex ) const;
-    cEntity*    GetPrototypeByName( const std::string& iName );
-    unsigned int EntityCount() const;
+    const std::string&  GetEntityNameAtIndex( int iIndex ) const;
+    const std::wstring& GetEntityFileNameAtIndex( int iIndex ) const;
+
+    cEntity*            GetPrototypeByName( const std::string& iName );
+    const std::wstring& GetEntityFileNameByEntityName( const std::string& iName );
+
+    unsigned int        EntityCount() const;
+    bool                IsIDAvailable( const std::string& iID );
 
 private:
-    std::vector< std::wstring > mAllEntityFiles;
-    std::unordered_map< std::string, cEntity* > mEntities;
+    std::unordered_map< std::string, sPairEntityFile > mEntities;
 
 };
 

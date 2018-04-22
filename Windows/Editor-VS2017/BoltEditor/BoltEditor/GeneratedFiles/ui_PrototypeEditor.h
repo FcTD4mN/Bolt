@@ -18,6 +18,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListView>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "Editor.BoltQtWidgets.EntityProperty.h"
@@ -34,6 +35,7 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QGraphicsView *graphicsViewPreview;
     cEntityProperty *treeViewPrototype;
+    QPushButton *buttonSavePrototype;
     QVBoxLayout *verticalLayout_3;
     QLabel *label;
     QListView *listViewAllPrototypes;
@@ -80,6 +82,11 @@ public:
 
         verticalLayout->addLayout(verticalLayout_2);
 
+        buttonSavePrototype = new QPushButton(PrototypeEditor);
+        buttonSavePrototype->setObjectName(QStringLiteral("buttonSavePrototype"));
+
+        verticalLayout->addWidget(buttonSavePrototype);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -113,6 +120,7 @@ public:
 
         retranslateUi(PrototypeEditor);
         QObject::connect(listViewAllPrototypes, SIGNAL(doubleClicked(QModelIndex)), PrototypeEditor, SLOT(PrototypeEditionAsked(QModelIndex)));
+        QObject::connect(buttonSavePrototype, SIGNAL(clicked()), PrototypeEditor, SLOT(SavePrototype()));
 
         QMetaObject::connectSlotsByName(PrototypeEditor);
     } // setupUi
@@ -120,6 +128,7 @@ public:
     void retranslateUi(QWidget *PrototypeEditor)
     {
         PrototypeEditor->setWindowTitle(QApplication::translate("PrototypeEditor", "Form", nullptr));
+        buttonSavePrototype->setText(QApplication::translate("PrototypeEditor", "Save Prototype", nullptr));
         label->setText(QApplication::translate("PrototypeEditor", "PrototypeList", nullptr));
     } // retranslateUi
 

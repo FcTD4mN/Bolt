@@ -52,6 +52,13 @@
          </item>
         </layout>
        </item>
+       <item>
+        <widget class="QPushButton" name="buttonSavePrototype">
+         <property name="text">
+          <string>Save Prototype</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
@@ -101,6 +108,7 @@
    <header>Editor.BoltQtWidgets.EntityProperty.h</header>
    <container>1</container>
    <slots>
+    <signal>EntityNameEdited(QString)</signal>
     <slot>selectedEntityChanged(QModelIndex)</slot>
     <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
    </slots>
@@ -115,8 +123,8 @@
    <slot>PrototypeEditionAsked(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>297</y>
+     <x>582</x>
+     <y>327</y>
     </hint>
     <hint type="destinationlabel">
      <x>466</x>
@@ -124,8 +132,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonSavePrototype</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>SavePrototype()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>238</x>
+     <y>391</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>613</x>
+     <y>4</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>PrototypeEditionAsked(QModelIndex)</slot>
+  <slot>EntityNameEdited(QString)</slot>
+  <slot>SavePrototype()</slot>
  </slots>
 </ui>

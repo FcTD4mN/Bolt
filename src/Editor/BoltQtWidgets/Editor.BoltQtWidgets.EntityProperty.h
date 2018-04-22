@@ -25,15 +25,20 @@ public:
     ~cEntityProperty();
     cEntityProperty( QWidget *parent = Q_NULLPTR );
 
+public:
+    QString GetEntityName();
+
 public slots :
     void selectedEntitiesChanged( ::nECS::cEntity* iEntity );
     void addEmptyComponent();
     void removeComponent();
+    void EntityIDChanged( QString );
 
 private:
     Ui::EntityProperty ui;
     cEntityPropertyDelegate* mComboDelegate;
     ::nQt::nModels::cEntityModel* mModel;
+    ::nECS::cEntity* mEntity;
 };
 
 

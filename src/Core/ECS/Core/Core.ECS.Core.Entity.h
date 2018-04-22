@@ -71,6 +71,7 @@ public:
     bool IsDead() const;
     void SetLoaded();
     const std::string& ID() const;
+    bool SetID( const std::string& iID );
     void Destroy();
     void AddSystemObserver( cSystem* iSystem );
 

@@ -18,7 +18,8 @@ cEntityProperty::~cEntityProperty()
 
 
 cEntityProperty::cEntityProperty( QWidget * Parent ) :
-    tSuperClass( Parent )
+    tSuperClass( Parent ),
+    mEntity( 0 )
 {
     ui.setupUi( this );
     mComboDelegate = new  cEntityPropertyDelegate;
@@ -26,14 +27,22 @@ cEntityProperty::cEntityProperty( QWidget * Parent ) :
 }
 
 
+QString
+cEntityProperty::GetEntityName()
+{
+    return  ui.editEntityName->text();
+}
+
+
 void
 cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
 {
-    if( iEntity )
+    mEntity = iEntity;
+    if( mEntity )
     {
-        mModel = new ::nQt::nModels::cEntityModel( iEntity );
+        mModel = new ::nQt::nModels::cEntityModel( mEntity );
         ui.treeView->setModel( mModel );
-        ui.editEntityName->setText( iEntity->ID().c_str() );
+        ui.editEntityName->setText( mEntity->ID().c_str() );
     }
     else
     {
@@ -41,7 +50,7 @@ cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
         ui.editEntityName->setText( "No entity to edit / Multiple selection" );
     }
 
-    mComboDelegate->SetEntity( iEntity );
+    mComboDelegate->SetEntity( mEntity );
 }
 
 
@@ -56,6 +65,17 @@ void
 cEntityProperty::removeComponent()
 {
     mModel->RemoveComponent( ui.treeView->currentIndex() );
+}
+
+
+void
+cEntityProperty::EntityIDChanged( QString iNewID )
+{
+    bool result = mEntity->SetID( iNewID.toStdString() );
+    if( !result )
+        ui.editEntityName->setStyleSheet( "QLineEdit { background: rgb(200, 50, 50); }" );
+    else
+        ui.editEntityName->setStyleSheet( "" );
 }
 
 

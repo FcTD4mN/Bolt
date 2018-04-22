@@ -1,4 +1,4 @@
-<entity id="superTruc">
+<entity id="SuperTruc">
 	<components>
 		<component name="color" >
 			<variables>

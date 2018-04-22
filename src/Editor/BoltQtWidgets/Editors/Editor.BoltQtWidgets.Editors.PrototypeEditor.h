@@ -27,10 +27,12 @@ public:
 
 public slots:
     void  PrototypeEditionAsked( QModelIndex );
+    void  SavePrototype();
 
 private:
     Ui::PrototypeEditor ui;
     ::nECS::cEntity* mEntity;
+    std::wstring      mOriginalFileName;
 };
 
 

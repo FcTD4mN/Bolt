@@ -228,6 +228,19 @@ cEntity::ID() const
 }
 
 
+bool
+cEntity::SetID( const std::string & iID )
+{
+    if( mWorld->IsIDUnique( iID ) )
+    {
+        mID = iID;
+        return  true;
+    }
+
+    return false;
+}
+
+
 void
 cEntity::Destroy()
 {

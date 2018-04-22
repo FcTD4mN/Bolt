@@ -105,6 +105,7 @@ public:
         retranslateUi(EntityProperty);
         QObject::connect(buttonAddComponent, SIGNAL(clicked()), EntityProperty, SLOT(addEmptyComponent()));
         QObject::connect(buttonRemoveComponent, SIGNAL(clicked()), EntityProperty, SLOT(removeComponent()));
+        QObject::connect(editEntityName, SIGNAL(textEdited(QString)), EntityProperty, SLOT(EntityIDChanged(QString)));
 
         QMetaObject::connectSlotsByName(EntityProperty);
     } // setupUi
