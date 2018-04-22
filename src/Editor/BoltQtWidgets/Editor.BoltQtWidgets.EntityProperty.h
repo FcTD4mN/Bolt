@@ -4,12 +4,14 @@
 
 #include "ui_EntityPropertyWidget.h"
 
-#include <QtCore/QModelIndex>
+#include <QModelIndex>
+#include <QStyledItemDelegate>
 
 namespace nApplication { class cEditorApplication; }
 namespace nECS { class cEntity; }
 namespace  nQt { namespace  nModels { class cEntityModel; } }
 
+class  cEntityPropertyDelegate;
 
 class cEntityProperty :
     public QWidget
@@ -30,8 +32,38 @@ public slots :
 
 private:
     Ui::EntityProperty ui;
-    ::nECS::cEntity* mEntity;
+    cEntityPropertyDelegate* mComboDelegate;
     ::nQt::nModels::cEntityModel* mModel;
 };
+
+
+// ==================================================================
+// ==================================================================
+// ==================================================================
+
+
+class  cEntityPropertyDelegate :
+    public  QStyledItemDelegate
+{
+public:
+    typedef QStyledItemDelegate tSuperClass;
+
+public:
+    cEntityPropertyDelegate( QWidget* iParent = 0 );
+
+public:
+    // Overrides
+    QWidget* createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
+    void    setEditorData( QWidget *editor, const QModelIndex &index ) const override;
+    void    setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const override;
+
+public:
+    void SetEntity( ::nECS::cEntity* iEntity );
+
+private:
+    ::nECS::cEntity* mEntity;
+};
+
+
 
 

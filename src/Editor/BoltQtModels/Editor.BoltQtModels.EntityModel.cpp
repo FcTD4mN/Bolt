@@ -107,6 +107,11 @@ cEntityModel::flags( const QModelIndex & iIndex ) const
     if( !iIndex.isValid() )
         return 0;
 
+    auto item = ExtractTreeWrapper( iIndex );
+    // Can't edit variable's names
+    if( item->Type() == "Variable" && iIndex.column() == 0 )
+        return  QAbstractItemModel::flags( iIndex );
+
     return Qt::ItemIsEditable | QAbstractItemModel::flags( iIndex );
 }
 
@@ -162,7 +167,6 @@ cEntityModel::setData( const QModelIndex & index, const QVariant & value, int ro
     // Setting a new component will result in removing the whole component node and replacing it with a new one
     // This means, it'll add rows in addition to setting the data.
     // But only here can i send all the beginRemoveRow bullshit
-    // SO i need to get ALL the needed information, so i need to clone a component for no reasons, just to get varcount ...
     if( index.column() == 0 && item->Type() == "Component" )
     {
         // First we remove all variables from current component, we do this explicitely like this to keep the viw up to date
@@ -309,8 +313,10 @@ cEntityModel::RemoveComponent( QModelIndex & iIndex )
     {
         beginRemoveRows( iIndex.parent(), iIndex.row(), iIndex.row() );
 
+        if( item->DataAtColumn( 0 ) != "New Component" )
+            mEntity->RemoveComponentAtIndex( iIndex.row() );
+
         parent->RemoveChildrenAtIndex( iIndex.row(), 1 );
-        mEntity->RemoveComponentAtIndex( iIndex.row() );
 
         endRemoveRows();
 

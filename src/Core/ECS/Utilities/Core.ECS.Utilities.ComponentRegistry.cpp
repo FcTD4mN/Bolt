@@ -80,5 +80,24 @@ cComponentRegistry::CreateComponentFromName( const std::string & iName )
 }
 
 
+int
+cComponentRegistry::GetComponentCount()
+{
+    return  int(mComponents.size());
+}
+
+
+cComponent *
+cComponentRegistry::GetComponentAtIndex( int iIndex )
+{
+    // Can we do this better than a for loop like this ? like accessing index in unordered map ? even though it's not working like that
+    auto iterator = mComponents.begin();
+    for( int i = 0; i < iIndex; ++i )
+        ++iterator;
+
+    return  iterator->second;
+}
+
+
 } // namespace ECS
 

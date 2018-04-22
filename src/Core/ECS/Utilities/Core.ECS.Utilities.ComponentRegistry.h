@@ -31,6 +31,11 @@ public:
     void  RegisterComponent( cComponent* iComponent );
     cComponent * CreateComponentFromName( const std::string& iName );
 
+public:
+    // EDITOR
+    int  GetComponentCount();
+    cComponent* GetComponentAtIndex( int iIndex );
+
 private:
     std::unordered_map< std::string, cComponent* > mComponents;
 
