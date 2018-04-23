@@ -20,15 +20,10 @@ static unsigned int sgEntityCount = 0;
 
 cEntity::~cEntity()
 {
-    for( int i = 0; i < mObserverSystems.size(); ++i )
-    {
-        mObserverSystems[ i ]->EntityLost( this );
-    }
+    LeaveAllSystems();
 
     for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
-    {
         delete  it->value;
-    }
 }
 
 
@@ -56,8 +51,8 @@ cEntity::cEntity( const cEntity& iEntity ) :
     mLoaded( iEntity.mLoaded ),
     mDead( iEntity.mDead )
 {
-    mComponents.reserve( 16 );
-    mTags.reserve( 64 );
+    mComponents.reserve( iEntity.mComponents.size() );
+    mTags.reserve( iEntity.mTags.size() );
     for( auto it = iEntity.mComponents.begin(); it != iEntity.mComponents.end(); ++it )
     {
         sPair pair;
@@ -81,6 +76,14 @@ cEntity::Clone()
 }
 
 
+void
+cEntity::LeaveAllSystems()
+{
+    for( int i = 0; i < mObserverSystems.size(); ++i )
+        mObserverSystems[ i ]->EntityLost( this );
+}
+
+
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------- Components
 // -------------------------------------------------------------------------------------
@@ -93,6 +96,12 @@ cEntity::AddComponent( ::nECS::cComponent * iComponent )
     pair.key = iComponent->Name();
     pair.value = iComponent;
     mComponents.push_back( pair );
+
+    if( mLoaded )
+    {
+        LeaveAllSystems();
+        mWorld->UpdateWorldWithEntity( this );
+    }
 }
 
 
@@ -104,6 +113,12 @@ cEntity::RemoveComponent( cComponent * iComponent )
         if( mComponents[ i ].key == iComponent->Name() && mComponents[ i ].value == iComponent )
             mComponents.erase( mComponents.begin() + i );
     }
+
+    if( mLoaded )
+    {
+        LeaveAllSystems();
+        mWorld->UpdateWorldWithEntity( this );
+    }
 }
 
 
@@ -114,6 +129,12 @@ cEntity::RemoveComponentByName( const std::string & iComponentName )
     {
         if( mComponents[ i ].key == iComponentName )
             mComponents.erase( mComponents.begin() + i );
+    }
+
+    if( mLoaded )
+    {
+        LeaveAllSystems();
+        mWorld->UpdateWorldWithEntity( this );
     }
 }
 
@@ -142,6 +163,12 @@ void
 cEntity::RemoveComponentAtIndex( int iIndex )
 {
     mComponents.erase( mComponents.begin() + iIndex );
+
+    if( mLoaded )
+    {
+        LeaveAllSystems();
+        mWorld->UpdateWorldWithEntity( this );
+    }
 }
 
 

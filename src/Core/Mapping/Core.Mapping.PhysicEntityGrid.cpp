@@ -289,7 +289,7 @@ cPositionSizeGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nE
         h = size->H();
     }
 
-    tSuperClass::GetBBoxArea( oX, oY, oX2, oY2, x, y, x + w, y + h );
+    tSuperClass::GetBBoxArea( oX, oY, oX2, oY2, float(x), float(y), float(x + w), float(y + h ) );
 }
 
 

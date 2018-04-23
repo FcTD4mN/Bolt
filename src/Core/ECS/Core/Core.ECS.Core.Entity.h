@@ -45,6 +45,9 @@ public:
     cEntity * Clone();
 
 public:
+    void LeaveAllSystems();
+
+public:
     // Components
     void  AddComponent( cComponent* iComponent );
     void  RemoveComponent( cComponent* iComponent );
@@ -69,11 +72,14 @@ public:
 public:
     // Access/Get
     bool IsDead() const;
-    void SetLoaded();
     const std::string& ID() const;
     bool SetID( const std::string& iID );
     void Destroy();
     void AddSystemObserver( cSystem* iSystem );
+
+private:
+    // World only
+    void SetLoaded();
 
 
 public:

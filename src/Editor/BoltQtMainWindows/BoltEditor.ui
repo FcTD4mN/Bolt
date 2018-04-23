@@ -21,7 +21,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="WorldEditorTab">
        <attribute name="title">
@@ -134,22 +134,23 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>cEntityProperty</class>
+   <extends>QWidget</extends>
+   <header>Editor.BoltQtWidgets.EntityProperty.h</header>
+   <container>1</container>
+   <slots>
+    <signal>EntityNameEdited(QString)</signal>
+    <slot>selectedEntityChanged(QModelIndex)</slot>
+    <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
    <class>MyCanvas</class>
    <extends>QWidget</extends>
    <header>Editor.BoltQtWidgets.TestCanvas.h</header>
    <container>1</container>
    <slots>
     <signal>SelectionChanged(::nECS::cEntity*)</signal>
-   </slots>
-  </customwidget>
-  <customwidget>
-   <class>cEntityProperty</class>
-   <extends>QWidget</extends>
-   <header>Editor.BoltQtWidgets.EntityProperty.h</header>
-   <container>1</container>
-   <slots>
-    <slot>selectedEntityChanged(QModelIndex)</slot>
-    <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
    </slots>
   </customwidget>
   <customwidget>
