@@ -28,6 +28,8 @@ public:
 public slots:
     void  PrototypeEditionAsked( QModelIndex );
     void  SavePrototype();
+    void  AddNewPrototype();
+    void  RemovePrototype();
 
 private:
     Ui::PrototypeEditor ui;

@@ -5,6 +5,7 @@
 #include "Core.ECS.Core.Component.h"
 
 #include "Editor.BoltQtModels.EntityModel.h"
+#include "Editor.BoltQtModels.EntityListModel.h"
 #include "Editor.Application.EditorApplication.h"
 
 #include <QTreeWidget>
@@ -52,12 +53,6 @@ cPrototypeEditor::SavePrototype()
 
         QMessageBox msg;
         msg.setIcon( QMessageBox::Critical );
-        if( !::nECS::cEntityParser::Instance()->IsIDAvailable( entityName ) )
-        {
-            msg.setText( "Prototype name already used, can't save under this name" );
-            msg.exec();
-            return;
-        }
         if( entityName == "" )
         {
             msg.setText( "Prototype name is empty" );
@@ -66,8 +61,7 @@ cPrototypeEditor::SavePrototype()
         }
 
         // Removing the old file
-        std::string originalAsString;
-        originalAsString = std::string( mOriginalFileName.begin(), mOriginalFileName.end() );
+        std::string originalAsString = std::string( mOriginalFileName.begin(), mOriginalFileName.end() );
 
         if( remove( originalAsString.c_str() ) != 0 )
             perror( "Delete failed\n" );
@@ -93,6 +87,30 @@ cPrototypeEditor::SavePrototype()
         // Model changed, we don't care where, we update everything
         auto model = ui.listViewAllPrototypes->model();
         model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+
+        // Need to reget the pointer on entity as we just reparsed -> Recreated all prototypes
+        mEntity = ::nECS::cEntityParser::Instance()->GetPrototypeByName( entityName );
+        mOriginalFileName = ::nECS::cEntityParser::Instance()->GetEntityFileNameByEntityName( entityName );
+        ui.treeViewPrototype->selectedEntitiesChanged( mEntity );
     }
+}
+
+
+void
+cPrototypeEditor::AddNewPrototype()
+{
+    auto modelList = dynamic_cast< ::nQt::nModels::cEntityListModel* >( ui.listViewAllPrototypes->model() );
+    if( modelList )
+        modelList->AddNewPrototype();
+}
+
+
+void
+cPrototypeEditor::RemovePrototype()
+{
+    //std::string originalAsString = std::string( mOriginalFileName.begin(), mOriginalFileName.end() );
+
+    //remove( originalAsString.c_str() );
+
 }
 

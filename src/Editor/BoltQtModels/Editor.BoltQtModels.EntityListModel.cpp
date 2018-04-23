@@ -1,6 +1,10 @@
 #include "Editor.BoltQtModels.EntityListModel.h"
 
+#include "Editor.Application.EditorApplication.h"
+
 #include "Core.ECS.Utilities.EntityParser.h"
+#include "Core.ECS.Core.Entity.h"
+
 
 namespace  nQt {
 namespace  nModels {
@@ -31,7 +35,7 @@ cEntityListModel::data( const QModelIndex& iIndex, int iRole ) const
 
     if( iRole == Qt::DisplayRole )
     {
-        return  mParserInstance->GetEntityNameAtIndex( iIndex.row() ).c_str();
+        return  mParserInstance->GetEntityNamesSorted()[ iIndex.row() ].c_str();
     }
 
     return  QVariant();
@@ -48,6 +52,25 @@ cEntityListModel::headerData( int iSection, Qt::Orientation iOrientation, int iR
         return  tr( "Entities" );
 
     return  QVariant();
+}
+
+
+void
+cEntityListModel::AddNewPrototype()
+{
+    ::nECS::cEntity* newEntity = new ::nECS::cEntity( ::nApplication::cEditorApplication::App()->World() );
+
+    QModelIndex baseNode = QModelIndex();
+
+    beginInsertRows( baseNode, rowCount( baseNode ), rowCount( baseNode ) );
+    mParserInstance->RegisterEntity( newEntity );
+    endInsertRows();
+}
+
+
+void
+cEntityListModel::RemovePrototype( QModelIndex & iIndex )
+{
 }
 
 } //nQt

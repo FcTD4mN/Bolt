@@ -95,6 +95,24 @@
          </property>
         </widget>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="buttonAddPrototype">
+           <property name="text">
+            <string>New Prototype</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonRemovePrototype">
+           <property name="text">
+            <string>Remove Prototype</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </item>
     </layout>
@@ -148,10 +166,44 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonAddPrototype</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>AddNewPrototype()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>439</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>420</x>
+     <y>412</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonRemovePrototype</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>RemovePrototype()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>648</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>615</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>PrototypeEditionAsked(QModelIndex)</slot>
   <slot>EntityNameEdited(QString)</slot>
   <slot>SavePrototype()</slot>
+  <slot>AddNewPrototype()</slot>
+  <slot>RemovePrototype()</slot>
  </slots>
 </ui>

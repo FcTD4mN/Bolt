@@ -71,7 +71,14 @@ cEntityProperty::removeComponent()
 void
 cEntityProperty::EntityIDChanged( QString iNewID )
 {
-    bool result = mEntity->SetID( iNewID.toStdString() );
+    std::string asStd = iNewID.toStdString();
+
+    bool available = ::nECS::cEntityParser::Instance()->IsIDAvailable( asStd );
+    bool result = false;
+
+    if( available )
+        result = mEntity->SetID( asStd );
+
     if( !result )
         ui.editEntityName->setStyleSheet( "QLineEdit { background: rgb(200, 50, 50); }" );
     else

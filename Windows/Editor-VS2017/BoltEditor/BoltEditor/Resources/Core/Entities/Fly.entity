@@ -1,4 +1,4 @@
-<entity id="FlyR">
+<entity id="Fly">
     <components>
         <component name="color">
             <variables>

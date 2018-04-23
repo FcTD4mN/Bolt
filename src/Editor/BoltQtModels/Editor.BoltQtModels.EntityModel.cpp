@@ -108,8 +108,13 @@ cEntityModel::flags( const QModelIndex & iIndex ) const
         return 0;
 
     auto item = ExtractTreeWrapper( iIndex );
+
     // Can't edit variable's names
     if( item->Type() == "Variable" && iIndex.column() == 0 )
+        return  QAbstractItemModel::flags( iIndex );
+
+    // Can't edit component's value column
+    if( item->Type() == "Component" && iIndex.column() == 1 )
         return  QAbstractItemModel::flags( iIndex );
 
     return Qt::ItemIsEditable | QAbstractItemModel::flags( iIndex );

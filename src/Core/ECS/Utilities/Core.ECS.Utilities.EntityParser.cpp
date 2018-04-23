@@ -163,6 +163,14 @@ cEntityParser::CreateEntityFromPrototypeMap( const std::string& iEntityName )
 }
 
 
+void
+cEntityParser::RegisterEntity( cEntity * iEntity )
+{
+    mEntities[ iEntity->ID() ].mEntity = iEntity;
+    mEntities[ iEntity->ID() ].mFileName = L"";
+}
+
+
 // -------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------- Accessors
 // -------------------------------------------------------------------------------------
@@ -189,6 +197,21 @@ cEntityParser::GetEntityFileNameAtIndex( int iIndex ) const
         ++iterator;
 
     return  iterator->second.mFileName;
+}
+
+
+std::vector< std::string >
+cEntityParser::GetEntityNamesSorted()
+{
+    std::vector<std::string> output;
+    output.reserve( mEntities.size() );
+
+    for( auto ent : mEntities )
+        output.push_back( ent.second.mEntity->ID() );
+
+    std::sort( output.begin(), output.end() );
+
+    return  output;
 }
 
 

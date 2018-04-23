@@ -44,7 +44,7 @@ public:
     bool removeRows( int iIndex, int iCount, const QModelIndex &parent = QModelIndex() ) override;
 
     bool AddEmptyComponent();
-    bool RemoveComponent( QModelIndex& iParent );
+    bool RemoveComponent( QModelIndex& iIndex );
 
 public:
     cTreeWrapperNode*  ExtractTreeWrapper( const QModelIndex& iIndex ) const;

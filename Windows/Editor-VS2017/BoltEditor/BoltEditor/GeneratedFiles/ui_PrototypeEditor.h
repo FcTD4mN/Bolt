@@ -39,6 +39,9 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label;
     QListView *listViewAllPrototypes;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *buttonAddPrototype;
+    QPushButton *buttonRemovePrototype;
 
     void setupUi(QWidget *PrototypeEditor)
     {
@@ -111,6 +114,21 @@ public:
 
         verticalLayout_3->addWidget(listViewAllPrototypes);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        buttonAddPrototype = new QPushButton(PrototypeEditor);
+        buttonAddPrototype->setObjectName(QStringLiteral("buttonAddPrototype"));
+
+        horizontalLayout->addWidget(buttonAddPrototype);
+
+        buttonRemovePrototype = new QPushButton(PrototypeEditor);
+        buttonRemovePrototype->setObjectName(QStringLiteral("buttonRemovePrototype"));
+
+        horizontalLayout->addWidget(buttonRemovePrototype);
+
+
+        verticalLayout_3->addLayout(horizontalLayout);
+
 
         horizontalLayout_2->addLayout(verticalLayout_3);
 
@@ -121,6 +139,8 @@ public:
         retranslateUi(PrototypeEditor);
         QObject::connect(listViewAllPrototypes, SIGNAL(doubleClicked(QModelIndex)), PrototypeEditor, SLOT(PrototypeEditionAsked(QModelIndex)));
         QObject::connect(buttonSavePrototype, SIGNAL(clicked()), PrototypeEditor, SLOT(SavePrototype()));
+        QObject::connect(buttonAddPrototype, SIGNAL(clicked()), PrototypeEditor, SLOT(AddNewPrototype()));
+        QObject::connect(buttonRemovePrototype, SIGNAL(clicked()), PrototypeEditor, SLOT(RemovePrototype()));
 
         QMetaObject::connectSlotsByName(PrototypeEditor);
     } // setupUi
@@ -130,6 +150,8 @@ public:
         PrototypeEditor->setWindowTitle(QApplication::translate("PrototypeEditor", "Form", nullptr));
         buttonSavePrototype->setText(QApplication::translate("PrototypeEditor", "Save Prototype", nullptr));
         label->setText(QApplication::translate("PrototypeEditor", "PrototypeList", nullptr));
+        buttonAddPrototype->setText(QApplication::translate("PrototypeEditor", "New Prototype", nullptr));
+        buttonRemovePrototype->setText(QApplication::translate("PrototypeEditor", "Remove Prototype", nullptr));
     } // retranslateUi
 
 };
