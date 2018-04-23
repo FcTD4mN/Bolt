@@ -122,6 +122,18 @@ cWorld::DestroyAllEntities()
 }
 
 
+void cWorld::PurgeEntities()
+{
+    while( mEntitiesToDestroy.size() > 0 )
+    {
+        cEntity* ent = mEntitiesToDestroy.back();
+        RemoveEntity( ent );
+        delete  ent;
+        mEntitiesToDestroy.pop_back();
+    }
+}
+
+
 bool
 cWorld::IsIDUnique( const std::string & iID ) const
 {
@@ -180,18 +192,6 @@ void
 cWorld::RemoveEntity( cEntity* iEntity )
 {
     mEntity.erase( iEntity->ID() );
-}
-
-
-void cWorld::PurgeEntities()
-{
-    while( mEntitiesToDestroy.size() > 0 )
-    {
-        cEntity* ent = mEntitiesToDestroy.back();
-        RemoveEntity( ent );
-        delete  ent;
-        mEntitiesToDestroy.pop_back();
-    }
 }
 
 

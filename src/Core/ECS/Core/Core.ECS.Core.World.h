@@ -36,6 +36,7 @@ public:
     cEntity*  GetEntityByID( const  std::string& iID );
     cEntity*  GetEntityAtIndex( int iIndex );
     void  DestroyAllEntities();
+    void  PurgeEntities();
 
     bool IsIDUnique( const std::string& iID ) const;
 
@@ -51,7 +52,6 @@ public:
 private:
     // Private
     void  RemoveEntity( cEntity* iEntity );
-    void  PurgeEntities();
 
 public:
     // Events

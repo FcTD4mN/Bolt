@@ -51,6 +51,7 @@ public:
     virtual void mouseMoveEvent( QMouseEvent *iEvent ) override;
     virtual void mouseReleaseEvent( QMouseEvent *iEvent ) override;
     virtual void mouseDoubleClickEvent( QMouseEvent *iEvent ) override;
+    virtual void keyReleaseEvent( QKeyEvent* iEvent ) override;
 
 public slots:
     void CurrentPrototypeChanged( const QModelIndex& iIndex );

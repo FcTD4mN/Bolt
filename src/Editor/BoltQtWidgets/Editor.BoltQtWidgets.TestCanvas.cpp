@@ -298,6 +298,25 @@ MyCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
 
 
 void
+MyCanvas::keyReleaseEvent( QKeyEvent * iEvent )
+{
+    if( iEvent->key() == Qt::Key_Delete )
+    {
+        for( auto ent : mEntitySelection )
+        {
+            ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->RemoveEntityNotUpdated( ent );
+            ent->Destroy();
+        }
+
+        mEntitySelection.clear();
+        mEditorApp->World()->PurgeEntities();
+    }
+
+    tSuperClass::keyReleaseEvent( iEvent );
+}
+
+
+void
 MyCanvas::CurrentPrototypeChanged( const QModelIndex& iIndex )
 {
     mCurrentPrototypeEntitySelected = iIndex;
