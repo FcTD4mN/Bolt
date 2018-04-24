@@ -28,17 +28,22 @@ public:
 public:
     QString GetEntityName();
 
+signals:
+    void  EntityNameChanged( QString iName );
+
 public slots :
     void selectedEntitiesChanged( ::nECS::cEntity* iEntity );
     void addEmptyComponent();
     void removeComponent();
-    void EntityIDChanged( QString );
+    void EntityIDChanged();
 
 private:
     Ui::EntityProperty ui;
     cEntityPropertyDelegate* mComboDelegate;
+
     ::nQt::nModels::cEntityModel* mModel;
     ::nECS::cEntity* mEntity;
+    std::string  mEntityName;
 };
 
 

@@ -1,25 +1,25 @@
 <entity id="SuperTruc">
-	<components>
-		<component name="color" >
-			<variables>
-				<variable name="r" type="1" value="10" />
-				<variable name="g" type="1" value="200" />
-				<variable name="b" type="1" value="20" />
-				<variable name="a" type="1" value="255" />
-			</variables>
-		</component>
-		<component name="position" >
-			<variables>
-				<variable name="x" type="1" value="100" />
-				<variable name="y" type="1" value="50" />
-			</variables>
-		</component>
-		<component name="size" >
-			<variables>
-				<variable name="w" type="1" value="50" />
-				<variable name="h" type="1" value="100" />
-			</variables>
-		</component>
-	</components>
-	<tags/>
+    <components>
+        <component name="color">
+            <variables>
+                <variable name="r" type="1" value="10"/>
+                <variable name="b" type="1" value="20"/>
+                <variable name="g" type="1" value="200"/>
+                <variable name="a" type="1" value="255"/>
+            </variables>
+        </component>
+        <component name="position">
+            <variables>
+                <variable name="x" type="1" value="100"/>
+                <variable name="y" type="1" value="50"/>
+            </variables>
+        </component>
+        <component name="size">
+            <variables>
+                <variable name="w" type="1" value="50"/>
+                <variable name="h" type="1" value="100"/>
+            </variables>
+        </component>
+    </components>
+    <tags/>
 </entity>

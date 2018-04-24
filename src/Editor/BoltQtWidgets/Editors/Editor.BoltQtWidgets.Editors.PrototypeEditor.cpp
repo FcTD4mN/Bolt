@@ -114,3 +114,10 @@ cPrototypeEditor::RemovePrototype()
 
 }
 
+
+void
+cPrototypeEditor::PrototypeNameChanged()
+{
+
+}
+

@@ -127,16 +127,16 @@
   </connection>
   <connection>
    <sender>editEntityName</sender>
-   <signal>textEdited(QString)</signal>
+   <signal>editingFinished()</signal>
    <receiver>EntityProperty</receiver>
-   <slot>EntityIDChanged(QString)</slot>
+   <slot>EntityIDChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>140</x>
-     <y>23</y>
+     <x>320</x>
+     <y>19</y>
     </hint>
     <hint type="destinationlabel">
-     <x>147</x>
+     <x>346</x>
      <y>5</y>
     </hint>
    </hints>
@@ -145,6 +145,6 @@
  <slots>
   <slot>addEmptyComponent()</slot>
   <slot>removeComponent()</slot>
-  <slot>EntityIDChanged(QString)</slot>
+  <slot>EntityIDChanged()</slot>
  </slots>
 </ui>

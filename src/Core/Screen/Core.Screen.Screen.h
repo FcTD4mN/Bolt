@@ -44,7 +44,6 @@ public:
     virtual  void  TouchMoved( const sf::Event& iEvent );             ///< A touch moved (data in event.touch)
     virtual  void  TouchEnded( const sf::Event& iEvent );             ///< A touch event ended (data in event.touch)
     virtual  void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
-
 };
 
 

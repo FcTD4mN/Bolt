@@ -38,8 +38,10 @@ void
 cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
 {
     mEntity = iEntity;
+
     if( mEntity )
     {
+        mEntityName = mEntity->ID();
         mModel = new ::nQt::nModels::cEntityModel( mEntity );
         ui.treeView->setModel( mModel );
         ui.editEntityName->setText( mEntity->ID().c_str() );
@@ -69,15 +71,20 @@ cEntityProperty::removeComponent()
 
 
 void
-cEntityProperty::EntityIDChanged( QString iNewID )
+cEntityProperty::EntityIDChanged()
 {
-    std::string asStd = iNewID.toStdString();
+    std::string asStd = ui.editEntityName->text().toStdString();
+    if( asStd == mEntityName )
+        return;
 
     bool available = ::nECS::cEntityParser::Instance()->IsIDAvailable( asStd );
     bool result = false;
 
     if( available )
+    {
         result = mEntity->SetID( asStd );
+        mEntityName = mEntity->ID();
+    }
 
     if( !result )
         ui.editEntityName->setStyleSheet( "QLineEdit { background: rgb(200, 50, 50); }" );

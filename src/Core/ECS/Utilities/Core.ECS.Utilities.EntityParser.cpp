@@ -207,7 +207,10 @@ cEntityParser::GetEntityNamesSorted()
     output.reserve( mEntities.size() );
 
     for( auto ent : mEntities )
-        output.push_back( ent.second.mEntity->ID() );
+    {
+        if( ent.second.mEntity )
+            output.push_back( ent.second.mEntity->ID() );
+    }
 
     std::sort( output.begin(), output.end() );
 

@@ -30,6 +30,7 @@ public slots:
     void  SavePrototype();
     void  AddNewPrototype();
     void  RemovePrototype();
+    void  PrototypeNameChanged();
 
 private:
     Ui::PrototypeEditor ui;
