@@ -8,8 +8,9 @@
 #include "Editor.BoltQtModels.EntityListModel.h"
 #include "Editor.Application.EditorApplication.h"
 
-#include <QTreeWidget>
+#include <QFileDialog>
 #include <QMessageBox>
+#include <QTreeWidget>
 
 cPrototypeEditor::~cPrototypeEditor()
 {
@@ -18,8 +19,7 @@ cPrototypeEditor::~cPrototypeEditor()
 
 cPrototypeEditor::cPrototypeEditor( QWidget * Parent ) :
     tSuperClass( Parent ),
-    mEntity( 0 ),
-    mOriginalFileName( L"" )
+    mEntity( 0 )
 {
     ui.setupUi( this );
 }
@@ -37,11 +37,25 @@ cPrototypeEditor::PrototypeEditionAsked( QModelIndex iIndex )
 {
     std::string name = iIndex.data( Qt::DisplayRole ).toString().toStdString();
     mEntity = ::nECS::cEntityParser::Instance()->GetPrototypeByName( name );
-    mOriginalFileName = ::nECS::cEntityParser::Instance()->GetEntityFileNameByEntityName( name );
 
     ui.listViewAllPrototypes->setCurrentIndex( iIndex );
     ui.treeViewPrototype->selectedEntitiesChanged( mEntity );
 }
+
+
+void
+cPrototypeEditor::PrototypeNameChanged( QString iOldName, QString iNewName )
+{
+    auto parser = ::nECS::cEntityParser::Instance();
+    auto filename = parser->GetEntityFileNameByEntityName( iOldName.toStdString() );
+    parser->UnregisterEntityByName( iOldName.toStdString() );
+    parser->RegisterEntity( mEntity );
+    parser->SetEntityFilenameUsingEntityName( mEntity->ID(), filename );
+
+    auto model = ui.listViewAllPrototypes->model();
+    model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+}
+
 
 
 void
@@ -60,16 +74,33 @@ cPrototypeEditor::SavePrototype()
             return;
         }
 
-        // Removing the old file
-        std::string originalAsString = std::string( mOriginalFileName.begin(), mOriginalFileName.end() );
+        std::wstring filename = ::nECS::cEntityParser::Instance()->GetEntityFileNameByEntityName( entityName );
+        std::string newFileName;
 
-        if( remove( originalAsString.c_str() ) != 0 )
-            perror( "Delete failed\n" );
+        if( filename == L"" )
+        {
+            QFileDialog fileAsking( this, tr( "Save your entity" ), "./Resources/Core/Entity", tr( " Entity (*.entity)" ) );
+            fileAsking.setDefaultSuffix( "entity" );
+
+            if( fileAsking.exec() )
+                newFileName = fileAsking.selectedFiles().last().toStdString();
+            else
+                return;
+        }
         else
-            printf( "Delete success\n" );
+        {
+            // Removing the old file
+            std::string originalAsString = std::string( filename.begin(), filename.end() );
+
+            if( remove( originalAsString.c_str() ) != 0 )
+                perror( "Delete failed\n" );
+            else
+                printf( "Delete success\n" );
+
+            newFileName = originalAsString;
+        }
 
         // Creating the new file
-        std::string newFileName = "resources/Core/Entities/" + entityName + ".entity";
         tinyxml2::XMLDocument doc;
         tinyxml2::XMLElement* elm = doc.NewElement( "entity" );
 
@@ -81,18 +112,41 @@ cPrototypeEditor::SavePrototype()
         if( error )
             return;
 
-        // Reparse all it's easier than trying to update the hash and stuff + there might be new files etc
-        ::nECS::cEntityParser::Instance()->ReparseAll( ::nApplication::cEditorApplication::App()->World() );
-
         // Model changed, we don't care where, we update everything
         auto model = ui.listViewAllPrototypes->model();
         model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
-
-        // Need to reget the pointer on entity as we just reparsed -> Recreated all prototypes
-        mEntity = ::nECS::cEntityParser::Instance()->GetPrototypeByName( entityName );
-        mOriginalFileName = ::nECS::cEntityParser::Instance()->GetEntityFileNameByEntityName( entityName );
-        ui.treeViewPrototype->selectedEntitiesChanged( mEntity );
     }
+}
+
+
+void
+cPrototypeEditor::SavePrototypeAs()
+{
+    QFileDialog fileAsking( this, tr( "Save your entity" ), "./Resources/Core/Entity", tr( " Entity (*.entity)" ) );
+    fileAsking.setDefaultSuffix( "entity" );
+
+    std::string filename;
+    if( fileAsking.exec() )
+        filename = fileAsking.selectedFiles().last().toStdString();
+    else
+        return;
+
+    // Creating the new file
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* elm = doc.NewElement( "entity" );
+
+    mEntity->SaveXML( elm, &doc );
+
+    doc.InsertFirstChild( elm );
+
+    tinyxml2::XMLError error = doc.SaveFile( filename.c_str() );
+    if( error )
+        return;
+
+    // Model changed, we don't care where, we update everything
+    auto model = ui.listViewAllPrototypes->model();
+    model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+
 }
 
 
@@ -108,16 +162,21 @@ cPrototypeEditor::AddNewPrototype()
 void
 cPrototypeEditor::RemovePrototype()
 {
-    //std::string originalAsString = std::string( mOriginalFileName.begin(), mOriginalFileName.end() );
+    auto parser = ::nECS::cEntityParser::Instance();
 
-    //remove( originalAsString.c_str() );
+    // Removing the file
+    auto model = ui.listViewAllPrototypes->model();
+    std::string entityName = model->data( ui.listViewAllPrototypes->currentIndex() ).toString().toStdString();
 
+    auto filename = parser->GetEntityFileNameByEntityName( entityName );
+    std::string originalAsString = std::string( filename.begin(), filename.end() );
+
+    if( remove( originalAsString.c_str() ) != 0 )
+        perror( "Delete failed\n" );
+    else
+        printf( "Delete success\n" );
+
+    parser->UnregisterEntityByName( entityName );
+    model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+    PrototypeEditionAsked( ui.listViewAllPrototypes->currentIndex() );
 }
-
-
-void
-cPrototypeEditor::PrototypeNameChanged()
-{
-
-}
-

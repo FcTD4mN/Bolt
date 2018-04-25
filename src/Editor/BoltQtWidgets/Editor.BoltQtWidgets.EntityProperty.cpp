@@ -83,13 +83,19 @@ cEntityProperty::EntityIDChanged()
     if( available )
     {
         result = mEntity->SetID( asStd );
-        mEntityName = mEntity->ID();
     }
 
     if( !result )
+    {
+
         ui.editEntityName->setStyleSheet( "QLineEdit { background: rgb(200, 50, 50); }" );
+    }
     else
+    {
         ui.editEntityName->setStyleSheet( "" );
+        emit  EntityNameChanged( mEntityName.c_str(), mEntity->ID().c_str() );
+        mEntityName = mEntity->ID();
+    }
 }
 
 

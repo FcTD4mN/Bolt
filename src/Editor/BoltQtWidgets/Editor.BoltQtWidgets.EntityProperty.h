@@ -29,7 +29,7 @@ public:
     QString GetEntityName();
 
 signals:
-    void  EntityNameChanged( QString iName );
+    void  EntityNameChanged( QString iOldName, QString iNewName );
 
 public slots :
     void selectedEntitiesChanged( ::nECS::cEntity* iEntity );

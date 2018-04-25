@@ -27,10 +27,13 @@ public:
 
 public slots:
     void  PrototypeEditionAsked( QModelIndex );
+    void  PrototypeNameChanged( QString iOldName, QString iNewName );
+
     void  SavePrototype();
+    void  SavePrototypeAs();
+
     void  AddNewPrototype();
     void  RemovePrototype();
-    void  PrototypeNameChanged();
 
 private:
     Ui::PrototypeEditor ui;

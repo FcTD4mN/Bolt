@@ -53,11 +53,22 @@
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="buttonSavePrototype">
-         <property name="text">
-          <string>Save Prototype</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="buttonSavePrototype">
+           <property name="text">
+            <string>Save Prototype</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonSaveAs">
+           <property name="text">
+            <string>Save As</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
@@ -127,6 +138,7 @@
    <container>1</container>
    <slots>
     <signal>EntityNameEdited(QString)</signal>
+    <signal>EntityNameChanged(QString,QString)</signal>
     <slot>selectedEntityChanged(QModelIndex)</slot>
     <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
    </slots>
@@ -157,8 +169,8 @@
    <slot>SavePrototype()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>238</x>
-     <y>391</y>
+     <x>189</x>
+     <y>404</y>
     </hint>
     <hint type="destinationlabel">
      <x>613</x>
@@ -198,6 +210,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>treeViewPrototype</sender>
+   <signal>EntityNameChanged(QString,QString)</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>PrototypeNameChanged(QString,QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>81</x>
+     <y>3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSaveAs</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>SavePrototypeAs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>210</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>PrototypeEditionAsked(QModelIndex)</slot>
@@ -205,5 +249,7 @@
   <slot>SavePrototype()</slot>
   <slot>AddNewPrototype()</slot>
   <slot>RemovePrototype()</slot>
+  <slot>PrototypeNameChanged(QString,QString)</slot>
+  <slot>SavePrototypeAs()</slot>
  </slots>
 </ui>

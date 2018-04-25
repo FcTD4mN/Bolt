@@ -35,7 +35,9 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QGraphicsView *graphicsViewPreview;
     cEntityProperty *treeViewPrototype;
+    QHBoxLayout *horizontalLayout_5;
     QPushButton *buttonSavePrototype;
+    QPushButton *buttonSaveAs;
     QVBoxLayout *verticalLayout_3;
     QLabel *label;
     QListView *listViewAllPrototypes;
@@ -85,10 +87,20 @@ public:
 
         verticalLayout->addLayout(verticalLayout_2);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         buttonSavePrototype = new QPushButton(PrototypeEditor);
         buttonSavePrototype->setObjectName(QStringLiteral("buttonSavePrototype"));
 
-        verticalLayout->addWidget(buttonSavePrototype);
+        horizontalLayout_5->addWidget(buttonSavePrototype);
+
+        buttonSaveAs = new QPushButton(PrototypeEditor);
+        buttonSaveAs->setObjectName(QStringLiteral("buttonSaveAs"));
+
+        horizontalLayout_5->addWidget(buttonSaveAs);
+
+
+        verticalLayout->addLayout(horizontalLayout_5);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
@@ -141,6 +153,8 @@ public:
         QObject::connect(buttonSavePrototype, SIGNAL(clicked()), PrototypeEditor, SLOT(SavePrototype()));
         QObject::connect(buttonAddPrototype, SIGNAL(clicked()), PrototypeEditor, SLOT(AddNewPrototype()));
         QObject::connect(buttonRemovePrototype, SIGNAL(clicked()), PrototypeEditor, SLOT(RemovePrototype()));
+        QObject::connect(treeViewPrototype, SIGNAL(EntityNameChanged(QString,QString)), PrototypeEditor, SLOT(PrototypeNameChanged(QString,QString)));
+        QObject::connect(buttonSaveAs, SIGNAL(clicked()), PrototypeEditor, SLOT(SavePrototypeAs()));
 
         QMetaObject::connectSlotsByName(PrototypeEditor);
     } // setupUi
@@ -149,6 +163,7 @@ public:
     {
         PrototypeEditor->setWindowTitle(QApplication::translate("PrototypeEditor", "Form", nullptr));
         buttonSavePrototype->setText(QApplication::translate("PrototypeEditor", "Save Prototype", nullptr));
+        buttonSaveAs->setText(QApplication::translate("PrototypeEditor", "Save As", nullptr));
         label->setText(QApplication::translate("PrototypeEditor", "PrototypeList", nullptr));
         buttonAddPrototype->setText(QApplication::translate("PrototypeEditor", "New Prototype", nullptr));
         buttonRemovePrototype->setText(QApplication::translate("PrototypeEditor", "Remove Prototype", nullptr));

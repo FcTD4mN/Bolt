@@ -52,12 +52,14 @@ public:
     cEntity* CreateEntityFromPrototypeMap( const std::string& iEntityName );
 
     void RegisterEntity( cEntity* iEntity );
+    void UnregisterEntityByName( const std::string& iName );
 
 public:
     // Accessors--EDITOR mainly
     const std::string&  GetEntityNameAtIndex( int iIndex ) const;
     const std::wstring& GetEntityFileNameAtIndex( int iIndex ) const;
     std::vector< std::string > GetEntityNamesSorted();
+    void SetEntityFilenameUsingEntityName( const std::string& iEntityName, const std::wstring& iNewFilename );
 
     cEntity*            GetPrototypeByName( const std::string& iName );
     const std::wstring& GetEntityFileNameByEntityName( const std::string& iName );
