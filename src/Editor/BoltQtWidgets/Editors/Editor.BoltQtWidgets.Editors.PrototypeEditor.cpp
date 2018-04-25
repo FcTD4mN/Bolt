@@ -79,13 +79,19 @@ cPrototypeEditor::SavePrototype()
 
         if( filename == L"" )
         {
-            QFileDialog fileAsking( this, tr( "Save your entity" ), "./Resources/Core/Entity", tr( " Entity (*.entity)" ) );
+            QString pathAndFile( "./Resources/Core/Entities/" );
+            pathAndFile += entityName.c_str();
+
+            QFileDialog fileAsking( this, tr( "Save your entity" ), pathAndFile, tr( "Entity (*.entity)" ) );
             fileAsking.setDefaultSuffix( "entity" );
 
             if( fileAsking.exec() )
                 newFileName = fileAsking.selectedFiles().last().toStdString();
             else
                 return;
+
+            std::wstring filenameAsWString( newFileName.begin(), newFileName.end() );
+            ::nECS::cEntityParser::Instance()->SetEntityFilenameUsingEntityName( entityName, filenameAsWString );
         }
         else
         {
@@ -122,7 +128,10 @@ cPrototypeEditor::SavePrototype()
 void
 cPrototypeEditor::SavePrototypeAs()
 {
-    QFileDialog fileAsking( this, tr( "Save your entity" ), "./Resources/Core/Entity", tr( " Entity (*.entity)" ) );
+    QString pathAndFile( "./Resources/Core/Entities/" );
+    pathAndFile += mEntity->ID().c_str();
+
+    QFileDialog fileAsking( this, tr( "Save your entity" ), pathAndFile, tr( "Entity (*.entity)" ) );
     fileAsking.setDefaultSuffix( "entity" );
 
     std::string filename;
@@ -131,11 +140,36 @@ cPrototypeEditor::SavePrototypeAs()
     else
         return;
 
+    auto parser = ::nECS::cEntityParser::Instance();
+    std::wstring  entityCurrentFileName = parser->GetEntityFileNameByEntityName( mEntity->ID() );
+
     // Creating the new file
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement* elm = doc.NewElement( "entity" );
+    std::wstring filenameAsWString( filename.begin(), filename.end() );
 
-    mEntity->SaveXML( elm, &doc );
+
+    if( entityCurrentFileName != L"" )
+    {
+        ::nECS::cEntity*  entityAssociatedToRequiredFilename = parser->GetPrototypeAssociatedToFileName( filenameAsWString );
+
+        if( entityAssociatedToRequiredFilename )
+        {
+            parser->UnregisterEntityByName( entityAssociatedToRequiredFilename->ID() );
+        }
+
+        ::nECS::cEntity* clone = mEntity->Clone();
+        parser->RegisterEntity( clone );
+        clone->SaveXML( elm, &doc );
+        ::nECS::cEntityParser::Instance()->SetEntityFilenameUsingEntityName( clone->ID(), filenameAsWString );
+    }
+    else
+    {
+        mEntity->SaveXML( elm, &doc );
+        ::nECS::cEntityParser::Instance()->SetEntityFilenameUsingEntityName( mEntity->ID(), filenameAsWString );
+    }
+
+
 
     doc.InsertFirstChild( elm );
 

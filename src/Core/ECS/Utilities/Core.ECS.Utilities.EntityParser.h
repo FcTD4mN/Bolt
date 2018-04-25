@@ -57,12 +57,14 @@ public:
 public:
     // Accessors--EDITOR mainly
     const std::string&  GetEntityNameAtIndex( int iIndex ) const;
-    const std::wstring& GetEntityFileNameAtIndex( int iIndex ) const;
     std::vector< std::string > GetEntityNamesSorted();
+
+    const std::wstring& GetEntityFileNameAtIndex( int iIndex ) const;
+    const std::wstring& GetEntityFileNameByEntityName( const std::string& iName );
     void SetEntityFilenameUsingEntityName( const std::string& iEntityName, const std::wstring& iNewFilename );
 
     cEntity*            GetPrototypeByName( const std::string& iName );
-    const std::wstring& GetEntityFileNameByEntityName( const std::string& iName );
+    cEntity*            GetPrototypeAssociatedToFileName( const std::wstring& iFileName );
 
     unsigned int        EntityCount() const;
     bool                IsIDAvailable( const std::string& iID );

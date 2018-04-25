@@ -110,7 +110,7 @@ cEntityParser::WinParseEntityDir( std::vector< std::wstring >* oFileNames )
     //TODO: Create a file manager class to handle every OS, or find a way with sfml
     WIN32_FIND_DATAW  finddata;
 
-    std::wstring entityDir = L"resources\\Core\\Entities\\*";
+    std::wstring entityDir = L"Resources\\Core\\Entities\\*";
 
     HANDLE f = FindFirstFileW( entityDir.c_str(), &finddata );
     if( f == INVALID_HANDLE_VALUE )
@@ -118,13 +118,13 @@ cEntityParser::WinParseEntityDir( std::vector< std::wstring >* oFileNames )
 
     std::wstring file( finddata.cFileName );
     if( ( file != L"." ) && ( file != L".." ) )
-        (*oFileNames).push_back( L"resources/Core/Entities/" + file );
+        (*oFileNames).push_back( L"Resources/Core/Entities/" + file );
 
     while( FindNextFileW( f, &finddata ) )
     {
         std::wstring file( finddata.cFileName );
         if( ( file != L"." ) && ( file != L".." ) )
-            (*oFileNames).push_back( L"resources/Core/Entities/" + file );
+            (*oFileNames).push_back( L"Resources/Core/Entities/" + file );
     }
 
     FindClose( f );
@@ -236,6 +236,19 @@ cEntity*
 cEntityParser::GetPrototypeByName( const std::string& iName )
 {
     return  mEntities[ iName ].mEntity;
+}
+
+
+cEntity*
+cEntityParser::GetPrototypeAssociatedToFileName( const std::wstring & iFileName )
+{
+    for( auto ent : mEntities )
+    {
+        if( ent.second.mFileName == iFileName || iFileName.find( ent.second.mFileName ) != std::string::npos )
+            return  ent.second.mEntity;
+    }
+
+    return  0;
 }
 
 
