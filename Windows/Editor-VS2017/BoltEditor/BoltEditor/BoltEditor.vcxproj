@@ -63,6 +63,7 @@
     <ClCompile Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.cpp" />
@@ -70,6 +71,7 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ComponentEditor.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\Editor.main.cpp" />
   </ItemGroup>
@@ -122,11 +124,13 @@
     <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader.h" />
     <ClInclude Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h" />
     <ClInclude Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.h" />
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ComponentEditor.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.h" />
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h" />
@@ -134,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtMainWindows\BoltEditor.ui" />
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\ComponentEditor.ui" />
     <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\PrototypeEditor.ui" />
     <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\EntityPropertyWidget.ui" />
   </ItemGroup>

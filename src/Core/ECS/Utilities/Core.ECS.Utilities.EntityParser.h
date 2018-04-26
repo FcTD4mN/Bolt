@@ -18,7 +18,7 @@ class cEntityParser
 public:
     struct sPairEntityFile
     {
-        sPairEntityFile() : mEntity( 0 ), mFileName( L"VOID"){}
+        sPairEntityFile() : mEntity( 0 ), mFileName( L""){}
 
         cEntity* mEntity;
         std::wstring mFileName;

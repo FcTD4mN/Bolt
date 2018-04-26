@@ -269,6 +269,12 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.cpp">
       <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ComponentEditor.cpp">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.cpp">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -444,6 +450,12 @@
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.h">
       <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
     </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ComponentEditor.h">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\EntityPropertyWidget.ui">
@@ -453,6 +465,9 @@
       <Filter>src\Editor\BoltQtMainWindows</Filter>
     </QtUic>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\PrototypeEditor.ui">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\ComponentEditor.ui">
       <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
     </QtUic>
   </ItemGroup>

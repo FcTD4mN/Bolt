@@ -34,14 +34,6 @@ cTreeWrapperNodeEntity::Type() const
 }
 
 
-void
-cTreeWrapperNodeEntity::AddChild()
-{
-    AppendData( "New Component" );
-    AppendData( "" );
-}
-
-
 ::nECS::cEntity *
 cTreeWrapperNodeEntity::Entity()
 {
@@ -77,15 +69,6 @@ std::string
 cTreeWrapperNodeComponent::Type() const
 {
     return  "Component";
-}
-
-
-void
-cTreeWrapperNodeComponent::AddChild()
-{
-    mComponent = 0;
-    AppendData( "New Component" );
-    AppendData( "" );
 }
 
 
@@ -158,12 +141,6 @@ cTreeWrapperNodeVariable::SetData( int iIndex, const QVariant & iData )
     }
 
     return false;
-}
-
-
-void
-cTreeWrapperNodeVariable::AddChild()
-{
 }
 
 } //nModels

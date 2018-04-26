@@ -24,6 +24,7 @@
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "Editor.BoltQtWidgets.Editors.ComponentEditor.h"
 #include "Editor.BoltQtWidgets.Editors.PrototypeEditor.h"
 #include "Editor.BoltQtWidgets.EntityProperty.h"
 #include "Editor.BoltQtWidgets.TestCanvas.h"
@@ -49,6 +50,9 @@ public:
     QWidget *PrototypeEditorTab;
     QHBoxLayout *horizontalLayout_3;
     cPrototypeEditor *PrototypeEditor;
+    QWidget *ComponentEditor;
+    QHBoxLayout *horizontalLayout_4;
+    cComponentEditor *widget_2;
     QMenuBar *menuBar;
     QMenu *menuFiles;
     QToolBar *mainToolBar;
@@ -132,6 +136,18 @@ public:
         horizontalLayout_3->addWidget(PrototypeEditor);
 
         tabWidget->addTab(PrototypeEditorTab, QString());
+        ComponentEditor = new QWidget();
+        ComponentEditor->setObjectName(QStringLiteral("ComponentEditor"));
+        horizontalLayout_4 = new QHBoxLayout(ComponentEditor);
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        widget_2 = new cComponentEditor(ComponentEditor);
+        widget_2->setObjectName(QStringLiteral("widget_2"));
+
+        horizontalLayout_4->addWidget(widget_2);
+
+        tabWidget->addTab(ComponentEditor, QString());
 
         horizontalLayout_2->addWidget(tabWidget);
 
@@ -174,6 +190,7 @@ public:
         actionLoad->setText(QApplication::translate("BoltEditorClass", "Load", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(WorldEditorTab), QApplication::translate("BoltEditorClass", "WorldEditor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(PrototypeEditorTab), QApplication::translate("BoltEditorClass", "PrototypeEditor", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(ComponentEditor), QApplication::translate("BoltEditorClass", "ComponentEditor", nullptr));
         menuFiles->setTitle(QApplication::translate("BoltEditorClass", "Files", nullptr));
     } // retranslateUi
 

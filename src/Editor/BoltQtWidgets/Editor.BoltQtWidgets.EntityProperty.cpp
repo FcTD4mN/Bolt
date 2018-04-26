@@ -134,7 +134,7 @@ cEntityPropertyDelegate::setEditorData( QWidget * iEditor, const QModelIndex & i
             QString currentComponentName = iIndex.data( Qt::DisplayRole ).toString();
             combo->addItem( currentComponentName );
 
-            for( int i = 0; i < ::nECS::cComponentRegistry::Instance()->GetComponentCount(); ++i )
+            for( int i = 0; i < ::nECS::cComponentRegistry::Instance()->ComponentCount(); ++i )
             {
                 auto component = ::nECS::cComponentRegistry::Instance()->GetComponentAtIndex( i );
                 std::string compName = component->Name();

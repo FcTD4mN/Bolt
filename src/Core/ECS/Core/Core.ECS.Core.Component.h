@@ -56,6 +56,10 @@ public:
     cComponentGeneric( const cComponentGeneric& iComponent );
 
 public:
+    // Copy
+    virtual  cComponent* Clone();
+
+public:
     // Access/Get
         // Yes we can get the variant, and modify it on the stop, so it's faster
     ::nBase::cVariant*    GetVar( const std::string& iVarName );
@@ -74,7 +78,6 @@ public:
 
 protected:
     std::unordered_map< std::string, ::nBase::cVariant* > mVars;
-
 };
 
 

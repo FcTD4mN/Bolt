@@ -3,6 +3,8 @@
 
 #include "Core.ECS.Core.Component.h"
 
+#include <algorithm>
+
 
 namespace nECS {
 
@@ -54,7 +56,7 @@ cComponentRegistry::Finalize()
 {
     for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
     {
-        delete  it->second;
+        delete  it->second.mComponent;
     }
 }
 
@@ -67,27 +69,45 @@ cComponentRegistry::Finalize()
 void
 cComponentRegistry::RegisterComponent( cComponent * iComponent )
 {
-    mComponents.insert( std::make_pair( iComponent->Name(), iComponent ) );
+    mComponents[ iComponent->Name() ].mComponent = iComponent;
+    mComponents[ iComponent->Name() ].mFileName = L"";
+}
+
+
+void
+cComponentRegistry::UnregisterComponent( cComponent * iComponent )
+{
+    mComponents.erase( iComponent->Name() );
+    // delete or not ?
+}
+
+
+void
+cComponentRegistry::UnregisterComponentByName( const std::string & iName )
+{
+    mComponents.erase( iName );
+    // delete or not ?
 }
 
 
 cComponent*
 cComponentRegistry::CreateComponentFromName( const std::string & iName )
 {
-    if( mComponents[ iName ] != nullptr )
-        return  mComponents[ iName ]->Clone();
+    if( mComponents[ iName ].mComponent != nullptr )
+        return  mComponents[ iName ].mComponent->Clone();
+
     return  0;
 }
 
 
 int
-cComponentRegistry::GetComponentCount()
+cComponentRegistry::ComponentCount()
 {
     return  int(mComponents.size());
 }
 
 
-cComponent *
+cComponent*
 cComponentRegistry::GetComponentAtIndex( int iIndex )
 {
     // Can we do this better than a for loop like this ? like accessing index in unordered map ? even though it's not working like that
@@ -95,7 +115,52 @@ cComponentRegistry::GetComponentAtIndex( int iIndex )
     for( int i = 0; i < iIndex; ++i )
         ++iterator;
 
-    return  iterator->second;
+    return  iterator->second.mComponent;
+}
+
+
+cComponent*
+cComponentRegistry::GetComponentByName( const std::string & iName )
+{
+    return  mComponents[ iName ].mComponent;
+}
+
+
+std::vector<std::string>
+cComponentRegistry::GetComponentNamesSorted()
+{
+    std::vector<std::string> output;
+    output.reserve( mComponents.size() );
+
+    for( auto comp : mComponents )
+    {
+        if( comp.second.mComponent )
+            output.push_back( comp.second.mComponent->Name() );
+    }
+
+    std::sort( output.begin(), output.end() );
+
+    return  output;
+}
+
+
+const std::wstring &
+cComponentRegistry::GetComponentFileNameByComponentName( const std::string & iName )
+{
+    return  mComponents[ iName ].mFileName;
+}
+
+
+bool
+cComponentRegistry::IsNameAvailable( const std::string & iID )
+{
+    for( auto comp : mComponents )
+    {
+        if( comp.second.mComponent->Name() == iID )
+            return  true;
+    }
+
+    return  true;
 }
 
 

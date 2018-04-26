@@ -174,6 +174,7 @@ cEntityParser::RegisterEntity( cEntity * iEntity )
 void
 cEntityParser::UnregisterEntityByName( const std::string & iName )
 {
+    delete  mEntities[ iName ].mEntity;
     mEntities.erase( iName );
 }
 
@@ -225,6 +226,13 @@ cEntityParser::GetEntityNamesSorted()
 }
 
 
+const std::wstring &
+cEntityParser::GetEntityFileNameByEntityName( const std::string & iName )
+{
+    return  mEntities[ iName ].mFileName;
+}
+
+
 void
 cEntityParser::SetEntityFilenameUsingEntityName( const std::string & iEntityName, const std::wstring & iNewFilename )
 {
@@ -249,13 +257,6 @@ cEntityParser::GetPrototypeAssociatedToFileName( const std::wstring & iFileName 
     }
 
     return  0;
-}
-
-
-const std::wstring &
-cEntityParser::GetEntityFileNameByEntityName( const std::string & iName )
-{
-    return  mEntities[ iName ].mFileName;
 }
 
 

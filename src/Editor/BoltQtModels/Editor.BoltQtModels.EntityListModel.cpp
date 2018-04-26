@@ -71,6 +71,19 @@ cEntityListModel::AddNewPrototype()
 void
 cEntityListModel::RemovePrototype( QModelIndex & iIndex )
 {
+    // Removing the file
+    std::string entityName = data( iIndex, Qt::DisplayRole ).toString().toStdString();
+
+    auto filename = mParserInstance->GetEntityFileNameByEntityName( entityName );
+    std::string originalAsString = std::string( filename.begin(), filename.end() );
+
+    if( remove( originalAsString.c_str() ) != 0 )
+        perror( "Delete failed\n" );
+    else
+        printf( "Delete success\n" );
+
+    mParserInstance->UnregisterEntityByName( entityName );
+    dataChanged( index( 0, 0 ), index( mParserInstance->EntityCount(), 0 ) );
 }
 
 } //nQt

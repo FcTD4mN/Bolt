@@ -28,14 +28,16 @@ public:
     virtual std::string Type() const;
 
 public:
-    virtual  void AddChild() override;
-
-public:
     ::nECS::cEntity* Entity();
 
 private:
     ::nECS::cEntity* mEntity;
 };
+
+
+// ----------------
+// ----------------
+// ----------------
 
 
 class cTreeWrapperNodeComponent :
@@ -51,9 +53,6 @@ public:
 public:
     // Type
     virtual std::string Type() const;
-
-public:
-    virtual  void AddChild() override;
 
 public:
     ::nECS::cComponentGeneric* Component();
@@ -85,9 +84,6 @@ public:
 public:
     // Data
     virtual  bool SetData( int iIndex, const QVariant& iData ) override;
-
-public:
-    virtual  void AddChild() override;
 
 private:
     ::nECS::cComponentGeneric* mComponent;

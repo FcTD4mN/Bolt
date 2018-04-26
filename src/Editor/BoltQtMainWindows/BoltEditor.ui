@@ -82,6 +82,16 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="ComponentEditor">
+       <attribute name="title">
+        <string>ComponentEditor</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="cComponentEditor" name="widget_2" native="true"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -140,6 +150,7 @@
    <container>1</container>
    <slots>
     <signal>EntityNameEdited(QString)</signal>
+    <signal>EntityNameChanged(QString,QString)</signal>
     <slot>selectedEntityChanged(QModelIndex)</slot>
     <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
    </slots>
@@ -161,6 +172,12 @@
    <slots>
     <slot>PrototypeEditionAsked(QModelIndex)</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>cComponentEditor</class>
+   <extends>QWidget</extends>
+   <header>Editor.BoltQtWidgets.Editors.ComponentEditor.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

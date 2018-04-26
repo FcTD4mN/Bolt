@@ -57,7 +57,6 @@ cPrototypeEditor::PrototypeNameChanged( QString iOldName, QString iNewName )
 }
 
 
-
 void
 cPrototypeEditor::SavePrototype()
 {
@@ -196,21 +195,11 @@ cPrototypeEditor::AddNewPrototype()
 void
 cPrototypeEditor::RemovePrototype()
 {
-    auto parser = ::nECS::cEntityParser::Instance();
-
     // Removing the file
-    auto model = ui.listViewAllPrototypes->model();
-    std::string entityName = model->data( ui.listViewAllPrototypes->currentIndex() ).toString().toStdString();
+    auto model = dynamic_cast< ::nQt::nModels::cEntityListModel* >( ui.listViewAllPrototypes->model() );
+    if( !model )
+        return;
 
-    auto filename = parser->GetEntityFileNameByEntityName( entityName );
-    std::string originalAsString = std::string( filename.begin(), filename.end() );
-
-    if( remove( originalAsString.c_str() ) != 0 )
-        perror( "Delete failed\n" );
-    else
-        printf( "Delete success\n" );
-
-    parser->UnregisterEntityByName( entityName );
-    model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+    model->RemovePrototype( ui.listViewAllPrototypes->currentIndex() );
     PrototypeEditionAsked( ui.listViewAllPrototypes->currentIndex() );
 }

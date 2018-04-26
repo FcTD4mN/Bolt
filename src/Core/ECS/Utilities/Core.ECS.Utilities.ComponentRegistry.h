@@ -13,6 +13,16 @@ class cComponent;
 class cComponentRegistry
 {
 public:
+    struct sPairComponentFile
+    {
+        sPairComponentFile() : mComponent( 0 ), mFileName( L"" ){}
+
+        cComponent*  mComponent;
+        std::wstring        mFileName;
+    };
+
+
+public:
     // Contruction/Destruction
     ~cComponentRegistry();
     cComponentRegistry();
@@ -29,15 +39,25 @@ public:
 public:
     // Registry functions
     void  RegisterComponent( cComponent* iComponent );
+    void  UnregisterComponent( cComponent* iComponent );
+    void  UnregisterComponentByName( const std::string& iName );
     cComponent * CreateComponentFromName( const std::string& iName );
 
 public:
     // EDITOR
-    int  GetComponentCount();
+    int  ComponentCount();
     cComponent* GetComponentAtIndex( int iIndex );
+    cComponent* GetComponentByName( const std::string& iName );
+
+    std::vector< std::string > GetComponentNamesSorted();
+
+    const std::wstring& GetComponentFileNameByComponentName( const std::string& iName );
+
+
+    bool                IsNameAvailable( const std::string& iID );
 
 private:
-    std::unordered_map< std::string, cComponent* > mComponents;
+    std::unordered_map< std::string, sPairComponentFile > mComponents;
 
 };
 

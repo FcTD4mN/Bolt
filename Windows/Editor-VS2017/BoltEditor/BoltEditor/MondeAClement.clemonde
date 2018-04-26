@@ -1,0 +1,142 @@
+<world>
+    <entities>
+        <entity id="Clementc19">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="-220"/>
+                        <variable name="y" type="1" value="146.5"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="w" type="1" value="20"/>
+                        <variable name="h" type="1" value="180"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="b" type="1" value="120"/>
+                        <variable name="r" type="1" value="245"/>
+                        <variable name="g" type="1" value="199"/>
+                        <variable name="a" type="1" value="250"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" x="0" y="0" w="0" h="0" veloX="0" veloY="0" type="0"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="testUltimec23">
+            <components>
+                <component name="spriteanimated" width="40" height="64">
+                    <variables>
+                        <variable name="filename" type="2" value="resources/Core/Images/SpriteSheets/communiste_spritesheet.png"/>
+                        <variable name="framerate" type="1" value="24"/>
+                        <variable name="paused" type="3" value="false"/>
+                    </variables>
+                </component>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="55"/>
+                        <variable name="y" type="1" value="275"/>
+                    </variables>
+                </component>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="Flyc20">
+            <components>
+                <component name="color">
+                    <variables>
+                        <variable name="b" type="1" value="50"/>
+                        <variable name="r" type="1" value="255"/>
+                        <variable name="g" type="1" value="50"/>
+                        <variable name="a" type="1" value="255"/>
+                    </variables>
+                </component>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="-236.99996948242188"/>
+                        <variable name="y" type="1" value="122"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="w" type="1" value="50"/>
+                        <variable name="h" type="1" value="20"/>
+                    </variables>
+                </component>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="entB2c22">
+            <components>
+                <component name="spriteanimated" width="40" height="64">
+                    <variables>
+                        <variable name="filename" type="2" value="resources/Core/Images/SpriteSheets/communiste_spritesheet.png"/>
+                        <variable name="framerate" type="1" value="24"/>
+                        <variable name="paused" type="3" value="false"/>
+                    </variables>
+                </component>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="-12"/>
+                        <variable name="y" type="1" value="272.00002288818359"/>
+                    </variables>
+                </component>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="Bulletc21">
+            <components>
+                <component name="color">
+                    <variables>
+                        <variable name="b" type="1" value="200"/>
+                        <variable name="r" type="1" value="100"/>
+                        <variable name="g" type="1" value="20"/>
+                        <variable name="a" type="1" value="255"/>
+                    </variables>
+                </component>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="-182.99999237060547"/>
+                        <variable name="y" type="1" value="215.00001525878906"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="w" type="1" value="50"/>
+                        <variable name="h" type="1" value="10"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" x="0" y="0" w="10" h="10" veloX="0" veloY="0" type="1"/>
+            </components>
+            <tags/>
+        </entity>
+        <entity id="Maisouic24">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="-310"/>
+                        <variable name="y" type="1" value="330.00001525878906"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="w" type="1" value="800"/>
+                        <variable name="h" type="1" value="100"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="b" type="1" value="255"/>
+                        <variable name="r" type="1" value="0"/>
+                        <variable name="g" type="1" value="0"/>
+                        <variable name="a" type="1" value="255"/>
+                    </variables>
+                </component>
+            </components>
+            <tags/>
+        </entity>
+    </entities>
+</world>

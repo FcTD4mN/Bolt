@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Editor.BoltQtWidgets.QSFMLCanvas.h"
-
 #include "ui_PrototypeEditor.h"
 
-#include <QtCore/QModelIndex>
+#include <QModelIndex>
+#include <QWidget>
 
 namespace nApplication { class cEditorApplication; }
 namespace nECS { class cEntity; }
@@ -38,7 +37,6 @@ public slots:
 private:
     Ui::PrototypeEditor ui;
     ::nECS::cEntity* mEntity;
-    std::wstring      mOriginalFileName;
 };
 
 
