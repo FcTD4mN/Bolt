@@ -87,6 +87,13 @@ cVariant::Type()
 }
 
 
+std::string
+cVariant::TypeAsString() const
+{
+    return  "Invalid";
+}
+
+
 double
 cVariant::GetValueNumber() const
 {
@@ -249,6 +256,13 @@ cNumber::Type()
 
 
 std::string
+cNumber::TypeAsString() const
+{
+    return  "Number";
+}
+
+
+std::string
 cNumber::ToString() const
 {
     return  std::to_string( mValue );
@@ -340,6 +354,13 @@ cString::Type()
 
 
 std::string
+cString::TypeAsString() const
+{
+    return  "String";
+}
+
+
+std::string
 cString::ToString() const
 {
     return  mValue;
@@ -427,6 +448,13 @@ eType
 cBoolean::Type()
 {
     return  kBoolean;
+}
+
+
+std::string
+cBoolean::TypeAsString() const
+{
+    return  "Boolean";
 }
 
 

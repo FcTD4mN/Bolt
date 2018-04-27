@@ -64,9 +64,11 @@
     <ClCompile Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentModel.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.cpp" />
@@ -131,7 +133,9 @@
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityModel.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.h" />
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentModel.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.h" />
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h" />

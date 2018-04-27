@@ -25,7 +25,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -55,6 +55,37 @@
         <widget class="QTreeView" name="treeViewComponent"/>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonAddVariable">
+           <property name="text">
+            <string>AddVariable</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonRemoveVariable">
+           <property name="text">
+            <string>RemoveVariable</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
           <widget class="QPushButton" name="pushButton">
@@ -74,7 +105,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLabel" name="label_3">
@@ -144,8 +175,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonAddVariable</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>AddNewVariable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>337</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>45</x>
+     <y>6</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonRemoveVariable</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>RemoveVariable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>343</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>60</x>
+     <y>1</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ComponentEditionAsked(QModelIndex)</slot>
+  <slot>AddNewVariable()</slot>
+  <slot>RemoveVariable()</slot>
  </slots>
 </ui>

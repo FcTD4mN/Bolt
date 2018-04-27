@@ -275,6 +275,12 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.cpp">
       <Filter>src\Editor\BoltQtModels</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.cpp">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentModel.cpp">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -430,6 +436,9 @@
     <ClInclude Include="..\..\..\..\src\Core\ECS\Core.ECS.Core.GlobalEntityMap.h">
       <Filter>src\Core\ECS\Mapping</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.h">
@@ -454,6 +463,9 @@
       <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
     </QtMoc>
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentListModel.h">
+      <Filter>src\Editor\BoltQtModels</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentModel.h">
       <Filter>src\Editor\BoltQtModels</Filter>
     </QtMoc>
   </ItemGroup>

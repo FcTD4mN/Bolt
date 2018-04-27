@@ -68,8 +68,10 @@ public:
 
     // EDITOR USED methods
     int     VarCount() const;
-    ::nBase::cVariant*    GetVarAtIndex( int iIndex );
-    const std::string&    GetVarNameAtIndex( int iIndex ) const;
+    ::nBase::cVariant*  GetVarAtIndex( int iIndex );
+    const std::string&  GetVarNameAtIndex( int iIndex ) const;
+    void                RenameVar( const std::string& iCurrentName, const std::string& iNewName );
+    void                RemoveVar( const std::string& iVarName );
 
 public:
     // Input/Output

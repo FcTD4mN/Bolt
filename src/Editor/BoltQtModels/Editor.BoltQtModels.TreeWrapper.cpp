@@ -73,7 +73,7 @@ cTreeWrapperNode::RemoveChildrenAtIndex( int iIndex, int iCount )
 
     for( int i = 0; i < iCount; ++i )
     {
-        delete  mChildren[ iIndex ];
+        delete  mChildren[ iIndex ]; // iIndex will remain valid as we remove -> everythong shifts left
         mChildren.erase( mChildren.begin() + iIndex );
     }
 
@@ -102,6 +102,7 @@ cTreeWrapperNode::DataCount() const
 {
     return  mData.size();
 }
+
 
 QVariant
 cTreeWrapperNode::DataAtColumn( int iColumn )

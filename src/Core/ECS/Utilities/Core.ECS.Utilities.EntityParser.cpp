@@ -174,7 +174,6 @@ cEntityParser::RegisterEntity( cEntity * iEntity )
 void
 cEntityParser::UnregisterEntityByName( const std::string & iName )
 {
-    delete  mEntities[ iName ].mEntity;
     mEntities.erase( iName );
 }
 

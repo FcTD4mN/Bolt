@@ -21,7 +21,7 @@ public:
     void AddChild( cTreeWrapperNode* iNode );
     virtual void AddChild(); // The add row interface
 
-    bool RemoveChildrenAtIndex( int iIndex, int iCount );
+    virtual  bool RemoveChildrenAtIndex( int iIndex, int iCount );
 
     int IndexInParent() const;
 
@@ -37,7 +37,7 @@ public:
     // Type
     virtual std::string Type() const;
 
-private:
+protected:
     cTreeWrapperNode* mParent;
     std::vector< cTreeWrapperNode* > mChildren;
 

@@ -188,7 +188,7 @@ cPrototypeEditor::AddNewPrototype()
 {
     auto modelList = dynamic_cast< ::nQt::nModels::cEntityListModel* >( ui.listViewAllPrototypes->model() );
     if( modelList )
-        modelList->AddNewPrototype();
+        PrototypeEditionAsked( modelList->AddNewPrototype() );
 }
 
 

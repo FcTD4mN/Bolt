@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QtCore/QAbstractItemModel>
+#include <QAbstractItemModel>
 
-namespace  nECS { class cEntity; }
+namespace  nECS { class cComponent; }
 
 namespace  nQt {
 namespace  nModels {
 
 class cTreeWrapperNode;
 
-class  cEntityModel :
+class  cComponentModel :
     public QAbstractItemModel
 {
     Q_OBJECT
@@ -18,8 +18,8 @@ public:
     typedef QAbstractItemModel tSuperClass;
 
 public:
-    ~cEntityModel();
-    cEntityModel( ::nECS::cEntity* iEntity, QObject* iParent = 0 );
+    ~cComponentModel();
+    cComponentModel( ::nECS::cComponent* iComponent, QObject* iParent = 0 );
 
 public:
     // Interface overrides
@@ -33,6 +33,7 @@ public:
     virtual  QModelIndex parent( const QModelIndex &index ) const override;
     virtual  Qt::ItemFlags flags( const QModelIndex& iIndex ) const override;
 
+
         // Write
     bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
     bool setHeaderData( int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole ) override;
@@ -42,15 +43,15 @@ public:
     bool insertRows( int iIndex, int iCount, const QModelIndex &parent = QModelIndex() ) override;
     bool removeRows( int iIndex, int iCount, const QModelIndex &parent = QModelIndex() ) override;
 
-    bool AddEmptyComponent();
-    bool RemoveComponent( QModelIndex& iIndex );
+    bool AddNewVariable();
+    bool RemoveVariable( QModelIndex& iIndex );
 
 public:
     cTreeWrapperNode*  ExtractTreeWrapper( const QModelIndex& iIndex ) const;
     void BuildData();
 
 private:
-    ::nECS::cEntity* mEntity;
+    ::nECS::cComponent* mComponent;
 
     cTreeWrapperNode* mRootItem;
 };

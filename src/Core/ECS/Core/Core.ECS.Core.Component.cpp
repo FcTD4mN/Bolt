@@ -148,6 +148,20 @@ cComponentGeneric::GetVarNameAtIndex( int iIndex ) const
     return  it->first;
 }
 
+void
+cComponentGeneric::RenameVar( const std::string& iCurrentName, const std::string& iNewName )
+{
+    mVars[ iNewName ] = mVars[ iCurrentName ];
+    mVars.erase( iCurrentName );
+}
+
+
+void
+cComponentGeneric::RemoveVar( const std::string & iVarName )
+{
+    mVars.erase( iVarName );
+}
+
 
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------- Access/Get

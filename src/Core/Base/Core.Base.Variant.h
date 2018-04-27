@@ -36,6 +36,7 @@ public:
 public:
     // Access
     virtual  eType  Type();
+    virtual  std::string TypeAsString() const;
 
     virtual  double              GetValueNumber() const;
     virtual  const std::string&  GetValueString() const;
@@ -81,6 +82,7 @@ public:
     void Value( double iValue );
 
     virtual  eType  Type() override;
+    virtual  std::string TypeAsString() const override;
 
 public:
     virtual  std::string  ToString() const  override;
@@ -121,6 +123,7 @@ public:
     void Value( const std::string& iValue );
 
     virtual  eType  Type() override;
+    virtual  std::string TypeAsString() const override;
 
 public:
     virtual  std::string  ToString()  const  override;
@@ -161,6 +164,7 @@ public:
     void Value( bool iValue );
 
     virtual  eType  Type() override;
+    virtual  std::string TypeAsString() const override;
 
 public:
     virtual  std::string  ToString()  const  override;

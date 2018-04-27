@@ -55,7 +55,7 @@ cEntityListModel::headerData( int iSection, Qt::Orientation iOrientation, int iR
 }
 
 
-void
+QModelIndex
 cEntityListModel::AddNewPrototype()
 {
     ::nECS::cEntity* newEntity = new ::nECS::cEntity( ::nApplication::cEditorApplication::App()->World() );
@@ -65,6 +65,7 @@ cEntityListModel::AddNewPrototype()
     beginInsertRows( baseNode, rowCount( baseNode ), rowCount( baseNode ) );
     mParserInstance->RegisterEntity( newEntity );
     endInsertRows();
+    return  GetPrototypeIndex( newEntity );
 }
 
 
@@ -84,6 +85,21 @@ cEntityListModel::RemovePrototype( QModelIndex & iIndex )
 
     mParserInstance->UnregisterEntityByName( entityName );
     dataChanged( index( 0, 0 ), index( mParserInstance->EntityCount(), 0 ) );
+}
+
+
+QModelIndex
+cEntityListModel::GetPrototypeIndex( ::nECS::cEntity * iPrototype )
+{
+    std::vector< std::string > sortedNames = mParserInstance->GetEntityNamesSorted();
+
+    for( int i = 0 ; i < sortedNames.size() ; ++ i )
+    {
+        if( sortedNames[ i ] == iPrototype->ID() )
+            return  index( i, 0 );
+    }
+
+    return QModelIndex();
 }
 
 } //nQt

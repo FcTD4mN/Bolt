@@ -3,6 +3,7 @@
 #include <QtCore/QAbstractListModel>
 
 namespace  nECS { class cEntityParser; }
+namespace  nECS { class cEntity; }
 
 namespace  nQt {
 namespace  nModels {
@@ -24,8 +25,10 @@ public:
     virtual  QVariant data( const QModelIndex& iIndex, int iRole ) const override;
     virtual  QVariant headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const override;
 
-    void AddNewPrototype();
+    QModelIndex  AddNewPrototype();
     void RemovePrototype( QModelIndex& iIndex );
+    QModelIndex  GetPrototypeIndex( ::nECS::cEntity* iPrototype );
+
 
 private:
     ::nECS::cEntityParser* mParserInstance;
