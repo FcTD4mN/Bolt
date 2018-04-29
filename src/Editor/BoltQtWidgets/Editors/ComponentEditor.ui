@@ -207,10 +207,61 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>AddNewComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>339</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>RemoveComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>523</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>532</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editComponentName</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>ComponentNameChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>461</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ComponentEditionAsked(QModelIndex)</slot>
   <slot>AddNewVariable()</slot>
   <slot>RemoveVariable()</slot>
+  <slot>AddNewComponent()</slot>
+  <slot>RemoveComponent()</slot>
+  <slot>ComponentNameChanged()</slot>
  </slots>
 </ui>

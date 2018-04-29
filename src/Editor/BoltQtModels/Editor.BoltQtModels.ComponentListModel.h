@@ -3,6 +3,7 @@
 #include <QAbstractListModel>
 
 namespace  nECS { class cComponentRegistry; }
+namespace  nECS { class cComponent; }
 
 namespace  nQt {
 namespace  nModels {
@@ -24,8 +25,9 @@ public:
     virtual  QVariant data( const QModelIndex& iIndex, int iRole ) const override;
     virtual  QVariant headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const override;
 
-    void AddNewComponent();
-    void RemoveComponent( QModelIndex& iIndex );
+    QModelIndex  AddNewComponent();
+    void         RemoveComponent( QModelIndex& iIndex );
+    QModelIndex  GetComponentIndex( ::nECS::cComponent* iPrototype );
 
 private:
     ::nECS::cComponentRegistry* mComponentRegistryInstance;

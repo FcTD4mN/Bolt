@@ -11,6 +11,8 @@ namespace nApplication { class cEditorApplication; }
 namespace nECS { class cComponent; }
 namespace nECS { class cComponentGeneric; }
 
+namespace nQt { namespace nModels { class cComponentListModel; } }
+
 class  cComponentEditorDelegate;
 
 
@@ -31,7 +33,7 @@ public:
 
 public slots:
     void  ComponentEditionAsked( QModelIndex );
-    //void  ComponentNameChanged( QString iOldName, QString iNewName );
+    void  ComponentNameChanged();
 
     //void  SaveComponent();
     //void  SaveComponentAs();
@@ -39,10 +41,14 @@ public slots:
     void  AddNewVariable();
     void  RemoveVariable();
 
+    void  AddNewComponent();
+    void  RemoveComponent();
+
 private:
     Ui::ComponentEditor         ui;
     ::nECS::cComponent*         mComponent;
     cComponentEditorDelegate*   mDelegate;
+    ::nQt::nModels::cComponentListModel*  mComponentListModel;
 };
 
 

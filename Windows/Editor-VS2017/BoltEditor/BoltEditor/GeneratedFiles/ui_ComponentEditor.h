@@ -178,6 +178,9 @@ public:
         QObject::connect(listViewAllComponents, SIGNAL(doubleClicked(QModelIndex)), ComponentEditor, SLOT(ComponentEditionAsked(QModelIndex)));
         QObject::connect(buttonAddVariable, SIGNAL(clicked()), ComponentEditor, SLOT(AddNewVariable()));
         QObject::connect(buttonRemoveVariable, SIGNAL(clicked()), ComponentEditor, SLOT(RemoveVariable()));
+        QObject::connect(pushButton_3, SIGNAL(clicked()), ComponentEditor, SLOT(AddNewComponent()));
+        QObject::connect(pushButton_4, SIGNAL(clicked()), ComponentEditor, SLOT(RemoveComponent()));
+        QObject::connect(editComponentName, SIGNAL(editingFinished()), ComponentEditor, SLOT(ComponentNameChanged()));
 
         QMetaObject::connectSlotsByName(ComponentEditor);
     } // setupUi

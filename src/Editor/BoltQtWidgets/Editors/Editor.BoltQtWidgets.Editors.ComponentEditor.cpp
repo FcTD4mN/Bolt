@@ -23,8 +23,8 @@ cComponentEditor::cComponentEditor( QWidget * Parent ) :
     mComponent( 0 )
 {
     ui.setupUi( this );
-    ::nQt::nModels::cComponentListModel* model = new  ::nQt::nModels::cComponentListModel();
-    ui.listViewAllComponents->setModel( model );
+    mComponentListModel = new  ::nQt::nModels::cComponentListModel();
+    ui.listViewAllComponents->setModel( mComponentListModel );
 
     mDelegate = new  cComponentEditorDelegate;
     ui.treeViewComponent->setItemDelegate( mDelegate );
@@ -40,6 +40,15 @@ cComponentEditor::SetAllComponentListModel( QAbstractItemModel * iModel )
 
 
 void
+cComponentEditor::ComponentNameChanged()
+{
+    QString newName = ui.editComponentName->text();
+    mComponent->Name( newName.toStdString() );
+    mComponentListModel->dataChanged( mComponentListModel->index( 0, 0 ), mComponentListModel->index( ::nECS::cComponentRegistry::Instance()->ComponentCount(), 0 ) );
+}
+
+
+void
 cComponentEditor::ComponentEditionAsked( QModelIndex iIndex )
 {
     std::string name = iIndex.data( Qt::DisplayRole ).toString().toStdString();
@@ -48,6 +57,7 @@ cComponentEditor::ComponentEditionAsked( QModelIndex iIndex )
 
     ui.editComponentName->setText( name.c_str() );
     ui.treeViewComponent->setModel( new  ::nQt::nModels::cComponentModel( mComponent ) );
+    ui.listViewAllComponents->setCurrentIndex( mComponentListModel->GetComponentIndex( mComponent ) );
 }
 
 
@@ -68,6 +78,21 @@ cComponentEditor::RemoveVariable()
         return;
 
     model->RemoveVariable( ui.treeViewComponent->currentIndex() );
+}
+
+
+void
+cComponentEditor::AddNewComponent()
+{
+    ComponentEditionAsked( mComponentListModel->AddNewComponent() );
+}
+
+
+void
+cComponentEditor::RemoveComponent()
+{
+    mComponentListModel->RemoveComponent( ui.listViewAllComponents->currentIndex() );
+    ComponentEditionAsked( ui.listViewAllComponents->currentIndex() );
 }
 
 

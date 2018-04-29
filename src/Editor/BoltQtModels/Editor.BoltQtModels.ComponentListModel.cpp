@@ -56,7 +56,7 @@ cComponentListModel::headerData( int iSection, Qt::Orientation iOrientation, int
 }
 
 
-void
+QModelIndex
 cComponentListModel::AddNewComponent()
 {
     ::nECS::cComponentGeneric* newComp = new ::nECS::cComponentGeneric( "NewComponent" );
@@ -66,6 +66,8 @@ cComponentListModel::AddNewComponent()
     beginInsertRows( baseNode, rowCount( baseNode ), rowCount( baseNode ) );
     mComponentRegistryInstance->RegisterComponent( newComp );
     endInsertRows();
+
+    return  GetComponentIndex( newComp );
 }
 
 
@@ -85,6 +87,21 @@ cComponentListModel::RemoveComponent( QModelIndex & iIndex )
 
     mComponentRegistryInstance->UnregisterComponentByName( compName );
     dataChanged( index( 0, 0 ), index( mComponentRegistryInstance->ComponentCount(), 0 ) );
+}
+
+
+QModelIndex
+cComponentListModel::GetComponentIndex( ::nECS::cComponent * iPrototype )
+{
+    std::vector< std::string > sortedNames = mComponentRegistryInstance->GetComponentNamesSorted();
+
+    for( int i = 0; i < sortedNames.size(); ++i )
+    {
+        if( sortedNames[ i ] == iPrototype->Name() )
+            return  index( i, 0 );
+    }
+
+    return QModelIndex();
 }
 
 

@@ -32,6 +32,9 @@ public:
     // Access/Get
     const  std::string&  Name() const;
 
+    //EDITOR
+    void  Name( const std::string& iNewName );
+
 public:
     // Input/Output
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
@@ -67,7 +70,7 @@ public:
     void                  SetVar( const std::string& iVarName, ::nBase::cVariant* iValue );
 
     // EDITOR USED methods
-    int     VarCount() const;
+    int                 VarCount() const;
     ::nBase::cVariant*  GetVarAtIndex( int iIndex );
     const std::string&  GetVarNameAtIndex( int iIndex ) const;
     void                RenameVar( const std::string& iCurrentName, const std::string& iNewName );
