@@ -168,8 +168,6 @@ cPrototypeEditor::SavePrototypeAs()
         ::nECS::cEntityParser::Instance()->SetEntityFilenameUsingEntityName( mEntity->ID(), filenameAsWString );
     }
 
-
-
     doc.InsertFirstChild( elm );
 
     tinyxml2::XMLError error = doc.SaveFile( filename.c_str() );
@@ -179,7 +177,6 @@ cPrototypeEditor::SavePrototypeAs()
     // Model changed, we don't care where, we update everything
     auto model = ui.listViewAllPrototypes->model();
     model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
-
 }
 
 

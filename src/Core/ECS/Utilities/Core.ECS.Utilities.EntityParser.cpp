@@ -1,19 +1,18 @@
 #include "Core.ECS.Utilities.EntityParser.h"
 
 
+#include "Core.Base.Utilities.h"
+
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.World.h"
-
 
 #include <SFML/System.hpp>
 #include <tinyxml2.h>
 
-
 #include <iostream>
-
-
 #include <Windows.h>
 
+#include <regex>
 
 namespace nECS {
 
@@ -59,7 +58,7 @@ void
 cEntityParser::Initialize( cWorld* iWorld )
 {
     std::vector< std::wstring > fileNames;
-    WinParseEntityDir( &fileNames );
+    ::nBase::ParseDirWindows( &fileNames, L"Resources/Core/Entities/" );
     tinyxml2::XMLDocument doc;
 
     for( int i = 0; i < fileNames.size(); ++i )
@@ -85,9 +84,7 @@ void
 cEntityParser::Finalize()
 {
     for( auto it = mEntities.begin(); it != mEntities.end(); ++it )
-    {
         delete  it->second.mEntity;
-    }
 }
 
 
@@ -96,38 +93,6 @@ cEntityParser::ReparseAll( cWorld* iWorld )
 {
     mEntities.clear();
     Initialize( iWorld );
-}
-
-
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------ TOMOVE
-// -------------------------------------------------------------------------------------
-
-
-void
-cEntityParser::WinParseEntityDir( std::vector< std::wstring >* oFileNames )
-{
-    //TODO: Create a file manager class to handle every OS, or find a way with sfml
-    WIN32_FIND_DATAW  finddata;
-
-    std::wstring entityDir = L"Resources\\Core\\Entities\\*";
-
-    HANDLE f = FindFirstFileW( entityDir.c_str(), &finddata );
-    if( f == INVALID_HANDLE_VALUE )
-        return;
-
-    std::wstring file( finddata.cFileName );
-    if( ( file != L"." ) && ( file != L".." ) )
-        (*oFileNames).push_back( L"Resources/Core/Entities/" + file );
-
-    while( FindNextFileW( f, &finddata ) )
-    {
-        std::wstring file( finddata.cFileName );
-        if( ( file != L"." ) && ( file != L".." ) )
-            (*oFileNames).push_back( L"Resources/Core/Entities/" + file );
-    }
-
-    FindClose( f );
 }
 
 
@@ -154,6 +119,9 @@ cEntityParser::CreateEntityFromFile( const std::string& iFile, cWorld* iWorld )
 cEntity*
 cEntityParser::CreateEntityFromPrototypeMap( const std::string& iEntityName )
 {
+    if( !IsEntityNameAValidEntityInRegistry( iEntityName ) )
+        return  0;
+
     // Safety approach
     cEntity* proto = mEntities[ iEntityName ].mEntity;
     if( proto )
@@ -175,6 +143,17 @@ void
 cEntityParser::UnregisterEntityByName( const std::string & iName )
 {
     mEntities.erase( iName );
+}
+
+
+bool
+cEntityParser::IsEntityNameAValidEntityInRegistry( const std::string & iName ) const
+{
+    auto it = mEntities.find( iName );
+    if( it != mEntities.end() )
+        return  true;
+
+    return  false;
 }
 
 
@@ -225,9 +204,12 @@ cEntityParser::GetEntityNamesSorted()
 }
 
 
-const std::wstring &
+std::wstring
 cEntityParser::GetEntityFileNameByEntityName( const std::string & iName )
 {
+    if( !IsEntityNameAValidEntityInRegistry( iName ) )
+        return  L"";
+
     return  mEntities[ iName ].mFileName;
 }
 
@@ -235,6 +217,9 @@ cEntityParser::GetEntityFileNameByEntityName( const std::string & iName )
 void
 cEntityParser::SetEntityFilenameUsingEntityName( const std::string & iEntityName, const std::wstring & iNewFilename )
 {
+    if( !IsEntityNameAValidEntityInRegistry( iEntityName ) )
+        return;
+
     mEntities[ iEntityName ].mFileName = iNewFilename;
 }
 
@@ -242,6 +227,9 @@ cEntityParser::SetEntityFilenameUsingEntityName( const std::string & iEntityName
 cEntity*
 cEntityParser::GetPrototypeByName( const std::string& iName )
 {
+    if( !IsEntityNameAValidEntityInRegistry( iName ) )
+        return  0;
+
     return  mEntities[ iName ].mEntity;
 }
 
@@ -269,6 +257,9 @@ cEntityParser::EntityCount() const
 bool
 cEntityParser::IsIDAvailable( const std::string& iID )
 {
+    if( !IsEntityNameAValidEntityInRegistry( iID ) )
+        return  true;
+
      if( mEntities[ iID ].mEntity == nullptr )
             return  true;
 

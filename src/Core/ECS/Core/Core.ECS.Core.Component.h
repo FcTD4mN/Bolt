@@ -9,7 +9,7 @@
 
 #include <functional>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 
 namespace nECS {
@@ -82,7 +82,7 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::unordered_map< std::string, ::nBase::cVariant* > mVars;
+    std::map< std::string, ::nBase::cVariant* > mVars;
 };
 
 

@@ -1,0 +1,38 @@
+<entity id="Clement2">
+    <components>
+        <component name="position">
+            <variables>
+                <variable name="x" type="1" value="120"/>
+                <variable name="y" type="1" value="10"/>
+            </variables>
+        </component>
+        <component name="size">
+            <variables>
+                <variable name="w" type="1" value="80"/>
+                <variable name="h" type="1" value="10"/>
+            </variables>
+        </component>
+        <component name="color">
+            <variables>
+                <variable name="r" type="1" value="245"/>
+                <variable name="b" type="1" value="120"/>
+                <variable name="g" type="1" value="199"/>
+                <variable name="a" type="1" value="250"/>
+            </variables>
+        </component>
+        <component name="simplephysic" x="0" y="0" w="0" h="0" veloX="0" veloY="0" type="0"/>
+        <component name="weight">
+            <variables>
+                <variable name="Valu" type="1" value="80"/>
+            </variables>
+        </component>
+        <component name="ForceDeLaNature">
+            <variables>
+                <variable name="Force" type="1" value="4"/>
+                <variable name="Ferocite" type="3" value="true"/>
+                <variable name="Voracite" type="2" value="Certe et evidente"/>
+            </variables>
+        </component>
+    </components>
+    <tags/>
+</entity>

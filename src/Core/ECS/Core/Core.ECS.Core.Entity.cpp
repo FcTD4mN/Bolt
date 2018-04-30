@@ -344,6 +344,12 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
             comp->LoadXML( component );
             AddComponent( comp );
         }
+        else
+        {
+            cComponentGeneric* genComp = new cComponentGeneric( component->Attribute( "name" ) );
+            genComp->LoadXML( component );
+            AddComponent( genComp );
+        }
     }
 
     tinyxml2::XMLElement* tags = iNode->FirstChildElement( "tags" );

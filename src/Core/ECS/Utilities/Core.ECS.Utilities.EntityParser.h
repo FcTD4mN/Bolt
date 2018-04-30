@@ -43,10 +43,6 @@ public:
     void  ReparseAll( cWorld* iWorld );
 
 public:
-    // TOMOVE
-    void  WinParseEntityDir( std::vector< std::wstring >* oFileNames );
-
-public:
     // Functions
     cEntity* CreateEntityFromFile( const std::string& iFile, cWorld* iWorld );
     cEntity* CreateEntityFromPrototypeMap( const std::string& iEntityName );
@@ -54,13 +50,16 @@ public:
     void RegisterEntity( cEntity* iEntity );
     void UnregisterEntityByName( const std::string& iName );
 
+    bool  IsEntityNameAValidEntityInRegistry( const std::string& iName ) const;
+
+
 public:
     // Accessors--EDITOR mainly
     const std::string&  GetEntityNameAtIndex( int iIndex ) const;
     std::vector< std::string > GetEntityNamesSorted();
 
     const std::wstring& GetEntityFileNameAtIndex( int iIndex ) const;
-    const std::wstring& GetEntityFileNameByEntityName( const std::string& iName );
+    std::wstring        GetEntityFileNameByEntityName( const std::string& iName );
     void SetEntityFilenameUsingEntityName( const std::string& iEntityName, const std::wstring& iNewFilename );
 
     cEntity*            GetPrototypeByName( const std::string& iName );

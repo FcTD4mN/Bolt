@@ -105,7 +105,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QWidget" name="layoutWidget1">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLabel" name="label_3">
@@ -255,6 +255,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>SaveComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>107</x>
+     <y>389</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ComponentEditionAsked(QModelIndex)</slot>
@@ -263,5 +279,6 @@
   <slot>AddNewComponent()</slot>
   <slot>RemoveComponent()</slot>
   <slot>ComponentNameChanged()</slot>
+  <slot>SaveComponent()</slot>
  </slots>
 </ui>

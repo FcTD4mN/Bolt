@@ -1,8 +1,10 @@
-﻿#include "Core.Base.Utilities.h"
+#include "Core.Base.Utilities.h"
 
 
 #include <sstream>
+#include <regex>
 
+#include <Windows.h>
 
 namespace nBase {
 
@@ -19,6 +21,39 @@ Split( char iSplitChar, const std::string & iString )
     }
 
     return  strings;
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ TOMOVE
+// -------------------------------------------------------------------------------------
+
+
+void
+ParseDirWindows( std::vector< std::wstring >* oFileNames, const std::wstring& iDir )
+{
+    //TODO: Create a file manager class to handle every OS, or find a way with sfml
+    WIN32_FIND_DATAW  finddata;
+
+    std::wstring substitute = std::regex_replace( iDir, std::wregex( L"/" ), L"\\" );
+    substitute.push_back( L'*' );
+
+    HANDLE f = FindFirstFileW( substitute.c_str(), &finddata );
+    if( f == INVALID_HANDLE_VALUE )
+        return;
+
+    std::wstring file( finddata.cFileName );
+    if( ( file != L"." ) && ( file != L".." ) )
+        ( *oFileNames ).push_back( iDir + file );
+
+    while( FindNextFileW( f, &finddata ) )
+    {
+        std::wstring file( finddata.cFileName );
+        if( ( file != L"." ) && ( file != L".." ) )
+            ( *oFileNames ).push_back( iDir + file );
+    }
+
+    FindClose( f );
 }
 
 

@@ -1,6 +1,8 @@
 #include "Core.ECS.Utilities.ComponentRegistry.h"
 
 
+#include "Core.Base.Utilities.h"
+
 #include "Core.ECS.Core.Component.h"
 
 #include <algorithm>
@@ -48,6 +50,26 @@ cComponentRegistry::Instance()
 void
 cComponentRegistry::Initialize()
 {
+    std::vector< std::wstring > fileNames;
+    ::nBase::ParseDirWindows( &fileNames, L"Resources/Core/Components/" );
+    tinyxml2::XMLDocument doc;
+
+    for( int i = 0; i < fileNames.size(); ++i )
+    {
+        std::wstring file = fileNames[ i ];
+        std::string conversion( file.begin(), file.end() );
+
+        tinyxml2::XMLError error = doc.LoadFile( conversion.c_str() );
+        if( error )
+            continue;
+
+        cComponentGeneric* component = new cComponentGeneric( conversion );
+        component->LoadXML( doc.FirstChildElement( "component" ) );
+
+        mComponents[ component->Name() ].mComponent = component;
+        mComponents[ component->Name() ].mFileName = file;
+        doc.Clear();
+    }
 }
 
 
@@ -55,9 +77,7 @@ void
 cComponentRegistry::Finalize()
 {
     for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
-    {
         delete  it->second.mComponent;
-    }
 }
 
 
@@ -93,10 +113,24 @@ cComponentRegistry::UnregisterComponentByName( const std::string & iName )
 cComponent*
 cComponentRegistry::CreateComponentFromName( const std::string & iName )
 {
+    if( !IsComponentNameAValidComponentInRegistry( iName ) )
+        return  0;
+
     if( mComponents[ iName ].mComponent != nullptr )
         return  mComponents[ iName ].mComponent->Clone();
 
     return  0;
+}
+
+
+bool
+cComponentRegistry::IsComponentNameAValidComponentInRegistry( const std::string & iName ) const
+{
+    auto it = mComponents.find( iName );
+    if( it != mComponents.end() )
+        return  true;
+
+    return  false;
 }
 
 
@@ -122,7 +156,23 @@ cComponentRegistry::GetComponentAtIndex( int iIndex )
 cComponent*
 cComponentRegistry::GetComponentByName( const std::string & iName )
 {
+    if( !IsComponentNameAValidComponentInRegistry( iName ) )
+        return  0;
+
     return  mComponents[ iName ].mComponent;
+}
+
+
+cComponent*
+cComponentRegistry::GetComponentAssociatedToFileName( const std::wstring & iFileName )
+{
+    for( auto ent : mComponents )
+    {
+        if( ent.second.mFileName == iFileName || iFileName.find( ent.second.mFileName ) != std::string::npos )
+            return  ent.second.mComponent;
+    }
+
+    return  0;
 }
 
 
@@ -144,10 +194,23 @@ cComponentRegistry::GetComponentNamesSorted()
 }
 
 
-const std::wstring &
+std::wstring
 cComponentRegistry::GetComponentFileNameByComponentName( const std::string & iName )
 {
+    if( !IsComponentNameAValidComponentInRegistry( iName ) )
+        return  L"";
+
     return  mComponents[ iName ].mFileName;
+}
+
+
+void
+cComponentRegistry::SetComponentFilenameUsingComponentName( const std::string & iEntityName, const std::wstring & iNewFilename )
+{
+    if( !IsComponentNameAValidComponentInRegistry( iEntityName ) )
+        return;
+
+    mComponents[ iEntityName ].mFileName = iNewFilename;
 }
 
 

@@ -35,8 +35,8 @@ public slots:
     void  ComponentEditionAsked( QModelIndex );
     void  ComponentNameChanged();
 
-    //void  SaveComponent();
-    //void  SaveComponentAs();
+    void  SaveComponent();
+    void  SaveComponentAs();
 
     void  AddNewVariable();
     void  RemoveVariable();

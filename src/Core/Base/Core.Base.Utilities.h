@@ -25,5 +25,8 @@ VectorContains( const std::vector< T >& iVector, const T& iElement )
 }
 
 
+void  ParseDirWindows( std::vector< std::wstring >* oFileNames, const std::wstring& iDir );
+
+
 } // namespace  nBase
 

@@ -28,7 +28,6 @@ cComponentEditor::cComponentEditor( QWidget * Parent ) :
 
     mDelegate = new  cComponentEditorDelegate;
     ui.treeViewComponent->setItemDelegate( mDelegate );
-
 }
 
 
@@ -42,9 +41,140 @@ cComponentEditor::SetAllComponentListModel( QAbstractItemModel * iModel )
 void
 cComponentEditor::ComponentNameChanged()
 {
+    auto registryInstance = ::nECS::cComponentRegistry::Instance();
+
+    if( !mComponent )
+        return;
+
+    std::wstring filename = registryInstance->GetComponentFileNameByComponentName( mComponent->Name() );
+    registryInstance->UnregisterComponentByName( mComponent->Name() );
+
     QString newName = ui.editComponentName->text();
     mComponent->Name( newName.toStdString() );
-    mComponentListModel->dataChanged( mComponentListModel->index( 0, 0 ), mComponentListModel->index( ::nECS::cComponentRegistry::Instance()->ComponentCount(), 0 ) );
+
+    registryInstance->RegisterComponent( mComponent );
+    registryInstance->SetComponentFilenameUsingComponentName( mComponent->Name(), filename );
+
+    mComponentListModel->dataChanged( mComponentListModel->index( 0, 0 ), mComponentListModel->index( registryInstance->ComponentCount(), 0 ) );
+}
+
+
+void
+cComponentEditor::SaveComponent()
+{
+    if( mComponent )
+    {
+        std::string compName = mComponent->Name();
+
+        QMessageBox msg;
+        msg.setIcon( QMessageBox::Critical );
+        if( compName == "" )
+        {
+            msg.setText( "Component name is empty" );
+            msg.exec();
+            return;
+        }
+
+        std::wstring filename = ::nECS::cComponentRegistry::Instance()->GetComponentFileNameByComponentName( compName );
+        std::string newFileName;
+
+        if( filename == L"" )
+        {
+            QString pathAndFile( "./Resources/Core/Components/" );
+            pathAndFile += compName.c_str();
+
+            QFileDialog fileAsking( this, tr( "Save your component" ), pathAndFile, tr( "Component (*.comp)" ) );
+            fileAsking.setDefaultSuffix( "comp" );
+
+            if( fileAsking.exec() )
+                newFileName = fileAsking.selectedFiles().last().toStdString();
+            else
+                return;
+
+            std::wstring filenameAsWString( newFileName.begin(), newFileName.end() );
+            ::nECS::cComponentRegistry::Instance()->SetComponentFilenameUsingComponentName( compName, filenameAsWString );
+        }
+        else
+        {
+            // Removing the old file
+            std::string originalAsString = std::string( filename.begin(), filename.end() );
+
+            if( remove( originalAsString.c_str() ) != 0 )
+                perror( "Delete failed\n" );
+            else
+                printf( "Delete success\n" );
+
+            newFileName = originalAsString;
+        }
+
+        // Creating the new file
+        tinyxml2::XMLDocument doc;
+        tinyxml2::XMLElement* elm = doc.NewElement( "component" );
+
+        mComponent->SaveXML( elm, &doc );
+
+        doc.InsertFirstChild( elm );
+
+        tinyxml2::XMLError error = doc.SaveFile( newFileName.c_str() );
+        if( error )
+            return;
+
+        // Model changed, we don't care where, we update everything
+        mComponentListModel->dataChanged( mComponentListModel->index( 0, 0 ), mComponentListModel->index( ::nECS::cComponentRegistry::Instance()->ComponentCount(), 0 ) );
+    }
+}
+
+
+void
+cComponentEditor::SaveComponentAs()
+{
+    QString pathAndFile( "./Resources/Core/Components/" );
+    pathAndFile += mComponent->Name().c_str();
+
+    QFileDialog fileAsking( this, tr( "Save your component" ), pathAndFile, tr( "Component (*.component)" ) );
+    fileAsking.setDefaultSuffix( "component" );
+
+    std::string filename;
+    if( fileAsking.exec() )
+        filename = fileAsking.selectedFiles().last().toStdString();
+    else
+        return;
+
+    auto registry = ::nECS::cComponentRegistry::Instance();
+    std::wstring  entityCurrentFileName = registry->GetComponentFileNameByComponentName( mComponent->Name() );
+
+    // Creating the new file
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* elm = doc.NewElement( "component" );
+    std::wstring filenameAsWString( filename.begin(), filename.end() );
+
+    if( entityCurrentFileName != L"" )
+    {
+        ::nECS::cComponent*  entityAssociatedToRequiredFilename = registry->GetComponentAssociatedToFileName( filenameAsWString );
+
+        if( entityAssociatedToRequiredFilename )
+            registry->UnregisterComponentByName( entityAssociatedToRequiredFilename->Name() );
+
+        ::nECS::cComponent* clone = mComponent->Clone();
+        registry->RegisterComponent( clone );
+        clone->SaveXML( elm, &doc );
+        registry->SetComponentFilenameUsingComponentName( clone->Name(), filenameAsWString );
+    }
+    else
+    {
+        mComponent->SaveXML( elm, &doc );
+        registry->SetComponentFilenameUsingComponentName( mComponent->Name(), filenameAsWString );
+    }
+
+    doc.InsertFirstChild( elm );
+
+    tinyxml2::XMLError error = doc.SaveFile( filename.c_str() );
+    if( error )
+        return;
+
+    // Model changed, we don't care where, we update everything
+    auto model = ui.listViewAllComponents->model();
+    model->dataChanged( model->index( 0, 0 ), model->index( registry->ComponentCount(), 0 ) );
 }
 
 

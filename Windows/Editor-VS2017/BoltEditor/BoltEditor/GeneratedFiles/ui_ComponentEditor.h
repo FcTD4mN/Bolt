@@ -181,6 +181,7 @@ public:
         QObject::connect(pushButton_3, SIGNAL(clicked()), ComponentEditor, SLOT(AddNewComponent()));
         QObject::connect(pushButton_4, SIGNAL(clicked()), ComponentEditor, SLOT(RemoveComponent()));
         QObject::connect(editComponentName, SIGNAL(editingFinished()), ComponentEditor, SLOT(ComponentNameChanged()));
+        QObject::connect(pushButton, SIGNAL(clicked()), ComponentEditor, SLOT(SaveComponent()));
 
         QMetaObject::connectSlotsByName(ComponentEditor);
     } // setupUi

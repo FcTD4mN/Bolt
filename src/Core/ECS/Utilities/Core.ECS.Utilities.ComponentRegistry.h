@@ -17,8 +17,8 @@ public:
     {
         sPairComponentFile() : mComponent( 0 ), mFileName( L"" ){}
 
-        cComponent*  mComponent;
-        std::wstring        mFileName;
+        cComponent*     mComponent;
+        std::wstring    mFileName;
     };
 
 
@@ -43,15 +43,19 @@ public:
     void  UnregisterComponentByName( const std::string& iName );
     cComponent * CreateComponentFromName( const std::string& iName );
 
+    bool  IsComponentNameAValidComponentInRegistry( const std::string& iName ) const;
+
 public:
     // EDITOR
     int  ComponentCount();
     cComponent* GetComponentAtIndex( int iIndex );
     cComponent* GetComponentByName( const std::string& iName );
+    cComponent* GetComponentAssociatedToFileName( const std::wstring& iFileName );
 
     std::vector< std::string > GetComponentNamesSorted();
 
-    const std::wstring& GetComponentFileNameByComponentName( const std::string& iName );
+    std::wstring        GetComponentFileNameByComponentName( const std::string& iName );
+    void                SetComponentFilenameUsingComponentName( const std::string& iEntityName, const std::wstring& iNewFilename );
 
 
     bool                IsNameAvailable( const std::string& iID );
