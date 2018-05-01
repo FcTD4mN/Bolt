@@ -85,8 +85,11 @@ cComponentListModel::RemoveComponent( QModelIndex & iIndex )
     else
         printf( "Delete success\n" );
 
+    beginRemoveRows( iIndex.parent(), iIndex.row(), iIndex.row() );
+
     mComponentRegistryInstance->UnregisterComponentByName( compName );
-    dataChanged( index( 0, 0 ), index( mComponentRegistryInstance->ComponentCount(), 0 ) );
+
+    endRemoveRows();
 }
 
 

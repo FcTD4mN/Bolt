@@ -271,6 +271,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>SaveComponentAs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>229</x>
+     <y>377</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ComponentEditionAsked(QModelIndex)</slot>
@@ -280,5 +296,6 @@
   <slot>RemoveComponent()</slot>
   <slot>ComponentNameChanged()</slot>
   <slot>SaveComponent()</slot>
+  <slot>SaveComponentAs()</slot>
  </slots>
 </ui>

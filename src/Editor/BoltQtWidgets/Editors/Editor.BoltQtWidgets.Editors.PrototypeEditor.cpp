@@ -133,11 +133,14 @@ cPrototypeEditor::SavePrototypeAs()
     QFileDialog fileAsking( this, tr( "Save your entity" ), pathAndFile, tr( "Entity (*.entity)" ) );
     fileAsking.setDefaultSuffix( "entity" );
 
-    std::string filename;
+    std::string fullFilePath;
     if( fileAsking.exec() )
-        filename = fileAsking.selectedFiles().last().toStdString();
+        fullFilePath = fileAsking.selectedFiles().last().toStdString();
     else
         return;
+
+    // To get file name, and not the full path
+    QFileInfo fileInfo( fullFilePath.c_str() );
 
     auto parser = ::nECS::cEntityParser::Instance();
     std::wstring  entityCurrentFileName = parser->GetEntityFileNameByEntityName( mEntity->ID() );
@@ -145,7 +148,7 @@ cPrototypeEditor::SavePrototypeAs()
     // Creating the new file
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement* elm = doc.NewElement( "entity" );
-    std::wstring filenameAsWString( filename.begin(), filename.end() );
+    std::wstring filenameAsWString( fullFilePath.begin(), fullFilePath.end() );
 
 
     if( entityCurrentFileName != L"" )
@@ -158,6 +161,15 @@ cPrototypeEditor::SavePrototypeAs()
         }
 
         ::nECS::cEntity* clone = mEntity->Clone();
+        std::string newEntName = fileInfo.baseName().toStdString();
+        int i = 2;
+        while( parser->IsEntityNameAValidEntityInRegistry( newEntName ) )
+        {
+            newEntName = fileInfo.baseName().toStdString() + std::to_string( i );
+            ++i;
+        }
+        clone->SetID( newEntName );
+
         parser->RegisterEntity( clone );
         clone->SaveXML( elm, &doc );
         ::nECS::cEntityParser::Instance()->SetEntityFilenameUsingEntityName( clone->ID(), filenameAsWString );
@@ -170,7 +182,7 @@ cPrototypeEditor::SavePrototypeAs()
 
     doc.InsertFirstChild( elm );
 
-    tinyxml2::XMLError error = doc.SaveFile( filename.c_str() );
+    tinyxml2::XMLError error = doc.SaveFile( fullFilePath.c_str() );
     if( error )
         return;
 

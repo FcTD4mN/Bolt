@@ -128,17 +128,24 @@ cComponentEditor::SaveComponent()
 void
 cComponentEditor::SaveComponentAs()
 {
+    if( !mComponent )
+        return;
+
     QString pathAndFile( "./Resources/Core/Components/" );
     pathAndFile += mComponent->Name().c_str();
 
     QFileDialog fileAsking( this, tr( "Save your component" ), pathAndFile, tr( "Component (*.component)" ) );
     fileAsking.setDefaultSuffix( "component" );
 
-    std::string filename;
+    std::string fullFilePath;
+
     if( fileAsking.exec() )
-        filename = fileAsking.selectedFiles().last().toStdString();
+        fullFilePath = fileAsking.selectedFiles().last().toStdString();
     else
         return;
+
+    // To get file name, and not the full path
+    QFileInfo fileInfo( fullFilePath.c_str() );
 
     auto registry = ::nECS::cComponentRegistry::Instance();
     std::wstring  entityCurrentFileName = registry->GetComponentFileNameByComponentName( mComponent->Name() );
@@ -146,7 +153,7 @@ cComponentEditor::SaveComponentAs()
     // Creating the new file
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement* elm = doc.NewElement( "component" );
-    std::wstring filenameAsWString( filename.begin(), filename.end() );
+    std::wstring filenameAsWString( fullFilePath.begin(), fullFilePath.end() );
 
     if( entityCurrentFileName != L"" )
     {
@@ -156,6 +163,15 @@ cComponentEditor::SaveComponentAs()
             registry->UnregisterComponentByName( entityAssociatedToRequiredFilename->Name() );
 
         ::nECS::cComponent* clone = mComponent->Clone();
+        std::string newCompName = fileInfo.baseName().toStdString();
+        int i = 2;
+        while( registry->IsComponentNameAValidComponentInRegistry( newCompName ) )
+        {
+            newCompName = fileInfo.baseName().toStdString() + std::to_string( i );
+            ++i;
+        }
+        clone->Name( newCompName );
+
         registry->RegisterComponent( clone );
         clone->SaveXML( elm, &doc );
         registry->SetComponentFilenameUsingComponentName( clone->Name(), filenameAsWString );
@@ -168,7 +184,7 @@ cComponentEditor::SaveComponentAs()
 
     doc.InsertFirstChild( elm );
 
-    tinyxml2::XMLError error = doc.SaveFile( filename.c_str() );
+    tinyxml2::XMLError error = doc.SaveFile( fullFilePath.c_str() );
     if( error )
         return;
 

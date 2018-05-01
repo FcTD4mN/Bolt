@@ -239,6 +239,10 @@ cEntityParser::GetPrototypeAssociatedToFileName( const std::wstring & iFileName 
 {
     for( auto ent : mEntities )
     {
+        // Going 2 ifs to simplify the reading
+        if( ent.second.mFileName == L"" )
+            continue;
+
         if( ent.second.mFileName == iFileName || iFileName.find( ent.second.mFileName ) != std::string::npos )
             return  ent.second.mEntity;
     }

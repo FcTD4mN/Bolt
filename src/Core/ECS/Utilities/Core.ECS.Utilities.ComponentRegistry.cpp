@@ -168,6 +168,10 @@ cComponentRegistry::GetComponentAssociatedToFileName( const std::wstring & iFile
 {
     for( auto ent : mComponents )
     {
+        // Going 2 ifs to simplify the reading
+        if( ent.second.mFileName == L"" )
+            continue;
+
         if( ent.second.mFileName == iFileName || iFileName.find( ent.second.mFileName ) != std::string::npos )
             return  ent.second.mComponent;
     }

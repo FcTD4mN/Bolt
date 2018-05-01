@@ -83,8 +83,11 @@ cEntityListModel::RemovePrototype( QModelIndex & iIndex )
     else
         printf( "Delete success\n" );
 
+    beginRemoveRows( iIndex.parent(), iIndex.row(), iIndex.row() );
+
     mParserInstance->UnregisterEntityByName( entityName );
-    dataChanged( index( 0, 0 ), index( mParserInstance->EntityCount(), 0 ) );
+
+    endRemoveRows();
 }
 
 
