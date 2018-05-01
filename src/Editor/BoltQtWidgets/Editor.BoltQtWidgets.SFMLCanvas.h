@@ -1,15 +1,18 @@
 #pragma once
 
-#include "Editor.BoltQtWidgets.QSFMLCanvas.h"
+#include <SFML/Graphics.hpp>
 
-#include <QtCore/QModelIndex>
+#include <QModelIndex>
+#include <QWidget>
+#include <QTimer>
 
 namespace nApplication { class cEditorApplication; }
 namespace nECS { class cEntity; }
 
 
-class MyCanvas :
-    public QSFMLCanvas
+class SFMLCanvas :
+    public QWidget,
+    public sf::RenderWindow
 {
     Q_OBJECT
 
@@ -23,22 +26,24 @@ public:
     };
 
 public:
-    typedef QSFMLCanvas tSuperClass;
+    typedef QWidget tSuperClass;
 
 public:
-    MyCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size );
-    MyCanvas( QWidget* Parent );
+    SFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size, unsigned int FrameTime = 0 );
+    SFMLCanvas( QWidget* Parent );
 
 public:
     void SetEditorApp( ::nApplication::cEditorApplication* iEditorApp );
     void Build();
 
 private:
-    virtual void OnInit() override;
-    virtual void OnUpdate() override;
+    virtual void OnInit();
+    virtual void OnUpdate();
 
     virtual void resizeEvent( QResizeEvent* iEvent ) override;
     virtual void paintEvent( QPaintEvent* ) override;
+    virtual void showEvent( QShowEvent* )  override;
+    virtual QPaintEngine* paintEngine() const override;
 
 private:
     // Draw functions
@@ -60,6 +65,8 @@ signals:
     void  SelectionChanged( ::nECS::cEntity* iEntity );
 
 private:
+    sf::RenderWindow* mRenderWindow;
+
     ::nApplication::cEditorApplication* mEditorApp;
     QModelIndex                         mCurrentPrototypeEntitySelected;
 
@@ -67,6 +74,9 @@ private:
     sf::FloatRect   mSelectionBox; // Used to draw
     sf::RectangleShape mSelectionShape;
     eState          mState;
+
+    QTimer mTimer;
+    bool   mInitialized;
 
     std::vector< ::nECS::cEntity* > mEntitySelection;
 };

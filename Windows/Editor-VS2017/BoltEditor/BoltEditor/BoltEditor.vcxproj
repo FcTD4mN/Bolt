@@ -71,8 +71,7 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.cpp" />
-    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.cpp" />
-    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.SFMLCanvas.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ComponentEditor.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\Editor.main.cpp" />
@@ -137,8 +136,7 @@
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapper.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.h" />
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperEntity.h" />
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h" />
-    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h" />
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.SFMLCanvas.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtMainWindows\BoltEditor.ui" />

@@ -242,12 +242,6 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.EntityListModel.cpp">
       <Filter>src\Editor\BoltQtModels</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.cpp">
-      <Filter>src\Editor\BoltQtWidgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.cpp">
-      <Filter>src\Editor\BoltQtWidgets</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp">
       <Filter>src\Core\Shortcuts</Filter>
     </ClCompile>
@@ -280,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentModel.cpp">
       <Filter>src\Editor\BoltQtModels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.SFMLCanvas.cpp">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,9 +415,6 @@
     <ClInclude Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.h">
       <Filter>src\Editor\Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.QSFMLCanvas.h">
-      <Filter>src\Editor\BoltQtWidgets</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h">
       <Filter>src\Core\Shortcuts</Filter>
     </ClInclude>
@@ -453,9 +447,6 @@
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.EntityProperty.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </QtMoc>
-    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.TestCanvas.h">
-      <Filter>src\Editor\BoltQtWidgets</Filter>
-    </QtMoc>
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.h">
       <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
     </QtMoc>
@@ -467,6 +458,9 @@
     </QtMoc>
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.ComponentModel.h">
       <Filter>src\Editor\BoltQtModels</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.SFMLCanvas.h">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

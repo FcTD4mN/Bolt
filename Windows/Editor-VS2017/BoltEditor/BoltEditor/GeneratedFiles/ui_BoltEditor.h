@@ -27,7 +27,7 @@
 #include "Editor.BoltQtWidgets.Editors.ComponentEditor.h"
 #include "Editor.BoltQtWidgets.Editors.PrototypeEditor.h"
 #include "Editor.BoltQtWidgets.EntityProperty.h"
-#include "Editor.BoltQtWidgets.TestCanvas.h"
+#include "Editor.BoltQtWidgets.SFMLCanvas.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -43,7 +43,7 @@ public:
     QWidget *WorldEditorTab;
     QHBoxLayout *horizontalLayout;
     QSplitter *splitter_2;
-    MyCanvas *widget;
+    SFMLCanvas *widget;
     QSplitter *splitter;
     QListView *listView;
     cEntityProperty *entityPropertyWidget;
@@ -87,7 +87,7 @@ public:
         splitter_2 = new QSplitter(WorldEditorTab);
         splitter_2->setObjectName(QStringLiteral("splitter_2"));
         splitter_2->setOrientation(Qt::Horizontal);
-        widget = new MyCanvas(splitter_2);
+        widget = new SFMLCanvas(splitter_2);
         widget->setObjectName(QStringLiteral("widget"));
         QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(50);

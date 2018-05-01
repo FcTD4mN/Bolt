@@ -1,4 +1,4 @@
-#include "Editor.BoltQtWidgets.TestCanvas.h"
+#include "Editor.BoltQtWidgets.SFMLCanvas.h"
 
 #include "Editor.Application.EditorApplication.h"
 
@@ -17,31 +17,61 @@
 #include <QtGui/QPainter>
 
 
-MyCanvas::MyCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size ) :
-    QSFMLCanvas( Parent, Position, Size ),
-    mState( kIdle )
+SFMLCanvas::SFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size, unsigned int FrameTime ) :
+    QWidget( Parent ),
+    mRenderWindow( 0 ),
+    mState( kIdle ),
+    mInitialized( false )
 {
+    // Setup some states to allow direct rendering into the widget
+    setAttribute( Qt::WA_PaintOnScreen );
+    setAttribute( Qt::WA_OpaquePaintEvent );
+    setAttribute( Qt::WA_NoSystemBackground );
+
+    // Set strong focus to enable keyboard events to be received
+    setFocusPolicy( Qt::StrongFocus );
+
+    // Setup the widget geometry
+    move( Position );
+    resize( Size );
+
+    // Setup the timer
+    mTimer.setInterval( FrameTime );
+
     Build();
 }
 
 
-MyCanvas::MyCanvas( QWidget* Parent ) :
-    QSFMLCanvas( Parent ),
-    mState( kIdle )
+SFMLCanvas::SFMLCanvas( QWidget* Parent ) :
+    QWidget( Parent ),
+    mRenderWindow( 0 ),
+    mState( kIdle ),
+    mInitialized( false )
 {
+    // Setup some states to allow direct rendering into the widget
+    setAttribute( Qt::WA_PaintOnScreen );
+    setAttribute( Qt::WA_OpaquePaintEvent );
+    setAttribute( Qt::WA_NoSystemBackground );
+
+    // Set strong focus to enable keyboard events to be received
+    setFocusPolicy( Qt::StrongFocus );
+
+    // Setup the timer
+    mTimer.setInterval( 0 );
+
     Build();
 }
 
 
 void
-MyCanvas::SetEditorApp( ::nApplication::cEditorApplication * iEditorApp )
+SFMLCanvas::SetEditorApp( ::nApplication::cEditorApplication * iEditorApp )
 {
     mEditorApp = iEditorApp;
 }
 
 
 void
-MyCanvas::Build()
+SFMLCanvas::Build()
 {
     mEntitySelection.reserve( 64 );
     mSelectionShape.setFillColor( sf::Color( 20, 20, 200, 100 ) );
@@ -50,12 +80,12 @@ MyCanvas::Build()
 
 
 void
-MyCanvas::OnInit()
+SFMLCanvas::OnInit()
 {
 }
 
 void
-MyCanvas::OnUpdate()
+SFMLCanvas::OnUpdate()
 {
     // We don't want the world to update actually in the editor
     //mEditorApp->Update( 0 );
@@ -63,7 +93,7 @@ MyCanvas::OnUpdate()
 
 
 void
-MyCanvas::resizeEvent( QResizeEvent * iEvent )
+SFMLCanvas::resizeEvent( QResizeEvent * iEvent )
 {
     if( mRenderWindow )
     {
@@ -77,7 +107,7 @@ MyCanvas::resizeEvent( QResizeEvent * iEvent )
 
 
 void
-MyCanvas::paintEvent( QPaintEvent* )
+SFMLCanvas::paintEvent( QPaintEvent* )
 {
     mRenderWindow->clear( sf::Color( 200, 200, 200 ) );
 
@@ -94,7 +124,40 @@ MyCanvas::paintEvent( QPaintEvent* )
 
 
 void
-MyCanvas::DrawSelections() const
+SFMLCanvas::showEvent( QShowEvent* )
+{
+    if( !mInitialized )
+    {
+        // Under X11, we need to flush the commands sent to the server to ensure that
+        // SFML will get an updated view of the windows
+#ifdef Q_WS_X11
+        XFlush( QX11Info::display() );
+#endif
+
+        // Create the SFML window with the widget handle
+        mRenderWindow = new sf::RenderWindow( ( sf::WindowHandle )winId() );
+
+        // Let the derived class do its specific stuff
+        OnInit();
+
+        // Setup the timer to trigger a refresh at specified framerate
+        connect( &mTimer, SIGNAL( timeout() ), this, SLOT( repaint() ) );
+        mTimer.start();
+
+        mInitialized = true;
+    }
+}
+
+
+QPaintEngine*
+SFMLCanvas::paintEngine() const
+{
+    return  0;
+}
+
+
+void
+SFMLCanvas::DrawSelections() const
 {
     sf::RectangleShape entitySelectionBox;
     entitySelectionBox.setFillColor( sf::Color( 200, 100, 100 ) );
@@ -116,7 +179,7 @@ MyCanvas::DrawSelections() const
 
 
 void
-MyCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize, ::nECS::cEntity * iEntity ) const
+SFMLCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize, ::nECS::cEntity * iEntity ) const
 {
     float expansionSize = 2.0;
 
@@ -145,7 +208,7 @@ MyCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize, :
 
 
 void
-MyCanvas::mousePressEvent( QMouseEvent * iEvent )
+SFMLCanvas::mousePressEvent( QMouseEvent * iEvent )
 {
     if( iEvent->modifiers() & Qt::AltModifier )
         mState = kPanningCanvas;
@@ -174,7 +237,7 @@ MyCanvas::mousePressEvent( QMouseEvent * iEvent )
 
 
 void
-MyCanvas::mouseMoveEvent( QMouseEvent * iEvent )
+SFMLCanvas::mouseMoveEvent( QMouseEvent * iEvent )
 {
     sf::Vector2i currentPos = sf::Vector2i( iEvent->x(), iEvent->y() );
     sf::Vector2i offset = mOriginPosition - currentPos;
@@ -230,7 +293,7 @@ MyCanvas::mouseMoveEvent( QMouseEvent * iEvent )
 
 
 void
-MyCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
+SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 {
     if( mState == kSelecting )
     {
@@ -269,7 +332,7 @@ MyCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 
 
 void
-MyCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
+SFMLCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
 {
     if( !mCurrentPrototypeEntitySelected.isValid() )
         return;
@@ -298,7 +361,7 @@ MyCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
 
 
 void
-MyCanvas::keyReleaseEvent( QKeyEvent * iEvent )
+SFMLCanvas::keyReleaseEvent( QKeyEvent * iEvent )
 {
     if( iEvent->key() == Qt::Key_Delete )
     {
@@ -317,7 +380,7 @@ MyCanvas::keyReleaseEvent( QKeyEvent * iEvent )
 
 
 void
-MyCanvas::CurrentPrototypeChanged( const QModelIndex& iIndex )
+SFMLCanvas::CurrentPrototypeChanged( const QModelIndex& iIndex )
 {
     mCurrentPrototypeEntitySelected = iIndex;
 }

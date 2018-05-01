@@ -33,7 +33,7 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="MyCanvas" name="widget" native="true">
+          <widget class="SFMLCanvas" name="widget" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
              <horstretch>50</horstretch>
@@ -156,9 +156,9 @@
    </slots>
   </customwidget>
   <customwidget>
-   <class>MyCanvas</class>
+   <class>SFMLCanvas</class>
    <extends>QWidget</extends>
-   <header>Editor.BoltQtWidgets.TestCanvas.h</header>
+   <header>Editor.BoltQtWidgets.SFMLCanvas.h</header>
    <container>1</container>
    <slots>
     <signal>SelectionChanged(::nECS::cEntity*)</signal>

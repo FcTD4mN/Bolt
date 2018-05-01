@@ -46,7 +46,7 @@ cBoltEditor::Setup()
 
     connect(
         ui.listView, &QListView::clicked,
-        ui.widget, &MyCanvas::CurrentPrototypeChanged
+        ui.widget, &SFMLCanvas::CurrentPrototypeChanged
     );
 
     connect( ui.actionSave, &QAction::triggered, this, &cBoltEditor::SaveLevel );
