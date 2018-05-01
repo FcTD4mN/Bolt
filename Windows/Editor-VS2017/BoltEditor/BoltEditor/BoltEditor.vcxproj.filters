@@ -88,6 +88,9 @@
     <Filter Include="src\Editor\BoltQtWidgets\Editors">
       <UniqueIdentifier>{25cfa0b0-0b9b-4763-8960-e166a87976c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Editor\HUD">
+      <UniqueIdentifier>{f9591d1d-0821-4b68-a8b0-9cff5fba960f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc">
@@ -278,6 +281,9 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.SFMLCanvas.cpp">
       <Filter>src\Editor\BoltQtWidgets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -432,6 +438,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.h">
       <Filter>src\Editor\BoltQtModels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.h">
+      <Filter>src\Editor\HUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
