@@ -45,9 +45,7 @@ cHudHandle::ContainsPoint( const sf::Vector2f & iPoint ) const
 {
     auto position = mParent->GetPosition() + mHandlePosition;
 
-    sf::Vector2f spareHandleSurface = mHandleSize * 2.0F;
-
-    sf::FloatRect rect( position - spareHandleSurface, spareHandleSurface * 2.0F + mHandleSize ); // Make it bigger so it's clickable easily
+    sf::FloatRect rect( position, mHandleSize ); // Make it bigger so it's clickable easily
 
     return  rect.contains( iPoint );
 }

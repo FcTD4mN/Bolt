@@ -38,7 +38,7 @@ cHudTransformation::BuildHUD()
 
     mIsHUDValid = true;
 
-    float handleSize = 5.0F;
+    float handleSize = 10.0F;
 
     // From top left, going clockwise, we create each handles
     mScaleHandles.push_back( new cHudHandle( this, -handleSize/2, -handleSize/2, handleSize, handleSize ) );
@@ -64,7 +64,7 @@ cHudTransformation::UpdateHandlesPositions()
     if( !position || !size )
         return;
 
-    float handleSize = 5.0F;
+    float handleSize = 10.0F;
 
     mScaleHandles[ 1 ]->Position( sf::Vector2f( size->W() / 2 - handleSize / 2, -handleSize / 2 ) );
     mScaleHandles[ 2 ]->Position( sf::Vector2f( size->W() - handleSize / 2, -handleSize / 2 ) );
@@ -102,6 +102,12 @@ cHudTransformation::Draw( sf::RenderTarget* iRenderTarget )
 bool
 cHudTransformation::ContainsPoint( const  sf::Vector2f& iPoint ) const
 {
+    for( auto handle : mScaleHandles )
+    {
+        if( handle->ContainsPoint( iPoint ) )
+            return  true;
+    }
+
     auto position   = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
     auto size       = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
 
