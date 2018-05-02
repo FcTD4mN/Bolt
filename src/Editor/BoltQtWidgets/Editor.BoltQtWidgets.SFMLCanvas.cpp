@@ -11,6 +11,8 @@
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 
+#include "Editor.HUD.HudTransformation.h"
+
 #include "Core.Mapping.PhysicEntityGrid.h"
 
 #include <QtGui/QInputEvent>
@@ -115,6 +117,9 @@ SFMLCanvas::paintEvent( QPaintEvent* )
     DrawSelections();
     mEditorApp->Draw( mRenderWindow );
 
+    for( auto hud : mEntityHUDs )
+        hud->Draw( mRenderWindow );
+
     if( mState == kSelecting )
         mRenderWindow->draw( mSelectionShape );
 
@@ -215,6 +220,17 @@ SFMLCanvas::mousePressEvent( QMouseEvent * iEvent )
     else
         mState = kSelecting;
 
+    for( auto hud : mEntityHUDs )
+    {
+        sf::Vector2f mouseCoordMapped( mRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) );
+        if( hud->ContainsPoint( mouseCoordMapped ) )
+        {
+            mState = kHandleHUD;
+            hud->mousePressEvent( iEvent, mRenderWindow );
+            break;
+        }
+    }
+
     mOriginPosition = sf::Vector2i( iEvent->x(), iEvent->y() );
 
     for( auto ent : mEntitySelection )
@@ -299,8 +315,14 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
     {
         std::vector< ::nECS::cEntity* > entitiesInEMap;
 
-        if( !(iEvent->modifiers() & Qt::ControlModifier) && !( iEvent->modifiers() & Qt::ShiftModifier ) )
+        if( !( iEvent->modifiers() & Qt::ControlModifier ) && !( iEvent->modifiers() & Qt::ShiftModifier ) )
+        {
+            for( auto hud : mEntityHUDs )
+                delete  hud;
+
+            mEntityHUDs.clear();
             mEntitySelection.clear();
+        }
 
         ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->GetEntitiesInBoundingBox( &entitiesInEMap, mSelectionBox );
 
@@ -311,7 +333,10 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
             GetEntitySelectionBox( &selBoxPos, &selBoxSize, ent );
 
             if( mSelectionBox.contains( selBoxPos ) && mSelectionBox.contains( selBoxPos + selBoxSize ) )
+            {
+                mEntityHUDs.push_back( new ::nQt::nHUD::cHudTransformation( ent ) );
                 mEntitySelection.push_back( ent );
+            }
         }
 
         mSelectionBox.height = 0;

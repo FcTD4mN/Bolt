@@ -76,6 +76,8 @@
     <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\Editor.main.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudHandle.cpp" />
+    <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudTransformation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h" />
@@ -127,6 +129,8 @@
     <ClInclude Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h" />
     <ClInclude Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.h" />
     <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.h" />
+    <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudHandle.h" />
+    <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudTransformation.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ComponentEditor.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.PrototypeEditor.h" />
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtMainWindows\Editor.BoltQtMainWindows.BoltEditor.h" />

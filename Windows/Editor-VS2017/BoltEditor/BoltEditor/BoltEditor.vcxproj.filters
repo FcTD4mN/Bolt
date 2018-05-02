@@ -284,6 +284,12 @@
     <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.cpp">
       <Filter>src\Editor\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudTransformation.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudHandle.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -440,6 +446,12 @@
       <Filter>src\Editor\BoltQtModels</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.h">
+      <Filter>src\Editor\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudTransformation.h">
+      <Filter>src\Editor\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudHandle.h">
       <Filter>src\Editor\HUD</Filter>
     </ClInclude>
   </ItemGroup>

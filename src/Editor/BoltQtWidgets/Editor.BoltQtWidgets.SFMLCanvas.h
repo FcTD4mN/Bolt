@@ -8,6 +8,7 @@
 
 namespace nApplication { class cEditorApplication; }
 namespace nECS { class cEntity; }
+namespace nQt { namespace nHUD { class cHudBase; } }
 
 
 class SFMLCanvas :
@@ -22,7 +23,8 @@ public:
         kIdle,
         kSelecting,
         kPanningCanvas,
-        kMoveEntity
+        kMoveEntity,
+        kHandleHUD
     };
 
 public:
@@ -79,6 +81,7 @@ private:
     bool   mInitialized;
 
     std::vector< ::nECS::cEntity* > mEntitySelection;
+    std::vector< ::nQt::nHUD::cHudBase* > mEntityHUDs;
 };
 
 
