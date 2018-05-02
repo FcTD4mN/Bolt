@@ -445,9 +445,6 @@
     <ClInclude Include="..\..\..\..\src\Editor\BoltQtModels\Editor.BoltQtModels.TreeWrapperComponent.h">
       <Filter>src\Editor\BoltQtModels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.h">
-      <Filter>src\Editor\HUD</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudTransformation.h">
       <Filter>src\Editor\HUD</Filter>
     </ClInclude>
@@ -482,6 +479,9 @@
     </QtMoc>
     <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.SFMLCanvas.h">
       <Filter>src\Editor\BoltQtWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudBase.h">
+      <Filter>src\Editor\HUD</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

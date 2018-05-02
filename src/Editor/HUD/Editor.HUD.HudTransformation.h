@@ -21,6 +21,7 @@ public:
 
 public:
     void BuildHUD();
+    void  UpdateHandlesPositions()  override;
 
 public:
     virtual  void Draw( sf::RenderTarget* iRenderTarget ) override;
@@ -32,7 +33,11 @@ public:
     virtual void mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow ) override;
 
 private:
-    std::vector< cHudHandle* > mScaleHandles;
+    std::vector< cHudHandle* >  mScaleHandles;
+    cHudHandle*                 mCurrentHandle;
+    int                         mCurrentHandleIndex;
+
+    sf::Vector2i                mOriginPosition;
 };
 
 } //nQt

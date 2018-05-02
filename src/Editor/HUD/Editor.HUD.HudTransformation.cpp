@@ -18,7 +18,9 @@ cHudTransformation::~cHudTransformation()
 
 
 cHudTransformation::cHudTransformation( ::nECS::cEntity * iEntity ) :
-    tSuperClass( iEntity )
+    tSuperClass( iEntity ),
+    mCurrentHandle( 0 ),
+    mCurrentHandleIndex( -1 )
 {
     mScaleHandles.reserve( 8 );
     BuildHUD();
@@ -50,6 +52,27 @@ cHudTransformation::BuildHUD()
     mScaleHandles.push_back( new cHudHandle( this, -handleSize/2, size->H() - handleSize/2, handleSize, handleSize ) );
 
     mScaleHandles.push_back( new cHudHandle( this, - handleSize/2, size->H() / 2 - handleSize/2, handleSize, handleSize ) );
+}
+
+
+void
+cHudTransformation::UpdateHandlesPositions()
+{
+    auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
+    auto size = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
+
+    if( !position || !size )
+        return;
+
+    float handleSize = 5.0F;
+
+    mScaleHandles[ 1 ]->Position( sf::Vector2f( size->W() / 2 - handleSize / 2, -handleSize / 2 ) );
+    mScaleHandles[ 2 ]->Position( sf::Vector2f( size->W() - handleSize / 2, -handleSize / 2 ) );
+    mScaleHandles[ 3 ]->Position( sf::Vector2f( size->W() - handleSize / 2, size->H() / 2 - handleSize / 2 ) );
+    mScaleHandles[ 4 ]->Position( sf::Vector2f( size->W() - handleSize / 2, size->H() - handleSize / 2 ) );
+    mScaleHandles[ 5 ]->Position( sf::Vector2f( size->W() / 2 - handleSize / 2, size->H() - handleSize / 2 ) );
+    mScaleHandles[ 6 ]->Position( sf::Vector2f( -handleSize / 2, size->H() - handleSize / 2 ) );
+    mScaleHandles[ 7 ]->Position( sf::Vector2f( -handleSize / 2, size->H() / 2 - handleSize / 2 ) );
 }
 
 
@@ -88,15 +111,24 @@ cHudTransformation::ContainsPoint( const  sf::Vector2f& iPoint ) const
 }
 
 
+// ==================================================================
+// =========================================================== Events
+// ==================================================================
+
+
 void
 cHudTransformation::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
-    for( auto handle : mScaleHandles )
+    for( int i = 0; i < mScaleHandles.size(); ++i )
     {
         sf::Vector2f mouseCoordMapped( iRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) );
-        if( handle->ContainsPoint( mouseCoordMapped ) )
+        mOriginPosition = sf::Vector2i( iEvent->x(), iEvent->y() );
+
+        if( mScaleHandles[ i ]->ContainsPoint( mouseCoordMapped ) )
         {
-            handle->mousePressEvent( iEvent, iRenderWindow );
+            mCurrentHandle = mScaleHandles[ i ];
+            mCurrentHandle->mousePressEvent( iEvent, iRenderWindow );
+            mCurrentHandleIndex = i;
             break;
         }
     }
@@ -106,14 +138,70 @@ cHudTransformation::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow
 void
 cHudTransformation::mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
-    // Nothing to do here
+    sf::Vector2i currentPos = sf::Vector2i( iEvent->x(), iEvent->y() );
+    sf::Vector2i offset = mOriginPosition - currentPos;
+
+    if( mCurrentHandle )
+    {
+        auto size = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
+        auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
+
+        mCurrentHandle->mouseMoveEvent( iEvent, iRenderWindow );
+
+        if( mCurrentHandleIndex == 0 )
+        {
+            emit  MovedEntity( -offset.x, -offset.y );
+            emit  ScaledEntity( offset.x, offset.y );
+        }
+        else if( mCurrentHandleIndex == 1 )
+        {
+            emit  MovedEntity( 0, -offset.y );
+            emit  ScaledEntity( 0, offset.y );
+        }
+        else if( mCurrentHandleIndex == 2 )
+        {
+            emit  MovedEntity( 0, -offset.y );
+            emit  ScaledEntity( -offset.x, offset.y );
+        }
+        else if( mCurrentHandleIndex == 3 )
+        {
+            emit  ScaledEntity( -offset.x, 0 );
+        }
+        else if( mCurrentHandleIndex == 4 )
+        {
+            emit  ScaledEntity( -offset.x, -offset.y );
+        }
+        else if( mCurrentHandleIndex == 5 )
+        {
+            emit  ScaledEntity( 0, -offset.y );
+        }
+        else if( mCurrentHandleIndex == 6 )
+        {
+            emit  MovedEntity( -offset.x, 0 );
+            emit  ScaledEntity( offset.x, -offset.y );
+        }
+        else if( mCurrentHandleIndex == 7 )
+        {
+            emit  MovedEntity( -offset.x, 0 );
+            emit  ScaledEntity( offset.x, 0 );
+        }
+    }
+    else
+    {
+        emit  MovedEntity( -offset.x, -offset.y );
+    }
+
+    mOriginPosition = currentPos;
 }
 
 
 void
 cHudTransformation::mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
-    // Nothing to do here
+    if( mCurrentHandle )
+        mCurrentHandle->mouseReleaseEvent( iEvent, iRenderWindow );
+
+    mCurrentHandle = 0;
 }
 
 

@@ -50,6 +50,20 @@ cHudBase::GetPosition() const
 }
 
 
+::nECS::cEntity *
+cHudBase::Entity()
+{
+    return  mEntity;
+}
+
+
+void
+cHudBase::UpdateHandlesPositions()
+{
+    // nothing
+}
+
+
 bool
 cHudBase::ContainsPoint( float iX, float iY ) const
 {

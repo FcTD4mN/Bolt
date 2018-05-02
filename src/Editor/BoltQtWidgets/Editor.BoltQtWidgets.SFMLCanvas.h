@@ -37,6 +37,7 @@ public:
 public:
     void SetEditorApp( ::nApplication::cEditorApplication* iEditorApp );
     void Build();
+    void ClearHUDs();
 
 private:
     virtual void OnInit();
@@ -62,6 +63,8 @@ public:
 
 public slots:
     void CurrentPrototypeChanged( const QModelIndex& iIndex );
+    void  EntityMoved( float iDeltaX, float iDeltaY );
+    void  EntityScaled( float iDeltaW, float iDeltaH );
 
 signals:
     void  SelectionChanged( ::nECS::cEntity* iEntity );
@@ -80,8 +83,8 @@ private:
     QTimer mTimer;
     bool   mInitialized;
 
-    std::vector< ::nECS::cEntity* > mEntitySelection;
-    std::vector< ::nQt::nHUD::cHudBase* > mEntityHUDs;
+    std::vector< ::nQt::nHUD::cHudBase* >   mEntityHUDs;
+    ::nQt::nHUD::cHudBase*                  mActiveHUD;
 };
 
 

@@ -23,7 +23,8 @@ SFMLCanvas::SFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Si
     QWidget( Parent ),
     mRenderWindow( 0 ),
     mState( kIdle ),
-    mInitialized( false )
+    mInitialized( false ),
+    mActiveHUD( 0 )
 {
     // Setup some states to allow direct rendering into the widget
     setAttribute( Qt::WA_PaintOnScreen );
@@ -75,9 +76,24 @@ SFMLCanvas::SetEditorApp( ::nApplication::cEditorApplication * iEditorApp )
 void
 SFMLCanvas::Build()
 {
-    mEntitySelection.reserve( 64 );
+    mEntityHUDs.reserve( 64 );
     mSelectionShape.setFillColor( sf::Color( 20, 20, 200, 100 ) );
     mSelectionShape.setOutlineColor( sf::Color( 0, 0, 50, 200 ) );
+}
+
+
+void
+SFMLCanvas::ClearHUDs()
+{
+    for( auto hud : mEntityHUDs )
+    {
+        disconnect( hud, SIGNAL( MovedEntity( float, float ) ), this, SLOT( EntityMoved( float, float ) ) );
+        disconnect( hud, SIGNAL( ScaledEntity( float, float ) ), this, SLOT( EntityScaled( float, float ) ) );
+
+        delete  hud;
+    }
+
+    mEntityHUDs.clear();
 }
 
 
@@ -169,17 +185,6 @@ SFMLCanvas::DrawSelections() const
     entitySelectionBox.setOutlineColor( sf::Color( 255, 50, 100 ) );
 
     float expansionSize = 2.0;
-
-    for( auto ent : mEntitySelection )
-    {
-        sf::Vector2f selBoxPos;
-        sf::Vector2f selBoxSize;
-        GetEntitySelectionBox( &selBoxPos, &selBoxSize, ent );
-        entitySelectionBox.setPosition( selBoxPos );
-        entitySelectionBox.setSize( selBoxSize );
-
-        mRenderWindow->draw( entitySelectionBox );
-    }
 }
 
 
@@ -226,27 +231,13 @@ SFMLCanvas::mousePressEvent( QMouseEvent * iEvent )
         if( hud->ContainsPoint( mouseCoordMapped ) )
         {
             mState = kHandleHUD;
-            hud->mousePressEvent( iEvent, mRenderWindow );
+            mActiveHUD = hud;
+            mActiveHUD->mousePressEvent( iEvent, mRenderWindow );
             break;
         }
     }
 
     mOriginPosition = sf::Vector2i( iEvent->x(), iEvent->y() );
-
-    for( auto ent : mEntitySelection )
-    {
-        sf::Vector2f selBoxPos;
-        sf::Vector2f selBoxSize;
-        GetEntitySelectionBox( &selBoxPos, &selBoxSize, ent );
-
-        sf::FloatRect entSelBox( selBoxPos, selBoxSize );
-
-        if( entSelBox.contains( mRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) ) )
-        {
-            mState = kMoveEntity;
-            break;
-        }
-    }
 
     tSuperClass::mousePressEvent( iEvent );
 }
@@ -292,16 +283,9 @@ SFMLCanvas::mouseMoveEvent( QMouseEvent * iEvent )
         mSelectionShape.setSize( x2y2 - xy );
         mSelectionBox = sf::FloatRect( xy, x2y2 - xy );
     }
-    else if( mState == kMoveEntity )
+    else if( mState == kHandleHUD && mActiveHUD )
     {
-        for( auto ent : mEntitySelection )
-        {
-            auto position = dynamic_cast< ::nECS::cPosition* >( ent->GetComponentByName( "position" ) );
-            position->X( position->X() - offset.x );
-            position->Y( position->Y() - offset.y );
-        }
-
-        mOriginPosition = currentPos;
+        mActiveHUD->mouseMoveEvent( iEvent, mRenderWindow );
     }
 
     tSuperClass::mouseMoveEvent( iEvent );
@@ -317,11 +301,7 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 
         if( !( iEvent->modifiers() & Qt::ControlModifier ) && !( iEvent->modifiers() & Qt::ShiftModifier ) )
         {
-            for( auto hud : mEntityHUDs )
-                delete  hud;
-
-            mEntityHUDs.clear();
-            mEntitySelection.clear();
+            ClearHUDs();
         }
 
         ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->GetEntitiesInBoundingBox( &entitiesInEMap, mSelectionBox );
@@ -334,8 +314,11 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 
             if( mSelectionBox.contains( selBoxPos ) && mSelectionBox.contains( selBoxPos + selBoxSize ) )
             {
-                mEntityHUDs.push_back( new ::nQt::nHUD::cHudTransformation( ent ) );
-                mEntitySelection.push_back( ent );
+                auto newHud = new ::nQt::nHUD::cHudTransformation( ent );
+                connect( newHud, SIGNAL( MovedEntity( float, float  ) ), this, SLOT( EntityMoved( float, float ) ) );
+                connect( newHud, SIGNAL( ScaledEntity( float, float ) ), this, SLOT( EntityScaled( float, float ) ) );
+
+                mEntityHUDs.push_back( newHud );
             }
         }
 
@@ -344,10 +327,15 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
         mSelectionShape.setSize( sf::Vector2f( 0.0, 0.0 ) );
 
         ::nECS::cEntity* sentEntity = 0;
-        if( mEntitySelection.size() == 1 )
-            sentEntity = mEntitySelection[ 0 ];
+        if( mEntityHUDs.size() == 1 )
+            sentEntity = mEntityHUDs[ 0 ]->Entity();
 
         emit SelectionChanged( sentEntity );
+    }
+    else if( mState == kHandleHUD && mActiveHUD )
+    {
+        mActiveHUD->mouseReleaseEvent( iEvent, mRenderWindow );
+        mActiveHUD = 0;
     }
 
     mState = kIdle;
@@ -390,13 +378,13 @@ SFMLCanvas::keyReleaseEvent( QKeyEvent * iEvent )
 {
     if( iEvent->key() == Qt::Key_Delete )
     {
-        for( auto ent : mEntitySelection )
+        for( auto hud : mEntityHUDs )
         {
-            ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->RemoveEntityNotUpdated( ent );
-            ent->Destroy();
+            ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->RemoveEntityNotUpdated( hud->Entity() );
+            hud->Entity()->Destroy();
         }
 
-        mEntitySelection.clear();
+        ClearHUDs();
         mEditorApp->World()->PurgeEntities();
     }
 
@@ -410,3 +398,34 @@ SFMLCanvas::CurrentPrototypeChanged( const QModelIndex& iIndex )
     mCurrentPrototypeEntitySelected = iIndex;
 }
 
+
+void
+SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
+{
+    for( auto hud : mEntityHUDs )
+    {
+        auto position = dynamic_cast< ::nECS::cPosition* >( hud->Entity()->GetComponentByName( "position" ) );
+        position->X( position->X() + iDeltaX );
+        position->Y( position->Y() + iDeltaY );
+    }
+    for( auto hud : mEntityHUDs )
+    {
+        hud->UpdateHandlesPositions();
+    }
+}
+
+
+void
+SFMLCanvas::EntityScaled( float iDeltaW, float iDeltaH )
+{
+    for( auto hud : mEntityHUDs )
+    {
+        auto size = dynamic_cast< ::nECS::cSize* >( hud->Entity()->GetComponentByName( "size" ) );
+        size->W( size->W() + iDeltaW );
+        size->H( size->H() + iDeltaH );
+    }
+    for( auto hud : mEntityHUDs )
+    {
+        hud->UpdateHandlesPositions();
+    }
+}

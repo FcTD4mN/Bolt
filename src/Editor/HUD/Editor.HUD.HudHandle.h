@@ -16,6 +16,9 @@ public:
     cHudHandle( cHudBase* iParent, float iX, float iY, float iW, float iH );
 
 public:
+    void  Position( const sf::Vector2f& iPosition );
+
+public:
     void  Draw( sf::RenderTarget* iRenderTarget );
     bool  ContainsPoint( const  sf::Vector2f& iPoint ) const;
 

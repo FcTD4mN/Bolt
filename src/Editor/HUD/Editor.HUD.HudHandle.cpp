@@ -25,6 +25,13 @@ cHudHandle::cHudHandle( cHudBase* iParent, float iX, float iY, float iW, float i
 
 
 void
+cHudHandle::Position( const sf::Vector2f & iPosition )
+{
+    mHandlePosition = iPosition;
+}
+
+
+void
 cHudHandle::Draw( sf::RenderTarget* iRenderTarget )
 {
     mRectangle.setPosition( mParent->GetPosition() + mHandlePosition );
@@ -38,7 +45,9 @@ cHudHandle::ContainsPoint( const sf::Vector2f & iPoint ) const
 {
     auto position = mParent->GetPosition() + mHandlePosition;
 
-    sf::FloatRect rect( position, mHandleSize );
+    sf::Vector2f spareHandleSurface = mHandleSize * 2.0F;
+
+    sf::FloatRect rect( position - spareHandleSurface, spareHandleSurface * 2.0F + mHandleSize ); // Make it bigger so it's clickable easily
 
     return  rect.contains( iPoint );
 }
@@ -47,21 +56,18 @@ cHudHandle::ContainsPoint( const sf::Vector2f & iPoint ) const
 void
 cHudHandle::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
-    int a = 1;
 }
 
 
 void
 cHudHandle::mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
-
 }
 
 
 void
 cHudHandle::mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
-
 }
 
 

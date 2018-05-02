@@ -9,8 +9,11 @@ namespace  nECS { class cEntity; }
 namespace  nQt {
 namespace  nHUD {
 
-class  cHudBase
+class  cHudBase :
+    public QObject
 {
+    Q_OBJECT
+
 public:
     ~cHudBase();
     cHudBase( ::nECS::cEntity* iEntity );
@@ -22,6 +25,10 @@ public:
     float  GetXPosition() const;
     float  GetYPosition() const;
     sf::Vector2f GetPosition() const;
+    ::nECS::cEntity*  Entity();
+
+public:
+    virtual  void  UpdateHandlesPositions();
 
 public:
     bool  ContainsPoint( float iX, float iY ) const;
@@ -32,6 +39,9 @@ public:
     virtual void mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow );
     virtual void mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow );
 
+signals:
+    void MovedEntity( float iDeltaX, float iDeltaY );
+    void ScaledEntity( float iDeltaW, float iDeltaH );
 
 protected:
     ::nECS::cEntity* mEntity;
