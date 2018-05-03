@@ -9,6 +9,7 @@
 namespace nApplication { class cEditorApplication; }
 namespace nECS { class cEntity; }
 namespace nQt { namespace nHUD { class cHudBase; } }
+namespace nQt { namespace nModels { class cEntityModel; } }
 
 
 class SFMLCanvas :
@@ -60,6 +61,7 @@ public:
     virtual void mouseReleaseEvent( QMouseEvent *iEvent ) override;
     virtual void mouseDoubleClickEvent( QMouseEvent *iEvent ) override;
     virtual void keyReleaseEvent( QKeyEvent* iEvent ) override;
+    virtual void wheelEvent( QWheelEvent* iEvent ) override;
 
 public slots:
     void CurrentPrototypeChanged( const QModelIndex& iIndex );
@@ -67,7 +69,7 @@ public slots:
     void  EntityScaled( float iDeltaW, float iDeltaH );
 
 signals:
-    void  SelectionChanged( ::nECS::cEntity* iEntity );
+    void  SelectionChanged( ::nECS::cEntity* iEntity, ::nQt::nModels::cEntityModel* iModel );
 
 private:
     sf::RenderWindow* mRenderWindow;
@@ -85,6 +87,7 @@ private:
 
     std::vector< ::nQt::nHUD::cHudBase* >   mEntityHUDs;
     ::nQt::nHUD::cHudBase*                  mActiveHUD;
+    ::nQt::nModels::cEntityModel*           mEditedEntityModel;
 };
 
 

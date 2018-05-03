@@ -39,7 +39,7 @@ cPrototypeEditor::PrototypeEditionAsked( QModelIndex iIndex )
     mEntity = ::nECS::cEntityParser::Instance()->GetPrototypeByName( name );
 
     ui.listViewAllPrototypes->setCurrentIndex( iIndex );
-    ui.treeViewPrototype->selectedEntitiesChanged( mEntity );
+    ui.treeViewPrototype->selectedEntitiesChanged( mEntity, new ::nQt::nModels::cEntityModel( mEntity ) );
 }
 
 

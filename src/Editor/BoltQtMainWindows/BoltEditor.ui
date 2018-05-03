@@ -152,7 +152,7 @@
     <signal>EntityNameEdited(QString)</signal>
     <signal>EntityNameChanged(QString,QString)</signal>
     <slot>selectedEntityChanged(QModelIndex)</slot>
-    <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
+    <slot>selectedEntitiesChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -161,7 +161,7 @@
    <header>Editor.BoltQtWidgets.SFMLCanvas.h</header>
    <container>1</container>
    <slots>
-    <signal>SelectionChanged(::nECS::cEntity*)</signal>
+    <signal>SelectionChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)</signal>
    </slots>
   </customwidget>
   <customwidget>
@@ -186,9 +186,9 @@
  <connections>
   <connection>
    <sender>widget</sender>
-   <signal>SelectionChanged(::nECS::cEntity*)</signal>
+   <signal>SelectionChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)</signal>
    <receiver>entityPropertyWidget</receiver>
-   <slot>selectedEntitiesChanged(::nECS::cEntity*)</slot>
+   <slot>selectedEntitiesChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>179</x>
@@ -227,8 +227,8 @@
      <y>365</y>
     </hint>
     <hint type="destinationlabel">
-     <x>391</x>
-     <y>344</y>
+     <x>101</x>
+     <y>83</y>
     </hint>
    </hints>
   </connection>

@@ -5,6 +5,7 @@
 
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.Size.h"
+#include "Core.ECS.Component.SpriteAnimated.h"
 
 namespace  nQt {
 namespace  nHUD {
@@ -31,27 +32,28 @@ void
 cHudTransformation::BuildHUD()
 {
     auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-    auto size = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
 
-    if( !position || !size )
+    if( !position )
         return;
 
     mIsHUDValid = true;
 
     float handleSize = 10.0F;
+    sf::Vector2f size = GetSizeFromEntity();
+
 
     // From top left, going clockwise, we create each handles
     mScaleHandles.push_back( new cHudHandle( this, -handleSize/2, -handleSize/2, handleSize, handleSize ) );
-    mScaleHandles.push_back( new cHudHandle( this, size->W() / 2 - handleSize/2, -handleSize/2, handleSize, handleSize ) );
-    mScaleHandles.push_back( new cHudHandle( this, size->W() - handleSize/2, -handleSize/2, handleSize, handleSize ) );
+    mScaleHandles.push_back( new cHudHandle( this, size.x / 2 - handleSize/2, -handleSize/2, handleSize, handleSize ) );
+    mScaleHandles.push_back( new cHudHandle( this, size.x - handleSize/2, -handleSize/2, handleSize, handleSize ) );
 
-    mScaleHandles.push_back( new cHudHandle( this, size->W() - handleSize/2, size->H() / 2 - handleSize/2, handleSize, handleSize ) );
+    mScaleHandles.push_back( new cHudHandle( this, size.x - handleSize/2, size.y / 2 - handleSize/2, handleSize, handleSize ) );
 
-    mScaleHandles.push_back( new cHudHandle( this, size->W() - handleSize/2, size->H() - handleSize/2, handleSize, handleSize ) );
-    mScaleHandles.push_back( new cHudHandle( this, size->W()/2 - handleSize/2, size->H() - handleSize/2, handleSize, handleSize ) );
-    mScaleHandles.push_back( new cHudHandle( this, -handleSize/2, size->H() - handleSize/2, handleSize, handleSize ) );
+    mScaleHandles.push_back( new cHudHandle( this, size.x - handleSize/2, size.y - handleSize/2, handleSize, handleSize ) );
+    mScaleHandles.push_back( new cHudHandle( this, size.x/2 - handleSize/2, size.y - handleSize/2, handleSize, handleSize ) );
+    mScaleHandles.push_back( new cHudHandle( this, -handleSize/2, size.y - handleSize/2, handleSize, handleSize ) );
 
-    mScaleHandles.push_back( new cHudHandle( this, - handleSize/2, size->H() / 2 - handleSize/2, handleSize, handleSize ) );
+    mScaleHandles.push_back( new cHudHandle( this, - handleSize/2, size.y / 2 - handleSize/2, handleSize, handleSize ) );
 }
 
 
@@ -59,20 +61,21 @@ void
 cHudTransformation::UpdateHandlesPositions()
 {
     auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-    auto size = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
 
-    if( !position || !size )
+    if( !position )
         return;
 
     float handleSize = 10.0F;
 
-    mScaleHandles[ 1 ]->Position( sf::Vector2f( size->W() / 2 - handleSize / 2, -handleSize / 2 ) );
-    mScaleHandles[ 2 ]->Position( sf::Vector2f( size->W() - handleSize / 2, -handleSize / 2 ) );
-    mScaleHandles[ 3 ]->Position( sf::Vector2f( size->W() - handleSize / 2, size->H() / 2 - handleSize / 2 ) );
-    mScaleHandles[ 4 ]->Position( sf::Vector2f( size->W() - handleSize / 2, size->H() - handleSize / 2 ) );
-    mScaleHandles[ 5 ]->Position( sf::Vector2f( size->W() / 2 - handleSize / 2, size->H() - handleSize / 2 ) );
-    mScaleHandles[ 6 ]->Position( sf::Vector2f( -handleSize / 2, size->H() - handleSize / 2 ) );
-    mScaleHandles[ 7 ]->Position( sf::Vector2f( -handleSize / 2, size->H() / 2 - handleSize / 2 ) );
+    sf::Vector2f size = GetSizeFromEntity();
+
+    mScaleHandles[ 1 ]->Position( sf::Vector2f( size.x / 2 - handleSize / 2, -handleSize / 2 ) );
+    mScaleHandles[ 2 ]->Position( sf::Vector2f( size.x - handleSize / 2, -handleSize / 2 ) );
+    mScaleHandles[ 3 ]->Position( sf::Vector2f( size.x - handleSize / 2, size.y / 2 - handleSize / 2 ) );
+    mScaleHandles[ 4 ]->Position( sf::Vector2f( size.x - handleSize / 2, size.y - handleSize / 2 ) );
+    mScaleHandles[ 5 ]->Position( sf::Vector2f( size.x / 2 - handleSize / 2, size.y - handleSize / 2 ) );
+    mScaleHandles[ 6 ]->Position( sf::Vector2f( -handleSize / 2, size.y - handleSize / 2 ) );
+    mScaleHandles[ 7 ]->Position( sf::Vector2f( -handleSize / 2, size.y / 2 - handleSize / 2 ) );
 }
 
 
@@ -82,12 +85,11 @@ cHudTransformation::Draw( sf::RenderTarget* iRenderTarget )
     if( !mIsHUDValid )
         return;
 
-    auto position   = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-    auto size       = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
+    auto position           = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
 
     sf::RectangleShape outline;
     outline.setPosition( position->AsVector2F() );
-    outline.setSize( size->AsVector2F() );
+    outline.setSize( GetSizeFromEntity() );
     outline.setOutlineThickness( 2 );
     outline.setFillColor( sf::Color( 0, 0, 0, 0 ) );
     outline.setOutlineColor( sf::Color( 20, 20, 255 ) );
@@ -109,9 +111,8 @@ cHudTransformation::ContainsPoint( const  sf::Vector2f& iPoint ) const
     }
 
     auto position   = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-    auto size       = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
 
-    sf::FloatRect rect( position->AsVector2F(), size->AsVector2F() );
+    sf::FloatRect rect( position->AsVector2F(), GetSizeFromEntity() );
 
     return  rect.contains( iPoint );
 }
@@ -128,7 +129,7 @@ cHudTransformation::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow
     for( int i = 0; i < mScaleHandles.size(); ++i )
     {
         sf::Vector2f mouseCoordMapped( iRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) );
-        mOriginPosition = sf::Vector2i( iEvent->x(), iEvent->y() );
+        mOriginPosition = iRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) );
 
         if( mScaleHandles[ i ]->ContainsPoint( mouseCoordMapped ) )
         {
@@ -144,14 +145,11 @@ cHudTransformation::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow
 void
 cHudTransformation::mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
-    sf::Vector2i currentPos = sf::Vector2i( iEvent->x(), iEvent->y() );
-    sf::Vector2i offset = mOriginPosition - currentPos;
+    sf::Vector2f currentPos = iRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) );
+    sf::Vector2f offset = mOriginPosition - currentPos;
 
     if( mCurrentHandle )
     {
-        auto size = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
-        auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-
         mCurrentHandle->mouseMoveEvent( iEvent, iRenderWindow );
 
         if( mCurrentHandleIndex == 0 )
@@ -208,6 +206,27 @@ cHudTransformation::mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWind
         mCurrentHandle->mouseReleaseEvent( iEvent, iRenderWindow );
 
     mCurrentHandle = 0;
+}
+
+
+sf::Vector2f
+cHudTransformation::GetSizeFromEntity() const
+{
+    auto size = dynamic_cast< ::nECS::cSize* >( mEntity->GetComponentByName( "size" ) );
+    auto spriteanimated = dynamic_cast< ::nECS::cSpriteAnimated* >( mEntity->GetComponentByName( "spriteanimated" ) );
+
+    sf::Vector2f sizeOfTheHud( 1, 1 );
+    if( size )
+    {
+        sizeOfTheHud = size->AsVector2F();
+    }
+    else if( spriteanimated )
+    {
+        sizeOfTheHud.x = spriteanimated->mCurrentSpriteRect.width;
+        sizeOfTheHud.y = spriteanimated->mCurrentSpriteRect.height;
+    }
+
+    return  sizeOfTheHud;
 }
 
 

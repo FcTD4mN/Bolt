@@ -172,7 +172,7 @@ public:
         menuFiles->addAction(actionExit);
 
         retranslateUi(BoltEditorClass);
-        QObject::connect(widget, SIGNAL(SelectionChanged(::nECS::cEntity*)), entityPropertyWidget, SLOT(selectedEntitiesChanged(::nECS::cEntity*)));
+        QObject::connect(widget, SIGNAL(SelectionChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)), entityPropertyWidget, SLOT(selectedEntitiesChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)));
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), BoltEditorClass, SLOT(PrototypeEditionAsked(QModelIndex)));
         QObject::connect(listView, SIGNAL(doubleClicked(QModelIndex)), PrototypeEditor, SLOT(PrototypeEditionAsked(QModelIndex)));
 

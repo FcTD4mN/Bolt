@@ -44,6 +44,7 @@ public:
 
     bool AddEmptyComponent();
     bool RemoveComponent( QModelIndex& iIndex );
+    void UpdateModelByComponentName( const QString& iName );
 
 public:
     cTreeWrapperNode*  ExtractTreeWrapper( const QModelIndex& iIndex ) const;

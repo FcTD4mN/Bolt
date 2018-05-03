@@ -1,6 +1,5 @@
 #include "Editor.BoltQtWidgets.SFMLCanvas.h"
 
-#include "Editor.Application.EditorApplication.h"
 
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Core.Entity.h"
@@ -11,9 +10,13 @@
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 
-#include "Editor.HUD.HudTransformation.h"
-
 #include "Core.Mapping.PhysicEntityGrid.h"
+
+
+#include "Editor.Application.EditorApplication.h"
+#include "Editor.HUD.HudTransformation.h"
+#include "Editor.BoltQtModels.EntityModel.h"
+
 
 #include <QtGui/QInputEvent>
 #include <QtGui/QPainter>
@@ -221,20 +224,25 @@ void
 SFMLCanvas::mousePressEvent( QMouseEvent * iEvent )
 {
     if( iEvent->modifiers() & Qt::AltModifier )
+    {
         mState = kPanningCanvas;
+    }
     else
+    {
         mState = kSelecting;
 
-    for( auto hud : mEntityHUDs )
-    {
-        sf::Vector2f mouseCoordMapped( mRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) );
-        if( hud->ContainsPoint( mouseCoordMapped ) )
+        for( auto hud : mEntityHUDs )
         {
-            mState = kHandleHUD;
-            mActiveHUD = hud;
-            mActiveHUD->mousePressEvent( iEvent, mRenderWindow );
-            break;
+            sf::Vector2f mouseCoordMapped( mRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) );
+            if( hud->ContainsPoint( mouseCoordMapped ) )
+            {
+                mState = kHandleHUD;
+                mActiveHUD = hud;
+                mActiveHUD->mousePressEvent( iEvent, mRenderWindow );
+                break;
+            }
         }
+
     }
 
     mOriginPosition = sf::Vector2i( iEvent->x(), iEvent->y() );
@@ -247,12 +255,12 @@ void
 SFMLCanvas::mouseMoveEvent( QMouseEvent * iEvent )
 {
     sf::Vector2i currentPos = sf::Vector2i( iEvent->x(), iEvent->y() );
-    sf::Vector2i offset = mOriginPosition - currentPos;
+    sf::Vector2f offset = mRenderWindow->mapPixelToCoords( mOriginPosition ) - mRenderWindow->mapPixelToCoords( currentPos );
 
     if( mState == kPanningCanvas )
     {
         auto defView = mRenderWindow->getView();
-        defView.move( sf::Vector2f( float(offset.x), float(offset.y) ) );
+        defView.move( offset );
         mRenderWindow->setView( defView );
         mOriginPosition = currentPos;
     }
@@ -330,7 +338,9 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
         if( mEntityHUDs.size() == 1 )
             sentEntity = mEntityHUDs[ 0 ]->Entity();
 
-        emit SelectionChanged( sentEntity );
+        mEditedEntityModel = new ::nQt::nModels::cEntityModel( sentEntity );
+
+        emit SelectionChanged( sentEntity, mEditedEntityModel );
     }
     else if( mState == kHandleHUD && mActiveHUD )
     {
@@ -393,6 +403,24 @@ SFMLCanvas::keyReleaseEvent( QKeyEvent * iEvent )
 
 
 void
+SFMLCanvas::wheelEvent( QWheelEvent * iEvent )
+{
+    if( iEvent->modifiers() & Qt::ControlModifier )
+    {
+        auto defView = mRenderWindow->getView();
+        double zoomFactor = 1.5;
+        if( iEvent->delta() > 0 )
+            zoomFactor = 0.7;
+
+        defView.zoom( zoomFactor );
+        mRenderWindow->setView( defView );
+    }
+
+    tSuperClass::wheelEvent( iEvent );
+}
+
+
+void
 SFMLCanvas::CurrentPrototypeChanged( const QModelIndex& iIndex )
 {
     mCurrentPrototypeEntitySelected = iIndex;
@@ -412,6 +440,7 @@ SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
     {
         hud->UpdateHandlesPositions();
     }
+    mEditedEntityModel->UpdateModelByComponentName( "position" );
 }
 
 
@@ -428,4 +457,5 @@ SFMLCanvas::EntityScaled( float iDeltaW, float iDeltaH )
     {
         hud->UpdateHandlesPositions();
     }
+    mEditedEntityModel->UpdateModelByComponentName( "size" );
 }

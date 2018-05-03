@@ -35,14 +35,14 @@ cEntityProperty::GetEntityName()
 
 
 void
-cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity )
+cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity, ::nQt::nModels::cEntityModel* iModel )
 {
     mEntity = iEntity;
+    mModel = iModel;
 
     if( mEntity )
     {
         mEntityName = mEntity->ID();
-        mModel = new ::nQt::nModels::cEntityModel( mEntity );
         ui.treeView->setModel( mModel );
         ui.editEntityName->setText( mEntity->ID().c_str() );
     }

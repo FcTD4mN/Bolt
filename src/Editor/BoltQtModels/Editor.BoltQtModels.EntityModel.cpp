@@ -142,6 +142,9 @@ cEntityModel::BuildData()
     mRootItem->AppendData( "Name" );
     mRootItem->AppendData( "Value" );
 
+    if( !mEntity )
+        return;
+
     for( unsigned int i = 0; i < mEntity->GetComponentCount(); ++i )
     {
         ::nECS::cComponent* comp = mEntity->GetComponentAtIndex( i );
@@ -329,6 +332,40 @@ cEntityModel::RemoveComponent( QModelIndex & iIndex )
     }
 
     return  false;
+}
+
+
+void
+cEntityModel::UpdateModelByComponentName( const QString & iName )
+{
+    // We update the model, so that all guis can be sync'ed
+    // This method is used when modifying component durectly using entity
+    // This seems easier to use than using setData all the way ...
+
+    // First we look for the index holding the component under iName
+    for( int i = 0; i < rowCount( QModelIndex() ); ++i )
+    {
+        QModelIndex ind = index( i, 0, QModelIndex() );
+        if( ind.data( Qt::DisplayRole ).toString() == iName )
+        {
+            // Then we update data in the wrapper
+            auto nodeToUpdate = dynamic_cast< cTreeWrapperNodeComponent* >( ExtractTreeWrapper( ind ) );
+            auto componentToUpdate = nodeToUpdate->Component();
+            if( nodeToUpdate )
+            {
+                for( int j = 0; j < componentToUpdate->VarCount(); ++j )
+                {
+                    ::nBase::cVariant* var = componentToUpdate->GetVarAtIndex( j );
+                    nodeToUpdate->ChildAtRow( j )->SetData( 1, var->ToString().c_str() );
+                }
+            }
+
+            auto topLeft = index( 0, 0, ind );
+            auto bottomRight = index( rowCount( ind ) - 1, columnCount( ind ) - 1, ind );
+            emit  dataChanged( topLeft, bottomRight );
+            break;
+        }
+    }
 }
 
 } //nQt

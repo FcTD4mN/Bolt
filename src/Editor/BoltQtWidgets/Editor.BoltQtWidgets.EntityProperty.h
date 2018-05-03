@@ -32,7 +32,7 @@ signals:
     void  EntityNameChanged( QString iOldName, QString iNewName );
 
 public slots :
-    void selectedEntitiesChanged( ::nECS::cEntity* iEntity );
+    void selectedEntitiesChanged( ::nECS::cEntity* iEntity, ::nQt::nModels::cEntityModel* iModel );
     void addEmptyComponent();
     void removeComponent();
     void EntityIDChanged();

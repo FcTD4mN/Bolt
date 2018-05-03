@@ -33,11 +33,14 @@ public:
     virtual void mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow ) override;
 
 private:
+    sf::Vector2f GetSizeFromEntity() const;
+
+private:
     std::vector< cHudHandle* >  mScaleHandles;
     cHudHandle*                 mCurrentHandle;
     int                         mCurrentHandleIndex;
 
-    sf::Vector2i                mOriginPosition;
+    sf::Vector2f                mOriginPosition;
 };
 
 } //nQt
