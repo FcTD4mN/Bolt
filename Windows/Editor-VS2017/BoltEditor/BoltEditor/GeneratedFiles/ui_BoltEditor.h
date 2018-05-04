@@ -37,6 +37,7 @@ public:
     QAction *actionExit;
     QAction *actionSave;
     QAction *actionLoad;
+    QAction *actionToogle_Grid;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QTabWidget *tabWidget;
@@ -55,6 +56,7 @@ public:
     cComponentEditor *widget_2;
     QMenuBar *menuBar;
     QMenu *menuFiles;
+    QMenu *menuView;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -69,6 +71,8 @@ public:
         actionSave->setObjectName(QStringLiteral("actionSave"));
         actionLoad = new QAction(BoltEditorClass);
         actionLoad->setObjectName(QStringLiteral("actionLoad"));
+        actionToogle_Grid = new QAction(BoltEditorClass);
+        actionToogle_Grid->setObjectName(QStringLiteral("actionToogle_Grid"));
         centralWidget = new QWidget(BoltEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -157,6 +161,8 @@ public:
         menuBar->setGeometry(QRect(0, 0, 1024, 21));
         menuFiles = new QMenu(menuBar);
         menuFiles->setObjectName(QStringLiteral("menuFiles"));
+        menuView = new QMenu(menuBar);
+        menuView->setObjectName(QStringLiteral("menuView"));
         BoltEditorClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(BoltEditorClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -166,10 +172,12 @@ public:
         BoltEditorClass->setStatusBar(statusBar);
 
         menuBar->addAction(menuFiles->menuAction());
+        menuBar->addAction(menuView->menuAction());
         menuFiles->addAction(actionSave);
         menuFiles->addAction(actionLoad);
         menuFiles->addSeparator();
         menuFiles->addAction(actionExit);
+        menuView->addAction(actionToogle_Grid);
 
         retranslateUi(BoltEditorClass);
         QObject::connect(widget, SIGNAL(SelectionChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)), entityPropertyWidget, SLOT(selectedEntitiesChanged(::nECS::cEntity*,::nQt::nModels::cEntityModel*)));
@@ -188,10 +196,12 @@ public:
         actionExit->setText(QApplication::translate("BoltEditorClass", "Exit", nullptr));
         actionSave->setText(QApplication::translate("BoltEditorClass", "Save", nullptr));
         actionLoad->setText(QApplication::translate("BoltEditorClass", "Load", nullptr));
+        actionToogle_Grid->setText(QApplication::translate("BoltEditorClass", "Toogle Grid", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(WorldEditorTab), QApplication::translate("BoltEditorClass", "WorldEditor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(PrototypeEditorTab), QApplication::translate("BoltEditorClass", "PrototypeEditor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(ComponentEditor), QApplication::translate("BoltEditorClass", "ComponentEditor", nullptr));
         menuFiles->setTitle(QApplication::translate("BoltEditorClass", "Files", nullptr));
+        menuView->setTitle(QApplication::translate("BoltEditorClass", "View", nullptr));
     } // retranslateUi
 
 };

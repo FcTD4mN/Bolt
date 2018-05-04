@@ -14,12 +14,20 @@
 
 
 #include "Editor.Application.EditorApplication.h"
-#include "Editor.HUD.HudTransformation.h"
 #include "Editor.BoltQtModels.EntityModel.h"
+#include "Editor.HUD.HudTransformation.h"
+#include "Editor.HUD.SnapGrid.h"
 
 
 #include <QtGui/QInputEvent>
 #include <QtGui/QPainter>
+
+
+SFMLCanvas::~SFMLCanvas()
+{
+    delete  mSnapGrid;
+}
+
 
 
 SFMLCanvas::SFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size, unsigned int FrameTime ) :
@@ -82,6 +90,7 @@ SFMLCanvas::Build()
     mEntityHUDs.reserve( 64 );
     mSelectionShape.setFillColor( sf::Color( 20, 20, 200, 100 ) );
     mSelectionShape.setOutlineColor( sf::Color( 0, 0, 50, 200 ) );
+    mSnapGrid = new ::nQt::nHUD::cSnapGrid( 10, 10 );
 }
 
 
@@ -132,6 +141,8 @@ SFMLCanvas::paintEvent( QPaintEvent* )
 {
     mRenderWindow->clear( sf::Color( 200, 200, 200 ) );
 
+    if( mSnapGrid->Visible() )
+        mSnapGrid->Draw( mRenderWindow );
 
     DrawSelections();
     mEditorApp->Draw( mRenderWindow );
@@ -459,3 +470,11 @@ SFMLCanvas::EntityScaled( float iDeltaW, float iDeltaH )
     }
     mEditedEntityModel->UpdateModelByComponentName( "size" );
 }
+
+
+void
+SFMLCanvas::ToggleGridVisible()
+{
+    mSnapGrid->Visible( !mSnapGrid->Visible() );
+}
+

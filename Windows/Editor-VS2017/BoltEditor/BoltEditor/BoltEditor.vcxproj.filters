@@ -290,6 +290,9 @@
     <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudHandle.cpp">
       <Filter>src\Editor\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\HUD\Editor.HUD.SnapGrid.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -449,6 +452,9 @@
       <Filter>src\Editor\HUD</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.HudHandle.h">
+      <Filter>src\Editor\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.SnapGrid.h">
       <Filter>src\Editor\HUD</Filter>
     </ClInclude>
   </ItemGroup>

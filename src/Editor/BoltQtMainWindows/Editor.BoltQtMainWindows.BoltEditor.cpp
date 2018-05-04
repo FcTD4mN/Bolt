@@ -12,6 +12,8 @@
 
 #include "Editor.BoltQtModels.EntityListModel.h"
 
+#include "Editor.BoltQtWidgets.SFMLCanvas.h"
+
 #include <QtWidgets/QTableView>
 #include <QFileDialog>
 
@@ -51,6 +53,7 @@ cBoltEditor::Setup()
 
     connect( ui.actionSave, &QAction::triggered, this, &cBoltEditor::SaveLevel );
     connect( ui.actionLoad, &QAction::triggered, this, &cBoltEditor::LoadLevel );
+    connect( ui.actionToogle_Grid, &QAction::triggered, ui.widget, &SFMLCanvas::ToggleGridVisible );
 }
 
 

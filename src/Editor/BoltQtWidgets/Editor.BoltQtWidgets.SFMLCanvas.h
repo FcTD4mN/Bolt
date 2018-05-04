@@ -9,6 +9,7 @@
 namespace nApplication { class cEditorApplication; }
 namespace nECS { class cEntity; }
 namespace nQt { namespace nHUD { class cHudBase; } }
+namespace nQt { namespace nHUD { class cSnapGrid; } }
 namespace nQt { namespace nModels { class cEntityModel; } }
 
 
@@ -32,6 +33,7 @@ public:
     typedef QWidget tSuperClass;
 
 public:
+    ~SFMLCanvas();
     SFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size, unsigned int FrameTime = 0 );
     SFMLCanvas( QWidget* Parent );
 
@@ -64,9 +66,10 @@ public:
     virtual void wheelEvent( QWheelEvent* iEvent ) override;
 
 public slots:
-    void CurrentPrototypeChanged( const QModelIndex& iIndex );
+    void  CurrentPrototypeChanged( const QModelIndex& iIndex );
     void  EntityMoved( float iDeltaX, float iDeltaY );
     void  EntityScaled( float iDeltaW, float iDeltaH );
+    void  ToggleGridVisible();
 
 signals:
     void  SelectionChanged( ::nECS::cEntity* iEntity, ::nQt::nModels::cEntityModel* iModel );
@@ -77,10 +80,10 @@ private:
     ::nApplication::cEditorApplication* mEditorApp;
     QModelIndex                         mCurrentPrototypeEntitySelected;
 
-    sf::Vector2i    mOriginPosition;
-    sf::FloatRect   mSelectionBox; // Used to draw
-    sf::RectangleShape mSelectionShape;
-    eState          mState;
+    sf::Vector2i        mOriginPosition;
+    sf::FloatRect       mSelectionBox; // Used to draw
+    sf::RectangleShape  mSelectionShape;
+    eState              mState;
 
     QTimer mTimer;
     bool   mInitialized;
@@ -88,6 +91,7 @@ private:
     std::vector< ::nQt::nHUD::cHudBase* >   mEntityHUDs;
     ::nQt::nHUD::cHudBase*                  mActiveHUD;
     ::nQt::nModels::cEntityModel*           mEditedEntityModel;
+    ::nQt::nHUD::cSnapGrid*                 mSnapGrid;
 };
 
 
