@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Editor.BoltQtWidgets.QSFMLCanvas.h"
-
 #include "ui_EntityPropertyWidget.h"
 
 #include <QModelIndex>

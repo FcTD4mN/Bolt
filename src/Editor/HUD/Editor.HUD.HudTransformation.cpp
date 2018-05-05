@@ -139,6 +139,8 @@ cHudTransformation::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow
             break;
         }
     }
+
+    emit StartEditing();
 }
 
 
@@ -195,7 +197,8 @@ cHudTransformation::mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow*
         emit  MovedEntity( -offset.x, -offset.y );
     }
 
-    mOriginPosition = currentPos;
+    // We don't want micro deltas, but we want the delta from origin
+    //mOriginPosition = currentPos;
 }
 
 
@@ -204,6 +207,8 @@ cHudTransformation::mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWind
 {
     if( mCurrentHandle )
         mCurrentHandle->mouseReleaseEvent( iEvent, iRenderWindow );
+
+    emit FinishedEditing();
 
     mCurrentHandle = 0;
 }

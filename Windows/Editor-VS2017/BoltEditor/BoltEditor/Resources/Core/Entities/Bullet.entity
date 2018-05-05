@@ -2,10 +2,10 @@
     <components>
         <component name="color">
             <variables>
-                <variable name="r" type="1" value="100"/>
+                <variable name="a" type="1" value="255"/>
                 <variable name="b" type="1" value="200"/>
                 <variable name="g" type="1" value="20"/>
-                <variable name="a" type="1" value="255"/>
+                <variable name="r" type="1" value="100"/>
             </variables>
         </component>
         <component name="position">
@@ -16,8 +16,8 @@
         </component>
         <component name="size">
             <variables>
-                <variable name="w" type="1" value="50"/>
-                <variable name="h" type="1" value="10"/>
+                <variable name="h" type="1" value="100"/>
+                <variable name="w" type="1" value="100"/>
             </variables>
         </component>
         <component name="simplephysic" x="0" y="0" w="10" h="10" veloX="0" veloY="0" type="1"/>

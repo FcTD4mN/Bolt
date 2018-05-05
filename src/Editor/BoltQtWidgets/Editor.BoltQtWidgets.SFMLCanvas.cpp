@@ -15,6 +15,7 @@
 
 #include "Editor.Application.EditorApplication.h"
 #include "Editor.BoltQtModels.EntityModel.h"
+#include "Editor.BoltQtDialogs.SnapGridSettings.h"
 #include "Editor.HUD.HudTransformation.h"
 #include "Editor.HUD.SnapGrid.h"
 
@@ -226,6 +227,27 @@ SFMLCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize,
 }
 
 
+sf::Vector2f
+SFMLCanvas::GetSizeFromEntity( ::nECS::cEntity* iEntity ) const
+{
+    auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
+    auto spriteanimated = dynamic_cast< ::nECS::cSpriteAnimated* >( iEntity->GetComponentByName( "spriteanimated" ) );
+
+    sf::Vector2f entitySize( 1, 1 );
+    if( size )
+    {
+        entitySize = size->AsVector2F();
+    }
+    else if( spriteanimated )
+    {
+        entitySize.x = spriteanimated->mCurrentSpriteRect.width;
+        entitySize.y = spriteanimated->mCurrentSpriteRect.height;
+    }
+
+    return  entitySize;
+}
+
+
 //===========================================================================================================
 //=========================================================================================== Event Overrides
 //===========================================================================================================
@@ -336,6 +358,7 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
                 auto newHud = new ::nQt::nHUD::cHudTransformation( ent );
                 connect( newHud, SIGNAL( MovedEntity( float, float  ) ), this, SLOT( EntityMoved( float, float ) ) );
                 connect( newHud, SIGNAL( ScaledEntity( float, float ) ), this, SLOT( EntityScaled( float, float ) ) );
+                connect( newHud, SIGNAL( StartEditing() ), this, SLOT( StartingEntityEdition() ) );
 
                 mEntityHUDs.push_back( newHud );
             }
@@ -439,18 +462,65 @@ SFMLCanvas::CurrentPrototypeChanged( const QModelIndex& iIndex )
 
 
 void
-SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
+SFMLCanvas::StartingEntityEdition()
 {
+    mEntitiesOriginalPositions.clear();
+    mEntitiesOriginalSizes.clear();
+
     for( auto hud : mEntityHUDs )
     {
         auto position = dynamic_cast< ::nECS::cPosition* >( hud->Entity()->GetComponentByName( "position" ) );
-        position->X( position->X() + iDeltaX );
-        position->Y( position->Y() + iDeltaY );
+        if( position )
+            mEntitiesOriginalPositions.push_back( position->AsVector2F() );
+
+        mEntitiesOriginalSizes.push_back( GetSizeFromEntity( hud->Entity() ) );
     }
+
+    Q_ASSERT( mEntitiesOriginalPositions.size() == mEntityHUDs.size() );
+    Q_ASSERT( mEntitiesOriginalSizes.size() == mEntityHUDs.size() );
+}
+
+
+void
+SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
+{
+    int indexSync = 0;
+
+    Q_ASSERT( mEntitiesOriginalPositions.size() == mEntityHUDs.size() );
+    Q_ASSERT( mEntitiesOriginalSizes.size() == mEntityHUDs.size() );
+
+    for( auto hud : mEntityHUDs )
+    {
+        auto position = dynamic_cast< ::nECS::cPosition* >( hud->Entity()->GetComponentByName( "position" ) );
+        double newX = mEntitiesOriginalPositions[ indexSync ].x + iDeltaX;
+        double newY = mEntitiesOriginalPositions[ indexSync ].y + iDeltaY;
+
+        if( mSnapGrid->Visible() )
+        {
+            // the rounding below does this  : 22 -> 20 --> Going left
+            //                                 -22 -> -20 --> Going Right
+            // So entities get closer by 1 cell size each time you drag ...
+            // So, because we want to warp to top left of a cell, when negative, we minus one cell
+            // To be simple : Going negative reverses the rounding, so if we are, or we go negative, we compensate
+            if( newX < 0 || ( newX == 0 && iDeltaX < 0 ) ) newX -= mSnapGrid->Width();
+            if( newY < 0 || ( newY == 0 && iDeltaY < 0 ) ) newY -= mSnapGrid->Height();
+
+            newX = int( newX / mSnapGrid->Width() ) * mSnapGrid->Width();
+            newY = int( newY / mSnapGrid->Height() ) * mSnapGrid->Height();
+
+        }
+
+        position->X( newX );
+        position->Y( newY );
+
+        ++indexSync;
+    }
+
     for( auto hud : mEntityHUDs )
     {
         hud->UpdateHandlesPositions();
     }
+
     mEditedEntityModel->UpdateModelByComponentName( "position" );
 }
 
@@ -458,16 +528,44 @@ SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
 void
 SFMLCanvas::EntityScaled( float iDeltaW, float iDeltaH )
 {
+    int indexSync = -1;
+
+    Q_ASSERT( mEntitiesOriginalPositions.size() == mEntityHUDs.size() );
+    Q_ASSERT( mEntitiesOriginalSizes.size() == mEntityHUDs.size() );
+
     for( auto hud : mEntityHUDs )
     {
+        ++indexSync;
         auto size = dynamic_cast< ::nECS::cSize* >( hud->Entity()->GetComponentByName( "size" ) );
-        size->W( size->W() + iDeltaW );
-        size->H( size->H() + iDeltaH );
+        if( !size )
+            continue;
+
+        double newW = mEntitiesOriginalSizes[ indexSync ].x + iDeltaW;
+        double newH = mEntitiesOriginalSizes[ indexSync ].y + iDeltaH;
+
+        if( mSnapGrid->Visible() )
+        {
+            // the rounding below does this  : 22 -> 20 --> Going left
+            //                                 -22 -> -20 --> Going Right
+            // So entities get closer by 1 cell size each time you drag ...
+            // So, because we want to warp to top left of a cell, when negative, we minus one cell
+            // To be simple : Going negative reverses the rounding, so if we are, or we go negative, we compensate
+            if( newW < 0 || ( newW == 0 && iDeltaW < 0 ) ) newW -= mSnapGrid->Width();
+            if( newH < 0 || ( newH == 0 && iDeltaH < 0 ) ) newH -= mSnapGrid->Height();
+
+            newW = int( newW / mSnapGrid->Width() ) * mSnapGrid->Width();
+            newH = int( newH / mSnapGrid->Height() ) * mSnapGrid->Height();
+        }
+
+        size->W( newW );
+        size->H( newH );
     }
+
     for( auto hud : mEntityHUDs )
     {
         hud->UpdateHandlesPositions();
     }
+
     mEditedEntityModel->UpdateModelByComponentName( "size" );
 }
 
@@ -476,5 +574,20 @@ void
 SFMLCanvas::ToggleGridVisible()
 {
     mSnapGrid->Visible( !mSnapGrid->Visible() );
+}
+
+
+void
+SFMLCanvas::SetSnapGridUp()
+{
+    cSnapGridSettings gridSettingDialog;
+    gridSettingDialog.SetCellWidth( mSnapGrid->Width() );
+    gridSettingDialog.SetCellHeight( mSnapGrid->Height() );
+
+    if( gridSettingDialog.exec() )
+    {
+        mSnapGrid->Width( gridSettingDialog.CellWidth() );
+        mSnapGrid->Height( gridSettingDialog.CellHeight() );
+    }
 }
 

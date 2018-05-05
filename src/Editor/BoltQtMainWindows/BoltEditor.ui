@@ -120,8 +120,15 @@
     </property>
     <addaction name="actionToogle_Grid"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionSnapGrid"/>
+   </widget>
    <addaction name="menuFiles"/>
    <addaction name="menuView"/>
+   <addaction name="menuSettings"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -150,6 +157,11 @@
   <action name="actionToogle_Grid">
    <property name="text">
     <string>Toogle Grid</string>
+   </property>
+  </action>
+  <action name="actionSnapGrid">
+   <property name="text">
+    <string>SnapGrid</string>
    </property>
   </action>
  </widget>

@@ -55,6 +55,7 @@ private:
     // Draw functions
     void  DrawSelections() const;
     void  GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize, ::nECS::cEntity * iEntity ) const;
+    sf::Vector2f GetSizeFromEntity( ::nECS::cEntity* iEntity ) const;
 
 public:
     // Event overrides
@@ -67,9 +68,13 @@ public:
 
 public slots:
     void  CurrentPrototypeChanged( const QModelIndex& iIndex );
+    void  ToggleGridVisible();
+    void  SetSnapGridUp();
+
+    // EntityEdition
+    void  StartingEntityEdition();
     void  EntityMoved( float iDeltaX, float iDeltaY );
     void  EntityScaled( float iDeltaW, float iDeltaH );
-    void  ToggleGridVisible();
 
 signals:
     void  SelectionChanged( ::nECS::cEntity* iEntity, ::nQt::nModels::cEntityModel* iModel );
@@ -80,10 +85,13 @@ private:
     ::nApplication::cEditorApplication* mEditorApp;
     QModelIndex                         mCurrentPrototypeEntitySelected;
 
-    sf::Vector2i        mOriginPosition;
-    sf::FloatRect       mSelectionBox; // Used to draw
-    sf::RectangleShape  mSelectionShape;
-    eState              mState;
+
+    sf::Vector2i                    mOriginPosition;
+    std::vector< sf::Vector2f >     mEntitiesOriginalPositions;
+    std::vector< sf::Vector2f >     mEntitiesOriginalSizes;
+    sf::FloatRect                   mSelectionBox; // Used to draw
+    sf::RectangleShape              mSelectionShape;
+    eState                          mState;
 
     QTimer mTimer;
     bool   mInitialized;

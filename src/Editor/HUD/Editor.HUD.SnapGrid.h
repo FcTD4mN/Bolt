@@ -15,6 +15,8 @@ public:
 public:
     void  Width( int iWidth );
     void  Height( int iHeight );
+    int   Width() const;
+    int   Height() const;
     void  Visible( bool iVisible );
     bool  Visible();
 

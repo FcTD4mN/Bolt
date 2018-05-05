@@ -40,8 +40,13 @@ public:
     virtual void mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow );
 
 signals:
+    void StartEditing();
+
+    // Deltas here should be the deltas from origin to actual, and not deltas between last mouseMoveEvent and current mouseMoveEvent
     void MovedEntity( float iDeltaX, float iDeltaY );
     void ScaledEntity( float iDeltaW, float iDeltaH );
+
+    void FinishedEditing();
 
 protected:
     ::nECS::cEntity* mEntity;

@@ -31,6 +31,20 @@ cSnapGrid::Height( int iHeight )
 }
 
 
+int
+cSnapGrid::Width() const
+{
+    return  mWidth;
+}
+
+
+int
+cSnapGrid::Height() const
+{
+    return  mHeight;
+}
+
+
 void
 cSnapGrid::Visible( bool iVisible)
 {
@@ -60,7 +74,8 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
 
     sf::Vector2f moduloVector( float((int(viewPosition.x) % mWidth) + mWidth), float((int(viewPosition.y) % mHeight) + mHeight) );
 
-    for( int i = 0; i < (int( view.getSize().x) / mWidth) + 2; ++i )
+    // +4 is to draw extra lines so we properly fill the screen
+    for( int i = 0; i < (int( view.getSize().x) / mWidth) + 4; ++i )
     {
         line.clear();
                                                         // The first shift here is to go to the current location, then modulo fine tunes it
@@ -72,7 +87,7 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
         iRenderTarget->draw( line );
     }
 
-    for( int i = 0; i < (int( view.getSize().y ) / mHeight) + 2; ++i )
+    for( int i = 0; i < (int( view.getSize().y ) / mHeight) + 4; ++i )
     {
         line.clear();
 
