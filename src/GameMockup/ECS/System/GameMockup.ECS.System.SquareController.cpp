@@ -121,21 +121,6 @@ cSquareController::Update( unsigned int iDeltaTime )
             }
             else if( userinput->mActions[ i ] == "attack" )
             {
-                cEntity* bullet = cEntityParser::Instance()->CreateEntityFromPrototypeMap( "bullet" );
-                float x = simplephysic->mHitBox.left + simplephysic->mHitBox.width + 5;
-                float y = simplephysic->mHitBox.top - simplephysic->mHitBox.height / 2;
-
-                auto pos = dynamic_cast< cPosition* >( bullet->GetComponentByName( "position" ) );
-                pos->X( x );
-                pos->Y( y );
-
-                auto phys = dynamic_cast< cSimplePhysic* >( bullet->GetComponentByName( "simplephysic" ) );
-                phys->mHitBox.left = x;
-                phys->mHitBox.top = y;
-
-                phys->mVelocity.x = 0.1f;
-                ::nApplication::cGameApplication::App()->World()->AddEntity( bullet );
-                userinput->mActions.erase( userinput->mActions.begin() + i );
             }
 
             // Basic test thing that assumes only one square is controlled

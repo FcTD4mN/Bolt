@@ -59,7 +59,7 @@ cInfiltratorScreen::Initialize()
     wall1->AddComponent( new ::nECS::cSize( 800.0F, 100.0F ) );
     wall1->AddComponent( new ::nECS::cColor( 180, 185, 183 ) );
     wall1->AddTag( "wall" );
-    wall1->AddComponent( new ::nECS::cSimplePhysic( 0.0F, 500.0F, 800.0F, 100.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
+    wall1->AddComponent( new ::nECS::cSimplePhysic( 800.0F, 100.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
     world->AddEntity( wall1 );
 
     //cEntity* wall2 = new cEntity( world );
@@ -92,7 +92,7 @@ cInfiltratorScreen::Initialize()
     hero->AddComponent( new ::nECS::cColor( 20, 20, 200 ) );
     hero->AddComponent( new ::nECS::cUserInput() );
     hero->AddTag( "hero" );
-    hero->AddComponent( new ::nECS::cSimplePhysic( 350.0F, 350.0F, 100.0F, 90.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+    hero->AddComponent( new ::nECS::cSimplePhysic( 100.0F, 90.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( hero );
 
     mMechant = new ::nECS::cEntity( world );
@@ -101,7 +101,7 @@ cInfiltratorScreen::Initialize()
     mMechant->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
     mMechant->AddComponent( new ::nECS::cFieldOfView( 90, 1000 ) );
     mMechant->AddComponent( new ::nECS::cDirection( ::nMath::Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
-    mMechant->AddComponent( new ::nECS::cSimplePhysic( 150.0F, 100.0F, 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+    mMechant->AddComponent( new ::nECS::cSimplePhysic( 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( mMechant );
 
     ::nECS::cEntity* light = new ::nECS::cEntity( world );
@@ -110,7 +110,7 @@ cInfiltratorScreen::Initialize()
     light->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
     light->AddComponent( new ::nECS::cFieldOfView( 90, 1000 ) );
     light->AddComponent( new ::nECS::cDirection( ::nMath::Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
-    light->AddComponent( new ::nECS::cSimplePhysic( 650.0F, 100.0F, 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+    light->AddComponent( new ::nECS::cSimplePhysic( 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( light );
 
     int swall = 5;
@@ -122,7 +122,7 @@ cInfiltratorScreen::Initialize()
             wall->AddComponent( new ::nECS::cPosition( float(i) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ) ) );
             wall->AddComponent( new ::nECS::cSize( 5.0f, 5.0f ) );
             wall->AddComponent( new ::nECS::cColor( 20, 180, 20 ) );
-            wall->AddComponent( new ::nECS::cSimplePhysic( float( i ) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ), 5.0f, 5.0f, ::nECS::cSimplePhysic::eType::kDynamic ) );
+            wall->AddComponent( new ::nECS::cSimplePhysic( 5.0f, 5.0f, ::nECS::cSimplePhysic::eType::kDynamic ) );
             wall->AddTag( "wall" );
             world->AddEntity( wall );
         }

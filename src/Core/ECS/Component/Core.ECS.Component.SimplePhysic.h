@@ -11,10 +11,10 @@ namespace nECS {
 
 
 class cSimplePhysic :
-    public cComponent
+    public cComponentGeneric
 {
 public:
-    typedef  cComponent  tSuperClass;
+    typedef  cComponentGeneric  tSuperClass;
 
 public:
     enum eType
@@ -26,12 +26,26 @@ public:
 public:
     virtual  ~cSimplePhysic();
     cSimplePhysic();
-    cSimplePhysic( float iX, float iY, float iW, float iH, eType iType );
+    cSimplePhysic( double iW, double iH, eType iType );
     cSimplePhysic( const cSimplePhysic& iSimplePhysic );
+
+private:
+    void BuildComponent( double iCenterX, double iCenterY, double iSizeW, double iSizeH, eType iType );
 
 public:
     // Copy
     virtual  cComponent* Clone();
+
+public:
+    double  CenterX();
+    double  CenterY();
+    sf::Vector2f CenterAsVector2f();
+
+    double  SizeW();
+    double  SizeH();
+    sf::Vector2f SizeAsVector2f();
+
+    sf::FloatRect RelativeHitBox();
 
 public:
     // Input/Output
@@ -40,7 +54,6 @@ public:
 
 public:
     sf::Vector2f        mVelocity;
-    sf::Rect< float >   mHitBox;
     eType               mType;
 
 };

@@ -33,6 +33,9 @@ public:
     virtual  void  Draw( sf::RenderTarget* iRenderTarget ) override;
     virtual  void  Update( unsigned int iDeltaTime ) override;
 
+private:
+    sf::FloatRect  GetEntityHitBox( ::nECS::cEntity* iEntity );
+
 public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;

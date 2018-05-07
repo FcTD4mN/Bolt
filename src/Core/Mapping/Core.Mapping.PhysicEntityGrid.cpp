@@ -243,15 +243,29 @@ void
 cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nECS::cEntity * iEntity )
 {
     auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+    auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
+    auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
 
-    tSuperClass::GetBBoxArea( oX, oY, oX2, oY2, simplephysic->mHitBox.left, simplephysic->mHitBox.top, simplephysic->mHitBox.left + simplephysic->mHitBox.width, simplephysic->mHitBox.top + simplephysic->mHitBox.height );
+    sf::Vector2f entityCenter = position->AsVector2F();
+    sf::FloatRect entityHitBox;
+    entityHitBox = simplephysic->RelativeHitBox();
+    entityHitBox.left += entityCenter.x;
+    entityHitBox.top += entityCenter.y;
+
+    if( size )
+        entityCenter += size->AsVector2F() / 2.0F;
+
+    tSuperClass::GetBBoxArea( oX, oY, oX2, oY2, entityHitBox.left, entityHitBox.top,
+                              entityHitBox.left + entityHitBox.width, entityHitBox.top + entityHitBox.height );
 }
 
 
 bool cPhysicEntityGrid::IsEntityValid( ::nECS::cEntity * iEntity ) const
 {
+    auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
+    auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
     auto simplephysic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
-    if( !simplephysic )
+    if( !position || !size || ! simplephysic )
         return  false;
 
     return  true;

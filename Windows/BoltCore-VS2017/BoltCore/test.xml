@@ -1,6 +1,41 @@
 <world>
     <entities>
-        <entity id="idontknow1">
+        <entity id="idontknow8">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="0"/>
+                        <variable name="y" type="1" value="480"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="0"/>
+                        <variable name="CenterY" type="1" value="480"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow0">
             <components>
                 <component name="position">
                     <variables>
@@ -8,46 +43,70 @@
                         <variable name="y" type="1" value="500"/>
                     </variables>
                 </component>
-                <component name="size" w="800" h="100"/>
-                <component name="color">
+                <component name="size">
                     <variables>
-                        <variable name="b" type="1" value="183"/>
-                        <variable name="r" type="1" value="180"/>
-                        <variable name="g" type="1" value="185"/>
-                        <variable name="a" type="1" value="255"/>
+                        <variable name="h" type="1" value="100"/>
+                        <variable name="w" type="1" value="800"/>
                     </variables>
                 </component>
-                <component name="simplephysic" x="0" y="500" w="800" h="100" veloX="0" veloY="0" type="0"/>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="183"/>
+                        <variable name="g" type="1" value="185"/>
+                        <variable name="r" type="1" value="180"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="0">
+                    <variables>
+                        <variable name="CenterX" type="1" value="0"/>
+                        <variable name="CenterY" type="1" value="500"/>
+                        <variable name="SizeH" type="1" value="100"/>
+                        <variable name="SizeW" type="1" value="800"/>
+                    </variables>
+                </component>
             </components>
             <tags>
                 <tag name="wall"/>
             </tags>
         </entity>
-        <entity id="idontknow2">
+        <entity id="idontknow1">
             <components>
                 <component name="position">
                     <variables>
-                        <variable name="x" type="1" value="435"/>
-                        <variable name="y" type="1" value="301"/>
+                        <variable name="x" type="1" value="11"/>
+                        <variable name="y" type="1" value="9"/>
                     </variables>
                 </component>
-                <component name="size" w="100" h="90"/>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="90"/>
+                        <variable name="w" type="1" value="100"/>
+                    </variables>
+                </component>
                 <component name="color">
                     <variables>
-                        <variable name="b" type="1" value="200"/>
-                        <variable name="r" type="1" value="20"/>
-                        <variable name="g" type="1" value="20"/>
                         <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="200"/>
+                        <variable name="g" type="1" value="20"/>
+                        <variable name="r" type="1" value="20"/>
                     </variables>
                 </component>
                 <component name="userinput"/>
-                <component name="simplephysic" x="435" y="301" w="100" h="90" veloX="0" veloY="0" type="1"/>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="350"/>
+                        <variable name="CenterY" type="1" value="350"/>
+                        <variable name="SizeH" type="1" value="90"/>
+                        <variable name="SizeW" type="1" value="100"/>
+                    </variables>
+                </component>
             </components>
             <tags>
                 <tag name="hero"/>
             </tags>
         </entity>
-        <entity id="idontknow3">
+        <entity id="idontknow2">
             <components>
                 <component name="position">
                     <variables>
@@ -55,13 +114,18 @@
                         <variable name="y" type="1" value="100"/>
                     </variables>
                 </component>
-                <component name="size" w="1" h="1"/>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="1"/>
+                        <variable name="w" type="1" value="1"/>
+                    </variables>
+                </component>
                 <component name="color">
                     <variables>
-                        <variable name="b" type="1" value="20"/>
-                        <variable name="r" type="1" value="180"/>
-                        <variable name="g" type="1" value="20"/>
                         <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="20"/>
+                        <variable name="r" type="1" value="180"/>
                     </variables>
                 </component>
                 <component name="fieldofview">
@@ -76,11 +140,18 @@
                         <variable name="y" type="1" value="1"/>
                     </variables>
                 </component>
-                <component name="simplephysic" x="150" y="100" w="1" h="1" veloX="0" veloY="0" type="1"/>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="150"/>
+                        <variable name="CenterY" type="1" value="100"/>
+                        <variable name="SizeH" type="1" value="1"/>
+                        <variable name="SizeW" type="1" value="1"/>
+                    </variables>
+                </component>
             </components>
             <tags/>
         </entity>
-        <entity id="idontknow4">
+        <entity id="idontknow3">
             <components>
                 <component name="position">
                     <variables>
@@ -88,13 +159,18 @@
                         <variable name="y" type="1" value="100"/>
                     </variables>
                 </component>
-                <component name="size" w="1" h="1"/>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="1"/>
+                        <variable name="w" type="1" value="1"/>
+                    </variables>
+                </component>
                 <component name="color">
                     <variables>
-                        <variable name="b" type="1" value="20"/>
-                        <variable name="r" type="1" value="180"/>
-                        <variable name="g" type="1" value="20"/>
                         <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="20"/>
+                        <variable name="r" type="1" value="180"/>
                     </variables>
                 </component>
                 <component name="fieldofview">
@@ -109,11 +185,18 @@
                         <variable name="y" type="1" value="1"/>
                     </variables>
                 </component>
-                <component name="simplephysic" x="650" y="100" w="1" h="1" veloX="0" veloY="0" type="1"/>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="650"/>
+                        <variable name="CenterY" type="1" value="100"/>
+                        <variable name="SizeH" type="1" value="1"/>
+                        <variable name="SizeW" type="1" value="1"/>
+                    </variables>
+                </component>
             </components>
             <tags/>
         </entity>
-        <entity id="idontknow5">
+        <entity id="idontknow4">
             <components>
                 <component name="position">
                     <variables>
@@ -121,16 +204,63 @@
                         <variable name="y" type="1" value="0"/>
                     </variables>
                 </component>
-                <component name="size" w="5" h="5"/>
-                <component name="color">
+                <component name="size">
                     <variables>
-                        <variable name="b" type="1" value="20"/>
-                        <variable name="r" type="1" value="20"/>
-                        <variable name="g" type="1" value="180"/>
-                        <variable name="a" type="1" value="255"/>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
                     </variables>
                 </component>
-                <component name="simplephysic" x="0" y="0" w="5" h="5" veloX="0" veloY="0" type="1"/>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="0"/>
+                        <variable name="CenterY" type="1" value="0"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow5">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="0"/>
+                        <variable name="y" type="1" value="120"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="0"/>
+                        <variable name="CenterY" type="1" value="120"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
             </components>
             <tags>
                 <tag name="wall"/>
@@ -141,19 +271,31 @@
                 <component name="position">
                     <variables>
                         <variable name="x" type="1" value="0"/>
-                        <variable name="y" type="1" value="300"/>
+                        <variable name="y" type="1" value="240"/>
                     </variables>
                 </component>
-                <component name="size" w="5" h="5"/>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
                 <component name="color">
                     <variables>
-                        <variable name="b" type="1" value="20"/>
-                        <variable name="r" type="1" value="20"/>
-                        <variable name="g" type="1" value="180"/>
                         <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
                     </variables>
                 </component>
-                <component name="simplephysic" x="0" y="300" w="5" h="5" veloX="0" veloY="0" type="1"/>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="0"/>
+                        <variable name="CenterY" type="1" value="240"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
             </components>
             <tags>
                 <tag name="wall"/>
@@ -163,43 +305,732 @@
             <components>
                 <component name="position">
                     <variables>
-                        <variable name="x" type="1" value="400"/>
-                        <variable name="y" type="1" value="0"/>
+                        <variable name="x" type="1" value="0"/>
+                        <variable name="y" type="1" value="360"/>
                     </variables>
                 </component>
-                <component name="size" w="5" h="5"/>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
                 <component name="color">
                     <variables>
-                        <variable name="b" type="1" value="20"/>
-                        <variable name="r" type="1" value="20"/>
-                        <variable name="g" type="1" value="180"/>
                         <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
                     </variables>
                 </component>
-                <component name="simplephysic" x="400" y="0" w="5" h="5" veloX="0" veloY="0" type="1"/>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="0"/>
+                        <variable name="CenterY" type="1" value="360"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
             </components>
             <tags>
                 <tag name="wall"/>
             </tags>
         </entity>
-        <entity id="idontknow8">
+        <entity id="idontknow9">
             <components>
                 <component name="position">
                     <variables>
-                        <variable name="x" type="1" value="400"/>
-                        <variable name="y" type="1" value="300"/>
+                        <variable name="x" type="1" value="160"/>
+                        <variable name="y" type="1" value="0"/>
                     </variables>
                 </component>
-                <component name="size" w="5" h="5"/>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
                 <component name="color">
                     <variables>
-                        <variable name="b" type="1" value="20"/>
-                        <variable name="r" type="1" value="20"/>
-                        <variable name="g" type="1" value="180"/>
                         <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
                     </variables>
                 </component>
-                <component name="simplephysic" x="400" y="300" w="5" h="5" veloX="0" veloY="0" type="1"/>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="160"/>
+                        <variable name="CenterY" type="1" value="0"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow10">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="160"/>
+                        <variable name="y" type="1" value="120"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="160"/>
+                        <variable name="CenterY" type="1" value="120"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow11">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="160"/>
+                        <variable name="y" type="1" value="240"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="160"/>
+                        <variable name="CenterY" type="1" value="240"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow12">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="160"/>
+                        <variable name="y" type="1" value="360"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="160"/>
+                        <variable name="CenterY" type="1" value="360"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow13">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="160"/>
+                        <variable name="y" type="1" value="480"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="160"/>
+                        <variable name="CenterY" type="1" value="480"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow14">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="320"/>
+                        <variable name="y" type="1" value="0"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="320"/>
+                        <variable name="CenterY" type="1" value="0"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow15">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="320"/>
+                        <variable name="y" type="1" value="120"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="320"/>
+                        <variable name="CenterY" type="1" value="120"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow16">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="320"/>
+                        <variable name="y" type="1" value="240"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="320"/>
+                        <variable name="CenterY" type="1" value="240"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow17">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="320"/>
+                        <variable name="y" type="1" value="360"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="320"/>
+                        <variable name="CenterY" type="1" value="360"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow18">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="320"/>
+                        <variable name="y" type="1" value="480"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="320"/>
+                        <variable name="CenterY" type="1" value="480"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow19">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="480"/>
+                        <variable name="y" type="1" value="0"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="480"/>
+                        <variable name="CenterY" type="1" value="0"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow20">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="480"/>
+                        <variable name="y" type="1" value="120"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="480"/>
+                        <variable name="CenterY" type="1" value="120"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow21">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="480"/>
+                        <variable name="y" type="1" value="240"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="480"/>
+                        <variable name="CenterY" type="1" value="240"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow22">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="480"/>
+                        <variable name="y" type="1" value="360"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="480"/>
+                        <variable name="CenterY" type="1" value="360"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow23">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="480"/>
+                        <variable name="y" type="1" value="480"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="480"/>
+                        <variable name="CenterY" type="1" value="480"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow24">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="640"/>
+                        <variable name="y" type="1" value="0"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="640"/>
+                        <variable name="CenterY" type="1" value="0"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow25">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="640"/>
+                        <variable name="y" type="1" value="120"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="640"/>
+                        <variable name="CenterY" type="1" value="120"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow26">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="640"/>
+                        <variable name="y" type="1" value="240"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="640"/>
+                        <variable name="CenterY" type="1" value="240"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow27">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="640"/>
+                        <variable name="y" type="1" value="360"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="640"/>
+                        <variable name="CenterY" type="1" value="360"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
+            </components>
+            <tags>
+                <tag name="wall"/>
+            </tags>
+        </entity>
+        <entity id="idontknow28">
+            <components>
+                <component name="position">
+                    <variables>
+                        <variable name="x" type="1" value="640"/>
+                        <variable name="y" type="1" value="480"/>
+                    </variables>
+                </component>
+                <component name="size">
+                    <variables>
+                        <variable name="h" type="1" value="5"/>
+                        <variable name="w" type="1" value="5"/>
+                    </variables>
+                </component>
+                <component name="color">
+                    <variables>
+                        <variable name="a" type="1" value="255"/>
+                        <variable name="b" type="1" value="20"/>
+                        <variable name="g" type="1" value="180"/>
+                        <variable name="r" type="1" value="20"/>
+                    </variables>
+                </component>
+                <component name="simplephysic" veloX="0" veloY="0" type="1">
+                    <variables>
+                        <variable name="CenterX" type="1" value="640"/>
+                        <variable name="CenterY" type="1" value="480"/>
+                        <variable name="SizeH" type="1" value="5"/>
+                        <variable name="SizeW" type="1" value="5"/>
+                    </variables>
+                </component>
             </components>
             <tags>
                 <tag name="wall"/>

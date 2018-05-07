@@ -5,6 +5,7 @@
 
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
+#include "Core.ECS.Component.Size.h"
 
 
 
@@ -62,10 +63,11 @@ cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
             cEntity* entity = mEntityGroup[ i ];
 
             auto simplephysic = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
+            sf::FloatRect entityHitbox = GetEntityHitBox( entity );
 
             // DEBUG Hitbox Drawing
-            rect.setSize( sf::Vector2f( simplephysic->mHitBox.width, simplephysic->mHitBox.height ) );
-            rect.setPosition( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
+            rect.setSize( sf::Vector2f( entityHitbox.width, entityHitbox.height ) );
+            rect.setPosition( sf::Vector2f( entityHitbox.left, entityHitbox.top ) );
             rect.setFillColor( sf::Color( 255, 50, 50, 100 ) );
 
             iRenderTarget->draw( rect );
@@ -95,19 +97,19 @@ cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
 void
 cSimplePhysics::Update( unsigned int iDeltaTime )
 {
+    sf::Rect< float > entityHitBox;
     sf::Rect< float > projection;
     ::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
     for( int i = 0; i < mDynamicEntities.size(); ++i )
     {
         cEntity* entity = mDynamicEntities[ i ];
         auto simplephysic   = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
-        auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
-        ::nBase::cVariant* positionX = position->GetVar( "x" );
-        ::nBase::cVariant* positionY = position->GetVar( "y" );
+
+        entityHitBox = GetEntityHitBox( entity );
 
         bool collided = false;
 
-        projection = simplephysic->mHitBox;
+        projection = entityHitBox;
         projection.left += simplephysic->mVelocity.x;
         projection.top += simplephysic->mVelocity.y;
 
@@ -118,8 +120,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         {
             cEntity* surroundingEntity = surrounding[ j ];
 
-            auto simplephysicSurr = dynamic_cast< cSimplePhysic* >( surroundingEntity->GetComponentByName( "simplephysic" ) );
-            if( projection.intersects( simplephysicSurr->mHitBox ) )
+            if( projection.intersects( GetEntityHitBox( surroundingEntity ) ) )
             {
                 collided = true;
                 simplephysic->mVelocity.x = 0.0F;
@@ -130,13 +131,15 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 
         if( !collided && ( simplephysic->mVelocity.x != 0.0F || simplephysic->mVelocity.y != 0.0F ) )
         {
+            auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+            ::nBase::cVariant* positionX = position->GetVar( "x" );
+            ::nBase::cVariant* positionY = position->GetVar( "y" );
+
             // Remove Entity before changing its position, so it's quick and easy
             entityMap->RemoveEntityNotUpdated( entity );
 
             positionX->SetValueNumber( positionX->GetValueNumber() + simplephysic->mVelocity.x );
             positionY->SetValueNumber( positionY->GetValueNumber() + simplephysic->mVelocity.y );
-            simplephysic->mHitBox.left += simplephysic->mVelocity.x;
-            simplephysic->mHitBox.top += simplephysic->mVelocity.y;
 
             // very basic test just to test
             if( positionX->GetValueNumber() > 900 )
@@ -146,6 +149,28 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             entityMap->AddEntity( entity );
         }
     }
+}
+
+
+sf::FloatRect
+cSimplePhysics::GetEntityHitBox( ::nECS::cEntity * iEntity )
+{
+    sf::Rect< float > entityHitBox;
+
+    auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+    auto position = dynamic_cast< cPosition* >( iEntity->GetComponentByName( "position" ) );
+    auto size = dynamic_cast< cSize* >( iEntity->GetComponentByName( "size" ) );
+
+    sf::Vector2f entityCenter = position->AsVector2F();
+
+    if( size )
+        entityCenter += size->AsVector2F() / 2.0F;
+
+    entityHitBox = simplephysic->RelativeHitBox();
+    entityHitBox.left += entityCenter.x;
+    entityHitBox.top += entityCenter.y;
+
+    return  entityHitBox;
 }
 
 

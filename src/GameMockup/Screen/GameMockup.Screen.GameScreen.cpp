@@ -54,7 +54,7 @@ cGameScreen::Initialize()
     ent->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
     ent->AddComponent( new ::nECS::cColor( 255,0,0 ) );
     ent->AddComponent( new ::nECS::cUserInput() );
-    ent->AddComponent( new ::nECS::cSimplePhysic( 400.0F, 300.0F, 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+    ent->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( ::nApplication::cGameApplication::App()->Window()->getSize().x ),
@@ -86,7 +86,7 @@ cGameScreen::Initialize()
         float posY = float(rand() % (size.y - 10));
         ent->AddComponent( new ::nECS::cPosition( posX, posY ) );
         ent->AddComponent( new ::nECS::cUserInput() );
-        ent->AddComponent( new ::nECS::cSimplePhysic( posX, posY, 40.0F, 64.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+        ent->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 64.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
         world->AddEntity( ent );
     };
 
