@@ -40,12 +40,17 @@ public:
     double  CenterX();
     double  CenterY();
     sf::Vector2f CenterAsVector2f();
+    void SetCenter( const sf::Vector2f& iCenter );
 
     double  SizeW();
     double  SizeH();
     sf::Vector2f SizeAsVector2f();
+    void SetSize( const sf::Vector2f& iSize );
 
     sf::FloatRect RelativeHitBox();
+
+    sf::FloatRect GetAbsoluteHitBoxUsingCenterPosition( const sf::Vector2f& iCenterPosition );
+    void  InvalidCache();
 
 public:
     // Input/Output
@@ -56,6 +61,8 @@ public:
     sf::Vector2f        mVelocity;
     eType               mType;
 
+    sf::FloatRect           mCachedHitBox;
+    bool                    mIsCacheValid;
 };
 
 

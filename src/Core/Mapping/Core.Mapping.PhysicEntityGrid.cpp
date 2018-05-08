@@ -247,13 +247,11 @@ cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nE
     auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
 
     sf::Vector2f entityCenter = position->AsVector2F();
-    sf::FloatRect entityHitBox;
-    entityHitBox = simplephysic->RelativeHitBox();
-    entityHitBox.left += entityCenter.x;
-    entityHitBox.top += entityCenter.y;
-
     if( size )
         entityCenter += size->AsVector2F() / 2.0F;
+
+    sf::FloatRect entityHitBox;
+    entityHitBox = simplephysic->GetAbsoluteHitBoxUsingCenterPosition( entityCenter );
 
     tSuperClass::GetBBoxArea( oX, oY, oX2, oY2, entityHitBox.left, entityHitBox.top,
                               entityHitBox.left + entityHitBox.width, entityHitBox.top + entityHitBox.height );

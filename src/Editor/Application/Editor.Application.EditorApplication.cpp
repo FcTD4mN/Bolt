@@ -14,6 +14,7 @@
 #include "Core.ECS.Component.Text.h"
 
 #include "Core.ECS.System.AnimationRenderer.h"
+#include "Core.ECS.System.SimplePhysics.h"
 #include "Core.ECS.System.SimplerRenderer.h"
 
 #include "Core.ECS.Core.GlobalEntityMap.h"

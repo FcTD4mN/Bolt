@@ -4,6 +4,7 @@
 #include "Core.ECS.Core.Entity.h"
 
 #include "Core.ECS.Component.Position.h"
+#include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 
 
@@ -59,12 +60,14 @@ cAnimationRenderer::Draw( sf::RenderTarget* iRenderTarget )
 
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
         auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
 
         // Because sprite's origin is set to be the very center of the image, we need to
         // reposition it so it matches top left format given by position
         sf::Vector2f spritePos( float(position->X()), float(position->Y()) );
-        spriteanimated->mSprite.setPosition( spritePos + spriteanimated->mSprite.getOrigin() );
-
+        spriteanimated->mSprite.setPosition( spritePos );
+        spriteanimated->mSprite.setOrigin( 0,0 );
+        spriteanimated->mSprite.setScale( float(size->W()) / spriteanimated->mCurrentSpriteRect.width, float(size->H()) / spriteanimated->mCurrentSpriteRect.height );
         iRenderTarget->draw( spriteanimated->mSprite );
     }
 }
@@ -78,10 +81,6 @@ cAnimationRenderer::Update( unsigned int iDeltaTime )
         cEntity* entity = mEntityGroup[ i ];
 
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
-        auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
-
-        sf::Vector2f spritePos( float(position->X()), float(position->Y()) );
-        spriteanimated->mSprite.setPosition( spritePos );
 
         if( spriteanimated->Paused ())
             continue;
@@ -105,8 +104,9 @@ cAnimationRenderer::IncomingEntity( cEntity * iEntity )
 {
     auto spriteanimated = iEntity->GetComponentByName( "spriteanimated" );
     auto position = iEntity->GetComponentByName( "position" );
+    auto size = iEntity->GetComponentByName( "size" );
 
-    if( spriteanimated && position )
+    if( spriteanimated && position && size )
         AcceptEntity( iEntity );
 }
 

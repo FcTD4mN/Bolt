@@ -147,6 +147,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 
             // Add it back at its new position
             entityMap->AddEntity( entity );
+            simplephysic->InvalidCache();
         }
     }
 }
@@ -155,22 +156,15 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 sf::FloatRect
 cSimplePhysics::GetEntityHitBox( ::nECS::cEntity * iEntity )
 {
-    sf::Rect< float > entityHitBox;
-
-    auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
-    auto position = dynamic_cast< cPosition* >( iEntity->GetComponentByName( "position" ) );
-    auto size = dynamic_cast< cSize* >( iEntity->GetComponentByName( "size" ) );
+    auto simplephysic   = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+    auto position       = dynamic_cast< cPosition* >( iEntity->GetComponentByName( "position" ) );
+    auto size           = dynamic_cast< cSize* >( iEntity->GetComponentByName( "size" ) );
 
     sf::Vector2f entityCenter = position->AsVector2F();
-
     if( size )
         entityCenter += size->AsVector2F() / 2.0F;
 
-    entityHitBox = simplephysic->RelativeHitBox();
-    entityHitBox.left += entityCenter.x;
-    entityHitBox.top += entityCenter.y;
-
-    return  entityHitBox;
+    return  simplephysic->GetAbsoluteHitBoxUsingCenterPosition( entityCenter );
 }
 
 

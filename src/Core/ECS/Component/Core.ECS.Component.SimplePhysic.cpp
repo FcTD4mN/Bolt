@@ -35,7 +35,8 @@ cSimplePhysic::cSimplePhysic( double iW, double iH, eType iType ) :
 cSimplePhysic::cSimplePhysic( const cSimplePhysic & iSimplePhysic ) :
     tSuperClass( iSimplePhysic ),
     mVelocity( iSimplePhysic.mVelocity ),
-    mType( iSimplePhysic.mType )
+    mType( iSimplePhysic.mType ),
+    mIsCacheValid( iSimplePhysic.mIsCacheValid )
 {
 }
 
@@ -47,6 +48,8 @@ cSimplePhysic::BuildComponent( double iCenterX, double iCenterY, double iSizeW, 
     SetVar( "CenterY", ::nBase::cVariant::MakeVariant( iCenterY ) );
     SetVar( "SizeW", ::nBase::cVariant::MakeVariant( iSizeW ) );
     SetVar( "SizeH", ::nBase::cVariant::MakeVariant( iSizeH ) );
+
+    mIsCacheValid = false;
 }
 
 
@@ -83,6 +86,15 @@ cSimplePhysic::CenterAsVector2f()
 }
 
 
+void
+cSimplePhysic::SetCenter( const sf::Vector2f & iCenter )
+{
+    GetVar( "CenterX" )->SetValueNumber( iCenter.x );
+    GetVar( "CenterY" )->SetValueNumber( iCenter.y );
+    mIsCacheValid = false;
+}
+
+
 double
 cSimplePhysic::SizeW()
 {
@@ -104,10 +116,45 @@ cSimplePhysic::SizeAsVector2f()
 }
 
 
+void
+cSimplePhysic::SetSize( const sf::Vector2f & iSize )
+{
+    GetVar( "SizeW" )->SetValueNumber( iSize.x );
+    GetVar( "SizeH" )->SetValueNumber( iSize.y );
+    mIsCacheValid = false;
+}
+
+
 sf::FloatRect
 cSimplePhysic::RelativeHitBox()
 {
     return  sf::FloatRect( CenterAsVector2f() - SizeAsVector2f()/2.0F, SizeAsVector2f() );
+}
+
+
+sf::FloatRect
+cSimplePhysic::GetAbsoluteHitBoxUsingCenterPosition( const sf::Vector2f & iCenterPosition )
+{
+    if( mIsCacheValid )
+        return  mCachedHitBox;
+
+    sf::Rect< float > entityHitBox;
+
+    entityHitBox = RelativeHitBox();
+    entityHitBox.left += iCenterPosition.x;
+    entityHitBox.top += iCenterPosition.y;
+
+    mCachedHitBox = entityHitBox;
+    mIsCacheValid = true;
+
+    return  entityHitBox;
+}
+
+
+void
+cSimplePhysic::InvalidCache()
+{
+    mIsCacheValid = false;
 }
 
 

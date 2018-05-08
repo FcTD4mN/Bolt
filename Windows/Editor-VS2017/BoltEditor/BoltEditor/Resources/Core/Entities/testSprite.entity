@@ -1,0 +1,32 @@
+<entity id="idontknow0">
+    <components>
+        <component name="position">
+            <variables>
+                <variable name="x" type="1" value="0"/>
+                <variable name="y" type="1" value="0"/>
+            </variables>
+        </component>
+        <component name="size">
+            <variables>
+                <variable name="h" type="1" value="64"/>
+                <variable name="w" type="1" value="40"/>
+            </variables>
+        </component>
+        <component name="spriteanimated" width="40" height="64">
+            <variables>
+                <variable name="filename" type="2" value="D:/Developpement/Bolt/Windows/Editor-VS2017/BoltEditor/BoltEditor/Resources/Core\Images/SpriteSheets/communiste_spritesheet.png"/>
+                <variable name="framerate" type="1" value="24"/>
+                <variable name="paused" type="3" value="false"/>
+            </variables>
+        </component>
+        <component name="simplephysic" veloX="0" veloY="0" type="0">
+            <variables>
+                <variable name="CenterX" type="1" value="0"/>
+                <variable name="CenterY" type="1" value="0"/>
+                <variable name="SizeH" type="1" value="50"/>
+                <variable name="SizeW" type="1" value="50"/>
+            </variables>
+        </component>
+    </components>
+    <tags/>
+</entity>
