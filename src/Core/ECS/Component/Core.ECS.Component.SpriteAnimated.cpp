@@ -112,8 +112,8 @@ cSpriteAnimated::BuildCallbacks()
 void
 cSpriteAnimated::UpdateTextureRect()
 {
-    double spriteWidth = GetVar( "spritewidth" )->GetValueNumber();
-    mCurrentSpriteRect.left = (GetVar( "currentframe" )->GetValueNumber() - 1) * spriteWidth;
+    int spriteWidth = int(GetVar( "spritewidth" )->GetValueNumber());
+    mCurrentSpriteRect.left = (int(GetVar( "currentframe" )->GetValueNumber() )- 1) * spriteWidth;
     mCurrentSpriteRect.width = spriteWidth;
     if( Flip() )
     {
@@ -253,8 +253,8 @@ cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
 
-    mCurrentSpriteRect.width = GetVar( "spritewidth" )->GetValueNumber();
-    mCurrentSpriteRect.height = GetVar( "spriteheight" )->GetValueNumber();
+    mCurrentSpriteRect.width =  int(GetVar( "spritewidth" )->GetValueNumber());
+    mCurrentSpriteRect.height = int(GetVar( "spriteheight" )->GetValueNumber());
 
     SetSpriteSheet( FileName() );
     UpdateTextureRect();

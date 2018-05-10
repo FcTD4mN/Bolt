@@ -33,6 +33,9 @@ public:
     virtual  void  Draw( sf::RenderTarget* iRenderTarget ) override;
     virtual  void  Update( unsigned int iDeltaTime ) override;
 
+public:
+    void  SetGravity( float  iGravity );
+
 private:
     sf::FloatRect  GetEntityHitBox( ::nECS::cEntity* iEntity );
 
@@ -44,6 +47,8 @@ public:
 private:
     std::vector< cEntity* > mStaticEntities;
     std::vector< cEntity* > mDynamicEntities;
+
+    float  mGlobalGravity;
 
 };
 

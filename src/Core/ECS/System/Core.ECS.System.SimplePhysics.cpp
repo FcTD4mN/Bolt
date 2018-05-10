@@ -23,7 +23,8 @@ cSimplePhysics::~cSimplePhysics()
 
 
 cSimplePhysics::cSimplePhysics() :
-    tSuperClass()
+    tSuperClass(),
+    mGlobalGravity( 0.0 )
 {
 }
 
@@ -109,6 +110,9 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 
         bool collided = false;
 
+        // Applying gravity
+        simplephysic->mVelocity.y += mGlobalGravity * ( iDeltaTime * 1E-6F );
+
         projection = entityHitBox;
         projection.left += simplephysic->mVelocity.x;
         projection.top += simplephysic->mVelocity.y;
@@ -150,6 +154,13 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             simplephysic->InvalidCache();
         }
     }
+}
+
+
+void
+cSimplePhysics::SetGravity( float iGravity )
+{
+    mGlobalGravity = iGravity;
 }
 
 

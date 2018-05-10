@@ -106,8 +106,11 @@ cGameApplication::Initialize()
 
     mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
     mWorld->AddSystem( new ::nECS::cSightSystem() );
-    mWorld->AddSystem( new ::nECS::cSimplePhysics() );
     mWorld->AddSystem( new ::nECS::cSquareController() );
+
+    auto physicSystem = new ::nECS::cSimplePhysics();
+    physicSystem->SetGravity( 9.807 );
+    mWorld->AddSystem( physicSystem );
 
     // Following call may need world
     ::nECS::cComponentRegistry::Instance()->Initialize();
