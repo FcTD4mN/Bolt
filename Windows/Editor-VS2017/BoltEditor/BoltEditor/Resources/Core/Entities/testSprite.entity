@@ -14,7 +14,7 @@
         </component>
         <component name="spriteanimated" width="40" height="64">
             <variables>
-                <variable name="filename" type="2" value="D:/Developpement/Bolt/Windows/Editor-VS2017/BoltEditor/BoltEditor/Resources/Core\Images/SpriteSheets/communiste_spritesheet.png"/>
+                <variable name="filename" type="2" value="A:\Programmation\BoltDev\Bolt\resources\Core\Images\SpriteSheets\communiste_spritesheet.png"/>
                 <variable name="framerate" type="1" value="24"/>
                 <variable name="paused" type="3" value="false"/>
             </variables>

@@ -120,10 +120,17 @@ cComponentGeneric::GetVar( const std::string& iVarName )
 
 
 void
-cComponentGeneric::SetVar( const std::string& iVarName, ::nBase::cVariant* iValue )
+cComponentGeneric::AddNewVariable( const std::string& iVarName, ::nBase::cVariant* iValue )
 {
     delete  mVars[ iVarName ];
     mVars[ iVarName ] = iValue;
+}
+
+
+void
+cComponentGeneric::SetVarValueChangedCallback( const std::string & iVarName, std::function< void() > iFunction )
+{
+    mVars[ iVarName ]->SetValueChangedCallback( iFunction );
 }
 
 

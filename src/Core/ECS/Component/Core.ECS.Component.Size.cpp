@@ -44,8 +44,8 @@ cSize::cSize( const cSize & iRHS ) :
 void
 cSize::Build( float iW, float iH )
 {
-    SetVar( "w", ::nBase::cVariant::MakeVariant( iW ) );
-    SetVar( "h", ::nBase::cVariant::MakeVariant( iH ) );
+    AddNewVariable( "w", ::nBase::cVariant::MakeVariant( iW ) );
+    AddNewVariable( "h", ::nBase::cVariant::MakeVariant( iH ) );
 }
 
 

@@ -17,7 +17,8 @@ cVariant::cVariant()
 }
 
 
-cVariant::cVariant( const cVariant & iRHS )
+cVariant::cVariant( const cVariant & iRHS ) :
+    mValueChangedCallback( iRHS.mValueChangedCallback )
 {
     // Not much to do here
 }
@@ -141,6 +142,12 @@ cVariant::SetValueBool( bool iValue )
 // ==============================================================================================================
 
 
+void cVariant::SetValueChangedCallback( std::function< void() > iFunction )
+{
+    mValueChangedCallback = iFunction;
+}
+
+
 void
 cVariant::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
@@ -245,6 +252,9 @@ void
 cNumber::Value( double iValue )
 {
     mValue = iValue;
+
+    if( mValueChangedCallback )
+        mValueChangedCallback();
 }
 
 
@@ -343,6 +353,9 @@ void
 cString::Value( const std::string & iValue )
 {
     mValue = iValue;
+
+    if( mValueChangedCallback )
+        mValueChangedCallback();
 }
 
 
@@ -441,6 +454,9 @@ void
 cBoolean::Value( bool iValue )
 {
     mValue = iValue;
+
+    if( mValueChangedCallback )
+        mValueChangedCallback();
 }
 
 

@@ -67,7 +67,8 @@ public:
         // Yes we can get the variant, and modify it on the stop, so it's faster
     ::nBase::cVariant*    GetVar( const std::string& iVarName );
         // Simple setter
-    void                  SetVar( const std::string& iVarName, ::nBase::cVariant* iValue );
+    void                  AddNewVariable( const std::string& iVarName, ::nBase::cVariant* iValue );
+    void                  SetVarValueChangedCallback( const std::string& iVarName, std::function< void() > iFunction );
 
     // EDITOR USED methods
     int                 VarCount() const;
@@ -82,7 +83,8 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::map< std::string, ::nBase::cVariant* > mVars;
+    std::map< std::string, ::nBase::cVariant* >         mVars;
+    std::map< std::string, std::function< void() > >    mValueChangeCallbacks; // Callbacks to call when value changed
 };
 
 

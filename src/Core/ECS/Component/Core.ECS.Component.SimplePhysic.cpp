@@ -44,10 +44,10 @@ cSimplePhysic::cSimplePhysic( const cSimplePhysic & iSimplePhysic ) :
 void
 cSimplePhysic::BuildComponent( double iCenterX, double iCenterY, double iSizeW, double iSizeH, eType iType )
 {
-    SetVar( "CenterX", ::nBase::cVariant::MakeVariant( iCenterX ) );
-    SetVar( "CenterY", ::nBase::cVariant::MakeVariant( iCenterY ) );
-    SetVar( "SizeW", ::nBase::cVariant::MakeVariant( iSizeW ) );
-    SetVar( "SizeH", ::nBase::cVariant::MakeVariant( iSizeH ) );
+    AddNewVariable( "CenterX", ::nBase::cVariant::MakeVariant( iCenterX ) );
+    AddNewVariable( "CenterY", ::nBase::cVariant::MakeVariant( iCenterY ) );
+    AddNewVariable( "SizeW", ::nBase::cVariant::MakeVariant( iSizeW ) );
+    AddNewVariable( "SizeH", ::nBase::cVariant::MakeVariant( iSizeH ) );
 
     mIsCacheValid = false;
 }

@@ -39,20 +39,45 @@ cSpriteAnimated::cSpriteAnimated( const cSpriteAnimated & iSpriteAnimated ) :
     mCurrentSpriteRect( iSpriteAnimated.mCurrentSpriteRect ),
     mClock( iSpriteAnimated.mClock )
 {
+    BuildCallbacks();
 }
 
 
 void
 cSpriteAnimated::Build( const std::string & iFile, int iW, int iH )
 {
-    SetVar( "filename", ::nBase::cVariant::MakeVariant( iFile ) );
-    SetVar( "framerate", ::nBase::cVariant::MakeVariant( 24.0 ) );
-    SetVar( "paused", ::nBase::cVariant::MakeVariant( false ) );
+    AddNewVariable( "filename", ::nBase::cVariant::MakeVariant( iFile ) );
+    AddNewVariable( "framerate", ::nBase::cVariant::MakeVariant( 24.0 ) );
+    AddNewVariable( "paused", ::nBase::cVariant::MakeVariant( false ) );
+    AddNewVariable( "flip", ::nBase::cVariant::MakeVariant( false ) );
+
+    BuildCallbacks();
 
     mCurrentSpriteRect = sf::IntRect( 0, 0, iW, iH );
 
     if( iFile != "empty" )
         SetSpriteSheet( iFile, iW, iH );
+}
+
+
+void
+cSpriteAnimated::BuildCallbacks()
+{
+    SetVarValueChangedCallback( "filename", [ this ](){
+
+        SetSpriteSheet( GetVar( "filename" )->GetValueString(), mCurrentSpriteRect.width, mCurrentSpriteRect.height );
+
+    } );
+
+    SetVarValueChangedCallback( "flip", [ this ](){
+
+        if( Flip() )
+            mSprite.setTextureRect( sf::IntRect( mCurrentSpriteRect.width, 0, -mCurrentSpriteRect.width, mCurrentSpriteRect.height ) );
+        else
+            mSprite.setTextureRect( sf::IntRect( 0, 0, mCurrentSpriteRect.width, mCurrentSpriteRect.height ) );
+
+
+    } );
 }
 
 
@@ -139,17 +164,16 @@ cSpriteAnimated::PreviousFrame()
 }
 
 
-void
+bool
 cSpriteAnimated::Flip()
 {
-    mSprite.setScale( sf::Vector2f( -1.0F, 1.0F ) );
+    return  GetVar( "flip" )->GetValueBool();
 }
 
 
-void
-cSpriteAnimated::Unflip()
+void cSpriteAnimated::Flip( bool iFlip )
 {
-    mSprite.setScale( sf::Vector2f( 1.0F, 1.0F ) );
+    GetVar( "flip" )->SetValueBool( iFlip );
 }
 
 

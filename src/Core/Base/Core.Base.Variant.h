@@ -4,6 +4,7 @@
 
 
 #include <string>
+#include <functional>
 
 
 namespace nBase {
@@ -38,19 +39,24 @@ public:
     virtual  eType  Type();
     virtual  std::string TypeAsString() const;
 
-    virtual  double              GetValueNumber() const;
-    virtual  const std::string&  GetValueString() const;
-    virtual  bool                GetValueBool() const;
-    virtual  void                SetValueNumber( double iValue );
-    virtual  void                SetValueString( const std::string& iValue );
-    virtual  void                SetValueBool( bool iValue );
+    virtual  double                 GetValueNumber() const;
+    virtual  const std::string&     GetValueString() const;
+    virtual  bool                   GetValueBool() const;
+    virtual  void                   SetValueNumber( double iValue );
+    virtual  void                   SetValueString( const std::string& iValue );
+    virtual  void                   SetValueBool( bool iValue );
 
-    virtual  std::string         ToString() const = 0;
+    virtual  std::string            ToString() const = 0;
+
+    void                            SetValueChangedCallback( std::function< void() > iFunction );
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
     static  cVariant* MakeFromXML( tinyxml2::XMLElement* iNode );
+
+protected:
+    std::function< void() > mValueChangedCallback;
 };
 
 

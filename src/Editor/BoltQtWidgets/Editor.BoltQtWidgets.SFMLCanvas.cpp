@@ -30,7 +30,6 @@ SFMLCanvas::~SFMLCanvas()
 }
 
 
-
 SFMLCanvas::SFMLCanvas( QWidget* Parent, const QPoint& Position, const QSize& Size, unsigned int FrameTime ) :
     QWidget( Parent ),
     mRenderWindow( 0 ),
@@ -507,7 +506,6 @@ SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
 
             newX = int( newX / mSnapGrid->Width() ) * mSnapGrid->Width();
             newY = int( newY / mSnapGrid->Height() ) * mSnapGrid->Height();
-
         }
 
         position->X( newX );

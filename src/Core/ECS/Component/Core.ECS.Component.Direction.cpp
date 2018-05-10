@@ -17,24 +17,24 @@ cDirection::~cDirection()
 cDirection::cDirection() :
     tSuperClass( "direction" )
 {
-    SetVar( "x", ::nBase::cVariant::MakeVariant( 0.0 ) );
-    SetVar( "y", ::nBase::cVariant::MakeVariant( 0.0 ) );
+    AddNewVariable( "x", ::nBase::cVariant::MakeVariant( 0.0 ) );
+    AddNewVariable( "y", ::nBase::cVariant::MakeVariant( 0.0 ) );
 }
 
 
 cDirection::cDirection( float iX, float iY ) :
     tSuperClass( "direction" )
 {
-    SetVar( "x", ::nBase::cVariant::MakeVariant( iX ) );
-    SetVar( "y", ::nBase::cVariant::MakeVariant( iY ) );
+    AddNewVariable( "x", ::nBase::cVariant::MakeVariant( iX ) );
+    AddNewVariable( "y", ::nBase::cVariant::MakeVariant( iY ) );
 }
 
 
 cDirection::cDirection( const sf::Vector2f& iPosition ) :
     tSuperClass( "direction" )
 {
-    SetVar( "x", ::nBase::cVariant::MakeVariant( iPosition.x ) );
-    SetVar( "y", ::nBase::cVariant::MakeVariant( iPosition.y ) );
+    AddNewVariable( "x", ::nBase::cVariant::MakeVariant( iPosition.x ) );
+    AddNewVariable( "y", ::nBase::cVariant::MakeVariant( iPosition.y ) );
 }
 
 

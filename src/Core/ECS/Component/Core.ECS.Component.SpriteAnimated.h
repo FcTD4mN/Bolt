@@ -23,7 +23,9 @@ public:
     cSpriteAnimated( const std::string& iFile, int iW, int iH );
     cSpriteAnimated( const cSpriteAnimated& iSpriteAnimated );
 
+private:
     void Build( const std::string& iFile, int iW, int iH );
+    void BuildCallbacks();
 
 public:
     // Copy
@@ -43,8 +45,8 @@ public:
     // Handle functions
     void  NextFrame();
     void  PreviousFrame();
-    void  Flip();
-    void  Unflip();
+    bool  Flip();
+    void  Flip( bool iFlip );
 
 public:
     void SetSpriteSheet( const std::string& iFile, int iW, int iH );
