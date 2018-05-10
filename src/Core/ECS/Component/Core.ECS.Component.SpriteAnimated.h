@@ -26,6 +26,7 @@ public:
 private:
     void Build( const std::string& iFile, int iW, int iH );
     void BuildCallbacks();
+    void UpdateTextureRect();
 
 public:
     // Copy
@@ -49,7 +50,7 @@ public:
     void  Flip( bool iFlip );
 
 public:
-    void SetSpriteSheet( const std::string& iFile, int iW, int iH );
+    void SetSpriteSheet( const std::string& iFile );
 
 public:
     // Input/Output
@@ -61,6 +62,8 @@ public:
     sf::Sprite      mSprite;
     sf::IntRect     mCurrentSpriteRect;
     sf::Clock       mClock;             // Animation clock
+
+    int             mNumberOfSprites;
 
 };
 

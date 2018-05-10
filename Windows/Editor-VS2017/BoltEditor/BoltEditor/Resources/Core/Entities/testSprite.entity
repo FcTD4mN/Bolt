@@ -12,11 +12,15 @@
                 <variable name="w" type="1" value="40"/>
             </variables>
         </component>
-        <component name="spriteanimated" width="40" height="64">
+        <component name="spriteanimated">
             <variables>
+                <variable name="currentframe" type="1" value="1"/>
                 <variable name="filename" type="2" value="A:\Programmation\BoltDev\Bolt\resources\Core\Images\SpriteSheets\communiste_spritesheet.png"/>
+                <variable name="flip" type="3" value="false"/>
                 <variable name="framerate" type="1" value="24"/>
                 <variable name="paused" type="3" value="false"/>
+                <variable name="spriteheight" type="1" value="64"/>
+                <variable name="spritewidth" type="1" value="40"/>
             </variables>
         </component>
         <component name="simplephysic" veloX="0" veloY="0" type="0">

@@ -37,7 +37,8 @@ cSpriteAnimated::cSpriteAnimated( const cSpriteAnimated & iSpriteAnimated ) :
     mSpriteSheet( iSpriteAnimated.mSpriteSheet ), // Copy pointer -> Same object, but this is what we want, we don't copy a same texture ( that's why we have a resource manager )
     mSprite( iSpriteAnimated.mSprite ),
     mCurrentSpriteRect( iSpriteAnimated.mCurrentSpriteRect ),
-    mClock( iSpriteAnimated.mClock )
+    mClock( iSpriteAnimated.mClock ),
+    mNumberOfSprites( iSpriteAnimated.mNumberOfSprites )
 {
     BuildCallbacks();
 }
@@ -51,12 +52,16 @@ cSpriteAnimated::Build( const std::string & iFile, int iW, int iH )
     AddNewVariable( "paused", ::nBase::cVariant::MakeVariant( false ) );
     AddNewVariable( "flip", ::nBase::cVariant::MakeVariant( false ) );
 
+    AddNewVariable( "currentframe", ::nBase::cVariant::MakeVariant( 1 ) );
+    AddNewVariable( "spritewidth", ::nBase::cVariant::MakeVariant( iW ) );
+    AddNewVariable( "spriteheight", ::nBase::cVariant::MakeVariant( iH ) );
+
     BuildCallbacks();
 
     mCurrentSpriteRect = sf::IntRect( 0, 0, iW, iH );
 
     if( iFile != "empty" )
-        SetSpriteSheet( iFile, iW, iH );
+        SetSpriteSheet( iFile );
 }
 
 
@@ -65,19 +70,58 @@ cSpriteAnimated::BuildCallbacks()
 {
     SetVarValueChangedCallback( "filename", [ this ](){
 
-        SetSpriteSheet( GetVar( "filename" )->GetValueString(), mCurrentSpriteRect.width, mCurrentSpriteRect.height );
+        SetSpriteSheet( GetVar( "filename" )->GetValueString() );
+        UpdateTextureRect();
 
     } );
 
     SetVarValueChangedCallback( "flip", [ this ](){
 
-        if( Flip() )
-            mSprite.setTextureRect( sf::IntRect( mCurrentSpriteRect.width, 0, -mCurrentSpriteRect.width, mCurrentSpriteRect.height ) );
-        else
-            mSprite.setTextureRect( sf::IntRect( 0, 0, mCurrentSpriteRect.width, mCurrentSpriteRect.height ) );
+        UpdateTextureRect();
+    } );
 
+
+    SetVarValueChangedCallback( "currentframe", [ this ](){
+
+        auto varCurrentFrame = GetVar( "currentframe" );
+
+        if( varCurrentFrame->GetValueNumber() < 1 )
+            varCurrentFrame->SetValueNumber( 1 );
+        else if( varCurrentFrame->GetValueNumber() > mNumberOfSprites )
+            varCurrentFrame->SetValueNumber( mNumberOfSprites );
+
+        UpdateTextureRect();
 
     } );
+
+
+    SetVarValueChangedCallback( "spritewidth", [ this ](){
+
+        UpdateTextureRect();
+    } );
+
+
+    SetVarValueChangedCallback( "spriteheight", [ this ](){
+
+        UpdateTextureRect();
+    } );
+
+}
+
+
+void
+cSpriteAnimated::UpdateTextureRect()
+{
+    double spriteWidth = GetVar( "spritewidth" )->GetValueNumber();
+    mCurrentSpriteRect.left = (GetVar( "currentframe" )->GetValueNumber() - 1) * spriteWidth;
+    mCurrentSpriteRect.width = spriteWidth;
+    if( Flip() )
+    {
+        mCurrentSpriteRect.left += spriteWidth;
+        mCurrentSpriteRect.width = spriteWidth * -1;
+    }
+
+    mSprite.setTextureRect( mCurrentSpriteRect );
 }
 
 
@@ -148,19 +192,22 @@ cSpriteAnimated::Paused( bool iValue )
 void
 cSpriteAnimated::NextFrame()
 {
-    mCurrentSpriteRect.left = (mCurrentSpriteRect.left + mCurrentSpriteRect.width ) % mSpriteSheet->getSize().x;
-    mSprite.setTextureRect( mCurrentSpriteRect );
+    auto varCurrentFrame = GetVar( "currentframe" );
+    varCurrentFrame->SetValueNumber( ( int( varCurrentFrame->GetValueNumber()) % mNumberOfSprites ) + 1 );
+
+    UpdateTextureRect();
 }
 
 
 void
 cSpriteAnimated::PreviousFrame()
 {
-    mCurrentSpriteRect.left -= mCurrentSpriteRect.width;
-    if( mCurrentSpriteRect.left < 0 )
-        mCurrentSpriteRect.left = mSpriteSheet->getSize().x - mCurrentSpriteRect.width;
+    auto varCurrentFrame = GetVar( "currentframe" );
+    varCurrentFrame->SetValueNumber( varCurrentFrame->GetValueNumber() - 1 );
+    if( varCurrentFrame->GetValueNumber() < 1 )
+        varCurrentFrame->SetValueNumber( mNumberOfSprites );
 
-    mSprite.setTextureRect( mCurrentSpriteRect );
+    UpdateTextureRect();
 }
 
 
@@ -178,12 +225,14 @@ void cSpriteAnimated::Flip( bool iFlip )
 
 
 void
-cSpriteAnimated::SetSpriteSheet( const std::string & iFile, int iW, int iH )
+cSpriteAnimated::SetSpriteSheet( const std::string & iFile )
 {
     mSpriteSheet = ::nBase::cResourceManager::Instance()->GetTexture( iFile );
     mSprite.setTexture( *mSpriteSheet );
-    mSprite.setTextureRect( mCurrentSpriteRect );
-    mSprite.setOrigin( sf::Vector2f( float( iW / 2 ), float( iH / 2 ) ) );
+
+    mSprite.setOrigin( sf::Vector2f( float( mCurrentSpriteRect.width / 2 ), float( mCurrentSpriteRect.height / 2 ) ) );
+
+    mNumberOfSprites = mSpriteSheet->getSize().x / mCurrentSpriteRect.width;
 }
 
 
@@ -196,8 +245,6 @@ void
 cSpriteAnimated::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
     tSuperClass::SaveXML( iNode, iDocument );
-    iNode->SetAttribute( "width", mCurrentSpriteRect.width );
-    iNode->SetAttribute( "height", mCurrentSpriteRect.height );
 }
 
 
@@ -205,13 +252,12 @@ void
 cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
-    int width = iNode->IntAttribute( "width", 0 );
-    int height = iNode->IntAttribute( "height", 0 );
 
-    mCurrentSpriteRect.width = width;
-    mCurrentSpriteRect.height = height;
+    mCurrentSpriteRect.width = GetVar( "spritewidth" )->GetValueNumber();
+    mCurrentSpriteRect.height = GetVar( "spriteheight" )->GetValueNumber();
 
-    SetSpriteSheet( FileName(), width, height );
+    SetSpriteSheet( FileName() );
+    UpdateTextureRect();
 }
 
 

@@ -67,7 +67,7 @@ cAnimationRenderer::Draw( sf::RenderTarget* iRenderTarget )
         sf::Vector2f spritePos( float(position->X()), float(position->Y()) );
         spriteanimated->mSprite.setPosition( spritePos );
         spriteanimated->mSprite.setOrigin( 0,0 );
-        spriteanimated->mSprite.setScale( float(size->W()) / spriteanimated->mCurrentSpriteRect.width, float(size->H()) / spriteanimated->mCurrentSpriteRect.height );
+        spriteanimated->mSprite.setScale( float(size->W()) / float(spriteanimated->GetVar( "spritewidth" )->GetValueNumber()), float(size->H()) / float(spriteanimated->GetVar( "spriteheight" )->GetValueNumber()) );
 
         iRenderTarget->draw( spriteanimated->mSprite );
     }
