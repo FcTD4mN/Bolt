@@ -286,7 +286,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     // ============= SINGLE THREAD ============
     // ========================================
 
-    //cEntityGrid* entityMap = cGameApplication::App()->EntityMap();
+    //::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
 
     //mFOVDrawer.clear();
 
@@ -312,18 +312,18 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //    sf::Vector2f fovB;
 
     //    // Get FOV triangles
-    //    fovOrigin = position->mPosition; // Base point of the triangle
-    //    float semiAngle = float( fieldofview->mAngle / 2.0F );
+    //    fovOrigin = position->AsVector2F(); // Base point of the triangle
+    //    float semiAngle = float( fieldofview->Angle() / 2.0F );
     //    sf::Transform rotation;
     //    rotation.rotate( semiAngle );
 
     //    // This vector is the vector of the bisectrice of the FOV
-    //    sf::Vector2f baseVector = direction->mDirection * float( fieldofview->mDistance );
+    //    sf::Vector2f baseVector = direction->AsVector2F() * float( fieldofview->Distance() );
     //    fovB = rotation.transformPoint( baseVector ); // This will be the most top left point of the first triangle
     //                                                  // Reset the rotation
     //    rotation = rotation.Identity;
     //    // Set it to FOV angle / number of split, negative so it goes right and not left
-    //    rotation.rotate( float( -fieldofview->mAngle ) / FOVSplitThreshold );
+    //    rotation.rotate( float( -fieldofview->Angle() ) / FOVSplitThreshold );
 
     //    for( int i = 0; i < FOVSplitThreshold; ++i )
     //    {
@@ -338,7 +338,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //        mTriangles.push_back( subFov );
     //    }
 
-    //    mFOVBBox = GetTriangleSetBBox( mTriangles );
+    //    //mFOVBBox = GetTriangleSetBBox( mTriangles ); // Function was removed, too lazy to seek in through git
+    //    mFOVBBox = sf::FloatRect( 0.0, 0.0, 800, 600 );
 
     //    std::vector< cEntity* > entitiesInFOVBBox;
     //    entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
@@ -353,16 +354,18 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //        auto sizeENT = dynamic_cast< cSize* >( v->GetComponentByName( "size" ) );
 
     //        sf::VertexArray analysisVisibleBox( sf::Points, 4 );
-    //        analysisVisibleBox[ 0 ] = positionENT->mPosition;
-    //        analysisVisibleBox[ 1 ] = positionENT->mPosition + sf::Vector2f( 0.0F, sizeENT->mSize.y );
-    //        analysisVisibleBox[ 2 ] = positionENT->mPosition + sizeENT->mSize;
-    //        analysisVisibleBox[ 3 ] = positionENT->mPosition + sf::Vector2f( sizeENT->mSize.x, 0.0F );
+    //        sf::Vector2f posEntVector = positionENT->AsVector2F();
+    //        sf::Vector2f sizeEntVector = sizeENT->AsVector2F();
+    //        analysisVisibleBox[ 0 ] = posEntVector;
+    //        analysisVisibleBox[ 1 ] = posEntVector + sf::Vector2f( 0.0F, sizeEntVector.y );
+    //        analysisVisibleBox[ 2 ] = posEntVector + sizeEntVector;
+    //        analysisVisibleBox[ 3 ] = posEntVector + sf::Vector2f( sizeEntVector.x, 0.0F );
 
     //        // No threading
     //        std::vector< sf::VertexArray >  subTriangles;
     //        for( int i = int( mTriangles.size() - 1 ); i >= 0; --i )
     //        {
-    //            TriangleSubDivisionUsingPolygon( &subTriangles, mTriangles[ i ], analysisVisibleBox );
+    //            ::nMath::TriangleSubDivisionUsingPolygon( &subTriangles, mTriangles[ i ], analysisVisibleBox );
 
     //            if( subTriangles.size() > 0 )
     //            {

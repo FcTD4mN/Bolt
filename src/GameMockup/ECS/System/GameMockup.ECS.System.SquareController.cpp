@@ -79,12 +79,13 @@ cSquareController::Update( unsigned int iDeltaTime )
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
 
         simplephysic->mVelocity.x = 0;
+        simplephysic->mVelocity.y = 0;
 
         for( int i = 0; i < userinput->mActions.size(); ++i )
         {
             if( userinput->mActions[ i ] == "moveup" )
             {
-                simplephysic->mVelocity.y -= 2.0F;
+                simplephysic->mVelocity.y -= 1.0F;
             }
             else if( userinput->mActions[ i ] == "movedown" )
             {

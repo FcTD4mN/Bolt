@@ -109,7 +109,7 @@ cGameApplication::Initialize()
     mWorld->AddSystem( new ::nECS::cSquareController() );
 
     auto physicSystem = new ::nECS::cSimplePhysics();
-    physicSystem->SetGravity( 9.807 );
+    //physicSystem->SetGravity( 9.807F );
     mWorld->AddSystem( physicSystem );
 
     // Following call may need world
