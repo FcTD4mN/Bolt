@@ -7,6 +7,9 @@
 #include "Core.ECS.Component.SimplePhysic.h"
 #include "Core.ECS.Component.Size.h"
 
+#include "Core.Math.Edge.h"
+#include "Core.Math.Utils.h"
+
 
 
 namespace nECS {
@@ -64,7 +67,7 @@ cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
             cEntity* entity = mEntityGroup[ i ];
 
             auto simplephysic = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
-            sf::FloatRect entityHitbox = GetEntityHitBox( entity );
+            sf::FloatRect entityHitbox = GetEntityHitBoxAndCenter( 0, entity );
 
             // DEBUG Hitbox Drawing
             rect.setSize( sf::Vector2f( entityHitbox.width, entityHitbox.height ) );
@@ -88,7 +91,16 @@ cSimplePhysics::Draw( sf::RenderTarget* iRenderTarget )
 
             //    iRenderTarget->draw( lines );
             //}
+
         }
+
+        //sf::VertexArray closestLineDebug( sf::Lines );
+        //closestLineDebug.append( mDebugEdge.mPoint );
+        //closestLineDebug.append( mDebugEdge.mPoint + mDebugEdge.mDirection );
+        //closestLineDebug[ 0 ].color = sf::Color::Blue;
+        //closestLineDebug[ 1 ].color = sf::Color::Blue;
+
+        //iRenderTarget->draw( closestLineDebug );
     }
 
 #endif // _DEBUG
@@ -101,12 +113,15 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
     sf::Rect< float > entityHitBox;
     sf::Rect< float > projection;
     ::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
+
     for( int i = 0; i < mDynamicEntities.size(); ++i )
     {
         cEntity* entity = mDynamicEntities[ i ];
+        sf::Vector2f entityCenterPoint;
+
         auto simplephysic   = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
 
-        entityHitBox = GetEntityHitBox( entity );
+        entityHitBox = GetEntityHitBoxAndCenter( &entityCenterPoint, entity );
 
         bool collided = false;
 
@@ -124,9 +139,22 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         {
             cEntity* surroundingEntity = surrounding[ j ];
 
-            if( projection.intersects( GetEntityHitBox( surroundingEntity ) ) )
+            sf::FloatRect surrENtHitBox = GetEntityHitBoxAndCenter( 0, surroundingEntity );
+
+            if( projection.intersects( surrENtHitBox ) )
             {
                 collided = true;
+                //sf::Vector2f motionVector = sf::Vector2f( projection.left, projection.top ) - sf::Vector2f( entityHitBox.left, entityHitBox.top );
+
+                //sf::VertexArray polygonCradePourTestSiCaMarcheTavu;
+                //polygonCradePourTestSiCaMarcheTavu.append( sf::Vector2f( surrENtHitBox.left, surrENtHitBox.top ) );
+                //polygonCradePourTestSiCaMarcheTavu.append( sf::Vector2f( surrENtHitBox.left, surrENtHitBox.top + surrENtHitBox.height ) );
+                //polygonCradePourTestSiCaMarcheTavu.append( sf::Vector2f( surrENtHitBox.left + surrENtHitBox.width, surrENtHitBox.top + surrENtHitBox.height ) );
+                //polygonCradePourTestSiCaMarcheTavu.append( sf::Vector2f( surrENtHitBox.left + surrENtHitBox.width, surrENtHitBox.top ) );
+
+                //::nMath::cEdgeF closestEdge = ::nMath::GetClosestEdgeIntersectingFromPolygon( polygonCradePourTestSiCaMarcheTavu, ::nMath::cEdgeF::MakePointDirection( entityCenterPoint, motionVector ) );
+                //mDebugEdge = closestEdge;
+
                 simplephysic->mVelocity.x = 0.0F;
                 simplephysic->mVelocity.y = 0.0F;
                 break;
@@ -165,7 +193,7 @@ cSimplePhysics::SetGravity( float iGravity )
 
 
 sf::FloatRect
-cSimplePhysics::GetEntityHitBox( ::nECS::cEntity * iEntity )
+cSimplePhysics::GetEntityHitBoxAndCenter( sf::Vector2f* oCenter, ::nECS::cEntity * iEntity )
 {
     auto simplephysic   = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
     auto position       = dynamic_cast< cPosition* >( iEntity->GetComponentByName( "position" ) );
@@ -174,6 +202,9 @@ cSimplePhysics::GetEntityHitBox( ::nECS::cEntity * iEntity )
     sf::Vector2f entityCenter = position->AsVector2F();
     if( size )
         entityCenter += size->AsVector2F() / 2.0F;
+
+    if( oCenter )
+        *oCenter = entityCenter;
 
     return  simplephysic->GetAbsoluteHitBoxUsingCenterPosition( entityCenter );
 }

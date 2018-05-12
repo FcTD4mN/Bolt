@@ -7,6 +7,9 @@
 
 #include <SFML/Graphics.hpp>
 
+// DEBUG
+#include "Core.Math.Edge.h"
+
 
 namespace nECS {
 
@@ -37,7 +40,7 @@ public:
     void  SetGravity( float  iGravity );
 
 private:
-    sf::FloatRect  GetEntityHitBox( ::nECS::cEntity* iEntity );
+    sf::FloatRect  GetEntityHitBoxAndCenter( sf::Vector2f* oCenter, ::nECS::cEntity * iEntity );
 
 public:
     // Entity
@@ -49,6 +52,9 @@ private:
     std::vector< cEntity* > mDynamicEntities;
 
     float  mGlobalGravity;
+
+    //DEBUG
+    ::nMath::cEdgeF mDebugEdge;
 
 };
 

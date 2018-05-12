@@ -1,5 +1,6 @@
 ﻿#include "Core.Math.Utils.h"
 
+#include <limits>
 
 namespace nMath {
 
@@ -257,6 +258,29 @@ GetPointsFromPolygonInBetweenVectorsCCW( const sf::VertexArray & iPolygon, const
     }
 
     return  output;
+}
+
+
+cEdgeF
+GetClosestEdgeIntersectingFromPolygon( const sf::VertexArray & iPolygon, const cEdgeF & iEdge )
+{
+    float smallerParam = std::numeric_limits< float >::max();
+
+    cEdgeF closestEdge;
+
+    EnumerateEdgesFromPolygon( iPolygon, [ &smallerParam, &closestEdge, iEdge ]( bool* oStop, const cEdgeF& iPolygonEdge )
+    {
+        float paramA;
+        float paramB;
+
+        if( ::nMath::cEdgeF::Intersect( &paramA, &paramB, iEdge, iPolygonEdge ) )
+        {
+            if( smallerParam > paramA )
+                closestEdge = iPolygonEdge;
+        }
+    } );
+
+    return  closestEdge;
 }
 
 

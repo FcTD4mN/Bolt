@@ -31,9 +31,11 @@ static sf::Vector2f gXAxisVector( 1.0F, 0.0F );
 static sf::Vector2f gNULLVector( 0.0F, 0.0F );
 
 
+
 // Enumerators
 bool EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< void( bool* oStop, const cEdgeF& iEdge ) > iFunction );
 bool EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< void( bool* oStop, const sf::Vector2f& iPt1, const sf::Vector2f& iPt2 ) > iFunction );
+
 
 
 // Geometry
@@ -48,14 +50,22 @@ sf::FloatRect   GetTriangleSetBBox( const std::vector < sf::VertexArray >& iTria
 void            GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, const sf::VertexArray& iPolygon );
 sf::VertexArray GetPointsFromPolygonInBetweenVectorsCCW( const  sf::VertexArray& iPolygon, const sf::Vector2f& iFirstPoint, const sf::Vector2f& iSecondPoint );
 
+cEdgeF          GetClosestEdgeIntersectingFromPolygon( const  sf::VertexArray& iPolygon, const cEdgeF& iEdge );
+
+
+
 // TriangleSubDivisionUsingPolygon
 bool  TriangleSubDivisionUsingPolygon( std::vector< sf::VertexArray >* oSubTrianglesOutput, const sf::VertexArray& iTriangle, const sf::VertexArray& iPolygon );
+
+
 
 // Sorts
 sf::VertexArray CCWWindingSort( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByX( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByY( const sf::VertexArray& iPolygon );
 sf::VertexArray SortVertexesByAngle( const sf::VertexArray& iPolygon );
+
+
 
 // Contains
 bool            VertexArrayContainsVertex( const  sf::VertexArray& iArray, const sf::Vector2f& iVector );
