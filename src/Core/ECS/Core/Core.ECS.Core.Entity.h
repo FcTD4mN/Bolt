@@ -15,7 +15,7 @@ class cComponent;
 class cSystem;
 class cWorld;
 class cEntityParser;
-
+class cEntityHandle;
 
 namespace
 {
@@ -50,6 +50,7 @@ public:
 public:
     // Components
     void  AddComponent( cComponent* iComponent );
+    void  SetComponent( cComponent* iComponent );
     void  RemoveComponent( cComponent* iComponent );
     void  RemoveComponentByName( const std::string& iComponentName );
     cComponent*  GetComponentByName( const std::string& iComponentName );
@@ -76,6 +77,11 @@ public:
     bool SetID( const std::string& iID );
     void Destroy();
     void AddSystemObserver( cSystem* iSystem );
+    cEntityHandle GetHandle();
+    unsigned int  GetIDForHandle() const;
+
+private:
+    void IncIDForHandles();
 
 private:
     // World only
@@ -97,7 +103,41 @@ private:
     bool                        mLoaded;            // Allows creating an entity (ak, adding tags and components) without refreshing systems every time
     bool                        mDead;              // The entity is dead and shall be removed from world
 
+    unsigned int                mIDForHandles;
 };
+
+
+// =================================================
+// ===================== HANDLE ====================
+// =================================================
+
+
+class cEntityHandle
+{
+public:
+    ~cEntityHandle();
+    cEntityHandle( cEntity* iEntity );
+
+public:
+    cEntity * GetEntity();
+    bool    IsHandleValid();
+    bool    SyncHandle();
+
+private:
+    cEntity * mEntity;
+    unsigned int  mHandleID;
+};
+
+
+
+
+
+
+
+
+
+
+
 
 
 // =================================================

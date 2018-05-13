@@ -118,6 +118,9 @@
     <Filter Include="Fichiers sources\GameMockup\ECS\System">
       <UniqueIdentifier>{aabfeef2-0ff8-4268-a485-c723738cc2bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Core\AI\BehaviourTreeV2">
+      <UniqueIdentifier>{201d4901-36bd-4017-bce4-b93c6a1154ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.cpp">
@@ -326,6 +329,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.DataConverterProtocol.cpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Data\Conversion</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.cpp">
+      <Filter>Fichiers sources\Core\AI\BehaviourTreeV2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -583,6 +589,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Core.Volumetric.SparseOctree.RootROMSChunk.tImp.hpp">
       <Filter>Fichiers sources\Core\Volumetric\SparseOctree\Chunk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.h">
+      <Filter>Fichiers sources\Core\AI\BehaviourTreeV2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -34,7 +34,8 @@ cEntity::cEntity( cWorld* iWorld ) :
     mTags(),
     mObserverSystems(),
     mLoaded( false ),
-    mDead( false )
+    mDead( false ),
+    mIDForHandles( 1 )
 {
     mComponents.reserve( 16 );
     mTags.reserve( 64 );
@@ -49,7 +50,8 @@ cEntity::cEntity( const cEntity& iEntity ) :
     mTags( iEntity.mTags ),                         // This can be copied, as there is no pointer
     mObserverSystems( iEntity.mObserverSystems ),   // Same systems will observe this entity
     mLoaded( iEntity.mLoaded ),
-    mDead( iEntity.mDead )
+    mDead( iEntity.mDead ),
+    mIDForHandles( iEntity.mIDForHandles + 1 )
 {
     mComponents.reserve( iEntity.mComponents.size() );
     mTags.reserve( iEntity.mTags.size() );
@@ -102,6 +104,22 @@ cEntity::AddComponent( ::nECS::cComponent * iComponent )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+    IncIDForHandles();
+}
+
+
+void
+cEntity::SetComponent( cComponent * iComponent )
+{
+    for( int i = 0; i < mComponents.size(); ++i )
+    {
+        if( mComponents[ i ].key == iComponent->Name() )
+        {
+            delete  mComponents[ i ].value;
+            mComponents[ i ].value = iComponent;
+        }
+    }
+    IncIDForHandles();
 }
 
 
@@ -119,6 +137,7 @@ cEntity::RemoveComponent( cComponent * iComponent )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+    IncIDForHandles();
 }
 
 
@@ -136,6 +155,7 @@ cEntity::RemoveComponentByName( const std::string & iComponentName )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+    IncIDForHandles();
 }
 
 
@@ -169,6 +189,7 @@ cEntity::RemoveComponentAtIndex( int iIndex )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+    IncIDForHandles();
 }
 
 
@@ -188,6 +209,7 @@ void
 cEntity::AddTag( const std::string & iTag )
 {
     mTags.push_back( iTag );
+    IncIDForHandles();
 }
 
 
@@ -199,6 +221,7 @@ cEntity::RemoveTag( const std::string & iTag )
         if( mTags[ i ] == iTag )
             mTags.erase( mTags.begin() + i );
     }
+    IncIDForHandles();
 }
 
 
@@ -237,7 +260,7 @@ cEntity::GetTagCount() const
 bool
 cEntity::IsDead() const
 {
-    return mDead;
+    return  mDead;
 }
 
 
@@ -282,6 +305,7 @@ cEntity::Destroy()
         mObserverSystems[ i ]->EntityLost( this );
     }
     mDead = true;
+    IncIDForHandles();
 }
 
 
@@ -289,6 +313,27 @@ void
 cEntity::AddSystemObserver( cSystem * iSystem )
 {
     mObserverSystems.push_back( iSystem );
+}
+
+
+cEntityHandle
+cEntity::GetHandle()
+{
+    return  cEntityHandle( this );
+}
+
+
+unsigned int
+cEntity::GetIDForHandle() const
+{
+    return  mIDForHandles;
+}
+
+
+void
+cEntity::IncIDForHandles()
+{
+    mIDForHandles = ( mIDForHandles + 1 ) % 99999;
 }
 
 
@@ -359,6 +404,66 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
         AddTag( tag->Attribute( "name" ) );
     }
 }
+
+
+
+// =================================================
+// ===================== HANDLE ====================
+// =================================================
+
+
+
+cEntityHandle::~cEntityHandle()
+{
+}
+
+
+cEntityHandle::cEntityHandle( cEntity* iEntity ) :
+    mEntity( iEntity ),
+    mHandleID( iEntity->GetIDForHandle() )
+{
+}
+
+
+cEntity *
+cEntityHandle::GetEntity()
+{
+    if( IsHandleValid() )
+        return  mEntity;
+    else
+        return  0;
+}
+
+
+bool
+cEntityHandle::IsHandleValid()
+{
+    return  mEntity->GetIDForHandle() == mHandleID;
+}
+
+
+bool
+cEntityHandle::SyncHandle()
+{
+    if( mEntity->IsDead() )
+    {
+        return  false;
+    }
+    else
+    {
+        mHandleID = mEntity->GetIDForHandle();
+        return  true;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -577,7 +682,6 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
 //    }
 //}
 //
-
 
 } // namespace nECS
 
