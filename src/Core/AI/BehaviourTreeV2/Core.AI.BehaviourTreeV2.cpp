@@ -13,26 +13,50 @@ cBehaviourTreeV2::~cBehaviourTreeV2()
 
 cBehaviourTreeV2::cBehaviourTreeV2( const std::string& iNodeID, ::nECS::cEntityHandle& iHandle ) :
     mNodeID( iNodeID ),
-    mEntityHandle( iHandle )
+    mEntityHandle( iHandle ),
+    mOnStateEnter( 0 ),
+    mOnStateUpdate( 0 ),
+    mOnStateLeaving( 0 )
 {
 }
 
 
 void
-cBehaviourTreeV2::AddNode( ::nAI::cBehaviourTreeV2 * iNode )
+cBehaviourTreeV2::AddNode( ::nAI::cBehaviourTreeV2 * iNode, const std::string& iConnexionName )
 {
-    mConnectedNodes.push_back( iNode );
+    cNodeConnexion connexion;
+    connexion.mConnexionName = iConnexionName;
+    connexion.mNode = iNode;
+    connexion.mTransitionCondition = 0;
+
+    mConnexions.push_back( connexion );
+}
+
+
+void
+cBehaviourTreeV2::AddNodeConditionnal( ::nAI::cBehaviourTreeV2 * iNode, const std::string & iConnexionName, std::function<bool()> iCondition )
+{
+    cNodeConnexion connexion;
+    connexion.mConnexionName = iConnexionName;
+    connexion.mNode = iNode;
+    connexion.mTransitionCondition = iCondition;
+
+    mConnexions.push_back( connexion );
 }
 
 
 cBehaviourTreeV2*
 cBehaviourTreeV2::TransitionTo( const std::string & iNodeID )
 {
-    for( auto node : mConnectedNodes )
+    for( auto connexion : mConnexions )
     {
-        if( node->mNodeID == iNodeID )
+        if( connexion.mConnexionName == iNodeID )
         {
-            return  node;
+            if( mOnStateLeaving )
+                mOnStateLeaving();
+
+            connexion.mNode->ApplyNode();
+            return  connexion.mNode;
         }
     }
     return  0;
@@ -44,10 +68,11 @@ cBehaviourTreeV2::ApplyNode()
 {
     if( mEntityHandle.IsHandleValid() )
     {
+        if( mOnStateEnter )
+            mOnStateEnter();
+
         for( auto comp : mComponentsSnapShots )
-        {
             mEntityHandle.GetEntity()->SetComponent( comp->Clone() );
-        }
     }
     else
     {
@@ -74,6 +99,29 @@ cBehaviourTreeV2::SyncNode()
 }
 
 
+cBehaviourTreeV2 *
+cBehaviourTreeV2::Update( unsigned int iDeltaTime )
+{
+    if( mOnStateUpdate )
+        mOnStateUpdate();
+
+    for( auto connexion : mConnexions )
+    {
+        if( connexion.mTransitionCondition && connexion.mTransitionCondition() )
+        {
+            // Code duplicated to avoid the for loop in transitionTo again ...
+            if( mOnStateLeaving )
+                mOnStateLeaving();
+
+            connexion.mNode->ApplyNode();
+            return  connexion.mNode;
+        }
+    }
+
+    return  this;
+}
+
+
 void
 cBehaviourTreeV2::AddComponentSnapShot( const std::string & iComponentName )
 {
@@ -96,5 +144,29 @@ cBehaviourTreeV2::AddComponentSnapShot( const std::string & iComponentName )
         SyncNode();
     }
 }
+
+
+void
+cBehaviourTreeV2::SetOnEnterFunction( std::function< void() > iFunction )
+{
+    mOnStateEnter = iFunction;
+}
+
+
+void
+cBehaviourTreeV2::SetOnUpdateFunction( std::function< void() > iFunction )
+{
+    mOnStateUpdate = iFunction;
+}
+
+
+void
+cBehaviourTreeV2::SetOnLeavingFunction( std::function< void() > iFunction )
+{
+    mOnStateLeaving = iFunction;
+}
+
+
+
 
 } //nAI
