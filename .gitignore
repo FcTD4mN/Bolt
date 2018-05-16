@@ -264,6 +264,9 @@ __pycache__/
 # Dynamic libraries .dll binary files
 *.dll
 
+# Stackdump files
+sh.exe.stackdump
+
 Windows/BoltCore-VS2017/BoltCore/Lib/*
 Windows/BoltCore-VS2017/BoltCore/resources/* 
 Windows/Editor-VS2017/BoldEditor/BoltEditor/Lib/*
