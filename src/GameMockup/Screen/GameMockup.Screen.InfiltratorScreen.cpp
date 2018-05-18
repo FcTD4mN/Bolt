@@ -5,6 +5,7 @@
 #include "Core.ECS.Core.World.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 
+#include "Core.ECS.Component.BehaviourTree.h"
 #include "Core.ECS.Component.Color.h"
 #include "Core.ECS.Component.Direction.h"
 #include "Core.ECS.Component.Position.h"
@@ -13,6 +14,8 @@
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 #include "Core.ECS.Component.UserInput.h"
+
+#include "Core.AI.BehaviourTreeV2.h"
 
 #include "Core.Math.Utils.h"
 
@@ -88,12 +91,14 @@ cInfiltratorScreen::Initialize()
 
     ::nECS::cEntity* hero = new ::nECS::cEntity( world );
     hero->AddComponent( new ::nECS::cPosition( 350.0F, 350.0F ) );
-    hero->AddComponent( new ::nECS::cSize( 100.0F, 90.0F ) );
-    hero->AddComponent( new ::nECS::cColor( 20, 20, 200 ) );
+    hero->AddComponent( new ::nECS::cSize( 40.0F, 64.0F ) );
+    //hero->AddComponent( new ::nECS::cColor( 20, 20, 200 ) );
+    hero->AddComponent( new ::nECS::cSpriteAnimated( "./resources/Core/Images/SpriteSheets/communiste_spritesheet.png", 40, 64 ) );
     hero->AddComponent( new ::nECS::cUserInput() );
     hero->AddTag( "hero" );
-    hero->AddComponent( new ::nECS::cSimplePhysic( 100.0F, 90.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+    hero->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 64.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( hero );
+    BuildBehaviourTree( hero );
 
     mMechant = new ::nECS::cEntity( world );
     mMechant->AddComponent( new ::nECS::cPosition( 150.0F, 100.0F ) );
@@ -153,6 +158,102 @@ cInfiltratorScreen::Draw( sf::RenderTarget* iRenderTarget )
 void
 cInfiltratorScreen::Update( unsigned int iDeltaTime )
 {
+}
+
+
+void
+cInfiltratorScreen::BuildBehaviourTree( ::nECS::cEntity* iEntity )
+{
+    ::nAI::cBehaviourTreeV2* idleNode       = new ::nAI::cBehaviourTreeV2( "idle",      iEntity->GetHandle() );
+    idleNode->AddComponentSnapShot( "simplephysic" );
+    auto salut = dynamic_cast< ::nECS::cSimplePhysic* >( idleNode->GetSnapShotByName( "simplephysic" ) );
+    salut->mVelocity.x = 0;
+    salut->mVelocity.y = 0;
+
+    idleNode->AddComponentSnapShot( "spriteanimated" );
+    auto spriteIdle = dynamic_cast< ::nECS::cSpriteAnimated* >( idleNode->GetSnapShotByName( "spriteanimated" ) );
+    spriteIdle->Paused( true );
+
+
+    // =====================================================================
+    // =====================================================================
+
+
+    ::nAI::cBehaviourTreeV2* moveState = new ::nAI::cBehaviourTreeV2( "move", iEntity->GetHandle() );
+    moveState->SetOnUpdateFunction( []( ::nECS::cEntity* iEntity, unsigned int iDeltaTime )
+    {
+        auto physic = dynamic_cast< ::nECS::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+        auto animation = dynamic_cast< ::nECS::cSpriteAnimated* >( iEntity->GetComponentByName( "spriteanimated" ) );
+        auto userinput= dynamic_cast< ::nECS::cUserInput* >( iEntity->GetComponentByName( "userinput" ) );
+
+        bool rightMotion    = userinput->ContainsAction( "moveright" );
+        bool leftMotion     = userinput->ContainsAction( "moveleft" );
+        bool upMotion       = userinput->ContainsAction( "moveup" );
+        bool downMotion     = userinput->ContainsAction( "movedown" );
+
+        if( rightMotion )
+            physic->mVelocity.x = 1.0F;
+        if( leftMotion )
+            physic->mVelocity.x = -1.0F;
+
+        if( rightMotion == leftMotion )
+            physic->mVelocity.x = 0.0F;
+
+        if( upMotion )
+            physic->mVelocity.y = -1.0F;
+        if( downMotion )
+            physic->mVelocity.y = 1.0F;
+
+        if( upMotion == downMotion )
+            physic->mVelocity.y = 0.0F;
+
+        animation->Paused( false );
+        animation->Flip( rightMotion );
+    } );
+
+
+    idleNode->SetOnEnterFunction( [ idleNode ]( ::nECS::cEntity* iEntity )
+    {
+        auto animation = dynamic_cast< ::nECS::cSpriteAnimated* >( iEntity->GetComponentByName( "spriteanimated" ) );
+        auto ssanimation = dynamic_cast< ::nECS::cSpriteAnimated* >( idleNode->GetSnapShotByName( "spriteanimated" ) );
+        ssanimation->Flip( animation->Flip() );
+    } );
+
+
+    idleNode->AddNodeConditionnal( moveState, "move", []( ::nECS::cEntity* iEntity )
+    {
+        auto userInput = dynamic_cast< ::nECS::cUserInput* >( iEntity->GetComponentByName( "userinput" ) );
+        if( userInput )
+        {
+            bool rightMotion = userInput->ContainsAction( "moveright" );
+            bool leftMotion = userInput->ContainsAction( "moveleft" );
+            bool upMotion = userInput->ContainsAction( "moveup" );
+            bool downMotion = userInput->ContainsAction( "movedown" );
+
+            return  rightMotion || leftMotion || upMotion || downMotion;
+        }
+
+        return  false;
+    } );
+
+
+    moveState->AddNodeConditionnal( idleNode, "idle", []( ::nECS::cEntity* iEntity )
+    {
+        auto userInput = dynamic_cast< ::nECS::cUserInput* >( iEntity->GetComponentByName( "userinput" ) );
+        if( userInput )
+        {
+            bool rightMotion = userInput->ContainsAction( "moveright" );
+            bool leftMotion = userInput->ContainsAction( "moveleft" );
+            bool upMotion = userInput->ContainsAction( "moveup" );
+            bool downMotion = userInput->ContainsAction( "movedown" );
+
+            return  !(rightMotion || leftMotion || upMotion || downMotion);
+        }
+
+        return  false;
+    } );
+
+    iEntity->AddComponent( new ::nECS::cBehaviourTree( idleNode ) );
 }
 
 

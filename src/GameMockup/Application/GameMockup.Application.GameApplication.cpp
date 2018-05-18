@@ -6,6 +6,7 @@
 #include "Core.ECS.Utilities.ComponentRegistry.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 
+#include "Core.ECS.Component.BehaviourTree.h"
 #include "Core.ECS.Component.Color.h"
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
@@ -20,6 +21,7 @@
 #include "Core.ECS.System.SimplerRenderer.h"
 #include "Core.ECS.System.SimplePhysics.h"
 #include "Core.ECS.System.SightSystem.h"
+#include "Core.ECS.System.BehaviourTreeSystem.h"
 
 #include "Core.ECS.Core.ScreenEntityMap.h"
 
@@ -104,13 +106,15 @@ cGameApplication::Initialize()
     mWorld->AddSystem( ic );
     mWorld->ConnectSystemToEvents( ic );
 
-    mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
-    mWorld->AddSystem( new ::nECS::cSightSystem() );
-    mWorld->AddSystem( new ::nECS::cSquareController() );
-
     auto physicSystem = new ::nECS::cSimplePhysics();
     //physicSystem->SetGravity( 9.807F );
     mWorld->AddSystem( physicSystem );
+
+    mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
+    mWorld->AddSystem( new ::nECS::cSightSystem() );
+    mWorld->AddSystem( new ::nECS::cSquareController() );
+    mWorld->AddSystem( new ::nECS::cBehaviourTreeSystem() );
+
 
     // Following call may need world
     ::nECS::cComponentRegistry::Instance()->Initialize();
@@ -122,6 +126,7 @@ cGameApplication::Initialize()
     ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSpriteAnimated() );
     ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cUserInput() );
     ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSimplePhysic() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cBehaviourTree() );
 
     ::nECS::cEntityParser::Instance()->Initialize( mWorld );
 

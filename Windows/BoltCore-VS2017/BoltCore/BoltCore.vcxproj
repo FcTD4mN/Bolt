@@ -259,6 +259,7 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.System.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.World.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.cpp" />
@@ -350,6 +351,7 @@
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.System.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Core\Core.ECS.Core.World.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.h" />

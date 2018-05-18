@@ -333,6 +333,9 @@
     <ClCompile Include="..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.cpp">
       <Filter>Fichiers sources\Core\AI\BehaviourTreeV2</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
@@ -592,6 +595,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.h">
       <Filter>Fichiers sources\Core\AI\BehaviourTreeV2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -119,7 +119,7 @@ cEntity::SetComponent( cComponent * iComponent )
             mComponents[ i ].value = iComponent;
         }
     }
-    IncIDForHandles();
+    //IncIDForHandles(); // Should we invalid handle in this case ? or just if component count changed ?
 }
 
 

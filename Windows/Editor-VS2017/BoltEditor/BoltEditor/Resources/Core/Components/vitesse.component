@@ -1,0 +1,5 @@
+<component name="vitesse">
+    <variables>
+        <variable name="valeur" type="1" value="0"/>
+    </variables>
+</component>

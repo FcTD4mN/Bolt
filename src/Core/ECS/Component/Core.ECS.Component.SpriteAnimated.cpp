@@ -61,7 +61,10 @@ cSpriteAnimated::Build( const std::string & iFile, int iW, int iH )
     mCurrentSpriteRect = sf::IntRect( 0, 0, iW, iH );
 
     if( iFile != "empty" )
+    {
         SetSpriteSheet( iFile );
+        UpdateTextureRect();
+    }
 }
 
 
@@ -180,7 +183,7 @@ cSpriteAnimated::Framerate( double iValue )
 void
 cSpriteAnimated::Paused( bool iValue )
 {
-    GetVar( "framerate" )->SetValueBool( iValue );
+    GetVar( "paused" )->SetValueBool( iValue );
 }
 
 

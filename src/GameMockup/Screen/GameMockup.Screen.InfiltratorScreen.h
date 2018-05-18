@@ -29,6 +29,9 @@ public:
     virtual  void  Draw( sf::RenderTarget* iRenderTarget ) override;
     virtual  void  Update( unsigned int iDeltaTime ) override;
 
+private:
+    void  BuildBehaviourTree( ::nECS::cEntity* iEntity );
+
 public:
     // Events
     virtual  void  Resized( const sf::Event& iEvent ) override;                ///< The window was resized (data in event.size)
@@ -61,7 +64,6 @@ private:
     ::nECS::cEntity* mMechant;
 
     sf::Transform mRotationFOV;
-
 };
 
 

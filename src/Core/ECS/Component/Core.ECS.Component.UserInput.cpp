@@ -38,5 +38,18 @@ cUserInput::Clone()
 }
 
 
+bool
+cUserInput::ContainsAction( const std::string & iAction ) const
+{
+    for( int i = 0; i < mActions.size(); ++i )
+    {
+        if( mActions[ i ] == iAction )
+            return  true;
+    }
+
+    return false;
+}
+
+
 } // namespace nECS
 

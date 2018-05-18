@@ -11,7 +11,7 @@ cBehaviourTreeV2::~cBehaviourTreeV2()
 }
 
 
-cBehaviourTreeV2::cBehaviourTreeV2( const std::string& iNodeID, ::nECS::cEntityHandle& iHandle ) :
+cBehaviourTreeV2::cBehaviourTreeV2( const std::string& iNodeID, ::nECS::cEntityHandle iHandle ) :
     mNodeID( iNodeID ),
     mEntityHandle( iHandle ),
     mOnStateEnter( 0 ),
@@ -34,7 +34,7 @@ cBehaviourTreeV2::AddNode( ::nAI::cBehaviourTreeV2 * iNode, const std::string& i
 
 
 void
-cBehaviourTreeV2::AddNodeConditionnal( ::nAI::cBehaviourTreeV2 * iNode, const std::string & iConnexionName, std::function<bool()> iCondition )
+cBehaviourTreeV2::AddNodeConditionnal( ::nAI::cBehaviourTreeV2 * iNode, const std::string & iConnexionName, std::function<bool( ::nECS::cEntity* )> iCondition )
 {
     cNodeConnexion connexion;
     connexion.mConnexionName = iConnexionName;
@@ -52,8 +52,11 @@ cBehaviourTreeV2::TransitionTo( const std::string & iNodeID )
     {
         if( connexion.mConnexionName == iNodeID )
         {
+            if( !mEntityHandle.IsHandleValid() )
+                SyncNode();
+
             if( mOnStateLeaving )
-                mOnStateLeaving();
+                mOnStateLeaving( mEntityHandle.GetEntity() );
 
             connexion.mNode->ApplyNode();
             return  connexion.mNode;
@@ -66,18 +69,17 @@ cBehaviourTreeV2::TransitionTo( const std::string & iNodeID )
 void
 cBehaviourTreeV2::ApplyNode()
 {
-    if( mEntityHandle.IsHandleValid() )
-    {
-        if( mOnStateEnter )
-            mOnStateEnter();
-
-        for( auto comp : mComponentsSnapShots )
-            mEntityHandle.GetEntity()->SetComponent( comp->Clone() );
-    }
-    else
-    {
+    if( mNodeID == "idle" )
+        int a = 1;
+    DebugPRINT();
+    if( !mEntityHandle.IsHandleValid() )
         SyncNode();
-    }
+
+    if( mOnStateEnter )
+        mOnStateEnter( mEntityHandle.GetEntity() );
+
+    for( auto comp : mComponentsSnapShots )
+        mEntityHandle.GetEntity()->SetComponent( comp->Clone() );
 }
 
 
@@ -86,7 +88,7 @@ cBehaviourTreeV2::SyncNode()
 {
     mEntityHandle.SyncHandle();
 
-    for( size_t i = mComponentsSnapShots.size() - 1; i >= 0; --i )
+    for( int i = int(mComponentsSnapShots.size()) - 1; i >= 0; --i )
     {
         auto comp = mComponentsSnapShots[ i ];
 
@@ -99,24 +101,27 @@ cBehaviourTreeV2::SyncNode()
 }
 
 
-cBehaviourTreeV2 *
+cBehaviourTreeV2*
 cBehaviourTreeV2::Update( unsigned int iDeltaTime )
 {
-    if( mOnStateUpdate )
-        mOnStateUpdate( iDeltaTime );
+    if( !mEntityHandle.IsHandleValid() )
+        SyncNode();
 
     for( auto connexion : mConnexions )
     {
-        if( connexion.mTransitionCondition && connexion.mTransitionCondition() )
+        if( connexion.mTransitionCondition && connexion.mTransitionCondition( mEntityHandle.GetEntity() ) )
         {
             // Code duplicated to avoid the for loop in transitionTo again ...
             if( mOnStateLeaving )
-                mOnStateLeaving();
+                mOnStateLeaving( mEntityHandle.GetEntity() );
 
             connexion.mNode->ApplyNode();
             return  connexion.mNode;
         }
     }
+
+    if( mOnStateUpdate )
+        mOnStateUpdate( mEntityHandle.GetEntity(), iDeltaTime );
 
     return  this;
 }
@@ -125,45 +130,61 @@ cBehaviourTreeV2::Update( unsigned int iDeltaTime )
 void
 cBehaviourTreeV2::AddComponentSnapShot( const std::string & iComponentName )
 {
-    if( mEntityHandle.IsHandleValid() )
-    {
-        // If already snapshot, we delete the snap and put the new one
-        for( auto comp : mComponentsSnapShots )
-        {
-            if( comp->Name() == iComponentName )
-            {
-                delete  comp;
-                break;
-            }
-        }
-
-        mComponentsSnapShots.push_back( mEntityHandle.GetEntity()->GetComponentByName( iComponentName )->Clone() );
-    }
-    else
-    {
+    if( !mEntityHandle.IsHandleValid() )
         SyncNode();
+
+    // If already snapshot, we delete the snap and put the new one
+    for( auto comp : mComponentsSnapShots )
+    {
+        if( comp->Name() == iComponentName )
+        {
+            delete  comp;
+            break;
+        }
     }
+
+    mComponentsSnapShots.push_back( mEntityHandle.GetEntity()->GetComponentByName( iComponentName )->Clone() );
 }
 
 
+::nECS::cComponent*
+cBehaviourTreeV2::GetSnapShotByName( const std::string & iComponentName )
+{
+    for( auto comp : mComponentsSnapShots )
+    {
+        if( comp->Name() == iComponentName )
+            return  comp;
+    }
+
+    return  0;
+}
+
 void
-cBehaviourTreeV2::SetOnEnterFunction( std::function< void() > iFunction )
+cBehaviourTreeV2::SetOnEnterFunction( std::function< void( ::nECS::cEntity* ) > iFunction )
 {
     mOnStateEnter = iFunction;
 }
 
 
 void
-cBehaviourTreeV2::SetOnUpdateFunction( std::function< void( unsigned int ) > iFunction )
+cBehaviourTreeV2::SetOnUpdateFunction( std::function< void( ::nECS::cEntity*, unsigned int ) > iFunction )
 {
     mOnStateUpdate = iFunction;
 }
 
 
 void
-cBehaviourTreeV2::SetOnLeavingFunction( std::function< void() > iFunction )
+cBehaviourTreeV2::SetOnLeavingFunction( std::function< void( ::nECS::cEntity* ) > iFunction )
 {
     mOnStateLeaving = iFunction;
+}
+
+
+void
+cBehaviourTreeV2::DebugPRINT() const
+{
+    printf( mNodeID.c_str() );
+    printf( "\n" );
 }
 
 

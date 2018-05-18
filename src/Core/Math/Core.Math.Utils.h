@@ -42,6 +42,7 @@ bool EnumerateEdgesFromPolygon( const sf::VertexArray& iPolygon, std::function< 
 bool            IsPointInTriangle( sf::Vector2f& pt, sf::Vector2f& v1, sf::Vector2f& v2, sf::Vector2f& v3 );
 double          GetAngleBetweenVectors( const sf::Vector2f& p1, const sf::Vector2f& p2 );
 double          GetAngleBetweenVectors2( const sf::Vector2f& p1, const sf::Vector2f& p2 );
+double          GetAngleFromVectorsRelativeToXAxis( const sf::Vector2f& p1 );
 sf::Vector2f    CenterOfGravity( const  sf::VertexArray& iPolygon );
 sf::VertexArray PolygonPolygonInterectionList( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );
 sf::VertexArray ClipPolygonPolygon( const  sf::VertexArray& iPolygonA, const  sf::VertexArray& iPolygonB );

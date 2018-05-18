@@ -26,8 +26,10 @@ public:
     virtual  cComponent* Clone();
 
 public:
-    std::vector< std::string > mActions;
+    bool ContainsAction( const std::string& iAction ) const;
 
+public:
+    std::vector< std::string > mActions;
 };
 
 

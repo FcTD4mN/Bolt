@@ -35,8 +35,7 @@ cSimplePhysic::cSimplePhysic( double iW, double iH, eType iType ) :
 cSimplePhysic::cSimplePhysic( const cSimplePhysic & iSimplePhysic ) :
     tSuperClass( iSimplePhysic ),
     mVelocity( iSimplePhysic.mVelocity ),
-    mType( iSimplePhysic.mType ),
-    mIsCacheValid( iSimplePhysic.mIsCacheValid )
+    mType( iSimplePhysic.mType )
 {
 }
 

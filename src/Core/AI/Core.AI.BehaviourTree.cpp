@@ -1,4 +1,5 @@
 #include "Core.AI.BehaviourTree.h"
+#include "..\ECS\Component\Core.ECS.Component.BehaviourTree.h"
 
 
 namespace nAI {

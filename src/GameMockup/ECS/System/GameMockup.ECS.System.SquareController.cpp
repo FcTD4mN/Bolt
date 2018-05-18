@@ -70,6 +70,7 @@ cSquareController::Draw( sf::RenderTarget* iRenderTarget )
 void
 cSquareController::Update( unsigned int iDeltaTime )
 {
+    return;
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
         cEntity* entity = mEntityGroup[ i ];

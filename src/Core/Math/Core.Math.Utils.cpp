@@ -1,4 +1,4 @@
-﻿#include "Core.Math.Utils.h"
+#include "Core.Math.Utils.h"
 
 #include <limits>
 
@@ -81,6 +81,13 @@ GetAngleBetweenVectors2( const sf::Vector2f& p1, const sf::Vector2f& p2 )
     float a2 = atan2( p2.y, p2.x );
     float angle = a1 - a2;
     return  angle;
+}
+
+
+double
+GetAngleFromVectorsRelativeToXAxis( const sf::Vector2f& p1 )
+{
+    return  atan2( p1.y, p1.x ) + kPIF;
 }
 
 
@@ -535,6 +542,7 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
         ePair pair;
         pair.position = iPolygon[ i ].position;
         pair.angle = GetAngleBetweenVectors2( gXAxisVector, pair.position );
+        //pair.angle = GetAngleFromVectorsRelativeToXAxis( pair.position );
 
         int index = 0;
 
