@@ -50,27 +50,22 @@ cAnimationRenderer::Finalize()
 
 
 void
-cAnimationRenderer::Draw( sf::RenderTarget* iRenderTarget )
+cAnimationRenderer::DrawEntity( sf::RenderTarget * iRenderTarget, cEntity * iEntity )
 {
     sf::RectangleShape rect;
 
-    for( int i = 0; i < mEntityGroup.size(); ++i )
-    {
-        cEntity* entity = mEntityGroup[ i ];
+    auto spriteanimated = dynamic_cast< cSpriteAnimated* >( iEntity->GetComponentByName( "spriteanimated" ) );
+    auto position = dynamic_cast< cPosition* >( iEntity->GetComponentByName( "position" ) );
+    auto size = dynamic_cast< cSize* >( iEntity->GetComponentByName( "size" ) );
 
-        auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
-        auto position       = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
-        auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
+    // Because sprite's origin is set to be the very center of the image, we need to
+    // reposition it so it matches top left format given by position
+    sf::Vector2f spritePos( float( position->X() ), float( position->Y() ) );
+    spriteanimated->mSprite.setPosition( spritePos );
+    spriteanimated->mSprite.setOrigin( 0, 0 );
+    spriteanimated->mSprite.setScale( float( size->W() ) / float( spriteanimated->GetVar( "spritewidth" )->GetValueNumber() ), float( size->H() ) / float( spriteanimated->GetVar( "spriteheight" )->GetValueNumber() ) );
 
-        // Because sprite's origin is set to be the very center of the image, we need to
-        // reposition it so it matches top left format given by position
-        sf::Vector2f spritePos( float(position->X()), float(position->Y()) );
-        spriteanimated->mSprite.setPosition( spritePos );
-        spriteanimated->mSprite.setOrigin( 0,0 );
-        spriteanimated->mSprite.setScale( float(size->W()) / float(spriteanimated->GetVar( "spritewidth" )->GetValueNumber()), float(size->H()) / float(spriteanimated->GetVar( "spriteheight" )->GetValueNumber()) );
-
-        iRenderTarget->draw( spriteanimated->mSprite );
-    }
+    iRenderTarget->draw( spriteanimated->mSprite );
 }
 
 

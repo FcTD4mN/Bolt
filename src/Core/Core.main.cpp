@@ -88,6 +88,9 @@ BoltMain( int argc, char *argv[] )
     sf::Time frameTime;
     sf::Event event;
 
+    double FPSAverage = 0.0;
+    unsigned int fpscounter = 0;
+
     // Drawing entityMap
     //sf::Vector2f position;
     //sf::RectangleShape square;
@@ -126,7 +129,7 @@ BoltMain( int argc, char *argv[] )
         //}
         // /Drawing entityMap
 
-        if( 0 )
+        if( 1 )
         {
             //sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
             //rect.setPosition( sf::Vector2f( sf::Mouse::getPosition( *window ) ) );
@@ -137,9 +140,20 @@ BoltMain( int argc, char *argv[] )
             //nBenchmark::DrawStressTest( app->Window() );
 
             float fps = 1 / frameTime.asSeconds();
-            std::cout << std::to_string( fps ) << "\n";
-            std::cout << "==============" << std::to_string( ::nApplication::cGameApplication::App()->World()->EntityCount() ) << "\n";
+            FPSAverage += fps;
 
+            if( fpscounter >= 1000 )
+            {
+                FPSAverage /= fpscounter;
+                std::cout << std::to_string( FPSAverage ) << "\n";
+                std::cout << "==============" << std::to_string( ::nApplication::cGameApplication::App()->World()->EntityCount() ) << "\n";
+                fpscounter = 0;
+                FPSAverage = 0.0;
+            }
+            else
+            {
+                ++fpscounter;
+            }
         }
         // PERF TESTS============================================================
 

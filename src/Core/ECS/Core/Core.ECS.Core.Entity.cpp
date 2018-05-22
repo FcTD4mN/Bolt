@@ -331,6 +331,16 @@ cEntity::GetIDForHandle() const
 
 
 void
+cEntity::DrawUsingObserverSystems( sf::RenderTarget * iRenderTarget )
+{
+    for( auto sys : mObserverSystems )
+    {
+        sys->DrawEntity( iRenderTarget, this );
+    }
+}
+
+
+void
 cEntity::IncIDForHandles()
 {
     mIDForHandles = ( mIDForHandles + 1 ) % 99999;

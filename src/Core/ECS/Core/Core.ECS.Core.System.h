@@ -26,6 +26,7 @@ public:
 public:
     // Update/Draw
     virtual  void  Draw( sf::RenderTarget* iRenderTarget );
+    virtual  void  DrawEntity( sf::RenderTarget* iRenderTarget, cEntity* iEntity );
     virtual  void  Update( unsigned int iDeltaTime );
 
 public:

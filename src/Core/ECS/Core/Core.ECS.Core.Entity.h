@@ -3,6 +3,7 @@
 
 #include <tinyxml2.h>
 
+#include "SFML/Graphics.hpp"
 
 #include <unordered_map>
 #include <vector>
@@ -79,6 +80,9 @@ public:
     void AddSystemObserver( cSystem* iSystem );
     cEntityHandle GetHandle();
     unsigned int  GetIDForHandle() const;
+
+public:
+    void  DrawUsingObserverSystems( sf::RenderTarget* iRenderTarget );
 
 private:
     void IncIDForHandles();

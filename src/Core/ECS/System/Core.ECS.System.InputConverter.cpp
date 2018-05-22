@@ -51,12 +51,6 @@ cInputConverter::Finalize()
 
 
 void
-cInputConverter::Draw( sf::RenderTarget* iRenderTarget )
-{
-}
-
-
-void
 cInputConverter::Update( unsigned int iDeltaTime )
 {
     for( int i = 0; i < mEntityGroup.size(); ++i )

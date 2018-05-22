@@ -121,6 +121,9 @@
     <Filter Include="Fichiers sources\Core\AI\BehaviourTreeV2">
       <UniqueIdentifier>{201d4901-36bd-4017-bce4-b93c6a1154ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Core\Render">
+      <UniqueIdentifier>{3f42e930-333e-4849-b18c-3580a4222686}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.cpp">
@@ -335,6 +338,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp">
       <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Render\Core.Render.LayerEngine.cpp">
+      <Filter>Fichiers sources\Core\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Render\Core.Render.Layer.cpp">
+      <Filter>Fichiers sources\Core\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -598,6 +610,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h">
       <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Render\Core.Render.LayerEngine.h">
+      <Filter>Fichiers sources\Core\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Render\Core.Render.Layer.h">
+      <Filter>Fichiers sources\Core\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

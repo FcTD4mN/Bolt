@@ -70,7 +70,7 @@ cSquareController::Draw( sf::RenderTarget* iRenderTarget )
 void
 cSquareController::Update( unsigned int iDeltaTime )
 {
-    return;
+    //return;
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
         cEntity* entity = mEntityGroup[ i ];
@@ -78,6 +78,7 @@ cSquareController::Update( unsigned int iDeltaTime )
         auto userinput      = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
         auto simplephysic = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
+        auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
 
         simplephysic->mVelocity.x = 0;
         simplephysic->mVelocity.y = 0;
@@ -126,10 +127,10 @@ cSquareController::Update( unsigned int iDeltaTime )
 
             // Basic test thing that assumes only one square is controlled
             // All the gamemockup part is testing anyway ...
-            //auto window = cGameApplication::App()->Window();
-            //sf::View view = window->getView();
-            //view.setCenter( sf::Vector2f( simplephysic->mHitBox.left, simplephysic->mHitBox.top ) );
-            //window->setView( view );
+            auto window = ::nApplication::cGameApplication::App()->Window();
+            sf::View view = window->getView();
+            view.setCenter( position->AsVector2F() );
+            window->setView( view );
         }
     }
 }

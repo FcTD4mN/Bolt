@@ -52,27 +52,22 @@ cSimplerRenderer::Finalize()
 
 
 void
-cSimplerRenderer::Draw( sf::RenderTarget* iRenderTarget )
+cSimplerRenderer::DrawEntity( sf::RenderTarget * iRenderTarget, cEntity * iEntity )
 {
-    sf::RectangleShape rect( sf::Vector2f( 10,10 ) );
+    sf::RectangleShape rect( sf::Vector2f( 10, 10 ) );
     sf::CircleShape triangle( 80.0F, 3 ); // 3 sides circle = triangle
     sf::Vector2f origin;
 
-    for( int i = 0; i < mEntityGroup.size(); ++i )
-    {
-        cEntity* entity = mEntityGroup[ i ];
+    auto position = dynamic_cast< cPosition* >( iEntity->GetComponentByName( "position" ) );
+    auto size = dynamic_cast< cSize* >( iEntity->GetComponentByName( "size" ) );
+    auto color = dynamic_cast< cColor* >( iEntity->GetComponentByName( "color" ) );
 
-        auto position   = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
-        auto size       = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
-        auto color      = dynamic_cast< cColor* >( entity->GetComponentByName( "color" ) );
+    sf::Vector2f positionVector( float( position->X() ), float( position->Y() ) );
 
-        sf::Vector2f positionVector( float(position->X()), float(position->Y()) );
-
-        rect.setSize( size->AsVector2F() );
-        rect.setPosition( positionVector );
-        rect.setFillColor( color->AsSFCOlor() );
-        iRenderTarget->draw( rect );
-    }
+    rect.setSize( size->AsVector2F() );
+    rect.setPosition( positionVector );
+    rect.setFillColor( color->AsSFCOlor() );
+    iRenderTarget->draw( rect );
 }
 
 

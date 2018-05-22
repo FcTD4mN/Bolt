@@ -8,6 +8,8 @@
 #include <unordered_map>
 
 
+namespace nRender { class cLayerEngine; }
+
 namespace nECS {
 
 
@@ -28,8 +30,16 @@ public:
     void  Update( unsigned int iDeltaTime );
 
 public:
+    // Config
+    void  SetUseLayerEngine( bool iValue );
+
+public:
+    void  AddLayer();
+
+public:
     // Entity
     void  AddEntity( cEntity* iEntity );
+    void  PutEntityInLayer( cEntity* iEntity, int iLayerIndex );
     void  UpdateWorldWithEntity( cEntity* iEntity );
     void  DestroyEntity( cEntity* iEntity );
     void  DestroyEntityByID( const  std::string& iID );
@@ -87,8 +97,11 @@ protected:
     std::vector< cSystem* > mSystems;
     std::vector< cSystem* > mEventRelatedSystems;
 
+    ::nRender::cLayerEngine*    mLayerEngine;
+    bool                        mUseLayerEngine;
 };
 
 
 } // namespace nECS
+
 

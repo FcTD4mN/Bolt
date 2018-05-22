@@ -30,6 +30,14 @@ cSystem::cSystem()
 void
 cSystem::Draw( sf::RenderTarget* iRenderTarget )
 {
+    for( int i = 0; i < mEntityGroup.size(); ++i )
+        DrawEntity( iRenderTarget, mEntityGroup[ i ] );
+}
+
+
+void
+cSystem::DrawEntity( sf::RenderTarget * iRenderTarget, cEntity * iEntity )
+{
     // Does nothing
 }
 

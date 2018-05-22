@@ -4,6 +4,7 @@
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.System.h"
 
+#include "Core.Render.LayerEngine.h"
 
 namespace nECS {
 
@@ -24,7 +25,9 @@ cWorld::~cWorld()
 }
 
 
-cWorld::cWorld()
+cWorld::cWorld() :
+    mLayerEngine( 0 ),
+    mUseLayerEngine( false )
 {
 }
 
@@ -37,9 +40,17 @@ cWorld::cWorld()
 void
 cWorld::Draw( sf::RenderTarget* iRenderTarget )
 {
-    for( int i = 0; i < mSystems.size(); ++i )
+    if( mUseLayerEngine )
     {
-        mSystems[ i ]->Draw( iRenderTarget );
+        mLayerEngine->ProcessDrawing();
+        mLayerEngine->Draw( iRenderTarget );
+    }
+    else
+    {
+        for( int i = 0; i < mSystems.size(); ++i )
+        {
+            mSystems[ i ]->Draw( iRenderTarget );
+        }
     }
 }
 
@@ -55,6 +66,22 @@ cWorld::Update( unsigned int iDeltaTime )
 }
 
 
+void
+cWorld::SetUseLayerEngine( bool iValue )
+{
+    mUseLayerEngine = iValue;
+    if( !mLayerEngine )
+        mLayerEngine = new ::nRender::cLayerEngine();
+}
+
+
+void
+cWorld::AddLayer()
+{
+    mLayerEngine->AddLayer();
+}
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------ Entity
 // -------------------------------------------------------------------------------------
@@ -66,6 +93,13 @@ cWorld::AddEntity( cEntity* iEntity )
     mEntity[ iEntity->ID() ] = iEntity;
     UpdateWorldWithEntity( iEntity );
     iEntity->SetLoaded();
+}
+
+
+void
+cWorld::PutEntityInLayer( cEntity * iEntity, int iLayerIndex )
+{
+    mLayerEngine->AddEntityInLayer( iEntity, iLayerIndex );
 }
 
 

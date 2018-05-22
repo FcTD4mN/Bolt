@@ -32,12 +32,6 @@ cBehaviourTreeSystem::Finalize()
 
 
 void
-cBehaviourTreeSystem::Draw( sf::RenderTarget * iRenderTarget )
-{
-}
-
-
-void
 cBehaviourTreeSystem::Update( unsigned int iDeltaTime )
 {
     for( int i = 0; i < mEntityGroup.size(); ++i )

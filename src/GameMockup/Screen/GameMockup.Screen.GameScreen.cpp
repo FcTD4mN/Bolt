@@ -48,14 +48,46 @@ cGameScreen::Initialize()
     sf::Vector2u windowSize = window->getSize();
 
     ::nECS::cWorld* world = ::nApplication::cGameApplication::App()->World();
-    ::nECS::cEntity* ent = new ::nECS::cEntity( world );
+    world->SetUseLayerEngine( false );  // 114 FPS average without layers ; 103 with layers
+    world->AddLayer();
+    world->AddLayer();
 
+    ::nECS::cEntity* ent = new ::nECS::cEntity( world );
     ent->AddComponent( new ::nECS::cPosition( 400.0F, 300.0F ) );
     ent->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
     ent->AddComponent( new ::nECS::cColor( 255,0,0 ) );
-    ent->AddComponent( new ::nECS::cUserInput() );
-    ent->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+    //ent->AddComponent( new ::nECS::cUserInput() );
+    //ent->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );
+    world->PutEntityInLayer( ent, 0 );
+
+
+    ::nECS::cEntity* ent2 = new ::nECS::cEntity( world );
+    ent2->AddComponent( new ::nECS::cPosition( 420.0F, 300.0F ) );
+    ent2->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
+    ent2->AddComponent( new ::nECS::cColor( 0, 255, 0 ) );
+    world->AddEntity( ent2 );
+    world->PutEntityInLayer( ent2, 1 );
+
+
+    int swall = 60;
+    for( int i = 0; i < swall; ++i )
+    {
+        for( int j = 0; j < swall; ++j )
+        {
+            ::nECS::cEntity* wall = new ::nECS::cEntity( world );
+            wall->AddComponent( new ::nECS::cPosition( float( i ) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ) ) );
+            wall->AddComponent( new ::nECS::cSize( 5.0f, 5.0f ) );
+            wall->AddComponent( new ::nECS::cColor( 20, 180, 20 ) );
+            wall->AddTag( "wall" );
+            world->AddEntity( wall );
+            world->PutEntityInLayer( wall, 0 );
+        }
+    }
+
+
+
+
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( ::nApplication::cGameApplication::App()->Window()->getSize().x ),
                                                     float( ::nApplication::cGameApplication::App()->Window()->getSize().y ) );
