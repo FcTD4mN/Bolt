@@ -20,24 +20,10 @@ cLayerEngine::cLayerEngine()
 
 
 void
-cLayerEngine::ProcessDrawing()
-{
-    for( auto layer : mLayers )
-    {
-        layer.Clear();
-        layer.Draw();
-    }
-}
-
-
-void
 cLayerEngine::Draw( sf::RenderTarget * iRenderTarget )
 {
     for( auto layer : mLayers )
-    {
-        layer.Display();
-        iRenderTarget->draw( layer.Sprite() );
-    }
+        layer.Draw( iRenderTarget );
 }
 
 
@@ -45,6 +31,47 @@ void
 cLayerEngine::AddLayer()
 {
     mLayers.push_back( cLayer() );
+}
+
+
+void
+cLayerEngine::AddLayerAtIndex( int iIndex )
+{
+    auto it = mLayers.begin();
+    for( int i = 0; i < iIndex; ++i )
+        ++it;
+
+    mLayers.insert( it, cLayer() );
+}
+
+
+void
+cLayerEngine::SetLayersCenter( const sf::Vector2f & iLayerCenter )
+{
+    for( auto& layer : mLayers )
+        layer.SetViewCenter( iLayerCenter );
+}
+
+
+void
+cLayerEngine::LayerDistanceAtIndex( float iDistance, int iLayerIndex )
+{
+    auto it = mLayers.begin();
+    for( int i = 0; i < iLayerIndex; ++i )
+        ++it;
+
+    ( *it ).ZLayer( iDistance );
+}
+
+
+void
+cLayerEngine::AddShaderToLayer( sf::Shader* iShader, int iLayerIndex )
+{
+    auto it = mLayers.begin();
+    for( int i = 0; i < iLayerIndex; ++i )
+        ++it;
+
+    ( *it ).AddShader( iShader );
 }
 
 

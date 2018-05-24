@@ -97,6 +97,7 @@ protected:
     std::vector< cSystem* > mSystems;
     std::vector< cSystem* > mEventRelatedSystems;
 
+public: // TEMP until main camera thing
     ::nRender::cLayerEngine*    mLayerEngine;
     bool                        mUseLayerEngine;
 };

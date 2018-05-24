@@ -26,12 +26,15 @@ public:
 
 public:
     // Update/Draw
-    void  ProcessDrawing();
     void  Draw( sf::RenderTarget* iRenderTarget );
 
 public:
     // Layer
-    void AddLayer();
+    void  AddLayer();
+    void  AddLayerAtIndex( int iIndex );
+    void  SetLayersCenter( const sf::Vector2f& iLayerCenter );
+    void  LayerDistanceAtIndex( float iDistance, int iLayerIndex );
+    void  AddShaderToLayer( sf::Shader* iShader, int iLayerIndex );
 
 public:
     // Entity

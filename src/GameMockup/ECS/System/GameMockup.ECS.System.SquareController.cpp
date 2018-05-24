@@ -13,6 +13,8 @@
 
 #include "GameMockup.Application.GameApplication.h"
 
+#include "Core.Render.LayerEngine.h"
+
 
 #include "SFML/Graphics.hpp"
 
@@ -127,10 +129,14 @@ cSquareController::Update( unsigned int iDeltaTime )
 
             // Basic test thing that assumes only one square is controlled
             // All the gamemockup part is testing anyway ...
-            auto window = ::nApplication::cGameApplication::App()->Window();
-            sf::View view = window->getView();
-            view.setCenter( position->AsVector2F() );
-            window->setView( view );
+            //auto window = ::nApplication::cGameApplication::App()->Window();
+            //sf::View view = window->getDefaultView();
+            //view.setCenter( position->AsVector2F() );
+            //window->setView( view );
+
+            auto world = ::nApplication::cGameApplication::App()->World();
+            world->mLayerEngine->SetLayersCenter( position->AsVector2F() );
+
         }
     }
 }

@@ -12,35 +12,57 @@ cLayer::~cLayer()
 }
 
 
-cLayer::cLayer()
+cLayer::cLayer() :
+    mZLayer( 1.0F ),
+    mShaderRenderTexture( 0 )
 {
-    mRenderTexture = new sf::RenderTexture();
-    mRenderTexture->create( 800, 600 );
-    mRenderTextureSprite.setTexture( mRenderTexture->getTexture() );
+    mView.setViewport( sf::FloatRect( 0.0F, 0.0F, 1.0F, 1.0F ) );
+    mView.setSize( sf::Vector2f( 800,600 ) );
+    if( mZLayer == 0.0F )
+        mZLayer = 1.0F;
+
+    mView.setCenter( 400, 300 );
 }
 
 
 void
-cLayer::Draw()
+cLayer::Draw( sf::RenderTarget* iRenderTarget )
 {
-    for( auto ent : mEntities )
-        ent->DrawUsingObserverSystems( mRenderTexture );
+    iRenderTarget->setView( mView );
 
-    mRenderTextureSprite.setTexture( mRenderTexture->getTexture() );
-}
+    if( mShaders.size() == 0 )
+    {
+        for( auto ent : mEntities )
+            ent->DrawUsingObserverSystems( iRenderTarget );
+    }
+    else
+    {
+        // We draw in an off-screen buffer
+        //mShaderRenderTexture->setView( mView );
+        mShaderRenderTexture->clear( sf::Color( 0,0,0,0 ) );
 
+        for( auto ent : mEntities )
+            ent->DrawUsingObserverSystems( mShaderRenderTexture );
 
-void
-cLayer::Clear()
-{
-    mRenderTexture->clear( sf::Color( 0,0,0,0 ) );
-}
+        mShaderRenderTexture->display();
 
+        // We then apply shader after shader, on top of each others
+        sf::Sprite sprite;
+        for( auto shader : mShaders )
+        {
+            sf::Texture texture = mShaderRenderTexture->getTexture();
+            shader->setUniform( "source", texture );
 
-void
-cLayer::Display()
-{
-    mRenderTexture->display();
+            sprite.setTexture( texture );
+
+            mShaderRenderTexture->draw( sprite, shader );
+            mShaderRenderTexture->display();
+        }
+
+        // Finally we draw the result in the render target
+        sprite.setTexture( mShaderRenderTexture->getTexture() );
+        iRenderTarget->draw( sprite );
+    }
 }
 
 
@@ -71,10 +93,31 @@ cLayer::AddEntity( ::nECS::cEntity * iEntity )
 }
 
 
-const sf::Sprite&
-cLayer::Sprite() const
+void
+cLayer::ZLayer( float iZLayer )
 {
-    return  mRenderTextureSprite;
+    mZLayer = iZLayer;
+    if( mZLayer == 0.0F )
+        mZLayer = 1.0F;
+}
+
+
+void
+cLayer::SetViewCenter( const sf::Vector2f & iCenter )
+{
+    mView.setCenter( iCenter / mZLayer );
+}
+
+
+void
+cLayer::AddShader( sf::Shader* iShader )
+{
+    mShaders.push_back( iShader );
+    if( !mShaderRenderTexture )
+    {
+        mShaderRenderTexture= new sf::RenderTexture();
+        mShaderRenderTexture->create( 800, 600 );//TODO: Access window size somehow
+    }
 }
 
 

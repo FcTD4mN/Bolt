@@ -88,8 +88,8 @@ BoltMain( int argc, char *argv[] )
     sf::Time frameTime;
     sf::Event event;
 
-    double FPSAverage = 0.0;
-    unsigned int fpscounter = 0;
+    double          FPSAverage = 0.0;
+    unsigned int    fpscounter = 0;
 
     // Drawing entityMap
     //sf::Vector2f position;
@@ -100,18 +100,18 @@ BoltMain( int argc, char *argv[] )
     //square.setOutlineThickness( 1.0F );
     // /Drawing entityMap
 
+
     while( window->isOpen() )
     {
         frameTime = clock.restart();
 
         while( window->pollEvent( event ) )
-        {
             app->HandleEvents( event );
-        }
 
         app->Update( unsigned int( frameTime.asMicroseconds() ) );
         window->clear( sf::Color( 200, 200, 200 ) );
         app->Draw( window );
+
 
         // PERF TESTS============================================================
 

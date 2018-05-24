@@ -14,6 +14,8 @@
 
 #include "GameMockup.Application.GameApplication.h"
 
+#include "Core.Render.LayerEngine.h"
+
 
 #include <iostream>
 
@@ -48,18 +50,30 @@ cGameScreen::Initialize()
     sf::Vector2u windowSize = window->getSize();
 
     ::nECS::cWorld* world = ::nApplication::cGameApplication::App()->World();
-    world->SetUseLayerEngine( false );  // 114 FPS average without layers ; 103 with layers
+    world->SetUseLayerEngine( true );  // 114 FPS average without layers ; 103 with layers
     world->AddLayer();
     world->AddLayer();
+
+    world->mLayerEngine->LayerDistanceAtIndex( 2, 0 );
+
+
+    // SHader tests
+    sf::Shader blur;
+    if( !blur.loadFromFile( "resources/Shared/Shaders/testBlur.frag", sf::Shader::Fragment ) )
+        int breakpoint = 1;
+
+    blur.setUniform( "offsetFactor", sf::Vector2f( 20.0F, 2.0F ) );
+
+    world->mLayerEngine->AddShaderToLayer( &blur, 0 );
 
     ::nECS::cEntity* ent = new ::nECS::cEntity( world );
     ent->AddComponent( new ::nECS::cPosition( 400.0F, 300.0F ) );
     ent->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
     ent->AddComponent( new ::nECS::cColor( 255,0,0 ) );
-    //ent->AddComponent( new ::nECS::cUserInput() );
-    //ent->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+    ent->AddComponent( new ::nECS::cUserInput() );
+    ent->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
     world->AddEntity( ent );
-    world->PutEntityInLayer( ent, 0 );
+    world->PutEntityInLayer( ent, 2 );
 
 
     ::nECS::cEntity* ent2 = new ::nECS::cEntity( world );
@@ -70,7 +84,8 @@ cGameScreen::Initialize()
     world->PutEntityInLayer( ent2, 1 );
 
 
-    int swall = 60;
+    //int swall = 60;
+    int swall = 5;
     for( int i = 0; i < swall; ++i )
     {
         for( int j = 0; j < swall; ++j )

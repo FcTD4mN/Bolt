@@ -42,7 +42,6 @@ cWorld::Draw( sf::RenderTarget* iRenderTarget )
 {
     if( mUseLayerEngine )
     {
-        mLayerEngine->ProcessDrawing();
         mLayerEngine->Draw( iRenderTarget );
     }
     else

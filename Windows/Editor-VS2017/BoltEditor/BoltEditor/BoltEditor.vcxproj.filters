@@ -94,6 +94,15 @@
     <Filter Include="src\Editor\Dialogs">
       <UniqueIdentifier>{a5618c76-e55d-40a9-b040-0dd17fb8794c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Core\AI">
+      <UniqueIdentifier>{200594c6-2bab-4003-852f-8e5a5c966213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\AI\BehaviourTreeV2">
+      <UniqueIdentifier>{f8b8125a-83db-41aa-a1f1-9ea7e1058836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Render">
+      <UniqueIdentifier>{866905ab-bd36-4c85-bbcc-2444fb406869}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc">
@@ -299,6 +308,21 @@
     <ClCompile Include="..\..\..\..\src\Editor\Dialogs\Editor.BoltQtDialogs.SnapGridSettings.cpp">
       <Filter>src\Editor\Dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.cpp">
+      <Filter>src\Core\AI\BehaviourTreeV2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Render\Core.Render.Layer.cpp">
+      <Filter>src\Core\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Render\Core.Render.LayerEngine.cpp">
+      <Filter>src\Core\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -462,6 +486,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Editor\HUD\Editor.HUD.SnapGrid.h">
       <Filter>src\Editor\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.h">
+      <Filter>src\Core\AI\BehaviourTreeV2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Render\Core.Render.LayerEngine.h">
+      <Filter>src\Core\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Render\Core.Render.Layer.h">
+      <Filter>src\Core\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h">
+      <Filter>src\Core\ECS\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

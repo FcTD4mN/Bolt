@@ -173,10 +173,6 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             positionX->SetValueNumber( positionX->GetValueNumber() + simplephysic->mVelocity.x );
             positionY->SetValueNumber( positionY->GetValueNumber() + simplephysic->mVelocity.y );
 
-            // very basic test just to test
-            if( positionX->GetValueNumber() > 900 )
-                entity->Destroy();
-
             // Add it back at its new position
             entityMap->AddEntity( entity );
             simplephysic->InvalidCache();

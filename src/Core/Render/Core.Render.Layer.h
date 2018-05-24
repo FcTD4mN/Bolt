@@ -21,9 +21,7 @@ public:
 
 public:
     // Draw related methods
-    void  Draw();
-    void  Clear();
-    void  Display();
+    void  Draw( sf::RenderTarget* iRenderTarget );
 
 public:
     // Entity
@@ -32,7 +30,11 @@ public:
 public:
     // Access
     size_t EntityCount() const;
-    const sf::Sprite& Sprite() const;
+    void  ZLayer( float iZLayer );
+    void SetViewCenter( const sf::Vector2f& iViewCenter );
+
+public:
+    void  AddShader( sf::Shader* iShader );
 
 private:
     // Private
@@ -40,8 +42,11 @@ private:
 
 protected:
     std::list< ::nECS::cEntity* >   mEntities;
-    sf::RenderTexture*              mRenderTexture;
-    sf::Sprite                      mRenderTextureSprite;
+    sf::View                        mView;
+    float                           mZLayer;
+
+    sf::RenderTexture*              mShaderRenderTexture;
+    std::vector< sf::Shader* >       mShaders; // Pointers otherwise it won't compile for some annoying reasons
 };
 
 

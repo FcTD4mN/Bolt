@@ -65,7 +65,7 @@ cApplication::Initialize()
     settings.majorVersion = 3;
     settings.minorVersion = 0;
 
-    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 1900, 1000 ), "Bolt", sf::Style::Default, settings );
+    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Bolt", sf::Style::Default, settings );
 
     ::nBase::nThread::cThreadProcessor::Instance();
 }
