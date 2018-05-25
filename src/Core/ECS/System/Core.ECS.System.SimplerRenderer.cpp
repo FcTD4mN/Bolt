@@ -67,7 +67,23 @@ cSimplerRenderer::DrawEntity( sf::RenderTarget * iRenderTarget, cEntity * iEntit
     rect.setSize( size->AsVector2F() );
     rect.setPosition( positionVector );
     rect.setFillColor( color->AsSFCOlor() );
+
+    //sf::Shader blur;
+    //if( !blur.loadFromFile( "resources/Shared/Shaders/testBlur.frag", sf::Shader::Fragment ) )
+    ////if( !blur.loadFromFile( "resources/Shared/Shaders/testEdge.frag", sf::Shader::Fragment ) )
+    //    int breakpoint = 1;
+
+    ////blur.setUniform( "edge_threshold", 100.0F );
+    ////blur.setUniform( "texture", sf::Shader::CurrentTexture );
+
+    //sf::RenderTexture tempText;
+    //tempText.create( 800,600 );
+    //tempText.draw( rect );
+
     iRenderTarget->draw( rect );
+    //blur.setUniform( "blur_radius", 2.0F );
+    //blur.setUniform( "texture", tempText.getTexture() );
+    //iRenderTarget->draw( sf::Sprite( tempText.getTexture() ), &blur );
 }
 
 

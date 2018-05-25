@@ -45,8 +45,9 @@ protected:
     sf::View                        mView;
     float                           mZLayer;
 
-    sf::RenderTexture*              mShaderRenderTexture;
-    std::vector< sf::Shader* >       mShaders; // Pointers otherwise it won't compile for some annoying reasons
+    sf::RenderTexture*              mShaderRenderTextureInput;
+    sf::RenderTexture*              mShaderRenderTextureOutput;
+    std::vector< sf::Shader* >      mShaders; // Pointers otherwise it won't compile for some annoying reasons
 };
 
 

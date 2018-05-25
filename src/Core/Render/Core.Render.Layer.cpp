@@ -14,7 +14,8 @@ cLayer::~cLayer()
 
 cLayer::cLayer() :
     mZLayer( 1.0F ),
-    mShaderRenderTexture( 0 )
+    mShaderRenderTextureInput( 0 ),
+    mShaderRenderTextureOutput( 0 )
 {
     mView.setViewport( sf::FloatRect( 0.0F, 0.0F, 1.0F, 1.0F ) );
     mView.setSize( sf::Vector2f( 800,600 ) );
@@ -38,29 +39,30 @@ cLayer::Draw( sf::RenderTarget* iRenderTarget )
     else
     {
         // We draw in an off-screen buffer
-        //mShaderRenderTexture->setView( mView );
-        mShaderRenderTexture->clear( sf::Color( 0,0,0,0 ) );
+        mShaderRenderTextureInput->clear( sf::Color( 0,0,0,0 ) );
 
         for( auto ent : mEntities )
-            ent->DrawUsingObserverSystems( mShaderRenderTexture );
+            ent->DrawUsingObserverSystems( mShaderRenderTextureInput );
 
-        mShaderRenderTexture->display();
+        mShaderRenderTextureInput->display();
 
         // We then apply shader after shader, on top of each others
         sf::Sprite sprite;
         for( auto shader : mShaders )
         {
-            sf::Texture texture = mShaderRenderTexture->getTexture();
-            shader->setUniform( "source", texture );
-
+            sf::Texture texture = mShaderRenderTextureInput->getTexture();
+            shader->setUniform( "texture", texture );
             sprite.setTexture( texture );
 
-            mShaderRenderTexture->draw( sprite, shader );
-            mShaderRenderTexture->display();
+            mShaderRenderTextureOutput->clear( sf::Color( 0, 0, 0, 0 ) );
+            mShaderRenderTextureOutput->draw( sprite, shader );
+            mShaderRenderTextureOutput->display();
+
+            std::swap( mShaderRenderTextureInput, mShaderRenderTextureOutput );
         }
 
         // Finally we draw the result in the render target
-        sprite.setTexture( mShaderRenderTexture->getTexture() );
+        sprite.setTexture( mShaderRenderTextureInput->getTexture() );
         iRenderTarget->draw( sprite );
     }
 }
@@ -113,10 +115,15 @@ void
 cLayer::AddShader( sf::Shader* iShader )
 {
     mShaders.push_back( iShader );
-    if( !mShaderRenderTexture )
+    if( !mShaderRenderTextureInput )
     {
-        mShaderRenderTexture= new sf::RenderTexture();
-        mShaderRenderTexture->create( 800, 600 );//TODO: Access window size somehow
+        mShaderRenderTextureInput = new sf::RenderTexture();
+        mShaderRenderTextureInput->create( 800, 600 );//TODO: Access window size somehow
+    }
+    if( !mShaderRenderTextureOutput )
+    {
+        mShaderRenderTextureOutput = new sf::RenderTexture();
+        mShaderRenderTextureOutput->create( 800, 600 );//TODO: Access window size somehow
     }
 }
 

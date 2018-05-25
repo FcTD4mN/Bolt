@@ -11,6 +11,7 @@
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 #include "Core.ECS.Component.UserInput.h"
+#include "Core.ECS.Component.ZDepth.h"
 
 #include "GameMockup.Application.GameApplication.h"
 
@@ -56,15 +57,23 @@ cGameScreen::Initialize()
 
     world->mLayerEngine->LayerDistanceAtIndex( 2, 0 );
 
-
-    // SHader tests
-    sf::Shader blur;
-    if( !blur.loadFromFile( "resources/Shared/Shaders/testBlur.frag", sf::Shader::Fragment ) )
+    // Shader tests
+    sf::Shader* Hblur = new sf::Shader;
+    sf::Shader* Vblur = new sf::Shader;
+    if( !Hblur->loadFromFile( "resources/Shared/Shaders/BoxBlurHorizontal.frag", sf::Shader::Fragment ) )
+        int breakpoint = 1;
+    if( !Vblur->loadFromFile( "resources/Shared/Shaders/BoxBlurVertical.frag", sf::Shader::Fragment ) )
         int breakpoint = 1;
 
-    blur.setUniform( "offsetFactor", sf::Vector2f( 20.0F, 2.0F ) );
+    Hblur->setUniform( "blur_radius", 10.0F );
+    Vblur->setUniform( "blur_radius", 10.0F );
 
-    world->mLayerEngine->AddShaderToLayer( &blur, 0 );
+    world->mLayerEngine->AddShaderToLayer( Hblur, 0 );
+    world->mLayerEngine->AddShaderToLayer( Vblur, 0 );
+    //world->mLayerEngine->AddShaderToLayer( Hblur, 1 );
+    //world->mLayerEngine->AddShaderToLayer( Vblur, 1 );
+    //world->mLayerEngine->AddShaderToLayer( Hblur, 2 );
+    //world->mLayerEngine->AddShaderToLayer( Vblur, 2 );
 
     ::nECS::cEntity* ent = new ::nECS::cEntity( world );
     ent->AddComponent( new ::nECS::cPosition( 400.0F, 300.0F ) );
@@ -85,7 +94,8 @@ cGameScreen::Initialize()
 
 
     //int swall = 60;
-    int swall = 5;
+    int swall = 10;
+    //int swall = 5;
     for( int i = 0; i < swall; ++i )
     {
         for( int j = 0; j < swall; ++j )
@@ -206,26 +216,26 @@ cGameScreen::KeyReleased( const sf::Event& iEvent )
     {
         SaveXML();
     }
-    else if( iEvent.key.code == sf::Keyboard::Key::T )
-    {
-        ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromFile( "resources/Core/Entities/test.entity", ::nApplication::cGameApplication::App()->World() );
-        ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
-    }
-    else if( iEvent.key.code == sf::Keyboard::Key::A )
-    {
-        ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromPrototypeMap( "entA" );
-        ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
-    }
-    else if( iEvent.key.code == sf::Keyboard::Key::B )
-    {
-        ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromPrototypeMap( "entB" );
-        ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
-    }
-    else if( iEvent.key.code == sf::Keyboard::Key::C )
-    {
-        ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromPrototypeMap( "testUltime" );
-        ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
-    }
+    //else if( iEvent.key.code == sf::Keyboard::Key::T )
+    //{
+    //    ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromFile( "resources/Core/Entities/test.entity", ::nApplication::cGameApplication::App()->World() );
+    //    ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
+    //}
+    //else if( iEvent.key.code == sf::Keyboard::Key::A )
+    //{
+    //    ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromPrototypeMap( "entA" );
+    //    ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
+    //}
+    //else if( iEvent.key.code == sf::Keyboard::Key::B )
+    //{
+    //    ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromPrototypeMap( "entB" );
+    //    ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
+    //}
+    //else if( iEvent.key.code == sf::Keyboard::Key::C )
+    //{
+    //    ::nECS::cEntity* entity = ::nECS::cEntityParser::Instance()->CreateEntityFromPrototypeMap( "testUltime" );
+    //    ::nApplication::cGameApplication::App()->World()->AddEntity( entity );
+    //}
 
     mConsoleWidget.KeyReleased( iEvent );
 }
