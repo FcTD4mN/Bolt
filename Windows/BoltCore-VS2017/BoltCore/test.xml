@@ -112,8 +112,8 @@
             <components>
                 <component name="position">
                     <variables>
-                        <variable name="x" type="1" value="437"/>
-                        <variable name="y" type="1" value="468"/>
+                        <variable name="x" type="1" value="414"/>
+                        <variable name="y" type="1" value="312"/>
                     </variables>
                 </component>
                 <component name="size">
@@ -220,7 +220,7 @@
                 </component>
                 <component name="sound">
                     <variables>
-                        <variable name="filename" type="2" value="resources/Shared/Audio/kick.wav"/>
+                        <variable name="filename" type="2" value="resources/Shared/Audio/DryGuitar.wav"/>
                     </variables>
                 </component>
             </components>

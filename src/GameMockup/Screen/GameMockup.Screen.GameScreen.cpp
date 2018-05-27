@@ -94,11 +94,12 @@ cGameScreen::Initialize()
     ent2->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
     ent2->AddComponent( new ::nECS::cColor( 0, 255, 0 ) );
 
-    auto sound = new ::nECS::cSound( "resources/Shared/Audio/kick.wav" );
+    //auto sound = new ::nECS::cSound( "resources/Shared/Audio/kick.wav" );
+    auto sound = new ::nECS::cSound( "resources/Shared/Audio/DryGuitar.wav" );
     sound->Sound().setLoop( true );
     sound->Sound().setPosition( 420.0F, 300.0F, 0.0F );
     sound->Sound().play();
-    sound->Sound().setAttenuation( 0.1 );
+    sound->Sound().setAttenuation( 0.1F );
     ent2->AddComponent( sound );
 
     world->AddEntity( ent2 );

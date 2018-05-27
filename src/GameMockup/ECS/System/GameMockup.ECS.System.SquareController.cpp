@@ -84,7 +84,7 @@ cSquareController::Update( unsigned int iDeltaTime )
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
 
-        sf::Listener::setPosition( position->X(), position->Y(), 0.0F );
+        sf::Listener::setPosition( float(position->X()), float(position->Y()), 0.0F );
 
         simplephysic->mVelocity.x = 0;
         simplephysic->mVelocity.y = 0;

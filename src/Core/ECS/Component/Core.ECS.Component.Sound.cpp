@@ -1,6 +1,8 @@
 #include "Core.ECS.Component.Sound.h"
 
 
+#include "Core.Sound.FX.h"
+
 namespace nECS {
 
 
@@ -72,6 +74,9 @@ cSound::SetSoundFromFile( const std::string & iFileName )
     if( iFileName != "" )
     {
         mSoundBuffer.loadFromFile( iFileName );
+        //mSoundBuffer = ::nSound::Reverb( mSoundBuffer, 100 );
+        mSoundBuffer = ::nSound::LowPassFilter( mSoundBuffer, 0.99 );
+
         mSound.setBuffer( mSoundBuffer );
     }
 }
