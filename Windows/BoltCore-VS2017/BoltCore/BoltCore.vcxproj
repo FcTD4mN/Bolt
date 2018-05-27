@@ -250,6 +250,7 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.cpp" />
@@ -345,6 +346,7 @@
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SpriteAnimated.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Text.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.h" />

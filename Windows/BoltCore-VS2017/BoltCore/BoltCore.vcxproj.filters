@@ -348,6 +348,9 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.cpp">
       <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.cpp">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
@@ -618,6 +621,9 @@
       <Filter>Fichiers sources\Core\Render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.h">
+      <Filter>Fichiers sources\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.h">
       <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,7 +22,7 @@ cLayerEngine::cLayerEngine()
 void
 cLayerEngine::Draw( sf::RenderTarget * iRenderTarget )
 {
-    for( auto layer : mLayers )
+    for( auto& layer : mLayers )
         layer.Draw( iRenderTarget );
 }
 

@@ -9,6 +9,8 @@ namespace nRender
 
 cLayer::~cLayer()
 {
+    delete  mShaderRenderTextureInput;
+    delete  mShaderRenderTextureOutput;
 }
 
 

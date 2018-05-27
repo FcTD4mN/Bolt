@@ -6,6 +6,7 @@
 
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
+#include "Core.ECS.Component.Sound.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 #include "Core.ECS.Component.UserInput.h"
 
@@ -36,7 +37,8 @@ cSquareController::~cSquareController()
 
 
 cSquareController::cSquareController() :
-    tSuperClass()
+    tSuperClass(),
+    mVieuxTimer( 0 )
 {
 }
 
@@ -81,6 +83,8 @@ cSquareController::Update( unsigned int iDeltaTime )
         auto simplephysic = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
         auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+
+        sf::Listener::setPosition( position->X(), position->Y(), 0.0F );
 
         simplephysic->mVelocity.x = 0;
         simplephysic->mVelocity.y = 0;

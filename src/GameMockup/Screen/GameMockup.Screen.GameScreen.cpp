@@ -8,6 +8,7 @@
 #include "Core.ECS.Component.Color.h"
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
+#include "Core.ECS.Component.Sound.h"
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 #include "Core.ECS.Component.UserInput.h"
@@ -16,6 +17,8 @@
 #include "GameMockup.Application.GameApplication.h"
 
 #include "Core.Render.LayerEngine.h"
+
+#include "SFML/Audio.hpp"
 
 
 #include <iostream>
@@ -81,6 +84,7 @@ cGameScreen::Initialize()
     ent->AddComponent( new ::nECS::cColor( 255,0,0 ) );
     ent->AddComponent( new ::nECS::cUserInput() );
     ent->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kDynamic ) );
+
     world->AddEntity( ent );
     world->PutEntityInLayer( ent, 2 );
 
@@ -89,6 +93,14 @@ cGameScreen::Initialize()
     ent2->AddComponent( new ::nECS::cPosition( 420.0F, 300.0F ) );
     ent2->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
     ent2->AddComponent( new ::nECS::cColor( 0, 255, 0 ) );
+
+    auto sound = new ::nECS::cSound( "resources/Shared/Audio/kick.wav" );
+    sound->Sound().setLoop( true );
+    sound->Sound().setPosition( 420.0F, 300.0F, 0.0F );
+    sound->Sound().play();
+    sound->Sound().setAttenuation( 0.1 );
+    ent2->AddComponent( sound );
+
     world->AddEntity( ent2 );
     world->PutEntityInLayer( ent2, 1 );
 

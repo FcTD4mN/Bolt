@@ -36,6 +36,8 @@ public:
     // Entity
     virtual  void  IncomingEntity( cEntity* iEntity ) override;
 
+private:
+    unsigned int mVieuxTimer;
 };
 
 
