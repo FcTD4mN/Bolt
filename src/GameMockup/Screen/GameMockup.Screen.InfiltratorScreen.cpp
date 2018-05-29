@@ -100,25 +100,49 @@ cInfiltratorScreen::Initialize()
     world->AddEntity( hero );
     BuildBehaviourTree( hero );
 
+
+    ::nECS::cEntity* topFrame = new ::nECS::cEntity( world );
+    topFrame->AddComponent( new ::nECS::cPosition( 145.F, 90.F ) );
+    topFrame->AddComponent( new ::nECS::cSize( 110.0F, 5.0f ) );
+    topFrame->AddComponent( new ::nECS::cColor( 60, 30, 20 ) );
+    topFrame->AddComponent( new ::nECS::cSimplePhysic( 110.0f, 5.0f, ::nECS::cSimplePhysic::eType::kStatic ) );
+    topFrame->AddTag( "wall" );
+    world->AddEntity( topFrame );
+    ::nECS::cEntity* leftFrame = new ::nECS::cEntity( world );
+    leftFrame->AddComponent( new ::nECS::cPosition( 140.F, 95.F ) );
+    leftFrame->AddComponent( new ::nECS::cSize( 5.0f, 10.0f ) );
+    leftFrame->AddComponent( new ::nECS::cColor( 60, 30, 20 ) );
+    leftFrame->AddComponent( new ::nECS::cSimplePhysic( 5.0f, 10.0f, ::nECS::cSimplePhysic::eType::kStatic ) );
+    leftFrame->AddTag( "wall" );
+    world->AddEntity( leftFrame );
+
+    ::nECS::cEntity* rightFrame = new ::nECS::cEntity( world );
+    rightFrame->AddComponent( new ::nECS::cPosition( 255.F, 95.F ) );
+    rightFrame->AddComponent( new ::nECS::cSize( 5.0f, 10.0f ) );
+    rightFrame->AddComponent( new ::nECS::cColor( 60, 30, 20 ) );
+    rightFrame->AddComponent( new ::nECS::cSimplePhysic( 5.0f, 10.0f, ::nECS::cSimplePhysic::eType::kStatic ) );
+    rightFrame->AddTag( "wall" );
+    world->AddEntity( rightFrame );
+
     mMechant = new ::nECS::cEntity( world );
     mMechant->AddComponent( new ::nECS::cPosition( 150.0F, 100.0F ) );
     mMechant->AddComponent( new ::nECS::cSize( 1.0F, 1.0F ) );
     mMechant->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
-    mMechant->AddComponent( new ::nECS::cFieldOfView( 90, 1000 ) );
+    mMechant->AddComponent( new ::nECS::cFieldOfView( 360, 1000 ) );
     mMechant->AddComponent( new ::nECS::cDirection( ::nMath::Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
-    mMechant->AddComponent( new ::nECS::cSimplePhysic( 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
+    //mMechant->AddComponent( new ::nECS::cSimplePhysic( 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
     world->AddEntity( mMechant );
 
     ::nECS::cEntity* light = new ::nECS::cEntity( world );
-    light->AddComponent( new ::nECS::cPosition( 650.0F, 100.0F ) );
+    light->AddComponent( new ::nECS::cPosition( 250.0F, 100.0F ) );
     light->AddComponent( new ::nECS::cSize( 1.0F, 1.0F ) );
     light->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
-    light->AddComponent( new ::nECS::cFieldOfView( 90, 1000 ) );
+    light->AddComponent( new ::nECS::cFieldOfView( 360, 1000 ) );
     light->AddComponent( new ::nECS::cDirection( ::nMath::Normale( sf::Vector2f( 0.0F, 1.0F ) ) ) );
-    light->AddComponent( new ::nECS::cSimplePhysic( 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
+    //light->AddComponent( new ::nECS::cSimplePhysic( 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
     world->AddEntity( light );
 
-    int swall = 5;
+    int swall = 2;
     for( int i = 0; i < swall; ++i )
     {
         for( int j = 0; j < swall; ++j )

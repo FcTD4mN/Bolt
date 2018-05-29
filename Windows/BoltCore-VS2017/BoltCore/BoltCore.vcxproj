@@ -247,6 +247,7 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.cpp" />
@@ -266,6 +267,11 @@
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.cpp" />
     <ClCompile Include="..\..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp" />
@@ -344,6 +350,7 @@
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Color.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Position.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Component\Core.ECS.Component.Size.h" />
@@ -363,6 +370,11 @@
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ConsoleDebug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.h" />
     <ClInclude Include="..\..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h" />

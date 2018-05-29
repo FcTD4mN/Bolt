@@ -73,11 +73,11 @@ cSound::SetSoundFromFile( const std::string & iFileName )
 {
     if( iFileName != "" )
     {
-        mSoundBuffer.loadFromFile( iFileName );
+        mDrySoundBuffer.loadFromFile( iFileName );
         //mSoundBuffer = ::nSound::Reverb( mSoundBuffer, 100 );
-        mSoundBuffer = ::nSound::LowPassFilter( mSoundBuffer, 0.99 );
+        //mSoundBuffer = ::nSound::LowPassFilter( mSoundBuffer, 1-0.045F );
 
-        mSound.setBuffer( mSoundBuffer );
+        mSound.setBuffer( mDrySoundBuffer );
     }
 }
 
@@ -86,6 +86,26 @@ sf::Sound&
 cSound::Sound()
 {
     return  mSound;
+}
+
+
+void
+cSound::SetSoundOcclusionFactor( float iOcclusionFactor )
+{
+    static float lastOccF = 1.0F;
+    //mSoundBuffer = ::nSound::LowPassFilter( mSoundBuffer, 1-iOcclusionFactor );
+
+    if( iOcclusionFactor != lastOccF )
+    {
+        //mSound.pause();
+        auto offset = mSound.getPlayingOffset();
+        mWetSoundBuffer = ::nSound::LowPassFilter( mDrySoundBuffer, 1-iOcclusionFactor );
+        mSound.setBuffer( mWetSoundBuffer );
+        mSound.setPlayingOffset( offset );
+        mSound.play();
+
+        lastOccF = iOcclusionFactor;
+    }
 }
 
 

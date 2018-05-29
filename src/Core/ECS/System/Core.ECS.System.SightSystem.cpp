@@ -30,7 +30,7 @@
 namespace nECS {
 
 
-#define FOVSplitThreshold 1
+#define FOVSplitThreshold 20
 
 
 // -------------------------------------------------------------------------------------

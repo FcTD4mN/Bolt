@@ -6,6 +6,7 @@
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Core.Entity.h"
 
+#include "Core.Math.Utils.h"
 
 namespace nMapping {
 
@@ -109,16 +110,16 @@ cEntityGrid::RemoveEntityNotUpdated( ::nECS::cEntity* iEntity )
 
 
 void
-cEntityGrid::GetSurroundingEntitiesOf( std::vector< ::nECS::cEntity* >* oEntities, ::nECS::cEntity* iEntity )
+cEntityGrid::GetSurroundingEntitiesOf( std::vector< ::nECS::cEntity* >* oEntities, ::nECS::cEntity* iEntity, int iSurroundingSize )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
     // We compute the enlarged rectangle that represent "one cell distance"
-    int left    = x - 1     <   0           ? 0         : x - 1;
-    int top     = y - 1     <   0           ? 0         : y - 1;
-    int right   = x2 + 1    >=  mWidth -1   ? mWidth -1 : x2 + 1;
-    int bottom  = y2 + 1    >=  mWidth -1   ? mWidth -1 : y2 + 1;
+    int left    = x - iSurroundingSize     <   0           ? 0         : x - iSurroundingSize;
+    int top     = y - iSurroundingSize     <   0           ? 0         : y - iSurroundingSize;
+    int right   = x2 + iSurroundingSize >=  mWidth -1   ? mWidth -1 : x2 + iSurroundingSize;
+    int bottom  = y2 + iSurroundingSize >=  mWidth -1   ? mWidth -1 : y2 + iSurroundingSize;
 
     for( int i = left; i <= right; ++i )
     {
@@ -158,6 +159,90 @@ cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::vector< ::nECS::cEntity* 
         yLookup += iVector.y;
         xLookupToInt = int( xLookup );
         yLookupToInt = int( yLookup );
+    }
+}
+
+
+void
+cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity * iEntitySrc, ::nECS::cEntity * iEntityDst, const::nMath::cEdgeF & iLine )
+{
+    sf::Vector2f P1 = iLine.mPoint                      / float(mCellSize);
+    sf::Vector2f P2 = (iLine.mPoint + iLine.mDirection) / float(mCellSize);
+
+    float dX = P2.x - P1.x;
+    float dY = P2.y - P1.y;
+
+    if( abs( dX ) < kEpsilonF )
+    {
+        GetEntitiesFollowingVLineFromEntity( oEntities, iEntitySrc, iEntityDst, int(P1.y), int(P2.y), int(P2.x) );
+        return;
+    }
+
+    if( abs( dY ) < kEpsilonF )
+    {
+        GetEntitiesFollowingHLineFromEntity( oEntities, iEntitySrc, iEntityDst, int( P1.x ), int( P2.x ), int( P2.y ) );
+        return;
+    }
+
+    float slope = dY / dX;
+    float constant = P2.y - ( slope * P2.x );
+
+    if( abs( slope ) <= 1 )
+    {
+        for(  int i = std::min( P1.x, P2.x ); i < std::max( P1.x, P2.x ); ++i )
+        {
+            int resultY = int(( slope * i ) + constant);
+            for( int k = 0; k < mGridMap[ i ][ resultY ].size(); ++k )
+            {
+                ::nECS::cEntity* ent = mGridMap[ i ][ resultY ][ k ];
+                if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+                    ( *oEntities ).push_back( ent );
+            }
+
+        }
+    }
+    else
+    {
+        for( int i = std::min( P1.y, P2.y ); i < std::max( P1.y, P2.y); ++i )
+        {
+            int  resultX = int(( i - constant ) / slope);
+            for( int k = 0; k < mGridMap[ resultX ][ i ].size(); ++k )
+            {
+                ::nECS::cEntity* ent = mGridMap[ resultX ][ i ][ k ];
+                if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+                    ( *oEntities ).push_back( ent );
+            }
+        }
+    }
+}
+
+
+void
+cEntityGrid::GetEntitiesFollowingHLineFromEntity( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity * iEntitySrc, ::nECS::cEntity * iEntityDst, int iP1X, int iP2X, int iPY )
+{
+    for( int i = iP1X; i < iP2X; ++i )
+    {
+        for( int k = 0; k < mGridMap[ i ][ iPY ].size(); ++k )
+        {
+            ::nECS::cEntity* ent = mGridMap[ i ][ iPY ][ k ];
+            if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+                ( *oEntities ).push_back( ent );
+        }
+    }
+}
+
+
+void
+cEntityGrid::GetEntitiesFollowingVLineFromEntity( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity * iEntitySrc, ::nECS::cEntity * iEntityDst, int  iP1Y, int  iP2Y, int  iPX )
+{
+    for( int i = iP1Y; i < iP2Y; ++i )
+    {
+        for( int k = 0; k < mGridMap[ iPX ][ i ].size(); ++k )
+        {
+            ::nECS::cEntity* ent = mGridMap[ iPX ][ i ][ k ];
+            if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+                ( *oEntities ).push_back( ent );
+        }
     }
 }
 

@@ -138,9 +138,8 @@ cSquareController::Update( unsigned int iDeltaTime )
             //view.setCenter( position->AsVector2F() );
             //window->setView( view );
 
-            auto world = ::nApplication::cGameApplication::App()->World();
-            world->mLayerEngine->SetLayersCenter( position->AsVector2F() );
-
+            //auto world = ::nApplication::cGameApplication::App()->World();
+            //world->mLayerEngine->SetLayersCenter( position->AsVector2F() );
         }
     }
 }

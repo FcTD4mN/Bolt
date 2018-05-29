@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Core.Math.Edge.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -29,9 +30,16 @@ public:
         // This asssumes that iEntity still has the same position as when it was added
         // It allows for a fast removal
     void RemoveEntityNotUpdated( ::nECS::cEntity* iEntity );
-    void GetSurroundingEntitiesOf( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity* iEntity );
+    void GetSurroundingEntitiesOf( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity* iEntity, int iSurroundingSize );
     void GetEntitiesFollwingVectorFromEntity( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity* iEntity, const sf::Vector2f& iVector );
+    void GetEntitiesFollowingLineFromEntityToEntity( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity* iEntitySrc, ::nECS::cEntity* iEntityDst, const ::nMath::cEdgeF& iLine );
 
+private:
+    void GetEntitiesFollowingHLineFromEntity( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity* iEntitySrc, ::nECS::cEntity * iEntityDst, int iP1X, int iP2X, int iPY );
+    void GetEntitiesFollowingVLineFromEntity( std::vector<::nECS::cEntity*>* oEntities, ::nECS::cEntity* iEntitySrc, ::nECS::cEntity * iEntityDst, int iP1Y, int iP2Y, int iPX );
+
+
+public:
     void GetEntitiesInBoundingBox( std::vector<::nECS::cEntity*>* oEntities, const sf::Rect< float >& iBBox );
 
 protected:

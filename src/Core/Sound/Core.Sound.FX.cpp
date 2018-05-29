@@ -42,8 +42,10 @@ LowPassFilter( const sf::SoundBuffer & iBuffer, float iValue )
     for( int n = 0; n < iBuffer.getSampleCount(); ++n )
     {
         z = ( bufferData[ n ] * b ) + ( z * iValue );
-        reverbBuffer[ n ] = z;
+        reverbBuffer[ n ] = sf::Int16( z );
     }
+
+
 
     reverbSound.loadFromSamples( reverbBuffer, iBuffer.getSampleCount(), iBuffer.getChannelCount(), iBuffer.getSampleRate() );
     delete  reverbBuffer;

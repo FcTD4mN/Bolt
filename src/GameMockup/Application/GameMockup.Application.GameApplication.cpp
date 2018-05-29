@@ -21,6 +21,7 @@
 #include "Core.ECS.System.SimplerRenderer.h"
 #include "Core.ECS.System.SimplePhysics.h"
 #include "Core.ECS.System.SightSystem.h"
+#include "Core.ECS.System.SoundOcclusion.h"
 #include "Core.ECS.System.BehaviourTreeSystem.h"
 
 #include "Core.ECS.Core.ScreenEntityMap.h"
@@ -112,6 +113,7 @@ cGameApplication::Initialize()
 
     mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
     mWorld->AddSystem( new ::nECS::cSightSystem() );
+    mWorld->AddSystem( new ::nECS::cOcclusionSystem() );
     mWorld->AddSystem( new ::nECS::cSquareController() );
     mWorld->AddSystem( new ::nECS::cBehaviourTreeSystem() );
 

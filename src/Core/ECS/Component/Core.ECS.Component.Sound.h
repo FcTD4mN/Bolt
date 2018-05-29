@@ -35,10 +35,12 @@ public:
     const std::string&  FileName();
     void SetSoundFromFile( const std::string& iFileName );
     sf::Sound& Sound();
+    void  SetSoundOcclusionFactor( float iOcclusionFactor );
 
 private:
     sf::Sound       mSound;
-    sf::SoundBuffer mSoundBuffer;
+    sf::SoundBuffer mDrySoundBuffer;
+    sf::SoundBuffer mWetSoundBuffer;
 };
 
 
