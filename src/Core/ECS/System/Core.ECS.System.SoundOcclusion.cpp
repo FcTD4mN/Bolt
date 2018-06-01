@@ -22,31 +22,14 @@ namespace nECS {
 // -------------------------------------------------------------------------------------
 
 
-cOcclusionSystem::~cOcclusionSystem()
+cSoundOcclusion::~cSoundOcclusion()
 {
 }
 
 
-cOcclusionSystem::cOcclusionSystem() :
+cSoundOcclusion::cSoundOcclusion() :
     tSuperClass(),
     mListener( 0 )
-{
-}
-
-
-// -------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------- Init/Finalize
-// -------------------------------------------------------------------------------------
-
-
-void
-cOcclusionSystem::Initialize()
-{
-}
-
-
-void
-cOcclusionSystem::Finalize()
 {
 }
 
@@ -57,13 +40,13 @@ cOcclusionSystem::Finalize()
 
 
 void
-cOcclusionSystem::Draw( sf::RenderTarget* iRenderTarget )
+cSoundOcclusion::Draw( sf::RenderTarget* iRenderTarget )
 {
 }
 
 
 void
-cOcclusionSystem::Update( unsigned int iDeltaTime )
+cSoundOcclusion::Update( unsigned int iDeltaTime )
 {
     ::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
     bool applyOcclusion = false;
@@ -78,7 +61,7 @@ cOcclusionSystem::Update( unsigned int iDeltaTime )
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         auto sound = dynamic_cast< cSound* >( entity->GetComponentByName( "sound" ) );
 
-        float finalOcclusion = 1.0F;
+        double finalOcclusion = 1.0F;
 
         std::vector< cEntity* >  entitiesInBetween;
         entityMap->GetEntitiesFollowingLineFromEntityToEntity( &entitiesInBetween, mListener, entity,::nMath::cEdgeF::MakePointPoint( position->AsVector2F(), mListenerPosition->AsVector2F() ) );
@@ -104,7 +87,7 @@ cOcclusionSystem::Update( unsigned int iDeltaTime )
 
 
 void
-cOcclusionSystem::IncomingEntity( cEntity * iEntity )
+cSoundOcclusion::IncomingEntity( cEntity * iEntity )
 {
     auto position           = dynamic_cast< cPosition* >( iEntity->GetComponentByName( "position" ) );
     auto simplephysic       = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );

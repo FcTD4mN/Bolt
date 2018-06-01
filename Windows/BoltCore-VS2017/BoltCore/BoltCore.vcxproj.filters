@@ -363,6 +363,9 @@
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp">
       <Filter>Fichiers sources\Core\ECS\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.cpp">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
@@ -645,6 +648,9 @@
       <Filter>Fichiers sources\Core\ECS\Component</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h">
+      <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.h">
       <Filter>Fichiers sources\Core\ECS\System</Filter>
     </ClInclude>
   </ItemGroup>

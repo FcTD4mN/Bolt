@@ -23,11 +23,6 @@ public:
 
     // Overrides
 public:
-    // Init/Finalize
-    virtual  void  Initialize() override;
-    virtual  void  Finalize() override;
-
-public:
     // Update/Draw
     virtual  void  Update( unsigned int iDeltaTime ) override;
 

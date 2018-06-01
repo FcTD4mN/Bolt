@@ -20,13 +20,7 @@ public:
     virtual  ~cAnimationRenderer();
     cAnimationRenderer();
 
-
     // Overrides
-public:
-    // Init/Finalize
-    virtual  void  Initialize() override;
-    virtual  void  Finalize() override;
-
 public:
     // Update/Draw
     virtual  void  DrawEntity( sf::RenderTarget* iRenderTarget, cEntity* iEntity ) override;

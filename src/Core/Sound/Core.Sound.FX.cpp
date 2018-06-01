@@ -30,14 +30,14 @@ sf::SoundBuffer Reverb( const sf::SoundBuffer & iBuffer, int iReverbDelayInMS )
 
 
 sf::SoundBuffer
-LowPassFilter( const sf::SoundBuffer & iBuffer, float iValue )
+LowPassFilter( const sf::SoundBuffer & iBuffer, double iValue )
 {
     sf::SoundBuffer  reverbSound;
     const sf::Int16* bufferData = iBuffer.getSamples();
     sf::Int16* reverbBuffer = new sf::Int16[ iBuffer.getSampleCount() ];
 
-    float b = 1.0f - iValue;
-    float z = 0;
+    double b = 1.0f - iValue;
+    double z = 0;
 
     for( int n = 0; n < iBuffer.getSampleCount(); ++n )
     {

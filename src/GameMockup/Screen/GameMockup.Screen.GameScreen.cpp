@@ -98,15 +98,49 @@ cGameScreen::Initialize()
     ent2->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
 
     //auto sound = new ::nECS::cSound( "resources/Shared/Audio/kick.wav" );
-    auto sound = new ::nECS::cSound( "resources/Shared/Audio/DryGuitar.wav" );
-    sound->Sound().setLoop( true );
-    sound->Sound().setPosition( 200.0F, 450.0F, 0.0F );
-    sound->Sound().play();
-    sound->Sound().setAttenuation( 0.0F );
+    //auto sound = new ::nECS::cSound( "resources/Shared/Audio/DryGuitar.wav" );
+    auto sound = new ::nECS::cSound( "resources/Shared/Audio/SineWave.wav" );
+    sound->Position( sf::Vector3f( 200.0F, 450.0F, 0.0F ) );
+    sound->Attenuation( 0.5 );
+    sound->Loop( true );
+    sound->Play();
     ent2->AddComponent( sound );
 
     world->AddEntity( ent2 );
     world->PutEntityInLayer( ent2, 1 );
+
+
+    ::nECS::cEntity* emmiter2 = new ::nECS::cEntity( world );
+    emmiter2->AddComponent( new ::nECS::cPosition( 200.0F, 350.0F ) );
+    emmiter2->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
+    emmiter2->AddComponent( new ::nECS::cColor( 0, 100, 0 ) );
+    emmiter2->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
+
+    auto sound2 = new ::nECS::cSound( "resources/Shared/Audio/DryGuitar.wav" );
+    sound2->Position( sf::Vector3f( 200.0F, 350.0F, 0.0F ) );
+    sound2->Attenuation( 0.01 );
+    sound2->Loop( true );
+    sound2->Play();
+    emmiter2->AddComponent( sound2 );
+
+    world->AddEntity( emmiter2 );
+    world->PutEntityInLayer( emmiter2, 1 );
+
+    ::nECS::cEntity* emmiter3 = new ::nECS::cEntity( world );
+    emmiter3->AddComponent( new ::nECS::cPosition( 400.0F, 350.0F ) );
+    emmiter3->AddComponent( new ::nECS::cSize( 40.0F, 40.0F ) );
+    emmiter3->AddComponent( new ::nECS::cColor( 0, 100, 0 ) );
+    emmiter3->AddComponent( new ::nECS::cSimplePhysic( 40.0F, 40.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
+
+    auto sound22 = new ::nECS::cSound( "resources/Shared/Audio/Kick.wav" );
+    sound22->Position( sf::Vector3f( 400.0F, 350.0F, 0.0F ) );
+    sound22->Attenuation( 0.01 );
+    sound22->Loop( true );
+    sound22->Play();
+    emmiter3->AddComponent( sound22 );
+
+    world->AddEntity( emmiter3 );
+    world->PutEntityInLayer( emmiter3, 1 );
 
     ::nECS::cEntity* wall = new ::nECS::cEntity( world );
     wall->AddComponent( new ::nECS::cPosition( 420.0F, 400.0F ) );
@@ -143,15 +177,11 @@ cGameScreen::Initialize()
         soundProofing->AddComponent( new ::nECS::cPosition( sf::Vector2f( 400.F + float(j) * 32.F, 450.F ) ) );
         soundProofing->AddComponent( new ::nECS::cSize( 31.0f, 31.F ) );
         soundProofing->AddComponent( new ::nECS::cColor( 254, 180, 39 ) );
-        soundProofing->AddComponent( new ::nECS::cOcclusionFactor( 0.5 ) );
+        soundProofing->AddComponent( new ::nECS::cOcclusionFactor( 0.2 ) );
         soundProofing->AddComponent( new ::nECS::cSimplePhysic( 31.0f, 31.F, ::nECS::cSimplePhysic::eType::kStatic ) );
         world->AddEntity( soundProofing );
         world->PutEntityInLayer( soundProofing, 2 );
     }
-
-
-
-
 
 
     sf::Vector2f  availableGeometry = sf::Vector2f( float( ::nApplication::cGameApplication::App()->Window()->getSize().x ),

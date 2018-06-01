@@ -5,7 +5,7 @@
 namespace nSound {
 
 sf::SoundBuffer Reverb( const sf::SoundBuffer& iBuffer, int iReverbDelay );
-sf::SoundBuffer LowPassFilter( const sf::SoundBuffer& iBuffer, float iValue );
+sf::SoundBuffer LowPassFilter( const sf::SoundBuffer& iBuffer, double iValue );
 
 
 } // namespace nMath

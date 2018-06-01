@@ -41,6 +41,16 @@ cSound::Build( const std::string & iFile )
 {
     AddNewVariable( "filename", ::nBase::cVariant::MakeVariant( iFile ) );
     SetSoundFromFile( iFile );
+
+    AddNewVariable( "volume", ::nBase::cVariant::MakeVariant( 100.0 ) );
+    AddNewVariable( "attenuation", ::nBase::cVariant::MakeVariant( 1.0 ) );
+    AddNewVariable( "loop", ::nBase::cVariant::MakeVariant( false ) );
+    AddNewVariable( "positionX", ::nBase::cVariant::MakeVariant( 0.0 ) );
+    AddNewVariable( "positionY", ::nBase::cVariant::MakeVariant( 0.0 ) );
+    AddNewVariable( "positionZ", ::nBase::cVariant::MakeVariant( 0.0 ) );
+
+    mCurrentSound = 0;
+    mLastOcclusion = 1.0;
 }
 
 
@@ -53,6 +63,13 @@ cComponent*
 cSound::Clone()
 {
     return  new cSound(*this);
+}
+
+
+void
+cSound::Play()
+{
+    mSound[ mCurrentSound ].play();
 }
 
 
@@ -74,38 +91,161 @@ cSound::SetSoundFromFile( const std::string & iFileName )
     if( iFileName != "" )
     {
         mDrySoundBuffer.loadFromFile( iFileName );
-        //mSoundBuffer = ::nSound::Reverb( mSoundBuffer, 100 );
-        //mSoundBuffer = ::nSound::LowPassFilter( mSoundBuffer, 1-0.045F );
-
-        mSound.setBuffer( mDrySoundBuffer );
+        mSound[ 0 ].setBuffer( mDrySoundBuffer );
+        mSound[ 1].setBuffer( mDrySoundBuffer );
     }
 }
 
 
-sf::Sound&
-cSound::Sound()
+double
+cSound::Volume()
 {
-    return  mSound;
+    return  GetVar( "volume" )->GetValueNumber();
 }
 
 
 void
-cSound::SetSoundOcclusionFactor( float iOcclusionFactor )
+cSound::Volume( double iVolume )
 {
-    static float lastOccF = 1.0F;
-    //mSoundBuffer = ::nSound::LowPassFilter( mSoundBuffer, 1-iOcclusionFactor );
+    GetVar( "volume" )->SetValueNumber( iVolume );
+    mSound[ 0 ].setVolume( float(iVolume) );
+    mSound[ 1 ].setVolume( float(iVolume) );
+}
 
-    if( iOcclusionFactor != lastOccF )
+
+double
+cSound::Attenuation()
+{
+    return  GetVar( "attenuation" )->GetValueNumber();
+}
+
+
+void
+cSound::Attenuation( double iAttenuation )
+{
+    GetVar( "attenuation" )->SetValueNumber( iAttenuation );
+    mSound[ 0 ].setAttenuation( float(iAttenuation) );
+    mSound[ 1 ].setAttenuation( float(iAttenuation) );
+}
+
+
+bool
+cSound::Loop()
+{
+    return  GetVar( "loop" )->GetValueBool();
+}
+
+
+void cSound::Loop( bool iLoop )
+{
+    GetVar( "loop" )->SetValueBool( iLoop );
+    mSound[ 0 ].setLoop( iLoop );
+    mSound[ 1 ].setLoop( iLoop );
+}
+
+
+sf::Vector3f
+cSound::Position()
+{
+    double x = GetVar( "positionX" )->GetValueNumber();
+    double y = GetVar( "positionY" )->GetValueNumber();
+    double z = GetVar( "positionZ" )->GetValueNumber();
+    return  sf::Vector3f( float(x), float(y), float(z) );
+}
+
+
+void
+cSound::Position( const sf::Vector3f & iPosition )
+{
+    GetVar( "positionX" )->SetValueNumber( iPosition.x );
+    GetVar( "positionY" )->SetValueNumber( iPosition.y );
+    GetVar( "positionZ" )->SetValueNumber( iPosition.z );
+    mSound[ 0 ].setPosition( iPosition );
+    mSound[ 1 ].setPosition( iPosition );
+}
+
+
+double
+cSound::X()
+{
+   return  GetVar( "positionX" )->GetValueNumber();
+}
+
+
+double
+cSound::Y()
+{
+    return  GetVar( "positionY" )->GetValueNumber();
+}
+
+
+double
+cSound::Z()
+{
+    return  GetVar( "positionZ" )->GetValueNumber();
+}
+
+
+void
+cSound::X( double iValue )
+{
+    GetVar( "positionX" )->SetValueNumber( iValue );
+}
+
+
+void
+cSound::Y( double iValue )
+{
+    GetVar( "positionY" )->SetValueNumber( iValue );
+}
+
+
+void
+cSound::Z( double iValue )
+{
+    GetVar( "positionZ" )->SetValueNumber( iValue );
+}
+
+
+sf::Sound&
+cSound::CurrentSound()
+{
+    return  mSound[ mCurrentSound ];
+}
+
+
+sf::Sound&
+cSound::SwaperSound()
+{
+    int nextSound = ( mCurrentSound + 1 ) % 2;
+    return  mSound[ nextSound ];
+}
+
+
+void
+cSound::SetSoundOcclusionFactor( double iOcclusionFactor )
+{
+    if( iOcclusionFactor != mLastOcclusion )
     {
-        //mSound.pause();
-        auto offset = mSound.getPlayingOffset();
-        mWetSoundBuffer = ::nSound::LowPassFilter( mDrySoundBuffer, 1-iOcclusionFactor );
-        mSound.setBuffer( mWetSoundBuffer );
-        mSound.setPlayingOffset( offset );
-        mSound.play();
-
-        lastOccF = iOcclusionFactor;
+        int nextSound = ( mCurrentSound + 1 ) % 2;
+        mWetSoundBuffer[ nextSound ] = ::nSound::LowPassFilter( mDrySoundBuffer, 1 - iOcclusionFactor );
+        ApplySwapBuffer();
+        mLastOcclusion = iOcclusionFactor;
     }
+}
+
+
+void
+cSound::ApplySwapBuffer()
+{
+    // SoundMixer system will then do the swap
+    mNeedSwap = true;
+    int nextSound = ( mCurrentSound + 1 ) % 2;
+    mSound[ nextSound ].setVolume( 0.0F );
+    mSound[ nextSound ].setBuffer( mWetSoundBuffer[ nextSound ] );
+    mSound[ nextSound ].setPlayingOffset( mSound[ mCurrentSound ].getPlayingOffset() );
+    mSound[ nextSound ].play();
+    mCurrentSound = nextSound;
 }
 
 

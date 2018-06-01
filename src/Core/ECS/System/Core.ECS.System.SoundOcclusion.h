@@ -13,23 +13,18 @@ namespace nECS {
 class cEntity;
 class cPosition;
 
-class cOcclusionSystem :
+class cSoundOcclusion :
     public cSystem
 {
 public:
     typedef  cSystem  tSuperClass;
 
 public:
-    virtual  ~cOcclusionSystem();
-    cOcclusionSystem();
+    virtual  ~cSoundOcclusion();
+    cSoundOcclusion();
 
 
     // Overrides
-public:
-    // Init/Finalize
-    virtual  void  Initialize() override;
-    virtual  void  Finalize() override;
-
 public:
     // Update/Draw
     virtual  void  Draw( sf::RenderTarget* iRenderTarget ) override;

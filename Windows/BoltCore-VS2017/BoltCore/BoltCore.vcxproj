@@ -267,6 +267,7 @@
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -370,6 +371,7 @@
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

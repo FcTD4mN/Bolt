@@ -20,8 +20,8 @@ public:
 
 public:
     // Init/Finalize
-    virtual  void  Initialize() = 0;
-    virtual  void  Finalize() = 0;
+    virtual  void  Initialize();
+    virtual  void  Finalize();
 
 public:
     // Update/Draw

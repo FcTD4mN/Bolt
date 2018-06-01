@@ -1,8 +1,10 @@
-#include "Core.ECS.System.BehaviourTreeSystem.h"
+ #include "Core.ECS.System.SoundMixer.h"
 
-#include "Core.ECS.Component.BehaviourTree.h"
-#include "Core.AI.BehaviourTreeV2.h"
 #include "Core.ECS.Core.Entity.h"
+
+#include "Core.ECS.Component.Sound.h"
+
+#include "Core.Math.Utils.h"
 
 
 namespace nECS {
@@ -13,12 +15,12 @@ namespace nECS {
 // -------------------------------------------------------------------------------------
 
 
-cBehaviourTreeSystem::~cBehaviourTreeSystem()
+cSoundMixer::~cSoundMixer()
 {
 }
 
 
-cBehaviourTreeSystem::cBehaviourTreeSystem() :
+cSoundMixer::cSoundMixer() :
     tSuperClass()
 {
 }
@@ -30,14 +32,30 @@ cBehaviourTreeSystem::cBehaviourTreeSystem() :
 
 
 void
-cBehaviourTreeSystem::Update( unsigned int iDeltaTime )
+cSoundMixer::Update( unsigned int iDeltaTime )
 {
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
         cEntity* entity = mEntityGroup[ i ];
 
-        auto behaviourTree = dynamic_cast< ::nECS::cBehaviourTree* >( entity->GetComponentByName( "behaviourtree" ) );
-        behaviourTree->mBehaviourTree = behaviourTree->mBehaviourTree->Update( iDeltaTime );
+        auto    sound = dynamic_cast< cSound* >( entity->GetComponentByName( "sound" ) );
+
+        if( sound->mNeedSwap )
+        {
+            double volume = sound->Volume();
+            sound->CurrentSound().setVolume( volume );
+            sound->SwaperSound().setVolume( 100.0 - volume );
+            sound->mNeedSwap = false;
+        }
+
+        if( sound->FileName() == "resources/Shared/Audio/SineWave.wav" )
+        {
+            auto lp = sf::Listener::getPosition();
+            auto ep = sound->Position();
+
+            auto delta = ep - lp;
+            printf( "%f\n", ::nMath::Magnitude( delta ) );
+        }
     }
 }
 
@@ -48,14 +66,13 @@ cBehaviourTreeSystem::Update( unsigned int iDeltaTime )
 
 
 void
-cBehaviourTreeSystem::IncomingEntity( cEntity * iEntity )
+cSoundMixer::IncomingEntity( cEntity * iEntity )
 {
-    auto behaviourTree = iEntity->GetComponentByName( "behaviourtree" );
-
-    if( behaviourTree )
+    auto sound = iEntity->GetComponentByName( "sound" );
+    if( sound )
         AcceptEntity( iEntity );
 }
 
 
-}
+} // namespace nECS
 

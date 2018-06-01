@@ -154,6 +154,14 @@ Magnitude( const sf::Vector2f& iVector )
 
 
 inline
+float
+Magnitude( const sf::Vector3f& iVector )
+{
+    return  sqrt( iVector.x * iVector.x + iVector.y * iVector.y + iVector.z * iVector.z );
+}
+
+
+inline
 void
 Normalize( sf::Vector2f* oVector1 )
 {
