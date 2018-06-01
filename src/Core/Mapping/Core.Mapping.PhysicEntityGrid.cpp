@@ -43,6 +43,46 @@ cEntityGrid::cEntityGrid( int iWidth, int iHeight, int iCellSize ) :
 void
 cEntityGrid::AddEntity( ::nECS::cEntity* iEntity )
 {
+    SetEntityInGrid( iEntity );
+
+    mAllEntities.push_back( iEntity );
+}
+
+
+void
+cEntityGrid::ClearEntityMap()
+{
+    ClearGrid();
+    mAllEntities.clear();
+}
+
+
+void
+cEntityGrid::SetGridDimensions( int iWidth, int iHeight, int iCellSize )
+{
+    mWidth = iWidth;
+    mHeight = iHeight;
+    mCellSize = iCellSize;
+
+    ClearGrid();
+
+    mGridMap.reserve( mWidth );
+    for( int i = 0; i < mWidth; ++i )
+    {
+        mGridMap.push_back( std::vector< std::vector< ::nECS::cEntity* > >( mHeight ) );
+    }
+
+    // We remap every entities, as the grid is now changed in dimensions
+    for( auto ent : mAllEntities )
+    {
+        SetEntityInGrid( ent );
+    }
+}
+
+
+void
+cEntityGrid::SetEntityInGrid( ::nECS::cEntity* iEntity )
+{
     if( !IsEntityValid( iEntity ) )
         return;
 
@@ -50,10 +90,10 @@ cEntityGrid::AddEntity( ::nECS::cEntity* iEntity )
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
     // We crop so that entities that are part outside the grid and part inside can be treated
-    int left   = x     <   0 ? 0 : x;
-    int top    = y     <   0 ? 0 : y;
-    int right  = x2    >= mWidth - 1 ? mWidth - 1 : x2;
-    int bottom = y2    >= mWidth - 1 ? mWidth - 1 : y2;
+    int left = x     <   0 ? 0 : x;
+    int top = y     <   0 ? 0 : y;
+    int right = x2 >= mWidth - 1 ? mWidth - 1 : x2;
+    int bottom = y2 >= mWidth - 1 ? mWidth - 1 : y2;
 
     // We store the pointer of iEntity in every cell that it is contained within, so we know at any time which entity should be considered
     // when looking for collision
@@ -68,7 +108,7 @@ cEntityGrid::AddEntity( ::nECS::cEntity* iEntity )
 
 
 void
-cEntityGrid::ClearEntityMap()
+cEntityGrid::ClearGrid()
 {
     for( int i = 0; i <= mWidth; ++i )
     {
@@ -106,6 +146,16 @@ cEntityGrid::RemoveEntityNotUpdated( ::nECS::cEntity* iEntity )
             }
         }
     }
+
+    for( int i = 0; i < mAllEntities.size(); ++i )
+    {
+        if( mAllEntities[ i ] == iEntity )
+        {
+            mAllEntities.erase( mAllEntities.begin() + i );
+            break;
+        }
+    }
+
 }
 
 
@@ -189,7 +239,7 @@ cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::vector<::nECS::cEn
 
     if( abs( slope ) <= 1 )
     {
-        for(  int i = std::min( P1.x, P2.x ); i < std::max( P1.x, P2.x ); ++i )
+        for(  int i = int(std::min( P1.x, P2.x )); i < int(std::max( P1.x, P2.x )); ++i )
         {
             int resultY = int(( slope * i ) + constant);
             for( int k = 0; k < mGridMap[ i ][ resultY ].size(); ++k )
@@ -203,7 +253,7 @@ cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::vector<::nECS::cEn
     }
     else
     {
-        for( int i = std::min( P1.y, P2.y ); i < std::max( P1.y, P2.y); ++i )
+        for( int i = int(std::min( P1.y, P2.y )); i < int(std::max( P1.y, P2.y)); ++i )
         {
             int  resultX = int(( i - constant ) / slope);
             for( int k = 0; k < mGridMap[ resultX ][ i ].size(); ++k )

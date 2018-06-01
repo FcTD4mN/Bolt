@@ -42,9 +42,9 @@ cSoundMixer::Update( unsigned int iDeltaTime )
 
         if( sound->mNeedSwap )
         {
-            double volume = sound->Volume();
+            float volume = float(sound->Volume());
             sound->CurrentSound().setVolume( volume );
-            sound->SwaperSound().setVolume( 100.0 - volume );
+            sound->SwaperSound().setVolume( 100.0F - volume );
             sound->mNeedSwap = false;
         }
 

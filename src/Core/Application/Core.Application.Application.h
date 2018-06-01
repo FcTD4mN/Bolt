@@ -5,6 +5,7 @@
 
 
 namespace nScreen { class cScreen; }
+namespace nProject { class cProject; }
 
 
 namespace nApplication {
@@ -19,6 +20,7 @@ public:
     sf::RenderWindow* Window();
     void  SetAppTitle( const std::string& iTitle );
     void  SetAppDefaultResolution( int iW, int iH );
+    void  LoadProject( const std::string& iProjectFolder );
 
 public:
     void Initialize();
@@ -62,10 +64,10 @@ public:
     virtual  void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
 
 protected:
-    sf::RenderWindow*       mMainWindow;
-    std::vector< ::nScreen::cScreen* > mScreenStack;
-    ::nScreen::cScreen*     mCurrentScreen;
-
+    sf::RenderWindow*                   mMainWindow;
+    ::nProject::cProject*               mProject;
+    std::vector< ::nScreen::cScreen* >  mScreenStack;
+    ::nScreen::cScreen*                 mCurrentScreen;
 };
 
 

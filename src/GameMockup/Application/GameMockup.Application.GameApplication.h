@@ -27,8 +27,6 @@ public:
 public:
     // Access
     ::nECS::cWorld*         World();
-    ::nShortcuts::cShortcuts*     ShortcutEngine();
-    ::nMapping::cEntityGrid*    EntityMap();
 
 public:
     void Initialize();
@@ -45,7 +43,6 @@ public:
 private:
     ::nECS::cWorld*             mWorld;
     ::nShortcuts::cShortcuts*   mShortcutEngine;
-    ::nMapping::cEntityGrid*    mEntityMap;
 
 };
 

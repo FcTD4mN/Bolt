@@ -1,5 +1,10 @@
 #include "Core.Screen.Screen.h"
 
+#include "Core.ECS.Core.World.h"
+#include "Core.Mapping.PhysicEntityGrid.h"
+
+#include "Core.Render.LayerEngine.h"
+
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -13,27 +18,71 @@ cScreen::~cScreen()
 }
 
 
-cScreen::cScreen()
+cScreen::cScreen() :
+    mWorld( 0 ),
+    mLayerEngine( 0 ),
+    mUseLayerEngine( false ),
+    mEntityMap( 0 )
 {
 }
 
 
+void
+cScreen::Initialize()
+{
+    if( !mEntityMap )
+        mEntityMap = new ::nMapping::cPhysicEntityGrid( 100, 100, 32 );
+}
+
+
+void
+cScreen::Finalize()
+{
+    if( mEntityMap )
+        delete  mEntityMap;
+}
+
+
 // -------------------------------------------------------------------------------------
-// -------------------------------------------------------------- Main Running functions
+// ----------------------------------------------------------------------- Draw / Update
 // -------------------------------------------------------------------------------------
 
 
 void
 cScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
-    // Does nothing
+    if( mUseLayerEngine )
+        mLayerEngine->Draw( iRenderTarget );
+    else
+        mWorld->Draw( iRenderTarget );
 }
 
 
 void
 cScreen::Update( unsigned int iDeltaTime )
 {
-    // Does nothing
+    mWorld->Update( iDeltaTime );
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ Layers
+// -------------------------------------------------------------------------------------
+
+
+void
+cScreen::PutEntityInLayer( ::nECS::cEntity * iEntity, int iLayerIndex )
+{
+    mLayerEngine->AddEntityInLayer( iEntity, iLayerIndex );
+}
+
+
+void
+cScreen::SetUseLayerEngine( bool iValue )
+{
+    mUseLayerEngine = iValue;
+    if( !mLayerEngine )
+        mLayerEngine = new ::nRender::cLayerEngine();
 }
 
 
@@ -45,7 +94,7 @@ cScreen::Update( unsigned int iDeltaTime )
 void
 cScreen::Resized( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->Resized( iEvent );
 }
 
 void
@@ -58,126 +107,156 @@ cScreen::TextEntered( const sf::Event& iEvent )
 void
 cScreen::KeyPressed( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->KeyPressed( iEvent );
 }
 
 
 void
 cScreen::KeyReleased( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->KeyReleased( iEvent );
 }
 
 
 void
 cScreen::MouseWheelMoved( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->MouseWheelMoved( iEvent );
 }
 
 
 void
 cScreen::MouseWheelScrolled( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->MouseWheelScrolled( iEvent );
 }
 
 
 void
 cScreen::MouseButtonPressed( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->MouseButtonPressed( iEvent );
 }
 
 
 void
 cScreen::MouseButtonReleased( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->MouseButtonReleased( iEvent );
 }
 
 
 void
 cScreen::MouseMoved( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->MouseMoved( iEvent );
 }
 
 
 void
 cScreen::MouseEntered( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->MouseEntered( iEvent );
 }
 
 
 void
 cScreen::MouseLeft( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->MouseLeft( iEvent );
 }
 
 
 void
 cScreen::JoystickButtonPressed( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->JoystickButtonPressed( iEvent );
 }
 
 
 void
 cScreen::JoystickButtonReleased( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->JoystickButtonReleased( iEvent );
 }
 
 
 void
 cScreen::JoystickMoved( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->JoystickMoved( iEvent );
 }
 
 
 void
 cScreen::JoystickConnected( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->JoystickConnected( iEvent );
 }
 
 
 void
 cScreen::JoystickDisconnected( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->JoystickDisconnected( iEvent );
 }
 
 
 void
 cScreen::TouchBegan( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->TouchBegan( iEvent );
 }
 
 
 void
 cScreen::TouchMoved( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->TouchMoved( iEvent );
 }
 
 
 void
 cScreen::TouchEnded( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->TouchEnded( iEvent );
 }
 
 
 void
 cScreen::SensorChanged( const sf::Event& iEvent )
 {
-    // Does nothing
+    mWorld->SensorChanged( iEvent );
+}
+
+
+void
+cScreen::SaveXML()
+{
+}
+
+
+void
+cScreen::LoadXML( const std::string& iFilePath )
+{
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLError error = doc.LoadFile( iFilePath.c_str() );
+    if( !error )
+        printf( "Cool\n" );
+    else
+        printf( "Error\n" );
+
+    tinyxml2::XMLElement* root = doc.FirstChildElement( "screen" );
+
+    tinyxml2::XMLElement* entityMap = root->FirstChildElement( "entityMap" );
+    int eMapWidth   = entityMap->IntAttribute( "width" );
+    int eMapHeight  = entityMap->IntAttribute( "height" );
+    int eMapCellSize = entityMap->IntAttribute( "cellsize" );
+    mEntityMap = new ::nMapping::cPhysicEntityGrid( eMapWidth, eMapHeight, eMapCellSize );
+
+    tinyxml2::XMLElement* world = root->FirstChildElement( "world" );
+    mWorld = new ::nECS::cWorld();
+    mWorld->LoadXML( world );
 }
 
 

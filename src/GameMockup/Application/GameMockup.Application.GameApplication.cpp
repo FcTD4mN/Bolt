@@ -96,9 +96,6 @@ void
 cGameApplication::Initialize()
 {
     tSuperClass::Initialize();
-    //SetAppDefaultResolution( 1024, 768 ); //TODO: menu is shitty as fuck when not in 800*600 ........
-
-    ::nECS::cScreenEntityMap::Instance()->Initialize( 100, 100, 32 );
 
     // =======ECS WORLD=======
     mWorld = new ::nECS::cWorld();

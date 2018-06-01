@@ -3,6 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace nECS      { class cWorld; }
+namespace nECS      { class cEntity; }
+namespace nMapping  { class cEntityGrid; }
+namespace nRender   { class cLayerEngine; }
 
 namespace nScreen {
 
@@ -15,12 +19,22 @@ public:
     cScreen();
 
 public:
-    virtual  void  Initialize() = 0;
-    virtual  void  Finalize() = 0;
+    virtual  void  Initialize();
+    virtual  void  Finalize();
 
 public:
+    // Draw / Update
     virtual  void  Draw( sf::RenderTarget* iRenderTarget );
     virtual  void  Update( unsigned int iDeltaTime );
+
+public:
+    // Layers
+    void  PutEntityInLayer( ::nECS::cEntity* iEntity, int iLayerIndex );
+    void  SetUseLayerEngine( bool iValue );
+
+public:
+    // EntityMap
+    void  SetEntityMapCellSize( int iCellSize );
 
 public:
     // Events
@@ -44,6 +58,19 @@ public:
     virtual  void  TouchMoved( const sf::Event& iEvent );             ///< A touch moved (data in event.touch)
     virtual  void  TouchEnded( const sf::Event& iEvent );             ///< A touch event ended (data in event.touch)
     virtual  void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
+
+public:
+    // Input/Output
+    virtual  void SaveXML();
+    virtual  void LoadXML( const std::string& iFilePath );
+
+private:
+    ::nECS::cWorld*             mWorld;
+
+    ::nRender::cLayerEngine*    mLayerEngine;
+    bool                        mUseLayerEngine;
+
+    ::nMapping::cEntityGrid*    mEntityMap;
 };
 
 

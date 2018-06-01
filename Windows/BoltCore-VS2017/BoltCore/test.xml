@@ -112,8 +112,8 @@
             <components>
                 <component name="position">
                     <variables>
-                        <variable name="x" type="1" value="334"/>
-                        <variable name="y" type="1" value="497"/>
+                        <variable name="x" type="1" value="276"/>
+                        <variable name="y" type="1" value="445"/>
                     </variables>
                 </component>
                 <component name="size">
@@ -131,7 +131,7 @@
                     </variables>
                 </component>
                 <component name="userinput"/>
-                <component name="simplephysic" veloX="1" veloY="1" type="1">
+                <component name="simplephysic" veloX="-1" veloY="1" type="1">
                     <variables>
                         <variable name="CenterX" type="1" value="0"/>
                         <variable name="CenterY" type="1" value="0"/>

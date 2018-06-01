@@ -127,6 +127,9 @@
     <Filter Include="Fichiers sources\Core\Sound">
       <UniqueIdentifier>{7cc84b83-90df-4133-a791-d9ced6560879}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Core\Project">
+      <UniqueIdentifier>{f98255b5-29a5-4c7c-8de1-d5d9667152ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.cpp">
@@ -365,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.cpp">
       <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Project\Core.Project.Project.cpp">
+      <Filter>Fichiers sources\Core\Project</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -652,6 +658,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.h">
       <Filter>Fichiers sources\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Project\Core.Project.Project.h">
+      <Filter>Fichiers sources\Core\Project</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

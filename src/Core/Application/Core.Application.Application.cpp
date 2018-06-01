@@ -8,7 +8,9 @@
 #include "Core.MainMenu.MenuPage.h"
 #include "Core.Screen.ScreenMainMenu.h"
 #include "Core.Screen.Screen.h"
+#include "Core.Project.Project.h"
 
+#include <filesystem>
 
 namespace nApplication {
 
@@ -19,7 +21,9 @@ namespace nApplication {
 
 
 cApplication::cApplication() :
-    mMainWindow( 0 )
+    mMainWindow( 0 ),
+    mCurrentScreen( 0 ),
+    mProject( 0 )
 {
 }
 
@@ -50,6 +54,33 @@ cApplication::SetAppDefaultResolution( int iW, int iH )
 }
 
 
+void
+cApplication::LoadProject( const std::string & iProjectFolder )
+{
+    if( mProject )
+    {
+        mProject->Finalize();
+        delete  mProject;
+    }
+
+    std::filesystem::path projectPath = iProjectFolder;
+
+    mProject = new ::nProject::cProject( projectPath.filename().string(), iProjectFolder );
+    mProject->LoadXML();
+    mProject->Initialize();
+
+    if( mMainWindow )
+    {
+        mMainWindow->setFramerateLimit( mProject->LimitFramerate() );
+        mMainWindow->setSize( sf::Vector2u( mProject->ResolutionWidth(), mProject->ResolutionHeight() ) );
+
+        auto view = mMainWindow->getDefaultView();
+        view.reset( sf::FloatRect( 0.0F, 0.0F, float(mProject->ResolutionWidth()), float(mProject->ResolutionHeight()) ) );
+        mMainWindow->setView( view );
+    }
+}
+
+
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------- Init/Finalize
 // -------------------------------------------------------------------------------------
@@ -65,9 +96,10 @@ cApplication::Initialize()
     settings.majorVersion = 3;
     settings.minorVersion = 0;
 
-    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "Bolt", sf::Style::Default, settings );
+    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "NoProject", sf::Style::Default, settings );
 
     ::nBase::nThread::cThreadProcessor::Instance();
+    LoadProject( "I:/ProjectTest" );
 }
 
 
@@ -109,8 +141,7 @@ cApplication::Draw( sf::RenderTarget* iRenderTarget )
 void
 cApplication::PushScreen( ::nScreen::cScreen * iScreen )
 {
-    mScreenStack.push_back( iScreen );
-    iScreen->Initialize();
+    mProject->PushScreen( iScreen );
     mCurrentScreen = iScreen;
 }
 
@@ -118,11 +149,8 @@ cApplication::PushScreen( ::nScreen::cScreen * iScreen )
 void
 cApplication::PopScreen()
 {
-    ::nScreen::cScreen* currentScreen = mScreenStack.back();
-    currentScreen->Finalize();
-
-    mScreenStack.pop_back();
-    mCurrentScreen = mScreenStack.back();
+    mProject->PopScreen();
+    mCurrentScreen = mProject->CurrentScreen();
 }
 
 
