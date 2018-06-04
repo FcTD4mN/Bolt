@@ -19,7 +19,7 @@ cBehaviourTreeSystem::~cBehaviourTreeSystem()
 
 
 cBehaviourTreeSystem::cBehaviourTreeSystem() :
-    tSuperClass()
+    tSuperClass( "BehaviourTreeSystem" )
 {
 }
 

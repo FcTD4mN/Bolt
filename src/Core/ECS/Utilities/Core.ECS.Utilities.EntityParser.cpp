@@ -55,28 +55,10 @@ cEntityParser::Instance()
 
 
 void
-cEntityParser::Initialize( cWorld* iWorld )
+cEntityParser::Initialize( const std::string& iProjectDir )
 {
-    std::vector< std::wstring > fileNames;
-    ::nBase::ParseDirWindows( &fileNames, L"Resources/Core/Entities/" );
-    tinyxml2::XMLDocument doc;
-
-    for( int i = 0; i < fileNames.size(); ++i )
-    {
-        std::wstring file = fileNames[ i ];
-        std::string conversion( file.begin(), file.end() );
-
-        tinyxml2::XMLError error = doc.LoadFile( conversion.c_str() );
-        if( error )
-            continue;
-
-        cEntity* entity = new cEntity( iWorld );
-        entity->LoadXML( doc.FirstChildElement( "entity" ) );
-
-        mEntities[ entity->ID() ].mEntity = entity;
-        mEntities[ entity->ID() ].mFileName = file;
-        doc.Clear();
-    }
+    mEntitiesDir = iProjectDir + "/Assets/Entities";
+    ParseFolder();
 }
 
 
@@ -89,10 +71,38 @@ cEntityParser::Finalize()
 
 
 void
-cEntityParser::ReparseAll( cWorld* iWorld )
+cEntityParser::ReparseAll()
 {
     mEntities.clear();
-    Initialize( iWorld );
+    ParseFolder();
+}
+
+
+void
+cEntityParser::ParseFolder()
+{
+    std::wstring path( mEntitiesDir.begin(), mEntitiesDir.end() );
+
+    std::vector< std::wstring > fileNames;
+    ::nBase::ParseDirWindows( &fileNames, path );
+    tinyxml2::XMLDocument doc;
+
+    for( int i = 0; i < fileNames.size(); ++i )
+    {
+        std::wstring file = fileNames[ i ];
+        std::string conversion( file.begin(), file.end() );
+
+        tinyxml2::XMLError error = doc.LoadFile( conversion.c_str() );
+        if( error )
+            continue;
+
+        cEntity* entity = new cEntity();
+        entity->LoadXML( doc.FirstChildElement( "entity" ) );
+
+        mEntities[ entity->ID() ].mEntity = entity;
+        mEntities[ entity->ID() ].mFileName = file;
+        doc.Clear();
+    }
 }
 
 
@@ -109,7 +119,7 @@ cEntityParser::CreateEntityFromFile( const std::string& iFile, cWorld* iWorld )
     if( error )
         return  0;
 
-    cEntity* entity = new cEntity( iWorld );
+    cEntity* entity = new cEntity();
     entity->LoadXML( doc.FirstChildElement( "entity" ) );
 
     return  entity;

@@ -129,7 +129,7 @@ BoltMain( int argc, char *argv[] )
         //}
         // /Drawing entityMap
 
-        if( 1 )
+        if( 0 )
         {
             //sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
             //rect.setPosition( sf::Vector2f( sf::Mouse::getPosition( *window ) ) );

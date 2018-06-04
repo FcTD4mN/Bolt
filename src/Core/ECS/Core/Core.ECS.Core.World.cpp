@@ -4,6 +4,8 @@
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.System.h"
 
+#include "Core.Mapping.PhysicEntityGrid.h"
+
 #include "Core.Render.LayerEngine.h"
 
 namespace nECS {
@@ -29,6 +31,8 @@ cWorld::cWorld() :
     mLayerEngine( 0 ),
     mUseLayerEngine( false )
 {
+    if( !mEntityMap )
+        mEntityMap = new ::nMapping::cPhysicEntityGrid( 100, 100, 32 );
 }
 
 
@@ -91,6 +95,7 @@ cWorld::AddEntity( cEntity* iEntity )
 {
     mEntity[ iEntity->ID() ] = iEntity;
     UpdateWorldWithEntity( iEntity );
+    iEntity->SetWorld( this );
     iEntity->SetLoaded();
 }
 
@@ -189,6 +194,7 @@ void
 cWorld::AddSystem( cSystem * iSystem )
 {
     mSystems.push_back( iSystem );
+    iSystem->mWorld = this;
     iSystem->Initialize();
     for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
     {
@@ -225,6 +231,18 @@ void
 cWorld::RemoveEntity( cEntity* iEntity )
 {
     mEntity.erase( iEntity->ID() );
+}
+
+
+// -------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------- EntityMap
+// -------------------------------------------------------------------------------------
+
+
+void
+cWorld::SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize )
+{
+    mEntityMap->SetGridDimensions( iWidth, iHeight, iCellSize );
 }
 
 
@@ -431,6 +449,12 @@ cWorld::SensorChanged( const sf::Event& iEvent )
 void
 cWorld::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
+    tinyxml2::XMLElement* entityMap = iDocument->NewElement( "entityMap" );
+    entityMap->SetAttribute( "width", mEntityMap->Width() );
+    entityMap->SetAttribute( "height", mEntityMap->Height() );
+    entityMap->SetAttribute( "cellsize", mEntityMap->CellSize() );
+    iNode->LinkEndChild( entityMap );
+
     tinyxml2::XMLElement* entities = iDocument->NewElement( "entities" );
 
     for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
@@ -448,11 +472,22 @@ void
 cWorld::LoadXML( tinyxml2::XMLElement* iNode )
 {
     DestroyAllEntities();
+    tinyxml2::XMLElement* entityMap = iNode->FirstChildElement( "entityMap" );
+    int eMapWidth = entityMap->IntAttribute( "width" );
+    int eMapHeight = entityMap->IntAttribute( "height" );
+    int eMapCellSize = entityMap->IntAttribute( "cellsize" );
+
+    // Loading means we want a fresh entity map and a fresh world, so if they already exist, we diss them for brand new ones
+    if( mEntityMap )
+        delete  mEntityMap;
+    mEntityMap = new ::nMapping::cPhysicEntityGrid( eMapWidth, eMapHeight, eMapCellSize );
+
+
     tinyxml2::XMLElement* entities = iNode->FirstChildElement( "entities" );
 
     for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity = entity->NextSiblingElement() )
     {
-        cEntity* loadedEntity = new cEntity( this );
+        cEntity* loadedEntity = new cEntity();
         loadedEntity->LoadXML( entity );
         AddEntity( loadedEntity );
     }

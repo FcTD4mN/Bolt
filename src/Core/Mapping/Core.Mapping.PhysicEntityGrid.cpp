@@ -120,6 +120,32 @@ cEntityGrid::ClearGrid()
 }
 
 
+// -------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------- Access/Get
+// -------------------------------------------------------------------------------------
+
+
+int
+cEntityGrid::Width() const
+{
+    return  mWidth;
+}
+
+
+int
+cEntityGrid::Height() const
+{
+    return  mHeight;
+}
+
+
+int
+cEntityGrid::CellSize() const
+{
+    return  mCellSize;
+}
+
+
 void
 cEntityGrid::RemoveEntityNotUpdated( ::nECS::cEntity* iEntity )
 {

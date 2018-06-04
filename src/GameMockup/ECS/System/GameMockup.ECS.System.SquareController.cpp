@@ -37,7 +37,7 @@ cSquareController::~cSquareController()
 
 
 cSquareController::cSquareController() :
-    tSuperClass(),
+    tSuperClass( "SquareController" ),
     mVieuxTimer( 0 )
 {
 }
@@ -79,10 +79,10 @@ cSquareController::Update( unsigned int iDeltaTime )
     {
         cEntity* entity = mEntityGroup[ i ];
 
-        auto userinput      = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
-        auto simplephysic = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
-        auto spriteanimated = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
-        auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
+        auto userinput          = dynamic_cast< cUserInput* >( entity->GetComponentByName( "userinput" ) );
+        auto simplephysic       = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
+        auto spriteanimated     = dynamic_cast< cSpriteAnimated* >( entity->GetComponentByName( "spriteanimated" ) );
+        auto position           = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
 
         sf::Listener::setPosition( float(position->X()), float(position->Y()), 0.0F );
 

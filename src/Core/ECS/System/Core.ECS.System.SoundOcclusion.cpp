@@ -28,7 +28,7 @@ cSoundOcclusion::~cSoundOcclusion()
 
 
 cSoundOcclusion::cSoundOcclusion() :
-    tSuperClass(),
+    tSuperClass( "SoundOcclusion" ),
     mListener( 0 )
 {
 }

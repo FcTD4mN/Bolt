@@ -33,6 +33,12 @@ private:
     void ClearGrid();
 
 public:
+    // Access/Get
+    int Width() const;
+    int Height() const;
+    int CellSize() const;
+
+public:
         // This asssumes that iEntity still has the same position as when it was added
         // It allows for a fast removal
     void RemoveEntityNotUpdated( ::nECS::cEntity* iEntity );

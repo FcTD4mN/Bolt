@@ -66,8 +66,8 @@ cApplication::LoadProject( const std::string & iProjectFolder )
     std::filesystem::path projectPath = iProjectFolder;
 
     mProject = new ::nProject::cProject( projectPath.filename().string(), iProjectFolder );
-    mProject->LoadXML();
     mProject->Initialize();
+    mProject->LoadXML( "ProjectTest.proj" );
 
     if( mMainWindow )
     {
@@ -100,6 +100,8 @@ cApplication::Initialize()
 
     ::nBase::nThread::cThreadProcessor::Instance();
     LoadProject( "I:/ProjectTest" );
+
+    mCurrentScreen = mProject->CurrentScreen();
 }
 
 

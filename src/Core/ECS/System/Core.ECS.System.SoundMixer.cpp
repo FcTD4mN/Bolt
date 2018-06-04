@@ -21,7 +21,7 @@ cSoundMixer::~cSoundMixer()
 
 
 cSoundMixer::cSoundMixer() :
-    tSuperClass()
+    tSuperClass( "SoundMixer" )
 {
 }
 

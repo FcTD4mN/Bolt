@@ -42,7 +42,6 @@ public:
 
 protected:
     std::string  mName;
-
 };
 
 

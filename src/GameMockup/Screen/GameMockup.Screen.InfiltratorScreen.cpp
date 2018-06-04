@@ -57,7 +57,7 @@ cInfiltratorScreen::Initialize()
 
     ::nECS::cWorld* world = ::nApplication::cGameApplication::App()->World();
 
-    ::nECS::cEntity* wall1 = new ::nECS::cEntity( world );
+    ::nECS::cEntity* wall1 = new ::nECS::cEntity();
     wall1->AddComponent( new ::nECS::cPosition( 0.0F, 500.0F ) );
     wall1->AddComponent( new ::nECS::cSize( 800.0F, 100.0F ) );
     wall1->AddComponent( new ::nECS::cColor( 180, 185, 183 ) );
@@ -89,7 +89,7 @@ cInfiltratorScreen::Initialize()
     //wall4->AddComponent( new cSimplePhysic( 450.0F, 200.0F, 64.0F, 256.0F, cSimplePhysic::eType::kStatic ) );
     //world->AddEntity( wall4 );
 
-    ::nECS::cEntity* hero = new ::nECS::cEntity( world );
+    ::nECS::cEntity* hero = new ::nECS::cEntity();
     hero->AddComponent( new ::nECS::cPosition( 350.0F, 350.0F ) );
     hero->AddComponent( new ::nECS::cSize( 40.0F, 64.0F ) );
     //hero->AddComponent( new ::nECS::cColor( 20, 20, 200 ) );
@@ -101,14 +101,14 @@ cInfiltratorScreen::Initialize()
     BuildBehaviourTree( hero );
 
 
-    ::nECS::cEntity* topFrame = new ::nECS::cEntity( world );
+    ::nECS::cEntity* topFrame = new ::nECS::cEntity();
     topFrame->AddComponent( new ::nECS::cPosition( 145.F, 90.F ) );
     topFrame->AddComponent( new ::nECS::cSize( 110.0F, 5.0f ) );
     topFrame->AddComponent( new ::nECS::cColor( 60, 30, 20 ) );
     topFrame->AddComponent( new ::nECS::cSimplePhysic( 110.0f, 5.0f, ::nECS::cSimplePhysic::eType::kStatic ) );
     topFrame->AddTag( "wall" );
     world->AddEntity( topFrame );
-    ::nECS::cEntity* leftFrame = new ::nECS::cEntity( world );
+    ::nECS::cEntity* leftFrame = new ::nECS::cEntity();
     leftFrame->AddComponent( new ::nECS::cPosition( 140.F, 95.F ) );
     leftFrame->AddComponent( new ::nECS::cSize( 5.0f, 10.0f ) );
     leftFrame->AddComponent( new ::nECS::cColor( 60, 30, 20 ) );
@@ -116,7 +116,7 @@ cInfiltratorScreen::Initialize()
     leftFrame->AddTag( "wall" );
     world->AddEntity( leftFrame );
 
-    ::nECS::cEntity* rightFrame = new ::nECS::cEntity( world );
+    ::nECS::cEntity* rightFrame = new ::nECS::cEntity();
     rightFrame->AddComponent( new ::nECS::cPosition( 255.F, 95.F ) );
     rightFrame->AddComponent( new ::nECS::cSize( 5.0f, 10.0f ) );
     rightFrame->AddComponent( new ::nECS::cColor( 60, 30, 20 ) );
@@ -124,7 +124,7 @@ cInfiltratorScreen::Initialize()
     rightFrame->AddTag( "wall" );
     world->AddEntity( rightFrame );
 
-    mMechant = new ::nECS::cEntity( world );
+    mMechant = new ::nECS::cEntity();
     mMechant->AddComponent( new ::nECS::cPosition( 150.0F, 100.0F ) );
     mMechant->AddComponent( new ::nECS::cSize( 1.0F, 1.0F ) );
     mMechant->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
@@ -133,7 +133,7 @@ cInfiltratorScreen::Initialize()
     //mMechant->AddComponent( new ::nECS::cSimplePhysic( 1.0F, 1.0F, ::nECS::cSimplePhysic::eType::kStatic ) );
     world->AddEntity( mMechant );
 
-    ::nECS::cEntity* light = new ::nECS::cEntity( world );
+    ::nECS::cEntity* light = new ::nECS::cEntity();
     light->AddComponent( new ::nECS::cPosition( 250.0F, 100.0F ) );
     light->AddComponent( new ::nECS::cSize( 1.0F, 1.0F ) );
     light->AddComponent( new ::nECS::cColor( 180, 20, 20 ) );
@@ -147,7 +147,7 @@ cInfiltratorScreen::Initialize()
     {
         for( int j = 0; j < swall; ++j )
         {
-            ::nECS::cEntity* wall = new ::nECS::cEntity( world );
+            ::nECS::cEntity* wall = new ::nECS::cEntity();
             wall->AddComponent( new ::nECS::cPosition( float(i) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ) ) );
             wall->AddComponent( new ::nECS::cSize( 5.0f, 5.0f ) );
             wall->AddComponent( new ::nECS::cColor( 20, 180, 20 ) );

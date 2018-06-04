@@ -372,6 +372,9 @@
     <ClCompile Include="..\..\..\src\Core\Project\Core.Project.Project.cpp">
       <Filter>Fichiers sources\Core\Project</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.cpp">
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
@@ -661,6 +664,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Project\Core.Project.Project.h">
       <Filter>Fichiers sources\Core\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.h">
+      <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

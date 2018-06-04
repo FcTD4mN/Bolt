@@ -38,7 +38,7 @@ private: // So nobody except for friends can delete entities
 
 public:
     // Contruction/Destruction
-    cEntity( cWorld* iWorld );
+    cEntity();
     cEntity( const cEntity& iEntity );
 
 public:
@@ -90,7 +90,7 @@ private:
 private:
     // World only
     void SetLoaded();
-
+    void SetWorld( cWorld* iWorld );
 
 public:
     // Input/Output

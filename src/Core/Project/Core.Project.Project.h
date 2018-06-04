@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
 
@@ -38,7 +39,7 @@ public:
 public:
     // Input/Output
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
-    virtual  void LoadXML();
+    virtual  void LoadXML( const std::string& iProjectName );
 
 protected:
     std::string                         mProjectName;

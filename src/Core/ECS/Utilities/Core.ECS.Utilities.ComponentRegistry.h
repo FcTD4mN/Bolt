@@ -33,7 +33,7 @@ public:
 
 public:
     // Init/Finalize
-    void  Initialize();
+    void  Initialize( const std::string& iProjectDir );
     void  Finalize();
 
 public:
@@ -61,7 +61,8 @@ public:
     bool                IsNameAvailable( const std::string& iID );
 
 private:
-    std::unordered_map< std::string, sPairComponentFile > mComponents;
+    std::string                                             mComponentDir;
+    std::unordered_map< std::string, sPairComponentFile >   mComponents;
 
 };
 

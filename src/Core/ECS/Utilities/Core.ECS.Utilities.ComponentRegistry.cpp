@@ -4,6 +4,15 @@
 #include "Core.Base.Utilities.h"
 
 #include "Core.ECS.Core.Component.h"
+#include "Core.ECS.Component.BehaviourTree.h"
+#include "Core.ECS.Component.Color.h"
+#include "Core.ECS.Component.Position.h"
+#include "Core.ECS.Component.SimplePhysic.h"
+#include "Core.ECS.Component.Size.h"
+#include "Core.ECS.Component.SpriteAnimated.h"
+#include "Core.ECS.Component.UserInput.h"
+#include "Core.ECS.Component.Direction.h"
+#include "Core.ECS.Component.FieldOfView.h"
 
 #include <algorithm>
 
@@ -48,10 +57,25 @@ cComponentRegistry::Instance()
 
 
 void
-cComponentRegistry::Initialize()
+cComponentRegistry::Initialize( const std::string& iProjectDir )
 {
+    // First : The defined components are registrered
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cColor() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cDirection() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cFieldOfView() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cPosition() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSize() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSpriteAnimated() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cUserInput() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSimplePhysic() );
+    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cBehaviourTree() );
+
+    // Then we get all file based components
+    mComponentDir = iProjectDir + "/Assets/Components";
+    std::wstring path( mComponentDir.begin(), mComponentDir.end() );
+
     std::vector< std::wstring > fileNames;
-    ::nBase::ParseDirWindows( &fileNames, L"Resources/Core/Components/" );
+    ::nBase::ParseDirWindows( &fileNames, path );
     tinyxml2::XMLDocument doc;
 
     for( int i = 0; i < fileNames.size(); ++i )
@@ -70,6 +94,8 @@ cComponentRegistry::Initialize()
         mComponents[ component->Name() ].mFileName = file;
         doc.Clear();
     }
+
+
 }
 
 

@@ -1,0 +1,6 @@
+<component name="position">
+    <variables>
+        <variable name="x" type="1" value="0"/>
+        <variable name="y" type="1" value="0"/>
+    </variables>
+</component>

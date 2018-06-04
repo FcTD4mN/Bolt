@@ -36,11 +36,14 @@ public:
 
 public:
     // Initialize/Finalize
-    void  Initialize( cWorld* iWorld );
+    void  Initialize( const std::string& iProjectDir );
     void  Finalize();
 
 public:
-    void  ReparseAll( cWorld* iWorld );
+    void  ReparseAll();
+
+private:
+    void  ParseFolder();
 
 public:
     // Functions
@@ -69,6 +72,7 @@ public:
     bool                IsIDAvailable( const std::string& iID );
 
 private:
+    std::string                                        mEntitiesDir;
     std::unordered_map< std::string, sPairEntityFile > mEntities;
 
 };

@@ -22,7 +22,7 @@ cAnimationRenderer::~cAnimationRenderer()
 
 
 cAnimationRenderer::cAnimationRenderer() :
-    tSuperClass()
+    tSuperClass( "AnimationRenderer" )
 {
 }
 

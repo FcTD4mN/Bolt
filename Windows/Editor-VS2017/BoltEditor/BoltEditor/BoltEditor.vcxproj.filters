@@ -103,6 +103,12 @@
     <Filter Include="src\Core\Render">
       <UniqueIdentifier>{866905ab-bd36-4c85-bbcc-2444fb406869}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Core\Project">
+      <UniqueIdentifier>{28ca6699-0bd5-48ef-ab46-99640de1c8c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Sound">
+      <UniqueIdentifier>{45c54237-966f-4009-a351-af91b3c1cd70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="..\..\..\..\src\Editor\BoltQtResourceFiles\Editor.BoltQtResourceFiles.BoltEditor.qrc">
@@ -323,6 +329,24 @@
     <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp">
       <Filter>src\Core\ECS\System</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Project\Core.Project.Project.cpp">
+      <Filter>src\Core\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Sound\Core.Sound.FX.cpp">
+      <Filter>src\Core\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -501,6 +525,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h">
       <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Project\Core.Project.Project.h">
+      <Filter>src\Core\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Sound\Core.Sound.FX.h">
+      <Filter>src\Core\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

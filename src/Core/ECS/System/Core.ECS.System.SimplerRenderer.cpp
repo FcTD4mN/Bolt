@@ -24,7 +24,7 @@ cSimplerRenderer::~cSimplerRenderer()
 
 
 cSimplerRenderer::cSimplerRenderer() :
-    tSuperClass()
+    tSuperClass( "SimpleRenderer" )
 {
 }
 

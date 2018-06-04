@@ -26,7 +26,7 @@ cSimplePhysics::~cSimplePhysics()
 
 
 cSimplePhysics::cSimplePhysics() :
-    tSuperClass(),
+    tSuperClass( "SimplePhysics" ),
     mGlobalGravity( 0.0 )
 {
 }

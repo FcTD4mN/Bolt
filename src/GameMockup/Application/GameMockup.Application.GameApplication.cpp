@@ -4,6 +4,7 @@
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.World.h"
 #include "Core.ECS.Utilities.ComponentRegistry.h"
+#include "Core.ECS.Utilities.SystemRegistry.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 
 #include "Core.ECS.Component.BehaviourTree.h"
@@ -83,7 +84,7 @@ cGameApplication::App()
 ::nECS::cWorld*
 cGameApplication::World()
 {
-    return mWorld;
+    return  0;
 }
 
 
@@ -96,40 +97,6 @@ void
 cGameApplication::Initialize()
 {
     tSuperClass::Initialize();
-
-    // =======ECS WORLD=======
-    mWorld = new ::nECS::cWorld();
-    mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
-
-    ::nECS::cInputConverter* ic = new ::nECS::cInputConverter();
-    mWorld->AddSystem( ic );
-    mWorld->ConnectSystemToEvents( ic );
-
-    auto physicSystem = new ::nECS::cSimplePhysics();
-    //physicSystem->SetGravity( 9.807F );
-    mWorld->AddSystem( physicSystem );
-
-    mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
-    mWorld->AddSystem( new ::nECS::cSightSystem() );
-    mWorld->AddSystem( new ::nECS::cSoundOcclusion() );
-    mWorld->AddSystem( new ::nECS::cSoundMixer() );
-    mWorld->AddSystem( new ::nECS::cSquareController() );
-    mWorld->AddSystem( new ::nECS::cBehaviourTreeSystem() );
-
-
-    // Following call may need world
-    ::nECS::cComponentRegistry::Instance()->Initialize();
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cColor() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cDirection() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cFieldOfView() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cPosition() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSize() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSpriteAnimated() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cUserInput() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSimplePhysic() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cBehaviourTree() );
-
-    ::nECS::cEntityParser::Instance()->Initialize( mWorld );
 
     // =========== GENERAL CONFIG ===========
     mMainWindow->setKeyRepeatEnabled( false );
@@ -208,14 +175,14 @@ void
 cGameApplication::Update( unsigned int iDeltaTime )
 {
     tSuperClass::Update( iDeltaTime );
-    mWorld->Update( iDeltaTime );
+    //mWorld->Update( iDeltaTime );
 }
 
 
 void
 cGameApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
-    mWorld->Draw( iRenderTarget );
+    //mWorld->Draw( iRenderTarget );
     tSuperClass::Draw( iRenderTarget );
 }
 
@@ -229,7 +196,7 @@ void
 cGameApplication::KeyPressed( const sf::Event& iEvent )
 {
     tSuperClass::KeyPressed( iEvent );
-    mWorld->KeyPressed( iEvent );
+    //mWorld->KeyPressed( iEvent );
 }
 
 
@@ -237,8 +204,10 @@ void
 cGameApplication::KeyReleased( const sf::Event& iEvent )
 {
     tSuperClass::KeyReleased( iEvent );
-    mWorld->KeyReleased( iEvent );
+    //mWorld->KeyReleased( iEvent );
 }
+
+
 
 
 } // namespace nApplication

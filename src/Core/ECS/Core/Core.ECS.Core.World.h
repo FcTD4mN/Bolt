@@ -9,6 +9,7 @@
 
 
 namespace nRender { class cLayerEngine; }
+namespace nMapping { class cEntityGrid; }
 
 namespace nECS {
 
@@ -64,6 +65,10 @@ private:
     void  RemoveEntity( cEntity* iEntity );
 
 public:
+    // EntityMap
+    void  SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize );
+
+public:
     // Events
     void  Resized( const sf::Event& iEvent );                ///< The window was resized (data in event.size)
     void  KeyPressed( const sf::Event& iEvent );             ///< A key was pressed (data in event.key)
@@ -96,6 +101,9 @@ protected:
 
     std::vector< cSystem* > mSystems;
     std::vector< cSystem* > mEventRelatedSystems;
+
+    //TODO: read comment below
+    ::nMapping::cEntityGrid*    mEntityMap; // This will tend to become a cEntityMap, that could either be a grid, an octree, a quadtree etc...
 
 public: // TEMP until main camera thing
     ::nRender::cLayerEngine*    mLayerEngine;

@@ -1,6 +1,9 @@
 #include "Core.Screen.Screen.h"
 
 #include "Core.ECS.Core.World.h"
+#include "Core.ECS.Core.System.h"
+#include "Core.ECS.Utilities.SystemRegistry.h"
+
 #include "Core.Mapping.PhysicEntityGrid.h"
 
 #include "Core.Render.LayerEngine.h"
@@ -19,10 +22,19 @@ cScreen::~cScreen()
 
 
 cScreen::cScreen() :
+    mName( "Unnamed" ),
     mWorld( 0 ),
     mLayerEngine( 0 ),
-    mUseLayerEngine( false ),
-    mEntityMap( 0 )
+    mUseLayerEngine( false )
+{
+}
+
+
+cScreen::cScreen( const std::string & iName ) :
+    mName( iName ),
+    mWorld( 0 ),
+    mLayerEngine( 0 ),
+    mUseLayerEngine( false )
 {
 }
 
@@ -30,16 +42,14 @@ cScreen::cScreen() :
 void
 cScreen::Initialize()
 {
-    if( !mEntityMap )
-        mEntityMap = new ::nMapping::cPhysicEntityGrid( 100, 100, 32 );
+    mWorld = new ::nECS::cWorld();
 }
 
 
 void
 cScreen::Finalize()
 {
-    if( mEntityMap )
-        delete  mEntityMap;
+    delete  mWorld;
 }
 
 
@@ -248,15 +258,20 @@ cScreen::LoadXML( const std::string& iFilePath )
 
     tinyxml2::XMLElement* root = doc.FirstChildElement( "screen" );
 
-    tinyxml2::XMLElement* entityMap = root->FirstChildElement( "entityMap" );
-    int eMapWidth   = entityMap->IntAttribute( "width" );
-    int eMapHeight  = entityMap->IntAttribute( "height" );
-    int eMapCellSize = entityMap->IntAttribute( "cellsize" );
-    mEntityMap = new ::nMapping::cPhysicEntityGrid( eMapWidth, eMapHeight, eMapCellSize );
-
     tinyxml2::XMLElement* world = root->FirstChildElement( "world" );
+    if( mWorld )
+        delete  mWorld;
+
     mWorld = new ::nECS::cWorld();
     mWorld->LoadXML( world );
+
+    tinyxml2::XMLElement* systems = root->FirstChildElement( "systems" );
+    for( tinyxml2::XMLElement* system = systems->FirstChildElement( "system" ); system; system = system->NextSiblingElement() )
+    {
+        ::nECS::cSystem* sys = ::nECS::cSystemRegistry::Instance()->GetSystemByName( system->Attribute( "name" ) );
+        if( sys )
+            mWorld->AddSystem( sys );
+    }
 }
 
 

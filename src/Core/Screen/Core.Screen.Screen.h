@@ -15,8 +15,9 @@ class cScreen
 {
 public:
     // Contruction/Destruction
-    virtual  ~cScreen() = 0;
+    virtual  ~cScreen();
     cScreen();
+    cScreen( const std::string& iName );
 
 public:
     virtual  void  Initialize();
@@ -31,10 +32,6 @@ public:
     // Layers
     void  PutEntityInLayer( ::nECS::cEntity* iEntity, int iLayerIndex );
     void  SetUseLayerEngine( bool iValue );
-
-public:
-    // EntityMap
-    void  SetEntityMapCellSize( int iCellSize );
 
 public:
     // Events
@@ -64,13 +61,13 @@ public:
     virtual  void SaveXML();
     virtual  void LoadXML( const std::string& iFilePath );
 
-private:
+protected:
+    std::string                 mName;
+
     ::nECS::cWorld*             mWorld;
 
     ::nRender::cLayerEngine*    mLayerEngine;
     bool                        mUseLayerEngine;
-
-    ::nMapping::cEntityGrid*    mEntityMap;
 };
 
 

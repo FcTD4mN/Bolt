@@ -8,20 +8,26 @@ namespace nECS {
 
 
 class cEntity;
+class cWorld;
 
 
 class cSystem
 {
+    friend cWorld;
 
 public:
     // Contruction/Destruction
     virtual  ~cSystem() = 0;
-    cSystem();
+    cSystem( const std::string& iName );
 
 public:
     // Init/Finalize
     virtual  void  Initialize();
     virtual  void  Finalize();
+
+public:
+    // Access/Get
+    const std::string& Name() const;
 
 public:
     // Update/Draw
@@ -58,8 +64,10 @@ public:
     virtual  void  SensorChanged( const sf::Event& iEvent );          ///< A sensor value changed (data in event.sensor)
 
 protected:
-    std::vector< cEntity* > mEntityGroup;
+    std::string             mName;
+    cWorld*                 mWorld;
 
+    std::vector< cEntity* > mEntityGroup;
 };
 
 

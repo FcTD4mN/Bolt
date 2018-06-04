@@ -27,8 +27,8 @@ cEntity::~cEntity()
 }
 
 
-cEntity::cEntity( cWorld* iWorld ) :
-    mWorld( iWorld ),
+cEntity::cEntity() :
+    mWorld( 0 ),
     mID( "idontknow" + std::to_string( sgEntityCount ) ),
     mComponents(),
     mTags(),
@@ -268,6 +268,13 @@ void
 cEntity::SetLoaded()
 {
     mLoaded = true;
+}
+
+
+void
+cEntity::SetWorld( cWorld * iWorld )
+{
+    mWorld = iWorld;
 }
 
 

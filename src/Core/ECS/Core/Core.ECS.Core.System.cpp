@@ -17,7 +17,8 @@ cSystem::~cSystem()
 }
 
 
-cSystem::cSystem()
+cSystem::cSystem( const std::string& iName ) :
+    mName( iName )
 {
 }
 
@@ -33,6 +34,13 @@ void
 cSystem::Finalize()
 {
     // Do nothing here
+}
+
+
+const std::string &
+cSystem::Name() const
+{
+    return  mName;
 }
 
 

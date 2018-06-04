@@ -131,7 +131,7 @@ void EntityStressTest()
 
     for( int i = 1; i <= 100; ++i )
     {
-        ::nECS::cEntity* ent = new ::nECS::cEntity( world );
+        ::nECS::cEntity* ent = new ::nECS::cEntity();
         ent->AddComponent( new ::nECS::cSize( 10.0F, 10.0F ) );
         ent->AddComponent( new ::nECS::cPosition( 10.0F, 100.0F ) );
         ent->AddComponent( new ::nECS::cText( "Test" ) );

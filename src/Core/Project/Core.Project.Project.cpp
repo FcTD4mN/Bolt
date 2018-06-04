@@ -1,6 +1,13 @@
 #include "Core.Project.Project.h"
 
+
+#include "Core.ECS.Utilities.ComponentRegistry.h"
+#include "Core.ECS.Utilities.EntityParser.h"
+#include "Core.ECS.Utilities.SystemRegistry.h"
+
 #include "Core.Screen.Screen.h"
+
+
 
 namespace nProject {
 
@@ -28,12 +35,18 @@ cProject::cProject( const std::string& iProjectName, const std::string& iProject
 void
 cProject::Initialize()
 {
+    ::nECS::cComponentRegistry::Instance()->Initialize( mProjectFolder );
+    ::nECS::cEntityParser::Instance()->Initialize( mProjectFolder );
+    ::nECS::cSystemRegistry::Instance()->Initialize( mProjectFolder );
 }
 
 
 void
 cProject::Finalize()
 {
+    ::nECS::cComponentRegistry::Instance()->Finalize();
+    ::nECS::cEntityParser::Instance()->Finalize();
+    ::nECS::cSystemRegistry::Instance()->Finalize();
 }
 
 
@@ -136,8 +149,9 @@ cProject::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument * iDocume
 
 
 void
-cProject::LoadXML()
+cProject::LoadXML( const std::string& iProjectFile )
 {
+    // CONFIG
     tinyxml2::XMLDocument doc;
     std::string path = mProjectFolder + "/projectConfig.ini";
     tinyxml2::XMLError error = doc.LoadFile( path.c_str() );
@@ -154,6 +168,31 @@ cProject::LoadXML()
 
     tinyxml2::XMLElement* limitFR = root->FirstChildElement( "limitframerate" );
     mLimitFramerate = limitFR->IntAttribute( "value" );
+
+
+    // PROJECT ITSELF
+    tinyxml2::XMLDocument doc2;
+    path = mProjectFolder + "/" + iProjectFile;
+    error = doc2.LoadFile( path.c_str() );
+    if( !error )
+        printf( "Cool\n" );
+    else
+        printf( "Error\n" );
+
+    tinyxml2::XMLElement* root2 = doc2.FirstChildElement( "project" );
+    mProjectName = root2->Attribute( "name" );
+
+    tinyxml2::XMLElement* screens = root2->FirstChildElement( "screens" );
+    for( tinyxml2::XMLElement* screenNode = screens->FirstChildElement( "screen" ); screenNode; screenNode = screenNode->NextSiblingElement() )
+    {
+        nScreen::cScreen* screen = new  ::nScreen::cScreen( screenNode->Attribute( "name" ) );
+        if( screen )
+        {
+            std::string screenFilePath = mProjectFolder + "/Screens/" + screenNode->Attribute( "file" );
+            screen->LoadXML( screenFilePath );
+            PushScreen( screen );
+        }
+    }
 }
 
 

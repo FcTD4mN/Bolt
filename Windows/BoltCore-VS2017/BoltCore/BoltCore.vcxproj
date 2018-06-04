@@ -278,6 +278,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.cpp" />
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.cpp" />
+    <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.cpp" />
     <ClCompile Include="..\..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp" />
     <ClCompile Include="..\..\..\src\Core\Core.main.cpp" />
     <ClCompile Include="..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.cpp" />
@@ -383,6 +384,7 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.h" />
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.h" />
+    <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.h" />
     <ClInclude Include="..\..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h" />
     <ClInclude Include="..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.h" />
     <ClInclude Include="..\..\..\src\Core\MainMenu\Core.MainMenu.ItemPageSwaper.h" />

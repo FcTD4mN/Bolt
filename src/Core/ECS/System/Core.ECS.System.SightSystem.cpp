@@ -44,7 +44,7 @@ cSightSystem::~cSightSystem()
 
 
 cSightSystem::cSightSystem() :
-    tSuperClass()
+    tSuperClass( "SightSystem" )
 {
 }
 

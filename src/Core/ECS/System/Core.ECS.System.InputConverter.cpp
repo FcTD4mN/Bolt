@@ -23,7 +23,7 @@ cInputConverter::~cInputConverter()
 
 
 cInputConverter::cInputConverter() :
-    tSuperClass()
+    tSuperClass( "InputConverter" )
 {
 }
 
