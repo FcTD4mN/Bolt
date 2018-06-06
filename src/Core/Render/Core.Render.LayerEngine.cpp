@@ -14,8 +14,6 @@ cLayerEngine::~cLayerEngine()
 
 cLayerEngine::cLayerEngine()
 {
-    // One layer by default
-    AddLayer();
 }
 
 
@@ -28,20 +26,20 @@ cLayerEngine::Draw( sf::RenderTarget * iRenderTarget )
 
 
 void
-cLayerEngine::AddLayer()
+cLayerEngine::AddLayer( const sf::Vector2f& iViewSize )
 {
-    mLayers.push_back( cLayer() );
+    mLayers.push_back( cLayer( iViewSize ) );
 }
 
 
 void
-cLayerEngine::AddLayerAtIndex( int iIndex )
+cLayerEngine::AddLayerAtIndex( const sf::Vector2f& iViewSize, int iIndex )
 {
     auto it = mLayers.begin();
     for( int i = 0; i < iIndex; ++i )
         ++it;
 
-    mLayers.insert( it, cLayer() );
+    mLayers.insert( it, cLayer( iViewSize ) );
 }
 
 

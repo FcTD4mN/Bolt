@@ -1,4 +1,4 @@
-#include "Core.Shader.Shader.h"
+#include "Core.Shader.Shader3D.h"
 
 
 namespace nShaders {
@@ -8,7 +8,7 @@ namespace nShaders {
 //------------------------------------------------------------------- Construction / Destruction
 
 
-cShader::~cShader()
+cShader3D::~cShader3D()
 {
     glDeleteShader(m_vertexID);
     glDeleteShader(m_fragmentID);
@@ -16,7 +16,7 @@ cShader::~cShader()
 }
 
 
-cShader::cShader() :
+cShader3D::cShader3D() :
     m_vertexID(0),
     m_fragmentID(0),
     m_programID(0),
@@ -26,7 +26,7 @@ cShader::cShader() :
 }
 
 
-cShader::cShader( cShader const &iShader )
+cShader3D::cShader3D( cShader3D const &iShader )
 {
     m_vertexSource = iShader.m_vertexSource;
     m_fragmentSource = iShader.m_fragmentSource;
@@ -34,7 +34,7 @@ cShader::cShader( cShader const &iShader )
 }
 
 
-cShader::cShader( std::string iVertexSource, std::string iFragmentSource ) :
+cShader3D::cShader3D( std::string iVertexSource, std::string iFragmentSource ) :
     m_vertexID(0),
     m_fragmentID(0),
     m_programID(0),
@@ -44,7 +44,7 @@ cShader::cShader( std::string iVertexSource, std::string iFragmentSource ) :
 }
 
 
-cShader& cShader::operator=( cShader const &iShader )
+cShader3D& cShader3D::operator=( cShader3D const &iShader )
 {
     m_vertexSource = iShader.m_vertexSource;
     m_fragmentSource = iShader.m_fragmentSource;
@@ -59,7 +59,7 @@ cShader& cShader::operator=( cShader const &iShader )
 //----------------------------------------------------------------------------- Public Interface
 
 
-bool cShader::Load()
+bool cShader3D::Load()
 {
     // Destruction before rebuild
     if(glIsShader(m_vertexID) == GL_TRUE)
@@ -126,7 +126,7 @@ bool cShader::Load()
 }
 
 
-bool cShader::CompileShader( GLuint &iShader, GLenum iType, std::string const &iSourceFile )
+bool cShader3D::CompileShader( GLuint &iShader, GLenum iType, std::string const &iSourceFile )
 {
     // Creation
     iShader = glCreateShader( iType );
@@ -207,7 +207,7 @@ bool cShader::CompileShader( GLuint &iShader, GLenum iType, std::string const &i
 
 // Getter
 
-GLuint cShader::getProgramID() const
+GLuint cShader3D::getProgramID() const
 {
     return m_programID;
 }

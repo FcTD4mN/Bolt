@@ -5,7 +5,7 @@
 
 #include "Core.GUI.ConsoleWidget.h"
 #include "Core.Volumetric.SparseOctree.USROCMap.h"
-#include "Core.Shader.Shader.h"
+#include "Core.Shader.Shader3D.h"
 
 
 namespace nScreen {
@@ -54,7 +54,7 @@ public:
 private:
     ::nGUI::cConsoleWidget*  mConsoleWidget;
     sf::Clock  mClock;
-    ::nShaders::cShader mShader;
+    ::nShaders::cShader3D mShader;
 
     ::nVolumetric::nSparseOctree::cUSROCMap< ::nVolumetric::nSparseOctree::eLod2N::kLod64,
                                              ::nVolumetric::nSparseOctree::eLod2N::kLod32,

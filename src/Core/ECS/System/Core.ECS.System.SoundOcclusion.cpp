@@ -1,7 +1,7 @@
  #include "Core.ECS.System.SoundOcclusion.h"
 
 #include "Core.ECS.Core.Entity.h"
-#include "Core.ECS.Core.ScreenEntityMap.h"
+#include "Core.ECS.Core.World.h"
 
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
@@ -48,7 +48,7 @@ cSoundOcclusion::Draw( sf::RenderTarget* iRenderTarget )
 void
 cSoundOcclusion::Update( unsigned int iDeltaTime )
 {
-    ::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
+    ::nMapping::cEntityGrid* entityMap = mWorld->EntityMap();
     bool applyOcclusion = false;
 
     for( int i = 0; i < mSoundEmitters.size(); ++i )

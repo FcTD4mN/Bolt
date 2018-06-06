@@ -56,20 +56,19 @@ cGameScreen::Initialize()
 {
     tSuperClass::Initialize();
 
-    sf::Window* window = ::nApplication::cGameApplication::App()->Window();
-    sf::Vector2u windowSize = window->getSize();
-
     ::nECS::cWorld* world = mWorld;
     world->SetUseLayerEngine( true );  // 114 FPS average without layers ; 103 with layers
-    world->AddLayer();
-    world->AddLayer();
-
-    ::nECS::cSystemRegistry::Instance()->RegisterSystem( new  ::nECS::cSquareController() );
+    world->AddLayer( sf::Vector2f( 800.F, 600.F ) );
+    world->AddLayer( sf::Vector2f( 800.F, 600.F ) );
 
     world->AddSystem( ::nECS::cSystemRegistry::Instance()->GetSystemByName( "SimpleRenderer" ) );
     world->AddSystem( ::nECS::cSystemRegistry::Instance()->GetSystemByName( "SquareController" ) );
-    world->AddSystem( ::nECS::cSystemRegistry::Instance()->GetSystemByName( "InputConverter" ) );
     world->AddSystem( ::nECS::cSystemRegistry::Instance()->GetSystemByName( "SimplePhysics" ) );
+    world->AddSystem( ::nECS::cSystemRegistry::Instance()->GetSystemByName( "SoundOcclusion" ) );
+
+    auto inputConverter = ::nECS::cSystemRegistry::Instance()->GetSystemByName( "InputConverter" );
+    world->AddSystem( inputConverter );
+    world->ConnectSystemToEvents( inputConverter );
 
     world->mLayerEngine->LayerDistanceAtIndex( 2, 0 );
 

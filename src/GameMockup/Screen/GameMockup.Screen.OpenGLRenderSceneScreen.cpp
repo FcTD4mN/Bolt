@@ -78,7 +78,7 @@ cOpenGLRenderSceneScreen::Initialize()
     double ratio = double(window->getSize().x) / double(window->getSize().y);
     gluPerspective(50.f, ratio, 5.f, 1500.f);
 
-    mShader = ::nShaders::cShader( "resources/Shared/Shaders/basicLight.vert", "resources/Shared/Shaders/basicLight.frag" );
+    mShader = ::nShaders::cShader3D( "resources/Shared/Shaders/basicLight.vert", "resources/Shared/Shaders/basicLight.frag" );
 
     GLuint shaderProgramID = mShader.getProgramID();
     glUseProgram( shaderProgramID );

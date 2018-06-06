@@ -14,17 +14,15 @@ cLayer::~cLayer()
 }
 
 
-cLayer::cLayer() :
+cLayer::cLayer( const sf::Vector2f& iViewSize ) :
     mZLayer( 1.0F ),
     mShaderRenderTextureInput( 0 ),
     mShaderRenderTextureOutput( 0 )
 {
     mView.setViewport( sf::FloatRect( 0.0F, 0.0F, 1.0F, 1.0F ) );
-    mView.setSize( sf::Vector2f( 800,600 ) );
+    mView.setSize( iViewSize );
     if( mZLayer == 0.0F )
         mZLayer = 1.0F;
-
-    mView.setCenter( 400, 300 );
 }
 
 
@@ -120,12 +118,12 @@ cLayer::AddShader( sf::Shader* iShader )
     if( !mShaderRenderTextureInput )
     {
         mShaderRenderTextureInput = new sf::RenderTexture();
-        mShaderRenderTextureInput->create( 800, 600 );//TODO: Access window size somehow
+        mShaderRenderTextureInput->create( mView.getSize().x, mView.getSize().y );
     }
     if( !mShaderRenderTextureOutput )
     {
         mShaderRenderTextureOutput = new sf::RenderTexture();
-        mShaderRenderTextureOutput->create( 800, 600 );//TODO: Access window size somehow
+        mShaderRenderTextureOutput->create( mView.getSize().x, mView.getSize().y );
     }
 }
 

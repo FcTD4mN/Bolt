@@ -102,7 +102,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //// ============== MULTI THREAD ============
     //// ========================================
 
-    ::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
+    ::nMapping::cEntityGrid* entityMap = mWorld->EntityMap();
 
     // Draw container
     mFOVDrawer.clear();

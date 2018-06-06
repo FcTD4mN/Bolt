@@ -1,7 +1,7 @@
  #include "Core.ECS.System.SimplePhysics.h"
 
 #include "Core.ECS.Core.Entity.h"
-#include "Core.ECS.Core.ScreenEntityMap.h"
+#include "Core.ECS.Core.World.h"
 
 #include "Core.ECS.Component.Position.h"
 #include "Core.ECS.Component.SimplePhysic.h"
@@ -95,7 +95,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 {
     sf::Rect< float > entityHitBox;
     sf::Rect< float > projection;
-    ::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
+    ::nMapping::cEntityGrid* entityMap = mWorld->EntityMap();
 
     for( int i = 0; i < mDynamicEntities.size(); ++i )
     {
@@ -202,7 +202,7 @@ cSimplePhysics::IncomingEntity( cEntity * iEntity )
     if( simplephysic )
     {
         AcceptEntity( iEntity );
-        ::nECS::cScreenEntityMap::Instance()->mEntityGrid->AddEntity( iEntity );
+        mWorld->EntityMap()->AddEntity( iEntity );
 
         if( simplephysic->mType == cSimplePhysic::eType::kStatic )
             mStaticEntities.push_back( iEntity );
@@ -236,7 +236,7 @@ cSimplePhysics::EntityLost( cEntity * iEntity )
     }
 
     tSuperClass::EntityLost( iEntity );
-    ::nECS::cScreenEntityMap::Instance()->mEntityGrid->RemoveEntityNotUpdated( iEntity );
+    mWorld->EntityMap()->RemoveEntityNotUpdated( iEntity );
 }
 
 

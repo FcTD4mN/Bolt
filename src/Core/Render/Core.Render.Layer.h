@@ -17,7 +17,7 @@ class cLayer
 public:
     // Contruction/Destruction
     ~cLayer();
-    cLayer();
+    cLayer( const sf::Vector2f& iViewSize );
 
 public:
     // Draw related methods
@@ -31,7 +31,7 @@ public:
     // Access
     size_t EntityCount() const;
     void  ZLayer( float iZLayer );
-    void SetViewCenter( const sf::Vector2f& iViewCenter );
+    void  SetViewCenter( const sf::Vector2f& iViewCenter );
 
 public:
     void  AddShader( sf::Shader* iShader );

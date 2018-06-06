@@ -42,14 +42,16 @@ cScreen::cScreen( const std::string & iName ) :
 void
 cScreen::Initialize()
 {
-    mWorld = new ::nECS::cWorld();
+    if( !mWorld )
+        mWorld = new ::nECS::cWorld();
 }
 
 
 void
 cScreen::Finalize()
 {
-    delete  mWorld;
+    if( mWorld )
+        delete  mWorld;
 }
 
 
@@ -254,7 +256,7 @@ cScreen::LoadXML( const std::string& iFilePath )
     if( !error )
         printf( "Cool\n" );
     else
-        printf( "Error\n" );
+        printf( "Error : %s\n", doc.ErrorIDToName( error ) );
 
     tinyxml2::XMLElement* root = doc.FirstChildElement( "screen" );
 
@@ -270,7 +272,11 @@ cScreen::LoadXML( const std::string& iFilePath )
     {
         ::nECS::cSystem* sys = ::nECS::cSystemRegistry::Instance()->GetSystemByName( system->Attribute( "name" ) );
         if( sys )
+        {
             mWorld->AddSystem( sys );
+            if( system->BoolAttribute( "eventconnected" ) )
+                mWorld->ConnectSystemToEvents( sys );
+        }
     }
 }
 

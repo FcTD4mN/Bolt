@@ -35,7 +35,7 @@ public:
     void  SetUseLayerEngine( bool iValue );
 
 public:
-    void  AddLayer();
+    void  AddLayer( const sf::Vector2f& iViewSize );
 
 public:
     // Entity
@@ -67,6 +67,7 @@ private:
 public:
     // EntityMap
     void  SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize );
+    ::nMapping::cEntityGrid*  EntityMap();
 
 public:
     // Events

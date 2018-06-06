@@ -4,6 +4,8 @@
 #include "Core.ECS.Utilities.ComponentRegistry.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Utilities.SystemRegistry.h"
+#include "Core.Application.GlobalAccess.h"
+#include "Core.Shader.ShaderFileLibrary.h"
 
 #include "Core.Screen.Screen.h"
 
@@ -38,6 +40,9 @@ cProject::Initialize()
     ::nECS::cComponentRegistry::Instance()->Initialize( mProjectFolder );
     ::nECS::cEntityParser::Instance()->Initialize( mProjectFolder );
     ::nECS::cSystemRegistry::Instance()->Initialize( mProjectFolder );
+    ::nGlobal::cGlobalProperties::Instance()->SetProjectFolder( mProjectFolder );
+    ::nGlobal::cGlobalProperties::Instance()->SetProjectSize( sf::Vector2f( float( mResolutionWidth ), float( mResolutionHeight ) ) );
+    ::nShaders::cShaderFileLibrary::Instance()->ParseDir( mProjectFolder + "/Assets/Shaders" );
 }
 
 
@@ -165,6 +170,8 @@ cProject::LoadXML( const std::string& iProjectFile )
     tinyxml2::XMLElement* resolution = root->FirstChildElement( "resolution" );
     mResolutionWidth = resolution->IntAttribute( "width" );
     mResolutionHeight = resolution->IntAttribute( "height" );
+
+    ::nGlobal::cGlobalProperties::Instance()->SetProjectSize( sf::Vector2f( float(mResolutionWidth), float(mResolutionHeight) ) );
 
     tinyxml2::XMLElement* limitFR = root->FirstChildElement( "limitframerate" );
     mLimitFramerate = limitFR->IntAttribute( "value" );

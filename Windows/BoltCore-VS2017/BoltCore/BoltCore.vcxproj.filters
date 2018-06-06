@@ -234,9 +234,6 @@
     <ClCompile Include="..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.cpp">
       <Filter>Fichiers sources\Core\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Core\Shader\Core.Shader.Shader.cpp">
-      <Filter>Fichiers sources\Core\Shader</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp">
       <Filter>Fichiers sources\Core\Shortcuts</Filter>
     </ClCompile>
@@ -375,6 +372,18 @@
     <ClCompile Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.cpp">
       <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Application\Core.Application.GlobalAccess.cpp">
+      <Filter>Fichiers sources\Core\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Shader\Core.Shader.ShaderFileLibrary.cpp">
+      <Filter>Fichiers sources\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Shader\Core.Shader.Shader3D.cpp">
+      <Filter>Fichiers sources\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Core\Shader\Core.Shader.Shader2D.cpp">
+      <Filter>Fichiers sources\Core\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Core\Volumetric\SparseOctree\Volumetric.SparseOctree.DataIncludes.h">
@@ -481,9 +490,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.h">
       <Filter>Fichiers sources\Core\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Core\Shader\Core.Shader.Shader.h">
-      <Filter>Fichiers sources\Core\Shader</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h">
       <Filter>Fichiers sources\Core\Shortcuts</Filter>
@@ -667,6 +673,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.h">
       <Filter>Fichiers sources\Core\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Application\Core.Application.GlobalAccess.h">
+      <Filter>Fichiers sources\Core\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Shader\Core.Shader.ShaderFileLibrary.h">
+      <Filter>Fichiers sources\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Shader\Core.Shader.Shader3D.h">
+      <Filter>Fichiers sources\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Core\Shader\Core.Shader.Shader2D.h">
+      <Filter>Fichiers sources\Core\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

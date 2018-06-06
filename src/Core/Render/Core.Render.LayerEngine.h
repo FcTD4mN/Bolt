@@ -30,8 +30,8 @@ public:
 
 public:
     // Layer
-    void  AddLayer();
-    void  AddLayerAtIndex( int iIndex );
+    void  AddLayer( const sf::Vector2f& iViewSize );
+    void  AddLayerAtIndex( const sf::Vector2f& iViewSize, int iIndex );
     void  SetLayersCenter( const sf::Vector2f& iLayerCenter );
     void  LayerDistanceAtIndex( float iDistance, int iLayerIndex );
     void  AddShaderToLayer( sf::Shader* iShader, int iLayerIndex );

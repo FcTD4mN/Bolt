@@ -12,15 +12,15 @@
 namespace nShaders {
 
 
-class cShader
+class cShader3D
 {
 public:
     // Construction / Destruction
-    ~cShader();
-    cShader();
-    cShader( cShader const &iShader );
-    cShader( std::string iVertexSource, std::string iFragmentSource );
-    cShader& operator=( cShader const &iShader );
+    ~cShader3D();
+    cShader3D();
+    cShader3D( cShader3D const &iShader );
+    cShader3D( std::string iVertexSource, std::string iFragmentSource );
+    cShader3D& operator=( cShader3D const &iShader );
 
 public:
     // Public Interface

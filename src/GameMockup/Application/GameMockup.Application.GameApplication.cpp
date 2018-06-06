@@ -7,27 +7,6 @@
 #include "Core.ECS.Utilities.SystemRegistry.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 
-#include "Core.ECS.Component.BehaviourTree.h"
-#include "Core.ECS.Component.Color.h"
-#include "Core.ECS.Component.Position.h"
-#include "Core.ECS.Component.SimplePhysic.h"
-#include "Core.ECS.Component.Size.h"
-#include "Core.ECS.Component.SpriteAnimated.h"
-#include "Core.ECS.Component.UserInput.h"
-#include "Core.ECS.Component.Direction.h"
-#include "Core.ECS.Component.FieldOfView.h"
-
-#include "Core.ECS.System.AnimationRenderer.h"
-#include "Core.ECS.System.InputConverter.h"
-#include "Core.ECS.System.SimplerRenderer.h"
-#include "Core.ECS.System.SimplePhysics.h"
-#include "Core.ECS.System.SightSystem.h"
-#include "Core.ECS.System.SoundMixer.h"
-#include "Core.ECS.System.SoundOcclusion.h"
-#include "Core.ECS.System.BehaviourTreeSystem.h"
-
-#include "Core.ECS.Core.ScreenEntityMap.h"
-
 #include "Core.MainMenu.MainMenu.h"
 #include "Core.MainMenu.ItemCallback.h"
 #include "Core.MainMenu.ItemPageSwaper.h"
@@ -37,7 +16,6 @@
 #include "Core.Screen.ScreenMainMenu.h"
 
 #include "Core.Shortcuts.Shortcuts.h"
-
 
 #include "GameMockup.ECS.System.SquareController.h"
 
@@ -96,10 +74,19 @@ cGameApplication::World()
 void
 cGameApplication::Initialize()
 {
+    // =========== GAME SPECIFIC SYSTEMS ===========
+    ::nECS::cSystemRegistry::Instance()->RegisterSystem( new  ::nECS::cSquareController() );
+
+    // =========== APPLICATION/PROJET INIT ===========
     tSuperClass::Initialize();
 
     // =========== GENERAL CONFIG ===========
     mMainWindow->setKeyRepeatEnabled( false );
+
+    // ============= SHORTCUTS =============
+    ::nShortcuts::cShortcuts::Instance()->Initialize();
+
+    return;
 
     sf::Vector2u winSize = mMainWindow->getSize();
 
@@ -149,9 +136,6 @@ cGameApplication::Initialize()
 
     ::nScreen::cScreenMainMenu* mainMenuScreen = new ::nScreen::cScreenMainMenu( menu );
     PushScreen( mainMenuScreen );
-
-    // =======Shortcuts=======
-    ::nShortcuts::cShortcuts::Instance()->Initialize();
 }
 
 

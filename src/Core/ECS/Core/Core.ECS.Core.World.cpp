@@ -8,6 +8,9 @@
 
 #include "Core.Render.LayerEngine.h"
 
+#include "Core.Shader.ShaderFileLibrary.h"
+
+
 namespace nECS {
 
 
@@ -79,9 +82,9 @@ cWorld::SetUseLayerEngine( bool iValue )
 
 
 void
-cWorld::AddLayer()
+cWorld::AddLayer( const sf::Vector2f& iViewSize )
 {
-    mLayerEngine->AddLayer();
+    mLayerEngine->AddLayer( iViewSize );
 }
 
 
@@ -243,6 +246,13 @@ void
 cWorld::SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize )
 {
     mEntityMap->SetGridDimensions( iWidth, iHeight, iCellSize );
+}
+
+
+::nMapping::cEntityGrid*
+cWorld::EntityMap()
+{
+    return  mEntityMap;
 }
 
 
@@ -472,6 +482,8 @@ void
 cWorld::LoadXML( tinyxml2::XMLElement* iNode )
 {
     DestroyAllEntities();
+
+    // ====================== EntityMap
     tinyxml2::XMLElement* entityMap = iNode->FirstChildElement( "entityMap" );
     int eMapWidth = entityMap->IntAttribute( "width" );
     int eMapHeight = entityMap->IntAttribute( "height" );
@@ -482,14 +494,41 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
         delete  mEntityMap;
     mEntityMap = new ::nMapping::cPhysicEntityGrid( eMapWidth, eMapHeight, eMapCellSize );
 
+    // ====================== Layers
+    mUseLayerEngine = iNode->BoolAttribute( "uselayer" );
+    mLayerEngine = new ::nRender::cLayerEngine();
 
-    tinyxml2::XMLElement* entities = iNode->FirstChildElement( "entities" );
-
-    for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity = entity->NextSiblingElement() )
+    tinyxml2::XMLElement* layers = iNode->FirstChildElement( "layers" );
+    int layerIndex = 0;
+    for( tinyxml2::XMLElement* layer = layers->FirstChildElement( "layer" ); layer; layer = layer->NextSiblingElement() )
     {
-        cEntity* loadedEntity = new cEntity();
-        loadedEntity->LoadXML( entity );
-        AddEntity( loadedEntity );
+        // Layer's view size
+        int viewWidth = layer->IntAttribute( "viewwidth" );
+        int viewHeight = layer->IntAttribute( "viewheight" );
+        mLayerEngine->AddLayer( sf::Vector2f( float(viewWidth), float(viewHeight )) );
+
+        // Layer's Shaders
+        tinyxml2::XMLElement* shaders = layer->FirstChildElement( "shaders" );
+        if( shaders )
+        {
+            for( tinyxml2::XMLElement* shader = shaders->FirstChildElement( "shader" ); shader; shader = shader->NextSiblingElement() )
+            {
+                mLayerEngine->AddShaderToLayer( ::nShaders::cShaderFileLibrary::Instance()->GetShaderFromFile( shader->Attribute( "file" ) ), layerIndex );
+            }
+        }
+
+
+        // =================== Entities
+        tinyxml2::XMLElement* entities = layer->FirstChildElement( "entities" );
+        for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity = entity->NextSiblingElement() )
+        {
+            cEntity* loadedEntity = new cEntity();
+            loadedEntity->LoadXML( entity );
+            AddEntity( loadedEntity );
+            mLayerEngine->AddEntityInLayer( loadedEntity, layerIndex );
+        }
+
+        ++layerIndex;
     }
 }
 

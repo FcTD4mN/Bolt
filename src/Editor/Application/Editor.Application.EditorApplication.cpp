@@ -88,7 +88,7 @@ cEditorApplication::Initialize()
     mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
     mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
 
-    ::nECS::cEntityParser::Instance()->Initialize( mWorld );
+    ::nECS::cEntityParser::Instance()->Initialize();
 }
 
 
