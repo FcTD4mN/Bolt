@@ -1,12 +1,15 @@
 #include "Core.Screen.Screen.h"
 
+
+#include "Core.Application.GlobalAccess.h"
+
 #include "Core.ECS.Core.World.h"
 #include "Core.ECS.Core.System.h"
-#include "Core.ECS.Utilities.SystemRegistry.h"
 
 #include "Core.Mapping.PhysicEntityGrid.h"
 
 #include "Core.Render.LayerEngine.h"
+
 
 
 // -------------------------------------------------------------------------------------
@@ -18,6 +21,7 @@ namespace nScreen {
 
 cScreen::~cScreen()
 {
+    Finalize();
 }
 
 
@@ -95,6 +99,46 @@ cScreen::SetUseLayerEngine( bool iValue )
     mUseLayerEngine = iValue;
     if( !mLayerEngine )
         mLayerEngine = new ::nRender::cLayerEngine();
+}
+
+
+// -------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------- Get/Set
+// -------------------------------------------------------------------------------------
+
+
+const std::string &
+cScreen::Name() const
+{
+    return  mName;
+}
+
+
+void
+cScreen::Name( const std::string & iName )
+{
+    mName = iName;
+}
+
+
+const std::filesystem::path &
+cScreen::FilePath() const
+{
+    return  mFilePath;
+}
+
+
+void
+cScreen::FilePath( const std::filesystem::path & iFilePath )
+{
+    mFilePath = iFilePath;
+}
+
+
+void
+cScreen::FilePath( const std::string & iFilePath )
+{
+    mFilePath = iFilePath;
 }
 
 
@@ -245,6 +289,22 @@ cScreen::SensorChanged( const sf::Event& iEvent )
 void
 cScreen::SaveXML()
 {
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* screenNode = doc.NewElement( "screen" );
+
+    // WORLD
+    tinyxml2::XMLElement* worldNode = doc.NewElement( "world" );
+    mWorld->SaveXML( worldNode, &doc );
+
+    screenNode->LinkEndChild( worldNode );
+
+    // Final connection
+    doc.InsertFirstChild( screenNode );
+
+    // Save into file
+    tinyxml2::XMLError error = doc.SaveFile( mFilePath.string().c_str() );
+    if( error )
+        printf( "Heh, couldn't save ...\n" );
 }
 
 
@@ -267,17 +327,8 @@ cScreen::LoadXML( const std::string& iFilePath )
     mWorld = new ::nECS::cWorld();
     mWorld->LoadXML( world );
 
-    tinyxml2::XMLElement* systems = root->FirstChildElement( "systems" );
-    for( tinyxml2::XMLElement* system = systems->FirstChildElement( "system" ); system; system = system->NextSiblingElement() )
-    {
-        ::nECS::cSystem* sys = ::nECS::cSystemRegistry::Instance()->GetSystemByName( system->Attribute( "name" ) );
-        if( sys )
-        {
-            mWorld->AddSystem( sys );
-            if( system->BoolAttribute( "eventconnected" ) )
-                mWorld->ConnectSystemToEvents( sys );
-        }
-    }
+    mFilePath.clear();
+    mFilePath = iFilePath;
 }
 
 

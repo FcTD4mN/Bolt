@@ -5,7 +5,6 @@
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Utilities.SystemRegistry.h"
 #include "Core.Application.GlobalAccess.h"
-#include "Core.Shader.ShaderFileLibrary.h"
 
 #include "Core.Screen.Screen.h"
 
@@ -17,6 +16,14 @@ namespace nProject {
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------ Construction/Destruction
 // -------------------------------------------------------------------------------------
+
+
+cProject::~cProject()
+{
+    for( auto screen : mScreenStack )
+        delete  screen;
+}
+
 
 
 cProject::cProject( const std::string& iProjectName, const std::string& iProjectFolder ) :
@@ -42,7 +49,6 @@ cProject::Initialize()
     ::nECS::cSystemRegistry::Instance()->Initialize( mProjectFolder );
     ::nGlobal::cGlobalProperties::Instance()->SetProjectFolder( mProjectFolder );
     ::nGlobal::cGlobalProperties::Instance()->SetProjectSize( sf::Vector2f( float( mResolutionWidth ), float( mResolutionHeight ) ) );
-    ::nShaders::cShaderFileLibrary::Instance()->ParseDir( mProjectFolder + "/Assets/Shaders" );
 }
 
 
@@ -148,48 +154,89 @@ cProject::SetLimitFramerate( int iFramerate )
 
 
 void
-cProject::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument * iDocument )
+cProject::SaveXML()
 {
+    tinyxml2::XMLDocument doc;
+    tinyxml2::XMLElement* projectNode = doc.NewElement( "project" );
+    projectNode->SetAttribute( "name", mProjectName.c_str() );
+
+    // CONFIG
+    tinyxml2::XMLElement* configNode = doc.NewElement( "config" );
+
+    tinyxml2::XMLElement* resolutionNode = doc.NewElement( "resolution" );
+    resolutionNode->SetAttribute( "width", mResolutionWidth );
+    resolutionNode->SetAttribute( "height", mResolutionHeight );
+
+    tinyxml2::XMLElement* limiteFRNode = doc.NewElement( "limitframerate" );
+    limiteFRNode->SetAttribute( "value", mLimitFramerate );
+
+    configNode->LinkEndChild( resolutionNode );
+    configNode->LinkEndChild( limiteFRNode );
+    projectNode->LinkEndChild( configNode );
+
+    // SCREENS
+    tinyxml2::XMLElement* screens = doc.NewElement( "screens" );
+
+    for( auto screen : mScreenStack )
+    {
+        tinyxml2::XMLElement* screenNode = doc.NewElement( "screen" );
+        screenNode->SetAttribute( "name", screen->Name().c_str() );
+        screenNode->SetAttribute( "file", screen->FilePath().filename().string().c_str() );
+
+        screens->LinkEndChild( screenNode );
+
+        screen->SaveXML(); // Hopefully this won't be problematic as we'll open to write another file while still not being done with this one
+    }
+
+    projectNode->LinkEndChild( screens );
+
+    // Final connection
+    doc.InsertFirstChild( projectNode );
+
+    // Save into file
+    std::string outputFileName = mProjectFolder + "/" + mProjectName + ".proj";
+    tinyxml2::XMLError error = doc.SaveFile( outputFileName.c_str() );
+    if( error )
+    {
+        printf("Heh, couldn't save ...\n" );
+    }
 }
 
 
 void
-cProject::LoadXML( const std::string& iProjectFile )
+cProject::LoadXML( const std::string& iProjectFile ) //CHECK : No param here ?
 {
-    // CONFIG
+    for( auto screen : mScreenStack )
+        delete  screen;
+
+    mScreenStack.clear();
+
     tinyxml2::XMLDocument doc;
-    std::string path = mProjectFolder + "/projectConfig.ini";
+    std::string path = mProjectFolder + "/" + iProjectFile; //CHECK: use mProjectName ?
     tinyxml2::XMLError error = doc.LoadFile( path.c_str() );
     if( !error )
         printf( "Cool\n" );
     else
         printf( "Error\n" );
 
-    tinyxml2::XMLElement* root = doc.FirstChildElement( "config" );
+    // PROJECT ITSELF
+    tinyxml2::XMLElement* root = doc.FirstChildElement( "project" );
+    mProjectName = root->Attribute( "name" );
 
-    tinyxml2::XMLElement* resolution = root->FirstChildElement( "resolution" );
+    // CONFIG
+    tinyxml2::XMLElement* config = root->FirstChildElement( "config" );
+
+    tinyxml2::XMLElement* resolution = config->FirstChildElement( "resolution" );
     mResolutionWidth = resolution->IntAttribute( "width" );
     mResolutionHeight = resolution->IntAttribute( "height" );
 
-    ::nGlobal::cGlobalProperties::Instance()->SetProjectSize( sf::Vector2f( float(mResolutionWidth), float(mResolutionHeight) ) );
+    ::nGlobal::cGlobalProperties::Instance()->SetProjectSize( sf::Vector2f( float( mResolutionWidth ), float( mResolutionHeight ) ) );
 
-    tinyxml2::XMLElement* limitFR = root->FirstChildElement( "limitframerate" );
+    tinyxml2::XMLElement* limitFR = config->FirstChildElement( "limitframerate" );
     mLimitFramerate = limitFR->IntAttribute( "value" );
 
-
-    // PROJECT ITSELF
-    tinyxml2::XMLDocument doc2;
-    path = mProjectFolder + "/" + iProjectFile;
-    error = doc2.LoadFile( path.c_str() );
-    if( !error )
-        printf( "Cool\n" );
-    else
-        printf( "Error\n" );
-
-    tinyxml2::XMLElement* root2 = doc2.FirstChildElement( "project" );
-    mProjectName = root2->Attribute( "name" );
-
-    tinyxml2::XMLElement* screens = root2->FirstChildElement( "screens" );
+    // SCREENS
+    tinyxml2::XMLElement* screens = root->FirstChildElement( "screens" );
     for( tinyxml2::XMLElement* screenNode = screens->FirstChildElement( "screen" ); screenNode; screenNode = screenNode->NextSiblingElement() )
     {
         nScreen::cScreen* screen = new  ::nScreen::cScreen( screenNode->Attribute( "name" ) );

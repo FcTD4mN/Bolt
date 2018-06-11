@@ -57,7 +57,7 @@ cEntityParser::Instance()
 void
 cEntityParser::Initialize( const std::string& iProjectDir )
 {
-    mEntitiesDir = iProjectDir + "/Assets/Entities";
+    mEntitiesDir = iProjectDir + "/Assets/Entities/";
     ParseFolder();
 }
 

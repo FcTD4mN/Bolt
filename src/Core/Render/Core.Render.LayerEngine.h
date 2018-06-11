@@ -9,6 +9,7 @@
 
 
 namespace nECS { class cEntity; }
+namespace nShaders { class cShader2D; }
 
 
 namespace nRender {
@@ -34,11 +35,16 @@ public:
     void  AddLayerAtIndex( const sf::Vector2f& iViewSize, int iIndex );
     void  SetLayersCenter( const sf::Vector2f& iLayerCenter );
     void  LayerDistanceAtIndex( float iDistance, int iLayerIndex );
-    void  AddShaderToLayer( sf::Shader* iShader, int iLayerIndex );
+    void  AddShaderToLayer( ::nShaders::cShader2D* iShader, int iLayerIndex );
 
 public:
     // Entity
     void AddEntityInLayer( ::nECS::cEntity* iEntity, int iLayerIndex );
+
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
     std::list< cLayer >  mLayers;

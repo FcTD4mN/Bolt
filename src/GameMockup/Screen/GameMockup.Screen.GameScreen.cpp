@@ -2,9 +2,9 @@
 
 
 #include "Core.ECS.Core.Entity.h"
+#include "Core.ECS.Core.World.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Utilities.SystemRegistry.h"
-#include "Core.ECS.Core.World.h"
 
 #include "Core.ECS.Component.Color.h"
 #include "Core.ECS.Component.OcclusionFactor.h"
@@ -16,11 +16,15 @@
 #include "Core.ECS.Component.UserInput.h"
 #include "Core.ECS.Component.ZDepth.h"
 
+#include "Core.Render.LayerEngine.h"
+
+#include "Core.Shader.Shader2D.h"
+
 #include "GameMockup.ECS.System.SquareController.h"
 
 #include "GameMockup.Application.GameApplication.h"
 
-#include "Core.Render.LayerEngine.h"
+#include "Core.Application.GlobalAccess.h"
 
 #include "SFML/Audio.hpp"
 
@@ -56,6 +60,8 @@ cGameScreen::Initialize()
 {
     tSuperClass::Initialize();
 
+    ::nGlobal::cGlobalProperties::Instance()->SetProjectFolder( "I:/ProjectTest/" );
+
     ::nECS::cWorld* world = mWorld;
     world->SetUseLayerEngine( true );  // 114 FPS average without layers ; 103 with layers
     world->AddLayer( sf::Vector2f( 800.F, 600.F ) );
@@ -73,15 +79,14 @@ cGameScreen::Initialize()
     world->mLayerEngine->LayerDistanceAtIndex( 2, 0 );
 
     // Shader tests
-    sf::Shader* Hblur = new sf::Shader;
-    sf::Shader* Vblur = new sf::Shader;
-    if( !Hblur->loadFromFile( "resources/Shared/Shaders/BoxBlurHorizontal.frag", sf::Shader::Fragment ) )
-        int breakpoint = 1;
-    if( !Vblur->loadFromFile( "resources/Shared/Shaders/BoxBlurVertical.frag", sf::Shader::Fragment ) )
-        int breakpoint = 1;
+    ::nShaders::cShader2D* Hblur = new ::nShaders::cShader2D( "BoxBlurHorizontal.frag", "HBlur" );
+    ::nShaders::cShader2D* Vblur = new ::nShaders::cShader2D( "BoxBlurVertical.frag", "VBlur" );
 
-    Hblur->setUniform( "blur_radius", 2.0F );
-    Vblur->setUniform( "blur_radius", 2.0F );
+    Hblur->AddNewVariable( "blur_radius", ::nBase::cVariant::MakeVariant( 2.0F ) );
+    Vblur->AddNewVariable( "blur_radius", ::nBase::cVariant::MakeVariant( 2.0F ) );
+
+    Hblur->ApplyUniforms();
+    Vblur->ApplyUniforms();
 
     world->mLayerEngine->AddShaderToLayer( Hblur, 0 );
     world->mLayerEngine->AddShaderToLayer( Vblur, 0 );

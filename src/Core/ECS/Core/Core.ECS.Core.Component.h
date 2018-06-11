@@ -64,10 +64,12 @@ public:
 public:
     // Access/Get
         // Yes we can get the variant, and modify it on the stop, so it's faster
-    ::nBase::cVariant*    GetVar( const std::string& iVarName );
+    ::nBase::cVariant*  GetVar( const std::string& iVarName );
         // Simple setter
-    void                  AddNewVariable( const std::string& iVarName, ::nBase::cVariant* iValue );
-    void                  SetVarValueChangedCallback( const std::string& iVarName, std::function< void() > iFunction );
+    void                AddNewVariable( const std::string& iVarName, ::nBase::cVariant* iValue );
+    void                SetVarValueChangedCallback( const std::string& iVarName, std::function< void() > iFunction );
+
+    void                VariableEnumerator( std::function< void( const std::string&, ::nBase::cVariant* )> iMethod );
 
     // EDITOR USED methods
     int                 VarCount() const;

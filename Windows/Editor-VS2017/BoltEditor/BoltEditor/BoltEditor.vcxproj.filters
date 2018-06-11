@@ -230,9 +230,6 @@
     <ClCompile Include="..\..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.cpp">
       <Filter>src\Core\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader.cpp">
-      <Filter>src\Core\Shader</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.cpp">
       <Filter>src\Core\MainMenu</Filter>
     </ClCompile>
@@ -346,6 +343,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\Core\Sound\Core.Sound.FX.cpp">
       <Filter>src\Core\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader2D.cpp">
+      <Filter>src\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader3D.cpp">
+      <Filter>src\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.cpp">
+      <Filter>src\Core\ECS\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Core\Application\Core.Application.GlobalAccess.cpp">
+      <Filter>src\Core\Application</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,9 +472,6 @@
     <ClInclude Include="..\..\..\..\src\Core\Screen\Core.Screen.Screen.h">
       <Filter>src\Core\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader.h">
-      <Filter>src\Core\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.h">
       <Filter>src\Core\MainMenu</Filter>
     </ClInclude>
@@ -543,6 +549,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\src\Core\Sound\Core.Sound.FX.h">
       <Filter>src\Core\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader3D.h">
+      <Filter>src\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader2D.h">
+      <Filter>src\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.h">
+      <Filter>src\Core\ECS\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.GlobalAccess.h">
+      <Filter>src\Core\Application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

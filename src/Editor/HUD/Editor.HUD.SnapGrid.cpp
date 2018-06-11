@@ -71,7 +71,6 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
     // So we need a modulo thing, that will do a final shift to match grid coordinates at current location
     auto view = iRenderTarget->getView();
     sf::Vector2f viewPosition( view.getCenter().x - view.getSize().x/2, view.getCenter().y - view.getSize().y / 2 );
-
     sf::Vector2f moduloVector( float((int(viewPosition.x) % mWidth) + mWidth), float((int(viewPosition.y) % mHeight) + mHeight) );
 
     // +4 is to draw extra lines so we properly fill the screen
@@ -81,8 +80,8 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
                                                         // The first shift here is to go to the current location, then modulo fine tunes it
         line.append( sf::Vector2f( float(i * mWidth), 0.0F ) + viewPosition - moduloVector );
         line.append( sf::Vector2f( float(i * mWidth), float( view.getSize().y + 2*mHeight) ) + viewPosition - moduloVector );
-        line[ 0 ].color = sf::Color( 0, 0, 0, 200 );
-        line[ 1 ].color = sf::Color( 0, 0, 0, 200 );
+        line[ 0 ].color = sf::Color( 0, 0, 0, 160 );
+        line[ 1 ].color = sf::Color( 0, 0, 0, 160 );
 
         iRenderTarget->draw( line );
     }
@@ -95,8 +94,8 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
                                                                         // The first shift here is to go to the current location, then modulo fine tunes it
         line.append( sf::Vector2f( float( view.getSize().x + 2*mWidth), float(i * mHeight) ) + viewPosition - moduloVector );
 
-        line[ 0 ].color = sf::Color( 0, 0, 0, 200 );
-        line[ 1 ].color = sf::Color( 0, 0, 0, 200 );
+        line[ 0 ].color = sf::Color( 0, 0, 0, 160 );
+        line[ 1 ].color = sf::Color( 0, 0, 0, 160 );
 
         iRenderTarget->draw( line );
     }

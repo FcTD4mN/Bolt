@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <filesystem>
+
 namespace nECS      { class cWorld; }
 namespace nECS      { class cEntity; }
 namespace nMapping  { class cEntityGrid; }
@@ -34,6 +36,15 @@ public:
     void  SetUseLayerEngine( bool iValue );
 
 public:
+    // Get / Set
+    const std::string&  Name() const;
+    void                Name( const std::string& iName );
+
+    const std::filesystem::path&    FilePath() const;
+    void                            FilePath( const std::filesystem::path& iFilePath );
+    void                            FilePath( const std::string& iFilePath );
+
+public:
     // Events
     virtual  void  Resized( const sf::Event& iEvent );                ///< The window was resized (data in event.size)
     virtual  void  TextEntered( const sf::Event& iEvent );            ///< A character was entered (data in event.text)
@@ -63,6 +74,7 @@ public:
 
 protected:
     std::string                 mName;
+    std::filesystem::path       mFilePath;
 
     ::nECS::cWorld*             mWorld;
 

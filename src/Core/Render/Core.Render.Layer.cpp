@@ -3,6 +3,8 @@
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Component.ZDepth.h"
 
+#include "Core.Shader.Shader2D.h"
+
 namespace nRender
 {
 
@@ -11,6 +13,9 @@ cLayer::~cLayer()
 {
     delete  mShaderRenderTextureInput;
     delete  mShaderRenderTextureOutput;
+
+    for( auto shader : mShaders )
+        delete  shader;
 }
 
 
@@ -51,11 +56,11 @@ cLayer::Draw( sf::RenderTarget* iRenderTarget )
         for( auto shader : mShaders )
         {
             sf::Texture texture = mShaderRenderTextureInput->getTexture();
-            shader->setUniform( "texture", texture );
+            shader->GetSFShader()->setUniform( "texture", texture );
             sprite.setTexture( texture );
 
             mShaderRenderTextureOutput->clear( sf::Color( 0, 0, 0, 0 ) );
-            mShaderRenderTextureOutput->draw( sprite, shader );
+            mShaderRenderTextureOutput->draw( sprite, shader->GetSFShader() );
             mShaderRenderTextureOutput->display();
 
             std::swap( mShaderRenderTextureInput, mShaderRenderTextureOutput );
@@ -112,18 +117,18 @@ cLayer::SetViewCenter( const sf::Vector2f & iCenter )
 
 
 void
-cLayer::AddShader( sf::Shader* iShader )
+cLayer::AddShader( ::nShaders::cShader2D* iShader )
 {
     mShaders.push_back( iShader );
     if( !mShaderRenderTextureInput )
     {
         mShaderRenderTextureInput = new sf::RenderTexture();
-        mShaderRenderTextureInput->create( mView.getSize().x, mView.getSize().y );
+        mShaderRenderTextureInput->create( unsigned int(mView.getSize().x), unsigned int(mView.getSize().y) );
     }
     if( !mShaderRenderTextureOutput )
     {
         mShaderRenderTextureOutput = new sf::RenderTexture();
-        mShaderRenderTextureOutput->create( mView.getSize().x, mView.getSize().y );
+        mShaderRenderTextureOutput->create( unsigned int(mView.getSize().x), unsigned int(mView.getSize().y) );
     }
 }
 
@@ -139,6 +144,63 @@ cLayer::RemoveEntity( ::nECS::cEntity * iEntity )
             break;
         }
     }
+}
+
+
+void
+cLayer::ClearShaders()
+{
+    for( auto shader : mShaders )
+    {
+        delete shader;
+    }
+
+    mShaders.clear();
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------ Input/Output
+// -------------------------------------------------------------------------------------
+
+
+void
+cLayer::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
+{
+    auto view = mView.getSize();
+
+    iNode->SetAttribute( "viewwidth", view.x );
+    iNode->SetAttribute( "viewheight", view.y );
+
+    // SHADERS
+    tinyxml2::XMLElement* shadersNode = iDocument->NewElement( "shaders" );
+    for( auto shader : mShaders )
+    {
+        tinyxml2::XMLElement* shaderNode = iDocument->NewElement( "shader" );
+        shader->SaveXML( shaderNode, iDocument );
+        shaderNode->SetAttribute( "file", shader->GetPathToProgram().filename().string().c_str() );
+        shadersNode->LinkEndChild( shaderNode );
+    }
+    iNode->LinkEndChild( shadersNode );
+
+    // ENTITIES
+    tinyxml2::XMLElement* entitiesNode = iDocument->NewElement( "entities" );
+
+    for( auto entity : mEntities )
+    {
+        tinyxml2::XMLElement* entityNode = iDocument->NewElement( "entity" );
+        entity->SaveXML( entityNode, iDocument );
+        entitiesNode->LinkEndChild( entityNode );
+    }
+
+    iNode->LinkEndChild( entitiesNode );
+}
+
+
+void
+cLayer::LoadXML( tinyxml2::XMLElement* iNode )
+{
+    // Nothing because already done in an unsymmetrical manner by the world
 }
 
 

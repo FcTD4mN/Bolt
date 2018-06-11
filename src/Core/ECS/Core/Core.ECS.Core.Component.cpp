@@ -134,6 +134,14 @@ cComponentGeneric::SetVarValueChangedCallback( const std::string & iVarName, std
 }
 
 
+void
+cComponentGeneric::VariableEnumerator( std::function<void( const std::string&, ::nBase::cVariant* )> iMethod )
+{
+    for( auto variable : mVars )
+        iMethod( variable.first, variable.second );
+}
+
+
 int
 cComponentGeneric::VarCount() const
 {
@@ -212,6 +220,7 @@ cComponentGeneric::LoadXML( tinyxml2::XMLElement * iNode )
     {
         ::nBase::cVariant* var = ::nBase::cVariant::MakeFromXML( variable );
         std::string varName = variable->Attribute( "name" );
+        delete  mVars[ varName ];
         mVars[ varName ] = var;
     }
 }

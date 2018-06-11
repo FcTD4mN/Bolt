@@ -58,7 +58,7 @@ cEntityListModel::headerData( int iSection, Qt::Orientation iOrientation, int iR
 QModelIndex
 cEntityListModel::AddNewPrototype()
 {
-    ::nECS::cEntity* newEntity = new ::nECS::cEntity( ::nApplication::cEditorApplication::App()->World() );
+    ::nECS::cEntity* newEntity = new ::nECS::cEntity();
 
     QModelIndex baseNode = QModelIndex();
 

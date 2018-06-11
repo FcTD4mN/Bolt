@@ -275,6 +275,15 @@ cApplication::TextEntered( const sf::Event& iEvent )
 void
 cApplication::KeyPressed( const sf::Event& iEvent )
 {
+    if( iEvent.key.code == sf::Keyboard::Key::K )
+    {
+        mProject->SaveXML();
+    }
+    else if( iEvent.key.code == sf::Keyboard::Key::L )
+    {
+        mProject->LoadXML( "ProjectTest.proj" );
+        mCurrentScreen = mProject->CurrentScreen();
+    }
     mCurrentScreen->KeyPressed( iEvent );
 }
 

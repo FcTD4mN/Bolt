@@ -19,6 +19,7 @@ cEntityProperty::~cEntityProperty()
 
 cEntityProperty::cEntityProperty( QWidget * Parent ) :
     tSuperClass( Parent ),
+    mModel( 0 ),
     mEntity( 0 )
 {
     ui.setupUi( this );
@@ -59,14 +60,16 @@ cEntityProperty::selectedEntitiesChanged( ::nECS::cEntity * iEntity, ::nQt::nMod
 void
 cEntityProperty::addEmptyComponent()
 {
-    mModel->AddEmptyComponent();
+    if( mModel )
+        mModel->AddEmptyComponent();
 }
 
 
 void
 cEntityProperty::removeComponent()
 {
-    mModel->RemoveComponent( ui.treeView->currentIndex() );
+    if( mModel )
+        mModel->RemoveComponent( ui.treeView->currentIndex() );
 }
 
 

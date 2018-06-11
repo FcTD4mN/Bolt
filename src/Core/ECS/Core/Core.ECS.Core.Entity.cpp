@@ -288,13 +288,11 @@ cEntity::ID() const
 bool
 cEntity::SetID( const std::string & iID )
 {
-    if( mWorld->IsIDUnique( iID ) )
-    {
-        mID = iID;
-        return  true;
-    }
+    if( mWorld && !mWorld->IsIDUnique( iID ) )
+        return  false;
 
-    return false;
+    mID = iID;
+    return  true;
 }
 
 

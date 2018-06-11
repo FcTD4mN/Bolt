@@ -71,7 +71,7 @@ cComponentRegistry::Initialize( const std::string& iProjectDir )
     ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cBehaviourTree() );
 
     // Then we get all file based components
-    mComponentDir = iProjectDir + "/Assets/Components";
+    mComponentDir = iProjectDir + "/Assets/Components/";
     std::wstring path( mComponentDir.begin(), mComponentDir.end() );
 
     std::vector< std::wstring > fileNames;

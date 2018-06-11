@@ -9,6 +9,7 @@
 
 
 namespace nECS { class cEntity; }
+namespace nShaders { class cShader2D; }
 
 namespace nRender {
 
@@ -29,25 +30,30 @@ public:
 
 public:
     // Access
-    size_t EntityCount() const;
     void  ZLayer( float iZLayer );
     void  SetViewCenter( const sf::Vector2f& iViewCenter );
 
 public:
-    void  AddShader( sf::Shader* iShader );
+    void  AddShader( ::nShaders::cShader2D* iShader );
 
 private:
     // Private
     void  RemoveEntity( ::nECS::cEntity* iEntity );
+    void  ClearShaders();
+
+public:
+    // Input/Output
+    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::list< ::nECS::cEntity* >   mEntities;
-    sf::View                        mView;
-    float                           mZLayer;
+    std::list< ::nECS::cEntity* >           mEntities;
+    sf::View                                mView;
+    float                                   mZLayer;
 
-    sf::RenderTexture*              mShaderRenderTextureInput;
-    sf::RenderTexture*              mShaderRenderTextureOutput;
-    std::vector< sf::Shader* >      mShaders; // Pointers otherwise it won't compile for some annoying reasons
+    sf::RenderTexture*                      mShaderRenderTextureInput;
+    sf::RenderTexture*                      mShaderRenderTextureOutput;
+    std::vector< ::nShaders::cShader2D* >   mShaders; // Pointers otherwise it won't compile for some annoying reasons
 };
 
 

@@ -78,17 +78,12 @@ cEditorApplication::Initialize()
     ::nECS::cGlobalEntityMap::Instance()->Initialize( 1024, 1024, 800 );
 
     // Following call may need world
-    ::nECS::cComponentRegistry::Instance()->Initialize();
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cColor() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cPosition() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSize() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSpriteAnimated() );
-    ::nECS::cComponentRegistry::Instance()->RegisterComponent( new ::nECS::cSimplePhysic() );
+    ::nECS::cComponentRegistry::Instance()->Initialize( "I:/ProjectTest" );
 
     mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
     mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
 
-    ::nECS::cEntityParser::Instance()->Initialize();
+    ::nECS::cEntityParser::Instance()->Initialize( "I:/ProjectTest" );
 }
 
 

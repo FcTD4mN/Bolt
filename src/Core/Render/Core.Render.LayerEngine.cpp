@@ -63,7 +63,7 @@ cLayerEngine::LayerDistanceAtIndex( float iDistance, int iLayerIndex )
 
 
 void
-cLayerEngine::AddShaderToLayer( sf::Shader* iShader, int iLayerIndex )
+cLayerEngine::AddShaderToLayer( ::nShaders::cShader2D* iShader, int iLayerIndex )
 {
     auto it = mLayers.begin();
     for( int i = 0; i < iLayerIndex; ++i )
@@ -81,6 +81,26 @@ cLayerEngine::AddEntityInLayer( ::nECS::cEntity * iEntity, int iLayerIndex )
         ++it;
 
     ( *it ).AddEntity( iEntity );
+}
+
+
+void
+cLayerEngine::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument * iDocument )
+{
+    for( auto& layer : mLayers )
+    {
+        // LAYERS
+        tinyxml2::XMLElement* layerNode = iDocument->NewElement( "layer" );
+        layer.SaveXML( layerNode, iDocument );
+        iNode->LinkEndChild( layerNode );
+    }
+}
+
+
+void
+cLayerEngine::LoadXML( tinyxml2::XMLElement * iNode )
+{
+    // Nothing because already done in an unsymmetrical manner by the world
 }
 
 

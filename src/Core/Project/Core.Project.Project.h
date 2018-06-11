@@ -11,6 +11,7 @@ namespace nProject {
 class cProject
 {
 public:
+    ~cProject();
     cProject( const std::string& iProjectName, const std::string& iProjectFolder );
 
 public:
@@ -38,7 +39,7 @@ public:
 
 public:
     // Input/Output
-    virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
+    virtual  void SaveXML();
     virtual  void LoadXML( const std::string& iProjectName );
 
 protected:

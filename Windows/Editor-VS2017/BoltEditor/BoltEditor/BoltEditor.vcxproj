@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Application\Core.Application.Application.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\Application\Core.Application.GlobalAccess.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.Clipboard.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.ClipboardWin32.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Base\Core.Base.Drawable.cpp" />
@@ -54,6 +55,7 @@
     <ClCompile Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemPageSwaper.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MainMenu.cpp" />
@@ -69,7 +71,8 @@
     <ClCompile Include="..\..\..\..\src\Core\Render\Core.Render.LayerEngine.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Screen\Core.Screen.Screen.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.cpp" />
-    <ClCompile Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader2D.cpp" />
+    <ClCompile Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader3D.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp" />
     <ClCompile Include="..\..\..\..\src\Core\Sound\Core.Sound.FX.cpp" />
     <ClCompile Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.cpp" />
@@ -95,6 +98,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\AI\BehaviourTreeV2\Core.AI.BehaviourTreeV2.h" />
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h" />
+    <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.GlobalAccess.h" />
     <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.Clipboard.h" />
     <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.Drawable.h" />
     <ClInclude Include="..\..\..\..\src\Core\Base\Core.Base.GeneralEnums.h" />
@@ -133,6 +137,7 @@
     <ClInclude Include="..\..\..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.ComponentRegistry.h" />
     <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.EntityParser.h" />
+    <ClInclude Include="..\..\..\..\src\Core\ECS\Utilities\Core.ECS.Utilities.SystemRegistry.h" />
     <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemCallback.h" />
     <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.ItemPageSwaper.h" />
     <ClInclude Include="..\..\..\..\src\Core\MainMenu\Core.MainMenu.MainMenu.h" />
@@ -148,7 +153,8 @@
     <ClInclude Include="..\..\..\..\src\Core\Render\Core.Render.LayerEngine.h" />
     <ClInclude Include="..\..\..\..\src\Core\Screen\Core.Screen.Screen.h" />
     <ClInclude Include="..\..\..\..\src\Core\Screen\Core.Screen.ScreenMainMenu.h" />
-    <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader.h" />
+    <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader2D.h" />
+    <ClInclude Include="..\..\..\..\src\Core\Shader\Core.Shader.Shader3D.h" />
     <ClInclude Include="..\..\..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h" />
     <ClInclude Include="..\..\..\..\src\Core\Sound\Core.Sound.FX.h" />
     <ClInclude Include="..\..\..\..\src\Editor\Application\Editor.Application.EditorApplication.h" />

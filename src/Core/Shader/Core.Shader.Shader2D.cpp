@@ -1,6 +1,8 @@
 #include "Core.Shader.Shader2D.h"
 
 
+#include "Core.Application.GlobalAccess.h"
+
 #include <filesystem>
 #include <assert.h>
 
@@ -15,33 +17,66 @@ namespace nShaders {
 
 cShader2D::~cShader2D()
 {
+    delete  mTheShader;
 }
 
 
 cShader2D::cShader2D( const std::string& iPathToProgram, const std::string& iShaderName ) :
-    mPathToProgram( iPathToProgram ),
     mTheShader( 0 ),
     tSuperClass( iShaderName )
 {
+    mPathToProgram = ::nGlobal::cGlobalProperties::Instance()->GetProjectFolder() + "/Assets/Shaders/" + iPathToProgram;
+    LoadShader();
 }
 
 
 void
 cShader2D::LoadShader()
 {
-    bool error;
+    bool noError;
+    mTheShader = new sf::Shader();
     if( mPathToProgram.extension() == ".frag" )
-        error = mTheShader->loadFromFile( mPathToProgram.string().c_str(), sf::Shader::Fragment );
+        noError = mTheShader->loadFromFile( mPathToProgram.string().c_str(), sf::Shader::Fragment );
     else if( mPathToProgram.extension() == ".vert" )
-        error = mTheShader->loadFromFile( mPathToProgram.string().c_str(), sf::Shader::Vertex );
+        noError = mTheShader->loadFromFile( mPathToProgram.string().c_str(), sf::Shader::Vertex );
 
-    assert( !error );
+    assert( noError );
 }
 
 
 void
 cShader2D::ApplyUniforms()
 {
+    VariableEnumerator( [ this ]( const std::string& iVarName, ::nBase::cVariant* iVariant )
+    {
+        switch( iVariant->Type() )
+        {
+            case ::nBase::kNumber :
+                mTheShader->setUniform( iVarName.c_str(), float(iVariant->GetValueNumber()) );
+                break;
+            default :
+                printf( "Invalid Variant Type.\n" );
+        }
+    } );
+}
+
+
+//----------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------- Get/Set
+//----------------------------------------------------------------------------------------------
+
+
+sf::Shader*
+cShader2D::GetSFShader()
+{
+    return  mTheShader;
+}
+
+
+const std::filesystem::path&
+cShader2D::GetPathToProgram() const
+{
+    return  mPathToProgram;
 }
 
 

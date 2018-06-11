@@ -1,14 +1,17 @@
 #include "Core.ECS.Core.World.h"
 
 
+#include "Core.Base.Utilities.h"
+
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.System.h"
+#include "Core.ECS.Utilities.SystemRegistry.h"
 
 #include "Core.Mapping.PhysicEntityGrid.h"
 
 #include "Core.Render.LayerEngine.h"
 
-#include "Core.Shader.ShaderFileLibrary.h"
+#include "Core.Shader.Shader2D.h"
 
 
 namespace nECS {
@@ -23,19 +26,20 @@ cWorld::~cWorld()
 {
     DestroyAllEntities();
 
-    for( int i = 0; i < mSystems.size(); ++i )
-    {
-        delete  mSystems[ i ];
-    }
+    //for( int i = 0; i < mSystems.size(); ++i )
+    //{
+    //    delete  mSystems[ i ];
+    //}
+    delete  mEntityMap;
+    delete  mLayerEngine;
 }
 
 
 cWorld::cWorld() :
     mLayerEngine( 0 ),
-    mUseLayerEngine( false )
+    mUseLayerEngine( false ),
+    mEntityMap( new ::nMapping::cPhysicEntityGrid( 100, 100, 32 ) )
 {
-    if( !mEntityMap )
-        mEntityMap = new ::nMapping::cPhysicEntityGrid( 100, 100, 32 );
 }
 
 
@@ -459,22 +463,31 @@ cWorld::SensorChanged( const sf::Event& iEvent )
 void
 cWorld::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
+    // ENTITY MAP
     tinyxml2::XMLElement* entityMap = iDocument->NewElement( "entityMap" );
     entityMap->SetAttribute( "width", mEntityMap->Width() );
     entityMap->SetAttribute( "height", mEntityMap->Height() );
     entityMap->SetAttribute( "cellsize", mEntityMap->CellSize() );
     iNode->LinkEndChild( entityMap );
 
-    tinyxml2::XMLElement* entities = iDocument->NewElement( "entities" );
+    // LAYERS + ENTITIES
+    iNode->SetAttribute( "uselayer", mUseLayerEngine );
+    tinyxml2::XMLElement* layersNode = iDocument->NewElement( "layers" );
+    mLayerEngine->SaveXML( layersNode, iDocument );
+    iNode->LinkEndChild( layersNode );
 
-    for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
+    // SYSTEMS
+    tinyxml2::XMLElement* systemsNode = iDocument->NewElement( "systems" );
+    for( auto system : mSystems )
     {
-        tinyxml2::XMLElement* entity = iDocument->NewElement( "entity" );
-        it->second->SaveXML( entity, iDocument );
-        entities->LinkEndChild( entity );
+        tinyxml2::XMLElement* systemNode = iDocument->NewElement( "system" );
+        bool eventConnected = ::nBase::VectorContains( mEventRelatedSystems, system );
+        systemNode->SetAttribute( "name", system->Name().c_str() );
+        systemNode->SetAttribute( "eventconnected", eventConnected );
+        systemsNode->LinkEndChild( systemNode );
     }
 
-    iNode->LinkEndChild( entities );
+    iNode->LinkEndChild( systemsNode );
 }
 
 
@@ -513,10 +526,12 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
         {
             for( tinyxml2::XMLElement* shader = shaders->FirstChildElement( "shader" ); shader; shader = shader->NextSiblingElement() )
             {
-                mLayerEngine->AddShaderToLayer( ::nShaders::cShaderFileLibrary::Instance()->GetShaderFromFile( shader->Attribute( "file" ) ), layerIndex );
+                ::nShaders::cShader2D* theShader = new  ::nShaders::cShader2D( shader->Attribute( "file" ), shader->Attribute( "name" ) );
+                theShader->LoadXML( shader );
+                theShader->ApplyUniforms();
+                mLayerEngine->AddShaderToLayer( theShader, layerIndex );
             }
         }
-
 
         // =================== Entities
         tinyxml2::XMLElement* entities = layer->FirstChildElement( "entities" );
@@ -529,6 +544,18 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
         }
 
         ++layerIndex;
+    }
+
+    tinyxml2::XMLElement* systems = iNode->FirstChildElement( "systems" );
+    for( tinyxml2::XMLElement* system = systems->FirstChildElement( "system" ); system; system = system->NextSiblingElement() )
+    {
+        ::nECS::cSystem* sys = ::nECS::cSystemRegistry::Instance()->GetSystemByName( system->Attribute( "name" ) );
+        if( sys )
+        {
+            AddSystem( sys );
+            if( system->BoolAttribute( "eventconnected" ) )
+                ConnectSystemToEvents( sys );
+        }
     }
 }
 

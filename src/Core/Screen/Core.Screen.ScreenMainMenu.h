@@ -50,7 +50,6 @@ public:
 
 protected:
     ::nMainMenu::cMainMenu* mMainMenu;
-
 };
 
 

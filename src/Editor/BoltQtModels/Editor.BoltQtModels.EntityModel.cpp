@@ -300,6 +300,9 @@ cEntityModel::removeRows( int iIndex, int iCount, const QModelIndex & iParent )
 bool
 cEntityModel::AddEmptyComponent()
 {
+    if( !mEntity )
+        return  true;
+
     QModelIndex baseNode = QModelIndex();
     beginInsertRows( baseNode, rowCount( baseNode ), rowCount( baseNode ) );
 

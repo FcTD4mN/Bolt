@@ -71,7 +71,7 @@ cSystemRegistry::Initialize( const std::string& iProjectDir )
 
     //TODO:
     // Parsing file based systems
-    mSystemsDir = iProjectDir + "/Assets/Systems";
+    mSystemsDir = iProjectDir + "/Assets/Systems/";
     std::wstring path( mSystemsDir.begin(), mSystemsDir.end() );
 
     std::vector< std::wstring > fileNames;
