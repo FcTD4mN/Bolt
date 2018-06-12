@@ -55,6 +55,9 @@ cProject::Initialize()
 void
 cProject::Finalize()
 {
+    for( auto screen : mScreenStack )
+        screen->Finalize();
+
     ::nECS::cComponentRegistry::Instance()->Finalize();
     ::nECS::cEntityParser::Instance()->Finalize();
     ::nECS::cSystemRegistry::Instance()->Finalize();

@@ -51,10 +51,52 @@ cBoltEditor::Setup()
         ui.widget, &SFMLCanvas::CurrentPrototypeChanged
     );
 
+    connect( ui.actionNew_Project, &QAction::triggered, this, &cBoltEditor::NewProject );
+    connect( ui.actionOpen, &QAction::triggered, this, &cBoltEditor::OpenProject );
     connect( ui.actionSave, &QAction::triggered, this, &cBoltEditor::SaveLevel );
     connect( ui.actionLoad, &QAction::triggered, this, &cBoltEditor::LoadLevel );
     connect( ui.actionToogle_Grid, &QAction::triggered, ui.widget, &SFMLCanvas::ToggleGridVisible );
     connect( ui.actionSnapGrid, &QAction::triggered, ui.widget, &SFMLCanvas::SetSnapGridUp );
+
+    connect( this, &cBoltEditor::CurrentProjectChanged, ui.PrototypeEditor, &cPrototypeEditor::ProjectLoaded );
+}
+
+
+void
+cBoltEditor::NewProject()
+{
+    QString projectDir = QFileDialog::getExistingDirectory( this, "Choose a directory" );
+    if( projectDir != "" )
+    {
+        QDir directory( projectDir );
+        QString projectName = "ProjectTestEditor";
+
+        if( !directory.exists( projectName ) )
+        {
+            directory.mkdir( projectName );
+            directory.mkdir( projectName + "/Assets" );
+            directory.mkdir( projectName + "/Assets/Entities" );
+            directory.mkdir( projectName + "/Assets/Components" );
+            directory.mkdir( projectName + "/Assets/Shaders" );
+            directory.mkdir( projectName + "/Assets/Systems" );
+            directory.mkdir( projectName + "/Screens" );
+
+            mApp->NewProject( projectDir.toStdString() + projectName.toStdString() + "/" + projectName.toStdString() + ".proj" );
+            emit  CurrentProjectChanged();
+        }
+    }
+}
+
+
+void
+cBoltEditor::OpenProject()
+{
+    QString project = QFileDialog::getOpenFileName( this, "Load your project" );
+    if( project != "" )
+    {
+        mApp->LoadProject( project.toStdString().c_str() );
+        emit  CurrentProjectChanged();
+    }
 }
 
 
@@ -104,3 +146,5 @@ cBoltEditor::PrototypeEditionAsked( QModelIndex iIndex )
 
 
 } //nQt
+
+

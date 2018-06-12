@@ -34,6 +34,11 @@ public slots:
     void  AddNewPrototype();
     void  RemovePrototype();
 
+    void  ProjectLoaded();
+
+private:
+    void  ForceUpdateModel();
+
 private:
     Ui::PrototypeEditor ui;
     ::nECS::cEntity* mEntity;

@@ -104,6 +104,8 @@ cComponentRegistry::Finalize()
 {
     for( auto it = mComponents.begin(); it != mComponents.end(); ++it )
         delete  it->second.mComponent;
+
+    mComponents.clear();
 }
 
 

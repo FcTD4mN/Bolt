@@ -10,7 +10,9 @@
 #include "Core.Screen.Screen.h"
 #include "Core.Project.Project.h"
 
+
 #include <filesystem>
+
 
 namespace nApplication {
 
@@ -55,7 +57,7 @@ cApplication::SetAppDefaultResolution( int iW, int iH )
 
 
 void
-cApplication::LoadProject( const std::string & iProjectFolder )
+cApplication::NewProject( const std::string & iProjectFile )
 {
     if( mProject )
     {
@@ -63,11 +65,37 @@ cApplication::LoadProject( const std::string & iProjectFolder )
         delete  mProject;
     }
 
-    std::filesystem::path projectPath = iProjectFolder;
+    std::filesystem::path projectPath = iProjectFile;
 
-    mProject = new ::nProject::cProject( projectPath.filename().string(), iProjectFolder );
+    mProject = new ::nProject::cProject( projectPath.filename().string(), projectPath.parent_path().string() );
     mProject->Initialize();
-    mProject->LoadXML( "ProjectTest.proj" );
+
+    if( mMainWindow )
+    {
+        mMainWindow->setFramerateLimit( mProject->LimitFramerate() );
+        mMainWindow->setSize( sf::Vector2u( mProject->ResolutionWidth(), mProject->ResolutionHeight() ) );
+
+        auto view = mMainWindow->getDefaultView();
+        view.reset( sf::FloatRect( 0.0F, 0.0F, float(mProject->ResolutionWidth()), float(mProject->ResolutionHeight()) ) );
+        mMainWindow->setView( view );
+    }
+}
+
+
+void
+cApplication::LoadProject( const std::string & iProjectFile )
+{
+    if( mProject )
+    {
+        mProject->Finalize();
+        delete  mProject;
+    }
+
+    std::filesystem::path projectPath = iProjectFile;
+
+    mProject = new ::nProject::cProject( projectPath.filename().string(), projectPath.parent_path().string() );
+    mProject->Initialize();
+    mProject->LoadXML( projectPath.filename().string() );
 
     if( mMainWindow )
     {
@@ -99,9 +127,9 @@ cApplication::Initialize()
     mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "NoProject", sf::Style::Default, settings );
 
     ::nBase::nThread::cThreadProcessor::Instance();
-    LoadProject( "I:/ProjectTest" );
 
-    mCurrentScreen = mProject->CurrentScreen();
+    //LoadProject( "I:/ProjectTest/ProjectTest.proj" );
+    //mCurrentScreen = mProject->CurrentScreen();
 }
 
 

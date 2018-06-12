@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QTreeWidget>
 
+
 cPrototypeEditor::~cPrototypeEditor()
 {
 }
@@ -52,8 +53,7 @@ cPrototypeEditor::PrototypeNameChanged( QString iOldName, QString iNewName )
     parser->RegisterEntity( mEntity );
     parser->SetEntityFilenameUsingEntityName( mEntity->ID(), filename );
 
-    auto model = ui.listViewAllPrototypes->model();
-    model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+    ForceUpdateModel();
 }
 
 
@@ -118,8 +118,7 @@ cPrototypeEditor::SavePrototype()
             return;
 
         // Model changed, we don't care where, we update everything
-        auto model = ui.listViewAllPrototypes->model();
-        model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+        ForceUpdateModel();
     }
 }
 
@@ -149,7 +148,6 @@ cPrototypeEditor::SavePrototypeAs()
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement* elm = doc.NewElement( "entity" );
     std::wstring filenameAsWString( fullFilePath.begin(), fullFilePath.end() );
-
 
     if( entityCurrentFileName != L"" )
     {
@@ -187,8 +185,7 @@ cPrototypeEditor::SavePrototypeAs()
         return;
 
     // Model changed, we don't care where, we update everything
-    auto model = ui.listViewAllPrototypes->model();
-    model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+    ForceUpdateModel();
 }
 
 
@@ -212,3 +209,20 @@ cPrototypeEditor::RemovePrototype()
     model->RemovePrototype( ui.listViewAllPrototypes->currentIndex() );
     PrototypeEditionAsked( ui.listViewAllPrototypes->currentIndex() );
 }
+
+
+void
+cPrototypeEditor::ProjectLoaded()
+{
+    ForceUpdateModel();
+}
+
+
+void
+cPrototypeEditor::ForceUpdateModel()
+{
+    auto model = ui.listViewAllPrototypes->model();
+    model->dataChanged( model->index( 0, 0 ), model->index( ::nECS::cEntityParser::Instance()->EntityCount(), 0 ) );
+}
+
+

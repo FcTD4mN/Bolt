@@ -20,9 +20,14 @@ public:
     void Setup();
 
 public slots:
+    void  NewProject();
+    void  OpenProject();
     void  SaveLevel();
     void  LoadLevel();
     void  PrototypeEditionAsked( QModelIndex );
+
+signals:
+    void  CurrentProjectChanged();
 
 private:
     Ui::BoltEditorClass ui;

@@ -67,6 +67,8 @@ cEntityParser::Finalize()
 {
     for( auto it = mEntities.begin(); it != mEntities.end(); ++it )
         delete  it->second.mEntity;
+
+    mEntities.clear();
 }
 
 

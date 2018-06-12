@@ -39,10 +39,13 @@ public:
     QAction *actionLoad;
     QAction *actionToogle_Grid;
     QAction *actionSnapGrid;
+    QAction *actionOpen;
+    QAction *actionNew_Project;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QTabWidget *tabWidget;
-    QWidget *WorldEditorTab;
+    QWidget *ProjectEditorTab;
+    QWidget *ScreenEditorTab;
     QHBoxLayout *horizontalLayout;
     QSplitter *splitter_2;
     SFMLCanvas *widget;
@@ -77,6 +80,10 @@ public:
         actionToogle_Grid->setObjectName(QStringLiteral("actionToogle_Grid"));
         actionSnapGrid = new QAction(BoltEditorClass);
         actionSnapGrid->setObjectName(QStringLiteral("actionSnapGrid"));
+        actionOpen = new QAction(BoltEditorClass);
+        actionOpen->setObjectName(QStringLiteral("actionOpen"));
+        actionNew_Project = new QAction(BoltEditorClass);
+        actionNew_Project->setObjectName(QStringLiteral("actionNew_Project"));
         centralWidget = new QWidget(BoltEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -86,13 +93,16 @@ public:
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setTabShape(QTabWidget::Rounded);
-        WorldEditorTab = new QWidget();
-        WorldEditorTab->setObjectName(QStringLiteral("WorldEditorTab"));
-        horizontalLayout = new QHBoxLayout(WorldEditorTab);
+        ProjectEditorTab = new QWidget();
+        ProjectEditorTab->setObjectName(QStringLiteral("ProjectEditorTab"));
+        tabWidget->addTab(ProjectEditorTab, QString());
+        ScreenEditorTab = new QWidget();
+        ScreenEditorTab->setObjectName(QStringLiteral("ScreenEditorTab"));
+        horizontalLayout = new QHBoxLayout(ScreenEditorTab);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        splitter_2 = new QSplitter(WorldEditorTab);
+        splitter_2 = new QSplitter(ScreenEditorTab);
         splitter_2->setObjectName(QStringLiteral("splitter_2"));
         splitter_2->setOrientation(Qt::Horizontal);
         widget = new SFMLCanvas(splitter_2);
@@ -131,7 +141,7 @@ public:
 
         horizontalLayout->addWidget(splitter_2);
 
-        tabWidget->addTab(WorldEditorTab, QString());
+        tabWidget->addTab(ScreenEditorTab, QString());
         PrototypeEditorTab = new QWidget();
         PrototypeEditorTab->setObjectName(QStringLiteral("PrototypeEditorTab"));
         horizontalLayout_3 = new QHBoxLayout(PrototypeEditorTab);
@@ -180,6 +190,9 @@ public:
         menuBar->addAction(menuFiles->menuAction());
         menuBar->addAction(menuView->menuAction());
         menuBar->addAction(menuSettings->menuAction());
+        menuFiles->addAction(actionNew_Project);
+        menuFiles->addAction(actionOpen);
+        menuFiles->addSeparator();
         menuFiles->addAction(actionSave);
         menuFiles->addAction(actionLoad);
         menuFiles->addSeparator();
@@ -206,7 +219,10 @@ public:
         actionLoad->setText(QApplication::translate("BoltEditorClass", "Load", nullptr));
         actionToogle_Grid->setText(QApplication::translate("BoltEditorClass", "Toogle Grid", nullptr));
         actionSnapGrid->setText(QApplication::translate("BoltEditorClass", "SnapGrid", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(WorldEditorTab), QApplication::translate("BoltEditorClass", "WorldEditor", nullptr));
+        actionOpen->setText(QApplication::translate("BoltEditorClass", "Open", nullptr));
+        actionNew_Project->setText(QApplication::translate("BoltEditorClass", "New Project", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(ProjectEditorTab), QApplication::translate("BoltEditorClass", "ProjectEditor", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(ScreenEditorTab), QApplication::translate("BoltEditorClass", "ScreenEditor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(PrototypeEditorTab), QApplication::translate("BoltEditorClass", "PrototypeEditor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(ComponentEditor), QApplication::translate("BoltEditorClass", "ComponentEditor", nullptr));
         menuFiles->setTitle(QApplication::translate("BoltEditorClass", "Files", nullptr));

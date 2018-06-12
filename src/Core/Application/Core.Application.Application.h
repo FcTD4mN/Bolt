@@ -20,6 +20,7 @@ public:
     sf::RenderWindow* Window();
     void  SetAppTitle( const std::string& iTitle );
     void  SetAppDefaultResolution( int iW, int iH );
+    void  NewProject( const std::string& iProjectFile );
     void  LoadProject( const std::string& iProjectFolder );
 
 public:

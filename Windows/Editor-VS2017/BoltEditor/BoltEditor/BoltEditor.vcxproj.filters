@@ -356,6 +356,12 @@
     <ClCompile Include="..\..\..\..\src\Core\Application\Core.Application.GlobalAccess.cpp">
       <Filter>src\Core\Application</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.ProjectHierarchyViewer.cpp">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ProjectEditor.cpp">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\src\Core\Application\Core.Application.Application.h">
@@ -597,6 +603,12 @@
     <QtMoc Include="..\..\..\..\src\Editor\Dialogs\Editor.BoltQtDialogs.SnapGridSettings.h">
       <Filter>src\Editor\Dialogs</Filter>
     </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editor.BoltQtWidgets.ProjectHierarchyViewer.h">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\Editor.BoltQtWidgets.Editors.ProjectEditor.h">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\EntityPropertyWidget.ui">
@@ -613,6 +625,12 @@
     </QtUic>
     <QtUic Include="..\..\..\..\src\Editor\Dialogs\SnapGridSettings.ui">
       <Filter>src\Editor\Dialogs</Filter>
+    </QtUic>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\Editors\ProjectEditor.ui">
+      <Filter>src\Editor\BoltQtWidgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\..\..\src\Editor\BoltQtWidgets\ProjectHierarchyViewer.ui">
+      <Filter>src\Editor\BoltQtWidgets</Filter>
     </QtUic>
   </ItemGroup>
 </Project>

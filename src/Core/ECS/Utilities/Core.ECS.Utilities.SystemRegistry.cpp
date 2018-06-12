@@ -103,6 +103,8 @@ cSystemRegistry::Finalize()
 {
     for( auto it = mSystems.begin(); it != mSystems.end(); ++it )
         delete  it->second.mSystem;
+
+    mSystems.clear();
 }
 
 

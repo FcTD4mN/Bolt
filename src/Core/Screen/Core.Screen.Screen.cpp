@@ -55,7 +55,10 @@ void
 cScreen::Finalize()
 {
     if( mWorld )
+    {
         delete  mWorld;
+        mWorld = 0;
+    }
 }
 
 
@@ -322,7 +325,10 @@ cScreen::LoadXML( const std::string& iFilePath )
 
     tinyxml2::XMLElement* world = root->FirstChildElement( "world" );
     if( mWorld )
+    {
         delete  mWorld;
+        mWorld = 0;
+    }
 
     mWorld = new ::nECS::cWorld();
     mWorld->LoadXML( world );

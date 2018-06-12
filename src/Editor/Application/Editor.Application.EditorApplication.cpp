@@ -78,12 +78,12 @@ cEditorApplication::Initialize()
     ::nECS::cGlobalEntityMap::Instance()->Initialize( 1024, 1024, 800 );
 
     // Following call may need world
-    ::nECS::cComponentRegistry::Instance()->Initialize( "I:/ProjectTest" );
+    //::nECS::cComponentRegistry::Instance()->Initialize( "I:/ProjectTest" );
 
     mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
     mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
 
-    ::nECS::cEntityParser::Instance()->Initialize( "I:/ProjectTest" );
+    //::nECS::cEntityParser::Instance()->Initialize( "I:/ProjectTest" );
 }
 
 
