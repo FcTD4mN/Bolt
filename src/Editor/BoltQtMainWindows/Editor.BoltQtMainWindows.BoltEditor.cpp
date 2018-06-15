@@ -53,12 +53,11 @@ cBoltEditor::Setup()
 
     connect( ui.actionNew_Project, &QAction::triggered, this, &cBoltEditor::NewProject );
     connect( ui.actionOpen, &QAction::triggered, this, &cBoltEditor::OpenProject );
-    connect( ui.actionSave, &QAction::triggered, this, &cBoltEditor::SaveLevel );
-    connect( ui.actionLoad, &QAction::triggered, this, &cBoltEditor::LoadLevel );
     connect( ui.actionToogle_Grid, &QAction::triggered, ui.widget, &SFMLCanvas::ToggleGridVisible );
     connect( ui.actionSnapGrid, &QAction::triggered, ui.widget, &SFMLCanvas::SetSnapGridUp );
 
     connect( this, &cBoltEditor::CurrentProjectChanged, ui.PrototypeEditor, &cPrototypeEditor::ProjectLoaded );
+    connect( this, &cBoltEditor::CurrentProjectChanged, ui.projectEditor, &cProjectEditor::ProjectLoaded );
 }
 
 
@@ -82,7 +81,7 @@ cBoltEditor::NewProject()
             directory.mkdir( projectName + "/Screens" );
 
             mApp->NewProject( projectDir.toStdString() + projectName.toStdString() + "/" + projectName.toStdString() + ".proj" );
-            emit  CurrentProjectChanged();
+            emit  CurrentProjectChanged( mApp->Project() );
         }
     }
 }
@@ -95,46 +94,8 @@ cBoltEditor::OpenProject()
     if( project != "" )
     {
         mApp->LoadProject( project.toStdString().c_str() );
-        emit  CurrentProjectChanged();
+        emit  CurrentProjectChanged( mApp->Project() );
     }
-}
-
-
-void
-cBoltEditor::SaveLevel()
-{
-    QString filename = QFileDialog::getSaveFileName( this, "Save your level" );
-    if( filename != "" )
-    {
-        tinyxml2::XMLDocument doc;
-        tinyxml2::XMLElement* elm = doc.NewElement( "world" );
-
-        mApp->World()->SaveXML( elm, &doc );
-
-        doc.InsertFirstChild( elm );
-
-        tinyxml2::XMLError error = doc.SaveFile( filename.toStdString().c_str() );
-        if( error )
-            return;
-    }
-}
-
-
-void
-cBoltEditor::LoadLevel()
-{
-    QString filename = QFileDialog::getOpenFileName( this, "Load your level" );
-    if( filename != "" )
-    {
-        tinyxml2::XMLDocument doc;
-        tinyxml2::XMLError error = doc.LoadFile( filename.toStdString().c_str() );
-
-        mApp->World()->LoadXML( doc.FirstChildElement( "world" ) );
-    }
-
-    // Add all entities to the EMap
-    for( int i = 0; i < mApp->World()->EntityCount(); ++i )
-        ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->AddEntity( mApp->World()->GetEntityAtIndex( i ) );
 }
 
 

@@ -24,7 +24,6 @@ namespace nApplication {
 
 cApplication::cApplication() :
     mMainWindow( 0 ),
-    mCurrentScreen( 0 ),
     mProject( 0 )
 {
 }
@@ -53,6 +52,13 @@ void
 cApplication::SetAppDefaultResolution( int iW, int iH )
 {
     mMainWindow->setSize( sf::Vector2u( iW, iH ) );
+}
+
+
+::nProject::cProject*
+cApplication::Project()
+{
+    return  mProject;
 }
 
 
@@ -127,9 +133,6 @@ cApplication::Initialize()
     mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "NoProject", sf::Style::Default, settings );
 
     ::nBase::nThread::cThreadProcessor::Instance();
-
-    //LoadProject( "I:/ProjectTest/ProjectTest.proj" );
-    //mCurrentScreen = mProject->CurrentScreen();
 }
 
 
@@ -152,14 +155,14 @@ cApplication::Finalize()
 void
 cApplication::Update( unsigned int iDeltaTime )
 {
-    mCurrentScreen->Update( iDeltaTime );
+    mProject->CurrentScreen()->Update( iDeltaTime );
 }
 
 
 void
 cApplication::Draw( sf::RenderTarget* iRenderTarget )
 {
-    mCurrentScreen->Draw( iRenderTarget );
+    mProject->CurrentScreen()->Draw( iRenderTarget );
 }
 
 
@@ -172,7 +175,6 @@ void
 cApplication::PushScreen( ::nScreen::cScreen * iScreen )
 {
     mProject->PushScreen( iScreen );
-    mCurrentScreen = iScreen;
 }
 
 
@@ -180,7 +182,13 @@ void
 cApplication::PopScreen()
 {
     mProject->PopScreen();
-    mCurrentScreen = mProject->CurrentScreen();
+}
+
+
+::nScreen::cScreen*
+cApplication::CurrentScreen()
+{
+    return  mProject->CurrentScreen();
 }
 
 
@@ -296,7 +304,7 @@ cApplication::GainedFocus( const sf::Event& iEvent )
 void
 cApplication::TextEntered( const sf::Event& iEvent )
 {
-    mCurrentScreen->TextEntered( iEvent );
+    mProject->CurrentScreen()->TextEntered( iEvent );
 }
 
 
@@ -310,128 +318,127 @@ cApplication::KeyPressed( const sf::Event& iEvent )
     else if( iEvent.key.code == sf::Keyboard::Key::L )
     {
         mProject->LoadXML( "ProjectTest.proj" );
-        mCurrentScreen = mProject->CurrentScreen();
     }
-    mCurrentScreen->KeyPressed( iEvent );
+    mProject->CurrentScreen()->KeyPressed( iEvent );
 }
 
 
 void
 cApplication::KeyReleased( const sf::Event& iEvent )
 {
-    mCurrentScreen->KeyReleased( iEvent );
+    mProject->CurrentScreen()->KeyReleased( iEvent );
 }
 
 
 void
 cApplication::MouseWheelMoved( const sf::Event& iEvent )
 {
-    mCurrentScreen->MouseWheelMoved( iEvent );
+    mProject->CurrentScreen()->MouseWheelMoved( iEvent );
 }
 
 
 void
 cApplication::MouseWheelScrolled( const sf::Event& iEvent )
 {
-    mCurrentScreen->MouseWheelScrolled( iEvent );
+    mProject->CurrentScreen()->MouseWheelScrolled( iEvent );
 }
 
 
 void
 cApplication::MouseButtonPressed( const sf::Event& iEvent )
 {
-    mCurrentScreen->MouseButtonPressed( iEvent );
+    mProject->CurrentScreen()->MouseButtonPressed( iEvent );
 }
 
 
 void
 cApplication::MouseButtonReleased( const sf::Event& iEvent )
 {
-    mCurrentScreen->MouseButtonReleased( iEvent );
+    mProject->CurrentScreen()->MouseButtonReleased( iEvent );
 }
 
 
 void
 cApplication::MouseMoved( const sf::Event& iEvent )
 {
-    mCurrentScreen->MouseMoved( iEvent );
+    mProject->CurrentScreen()->MouseMoved( iEvent );
 }
 
 
 void
 cApplication::MouseEntered( const sf::Event& iEvent )
 {
-    mCurrentScreen->MouseEntered( iEvent );
+    mProject->CurrentScreen()->MouseEntered( iEvent );
 }
 
 
 void
 cApplication::MouseLeft( const sf::Event& iEvent )
 {
-    mCurrentScreen->MouseLeft( iEvent );
+    mProject->CurrentScreen()->MouseLeft( iEvent );
 }
 
 
 void
 cApplication::JoystickButtonPressed( const sf::Event& iEvent )
 {
-    mCurrentScreen->JoystickButtonPressed( iEvent );
+    mProject->CurrentScreen()->JoystickButtonPressed( iEvent );
 }
 
 
 void
 cApplication::JoystickButtonReleased( const sf::Event& iEvent )
 {
-    mCurrentScreen->JoystickButtonReleased( iEvent );
+    mProject->CurrentScreen()->JoystickButtonReleased( iEvent );
 }
 
 
 void
 cApplication::JoystickMoved( const sf::Event& iEvent )
 {
-    mCurrentScreen->JoystickMoved( iEvent );
+    mProject->CurrentScreen()->JoystickMoved( iEvent );
 }
 
 
 void
 cApplication::JoystickConnected( const sf::Event& iEvent )
 {
-    mCurrentScreen->JoystickConnected( iEvent );
+    mProject->CurrentScreen()->JoystickConnected( iEvent );
 }
 
 
 void
 cApplication::JoystickDisconnected( const sf::Event& iEvent )
 {
-    mCurrentScreen->JoystickDisconnected( iEvent );
+    mProject->CurrentScreen()->JoystickDisconnected( iEvent );
 }
 
 
 void
 cApplication::TouchBegan( const sf::Event& iEvent )
 {
-    mCurrentScreen->TouchBegan( iEvent );
+    mProject->CurrentScreen()->TouchBegan( iEvent );
 }
 
 
 void
 cApplication::TouchMoved( const sf::Event& iEvent )
 {
-    mCurrentScreen->TouchMoved( iEvent );
+    mProject->CurrentScreen()->TouchMoved( iEvent );
 }
 
 
 void
 cApplication::TouchEnded( const sf::Event& iEvent )
 {
-    mCurrentScreen->TouchEnded( iEvent );
+    mProject->CurrentScreen()->TouchEnded( iEvent );
 }
 
 
 void
 cApplication::SensorChanged( const sf::Event& iEvent )
 {
-    mCurrentScreen->SensorChanged( iEvent );
+    mProject->CurrentScreen()->SensorChanged( iEvent );
 }
 
 

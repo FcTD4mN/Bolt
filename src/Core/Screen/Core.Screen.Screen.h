@@ -45,6 +45,10 @@ public:
     void                            FilePath( const std::string& iFilePath );
 
 public:
+    // EDITOR
+    ::nECS::cWorld*             World();
+
+public:
     // Events
     virtual  void  Resized( const sf::Event& iEvent );                ///< The window was resized (data in event.size)
     virtual  void  TextEntered( const sf::Event& iEvent );            ///< A character was entered (data in event.text)
@@ -77,9 +81,6 @@ protected:
     std::filesystem::path       mFilePath;
 
     ::nECS::cWorld*             mWorld;
-
-    ::nRender::cLayerEngine*    mLayerEngine;
-    bool                        mUseLayerEngine;
 };
 
 

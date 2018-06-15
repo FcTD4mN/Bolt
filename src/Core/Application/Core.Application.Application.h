@@ -20,8 +20,12 @@ public:
     sf::RenderWindow* Window();
     void  SetAppTitle( const std::string& iTitle );
     void  SetAppDefaultResolution( int iW, int iH );
-    void  NewProject( const std::string& iProjectFile );
-    void  LoadProject( const std::string& iProjectFolder );
+
+public:
+    // Project
+    ::nProject::cProject*   Project();
+    void                    NewProject( const std::string& iProjectFile );
+    void                    LoadProject( const std::string& iProjectFolder );
 
 public:
     void Initialize();
@@ -33,8 +37,9 @@ public:
 
 public:
     // Screen
-    void PushScreen( ::nScreen::cScreen* iScreen );
-    void PopScreen();
+    void                PushScreen( ::nScreen::cScreen* iScreen );
+    void                PopScreen();
+    ::nScreen::cScreen* CurrentScreen();
 
 public:
     // Events
@@ -67,8 +72,6 @@ public:
 protected:
     sf::RenderWindow*                   mMainWindow;
     ::nProject::cProject*               mProject;
-    std::vector< ::nScreen::cScreen* >  mScreenStack;
-    ::nScreen::cScreen*                 mCurrentScreen;
 };
 
 

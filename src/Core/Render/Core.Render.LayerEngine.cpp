@@ -28,7 +28,9 @@ cLayerEngine::Draw( sf::RenderTarget * iRenderTarget )
 void
 cLayerEngine::AddLayer( const sf::Vector2f& iViewSize )
 {
-    mLayers.push_back( cLayer( iViewSize ) );
+    cLayer newLayer( iViewSize );
+    newLayer.Name( "Layer " + std::to_string( mLayers.size() ) );
+    mLayers.push_back( newLayer );
 }
 
 
@@ -70,6 +72,27 @@ cLayerEngine::AddShaderToLayer( ::nShaders::cShader2D* iShader, int iLayerIndex 
         ++it;
 
     ( *it ).AddShader( iShader );
+}
+
+
+int
+cLayerEngine::LayerCount() const
+{
+    return  int(mLayers.size());
+}
+
+
+cLayer&
+cLayerEngine::LayerAtIndex( int iLayerIndex )
+{
+    if( iLayerIndex < 0 || iLayerIndex > mLayers.size() )
+        return  mLayers.back(); // Completely wrong, we really need to change layers to pointer in the list !!
+
+    auto it = mLayers.begin();
+    for( int i = 0; i < iLayerIndex; ++i )
+        ++it;
+
+    return  *it;
 }
 
 

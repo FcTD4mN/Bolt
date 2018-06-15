@@ -49,18 +49,6 @@ cEditorApplication::App()
 
 
 // -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------ Access
-// -------------------------------------------------------------------------------------
-
-
-::nECS::cWorld*
-cEditorApplication::World()
-{
-    return mWorld;
-}
-
-
-// -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------- Init/Finalize
 // -------------------------------------------------------------------------------------
 
@@ -72,16 +60,13 @@ cEditorApplication::Initialize()
     // As it would create a mMainWindow, which we don't want here
     // The behaviour is different when embeded into editor
 
-    // =======ECS WORLD=======
-    mWorld = new ::nECS::cWorld();
-
     ::nECS::cGlobalEntityMap::Instance()->Initialize( 1024, 1024, 800 );
 
     // Following call may need world
     //::nECS::cComponentRegistry::Instance()->Initialize( "I:/ProjectTest" );
 
-    mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
-    mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
+    //mWorld->AddSystem( new ::nECS::cSimplerRenderer() );
+    //mWorld->AddSystem( new ::nECS::cAnimationRenderer() );
 
     //::nECS::cEntityParser::Instance()->Initialize( "I:/ProjectTest" );
 }
@@ -90,9 +75,9 @@ cEditorApplication::Initialize()
 void
 cEditorApplication::Finalize()
 {
-    ::nECS::cComponentRegistry::Instance()->Finalize();
+    //::nECS::cComponentRegistry::Instance()->Finalize();
 
-    delete mWorld;
+    //delete mWorld;
 }
 
 
@@ -100,19 +85,12 @@ cEditorApplication::Finalize()
 // ------------------------------------------------------------------------- Update/Draw
 // -------------------------------------------------------------------------------------
 
-
-void
-cEditorApplication::Update( unsigned int iDeltaTime )
-{
-    mWorld->Update( iDeltaTime );
-}
-
-
-void
-cEditorApplication::Draw( sf::RenderTarget* iRenderTarget )
-{
-    mWorld->Draw( iRenderTarget );
-}
+//
+//void
+//cEditorApplication::Update( unsigned int iDeltaTime )
+//{
+//    World()->Update( iDeltaTime );
+//}
 
 } //nApplication
 

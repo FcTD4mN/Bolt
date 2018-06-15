@@ -23,8 +23,10 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "Editor.BoltQtWidgets.Editors.ComponentEditor.h"
+#include "Editor.BoltQtWidgets.Editors.ProjectEditor.h"
 #include "Editor.BoltQtWidgets.Editors.PrototypeEditor.h"
 #include "Editor.BoltQtWidgets.EntityProperty.h"
 #include "Editor.BoltQtWidgets.SFMLCanvas.h"
@@ -45,6 +47,8 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QTabWidget *tabWidget;
     QWidget *ProjectEditorTab;
+    QVBoxLayout *verticalLayout;
+    cProjectEditor *projectEditor;
     QWidget *ScreenEditorTab;
     QHBoxLayout *horizontalLayout;
     QSplitter *splitter_2;
@@ -69,7 +73,7 @@ public:
     {
         if (BoltEditorClass->objectName().isEmpty())
             BoltEditorClass->setObjectName(QStringLiteral("BoltEditorClass"));
-        BoltEditorClass->resize(1024, 798);
+        BoltEditorClass->resize(653, 495);
         actionExit = new QAction(BoltEditorClass);
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionSave = new QAction(BoltEditorClass);
@@ -95,6 +99,15 @@ public:
         tabWidget->setTabShape(QTabWidget::Rounded);
         ProjectEditorTab = new QWidget();
         ProjectEditorTab->setObjectName(QStringLiteral("ProjectEditorTab"));
+        verticalLayout = new QVBoxLayout(ProjectEditorTab);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        projectEditor = new cProjectEditor(ProjectEditorTab);
+        projectEditor->setObjectName(QStringLiteral("projectEditor"));
+
+        verticalLayout->addWidget(projectEditor);
+
         tabWidget->addTab(ProjectEditorTab, QString());
         ScreenEditorTab = new QWidget();
         ScreenEditorTab->setObjectName(QStringLiteral("ScreenEditorTab"));
@@ -172,7 +185,7 @@ public:
         BoltEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BoltEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1024, 21));
+        menuBar->setGeometry(QRect(0, 0, 653, 21));
         menuFiles = new QMenu(menuBar);
         menuFiles->setObjectName(QStringLiteral("menuFiles"));
         menuView = new QMenu(menuBar);

@@ -12,6 +12,7 @@
 
 #include "Core.Mapping.PhysicEntityGrid.h"
 
+#include "Core.Screen.Screen.h"
 
 #include "Editor.Application.EditorApplication.h"
 #include "Editor.BoltQtModels.EntityModel.h"
@@ -394,7 +395,7 @@ SFMLCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
         return;
 
     ::nECS::cEntityParser* ep = ::nECS::cEntityParser::Instance();
-    ::nECS::cWorld* world = mEditorApp->World();
+    ::nECS::cWorld* world = mEditorApp->CurrentScreen()->World();
 
     std::string name = mCurrentPrototypeEntitySelected.data( Qt::DisplayRole ).toString().toStdString();
     ::nECS::cEntity* theEnti = ep->CreateEntityFromPrototypeMap( name.c_str() );
@@ -428,7 +429,7 @@ SFMLCanvas::keyReleaseEvent( QKeyEvent * iEvent )
         }
 
         ClearHUDs();
-        mEditorApp->World()->PurgeEntities();
+        mEditorApp->CurrentScreen()->World()->PurgeEntities();
     }
 
     tSuperClass::keyReleaseEvent( iEvent );

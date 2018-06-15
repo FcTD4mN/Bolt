@@ -33,6 +33,14 @@ public:
     void  SetResolution( int iWidth, int iHeight );
     void  SetLimitFramerate( int iFramerate );
 
+    const std::string&  Name() const;
+
+public:
+    // EDITOR
+    int                     ScreenCount();
+    ::nScreen::cScreen*     ScreenAtIndex( int iIndex );
+    void                    RemoveScreenAtIndex( int iIndex );
+
 //public:
 //    void Update( unsigned int iDeltaTime );
 //    void Draw( sf::RenderTarget* iRenderTarget );

@@ -13,3 +13,10 @@ cProjectEditor::cProjectEditor( QWidget * Parent ) :
 }
 
 
+void
+cProjectEditor::ProjectLoaded( ::nProject::cProject* iProject )
+{
+    ui.widget->ProjectLoaded( iProject );
+}
+
+

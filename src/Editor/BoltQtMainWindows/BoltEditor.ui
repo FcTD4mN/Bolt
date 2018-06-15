@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>798</height>
+    <width>653</width>
+    <height>495</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,6 +27,11 @@
        <attribute name="title">
         <string>ProjectEditor</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="cProjectEditor" name="projectEditor" native="true"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="ScreenEditorTab">
        <attribute name="title">
@@ -106,7 +111,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1024</width>
+     <width>653</width>
      <height>21</height>
     </rect>
    </property>
@@ -219,6 +224,12 @@
    <class>cComponentEditor</class>
    <extends>QWidget</extends>
    <header>Editor.BoltQtWidgets.Editors.ComponentEditor.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cProjectEditor</class>
+   <extends>QWidget</extends>
+   <header>Editor.BoltQtWidgets.Editors.ProjectEditor.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

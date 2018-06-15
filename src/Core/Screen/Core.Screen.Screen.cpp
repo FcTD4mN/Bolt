@@ -27,18 +27,14 @@ cScreen::~cScreen()
 
 cScreen::cScreen() :
     mName( "Unnamed" ),
-    mWorld( 0 ),
-    mLayerEngine( 0 ),
-    mUseLayerEngine( false )
+    mWorld( 0 )
 {
 }
 
 
 cScreen::cScreen( const std::string & iName ) :
     mName( iName ),
-    mWorld( 0 ),
-    mLayerEngine( 0 ),
-    mUseLayerEngine( false )
+    mWorld( 0 )
 {
 }
 
@@ -70,10 +66,7 @@ cScreen::Finalize()
 void
 cScreen::Draw( sf::RenderTarget* iRenderTarget )
 {
-    if( mUseLayerEngine )
-        mLayerEngine->Draw( iRenderTarget );
-    else
-        mWorld->Draw( iRenderTarget );
+    mWorld->Draw( iRenderTarget );
 }
 
 
@@ -92,16 +85,14 @@ cScreen::Update( unsigned int iDeltaTime )
 void
 cScreen::PutEntityInLayer( ::nECS::cEntity * iEntity, int iLayerIndex )
 {
-    mLayerEngine->AddEntityInLayer( iEntity, iLayerIndex );
+    mWorld->PutEntityInLayer( iEntity, iLayerIndex );
 }
 
 
 void
 cScreen::SetUseLayerEngine( bool iValue )
 {
-    mUseLayerEngine = iValue;
-    if( !mLayerEngine )
-        mLayerEngine = new ::nRender::cLayerEngine();
+    mWorld->SetUseLayerEngine( iValue );
 }
 
 
@@ -142,6 +133,18 @@ void
 cScreen::FilePath( const std::string & iFilePath )
 {
     mFilePath = iFilePath;
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ EDITOR
+// -------------------------------------------------------------------------------------
+
+
+::nECS::cWorld*
+cScreen::World()
+{
+    return  mWorld;
 }
 
 

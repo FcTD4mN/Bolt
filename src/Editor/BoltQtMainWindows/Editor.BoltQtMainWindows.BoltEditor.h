@@ -6,6 +6,8 @@
 namespace  nApplication { class cEditorApplication; }
 namespace  nQt { namespace  nModels { class cEntityListModel; } }
 
+namespace  nProject { class cProject; }
+
 namespace  nQt {
 
 class cBoltEditor :
@@ -22,12 +24,10 @@ public:
 public slots:
     void  NewProject();
     void  OpenProject();
-    void  SaveLevel();
-    void  LoadLevel();
     void  PrototypeEditionAsked( QModelIndex );
 
 signals:
-    void  CurrentProjectChanged();
+    void  CurrentProjectChanged( ::nProject::cProject* iProject );
 
 private:
     Ui::BoltEditorClass ui;

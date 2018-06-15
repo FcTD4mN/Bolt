@@ -20,6 +20,7 @@ cLayer::~cLayer()
 
 
 cLayer::cLayer( const sf::Vector2f& iViewSize ) :
+    mName( "Unnammed Layer" ),
     mZLayer( 1.0F ),
     mShaderRenderTextureInput( 0 ),
     mShaderRenderTextureOutput( 0 )
@@ -116,6 +117,43 @@ cLayer::SetViewCenter( const sf::Vector2f & iCenter )
 }
 
 
+const std::string &
+cLayer::Name() const
+{
+    return  mName;
+}
+
+
+void
+cLayer::Name( const std::string & iName )
+{
+    mName = iName;
+}
+
+
+// ------------------
+// EDITOR -----------
+// ------------------
+
+
+int
+cLayer::EntityCount() const
+{
+    return  int(mEntities.size());
+}
+
+
+::nECS::cEntity*
+cLayer::EntityAtIndex( int iIndex )
+{
+    auto it = mEntities.begin();
+    for( int i = 0; i < iIndex; ++i )
+        ++it;
+
+    return  *it;
+}
+
+
 void
 cLayer::AddShader( ::nShaders::cShader2D* iShader )
 {
@@ -131,6 +169,11 @@ cLayer::AddShader( ::nShaders::cShader2D* iShader )
         mShaderRenderTextureOutput->create( unsigned int(mView.getSize().x), unsigned int(mView.getSize().y) );
     }
 }
+
+
+// ------------------
+// PRIVATE ----------
+// ------------------
 
 
 void
@@ -151,9 +194,7 @@ void
 cLayer::ClearShaders()
 {
     for( auto shader : mShaders )
-    {
         delete shader;
-    }
 
     mShaders.clear();
 }

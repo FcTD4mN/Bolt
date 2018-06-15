@@ -37,6 +37,10 @@ public:
     void  LayerDistanceAtIndex( float iDistance, int iLayerIndex );
     void  AddShaderToLayer( ::nShaders::cShader2D* iShader, int iLayerIndex );
 
+    // EDITOR
+    int      LayerCount() const;
+    cLayer&  LayerAtIndex( int iLayerIndex );
+
 public:
     // Entity
     void AddEntityInLayer( ::nECS::cEntity* iEntity, int iLayerIndex );

@@ -212,7 +212,7 @@ cPrototypeEditor::RemovePrototype()
 
 
 void
-cPrototypeEditor::ProjectLoaded()
+cPrototypeEditor::ProjectLoaded( ::nProject::cProject* iProject )
 {
     ForceUpdateModel();
 }

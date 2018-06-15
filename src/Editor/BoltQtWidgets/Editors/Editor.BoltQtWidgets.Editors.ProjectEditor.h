@@ -4,6 +4,7 @@
 
 #include <QWidget>
 
+namespace nProject { class cProject; }
 
 class cProjectEditor :
     public QWidget
@@ -16,6 +17,9 @@ public:
 public:
     ~cProjectEditor();
     cProjectEditor( QWidget *parent = Q_NULLPTR );
+
+public  slots:
+    void  ProjectLoaded( ::nProject::cProject* iProject );
 
 private:
     Ui::ProjectEditor ui;

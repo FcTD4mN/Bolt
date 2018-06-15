@@ -85,6 +85,13 @@ cWorld::SetUseLayerEngine( bool iValue )
 }
 
 
+::nRender::cLayerEngine*
+cWorld::LayerEngine()
+{
+    return  mLayerEngine;
+}
+
+
 void
 cWorld::AddLayer( const sf::Vector2f& iViewSize )
 {
@@ -217,15 +224,32 @@ cWorld::ConnectSystemToEvents( cSystem * iSystem )
 }
 
 
+cSystem*
+cWorld::GetSystemAtIndex( int iIndex )
+{
+    if( iIndex < 0 || iIndex >= mSystems.size() )
+        return  0;
+
+    return  mSystems[ iIndex ];
+}
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------ Access
 // -------------------------------------------------------------------------------------
 
 
-size_t
+int
 cWorld::EntityCount() const
 {
-    return  mEntity.size();
+    return  int(mEntity.size());
+}
+
+
+int
+cWorld::SystemCount() const
+{
+    return  int(mSystems.size());
 }
 
 

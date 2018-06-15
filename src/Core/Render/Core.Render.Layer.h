@@ -33,6 +33,13 @@ public:
     void  ZLayer( float iZLayer );
     void  SetViewCenter( const sf::Vector2f& iViewCenter );
 
+    const std::string&  Name() const;
+    void                Name( const std::string& iName );
+
+    //EDITOR
+    int  EntityCount() const;
+    ::nECS::cEntity* EntityAtIndex( int iIndex );
+
 public:
     void  AddShader( ::nShaders::cShader2D* iShader );
 
@@ -47,6 +54,7 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
+    std::string                             mName;
     std::list< ::nECS::cEntity* >           mEntities;
     sf::View                                mView;
     float                                   mZLayer;

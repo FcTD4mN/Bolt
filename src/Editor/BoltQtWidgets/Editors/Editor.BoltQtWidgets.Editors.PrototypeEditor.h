@@ -2,6 +2,8 @@
 
 #include "ui_PrototypeEditor.h"
 
+#include "Core.Project.Project.h"
+
 #include <QModelIndex>
 #include <QWidget>
 
@@ -34,7 +36,7 @@ public slots:
     void  AddNewPrototype();
     void  RemovePrototype();
 
-    void  ProjectLoaded();
+    void  ProjectLoaded( ::nProject::cProject* iProject );
 
 private:
     void  ForceUpdateModel();

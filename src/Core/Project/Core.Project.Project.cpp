@@ -134,6 +134,53 @@ cProject::SetLimitFramerate( int iFramerate )
 }
 
 
+const std::string&
+cProject::Name() const
+{
+    return  mProjectName;
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ EDITOR
+// -------------------------------------------------------------------------------------
+
+
+int
+cProject::ScreenCount()
+{
+    return  int(mScreenStack.size());
+}
+
+
+::nScreen::cScreen *
+cProject::ScreenAtIndex( int iIndex )
+{
+    if( iIndex < 0 || iIndex > mScreenStack.size() )
+        return  0;
+
+    auto it = mScreenStack.begin();
+    for( int i = 0; i < iIndex; ++i )
+        ++it;
+
+    return  *it;
+}
+
+
+void
+cProject::RemoveScreenAtIndex( int iIndex )
+{
+    if( iIndex < 0 || iIndex > mScreenStack.size() )
+        return;
+
+    auto it = mScreenStack.begin();
+    for( int i = 0; i < iIndex; ++i )
+        ++it;
+
+    mScreenStack.erase( it );
+}
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------- Update/Draw
 // -------------------------------------------------------------------------------------

@@ -35,12 +35,14 @@ public:
     void  SetUseLayerEngine( bool iValue );
 
 public:
+    // Layers
+    ::nRender::cLayerEngine* LayerEngine();
     void  AddLayer( const sf::Vector2f& iViewSize );
+    void  PutEntityInLayer( cEntity* iEntity, int iLayerIndex );
 
 public:
     // Entity
     void  AddEntity( cEntity* iEntity );
-    void  PutEntityInLayer( cEntity* iEntity, int iLayerIndex );
     void  UpdateWorldWithEntity( cEntity* iEntity );
     void  DestroyEntity( cEntity* iEntity );
     void  DestroyEntityByID( const  std::string& iID );
@@ -53,12 +55,14 @@ public:
 
 public:
     // Systems
-    void  AddSystem( cSystem* iSystem );
-    void  ConnectSystemToEvents( cSystem* iSystem );
+    void        AddSystem( cSystem* iSystem );
+    void        ConnectSystemToEvents( cSystem* iSystem );
+    cSystem*    GetSystemAtIndex( int iIndex );
 
 public:
     // Access
-    size_t EntityCount() const;
+    int EntityCount() const;
+    int SystemCount() const;
 
 private:
     // Private
