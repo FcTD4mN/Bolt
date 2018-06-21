@@ -108,6 +108,7 @@ public:
 public:
     ~cTreeWrapperNodeHierarchyEntity();
     cTreeWrapperNodeHierarchyEntity( cTreeWrapperNode* iParent, ::nECS::cEntity* iEntity );
+    cTreeWrapperNodeHierarchyEntity( ::nECS::cEntity* iEntity );
 
 public:
     // Type

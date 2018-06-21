@@ -43,6 +43,7 @@ public:
     QAction *actionSnapGrid;
     QAction *actionOpen;
     QAction *actionNew_Project;
+    QAction *actionSave_As;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QTabWidget *tabWidget;
@@ -88,6 +89,8 @@ public:
         actionOpen->setObjectName(QStringLiteral("actionOpen"));
         actionNew_Project = new QAction(BoltEditorClass);
         actionNew_Project->setObjectName(QStringLiteral("actionNew_Project"));
+        actionSave_As = new QAction(BoltEditorClass);
+        actionSave_As->setObjectName(QStringLiteral("actionSave_As"));
         centralWidget = new QWidget(BoltEditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -185,7 +188,7 @@ public:
         BoltEditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(BoltEditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 653, 21));
+        menuBar->setGeometry(QRect(0, 0, 653, 22));
         menuFiles = new QMenu(menuBar);
         menuFiles->setObjectName(QStringLiteral("menuFiles"));
         menuView = new QMenu(menuBar);
@@ -205,9 +208,8 @@ public:
         menuBar->addAction(menuSettings->menuAction());
         menuFiles->addAction(actionNew_Project);
         menuFiles->addAction(actionOpen);
-        menuFiles->addSeparator();
         menuFiles->addAction(actionSave);
-        menuFiles->addAction(actionLoad);
+        menuFiles->addAction(actionSave_As);
         menuFiles->addSeparator();
         menuFiles->addAction(actionExit);
         menuView->addAction(actionToogle_Grid);
@@ -234,6 +236,7 @@ public:
         actionSnapGrid->setText(QApplication::translate("BoltEditorClass", "SnapGrid", nullptr));
         actionOpen->setText(QApplication::translate("BoltEditorClass", "Open", nullptr));
         actionNew_Project->setText(QApplication::translate("BoltEditorClass", "New Project", nullptr));
+        actionSave_As->setText(QApplication::translate("BoltEditorClass", "Save As", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(ProjectEditorTab), QApplication::translate("BoltEditorClass", "ProjectEditor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(ScreenEditorTab), QApplication::translate("BoltEditorClass", "ScreenEditor", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(PrototypeEditorTab), QApplication::translate("BoltEditorClass", "PrototypeEditor", nullptr));

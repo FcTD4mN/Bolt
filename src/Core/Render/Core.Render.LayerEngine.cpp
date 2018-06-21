@@ -9,6 +9,10 @@ namespace nRender
 
 cLayerEngine::~cLayerEngine()
 {
+	for( auto layer : mLayers )
+		delete  layer;
+
+	mLayers.clear();
 }
 
 
@@ -18,18 +22,18 @@ cLayerEngine::cLayerEngine()
 
 
 void
-cLayerEngine::Draw( sf::RenderTarget * iRenderTarget )
+cLayerEngine::Draw( sf::RenderTarget* iRenderTarget )
 {
-    for( auto& layer : mLayers )
-        layer.Draw( iRenderTarget );
+    for( auto layer : mLayers )
+        layer->Draw( iRenderTarget );
 }
 
 
 void
 cLayerEngine::AddLayer( const sf::Vector2f& iViewSize )
 {
-    cLayer newLayer( iViewSize );
-    newLayer.Name( "Layer " + std::to_string( mLayers.size() ) );
+    cLayer* newLayer = new cLayer( iViewSize );
+    newLayer->Name( "Layer " + std::to_string( mLayers.size() ) );
     mLayers.push_back( newLayer );
 }
 
@@ -41,15 +45,15 @@ cLayerEngine::AddLayerAtIndex( const sf::Vector2f& iViewSize, int iIndex )
     for( int i = 0; i < iIndex; ++i )
         ++it;
 
-    mLayers.insert( it, cLayer( iViewSize ) );
+    mLayers.insert( it, new cLayer( iViewSize ) );
 }
 
 
 void
 cLayerEngine::SetLayersCenter( const sf::Vector2f & iLayerCenter )
 {
-    for( auto& layer : mLayers )
-        layer.SetViewCenter( iLayerCenter );
+    for( auto layer : mLayers )
+        layer->SetViewCenter( iLayerCenter );
 }
 
 
@@ -60,7 +64,7 @@ cLayerEngine::LayerDistanceAtIndex( float iDistance, int iLayerIndex )
     for( int i = 0; i < iLayerIndex; ++i )
         ++it;
 
-    ( *it ).ZLayer( iDistance );
+    ( *it )->ZLayer( iDistance );
 }
 
 
@@ -71,7 +75,7 @@ cLayerEngine::AddShaderToLayer( ::nShaders::cShader2D* iShader, int iLayerIndex 
     for( int i = 0; i < iLayerIndex; ++i )
         ++it;
 
-    ( *it ).AddShader( iShader );
+    ( *it )->AddShader( iShader );
 }
 
 
@@ -82,7 +86,7 @@ cLayerEngine::LayerCount() const
 }
 
 
-cLayer&
+cLayer*
 cLayerEngine::LayerAtIndex( int iLayerIndex )
 {
     if( iLayerIndex < 0 || iLayerIndex > mLayers.size() )
@@ -103,18 +107,18 @@ cLayerEngine::AddEntityInLayer( ::nECS::cEntity * iEntity, int iLayerIndex )
     for( int i = 0; i < iLayerIndex; ++i )
         ++it;
 
-    ( *it ).AddEntity( iEntity );
+    ( *it )->AddEntity( iEntity );
 }
 
 
 void
 cLayerEngine::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument * iDocument )
 {
-    for( auto& layer : mLayers )
+    for( auto layer : mLayers )
     {
         // LAYERS
         tinyxml2::XMLElement* layerNode = iDocument->NewElement( "layer" );
-        layer.SaveXML( layerNode, iDocument );
+        layer->SaveXML( layerNode, iDocument );
         iNode->LinkEndChild( layerNode );
     }
 }

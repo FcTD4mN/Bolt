@@ -114,6 +114,13 @@ cProjectHierarchyModel::flags( const QModelIndex & iIndex ) const
     if( !iIndex.isValid() )
         return 0;
 
+	auto node = ExtractTreeWrapper( iIndex  );
+	if( node->Type() == "Entity" )
+		return  QAbstractItemModel::flags( iIndex ) | Qt::ItemIsDragEnabled;
+
+	if( node->Type() == "Layer" )
+		return  QAbstractItemModel::flags( iIndex ) | Qt::ItemIsDropEnabled;
+
     return QAbstractItemModel::flags( iIndex );
 }
 
@@ -157,12 +164,12 @@ cProjectHierarchyModel::BuildData()
         layerRoot->AppendData( "Layers" );
         for( int j = 0; j < layerEngine->LayerCount(); ++j )
         {
-            ::nRender::cLayer& layer = layerEngine->LayerAtIndex( j );
-            cTreeWrapperNodeHierarchyLayer* layerNode = new cTreeWrapperNodeHierarchyLayer( layerRoot, &layer ); //TODO: Change layers to pointer in layerengine
+            ::nRender::cLayer* layer = layerEngine->LayerAtIndex( j );
+            cTreeWrapperNodeHierarchyLayer* layerNode = new cTreeWrapperNodeHierarchyLayer( layerRoot, layer );
 
-            for( int k = 0; k < layer.EntityCount(); ++k )
+            for( int k = 0; k < layer->EntityCount(); ++k )
             {
-                ::nECS::cEntity* entity = layer.EntityAtIndex( k );
+                ::nECS::cEntity* entity = layer->EntityAtIndex( k );
                 cTreeWrapperNodeHierarchyEntity* entityNode = new cTreeWrapperNodeHierarchyEntity( layerNode, entity );
             }
         }
@@ -175,8 +182,6 @@ cProjectHierarchyModel::BuildData()
             ::nECS::cSystem* system = world->GetSystemAtIndex( j );
             cTreeWrapperNodeHierarchySystem* systemNode = new cTreeWrapperNodeHierarchySystem( systemRoot, system );
         }
-
-            // Continue with world : systems
     }
 }
 
@@ -263,6 +268,13 @@ cProjectHierarchyModel::removeRows( int iIndex, int iCount, const QModelIndex & 
 
 
 bool
+cProjectHierarchyModel::moveRows( const QModelIndex & sourceParent, int sourceRow, int count, const QModelIndex & destinationParent, int destinationChild )
+{
+	return false;
+}
+
+
+bool
 cProjectHierarchyModel::RemoveComponent( QModelIndex & iIndex )
 {
     //TODO
@@ -284,6 +296,87 @@ cProjectHierarchyModel::RemoveComponent( QModelIndex & iIndex )
     //}
 
     return  false;
+}
+
+
+QMimeData*
+cProjectHierarchyModel::mimeData( const QModelIndexList & indexes ) const
+{
+	if( indexes.size() == 0 )
+		return  0;
+
+	QMimeData* mimeData = new QMimeData();
+	QByteArray encodedData;
+
+	QDataStream stream(&encodedData, QIODevice::WriteOnly);
+
+	foreach( const QModelIndex &index, indexes)
+	{
+		if( index.isValid() )
+		{
+			auto node = dynamic_cast< cTreeWrapperNodeHierarchyEntity* >( ExtractTreeWrapper( index ) );
+			if( node )
+			{
+				QVariant pointerLong = (long long)(node);
+				stream << pointerLong;
+			}
+		}
+	}
+
+	mimeData->setData("application/oui", encodedData);
+
+	return mimeData;
+}
+
+
+bool
+cProjectHierarchyModel::canDropMimeData( const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent ) const
+{
+	return  true;
+}
+
+
+bool
+cProjectHierarchyModel::dropMimeData( const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent )
+{
+	auto		node		= ExtractTreeWrapper( parent );
+	QByteArray	encodedData = data->data("application/oui");
+	QDataStream stream( &encodedData, QIODevice::ReadOnly );
+
+	auto parentNode = ExtractTreeWrapper( parent );
+
+	if( parentNode->Type() == "Layer" )
+	{
+		auto  parentNodeAsLayer = dynamic_cast< cTreeWrapperNodeHierarchyLayer* >( parentNode );
+		auto theLayer = parentNodeAsLayer->Layer();
+
+		while ( !stream.atEnd() )
+		{
+			QVariant data;
+			stream >> data;
+			auto entityNode = (cTreeWrapperNodeHierarchyEntity*)( data.toLongLong() );
+
+			// First remove from old layer
+			auto originLayer = dynamic_cast< cTreeWrapperNodeHierarchyLayer* >( entityNode->Parent() )->Layer();
+			originLayer->RemoveEntity( entityNode->Entity() );
+
+			// Then add into the new one
+			int index = theLayer->AddEntity( entityNode->Entity() );
+
+			// Update the tree : we don't have to do the remove, it's done automatically
+			auto newNode = new cTreeWrapperNodeHierarchyEntity( entityNode->Entity() );
+			parentNode->InsertChild( newNode, index );
+		}
+	}
+
+	return  true;
+}
+
+
+Qt::DropActions
+cProjectHierarchyModel::supportedDropActions() const
+{
+	return  Qt::MoveAction;
 }
 
 } //nQt

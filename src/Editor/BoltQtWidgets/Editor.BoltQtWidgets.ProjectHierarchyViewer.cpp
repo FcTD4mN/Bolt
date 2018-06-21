@@ -13,6 +13,10 @@ cProjectHierarchyViewer::cProjectHierarchyViewer( QWidget * Parent ) :
     tSuperClass( Parent )
 {
     ui.setupUi( this );
+	ui.treeView->setSelectionMode(QAbstractItemView::SingleSelection);
+	ui.treeView->setDragEnabled(true);
+	ui.treeView->setAcceptDrops(true);
+	ui.treeView->setDropIndicatorShown(true);
 }
 
 

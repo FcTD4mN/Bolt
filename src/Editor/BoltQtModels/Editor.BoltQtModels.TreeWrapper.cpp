@@ -24,6 +24,12 @@ cTreeWrapperNode::cTreeWrapperNode( cTreeWrapperNode* iParent ) :
 }
 
 
+cTreeWrapperNode::cTreeWrapperNode() :
+	mParent( 0 )
+{
+}
+
+
 // ======================================================================
 // ============================================================ Hierarchy
 // ======================================================================
@@ -56,6 +62,20 @@ void
 cTreeWrapperNode::AddChild( cTreeWrapperNode* iNode )
 {
     mChildren.push_back( iNode );
+	iNode->mParent = this;
+}
+
+
+void
+cTreeWrapperNode::InsertChild( cTreeWrapperNode * iNode, int iIndex )
+{
+	auto it = mChildren.begin();
+
+	for( int i = 0; i< iIndex; ++i )
+		++it;
+
+	mChildren.insert( it, iNode );
+	iNode->mParent = this;
 }
 
 

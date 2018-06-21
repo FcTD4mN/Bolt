@@ -73,7 +73,7 @@ cApplication::NewProject( const std::string & iProjectFile )
 
     std::filesystem::path projectPath = iProjectFile;
 
-    mProject = new ::nProject::cProject( projectPath.filename().string(), projectPath.parent_path().string() );
+    mProject = new ::nProject::cProject( projectPath.stem().string(), projectPath.parent_path().string() );
     mProject->Initialize();
 
     if( mMainWindow )

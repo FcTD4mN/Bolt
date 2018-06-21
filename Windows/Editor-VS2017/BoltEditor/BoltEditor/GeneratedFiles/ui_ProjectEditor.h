@@ -13,11 +13,11 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -41,8 +41,8 @@ public:
     QSpinBox *spinBoxResHeight;
     QLabel *labelFramerate;
     QSpinBox *spinBoxFramerate;
-    QLabel *labelFramerate_2;
-    QComboBox *comboBox;
+    QLineEdit *lineEditProjectName;
+    QLabel *labelProjectName;
     QWidget *tab_2;
     cProjectHierarchyViewer *widget;
 
@@ -50,7 +50,7 @@ public:
     {
         if (ProjectEditor->objectName().isEmpty())
             ProjectEditor->setObjectName(QStringLiteral("ProjectEditor"));
-        ProjectEditor->resize(542, 532);
+        ProjectEditor->resize(542, 529);
         horizontalLayout = new QHBoxLayout(ProjectEditor);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         tabWidget = new QTabWidget(ProjectEditor);
@@ -77,44 +77,45 @@ public:
         labelResWidth = new QLabel(tab);
         labelResWidth->setObjectName(QStringLiteral("labelResWidth"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, labelResWidth);
+        formLayout->setWidget(1, QFormLayout::LabelRole, labelResWidth);
 
         spinBoxResWidth = new QSpinBox(tab);
         spinBoxResWidth->setObjectName(QStringLiteral("spinBoxResWidth"));
+        spinBoxResWidth->setMaximum(9999);
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, spinBoxResWidth);
+        formLayout->setWidget(1, QFormLayout::FieldRole, spinBoxResWidth);
 
         labelResHeight = new QLabel(tab);
         labelResHeight->setObjectName(QStringLiteral("labelResHeight"));
 
-        formLayout->setWidget(1, QFormLayout::LabelRole, labelResHeight);
+        formLayout->setWidget(2, QFormLayout::LabelRole, labelResHeight);
 
         spinBoxResHeight = new QSpinBox(tab);
         spinBoxResHeight->setObjectName(QStringLiteral("spinBoxResHeight"));
+        spinBoxResHeight->setMaximum(9999);
 
-        formLayout->setWidget(1, QFormLayout::FieldRole, spinBoxResHeight);
+        formLayout->setWidget(2, QFormLayout::FieldRole, spinBoxResHeight);
 
         labelFramerate = new QLabel(tab);
         labelFramerate->setObjectName(QStringLiteral("labelFramerate"));
 
-        formLayout->setWidget(2, QFormLayout::LabelRole, labelFramerate);
+        formLayout->setWidget(3, QFormLayout::LabelRole, labelFramerate);
 
         spinBoxFramerate = new QSpinBox(tab);
         spinBoxFramerate->setObjectName(QStringLiteral("spinBoxFramerate"));
+        spinBoxFramerate->setMaximum(999);
 
-        formLayout->setWidget(2, QFormLayout::FieldRole, spinBoxFramerate);
+        formLayout->setWidget(3, QFormLayout::FieldRole, spinBoxFramerate);
 
-        labelFramerate_2 = new QLabel(tab);
-        labelFramerate_2->setObjectName(QStringLiteral("labelFramerate_2"));
+        lineEditProjectName = new QLineEdit(tab);
+        lineEditProjectName->setObjectName(QStringLiteral("lineEditProjectName"));
 
-        formLayout->setWidget(3, QFormLayout::LabelRole, labelFramerate_2);
+        formLayout->setWidget(0, QFormLayout::FieldRole, lineEditProjectName);
 
-        comboBox = new QComboBox(tab);
-        comboBox->addItem(QString());
-        comboBox->addItem(QString());
-        comboBox->setObjectName(QStringLiteral("comboBox"));
+        labelProjectName = new QLabel(tab);
+        labelProjectName->setObjectName(QStringLiteral("labelProjectName"));
 
-        formLayout->setWidget(3, QFormLayout::FieldRole, comboBox);
+        formLayout->setWidget(0, QFormLayout::LabelRole, labelProjectName);
 
 
         verticalLayout->addLayout(formLayout);
@@ -147,10 +148,7 @@ public:
         labelResWidth->setText(QApplication::translate("ProjectEditor", "Window width :", nullptr));
         labelResHeight->setText(QApplication::translate("ProjectEditor", "Window height :", nullptr));
         labelFramerate->setText(QApplication::translate("ProjectEditor", "Framerate Limit :", nullptr));
-        labelFramerate_2->setText(QApplication::translate("ProjectEditor", "Use Layers :", nullptr));
-        comboBox->setItemText(0, QApplication::translate("ProjectEditor", "no", nullptr));
-        comboBox->setItemText(1, QApplication::translate("ProjectEditor", "yes", nullptr));
-
+        labelProjectName->setText(QApplication::translate("ProjectEditor", "Project name :", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("ProjectEditor", "Properties", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("ProjectEditor", "Screens", nullptr));
     } // retranslateUi

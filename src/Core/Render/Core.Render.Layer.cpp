@@ -74,7 +74,7 @@ cLayer::Draw( sf::RenderTarget* iRenderTarget )
 }
 
 
-void
+int
 cLayer::AddEntity( ::nECS::cEntity * iEntity )
 {
     auto zdepth = dynamic_cast<::nECS::cZDepth*>( iEntity->GetComponentByName( "zdepth" ) );
@@ -83,6 +83,7 @@ cLayer::AddEntity( ::nECS::cEntity * iEntity )
         zEnteringEntityDepth = zdepth->ZDepth();
 
     auto it = mEntities.begin();
+	int index = 0;
 
     while( it != mEntities.end() )
     {
@@ -95,9 +96,25 @@ cLayer::AddEntity( ::nECS::cEntity * iEntity )
             break;
 
         ++it;
+		++index;
     }
 
     mEntities.insert( it, iEntity );
+	return  index;
+}
+
+
+void
+cLayer::RemoveEntity( ::nECS::cEntity * iEntity )
+{
+	for( auto it = mEntities.begin(); it != mEntities.end(); ++it )
+	{
+		if( *it == iEntity )
+		{
+			mEntities.erase( it );
+			break;
+		}
+	}
 }
 
 
@@ -174,20 +191,6 @@ cLayer::AddShader( ::nShaders::cShader2D* iShader )
 // ------------------
 // PRIVATE ----------
 // ------------------
-
-
-void
-cLayer::RemoveEntity( ::nECS::cEntity * iEntity )
-{
-    for( auto it = mEntities.begin(); it != mEntities.end(); ++it )
-    {
-        if( *it == iEntity )
-        {
-            mEntities.erase( it );
-            break;
-        }
-    }
-}
 
 
 void

@@ -1,12 +1,9 @@
 #pragma once
 
-
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
 
-
 #include <unordered_map>
-
 
 namespace nECS { class cEntity; }
 namespace nShaders { class cShader2D; }
@@ -26,7 +23,8 @@ public:
 
 public:
     // Entity
-    void AddEntity( ::nECS::cEntity* iEntity );
+    int  AddEntity( ::nECS::cEntity* iEntity );
+    void RemoveEntity( ::nECS::cEntity* iEntity );
 
 public:
     // Access
@@ -45,7 +43,6 @@ public:
 
 private:
     // Private
-    void  RemoveEntity( ::nECS::cEntity* iEntity );
     void  ClearShaders();
 
 public:

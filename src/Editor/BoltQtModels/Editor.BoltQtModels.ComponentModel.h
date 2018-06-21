@@ -46,6 +46,7 @@ public:
     bool AddNewVariable();
     bool RemoveVariable( QModelIndex& iIndex );
 
+
 public:
     cTreeWrapperNode*  ExtractTreeWrapper( const QModelIndex& iIndex ) const;
     void BuildData();

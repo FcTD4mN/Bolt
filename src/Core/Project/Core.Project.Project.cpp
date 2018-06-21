@@ -28,6 +28,7 @@ cProject::~cProject()
 
 cProject::cProject( const std::string& iProjectName, const std::string& iProjectFolder ) :
     mProjectName( iProjectName ),
+	mProjectFilePath( "" ),
     mProjectFolder( iProjectFolder ),
     mResolutionWidth( 1024 ),
     mResolutionHeight( 768 ),
@@ -141,6 +142,27 @@ cProject::Name() const
 }
 
 
+void
+cProject::Name( const std::string & iNewName )
+{
+	mProjectName = iNewName;
+}
+
+
+const std::string&
+cProject::ProjectFilePath() const
+{
+	return  mProjectFilePath;
+}
+
+
+void
+cProject::ProjectFilePath( const std::string & iNewFileName )
+{
+	mProjectFilePath = iNewFileName;
+}
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------ EDITOR
 // -------------------------------------------------------------------------------------
@@ -244,7 +266,10 @@ cProject::SaveXML()
     doc.InsertFirstChild( projectNode );
 
     // Save into file
-    std::string outputFileName = mProjectFolder + "/" + mProjectName + ".proj";
+    std::string outputFileName = mProjectFilePath;
+	if( mProjectFilePath == "" )
+		outputFileName = mProjectFolder + "/" + mProjectName + ".proj";
+
     tinyxml2::XMLError error = doc.SaveFile( outputFileName.c_str() );
     if( error )
     {

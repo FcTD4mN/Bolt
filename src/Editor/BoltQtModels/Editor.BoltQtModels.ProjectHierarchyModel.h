@@ -44,7 +44,17 @@ public:
     bool insertRows( int iIndex, int iCount, const QModelIndex &parent = QModelIndex() ) override;
     bool removeRows( int iIndex, int iCount, const QModelIndex &parent = QModelIndex() ) override;
 
+	bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild) override;
+
     bool RemoveComponent( QModelIndex& iIndex );
+
+
+		// Drag n Drop
+	//virtual QStringList		mimeTypes() const;
+	virtual QMimeData*		mimeData(const QModelIndexList &indexes) const;
+	virtual bool			canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const;
+	virtual bool			dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
+	virtual Qt::DropActions supportedDropActions() const;
 
 public:
     cTreeWrapperNode * ExtractTreeWrapper( const QModelIndex& iIndex ) const;

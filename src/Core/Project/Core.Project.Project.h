@@ -34,6 +34,9 @@ public:
     void  SetLimitFramerate( int iFramerate );
 
     const std::string&  Name() const;
+    void				Name( const std::string& iNewName );
+    const std::string&  ProjectFilePath() const;
+    void				ProjectFilePath( const std::string& iNewFileName );
 
 public:
     // EDITOR
@@ -52,6 +55,7 @@ public:
 
 protected:
     std::string                         mProjectName;
+    std::string                         mProjectFilePath; //For now, this path has to be coherent with the project folder, if we don't want this, we'll have to store project main folder in the proj file
     std::string                         mProjectFolder;
     std::vector< ::nScreen::cScreen* >  mScreenStack;
 

@@ -56,6 +56,9 @@ cBoltEditor::Setup()
     connect( ui.actionToogle_Grid, &QAction::triggered, ui.widget, &SFMLCanvas::ToggleGridVisible );
     connect( ui.actionSnapGrid, &QAction::triggered, ui.widget, &SFMLCanvas::SetSnapGridUp );
 
+    connect( ui.actionSave, &QAction::triggered, ui.projectEditor, &cProjectEditor::SaveProject);
+    connect( ui.actionSave_As, &QAction::triggered, ui.projectEditor, &cProjectEditor::SaveProjectAs);
+
     connect( this, &cBoltEditor::CurrentProjectChanged, ui.PrototypeEditor, &cPrototypeEditor::ProjectLoaded );
     connect( this, &cBoltEditor::CurrentProjectChanged, ui.projectEditor, &cProjectEditor::ProjectLoaded );
 }
@@ -80,7 +83,7 @@ cBoltEditor::NewProject()
             directory.mkdir( projectName + "/Assets/Systems" );
             directory.mkdir( projectName + "/Screens" );
 
-            mApp->NewProject( projectDir.toStdString() + projectName.toStdString() + "/" + projectName.toStdString() + ".proj" );
+            mApp->NewProject( projectDir.toStdString() + "/" + projectName.toStdString() + "/" + projectName.toStdString() + ".proj" );
             emit  CurrentProjectChanged( mApp->Project() );
         }
     }

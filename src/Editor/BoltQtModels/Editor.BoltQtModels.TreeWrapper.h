@@ -12,6 +12,7 @@ class cTreeWrapperNode
 public:
     ~cTreeWrapperNode();
     cTreeWrapperNode( cTreeWrapperNode* iParent );
+    cTreeWrapperNode();
 
 public:
     // Hierarchy
@@ -19,6 +20,7 @@ public:
     int ChildrenCount() const;
     cTreeWrapperNode* ChildAtRow( int iRow );
     void AddChild( cTreeWrapperNode* iNode );
+    void InsertChild( cTreeWrapperNode* iNode, int iIndex );
     virtual void AddChild(); // The add row interface
 
     virtual  bool RemoveChildrenAtIndex( int iIndex, int iCount );

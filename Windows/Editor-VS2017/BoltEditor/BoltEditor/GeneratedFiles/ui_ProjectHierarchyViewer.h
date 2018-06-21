@@ -35,6 +35,10 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         treeView = new QTreeView(ProjectHierarchyViewer);
         treeView->setObjectName(QStringLiteral("treeView"));
+        treeView->setAcceptDrops(true);
+        treeView->setDragEnabled(true);
+        treeView->setDragDropMode(QAbstractItemView::InternalMove);
+        treeView->setDefaultDropAction(Qt::MoveAction);
 
         verticalLayout->addWidget(treeView);
 

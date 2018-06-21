@@ -97,14 +97,14 @@ cTreeWrapperNodeHierarchyLayer::cTreeWrapperNodeHierarchyLayer( cTreeWrapperNode
     if( mLayer )
         AppendData( mLayer->Name().c_str() );
     else
-        AppendData( "New Screen" );
+        AppendData( "New Layer" );
 }
 
 
 std::string
 cTreeWrapperNodeHierarchyLayer::Type() const
 {
-    return  "Screen";
+    return  "Layer";
 }
 
 
@@ -133,6 +133,17 @@ cTreeWrapperNodeHierarchyEntity::cTreeWrapperNodeHierarchyEntity( cTreeWrapperNo
         AppendData( mEntity->ID().c_str() );
     else
         AppendData( "New Entity" );
+}
+
+
+cTreeWrapperNodeHierarchyEntity::cTreeWrapperNodeHierarchyEntity( ::nECS::cEntity* iEntity ) :
+	tSuperClass(),
+	mEntity( iEntity)
+{
+	if( mEntity )
+		AppendData( mEntity->ID().c_str() );
+	else
+		AppendData( "New Entity" );
 }
 
 

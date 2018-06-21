@@ -39,7 +39,7 @@ public:
 
     // EDITOR
     int      LayerCount() const;
-    cLayer&  LayerAtIndex( int iLayerIndex );
+    cLayer*  LayerAtIndex( int iLayerIndex );
 
 public:
     // Entity
@@ -51,7 +51,7 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::list< cLayer >  mLayers;
+    std::list< cLayer* >  mLayers;
 };
 
 
