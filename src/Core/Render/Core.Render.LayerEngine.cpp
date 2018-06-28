@@ -30,30 +30,43 @@ cLayerEngine::Draw( sf::RenderTarget* iRenderTarget )
 
 
 void
-cLayerEngine::AddLayer( const sf::Vector2f& iViewSize )
+cLayerEngine::AddLayer( const sf::Vector2f& iViewSize, float iDistance )
 {
     cLayer* newLayer = new cLayer( iViewSize );
     newLayer->Name( "Layer " + std::to_string( mLayers.size() ) );
+	newLayer->ZLayer( iDistance );
     mLayers.push_back( newLayer );
 }
 
 
 void
-cLayerEngine::AddLayerAtIndex( const sf::Vector2f& iViewSize, int iIndex )
+cLayerEngine::AddLayerAtIndex( const sf::Vector2f& iViewSize, float iDistance, int iIndex )
 {
     auto it = mLayers.begin();
     for( int i = 0; i < iIndex; ++i )
         ++it;
 
-    mLayers.insert( it, new cLayer( iViewSize ) );
+	cLayer* newLayer = new cLayer( iViewSize );
+	newLayer->Name( "Layer " + std::to_string( mLayers.size() ) );
+	newLayer->ZLayer( iDistance );
+
+    mLayers.insert( it, newLayer );
 }
 
 
 void
-cLayerEngine::SetLayersCenter( const sf::Vector2f & iLayerCenter )
+cLayerEngine::SetLayersView( const sf::View& iLayerView )
 {
     for( auto layer : mLayers )
-        layer->SetViewCenter( iLayerCenter );
+        layer->SetView( iLayerView );
+}
+
+
+void
+cLayerEngine::ApplyZoomToLayers( float iZoom )
+{
+	for( auto layer : mLayers )
+		layer->ApplyZoom( iZoom );
 }
 
 
@@ -76,6 +89,14 @@ cLayerEngine::AddShaderToLayer( ::nShaders::cShader2D* iShader, int iLayerIndex 
         ++it;
 
     ( *it )->AddShader( iShader );
+}
+
+
+void
+cLayerEngine::LayersEnumerator( std::function<void( ::nRender::cLayer* )> iFunction )
+{
+	for( auto layer : mLayers )
+		iFunction( layer );
 }
 
 

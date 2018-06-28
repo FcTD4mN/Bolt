@@ -6,8 +6,10 @@
 
 
 #include <unordered_map>
+#include <functional>
 
 
+namespace nRender { class cLayer; }
 namespace nRender { class cLayerEngine; }
 namespace nMapping { class cEntityGrid; }
 
@@ -37,8 +39,10 @@ public:
 public:
     // Layers
     ::nRender::cLayerEngine* LayerEngine();
-    void  AddLayer( const sf::Vector2f& iViewSize );
+    void  AddLayer( const sf::Vector2f& iViewSize, float iDistance );
     void  PutEntityInLayer( cEntity* iEntity, int iLayerIndex );
+
+	void  LayersEnumerator( std::function< void( ::nRender::cLayer* ) > iFunction );
 
 public:
     // Entity
@@ -50,6 +54,8 @@ public:
     cEntity*  GetEntityAtIndex( int iIndex );
     void  DestroyAllEntities();
     void  PurgeEntities();
+
+	void  EntityEnumerator( std::function< void( cEntity* ) > iEnumeratorFunction );
 
     bool IsIDUnique( const std::string& iID ) const;
 
@@ -70,8 +76,9 @@ private:
 
 public:
     // EntityMap
-    void  SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize );
-    ::nMapping::cEntityGrid*  EntityMap();
+    void						SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize );
+    ::nMapping::cEntityGrid*	EntityMap();
+	void						EntityMapEnumerator( std::function< void( ::nMapping::cEntityGrid* iEntityGrid ) > iFunction );
 
 public:
     // Events
@@ -107,8 +114,7 @@ protected:
     std::vector< cSystem* > mSystems;
     std::vector< cSystem* > mEventRelatedSystems;
 
-    //TODO: read comment below
-    ::nMapping::cEntityGrid*    mEntityMap; // This will tend to become a cEntityMap, that could either be a grid, an octree, a quadtree etc...
+    ::nMapping::cEntityGrid*    mEntityMap;
 
 public: // TEMP until main camera thing
     ::nRender::cLayerEngine*    mLayerEngine;

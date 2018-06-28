@@ -9,6 +9,8 @@
 #include "Core.ECS.Component.Sound.h"
 #include "Core.ECS.Component.OcclusionFactor.h"
 
+#include "Core.Render.Layer.h"
+
 #include "Core.Math.Edge.h"
 #include "Core.Math.Utils.h"
 
@@ -48,7 +50,7 @@ cSoundOcclusion::Draw( sf::RenderTarget* iRenderTarget )
 void
 cSoundOcclusion::Update( unsigned int iDeltaTime )
 {
-    ::nMapping::cEntityGrid* entityMap = mWorld->EntityMap();
+    ::nMapping::cEntityGrid* entityMap = 0;
     bool applyOcclusion = false;
 
     for( int i = 0; i < mSoundEmitters.size(); ++i )
@@ -57,6 +59,12 @@ cSoundOcclusion::Update( unsigned int iDeltaTime )
 
         if( entity == mListener )
             continue;
+
+		auto layer = entity->Layer();
+		if( layer )
+			entityMap = layer->EntityGrid();
+		else
+			entityMap = mWorld->EntityMap();
 
         auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
         auto sound = dynamic_cast< cSound* >( entity->GetComponentByName( "sound" ) );

@@ -5,6 +5,7 @@
 #include <tinyxml2.h>
 
 
+#include <functional>
 #include <unordered_map>
 
 
@@ -31,11 +32,14 @@ public:
 
 public:
     // Layer
-    void  AddLayer( const sf::Vector2f& iViewSize );
-    void  AddLayerAtIndex( const sf::Vector2f& iViewSize, int iIndex );
-    void  SetLayersCenter( const sf::Vector2f& iLayerCenter );
+    void  AddLayer( const sf::Vector2f& iViewSize, float iDistance );
+    void  AddLayerAtIndex( const sf::Vector2f& iViewSize, float iDistance, int iIndex );
+    void  SetLayersView( const sf::View& iLayerView );
+    void  ApplyZoomToLayers( float iZoom );
     void  LayerDistanceAtIndex( float iDistance, int iLayerIndex );
     void  AddShaderToLayer( ::nShaders::cShader2D* iShader, int iLayerIndex );
+
+	void  LayersEnumerator( std::function< void( ::nRender::cLayer* ) > iFunction );
 
     // EDITOR
     int      LayerCount() const;

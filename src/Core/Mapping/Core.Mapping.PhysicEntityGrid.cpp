@@ -80,6 +80,19 @@ cEntityGrid::SetGridDimensions( int iWidth, int iHeight, int iCellSize )
 }
 
 
+bool
+cEntityGrid::IsEntityInGrid( const::nECS::cEntity * iEntity ) const
+{
+	for ( auto entity : mAllEntities )
+	{
+		if( entity == iEntity )
+			return  true;
+	}
+
+	return  false;
+}
+
+
 void
 cEntityGrid::SetEntityInGrid( ::nECS::cEntity* iEntity )
 {

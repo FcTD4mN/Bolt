@@ -64,8 +64,8 @@ cGameScreen::Initialize()
 
     ::nECS::cWorld* world = mWorld;
     world->SetUseLayerEngine( true );  // 114 FPS average without layers ; 103 with layers
-    world->AddLayer( sf::Vector2f( 800.F, 600.F ) );
-    world->AddLayer( sf::Vector2f( 800.F, 600.F ) );
+    world->AddLayer( sf::Vector2f( 800.F, 600.F ), 1.0 );
+    world->AddLayer( sf::Vector2f( 800.F, 600.F ), 3.0 );
 
     world->AddSystem( ::nECS::cSystemRegistry::Instance()->GetSystemByName( "SimpleRenderer" ) );
     world->AddSystem( ::nECS::cSystemRegistry::Instance()->GetSystemByName( "SquareController" ) );

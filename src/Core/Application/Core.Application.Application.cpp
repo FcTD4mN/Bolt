@@ -1,6 +1,8 @@
 #include "Core.Application.Application.h"
 
 
+#include "Core.Application.GlobalAccess.h"
+
 #include "Core.Base.Thread.ThreadProcessor.h"
 #include "Core.MainMenu.MainMenu.h"
 #include "Core.MainMenu.ItemCallback.h"
@@ -9,6 +11,7 @@
 #include "Core.Screen.ScreenMainMenu.h"
 #include "Core.Screen.Screen.h"
 #include "Core.Project.Project.h"
+
 
 
 #include <filesystem>
@@ -130,7 +133,8 @@ cApplication::Initialize()
     settings.majorVersion = 3;
     settings.minorVersion = 0;
 
-    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 800, 600 ), "NoProject", sf::Style::Default, settings );
+    mMainWindow = new  sf::RenderWindow( sf::VideoMode( 1024, 768 ), "NoProject", sf::Style::Default, settings );
+	::nGlobal::cGlobalProperties::Instance()->SetTheMainWindow( mMainWindow );
 
     ::nBase::nThread::cThreadProcessor::Instance();
 }
@@ -140,6 +144,7 @@ void
 cApplication::Finalize()
 {
     delete  mMainWindow;
+	::nGlobal::cGlobalProperties::Instance()->SetTheMainWindow( 0 );
 
     ::nBase::nThread::cThreadProcessor* threadProc = ::nBase::nThread::cThreadProcessor::Instance();
     threadProc->Finalize();

@@ -35,7 +35,8 @@ cSimplePhysic::cSimplePhysic( double iW, double iH, eType iType ) :
 cSimplePhysic::cSimplePhysic( const cSimplePhysic & iSimplePhysic ) :
     tSuperClass( iSimplePhysic ),
     mVelocity( iSimplePhysic.mVelocity ),
-    mType( iSimplePhysic.mType )
+    mType( iSimplePhysic.mType ),
+	mIsCacheValid( false )
 {
 }
 
@@ -134,7 +135,7 @@ cSimplePhysic::RelativeHitBox()
 sf::FloatRect
 cSimplePhysic::GetAbsoluteHitBoxUsingCenterPosition( const sf::Vector2f & iCenterPosition )
 {
-    if( mIsCacheValid )
+    if( mIsCacheValid && mCachedHitBoxCenter == iCenterPosition )
         return  mCachedHitBox;
 
     sf::Rect< float > entityHitBox;
@@ -145,6 +146,7 @@ cSimplePhysic::GetAbsoluteHitBoxUsingCenterPosition( const sf::Vector2f & iCente
 
     mCachedHitBox = entityHitBox;
     mIsCacheValid = true;
+	mCachedHitBoxCenter = iCenterPosition;
 
     return  entityHitBox;
 }

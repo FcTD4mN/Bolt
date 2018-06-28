@@ -27,14 +27,16 @@ cScreen::~cScreen()
 
 cScreen::cScreen() :
     mName( "Unnamed" ),
-    mWorld( 0 )
+    mWorld( 0 ),
+	mZoomFactor( 1.0F )
 {
 }
 
 
 cScreen::cScreen( const std::string & iName ) :
     mName( iName ),
-    mWorld( 0 )
+    mWorld( 0 ),
+	mZoomFactor( 1.0F )
 {
 }
 
@@ -42,7 +44,7 @@ cScreen::cScreen( const std::string & iName ) :
 void
 cScreen::Initialize()
 {
-    if( !mWorld )
+	if ( !mWorld )
         mWorld = new ::nECS::cWorld();
 }
 
@@ -96,6 +98,13 @@ cScreen::SetUseLayerEngine( bool iValue )
 }
 
 
+void
+cScreen::LayersEnumerator( std::function< void( ::nRender::cLayer* ) > iFunction )
+{
+	mWorld->LayersEnumerator( iFunction );
+}
+
+
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------- Get/Set
 // -------------------------------------------------------------------------------------
@@ -133,6 +142,51 @@ void
 cScreen::FilePath( const std::string & iFilePath )
 {
     mFilePath = iFilePath;
+}
+
+
+sf::View&
+cScreen::View()
+{
+	return  mView;
+}
+
+
+void
+cScreen::View( sf::View& iView )
+{
+	mView = iView;
+	auto mainWindow = ::nGlobal::cGlobalProperties::Instance()->GetTheMainWindow();
+	mainWindow->setView( mView );
+
+	mWorld->LayerEngine()->SetLayersView( mView );
+}
+
+
+void
+cScreen::ApplyScreenView()
+{
+	auto mainWindow = ::nGlobal::cGlobalProperties::Instance()->GetTheMainWindow();
+	mainWindow->setView( mView );
+}
+
+
+float
+cScreen::ZoomFactor()
+{
+	return  mZoomFactor;
+}
+
+
+void
+cScreen::ZoomBy( float iAmount )
+{
+	mZoomFactor *= iAmount;
+	mView.zoom( iAmount );
+	auto mainWindow = ::nGlobal::cGlobalProperties::Instance()->GetTheMainWindow();
+	mainWindow->setView( mView );
+
+	mWorld->LayerEngine()->ApplyZoomToLayers( iAmount );
 }
 
 
@@ -298,6 +352,12 @@ cScreen::SaveXML()
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement* screenNode = doc.NewElement( "screen" );
 
+	screenNode->SetAttribute( "viewCenterX", mView.getCenter().x );
+	screenNode->SetAttribute( "viewCenterY", mView.getCenter().y );
+	screenNode->SetAttribute( "viewWidth", mView.getSize().x );
+	screenNode->SetAttribute( "viewHeight", mView.getSize().y );
+	screenNode->SetAttribute( "viewZoom", mZoomFactor );
+
     // WORLD
     tinyxml2::XMLElement* worldNode = doc.NewElement( "world" );
     mWorld->SaveXML( worldNode, &doc );
@@ -325,7 +385,6 @@ cScreen::LoadXML( const std::string& iFilePath )
         printf( "Error : %s\n", doc.ErrorIDToName( error ) );
 
     tinyxml2::XMLElement* root = doc.FirstChildElement( "screen" );
-
     tinyxml2::XMLElement* world = root->FirstChildElement( "world" );
     if( mWorld )
     {
@@ -335,6 +394,24 @@ cScreen::LoadXML( const std::string& iFilePath )
 
     mWorld = new ::nECS::cWorld();
     mWorld->LoadXML( world );
+
+	// View setup
+	float viewCenterX	= root->FloatAttribute( "viewCenterX" );
+	float viewCenterY	= root->FloatAttribute( "viewCenterY" );
+	float viewWidth		= root->FloatAttribute( "viewWidth" );
+	float viewHeight	= root->FloatAttribute( "viewHeight" );
+	float viewZoom		= root->FloatAttribute( "viewZoom" );
+
+	mView.setSize( viewWidth, viewHeight );
+	mView.setCenter( viewCenterX, viewCenterY );
+	mView.zoom( viewZoom );
+
+	auto mainWindow = ::nGlobal::cGlobalProperties::Instance()->GetTheMainWindow();
+	if( mainWindow )
+		mainWindow->setView( mView );
+
+	mWorld->LayerEngine()->SetLayersView( mView );
+	mWorld->LayerEngine()->ApplyZoomToLayers( viewZoom );
 
     mFilePath.clear();
     mFilePath = iFilePath;

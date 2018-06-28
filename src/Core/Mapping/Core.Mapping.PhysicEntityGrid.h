@@ -26,6 +26,8 @@ public:
     void AddEntity( ::nECS::cEntity* iEntity );
     void ClearEntityMap();
     void SetGridDimensions( int iWidth, int iHeight, int iCellSize );
+	bool IsEntityInGrid( const ::nECS::cEntity* iEntity ) const;
+
 private:
     void SetEntityInGrid( ::nECS::cEntity* iEntity );
 

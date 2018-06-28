@@ -30,6 +30,7 @@ BoltMain( int argc, char *argv[] )
 
     ::nApplication::cGameApplication* app = ::nApplication::cGameApplication::App();
     app->Initialize();
+	app->LoadProject( "E:/ProjectTest/ProjectTest.proj" );
 
 
     ::nBoltScript::Env()->RegisterFunction( "exit", [ = ]( void ){ app->Window()->close(); } );
@@ -81,7 +82,6 @@ BoltMain( int argc, char *argv[] )
     ////////////////////////////////////////////////////////////
 
     sf::RenderWindow* window = ::nApplication::cGameApplication::App()->Window();
-    window->setFramerateLimit( 144 );
     sf::Vector2u size = window->getSize();
 
     sf::Clock clock;

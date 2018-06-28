@@ -17,6 +17,8 @@
 
 #include "Core.Mapping.PhysicEntityGrid.h"
 
+#include "Core.Render.Layer.h"
+
 #include "Core.Math.Utils.h"
 #include "Core.Math.Ray.h"
 
@@ -102,7 +104,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //// ============== MULTI THREAD ============
     //// ========================================
 
-    ::nMapping::cEntityGrid* entityMap = mWorld->EntityMap();
+    ::nMapping::cEntityGrid* entityMap = 0;
 
     // Draw container
     mFOVDrawer.clear();
@@ -110,6 +112,12 @@ cSightSystem::Update( unsigned int iDeltaTime )
     for( int i = 0; i < mWatchers.size(); ++i )
     {
         cEntity* entity = mWatchers[ i ];
+
+		auto layer = entity->Layer();
+		if( layer )
+			entityMap = layer->EntityGrid();
+		else
+			entityMap = mWorld->EntityMap();
 
         // MutliThread sync variables
         mWorkingThreadCount.store( 0 );

@@ -7,6 +7,8 @@
 #include "Core.ECS.Component.Size.h"
 #include "Core.ECS.Component.SpriteAnimated.h"
 
+#include "Core.Render.Layer.h"
+
 namespace  nQt {
 namespace  nHUD {
 
@@ -85,10 +87,17 @@ cHudTransformation::Draw( sf::RenderTarget* iRenderTarget )
     if( !mIsHUDValid )
         return;
 
-    auto position           = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
+    auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
+
+	sf::Vector2f positionMapped = position->AsVector2F();
+
+	// To draw the HUD at the proper position
+	auto layer = mEntity->Layer();
+	if ( layer )
+		iRenderTarget->setView( layer->View() );
 
     sf::RectangleShape outline;
-    outline.setPosition( position->AsVector2F() );
+    outline.setPosition( positionMapped );
     outline.setSize( GetSizeFromEntity() );
     outline.setOutlineThickness( 2 );
     outline.setFillColor( sf::Color( 0, 0, 0, 0 ) );
@@ -111,8 +120,9 @@ cHudTransformation::ContainsPoint( const  sf::Vector2f& iPoint ) const
     }
 
     auto position   = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
+	auto layer		= mEntity->Layer();
 
-    sf::FloatRect rect( position->AsVector2F(), GetSizeFromEntity() );
+    sf::FloatRect rect( layer->MapVectToLayer( position->AsVector2F() ), GetSizeFromEntity() );
 
     return  rect.contains( iPoint );
 }

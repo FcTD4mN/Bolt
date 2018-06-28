@@ -5,6 +5,8 @@
 #include "Core.ECS.Core.World.h"
 #include "Core.ECS.Core.System.h"
 
+#include "Core.Render.Layer.h"
+
 #include "Core.ECS.Utilities.ComponentRegistry.h"
 
 
@@ -29,6 +31,7 @@ cEntity::~cEntity()
 
 cEntity::cEntity() :
     mWorld( 0 ),
+	mContainerLayer( 0 ),
     mID( "idontknow" + std::to_string( sgEntityCount ) ),
     mComponents(),
     mTags(),
@@ -45,6 +48,7 @@ cEntity::cEntity() :
 
 cEntity::cEntity( const cEntity& iEntity ) :
     mWorld( iEntity.mWorld ),
+	mContainerLayer( iEntity.mContainerLayer ),
     mID( iEntity.mID + "c" + std::to_string( sgEntityCount ) ),
     mComponents(),                                  // This will need to get copied
     mTags( iEntity.mTags ),                         // This can be copied, as there is no pointer
@@ -104,6 +108,7 @@ cEntity::AddComponent( ::nECS::cComponent * iComponent )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+
     IncIDForHandles();
 }
 
@@ -119,6 +124,7 @@ cEntity::SetComponent( cComponent * iComponent )
             mComponents[ i ].value = iComponent;
         }
     }
+
     //IncIDForHandles(); // Should we invalid handle in this case ? or just if component count changed ?
 }
 
@@ -137,6 +143,7 @@ cEntity::RemoveComponent( cComponent * iComponent )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+
     IncIDForHandles();
 }
 
@@ -155,6 +162,7 @@ cEntity::RemoveComponentByName( const std::string & iComponentName )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+
     IncIDForHandles();
 }
 
@@ -189,6 +197,7 @@ cEntity::RemoveComponentAtIndex( int iIndex )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+
     IncIDForHandles();
 }
 
@@ -221,6 +230,7 @@ cEntity::RemoveTag( const std::string & iTag )
         if( mTags[ i ] == iTag )
             mTags.erase( mTags.begin() + i );
     }
+
     IncIDForHandles();
 }
 
@@ -256,6 +266,13 @@ cEntity::GetTagCount() const
 // ------------------------------------------------------------------------------ Access
 // -------------------------------------------------------------------------------------
 
+
+
+::nRender::cLayer*
+cEntity::Layer()
+{
+	return  mContainerLayer;
+}
 
 bool
 cEntity::IsDead() const

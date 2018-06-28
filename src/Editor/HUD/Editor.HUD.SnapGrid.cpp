@@ -73,6 +73,7 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
     sf::Vector2f viewPosition( view.getCenter().x - view.getSize().x/2, view.getCenter().y - view.getSize().y / 2 );
     sf::Vector2f moduloVector( float((int(viewPosition.x) % mWidth) + mWidth), float((int(viewPosition.y) % mHeight) + mHeight) );
 
+	// VERTICAL LINES
     // +4 is to draw extra lines so we properly fill the screen
     for( int i = 0; i < (int( view.getSize().x) / mWidth) + 4; ++i )
     {
@@ -83,9 +84,19 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
         line[ 0 ].color = sf::Color( 0, 0, 0, 160 );
         line[ 1 ].color = sf::Color( 0, 0, 0, 160 );
 
+		auto test = iRenderTarget->mapPixelToCoords( sf::Vector2i( i * mWidth, 0 ) );
+
+		if ( iRenderTarget->mapPixelToCoords( sf::Vector2i( i * mWidth, 0 ) ).x == 0 )
+		{
+			line[ 0 ].color = sf::Color( 255, 0, 0, 160 );
+			line[ 1 ].color = sf::Color( 255, 0, 0, 160 );
+		}
+
         iRenderTarget->draw( line );
     }
 
+
+	// HORIZONTAL LINES
     for( int i = 0; i < (int( view.getSize().y ) / mHeight) + 4; ++i )
     {
         line.clear();
@@ -99,6 +110,22 @@ cSnapGrid::Draw( sf::RenderTarget * iRenderTarget )
 
         iRenderTarget->draw( line );
     }
+
+	line.clear();
+
+	line.append( sf::Vector2f( 0.0F, viewPosition.y ) );
+	line.append( sf::Vector2f( 0.0F, viewPosition.y + view.getSize().y ) );
+	line[ 0 ].color = sf::Color( 255, 0, 0, 255 );
+	line[ 1 ].color = sf::Color( 255, 0, 0, 255 );
+	iRenderTarget->draw( line );
+
+	line.clear();
+
+	line.append( sf::Vector2f( viewPosition.x, 0.0F ) );
+	line.append( sf::Vector2f( viewPosition.x + view.getSize().x, 0.0F ) );
+	line[ 0 ].color = sf::Color( 255, 0, 0, 255 );
+	line[ 1 ].color = sf::Color( 255, 0, 0, 255 );
+	iRenderTarget->draw( line );
 }
 
 } // nHUD

@@ -9,7 +9,8 @@ cGlobalProperties::~cGlobalProperties()
 }
 
 
-cGlobalProperties::cGlobalProperties()
+cGlobalProperties::cGlobalProperties() :
+	mTheMainWindow( 0 )
 {
 }
 
@@ -40,6 +41,13 @@ cGlobalProperties::SetProjectFolder( const std::string & iProjectFolder )
 }
 
 
+void
+cGlobalProperties::SetTheMainWindow( sf::RenderWindow * iTheMainWindow )
+{
+	mTheMainWindow = iTheMainWindow;
+}
+
+
 const sf::Vector2f &
 cGlobalProperties::GetProjectSize()
 {
@@ -51,6 +59,13 @@ const std::string &
 cGlobalProperties::GetProjectFolder()
 {
     return  mProjectFolder;
+}
+
+
+sf::RenderWindow*
+cGlobalProperties::GetTheMainWindow()
+{
+	return  mTheMainWindow;
 }
 
 

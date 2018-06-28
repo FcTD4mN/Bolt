@@ -4,10 +4,12 @@
 #include <SFML/Graphics.hpp>
 
 #include <filesystem>
+#include <functional>
 
 namespace nECS      { class cWorld; }
 namespace nECS      { class cEntity; }
 namespace nMapping  { class cEntityGrid; }
+namespace nRender   { class cLayer; }
 namespace nRender   { class cLayerEngine; }
 
 namespace nScreen {
@@ -35,6 +37,8 @@ public:
     void  PutEntityInLayer( ::nECS::cEntity* iEntity, int iLayerIndex );
     void  SetUseLayerEngine( bool iValue );
 
+	void  LayersEnumerator( std::function< void( ::nRender::cLayer* ) > iFunction );
+
 public:
     // Get / Set
     const std::string&  Name() const;
@@ -43,6 +47,13 @@ public:
     const std::filesystem::path&    FilePath() const;
     void                            FilePath( const std::filesystem::path& iFilePath );
     void                            FilePath( const std::string& iFilePath );
+
+	sf::View&	View();
+	void		View( sf::View& iView );
+	void		ApplyScreenView();
+
+	float		ZoomFactor();
+	void		ZoomBy( float iAmount );
 
 public:
     // EDITOR
@@ -79,6 +90,8 @@ public:
 protected:
     std::string                 mName;
     std::filesystem::path       mFilePath;
+	sf::View					mView;
+	float						mZoomFactor;
 
     ::nECS::cWorld*             mWorld;
 };

@@ -4,15 +4,18 @@
 #include "Core.ECS.Core.World.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Utilities.ComponentRegistry.h"
-
 #include "Core.ECS.Core.GlobalEntityMap.h"
+
 #include "Core.Mapping.PhysicEntityGrid.h"
+
+#include "Core.Screen.Screen.h"
 
 #include "Editor.Application.EditorApplication.h"
 
 #include "Editor.BoltQtModels.EntityListModel.h"
 
 #include "Editor.BoltQtWidgets.SFMLCanvas.h"
+
 
 #include <QtWidgets/QTableView>
 #include <QFileDialog>
@@ -61,6 +64,19 @@ cBoltEditor::Setup()
 
     connect( this, &cBoltEditor::CurrentProjectChanged, ui.PrototypeEditor, &cPrototypeEditor::ProjectLoaded );
     connect( this, &cBoltEditor::CurrentProjectChanged, ui.projectEditor, &cProjectEditor::ProjectLoaded );
+
+
+	// QuickDebug
+	mApp->LoadProject( "E:/ProjectTest/ProjectTest.proj" );
+
+	// We place all entities of the current screen in the global entity map, used by the editor
+	mApp->CurrentScreen()->World()->EntityEnumerator( []( ::nECS::cEntity* iEntity )
+	{
+		::nECS::cGlobalEntityMap::Instance()->mEntityGrid->AddEntity( iEntity );
+	});
+
+	emit  CurrentProjectChanged( mApp->Project() );
+
 }
 
 
@@ -97,6 +113,13 @@ cBoltEditor::OpenProject()
     if( project != "" )
     {
         mApp->LoadProject( project.toStdString().c_str() );
+
+		// We place all entities of the current screen in the global entity map, used by the editor
+		mApp->CurrentScreen()->World()->EntityEnumerator( []( ::nECS::cEntity* iEntity )
+		{
+			::nECS::cGlobalEntityMap::Instance()->mEntityGrid->AddEntity( iEntity );
+		});
+
         emit  CurrentProjectChanged( mApp->Project() );
     }
 }

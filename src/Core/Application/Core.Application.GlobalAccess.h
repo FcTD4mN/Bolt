@@ -17,13 +17,16 @@ public:
 public:
     void  SetProjectSize( const sf::Vector2f& iSize );
     void  SetProjectFolder( const std::string& iProjectFolder );
+    void  SetTheMainWindow( sf::RenderWindow* iTheMainWindow );
 public:
     const sf::Vector2f& GetProjectSize();
     const std::string&  GetProjectFolder();
+	sf::RenderWindow*  GetTheMainWindow();
 
 protected:
-    sf::Vector2f    mProjectSize;
-    std::string     mProjectFolder;
+    sf::Vector2f		mProjectSize;
+    std::string			mProjectFolder;
+	sf::RenderWindow*	mTheMainWindow;
 };
 
 

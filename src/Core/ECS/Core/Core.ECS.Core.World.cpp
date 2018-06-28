@@ -9,6 +9,7 @@
 
 #include "Core.Mapping.PhysicEntityGrid.h"
 
+#include "Core.Render.Layer.h"
 #include "Core.Render.LayerEngine.h"
 
 #include "Core.Shader.Shader2D.h"
@@ -93,9 +94,9 @@ cWorld::LayerEngine()
 
 
 void
-cWorld::AddLayer( const sf::Vector2f& iViewSize )
+cWorld::AddLayer( const sf::Vector2f& iViewSize, float iDistance )
 {
-    mLayerEngine->AddLayer( iViewSize );
+    mLayerEngine->AddLayer( iViewSize, iDistance );
 }
 
 
@@ -118,6 +119,14 @@ void
 cWorld::PutEntityInLayer( cEntity * iEntity, int iLayerIndex )
 {
     mLayerEngine->AddEntityInLayer( iEntity, iLayerIndex );
+	iEntity->mContainerLayer = mLayerEngine->LayerAtIndex( iLayerIndex );
+}
+
+
+void
+cWorld::LayersEnumerator( std::function< void( ::nRender::cLayer* ) > iFunction )
+{
+	mLayerEngine->LayersEnumerator( iFunction );
 }
 
 
@@ -183,6 +192,14 @@ void cWorld::PurgeEntities()
         delete  ent;
         mEntitiesToDestroy.pop_back();
     }
+}
+
+
+void
+cWorld::EntityEnumerator( std::function<void( cEntity* )> iEnumeratorFunction )
+{
+	for( auto pair : mEntity )
+		iEnumeratorFunction( pair.second );
 }
 
 
@@ -281,6 +298,24 @@ cWorld::SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize )
 cWorld::EntityMap()
 {
     return  mEntityMap;
+}
+
+
+void
+cWorld::EntityMapEnumerator( std::function<void( ::nMapping::cEntityGrid* iEntityGrid )> iFunction )
+{
+	if ( !mUseLayerEngine )
+	{
+		iFunction( mEntityMap );
+	}
+	else
+	{
+		for ( int i = 0; i < mLayerEngine->LayerCount(); ++i )
+		{
+			::nRender::cLayer* layer = mLayerEngine->LayerAtIndex( i );
+			iFunction( layer->EntityGrid() );
+		}
+	}
 }
 
 
@@ -542,7 +577,10 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
         // Layer's view size
         int viewWidth = layer->IntAttribute( "viewwidth" );
         int viewHeight = layer->IntAttribute( "viewheight" );
-        mLayerEngine->AddLayer( sf::Vector2f( float(viewWidth), float(viewHeight )) );
+        float zLayer= layer->FloatAttribute( "zlayer" );
+        mLayerEngine->AddLayer( sf::Vector2f( float(viewWidth), float(viewHeight )), zLayer );
+		auto addedLayer = mLayerEngine->LayerAtIndex( mLayerEngine->LayerCount() - 1 );
+		addedLayer->LoadXML( layer ); // This will manage simple properties, not the entity containement
 
         // Layer's Shaders
         tinyxml2::XMLElement* shaders = layer->FirstChildElement( "shaders" );
@@ -565,11 +603,13 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
             loadedEntity->LoadXML( entity );
             AddEntity( loadedEntity );
             mLayerEngine->AddEntityInLayer( loadedEntity, layerIndex );
+			loadedEntity->mContainerLayer = mLayerEngine->LayerAtIndex( layerIndex );
         }
 
         ++layerIndex;
     }
 
+	// ====================== Systems
     tinyxml2::XMLElement* systems = iNode->FirstChildElement( "systems" );
     for( tinyxml2::XMLElement* system = systems->FirstChildElement( "system" ); system; system = system->NextSiblingElement() )
     {

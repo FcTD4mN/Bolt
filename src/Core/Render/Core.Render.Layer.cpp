@@ -3,6 +3,8 @@
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Component.ZDepth.h"
 
+#include "Core.Mapping.PhysicEntityGrid.h"
+
 #include "Core.Shader.Shader2D.h"
 
 namespace nRender
@@ -11,6 +13,8 @@ namespace nRender
 
 cLayer::~cLayer()
 {
+	delete  mEntityGrid;
+
     delete  mShaderRenderTextureInput;
     delete  mShaderRenderTextureOutput;
 
@@ -21,7 +25,11 @@ cLayer::~cLayer()
 
 cLayer::cLayer( const sf::Vector2f& iViewSize ) :
     mName( "Unnammed Layer" ),
+	mOffset( sf::Vector2f( 0, 0 ) ),
+	mZoomFactor( 1.0 ),
     mZLayer( 1.0F ),
+	mEntityGrid( 0 ),
+	mFixedLayer( false ),
     mShaderRenderTextureInput( 0 ),
     mShaderRenderTextureOutput( 0 )
 {
@@ -99,6 +107,7 @@ cLayer::AddEntity( ::nECS::cEntity * iEntity )
 		++index;
     }
 
+	mEntityGrid->AddEntity( iEntity );
     mEntities.insert( it, iEntity );
 	return  index;
 }
@@ -115,6 +124,8 @@ cLayer::RemoveEntity( ::nECS::cEntity * iEntity )
 			break;
 		}
 	}
+
+	mEntityGrid->RemoveEntityNotUpdated( iEntity );
 }
 
 
@@ -128,9 +139,32 @@ cLayer::ZLayer( float iZLayer )
 
 
 void
-cLayer::SetViewCenter( const sf::Vector2f & iCenter )
+cLayer::SetView( const sf::View & iView )
 {
-    mView.setCenter( iCenter / mZLayer );
+	if ( !mFixedLayer )
+	{
+		mView = iView;
+		mView.setCenter( iView.getCenter() / mZLayer );
+		mOffset = iView.getCenter() - mView.getCenter();
+	}
+}
+
+
+sf::View
+cLayer::View()
+{
+	return  mView;
+}
+
+
+void
+cLayer::ApplyZoom( float iZoom )
+{
+	if ( !mFixedLayer )
+	{
+		mView.zoom( iZoom );
+		mZoomFactor *= iZoom;
+	}
 }
 
 
@@ -145,6 +179,13 @@ void
 cLayer::Name( const std::string & iName )
 {
     mName = iName;
+}
+
+
+::nMapping::cEntityGrid*
+cLayer::EntityGrid()
+{
+	return  mEntityGrid;
 }
 
 
@@ -188,6 +229,36 @@ cLayer::AddShader( ::nShaders::cShader2D* iShader )
 }
 
 
+sf::Vector2f
+cLayer::MapVectToLayer( const sf::Vector2f& iVector ) const
+{
+	return  iVector + mOffset;
+}
+
+
+sf::Vector2f
+cLayer::MapVectFromLayer( const sf::Vector2f& iVector ) const
+{
+	return  iVector - mOffset;
+}
+
+
+sf::FloatRect
+cLayer::MapRectToLayer( const sf::FloatRect& iRect ) const
+{
+	return  sf::FloatRect( (iRect.left + mOffset.x), (iRect.top + mOffset.y), iRect.width, iRect.height );
+	//return  sf::FloatRect( (iRect.left + mOffset.x) * mZoomFactor, (iRect.top + mOffset.y) * mZoomFactor, iRect.width * mZoomFactor, iRect.height * mZoomFactor );
+}
+
+
+sf::FloatRect
+cLayer::MapRectFromLayer( const sf::FloatRect& iRect ) const
+{
+	return  sf::FloatRect( iRect.left - mOffset.x, iRect.top - mOffset.y, iRect.width, iRect.height );
+	//return  sf::FloatRect( iRect.left / mZoomFactor - mOffset.x, iRect.top / mZoomFactor - mOffset.y, iRect.width / mZoomFactor, iRect.height / mZoomFactor );
+}
+
+
 // ------------------
 // PRIVATE ----------
 // ------------------
@@ -213,8 +284,17 @@ cLayer::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 {
     auto view = mView.getSize();
 
-    iNode->SetAttribute( "viewwidth", view.x );
-    iNode->SetAttribute( "viewheight", view.y );
+	// VIEW
+    iNode->SetAttribute( "viewwidth",	view.x );
+    iNode->SetAttribute( "viewheight",	view.y );
+    iNode->SetAttribute( "zlayer",		mZLayer );
+
+	// ENTITY MAP
+	tinyxml2::XMLElement* entityMap = iDocument->NewElement( "entityMap" );
+	entityMap->SetAttribute( "width", mEntityGrid->Width() );
+	entityMap->SetAttribute( "height", mEntityGrid->Height() );
+	entityMap->SetAttribute( "cellsize", mEntityGrid->CellSize() );
+	iNode->LinkEndChild( entityMap );
 
     // SHADERS
     tinyxml2::XMLElement* shadersNode = iDocument->NewElement( "shaders" );
@@ -244,7 +324,16 @@ cLayer::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 void
 cLayer::LoadXML( tinyxml2::XMLElement* iNode )
 {
-    // Nothing because already done in an unsymmetrical manner by the world
+	// ====================== EntityMap
+	tinyxml2::XMLElement* entityMap = iNode->FirstChildElement( "entityMap" );
+	int eMapWidth = entityMap->IntAttribute( "width" );
+	int eMapHeight = entityMap->IntAttribute( "height" );
+	int eMapCellSize = entityMap->IntAttribute( "cellsize" );
+
+	// Loading means we want a fresh entity map and a fresh world, so if they already exist, we diss them for brand new ones
+	if( mEntityGrid )
+		delete  mEntityGrid;
+	mEntityGrid = new ::nMapping::cPhysicEntityGrid( eMapWidth, eMapHeight, eMapCellSize );
 }
 
 

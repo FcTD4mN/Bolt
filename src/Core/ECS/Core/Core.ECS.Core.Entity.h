@@ -9,6 +9,8 @@
 #include <vector>
 
 
+namespace nRender { class cLayer; }
+
 namespace nECS {
 
 
@@ -73,13 +75,15 @@ public:
 
 public:
     // Access/Get
-    bool IsDead() const;
-    const std::string& ID() const;
-    bool SetID( const std::string& iID );
-    void Destroy();
-    void AddSystemObserver( cSystem* iSystem );
-    cEntityHandle GetHandle();
-    unsigned int  GetIDForHandle() const;
+	::nRender::cLayer*	Layer();
+
+    bool				IsDead() const;
+    const std::string&	ID() const;
+    bool				SetID( const std::string& iID );
+    void				Destroy();
+    void				AddSystemObserver( cSystem* iSystem );
+    cEntityHandle		GetHandle();
+    unsigned int		GetIDForHandle() const;
 
 public:
     void  DrawUsingObserverSystems( sf::RenderTarget* iRenderTarget );
@@ -99,6 +103,7 @@ public:
 
 private:
     cWorld *                    mWorld;             // To call for updates if entity changes
+	::nRender::cLayer*			mContainerLayer;	// The layer this entity is in : to allow getting entityGrid fast.
 
     std::string                 mID;
     std::vector< sPair >        mComponents;

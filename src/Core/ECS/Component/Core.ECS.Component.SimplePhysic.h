@@ -61,8 +61,10 @@ public:
     sf::Vector2f        mVelocity;
     eType               mType;
 
+	// Cached stuff
     sf::FloatRect           mCachedHitBox;
     bool                    mIsCacheValid;
+	sf::Vector2f			mCachedHitBoxCenter;
 };
 
 

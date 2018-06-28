@@ -7,6 +7,8 @@
 #include "Core.ECS.Component.SimplePhysic.h"
 #include "Core.ECS.Component.Size.h"
 
+#include "Core.Render.Layer.h"
+
 #include "Core.Math.Edge.h"
 #include "Core.Math.Utils.h"
 
@@ -95,11 +97,18 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 {
     sf::Rect< float > entityHitBox;
     sf::Rect< float > projection;
-    ::nMapping::cEntityGrid* entityMap = mWorld->EntityMap();
+    ::nMapping::cEntityGrid* entityMap = 0;
 
     for( int i = 0; i < mDynamicEntities.size(); ++i )
     {
         cEntity* entity = mDynamicEntities[ i ];
+
+		auto layer = entity->Layer();
+		if( layer )
+			entityMap = layer->EntityGrid();
+		else
+			entityMap = mWorld->EntityMap();
+
         sf::Vector2f entityCenterPoint;
 
         auto simplephysic   = dynamic_cast< cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );

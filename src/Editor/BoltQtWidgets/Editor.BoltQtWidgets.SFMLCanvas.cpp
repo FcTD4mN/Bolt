@@ -1,6 +1,8 @@
 #include "Editor.BoltQtWidgets.SFMLCanvas.h"
 
 
+#include "Core.Application.GlobalAccess.h"
+
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.World.h"
@@ -11,6 +13,8 @@
 #include "Core.ECS.Component.SpriteAnimated.h"
 
 #include "Core.Mapping.PhysicEntityGrid.h"
+
+#include "Core.Render.Layer.h"
 
 #include "Core.Screen.Screen.h"
 
@@ -128,11 +132,13 @@ SFMLCanvas::resizeEvent( QResizeEvent * iEvent )
 {
     if( mRenderWindow )
     {
-        auto defView = mRenderWindow->getView();
-        defView.setSize( iEvent->size().width(), iEvent->size().height() );
-        mRenderWindow->setView( defView );
-
         mRenderWindow->setSize( sf::Vector2u( iEvent->size().width(), iEvent->size().height() ) );
+
+		auto defView = ::nApplication::cEditorApplication::App()->CurrentScreen()->View();
+        defView.setSize( iEvent->size().width(), iEvent->size().height() );
+		defView.zoom( ::nApplication::cEditorApplication::App()->CurrentScreen()->ZoomFactor() );
+
+		::nApplication::cEditorApplication::App()->CurrentScreen()->View( defView );
     }
 }
 
@@ -141,6 +147,9 @@ void
 SFMLCanvas::paintEvent( QPaintEvent* )
 {
     mRenderWindow->clear( sf::Color( 200, 200, 200 ) );
+
+	// Resets the view
+	mEditorApp->CurrentScreen()->ApplyScreenView();
 
     if( mSnapGrid->Visible() )
         mSnapGrid->Draw( mRenderWindow );
@@ -151,9 +160,11 @@ SFMLCanvas::paintEvent( QPaintEvent* )
     for( auto hud : mEntityHUDs )
         hud->Draw( mRenderWindow );
 
-    if( mState == kSelecting )
-        mRenderWindow->draw( mSelectionShape );
+	// Resets the view
+	mEditorApp->CurrentScreen()->ApplyScreenView();
 
+	if( mState == kSelecting )
+        mRenderWindow->draw( mSelectionShape );
 
     mRenderWindow->display();
 }
@@ -172,6 +183,14 @@ SFMLCanvas::showEvent( QShowEvent* )
 
         // Create the SFML window with the widget handle
         mRenderWindow = new sf::RenderWindow( ( sf::WindowHandle )winId() );
+		::nGlobal::cGlobalProperties::Instance()->SetTheMainWindow( mRenderWindow );
+
+		// Setting the view
+		auto defView = ::nApplication::cEditorApplication::App()->CurrentScreen()->View();
+		defView.setSize( mRenderWindow->getSize().x, mRenderWindow->getSize().y );
+		defView.zoom( ::nApplication::cEditorApplication::App()->CurrentScreen()->ZoomFactor() );
+
+		::nApplication::cEditorApplication::App()->CurrentScreen()->View( defView );
 
         // Let the derived class do its specific stuff
         OnInit();
@@ -222,6 +241,10 @@ SFMLCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize,
 
     entiSize += sf::Vector2f( 2 * expansionSize, 2 * expansionSize );
 
+	auto layer = iEntity->Layer();
+	if( layer )
+		entiPos = layer->MapVectToLayer( entiPos );
+
     *oPosition = entiPos;
     *oSize = entiSize;
 }
@@ -269,13 +292,12 @@ SFMLCanvas::mousePressEvent( QMouseEvent * iEvent )
             sf::Vector2f mouseCoordMapped( mRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) );
             if( hud->ContainsPoint( mouseCoordMapped ) )
             {
-                mState = kHandleHUD;
-                mActiveHUD = hud;
+                mState		= kHandleHUD;
+                mActiveHUD	= hud;
                 mActiveHUD->mousePressEvent( iEvent, mRenderWindow );
                 break;
             }
         }
-
     }
 
     mOriginPosition = sf::Vector2i( iEvent->x(), iEvent->y() );
@@ -292,9 +314,9 @@ SFMLCanvas::mouseMoveEvent( QMouseEvent * iEvent )
 
     if( mState == kPanningCanvas )
     {
-        auto defView = mRenderWindow->getView();
+        auto defView = ::nApplication::cEditorApplication::App()->CurrentScreen()->View();
         defView.move( offset );
-        mRenderWindow->setView( defView );
+		::nApplication::cEditorApplication::App()->CurrentScreen()->View( defView );
         mOriginPosition = currentPos;
     }
     else if( mState == kSelecting )
@@ -345,7 +367,14 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
             ClearHUDs();
         }
 
-        ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->GetEntitiesInBoundingBox( &entitiesInEMap, mSelectionBox );
+		mEditorApp->CurrentScreen()->LayersEnumerator( [ &entitiesInEMap, this ]( ::nRender::cLayer* iLayer ) {
+
+			iLayer->EntityGrid()->GetEntitiesInBoundingBox( &entitiesInEMap,  iLayer->MapRectFromLayer( mSelectionBox ) );
+
+		});
+
+		//::nECS::cGlobalEntityMap::Instance()->mEntityGrid->GetEntitiesInBoundingBox( &entitiesInEMap, mSelectionBox );
+		//::nApplication::cEditorApplication::App()->CurrentScreen()->World()->EntityMap()->GetEntitiesInBoundingBox( &entitiesInEMap, mSelectionBox );
 
         for( auto ent : entitiesInEMap )
         {
@@ -412,6 +441,7 @@ SFMLCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
     world->AddEntity( theEnti );
 
     ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->AddEntity( theEnti );
+	//::nApplication::cEditorApplication::App()->CurrentScreen()->World()->EntityMap()->AddEntity( theEnti );
 
     tSuperClass::mouseDoubleClickEvent( iEvent );
 }
@@ -424,8 +454,11 @@ SFMLCanvas::keyReleaseEvent( QKeyEvent * iEvent )
     {
         for( auto hud : mEntityHUDs )
         {
-            ::nECS::cGlobalEntityMap::Instance()->mEntityGrid->RemoveEntityNotUpdated( hud->Entity() );
-            hud->Entity()->Destroy();
+			::nECS::cEntity* entity = hud->Entity();
+			auto layer = entity->Layer();
+
+			layer->EntityGrid()->RemoveEntityNotUpdated( entity );
+            entity->Destroy();
         }
 
         ClearHUDs();
@@ -441,13 +474,11 @@ SFMLCanvas::wheelEvent( QWheelEvent * iEvent )
 {
     if( iEvent->modifiers() & Qt::ControlModifier )
     {
-        auto defView = mRenderWindow->getView();
         double zoomFactor = 1.5;
         if( iEvent->delta() > 0 )
             zoomFactor = 0.7;
 
-        defView.zoom( zoomFactor );
-        mRenderWindow->setView( defView );
+		::nApplication::cEditorApplication::App()->CurrentScreen()->ZoomBy( zoomFactor );
     }
 
     tSuperClass::wheelEvent( iEvent );
@@ -491,13 +522,21 @@ SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
 
     for( auto hud : mEntityHUDs )
     {
-        auto position = dynamic_cast< ::nECS::cPosition* >( hud->Entity()->GetComponentByName( "position" ) );
+		::nECS::cEntity* entity = hud->Entity();
+		auto layer = entity->Layer();
+
+        auto position = dynamic_cast< ::nECS::cPosition* >( entity->GetComponentByName( "position" ) );
         double newX = mEntitiesOriginalPositions[ indexSync ].x + iDeltaX;
         double newY = mEntitiesOriginalPositions[ indexSync ].y + iDeltaY;
 
+		layer->EntityGrid()->RemoveEntityNotUpdated( entity );
+
+		//::nApplication::cEditorApplication::App()->CurrentScreen()->World()->EntityMap()->RemoveEntityNotUpdated( hud->Entity() );
+		//::nECS::cGlobalEntityMap::Instance()->mEntityGrid->RemoveEntityNotUpdated( hud->Entity() );
+
         if( mSnapGrid->Visible() )
         {
-            // the rounding below does this  : 22 -> 20 --> Going left
+            // the rounding below does this  :  22 ->  20 --> Going left
             //                                 -22 -> -20 --> Going Right
             // So entities get closer by 1 cell size each time you drag ...
             // So, because we want to warp to top left of a cell, when negative, we minus one cell
@@ -511,6 +550,11 @@ SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
 
         position->X( newX );
         position->Y( newY );
+
+		//::nApplication::cEditorApplication::App()->CurrentScreen()->World()->EntityMap()->AddEntity( hud->Entity() );
+		//::nECS::cGlobalEntityMap::Instance()->mEntityGrid->AddEntity( hud->Entity() );
+
+		layer->EntityGrid()->AddEntity( entity );
 
         ++indexSync;
     }

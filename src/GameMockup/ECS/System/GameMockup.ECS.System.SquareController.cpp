@@ -12,6 +12,8 @@
 
 #include "Core.ECS.Utilities.EntityParser.h"
 
+#include "Core.Screen.Screen.h"
+
 #include "GameMockup.Application.GameApplication.h"
 
 #include "Core.Render.LayerEngine.h"
@@ -133,13 +135,12 @@ cSquareController::Update( unsigned int iDeltaTime )
 
             // Basic test thing that assumes only one square is controlled
             // All the gamemockup part is testing anyway ...
-            //auto window = ::nApplication::cGameApplication::App()->Window();
-            //sf::View view = window->getDefaultView();
-            //view.setCenter( position->AsVector2F() );
-            //window->setView( view );
+            auto window = ::nApplication::cGameApplication::App()->Window();
+            sf::View view = window->getDefaultView();
+            view.setCenter( position->AsVector2F() );
 
-            //auto world = ::nApplication::cGameApplication::App()->World();
-            //world->mLayerEngine->SetLayersCenter( position->AsVector2F() );
+			auto screen = ::nApplication::cGameApplication::App()->CurrentScreen();
+			screen->View( view );
         }
     }
 }
