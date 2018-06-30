@@ -44,6 +44,23 @@ cPosition::cPosition( const cPosition & iRHS ) :
 }
 
 
+void
+cPosition::BuildCallbacks()
+{
+	SetVarValueChangeCallback( "x", [ this ]( nBase::eVariableState iState ){
+
+		if( iState == ::nBase::eVariableState::kBeforeChange )
+			mPreviousPosition.x = float(X());
+	} );
+
+	SetVarValueChangeCallback( "y", [ this ]( nBase::eVariableState iState ){
+
+		if( iState == ::nBase::eVariableState::kBeforeChange )
+			mPreviousPosition.y = float(Y());
+	} );
+}
+
+
 // -------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------- Copy
 // -------------------------------------------------------------------------------------
@@ -93,6 +110,13 @@ sf::Vector2f
 cPosition::AsVector2F()
 {
     return  sf::Vector2f( float(X()), float(Y()) );
+}
+
+
+const sf::Vector2f&
+cPosition::PreviousPosition() const
+{
+	return  mPreviousPosition;
 }
 
 

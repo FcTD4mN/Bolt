@@ -18,6 +18,13 @@ enum eType
     kBoolean
 };
 
+enum eVariableState
+{
+	kBeforeChange,
+	kAfterChange
+};
+
+
 class cVariant
 {
 public:
@@ -48,7 +55,7 @@ public:
 
     virtual  std::string            ToString() const = 0;
 
-    void                            SetValueChangedCallback( std::function< void() > iFunction );
+    void                            SetValueChangeCallback( std::function< void( eVariableState ) > iFunction );
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
@@ -56,7 +63,7 @@ public:
     static  cVariant* MakeFromXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::function< void() > mValueChangedCallback;
+    std::function< void( eVariableState ) > mValueChangeCallback;
 };
 
 

@@ -22,6 +22,9 @@ public:
     cPosition( const sf::Vector2f& iVector );
     cPosition( const cPosition& iRHS );
 
+private:
+	void BuildCallbacks();
+
 public:
     // Copy
     virtual  cComponent* Clone() override;
@@ -35,6 +38,11 @@ public:
     void Y( double iY );
 
     sf::Vector2f AsVector2F();
+
+	const sf::Vector2f& PreviousPosition() const;
+
+private:
+	sf::Vector2f mPreviousPosition;
 };
 
 

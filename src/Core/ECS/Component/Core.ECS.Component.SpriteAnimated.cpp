@@ -71,20 +71,20 @@ cSpriteAnimated::Build( const std::string & iFile, int iW, int iH )
 void
 cSpriteAnimated::BuildCallbacks()
 {
-    SetVarValueChangedCallback( "filename", [ this ](){
+    SetVarValueChangeCallback( "filename", [ this ]( ::nBase::eVariableState iState ){
 
         SetSpriteSheet( GetVar( "filename" )->GetValueString() );
         UpdateTextureRect();
 
     } );
 
-    SetVarValueChangedCallback( "flip", [ this ](){
+    SetVarValueChangeCallback( "flip", [ this ]( ::nBase::eVariableState iState ){
 
         UpdateTextureRect();
     } );
 
 
-    SetVarValueChangedCallback( "currentframe", [ this ](){
+    SetVarValueChangeCallback( "currentframe", [ this ]( ::nBase::eVariableState iState ){
 
         auto varCurrentFrame = GetVar( "currentframe" );
 
@@ -98,13 +98,13 @@ cSpriteAnimated::BuildCallbacks()
     } );
 
 
-    SetVarValueChangedCallback( "spritewidth", [ this ](){
+    SetVarValueChangeCallback( "spritewidth", [ this ]( ::nBase::eVariableState iState ){
 
         UpdateTextureRect();
     } );
 
 
-    SetVarValueChangedCallback( "spriteheight", [ this ](){
+    SetVarValueChangeCallback( "spriteheight", [ this ]( ::nBase::eVariableState iState ){
 
         UpdateTextureRect();
     } );

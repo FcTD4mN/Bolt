@@ -6,12 +6,42 @@
 
 
 #include <vector>
+#include <unordered_map>
 
 
 namespace nECS { class cEntity; }
 
 
 namespace nMapping {
+
+
+// HASH FUNCTIONS
+template <class T>
+inline
+void
+hash_combine( std::size_t & seed, const T & v )
+{
+	std::hash< T > hasher;
+	seed ^= hasher( v ) + 0x9e3779b9 + ( seed << 6 ) + ( seed >> 2 );
+}
+
+
+template<typename S, typename T>
+struct
+std::hash< std::pair< S, T > >
+{
+	inline size_t operator()( const std::pair< S, T >& v ) const
+	{
+		size_t seed = 0;
+		::nMapping::hash_combine( seed, v.first );
+		::nMapping::hash_combine( seed, v.second );
+		return  seed;
+	}
+};
+
+
+// ===================================
+// ===================================
 
 
 class cEntityGrid
@@ -64,6 +94,7 @@ protected:
 
 private:
     std::vector< std::vector< std::vector < ::nECS::cEntity* > > >  mGridMap;
+	std::unordered_map< std::pair< int, int >, std::vector< ::nECS::cEntity* > >	mEntityMap;
     std::vector< ::nECS::cEntity* >                                 mAllEntities; // This allows the grid to know all entities inside without having to go throught the actual grid
     int                                                             mWidth;     // Rows
     int                                                             mHeight;    // Columns

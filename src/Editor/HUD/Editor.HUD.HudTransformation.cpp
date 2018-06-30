@@ -208,7 +208,7 @@ cHudTransformation::mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow*
     }
 
     // We don't want micro deltas, but we want the delta from origin
-    //mOriginPosition = currentPos;
+    // mOriginPosition = currentPos;
 }
 
 

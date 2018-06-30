@@ -23,6 +23,7 @@ cEntityGrid::~cEntityGrid()
 
 cEntityGrid::cEntityGrid( int iWidth, int iHeight, int iCellSize ) :
     mGridMap(),
+	mEntityMap(),
     mWidth( iWidth ),
     mHeight( iHeight ),
     mCellSize( iCellSize )
@@ -108,12 +109,14 @@ cEntityGrid::SetEntityInGrid( ::nECS::cEntity* iEntity )
     int right = x2 >= mWidth - 1 ? mWidth - 1 : x2;
     int bottom = y2 >= mWidth - 1 ? mWidth - 1 : y2;
 
+
     // We store the pointer of iEntity in every cell that it is contained within, so we know at any time which entity should be considered
     // when looking for collision
     for( int i = left; i <= right; ++i )
     {
         for( int j = top; j <= bottom; ++j )
         {
+			mEntityMap[ std::pair( i, j ) ].push_back( iEntity );
             mGridMap[ i ][ j ].push_back( iEntity );
         }
     }
@@ -127,6 +130,7 @@ cEntityGrid::ClearGrid()
     {
         for( int j = 0; j <= mHeight; ++j )
         {
+			mEntityMap.clear();
             mGridMap[ i ][ j ].clear();
         }
     }
@@ -175,11 +179,16 @@ cEntityGrid::RemoveEntityNotUpdated( ::nECS::cEntity* iEntity )
     {
         for( int j = top; j <= bottom; ++j )
         {
-            for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
+			if( mEntityMap.find( std::pair( i, j ) ) == mEntityMap.end() )
+				continue;
+
+            for( int k = 0; k < mEntityMap[ std::pair( i, j ) ].size(); ++k )
             {
-                if( mGridMap[ i ][ j ][ k ] == iEntity )
+                if( mEntityMap[ std::pair( i, j ) ][ k ] == iEntity )
                 {
-                    mGridMap[ i ][ j ].erase( mGridMap[ i ][ j ].begin() + k );
+                    mEntityMap[ std::pair( i, j ) ].erase( mEntityMap[ std::pair( i, j ) ].begin() + k );
+                    mEntityMap.erase( std::pair( i, j ) );
+                    //mGridMap[ i ][ j ].erase( mGridMap[ i ][ j ].begin() + k );
                     break; // iEntity should be present once per cell, no more, so when we found it --> NEXT
                 }
             }
@@ -204,19 +213,22 @@ cEntityGrid::GetSurroundingEntitiesOf( std::vector< ::nECS::cEntity* >* oEntitie
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity );
 
-    // We compute the enlarged rectangle that represent "one cell distance"
-    int left    = x - iSurroundingSize     <   0           ? 0         : x - iSurroundingSize;
-    int top     = y - iSurroundingSize     <   0           ? 0         : y - iSurroundingSize;
-    int right   = x2 + iSurroundingSize >=  mWidth -1   ? mWidth -1 : x2 + iSurroundingSize;
-    int bottom  = y2 + iSurroundingSize >=  mWidth -1   ? mWidth -1 : y2 + iSurroundingSize;
+    // We compute the enlarged rectangle that represent "iSurroundingSize cells distance"
+    int left    = x - iSurroundingSize     <   0			? 0         : x - iSurroundingSize;
+    int top     = y - iSurroundingSize     <   0			? 0         : y - iSurroundingSize;
+    int right   = x2 + iSurroundingSize >=  mWidth -1		? mWidth -1 : x2 + iSurroundingSize;
+    int bottom  = y2 + iSurroundingSize >=  mWidth -1		? mWidth -1 : y2 + iSurroundingSize;
 
     for( int i = left; i <= right; ++i )
     {
         for( int j = top; j <= bottom; ++j )
         {
-            for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
+			if( mEntityMap.find( std::pair( i, j ) ) == mEntityMap.end() )
+				continue;
+
+            for( int k = 0; k < mEntityMap[ std::pair( i, j ) ].size(); ++k )
             {
-                ::nECS::cEntity* ent = mGridMap[ i ][ j ][ k ];
+                ::nECS::cEntity* ent = mEntityMap[ std::pair( i, j ) ][ k ];
                 if( ent != iEntity && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                     ( *oEntities ).push_back( ent );
             }
@@ -238,12 +250,16 @@ cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::vector< ::nECS::cEntity* 
 
     while( xLookupToInt >= 0 && yLookupToInt >= 0 && xLookupToInt < mWidth && yLookupToInt < mHeight )
     {
-        for( int k = 0; k < mGridMap[ xLookupToInt ][ yLookupToInt ].size(); ++k )
-        {
-            ::nECS::cEntity* ent = mGridMap[ xLookupToInt ][ yLookupToInt ][ k ];
-            if( ent != iEntity && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
-                ( *oEntities ).push_back( ent );
-        }
+		if ( mEntityMap.find( std::pair( xLookupToInt, yLookupToInt ) ) != mEntityMap.end() )
+		{
+			for( int k = 0; k < mEntityMap[ std::pair( xLookupToInt, yLookupToInt ) ].size(); ++k )
+			{
+				::nECS::cEntity* ent = mEntityMap[ std::pair( xLookupToInt, yLookupToInt ) ][ k ];
+				if( ent != iEntity && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
+					( *oEntities ).push_back( ent );
+			}
+		}
+
         xLookup += iVector.x;
         yLookup += iVector.y;
         xLookupToInt = int( xLookup );
@@ -281,13 +297,16 @@ cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::vector<::nECS::cEn
         for(  int i = int(std::min( P1.x, P2.x )); i < int(std::max( P1.x, P2.x )); ++i )
         {
             int resultY = int(( slope * i ) + constant);
-            for( int k = 0; k < mGridMap[ i ][ resultY ].size(); ++k )
+
+			if ( mEntityMap.find( std::pair( i, resultY ) ) == mEntityMap.end() )
+				continue;
+
+            for( int k = 0; k < mEntityMap[ std::pair( i, resultY ) ].size(); ++k )
             {
-                ::nECS::cEntity* ent = mGridMap[ i ][ resultY ][ k ];
+                ::nECS::cEntity* ent = mEntityMap[ std::pair( i, resultY ) ][ k ];
                 if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                     ( *oEntities ).push_back( ent );
             }
-
         }
     }
     else
@@ -295,9 +314,13 @@ cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::vector<::nECS::cEn
         for( int i = int(std::min( P1.y, P2.y )); i < int(std::max( P1.y, P2.y)); ++i )
         {
             int  resultX = int(( i - constant ) / slope);
-            for( int k = 0; k < mGridMap[ resultX ][ i ].size(); ++k )
+
+			if ( mEntityMap.find( std::pair( resultX, i ) ) == mEntityMap.end() )
+				continue;
+
+            for( int k = 0; k < mEntityMap[ std::pair( resultX, i ) ].size(); ++k )
             {
-                ::nECS::cEntity* ent = mGridMap[ resultX ][ i ][ k ];
+                ::nECS::cEntity* ent = mEntityMap[ std::pair( resultX, i ) ][ k ];
                 if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                     ( *oEntities ).push_back( ent );
             }
@@ -313,7 +336,10 @@ cEntityGrid::GetEntitiesFollowingHLineFromEntity( std::vector<::nECS::cEntity*>*
     {
         for( int k = 0; k < mGridMap[ i ][ iPY ].size(); ++k )
         {
-            ::nECS::cEntity* ent = mGridMap[ i ][ iPY ][ k ];
+			if ( mEntityMap.find( std::pair( i, iPY ) ) == mEntityMap.end() )
+				continue;
+
+            ::nECS::cEntity* ent = mEntityMap[ std::pair( i, iPY ) ][ k ];
             if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                 ( *oEntities ).push_back( ent );
         }
@@ -328,7 +354,10 @@ cEntityGrid::GetEntitiesFollowingVLineFromEntity( std::vector<::nECS::cEntity*>*
     {
         for( int k = 0; k < mGridMap[ iPX ][ i ].size(); ++k )
         {
-            ::nECS::cEntity* ent = mGridMap[ iPX ][ i ][ k ];
+			if ( mEntityMap.find( std::pair( iPX, i) ) == mEntityMap.end() )
+				continue;
+
+            ::nECS::cEntity* ent = mEntityMap[ std::pair( iPX, i ) ][ k ];
             if( ent != iEntitySrc && ent != iEntityDst && std::find( ( *oEntities ).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                 ( *oEntities ).push_back( ent );
         }
@@ -346,9 +375,12 @@ cEntityGrid::GetEntitiesInBoundingBox( std::vector< ::nECS::cEntity*>* oEntities
     {
         for( int j = y; j < y2; ++j )
         {
-            for( int k = 0; k < mGridMap[ i ][ j ].size(); ++k )
+			if ( mEntityMap.find( std::pair( i, j ) ) == mEntityMap.end() )
+				continue;
+
+            for( int k = 0; k < mEntityMap[ std::pair( i, j ) ].size(); ++k )
             {
-                ::nECS::cEntity* ent = mGridMap[ i ][ j ][ k ];
+                ::nECS::cEntity* ent = mEntityMap[ std::pair( i, j ) ][ k ];
                 if( std::find( (*oEntities).begin(), ( *oEntities ).end(), ent ) == ( *oEntities ).end() )
                     ( *oEntities ).push_back( ent );
             }

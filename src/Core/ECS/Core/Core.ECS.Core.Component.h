@@ -67,7 +67,7 @@ public:
     ::nBase::cVariant*  GetVar( const std::string& iVarName );
         // Simple setter
     void                AddNewVariable( const std::string& iVarName, ::nBase::cVariant* iValue );
-    void                SetVarValueChangedCallback( const std::string& iVarName, std::function< void() > iFunction );
+    void                SetVarValueChangeCallback( const std::string& iVarName, std::function< void( ::nBase::eVariableState ) > iFunction );
 
     void                VariableEnumerator( std::function< void( const std::string&, ::nBase::cVariant* )> iMethod );
 

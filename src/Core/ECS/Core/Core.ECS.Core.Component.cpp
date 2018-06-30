@@ -128,9 +128,9 @@ cComponentGeneric::AddNewVariable( const std::string& iVarName, ::nBase::cVarian
 
 
 void
-cComponentGeneric::SetVarValueChangedCallback( const std::string & iVarName, std::function< void() > iFunction )
+cComponentGeneric::SetVarValueChangeCallback( const std::string & iVarName, std::function< void( ::nBase::eVariableState ) > iFunction )
 {
-    mVars[ iVarName ]->SetValueChangedCallback( iFunction );
+    mVars[ iVarName ]->SetValueChangeCallback( iFunction );
 }
 
 

@@ -18,7 +18,7 @@ cVariant::cVariant()
 
 
 cVariant::cVariant( const cVariant & iRHS ) :
-    mValueChangedCallback( iRHS.mValueChangedCallback )
+    mValueChangeCallback( iRHS.mValueChangeCallback )
 {
     // Not much to do here
 }
@@ -142,9 +142,9 @@ cVariant::SetValueBool( bool iValue )
 // ==============================================================================================================
 
 
-void cVariant::SetValueChangedCallback( std::function< void() > iFunction )
+void cVariant::SetValueChangeCallback( std::function< void( eVariableState ) > iFunction )
 {
-    mValueChangedCallback = iFunction;
+    mValueChangeCallback = iFunction;
 }
 
 
@@ -251,10 +251,13 @@ cNumber::Value() const
 void
 cNumber::Value( double iValue )
 {
+    if( mValueChangeCallback )
+        mValueChangeCallback( eVariableState::kBeforeChange );
+
     mValue = iValue;
 
-    if( mValueChangedCallback )
-        mValueChangedCallback();
+    if( mValueChangeCallback )
+        mValueChangeCallback( eVariableState::kAfterChange );
 }
 
 
@@ -352,10 +355,13 @@ cString::Value() const
 void
 cString::Value( const std::string & iValue )
 {
-    mValue = iValue;
+	if( mValueChangeCallback )
+		mValueChangeCallback( eVariableState::kBeforeChange );
 
-    if( mValueChangedCallback )
-        mValueChangedCallback();
+	mValue = iValue;
+
+	if( mValueChangeCallback )
+		mValueChangeCallback( eVariableState::kAfterChange );
 }
 
 
@@ -453,10 +459,13 @@ cBoolean::Value() const
 void
 cBoolean::Value( bool iValue )
 {
-    mValue = iValue;
+	if( mValueChangeCallback )
+		mValueChangeCallback( eVariableState::kBeforeChange );
 
-    if( mValueChangedCallback )
-        mValueChangedCallback();
+	mValue = iValue;
+
+	if( mValueChangeCallback )
+		mValueChangeCallback( eVariableState::kAfterChange );
 }
 
 
