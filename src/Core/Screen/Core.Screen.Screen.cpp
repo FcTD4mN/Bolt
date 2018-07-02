@@ -12,6 +12,14 @@
 
 
 
+// DEBUG STUFF
+#include "Core.ECS.Core.Entity.h"
+#include "Core.ECS.Component.Position.h"
+#include "Core.ECS.Component.Size.h"
+#include "Core.ECS.Component.Color.h"
+#include "Core.ECS.Component.SimplePhysic.h"
+
+
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
 // -------------------------------------------------------------------------------------
@@ -415,6 +423,27 @@ cScreen::LoadXML( const std::string& iFilePath )
 
     mFilePath.clear();
     mFilePath = iFilePath;
+
+	//int swall = 60;
+	////int swall = 10;
+	////int swall = 5;
+	//for( int i = 0; i < swall; ++i )
+	//{
+	//	for( int j = 0; j < swall; ++j )
+	//	{
+	//		::nECS::cEntity* wall = new ::nECS::cEntity();
+	//		wall->AddComponent( new ::nECS::cPosition( float( i ) * 800.0F / float( swall ), float( j ) * 600.0F / float( swall ) ) );
+	//		wall->AddComponent( new ::nECS::cSize( 5.0f, 5.0f ) );
+	//		wall->AddComponent( new ::nECS::cColor( 20, 180, 20 ) );
+
+	//		auto physics = new ::nECS::cSimplePhysic( 5.0F, 5.0F, ::nECS::cSimplePhysic::kDynamic );
+	//		physics->mVelocity.x = 1.0F;
+	//		wall->AddComponent( physics );
+	//		wall->AddTag( "wall" );
+	//		mWorld->AddEntity( wall );
+	//		mWorld->PutEntityInLayer( wall, 0 );
+	//	}
+	//}
 }
 
 

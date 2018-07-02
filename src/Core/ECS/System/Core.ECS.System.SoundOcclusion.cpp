@@ -71,7 +71,7 @@ cSoundOcclusion::Update( unsigned int iDeltaTime )
 
         double finalOcclusion = 1.0F;
 
-        std::vector< cEntity* >  entitiesInBetween;
+        std::set< cEntity* >  entitiesInBetween;
         entityMap->GetEntitiesFollowingLineFromEntityToEntity( &entitiesInBetween, mListener, entity,::nMath::cEdgeF::MakePointPoint( position->AsVector2F(), mListenerPosition->AsVector2F() ) );
         for( auto ent : entitiesInBetween )
         {

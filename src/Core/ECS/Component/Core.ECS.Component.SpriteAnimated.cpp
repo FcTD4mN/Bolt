@@ -261,6 +261,7 @@ cSpriteAnimated::LoadXML( tinyxml2::XMLElement* iNode )
 
     SetSpriteSheet( FileName() );
     UpdateTextureRect();
+	BuildCallbacks();
 }
 
 

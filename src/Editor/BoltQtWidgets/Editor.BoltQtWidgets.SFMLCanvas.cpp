@@ -360,7 +360,7 @@ SFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 {
     if( mState == kSelecting )
     {
-        std::vector< ::nECS::cEntity* > entitiesInEMap;
+        std::set< ::nECS::cEntity* > entitiesInEMap;
 
         if( !( iEvent->modifiers() & Qt::ControlModifier ) && !( iEvent->modifiers() & Qt::ShiftModifier ) )
         {
@@ -457,7 +457,7 @@ SFMLCanvas::keyReleaseEvent( QKeyEvent * iEvent )
 			::nECS::cEntity* entity = hud->Entity();
 			auto layer = entity->Layer();
 
-			layer->EntityGrid()->RemoveEntityNotUpdated( entity );
+			layer->EntityGrid()->RemoveEntity( entity );
             entity->Destroy();
         }
 
@@ -529,8 +529,6 @@ SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
         double newX = mEntitiesOriginalPositions[ indexSync ].x + iDeltaX;
         double newY = mEntitiesOriginalPositions[ indexSync ].y + iDeltaY;
 
-		layer->EntityGrid()->RemoveEntityNotUpdated( entity );
-
 		//::nApplication::cEditorApplication::App()->CurrentScreen()->World()->EntityMap()->RemoveEntityNotUpdated( hud->Entity() );
 		//::nECS::cGlobalEntityMap::Instance()->mEntityGrid->RemoveEntityNotUpdated( hud->Entity() );
 
@@ -554,7 +552,7 @@ SFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
 		//::nApplication::cEditorApplication::App()->CurrentScreen()->World()->EntityMap()->AddEntity( hud->Entity() );
 		//::nECS::cGlobalEntityMap::Instance()->mEntityGrid->AddEntity( hud->Entity() );
 
-		layer->EntityGrid()->AddEntity( entity );
+		layer->EntityGrid()->UpdateEntity( entity );
 
         ++indexSync;
     }

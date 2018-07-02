@@ -109,6 +109,8 @@ cEntity::AddComponent( ::nECS::cComponent * iComponent )
         mWorld->UpdateWorldWithEntity( this );
     }
 
+	delete  iComponent;
+
     IncIDForHandles();
 }
 
@@ -144,6 +146,8 @@ cEntity::RemoveComponent( cComponent * iComponent )
         mWorld->UpdateWorldWithEntity( this );
     }
 
+	delete  iComponent;
+
     IncIDForHandles();
 }
 
@@ -151,10 +155,14 @@ cEntity::RemoveComponent( cComponent * iComponent )
 void
 cEntity::RemoveComponentByName( const std::string & iComponentName )
 {
+	::nECS::cComponent* component = 0;
     for( int i = 0; i < mComponents.size(); ++i )
     {
-        if( mComponents[ i ].key == iComponentName )
+		if( mComponents[i].key == iComponentName )
+		{
+			component = mComponents[i].value;
             mComponents.erase( mComponents.begin() + i );
+		}
     }
 
     if( mLoaded )
@@ -162,6 +170,8 @@ cEntity::RemoveComponentByName( const std::string & iComponentName )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+
+	delete  component;
 
     IncIDForHandles();
 }
@@ -190,6 +200,7 @@ cEntity::GetComponentAtIndex( int iIndex )
 void
 cEntity::RemoveComponentAtIndex( int iIndex )
 {
+	::nECS::cComponent* component = mComponents[ iIndex ].value;
     mComponents.erase( mComponents.begin() + iIndex );
 
     if( mLoaded )
@@ -197,6 +208,8 @@ cEntity::RemoveComponentAtIndex( int iIndex )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
+
+	delete  component;
 
     IncIDForHandles();
 }

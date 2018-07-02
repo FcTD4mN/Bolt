@@ -7,9 +7,6 @@
 
 #include <SFML/Graphics.hpp>
 
-// DEBUG
-#include "Core.Math.Edge.h"
-
 
 namespace nECS {
 

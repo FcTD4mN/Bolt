@@ -124,12 +124,12 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         projection.left += simplephysic->mVelocity.x;
         projection.top += simplephysic->mVelocity.y;
 
-        std::vector< cEntity* > surrounding;
+        std::set< cEntity* > surrounding;
         entityMap->GetSurroundingEntitiesOf( &surrounding, entity, 1 );
 
-        for( int j = 0; j < surrounding.size(); ++j )
+        for( auto it = surrounding.begin(); it != surrounding.end(); ++it )
         {
-            cEntity* surroundingEntity = surrounding[ j ];
+            cEntity* surroundingEntity = *it;
 
             sf::FloatRect surrENtHitBox = GetEntityHitBoxAndCenter( 0, surroundingEntity );
 
@@ -159,14 +159,11 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             ::nBase::cVariant* positionX = position->GetVar( "x" );
             ::nBase::cVariant* positionY = position->GetVar( "y" );
 
-            // Remove Entity before changing its position, so it's quick and easy
-            entityMap->RemoveEntityNotUpdated( entity );
-
             positionX->SetValueNumber( positionX->GetValueNumber() + simplephysic->mVelocity.x );
             positionY->SetValueNumber( positionY->GetValueNumber() + simplephysic->mVelocity.y );
 
             // Add it back at its new position
-            entityMap->AddEntity( entity );
+            entityMap->UpdateEntity( entity );
             simplephysic->InvalidCache();
         }
     }
@@ -245,7 +242,7 @@ cSimplePhysics::EntityLost( cEntity * iEntity )
     }
 
     tSuperClass::EntityLost( iEntity );
-    mWorld->EntityMap()->RemoveEntityNotUpdated( iEntity );
+    mWorld->EntityMap()->RemoveEntity( iEntity );
 }
 
 

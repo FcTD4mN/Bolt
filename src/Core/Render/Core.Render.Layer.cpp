@@ -125,7 +125,7 @@ cLayer::RemoveEntity( ::nECS::cEntity * iEntity )
 		}
 	}
 
-	mEntityGrid->RemoveEntityNotUpdated( iEntity );
+	mEntityGrid->RemoveEntity( iEntity );
 }
 
 

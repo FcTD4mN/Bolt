@@ -170,7 +170,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
 
         mFOVBBox = ::nMath::GetTriangleSetBBox( mTriangles );
 
-        std::vector< ::nECS::cEntity* > entitiesInFOVBBox;
+        std::set< ::nECS::cEntity* > entitiesInFOVBBox;
         entityMap->GetEntitiesInBoundingBox( &entitiesInFOVBBox, mFOVBBox );
 
         mAllPolygonsInFOV.clear();

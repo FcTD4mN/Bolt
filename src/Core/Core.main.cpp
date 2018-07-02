@@ -129,7 +129,7 @@ BoltMain( int argc, char *argv[] )
         //}
         // /Drawing entityMap
 
-        if( 0 )
+        if( 1 )
         {
             //sf::RectangleShape rect( sf::Vector2f( 10.0F, 10.0F ) );
             //rect.setPosition( sf::Vector2f( sf::Mouse::getPosition( *window ) ) );
@@ -146,7 +146,7 @@ BoltMain( int argc, char *argv[] )
             {
                 FPSAverage /= fpscounter;
                 std::cout << std::to_string( FPSAverage ) << "\n";
-                std::cout << "==============" << std::to_string( ::nApplication::cGameApplication::App()->World()->EntityCount() ) << "\n";
+                std::cout << "==============" << std::to_string( ::nApplication::cGameApplication::App()->CurrentScreen()->World()->EntityCount() ) << "\n";
                 fpscounter = 0;
                 FPSAverage = 0.0;
             }
