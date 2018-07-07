@@ -26,14 +26,14 @@ public:
 
 public:
     // Events
-    virtual  void  TextEntered( const sf::Event& iEvent );                     ///< A character was entered (data in event.text)
+    virtual  void  TextEntered( const sf::Event& iEvent ) override;            ///< A character was entered (data in event.text)
     virtual  void  KeyPressed( const sf::Event& iEvent ) override;             ///< A key was pressed (data in event.key)
     virtual  void  KeyReleased( const sf::Event& iEvent ) override;            ///< A key was released (data in event.key)
 
 public:
     // Input/Output
-    virtual  void SaveXML();
-    virtual  void LoadXML();
+    virtual  void SaveXML() override;
+    void LoadXML();
 
 private:
     ::nGUI::cConsoleWidget  mConsoleWidget;

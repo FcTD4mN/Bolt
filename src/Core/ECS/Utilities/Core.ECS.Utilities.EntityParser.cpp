@@ -10,9 +10,11 @@
 #include <tinyxml2.h>
 
 #include <iostream>
-#include <Windows.h>
-
 #include <regex>
+
+#ifdef WINDOWS
+#include <Windows.h>
+#endif //WINDOWS
 
 namespace nECS {
 
@@ -86,7 +88,7 @@ cEntityParser::ParseFolder()
     std::wstring path( mEntitiesDir.begin(), mEntitiesDir.end() );
 
     std::vector< std::wstring > fileNames;
-    ::nBase::ParseDirWindows( &fileNames, path );
+    ::nBase::ParseDir( &fileNames, path );
     tinyxml2::XMLDocument doc;
 
     for( int i = 0; i < fileNames.size(); ++i )
@@ -266,7 +268,7 @@ cEntityParser::GetPrototypeAssociatedToFileName( const std::wstring & iFileName 
 unsigned int
 cEntityParser::EntityCount() const
 {
-    return  unsigned int(mEntities.size());
+    return  (unsigned int)(mEntities.size());
 }
 
 

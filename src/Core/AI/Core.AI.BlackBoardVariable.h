@@ -65,7 +65,7 @@ cBlackBoardVariableT< T >::~cBlackBoardVariableT()
 
 template< typename T >
 cBlackBoardVariableT< T >::cBlackBoardVariableT(const T& iValue) :
-    cBlackBoardVariable(),
+    cBlackBoardVariable(""),
     mValue( iValue )
 {
 

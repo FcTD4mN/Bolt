@@ -3,7 +3,6 @@
 
 #include "Core.Application.GlobalAccess.h"
 
-#include <filesystem>
 #include <assert.h>
 
 
@@ -73,7 +72,7 @@ cShader2D::GetSFShader()
 }
 
 
-const std::filesystem::path&
+const nFileSystem::path&
 cShader2D::GetPathToProgram() const
 {
     return  mPathToProgram;

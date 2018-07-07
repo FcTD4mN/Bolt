@@ -47,7 +47,7 @@ cBoltScriptEnvironment::BoltScriptEnvironment()
 void
 cBoltScriptEnvironment::DefaultOutputRedirectionFunction( const  std::string&  iStr )
 {
-    printf( iStr.c_str() );
+    printf( "%s\n", iStr.c_str() );
 }
 
 

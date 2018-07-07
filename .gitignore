@@ -272,3 +272,6 @@ Windows/BoltCore-VS2017/BoltCore/resources/*
 Windows/Editor-VS2017/BoldEditor/BoltEditor/Lib/*
 Windows/Editor-VS2017/BoldEditor/BoltEditor/Resources/* 
 Windows/Editor-VS2017/BoldEditor/BoltEditor/GeneratedFiles/* 
+
+# CMake
+build/

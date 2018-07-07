@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef USE_TRIANGLE_SPLITER_PROCESSOR
+
 #include "SFML/Graphics.hpp"
 
 #include <mutex>
@@ -39,3 +41,4 @@ protected:
     bool  mTerminate;
 };
 
+#endif // USE_TRIANGLE_SPLITER_PROCESSOR

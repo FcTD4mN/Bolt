@@ -28,7 +28,7 @@ enum eVariableState
 class cVariant
 {
 public:
-    ~cVariant();
+    virtual ~cVariant() = 0;
     cVariant();
     cVariant( const cVariant& iRHS );
 

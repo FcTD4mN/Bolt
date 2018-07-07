@@ -4,7 +4,9 @@
 #include <sstream>
 #include <regex>
 
+#ifdef WINDOWS
 #include <Windows.h>
+#endif
 
 namespace nBase {
 
@@ -28,9 +30,10 @@ Split( char iSplitChar, const std::string & iString )
 // ------------------------------------------------------------------------------ TOMOVE
 // -------------------------------------------------------------------------------------
 
+#ifdef WINDOWS
 
 void
-ParseDirWindows( std::vector< std::wstring >* oFileNames, const std::wstring& iDir )
+ParseDir( std::vector< std::wstring >* oFileNames, const std::wstring& iDir )
 {
     //TODO: Create a file manager class to handle every OS, or find a way with sfml
     WIN32_FIND_DATAW  finddata;
@@ -55,6 +58,16 @@ ParseDirWindows( std::vector< std::wstring >* oFileNames, const std::wstring& iD
 
     FindClose( f );
 }
+
+#else
+
+void
+ParseDir( std::vector< std::wstring >* oFileNames, const std::wstring& iDir )
+{
+    //todo
+}
+
+#endif
 
 
 } //nBase

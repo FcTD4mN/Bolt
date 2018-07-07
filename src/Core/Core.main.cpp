@@ -13,7 +13,12 @@
 
 
 #include <SFML/Graphics.hpp>
+
+#ifdef WINDOWS
 #include <cpython/Python.h>
+#else
+#include <Python.h>
+#endif //WINDOWS
 
 
 #include <chrono>
@@ -26,7 +31,7 @@ BoltMain( int argc, char *argv[] )
     //nBenchmark::RunVectorVsHMapvsMapBenchmark();
     //nBenchmark::EntityStressTest();
 
-    srand( unsigned int( time( NULL ) ) );
+    srand( (unsigned int)( time( NULL ) ) );
 
     ::nApplication::cGameApplication* app = ::nApplication::cGameApplication::App();
     app->Initialize();
@@ -108,7 +113,7 @@ BoltMain( int argc, char *argv[] )
         while( window->pollEvent( event ) )
             app->HandleEvents( event );
 
-        app->Update( unsigned int( frameTime.asMicroseconds() ) );
+        app->Update( (unsigned int)( frameTime.asMicroseconds() ) );
         window->clear( sf::Color( 200, 200, 200 ) );
         app->Draw( window );
 

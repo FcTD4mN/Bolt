@@ -7,7 +7,7 @@
 
 
 #include <GL/glew.h>
-#include <gl/GLU.h>
+#include <GL/glu.h>
 #include <SFML/OpenGL.hpp>
 
 

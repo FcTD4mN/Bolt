@@ -3,7 +3,6 @@
 
 #include "Core.Application.GlobalAccess.h"
 
-#include <filesystem>
 
 namespace nShaders {
 
@@ -63,7 +62,7 @@ cShaderFileLibrary::GetShaderFromFile( const std::string & iFile )
 void
 cShaderFileLibrary::ParseDir( const std::string& iFolder )
 {
-    std::filesystem::directory_iterator di( iFolder );
+    nFileSystem::directory_iterator di( iFolder );
 
     for( auto file : di )
     {

@@ -1,7 +1,12 @@
 #pragma once
 
 
+#ifdef WINDOWS
 #include <cpython/Python.h>
+#else
+#include <Python.h>
+#endif //WINDOWS
+
 #include <functional>
 #include <string>
 #include <unordered_map>

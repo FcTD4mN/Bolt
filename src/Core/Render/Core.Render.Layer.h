@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <tinyxml2.h>
 
+#include <list>
 #include <unordered_map>
 
 namespace nECS { class cEntity; }

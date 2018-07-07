@@ -132,7 +132,7 @@ cScreen::Name( const std::string & iName )
 }
 
 
-const std::filesystem::path &
+const nFileSystem::path &
 cScreen::FilePath() const
 {
     return  mFilePath;
@@ -140,7 +140,7 @@ cScreen::FilePath() const
 
 
 void
-cScreen::FilePath( const std::filesystem::path & iFilePath )
+cScreen::FilePath( const nFileSystem::path & iFilePath )
 {
     mFilePath = iFilePath;
 }

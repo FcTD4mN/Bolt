@@ -5,15 +5,13 @@
 #include <SFML/Graphics.hpp>
 
 
+#include <functional>
 #include <vector>
 #include <unordered_map>
 #include <set>
 
 
 namespace nECS { class cEntity; }
-
-
-namespace nMapping {
 
 
 // HASH FUNCTIONS
@@ -29,20 +27,18 @@ hash_combine( std::size_t & seed, const T & v )
 
 template<typename S, typename T>
 struct
-std::hash< std::pair< S, T > >
+::std::hash< std::pair< S, T > >
 {
 	inline size_t operator()( const std::pair< S, T >& v ) const
 	{
 		size_t seed = 0;
-		::nMapping::hash_combine( seed, v.first );
-		::nMapping::hash_combine( seed, v.second );
+		hash_combine( seed, v.first );
+		hash_combine( seed, v.second );
 		return  seed;
 	}
 };
 
-
-// ===================================
-// ===================================
+namespace nMapping {
 
 
 class cEntityGrid
@@ -56,7 +52,7 @@ protected:
 
 public:
     // Contruction/Destruction
-    ~cEntityGrid();
+    virtual ~cEntityGrid() = 0;
     cEntityGrid( int iWidth, int iHeight, int iCellSize );
 
 public:

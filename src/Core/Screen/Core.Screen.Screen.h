@@ -3,8 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <filesystem>
 #include <functional>
+#ifdef WINDOWS
+#include <filesystem>
+namespace nFileSystem = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace nFileSystem = std::experimental::filesystem;
+#endif
 
 namespace nECS      { class cWorld; }
 namespace nECS      { class cEntity; }
@@ -44,8 +50,8 @@ public:
     const std::string&  Name() const;
     void                Name( const std::string& iName );
 
-    const std::filesystem::path&    FilePath() const;
-    void                            FilePath( const std::filesystem::path& iFilePath );
+    const nFileSystem::path&    FilePath() const;
+    void                            FilePath( const nFileSystem::path& iFilePath );
     void                            FilePath( const std::string& iFilePath );
 
 	sf::View&	View();
@@ -89,7 +95,7 @@ public:
 
 protected:
     std::string                 mName;
-    std::filesystem::path       mFilePath;
+    nFileSystem::path       mFilePath;
 	sf::View					mView;
 	float						mZoomFactor;
 

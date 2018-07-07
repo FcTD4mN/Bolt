@@ -117,6 +117,12 @@ cShortcuts::LoadXML()
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLError error = doc.LoadFile( filePath.c_str() );
 
+    if( error != tinyxml2::XML_SUCCESS )
+    {
+        //load default shortcuts ?
+        return;
+    }
+
     for( tinyxml2::XMLElement* entry = doc.FirstChildElement( "shortcuts" )->FirstChildElement( "entry"); entry; entry = entry->NextSiblingElement() )
     {
         mShortcuts[ sf::Keyboard::Key( entry->Int64Attribute( "key" ) ) ] = entry->Attribute( "action" );
