@@ -84,7 +84,7 @@ cGameApplication::Initialize()
     mMainWindow->setKeyRepeatEnabled( false );
 
     // ============= SHORTCUTS =============
-    ::nShortcuts::cShortcuts::Instance()->Initialize();
+    //::nShortcuts::cShortcuts::Instance()->Initialize();
 
     return;
 

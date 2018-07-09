@@ -1,12 +1,15 @@
 #include "Core.Project.Project.h"
 
 
+#include "Core.Application.GlobalAccess.h"
+
 #include "Core.ECS.Utilities.ComponentRegistry.h"
 #include "Core.ECS.Utilities.EntityParser.h"
 #include "Core.ECS.Utilities.SystemRegistry.h"
-#include "Core.Application.GlobalAccess.h"
 
 #include "Core.Screen.Screen.h"
+
+#include "Core.Shortcuts.Shortcuts.h"
 
 
 
@@ -45,11 +48,17 @@ cProject::cProject( const std::string& iProjectName, const std::string& iProject
 void
 cProject::Initialize()
 {
+	// ============= ECS Registries =============
     ::nECS::cComponentRegistry::Instance()->Initialize( mProjectFolder );
     ::nECS::cEntityParser::Instance()->Initialize( mProjectFolder );
     ::nECS::cSystemRegistry::Instance()->Initialize( mProjectFolder );
+
+	// ============= Global Props =============
     ::nGlobal::cGlobalProperties::Instance()->SetProjectFolder( mProjectFolder );
     ::nGlobal::cGlobalProperties::Instance()->SetProjectSize( sf::Vector2f( float( mResolutionWidth ), float( mResolutionHeight ) ) );
+
+	// ============= SHORTCUTS =============
+	::nShortcuts::cShortcuts::Instance()->Initialize();
 }
 
 

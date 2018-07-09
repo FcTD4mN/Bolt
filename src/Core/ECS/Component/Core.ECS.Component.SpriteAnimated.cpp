@@ -2,7 +2,7 @@
 
 
 #include "Core.Base.ResourceManager.h"
-
+#include "Core.Application.GlobalAccess.h"
 
 namespace nECS {
 
@@ -230,7 +230,8 @@ void cSpriteAnimated::Flip( bool iFlip )
 void
 cSpriteAnimated::SetSpriteSheet( const std::string & iFile )
 {
-    mSpriteSheet = ::nBase::cResourceManager::Instance()->GetTexture( iFile );
+	std::string projFolder = ::nGlobal::cGlobalProperties::Instance()->GetProjectFolder();
+    mSpriteSheet = ::nBase::cResourceManager::Instance()->GetTexture( projFolder + iFile );
     mSprite.setTexture( *mSpriteSheet );
 
     mSprite.setOrigin( sf::Vector2f( float( mCurrentSpriteRect.width / 2 ), float( mCurrentSpriteRect.height / 2 ) ) );

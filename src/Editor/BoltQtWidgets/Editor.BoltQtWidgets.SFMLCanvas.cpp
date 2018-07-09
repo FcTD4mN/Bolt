@@ -157,11 +157,11 @@ SFMLCanvas::paintEvent( QPaintEvent* )
     DrawSelections();
     mEditorApp->Draw( mRenderWindow );
 
-    for( auto hud : mEntityHUDs )
-        hud->Draw( mRenderWindow );
-
 	// Resets the view
 	mEditorApp->CurrentScreen()->ApplyScreenView();
+
+    for( auto hud : mEntityHUDs )
+        hud->Draw( mRenderWindow );
 
 	if( mState == kSelecting )
         mRenderWindow->draw( mSelectionShape );
@@ -228,6 +228,13 @@ SFMLCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oSize,
     float expansionSize = 2.0;
 
     auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
+	if( !position )
+	{
+		*oPosition	= sf::Vector2f( 0.0F, 0.0F );
+		*oSize		= sf::Vector2f( 0.0F, 0.0F );
+		return;
+	}
+
     sf::Vector2f entiPos = position->AsVector2F() - sf::Vector2f( expansionSize, expansionSize );
     sf::Vector2f entiSize( 1, 1 );
 

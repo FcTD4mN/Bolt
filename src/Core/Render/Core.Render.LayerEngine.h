@@ -33,7 +33,9 @@ public:
 public:
     // Layer
     void  AddLayer( const sf::Vector2f& iViewSize, float iDistance );
+    void  AddLayer();
     void  AddLayerAtIndex( const sf::Vector2f& iViewSize, float iDistance, int iIndex );
+    void  AddLayerAtIndex( int iIndex );
     void  SetLayersView( const sf::View& iLayerView );
     void  ApplyZoomToLayers( float iZoom );
     void  LayerDistanceAtIndex( float iDistance, int iLayerIndex );

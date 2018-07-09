@@ -43,7 +43,6 @@ cHudTransformation::BuildHUD()
     float handleSize = 10.0F;
     sf::Vector2f size = GetSizeFromEntity();
 
-
     // From top left, going clockwise, we create each handles
     mScaleHandles.push_back( new cHudHandle( this, -handleSize/2, -handleSize/2, handleSize, handleSize ) );
     mScaleHandles.push_back( new cHudHandle( this, size.x / 2 - handleSize/2, -handleSize/2, handleSize, handleSize ) );
@@ -62,11 +61,6 @@ cHudTransformation::BuildHUD()
 void
 cHudTransformation::UpdateHandlesPositions()
 {
-    auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-
-    if( !position )
-        return;
-
     float handleSize = 10.0F;
 
     sf::Vector2f size = GetSizeFromEntity();
@@ -87,16 +81,9 @@ cHudTransformation::Draw( sf::RenderTarget* iRenderTarget )
     if( !mIsHUDValid )
         return;
 
-    auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
+	sf::Vector2f positionMapped = GetPosition();
 
-	sf::Vector2f positionMapped = position->AsVector2F();
-
-	// To draw the HUD at the proper position
-	auto layer = mEntity->Layer();
-	if ( layer )
-		iRenderTarget->setView( layer->View() );
-
-    sf::RectangleShape outline;
+	sf::RectangleShape outline;
     outline.setPosition( positionMapped );
     outline.setSize( GetSizeFromEntity() );
     outline.setOutlineThickness( 2 );
@@ -113,6 +100,9 @@ cHudTransformation::Draw( sf::RenderTarget* iRenderTarget )
 bool
 cHudTransformation::ContainsPoint( const  sf::Vector2f& iPoint ) const
 {
+	if( !mIsHUDValid )
+		return  false;
+
     for( auto handle : mScaleHandles )
     {
         if( handle->ContainsPoint( iPoint ) )
@@ -136,6 +126,9 @@ cHudTransformation::ContainsPoint( const  sf::Vector2f& iPoint ) const
 void
 cHudTransformation::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
+	if( !mIsHUDValid )
+		return;
+
     for( int i = 0; i < mScaleHandles.size(); ++i )
     {
         sf::Vector2f mouseCoordMapped( iRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) ) );
@@ -157,6 +150,9 @@ cHudTransformation::mousePressEvent( QMouseEvent *iEvent, const sf::RenderWindow
 void
 cHudTransformation::mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
+	if( !mIsHUDValid )
+		return;
+
     sf::Vector2f currentPos = iRenderWindow->mapPixelToCoords( sf::Vector2i( iEvent->x(), iEvent->y() ) );
     sf::Vector2f offset = mOriginPosition - currentPos;
 
@@ -215,6 +211,9 @@ cHudTransformation::mouseMoveEvent( QMouseEvent *iEvent, const sf::RenderWindow*
 void
 cHudTransformation::mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWindow* iRenderWindow )
 {
+	if( !mIsHUDValid )
+		return;
+
     if( mCurrentHandle )
         mCurrentHandle->mouseReleaseEvent( iEvent, iRenderWindow );
 

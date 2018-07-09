@@ -19,6 +19,12 @@ public:
     cProjectHierarchyViewer( QWidget *parent = Q_NULLPTR );
 
 
+public:
+	// Events
+	virtual  void contextMenuEvent( QContextMenuEvent* iEvent ) override;
+
+
+
 public  slots:
     void  ProjectLoaded( ::nProject::cProject* iProject );
 

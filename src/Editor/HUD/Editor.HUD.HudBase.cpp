@@ -1,8 +1,9 @@
 #include "Editor.HUD.HudBase.h"
 
 #include "Core.ECS.Core.Entity.h"
-
 #include "Core.ECS.Component.Position.h"
+
+#include "Core.Render.Layer.h"
 
 namespace  nQt {
 namespace  nHUD {
@@ -27,26 +28,31 @@ cHudBase::cHudBase( ::nECS::cEntity * iEntity ) :
 
 
 float
-cHudBase::GetXPosition() const
+cHudBase::GetXPosition()
 {
-    auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-    return  position->X();
+	return  GetPosition().x;
 }
 
 
 float
-cHudBase::GetYPosition() const
+cHudBase::GetYPosition()
 {
-    auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-    return  position->Y();
+    return  GetPosition().y;
 }
 
 
 sf::Vector2f
-cHudBase::GetPosition() const
+cHudBase::GetPosition()
 {
     auto position = dynamic_cast< ::nECS::cPosition* >( mEntity->GetComponentByName( "position" ) );
-    return  position->AsVector2F();
+	if( !position )
+	{
+		mIsHUDValid = false;
+		return sf::Vector2f( 0.0F, 0.0F );
+	}
+
+	auto	layer	= mEntity->Layer();
+    return  layer->MapVectToLayer( position->AsVector2F() );
 }
 
 

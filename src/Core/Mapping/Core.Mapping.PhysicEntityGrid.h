@@ -68,7 +68,8 @@ public:
 	bool IsEntityInGrid( const ::nECS::cEntity* iEntity ) const;
     void UpdateEntity( ::nECS::cEntity* iEntity );
 
-private:
+protected:
+    void RemoveEntityHard( ::nECS::cEntity* iEntity ); // Removes an entity without using components, meaning, it'll look for all references by hand, and remove them
     void SetEntityInGrid( ::nECS::cEntity* iEntity );
 
 private:

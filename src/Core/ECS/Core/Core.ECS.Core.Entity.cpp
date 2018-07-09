@@ -87,6 +87,8 @@ cEntity::LeaveAllSystems()
 {
     for( int i = 0; i < mObserverSystems.size(); ++i )
         mObserverSystems[ i ]->EntityLost( this );
+
+	mObserverSystems.clear();
 }
 
 
@@ -108,8 +110,6 @@ cEntity::AddComponent( ::nECS::cComponent * iComponent )
         LeaveAllSystems();
         mWorld->UpdateWorldWithEntity( this );
     }
-
-	delete  iComponent;
 
     IncIDForHandles();
 }
@@ -201,13 +201,17 @@ void
 cEntity::RemoveComponentAtIndex( int iIndex )
 {
 	::nECS::cComponent* component = mComponents[ iIndex ].value;
-    mComponents.erase( mComponents.begin() + iIndex );
 
     if( mLoaded )
     {
         LeaveAllSystems();
+		mComponents.erase( mComponents.begin() + iIndex );
         mWorld->UpdateWorldWithEntity( this );
     }
+	else // Yes erase is done in both cases, but first case require it to be
+	{
+		mComponents.erase( mComponents.begin() + iIndex );
+	}
 
 	delete  component;
 

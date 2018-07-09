@@ -93,7 +93,11 @@ cTreeWrapperNode::RemoveChildrenAtIndex( int iIndex, int iCount )
 
     for( int i = 0; i < iCount; ++i )
     {
-        delete  mChildren[ iIndex ]; // iIndex will remain valid as we remove -> everythong shifts left
+		//LEAK:
+		// This will leak for now ...
+		// Because when drag and dropping systems in tree views, at still refers the deleted element ...
+		//TODO: see why/ learn to do a proper drag and drop in tree views
+        //delete  mChildren[ iIndex ]; // iIndex will remain valid as we remove -> everythong shifts left
         mChildren.erase( mChildren.begin() + iIndex );
     }
 

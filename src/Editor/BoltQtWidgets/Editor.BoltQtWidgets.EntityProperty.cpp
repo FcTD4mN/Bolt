@@ -10,6 +10,7 @@
 
 #include <QTreeWidget>
 #include <QComboBox>
+#include <QMutexLocker>
 
 cEntityProperty::~cEntityProperty()
 {

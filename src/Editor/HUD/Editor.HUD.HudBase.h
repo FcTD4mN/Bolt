@@ -22,9 +22,9 @@ public:
     virtual  void Draw( sf::RenderTarget* iRenderTarget ) = 0;
 
 public:
-    float  GetXPosition() const;
-    float  GetYPosition() const;
-    sf::Vector2f GetPosition() const;
+    float  GetXPosition();
+    float  GetYPosition();
+    sf::Vector2f GetPosition();
     ::nECS::cEntity*  Entity();
 
 public:

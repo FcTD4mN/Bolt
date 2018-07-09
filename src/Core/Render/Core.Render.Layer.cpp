@@ -37,6 +37,8 @@ cLayer::cLayer( const sf::Vector2f& iViewSize ) :
     mView.setSize( iViewSize );
     if( mZLayer == 0.0F )
         mZLayer = 1.0F;
+
+	mEntityGrid = new ::nMapping::cPhysicEntityGrid( 100, 100, 32 );
 }
 
 
@@ -109,6 +111,9 @@ cLayer::AddEntity( ::nECS::cEntity * iEntity )
 
 	mEntityGrid->AddEntity( iEntity );
     mEntities.insert( it, iEntity );
+
+	iEntity->mContainerLayer = this;
+
 	return  index;
 }
 
@@ -126,6 +131,7 @@ cLayer::RemoveEntity( ::nECS::cEntity * iEntity )
 	}
 
 	mEntityGrid->RemoveEntity( iEntity );
+	iEntity->mContainerLayer = 0;
 }
 
 

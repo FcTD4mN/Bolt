@@ -144,6 +144,33 @@ cEntityGrid::UpdateEntity( ::nECS::cEntity* iEntity )
 
 
 void
+cEntityGrid::RemoveEntityHard( ::nECS::cEntity * iEntity )
+{
+	for( auto cell : mEntityMap )
+	{
+		auto removedIterator = std::remove_if( cell.second.begin(),
+						cell.second.end(),
+						[ iEntity ] ( ::nECS::cEntity* iEnt )
+		{
+							return  iEnt == iEntity;
+		});
+
+		if( removedIterator != cell.second.end() )
+			cell.second.erase( removedIterator );
+	}
+
+	mAllEntities.erase(
+						std::remove_if( mAllEntities.begin(),
+										mAllEntities.end(),
+										[ iEntity ] ( ::nECS::cEntity* iEnt )
+										{
+											return  iEnt == iEntity;
+										}
+	) );
+}
+
+
+void
 cEntityGrid::SetEntityInGrid( ::nECS::cEntity* iEntity )
 {
     if( !IsEntityValid( iEntity ) )
@@ -448,6 +475,16 @@ cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nE
     auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
     auto size = dynamic_cast< ::nECS::cSize* >( iEntity->GetComponentByName( "size" ) );
 
+	if( !position || !simplephysic )
+	{
+		RemoveEntityHard( iEntity );
+		*oX		= 0;
+		*oX2	= 0;
+		*oY		= 0;
+		*oY2	= 0;
+		return;
+	}
+
     sf::Vector2f entityCenter = position->AsVector2F();
 	if( iRelative == kOldValue )
 		entityCenter = position->PreviousPosition();
@@ -495,6 +532,13 @@ void
 cPositionSizeGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nECS::cEntity * iEntity, eRelative iRelative )
 {
     auto position = dynamic_cast< ::nECS::cPosition* >( iEntity->GetComponentByName( "position" ) );
+
+	if( !position )
+	{
+		RemoveEntityHard( iEntity );
+		return;
+	}
+
     double x = position->X();
     double y = position->Y();
 	if ( iRelative == kOldValue )

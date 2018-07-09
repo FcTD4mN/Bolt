@@ -119,7 +119,6 @@ void
 cWorld::PutEntityInLayer( cEntity * iEntity, int iLayerIndex )
 {
     mLayerEngine->AddEntityInLayer( iEntity, iLayerIndex );
-	iEntity->mContainerLayer = mLayerEngine->LayerAtIndex( iLayerIndex );
 }
 
 
@@ -224,13 +223,44 @@ cWorld::IsIDUnique( const std::string & iID ) const
 void
 cWorld::AddSystem( cSystem * iSystem )
 {
-    mSystems.push_back( iSystem );
-    iSystem->mWorld = this;
-    iSystem->Initialize();
-    for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
-    {
-        iSystem->IncomingEntity( it->second );
-    }
+    InsertSystem( iSystem, int(mSystems.size()) );
+}
+
+
+void
+cWorld::InsertSystem( cSystem * iSystem, int iIndex )
+{
+	auto sysIT = mSystems.begin();
+	for( int i = 0; i < iIndex; ++i )
+	{
+		if( sysIT == mSystems.end() )
+			break;
+
+		++sysIT;
+	}
+
+	mSystems.insert( sysIT, iSystem );
+	iSystem->mWorld = this;
+	iSystem->Initialize();
+	for( auto it = mEntity.begin(); it != mEntity.end(); ++it )
+		iSystem->IncomingEntity( it->second );
+}
+
+
+void
+cWorld::RemoveSystem( cSystem * iSystem )
+{
+	auto it = mSystems.begin();
+	for( auto sys : mSystems )
+	{
+		if( sys == iSystem )
+			break;
+		++it;
+	}
+
+	mSystems.erase( it );
+	iSystem->mWorld = 0;
+	iSystem->Finalize();
 }
 
 

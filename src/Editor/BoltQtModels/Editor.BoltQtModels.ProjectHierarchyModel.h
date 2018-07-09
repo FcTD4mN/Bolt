@@ -50,11 +50,14 @@ public:
 
 
 		// Drag n Drop
-	//virtual QStringList		mimeTypes() const;
-	virtual QMimeData*		mimeData(const QModelIndexList &indexes) const;
-	virtual bool			canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const;
-	virtual bool			dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
-	virtual Qt::DropActions supportedDropActions() const;
+	virtual  QMimeData*		mimeData( const QModelIndexList & indexes ) const override;
+	virtual bool			canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const override;
+	virtual bool			dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
+	virtual Qt::DropActions supportedDropActions() const override;
+
+public:
+	QStringList		ContextualMenuAllowedActionForIndex( QModelIndex iIndex );
+	void			ExecuteActionOnIndex( const QString& iAction, const QModelIndex& iIndex );
 
 public:
     cTreeWrapperNode * ExtractTreeWrapper( const QModelIndex& iIndex ) const;

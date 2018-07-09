@@ -121,6 +121,12 @@ cProjectHierarchyModel::flags( const QModelIndex & iIndex ) const
 	if( node->Type() == "Layer" )
 		return  QAbstractItemModel::flags( iIndex ) | Qt::ItemIsDropEnabled;
 
+	if( node->Type() == "System" )
+		return  QAbstractItemModel::flags( iIndex ) | Qt::ItemIsDragEnabled;
+
+	if( node->DataAtColumn( 0 ) == "Systems" ) // System "folder"
+		return  QAbstractItemModel::flags( iIndex ) | Qt::ItemIsDropEnabled;
+
     return QAbstractItemModel::flags( iIndex );
 }
 
@@ -249,7 +255,7 @@ cProjectHierarchyModel::removeColumns( int iIndex, int iCount, const QModelIndex
 bool
 cProjectHierarchyModel::insertRows( int iIndex, int iCount, const QModelIndex & parent )
 {
-    return false;
+    return true;
 }
 
 
@@ -314,7 +320,7 @@ cProjectHierarchyModel::mimeData( const QModelIndexList & indexes ) const
 	{
 		if( index.isValid() )
 		{
-			auto node = dynamic_cast< cTreeWrapperNodeHierarchyEntity* >( ExtractTreeWrapper( index ) );
+			auto node = ExtractTreeWrapper( index );
 			if( node )
 			{
 				QVariant pointerLong = (long long)(node);
@@ -323,7 +329,7 @@ cProjectHierarchyModel::mimeData( const QModelIndexList & indexes ) const
 		}
 	}
 
-	mimeData->setData("application/oui", encodedData);
+	mimeData->setData("application/treewrappernode", encodedData);
 
 	return mimeData;
 }
@@ -332,29 +338,53 @@ cProjectHierarchyModel::mimeData( const QModelIndexList & indexes ) const
 bool
 cProjectHierarchyModel::canDropMimeData( const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent ) const
 {
-	return  true;
+	QByteArray	encodedData = data->data("application/treewrappernode");
+	QDataStream stream( &encodedData, QIODevice::ReadOnly );
+
+	auto parentNode = ExtractTreeWrapper( parent );
+
+	while ( !stream.atEnd() )
+	{
+		// Getting the item droped's node first
+		QVariant data;
+		stream >> data;
+		auto treeNode = (cTreeWrapperNode*)( data.toLongLong() );
+
+		// Then, we accept if the target is acceptable
+		if( parentNode->Type() == "Layer" )
+			return  treeNode->Type() == "Entity";
+
+		if( treeNode->Type() == "System" )
+			return  parentNode->DataAtColumn( 0 ) == "Systems";
+	}
+
+	return  false;
 }
 
 
 bool
 cProjectHierarchyModel::dropMimeData( const QMimeData * data, Qt::DropAction action, int row, int column, const QModelIndex & parent )
 {
-	auto		node		= ExtractTreeWrapper( parent );
-	QByteArray	encodedData = data->data("application/oui");
+	QByteArray	encodedData = data->data("application/treewrappernode");
 	QDataStream stream( &encodedData, QIODevice::ReadOnly );
 
 	auto parentNode = ExtractTreeWrapper( parent );
 
-	if( parentNode->Type() == "Layer" )
+	while ( !stream.atEnd() )
 	{
-		auto  parentNodeAsLayer = dynamic_cast< cTreeWrapperNodeHierarchyLayer* >( parentNode );
-		auto theLayer = parentNodeAsLayer->Layer();
+		// Getting the item droped's node first
+		QVariant data;
+		stream >> data;
+		auto treeNode = (cTreeWrapperNode*)( data.toLongLong() );
 
-		while ( !stream.atEnd() )
+		// Then, we do accordingly to type
+
+		// ENTITIES & LAYERS
+		if( parentNode->Type() == "Layer" )
 		{
-			QVariant data;
-			stream >> data;
-			auto entityNode = (cTreeWrapperNodeHierarchyEntity*)( data.toLongLong() );
+			auto  parentNodeAsLayer = dynamic_cast< cTreeWrapperNodeHierarchyLayer* >( parentNode );
+			auto  theLayer			= parentNodeAsLayer->Layer();
+			auto  entityNode		= dynamic_cast< cTreeWrapperNodeHierarchyEntity* >( treeNode );
 
 			// First remove from old layer
 			auto originLayer = dynamic_cast< cTreeWrapperNodeHierarchyLayer* >( entityNode->Parent() )->Layer();
@@ -366,10 +396,41 @@ cProjectHierarchyModel::dropMimeData( const QMimeData * data, Qt::DropAction act
 			// Update the tree : we don't have to do the remove, it's done automatically
 			auto newNode = new cTreeWrapperNodeHierarchyEntity( entityNode->Entity() );
 			parentNode->InsertChild( newNode, index );
+
+			return  true; // Model will automatically handle old values and call a removerows where needed
+		}
+
+		// SYSTEMS
+		if( parentNode->DataAtColumn( 0 ) == "Systems" )
+		{
+			auto  screenNode	= dynamic_cast< cTreeWrapperNodeHierarchyScreen* >( parentNode->Parent() );
+			auto  systemNode	= dynamic_cast< cTreeWrapperNodeHierarchySystem* >( treeNode );
+
+			::nECS::cSystem* system = systemNode->System();
+			::nScreen::cScreen* screen = screenNode->Screen();
+
+			// Index correction, as we remove first the systemNode from its old position, the insertion might shift
+			int insertionIndex = row;
+			int oldIndexSystem = systemNode->IndexInParent();
+			if( oldIndexSystem < row )
+				--insertionIndex;
+
+			// First remove from world
+			screen->World()->RemoveSystem( system );
+			// Insert at new location
+			screen->World()->InsertSystem( system, insertionIndex );
+
+			// Now we remove from tree wrapper, and then insert it again, with correction of index if required
+			removeRow( oldIndexSystem, parent ); // Here, parent is the same for the system, as we drag and drop within the System sub category
+
+			auto newNode = new cTreeWrapperNodeHierarchySystem( 0, system );
+			parentNode->InsertChild( newNode, insertionIndex );
+
+			return  false;
 		}
 	}
 
-	return  true;
+	return  false;
 }
 
 
@@ -377,6 +438,96 @@ Qt::DropActions
 cProjectHierarchyModel::supportedDropActions() const
 {
 	return  Qt::MoveAction;
+}
+
+
+QStringList
+cProjectHierarchyModel::ContextualMenuAllowedActionForIndex( QModelIndex iIndex )
+{
+	QStringList outputList;
+
+	auto treeNode = ExtractTreeWrapper( iIndex );
+
+	// ELEMENTS NODE
+	if( treeNode->Type() == "Screen" )
+	{
+		outputList.push_back( "Create" );
+		outputList.push_back( "Delete" );
+		outputList.push_back( "Rename" );
+	}
+	else if( treeNode->Type() == "Layer" )
+	{
+		outputList.push_back( "Create" );
+		outputList.push_back( "Delete" );
+		outputList.push_back( "Rename" );
+	}
+	else if( treeNode->Type() == "System" )
+	{
+		outputList.push_back( "Add" );
+		outputList.push_back( "Remove" );
+	}
+
+	// ROOT NODES
+	else if( treeNode->DataAtColumn( 0 ) == "Systems" )
+	{
+		outputList.push_back( "Add" );
+	}
+	else if( treeNode->DataAtColumn( 0 ) == "Screens" )
+	{
+		outputList.push_back( "Create" );
+	}
+	else if( treeNode->DataAtColumn( 0 ) == "Layers" )
+	{
+		outputList.push_back( "Create" );
+	}
+
+	return  outputList;
+}
+
+
+void
+cProjectHierarchyModel::ExecuteActionOnIndex( const QString& iAction, const QModelIndex& iIndex )
+{
+	auto treeNode = ExtractTreeWrapper( iIndex );
+
+	if( treeNode->DataAtColumn( 0 ) == "Layers" && iAction == "Create" )
+	{
+		auto  screenNode	= dynamic_cast< cTreeWrapperNodeHierarchyScreen* >( treeNode->Parent() );
+
+		::nScreen::cScreen* screen = screenNode->Screen();
+		auto layerEngine = screen->World()->LayerEngine();
+
+		layerEngine->AddLayer();
+
+		beginInsertRows( iIndex, layerEngine->LayerCount() -1, layerEngine->LayerCount() -1 );
+			new cTreeWrapperNodeHierarchyLayer( treeNode, layerEngine->LayerAtIndex( layerEngine->LayerCount() - 1 ) );
+		endInsertRows();
+	}
+	else if( treeNode->Type() == "Layer" && iAction == "Create" )
+	{
+		auto  screenNode	= dynamic_cast< cTreeWrapperNodeHierarchyScreen* >( treeNode->Parent()->Parent() );
+
+		::nScreen::cScreen* screen = screenNode->Screen();
+		auto layerEngine = screen->World()->LayerEngine();
+
+		layerEngine->AddLayerAtIndex( iIndex.row() );
+
+		beginInsertRows( iIndex.parent(), iIndex.row(), iIndex.row() );
+			auto newNode = new cTreeWrapperNodeHierarchyLayer( 0, layerEngine->LayerAtIndex( iIndex.row() ) );
+			treeNode->Parent()->InsertChild( newNode, iIndex.row() );
+		endInsertRows();
+	}
+	else if( treeNode->Type() == "System" && iAction == "Remove" )
+	{
+		auto  screenNode	= dynamic_cast< cTreeWrapperNodeHierarchyScreen* >( treeNode->Parent()->Parent() );
+		auto  systemNode	= dynamic_cast< cTreeWrapperNodeHierarchySystem* >( treeNode );
+
+		::nECS::cSystem* system = systemNode->System();
+		::nScreen::cScreen* screen = screenNode->Screen();
+
+		screen->World()->RemoveSystem( system );
+		removeRow( systemNode->IndexInParent(),	iIndex.parent() );
+	}
 }
 
 } //nQt

@@ -60,7 +60,7 @@ cGameScreen::Initialize()
 {
     tSuperClass::Initialize();
 
-    ::nGlobal::cGlobalProperties::Instance()->SetProjectFolder( "I:/ProjectTest/" );
+    //::nGlobal::cGlobalProperties::Instance()->SetProjectFolder( "I:/ProjectTest/" );
 
     ::nECS::cWorld* world = mWorld;
     world->SetUseLayerEngine( true );  // 114 FPS average without layers ; 103 with layers

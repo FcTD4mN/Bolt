@@ -62,6 +62,8 @@ public:
 public:
     // Systems
     void        AddSystem( cSystem* iSystem );
+    void        InsertSystem( cSystem* iSystem, int iIndex );
+	void		RemoveSystem( cSystem* iSystem );
     void        ConnectSystemToEvents( cSystem* iSystem );
     cSystem*    GetSystemAtIndex( int iIndex );
 
@@ -109,16 +111,16 @@ public:
 
 protected:
     std::unordered_map< std::string, cEntity* > mEntity;
-    std::vector< cEntity* > mEntitiesToDestroy;
+    std::vector< cEntity* >						mEntitiesToDestroy;
 
-    std::vector< cSystem* > mSystems;
-    std::vector< cSystem* > mEventRelatedSystems;
+    std::vector< cSystem* >						mSystems;
+    std::vector< cSystem* >						mEventRelatedSystems;
 
-    ::nMapping::cEntityGrid*    mEntityMap;
+    ::nMapping::cEntityGrid*					mEntityMap;
 
-public: // TEMP until main camera thing
-    ::nRender::cLayerEngine*    mLayerEngine;
-    bool                        mUseLayerEngine;
+public:
+    ::nRender::cLayerEngine*					mLayerEngine;
+    bool										mUseLayerEngine;
 };
 
 

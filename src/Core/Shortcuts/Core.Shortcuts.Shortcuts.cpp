@@ -1,6 +1,9 @@
 ﻿ #include "Core.Shortcuts.Shortcuts.h"
 
 
+#include "Core.Application.GlobalAccess.h"
+
+
 #include <fstream>
 #include <sstream>
 
@@ -86,6 +89,8 @@ cShortcuts::GetActionForKey( sf::Keyboard::Key iKey )
 void
 cShortcuts::SaveXML()
 {
+	std::string filePath = ::nGlobal::cGlobalProperties::Instance()->GetProjectFolder() + "/shortcuts.xml";
+
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLElement* elm = doc.NewElement( "shortcuts" );
 
@@ -101,15 +106,16 @@ cShortcuts::SaveXML()
 
     doc.InsertFirstChild( elm );
 
-    tinyxml2::XMLError error = doc.SaveFile( "shortcuts.xml" );
+    tinyxml2::XMLError error = doc.SaveFile( filePath.c_str() );
 }
 
 
 void
 cShortcuts::LoadXML()
 {
+	std::string filePath = ::nGlobal::cGlobalProperties::Instance()->GetProjectFolder() + "/shortcuts.xml";
     tinyxml2::XMLDocument doc;
-    tinyxml2::XMLError error = doc.LoadFile( "shortcuts.xml" );
+    tinyxml2::XMLError error = doc.LoadFile( filePath.c_str() );
 
     for( tinyxml2::XMLElement* entry = doc.FirstChildElement( "shortcuts" )->FirstChildElement( "entry"); entry; entry = entry->NextSiblingElement() )
     {
