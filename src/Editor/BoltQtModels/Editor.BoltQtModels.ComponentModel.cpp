@@ -234,7 +234,7 @@ cComponentModel::AddNewVariable()
 
 
 bool
-cComponentModel::RemoveVariable( QModelIndex & iIndex )
+cComponentModel::RemoveVariable( const QModelIndex& iIndex )
 {
     cTreeWrapperNode* item = ExtractTreeWrapper( iIndex );
     cTreeWrapperNode* parent = item->Parent();

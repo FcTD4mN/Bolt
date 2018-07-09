@@ -72,7 +72,7 @@ cComponentListModel::AddNewComponent()
 
 
 void
-cComponentListModel::RemoveComponent( QModelIndex & iIndex )
+cComponentListModel::RemoveComponent( const QModelIndex& iIndex )
 {
     // Removing the file
     std::string compName = data( iIndex, Qt::DisplayRole ).toString().toStdString();

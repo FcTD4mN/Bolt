@@ -315,7 +315,7 @@ cEntityModel::AddEmptyComponent()
 
 
 bool
-cEntityModel::RemoveComponent( QModelIndex & iIndex )
+cEntityModel::RemoveComponent( const QModelIndex& iIndex )
 {
     cTreeWrapperNode* item = ExtractTreeWrapper( iIndex );
     cTreeWrapperNode* parent = item->Parent();

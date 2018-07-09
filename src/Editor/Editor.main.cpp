@@ -4,8 +4,9 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
 
+#ifdef WINDOWS
 #include <Windows.h>
-
+#endif // WINDOWS
 
 int
 MainFunction( int argc, char *argv[] )
@@ -23,6 +24,7 @@ MainFunction( int argc, char *argv[] )
     return App.exec();
 }
 
+#ifdef WINDOWS
 // This is the main for console application ( we use console for debugging purposes mainly )
 #ifdef _DEBUG
 int
@@ -44,3 +46,12 @@ WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR  lpCmdLine,  int  n
     return  MainFunction( argc, (char**)argList );
 }
 #endif
+#else
+
+int
+main( int argc, char *argv[] )
+{
+    return  MainFunction( argc, argv );
+}
+
+#endif // WINDOWS

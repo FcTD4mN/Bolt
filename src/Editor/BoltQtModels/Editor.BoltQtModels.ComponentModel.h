@@ -44,7 +44,7 @@ public:
     bool removeRows( int iIndex, int iCount, const QModelIndex &parent = QModelIndex() ) override;
 
     bool AddNewVariable();
-    bool RemoveVariable( QModelIndex& iIndex );
+    bool RemoveVariable( const QModelIndex& iIndex );
 
 
 public:

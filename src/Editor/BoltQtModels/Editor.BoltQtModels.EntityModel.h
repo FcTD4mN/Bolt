@@ -43,7 +43,7 @@ public:
     bool removeRows( int iIndex, int iCount, const QModelIndex &parent = QModelIndex() ) override;
 
     bool AddEmptyComponent();
-    bool RemoveComponent( QModelIndex& iIndex );
+    bool RemoveComponent( const QModelIndex& iIndex );
     void UpdateModelByComponentName( const QString& iName );
 
 public:
