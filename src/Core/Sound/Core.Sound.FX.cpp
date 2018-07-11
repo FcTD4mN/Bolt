@@ -23,7 +23,7 @@ sf::SoundBuffer Reverb( const sf::SoundBuffer & iBuffer, int iReverbDelayInMS )
     }
 
     reverbSound.loadFromSamples( reverbBuffer, iBuffer.getSampleCount(), iBuffer.getChannelCount(), iBuffer.getSampleRate() );
-    delete  reverbBuffer;
+    delete[]  reverbBuffer;
 
     return  reverbSound;
 }
@@ -48,7 +48,7 @@ LowPassFilter( const sf::SoundBuffer & iBuffer, double iValue )
 
 
     reverbSound.loadFromSamples( reverbBuffer, iBuffer.getSampleCount(), iBuffer.getChannelCount(), iBuffer.getSampleRate() );
-    delete  reverbBuffer;
+    delete[]  reverbBuffer;
 
     return  reverbSound;
 }

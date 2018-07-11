@@ -225,12 +225,12 @@ cLayer::AddShader( ::nShaders::cShader2D* iShader )
     if( !mShaderRenderTextureInput )
     {
         mShaderRenderTextureInput = new sf::RenderTexture();
-        mShaderRenderTextureInput->create( unsigned int(mView.getSize().x), unsigned int(mView.getSize().y) );
+        mShaderRenderTextureInput->create( (unsigned int)(mView.getSize().x), (unsigned int)(mView.getSize().y) );
     }
     if( !mShaderRenderTextureOutput )
     {
         mShaderRenderTextureOutput = new sf::RenderTexture();
-        mShaderRenderTextureOutput->create( unsigned int(mView.getSize().x), unsigned int(mView.getSize().y) );
+        mShaderRenderTextureOutput->create( (unsigned int)(mView.getSize().x), (unsigned int)(mView.getSize().y) );
     }
 }
 

@@ -1,4 +1,6 @@
-﻿#include "Thread-TriangleSpliterProcessor.h"
+﻿#ifdef USE_TRIANGLE_SPLITER_PROCESSOR
+
+#include "Thread-TriangleSpliterProcessor.h"
 
 #include "Base/Utilities.h"
 #include "Math/Utils.h"
@@ -118,3 +120,4 @@ cTriangleSplitterProcessor::WaitIteration()
         std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
 }
 
+#endif // USE_TRIANGLE_SPLITER_PROCESSOR

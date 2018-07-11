@@ -1,7 +1,4 @@
-﻿#pragma once
-
-
-#include "Core.Volumetric.Static.VUtils.h"
+﻿#include "Core.Volumetric.Static.VUtils.h"
 
 
 namespace  nVolumetric {

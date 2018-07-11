@@ -14,7 +14,13 @@
 
 
 
+#ifdef WINDOWS
 #include <filesystem>
+namespace nFileSystem = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace nFileSystem = std::experimental::filesystem;
+#endif // WINDOWS
 
 
 namespace nApplication {
@@ -74,7 +80,7 @@ cApplication::NewProject( const std::string & iProjectFile )
         delete  mProject;
     }
 
-    std::filesystem::path projectPath = iProjectFile;
+    nFileSystem::path projectPath = iProjectFile;
 
     mProject = new ::nProject::cProject( projectPath.stem().string(), projectPath.parent_path().string() );
     mProject->Initialize();
@@ -100,7 +106,7 @@ cApplication::LoadProject( const std::string & iProjectFile )
         delete  mProject;
     }
 
-    std::filesystem::path projectPath = iProjectFile;
+    nFileSystem::path projectPath = iProjectFile;
 
     mProject = new ::nProject::cProject( projectPath.filename().string(), projectPath.parent_path().string() );
     mProject->Initialize();

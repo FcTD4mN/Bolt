@@ -231,7 +231,7 @@ void
 cSpriteAnimated::SetSpriteSheet( const std::string & iFile )
 {
 	std::string projFolder = ::nGlobal::cGlobalProperties::Instance()->GetProjectFolder();
-    mSpriteSheet = ::nBase::cResourceManager::Instance()->GetTexture( projFolder + iFile );
+    mSpriteSheet = ::nBase::cResourceManager::Instance()->GetTexture( projFolder + "/" + iFile );
     mSprite.setTexture( *mSpriteSheet );
 
     mSprite.setOrigin( sf::Vector2f( float( mCurrentSpriteRect.width / 2 ), float( mCurrentSpriteRect.height / 2 ) ) );

@@ -4,8 +4,14 @@
 
 #include "SFML/Graphics.hpp"
 #include <string>
-#include <filesystem>
 
+#ifdef WINDOWS
+#include <filesystem>
+namespace nFileSystem = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace nFileSystem = std::experimental::filesystem;
+#endif // WINDOWS
 
 namespace nShaders {
 
@@ -28,10 +34,10 @@ public:
 public:
     // Get/Set
     sf::Shader* GetSFShader();
-    const std::filesystem::path& GetPathToProgram() const;
+    const nFileSystem::path& GetPathToProgram() const;
 
 private:
-    std::filesystem::path   mPathToProgram;
+    nFileSystem::path   mPathToProgram;
     sf::Shader*             mTheShader;
 };
 

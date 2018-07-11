@@ -10,6 +10,7 @@
 
 #include <chrono>
 #include <ctime>
+#include <cmath>
 #include <functional>
 
 
@@ -93,7 +94,7 @@ VectorContainsElement( const std::vector< T >& iVector, const T& iElm )
 
 // Time stuff
 inline
-__int64
+int64_t
 GetCurrentTime()
 {
     auto time_point = std::chrono::high_resolution_clock::now();
@@ -185,17 +186,17 @@ Collinear( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2 )
     if( iVector1 == iVector2 )
         return  true;
 
-    bool x10 = abs(iVector1.x) < precision;
-    bool y10 = abs(iVector1.y) < precision;
-    bool x20 = abs(iVector2.x) < precision;
-    bool y20 = abs(iVector2.y) < precision;
+    bool x10 = std::abs(iVector1.x) < precision;
+    bool y10 = std::abs(iVector1.y) < precision;
+    bool x20 = std::abs(iVector2.x) < precision;
+    bool y20 = std::abs(iVector2.y) < precision;
     if( x10 && x20 ) return  true;
     if( y10 && y20 ) return  true;
 
     if( x10 != x20 ) return  false;
     if( y10 != y20 ) return  false;
 
-    return  abs(( iVector1.x / iVector2.x ) - ( iVector1.y / iVector2.y )) < precision;
+    return  std::abs(( iVector1.x / iVector2.x ) - ( iVector1.y / iVector2.y )) < precision;
 }
 
 inline
@@ -208,7 +209,7 @@ CollinearUsingAngles( const sf::Vector2f& iVector1, const sf::Vector2f& iVector2
     double angleA = GetAngleBetweenVectors( iVector1, gXAxisVector );
     double angleB = GetAngleBetweenVectors( iVector2, gXAxisVector );
 
-    return  abs( angleA - angleB ) < kEpsilonF;
+    return  std::abs( angleA - angleB ) < kEpsilonF;
 }
 
 
@@ -277,7 +278,7 @@ bool
 IsVectorEqualToVector( const sf::Vector2f& iVectorA, const sf::Vector2f& iVectorB )
 {
     sf::Vector2f sub = iVectorA - iVectorB;
-    if( abs( sub.x ) < kEpsilonF && abs( sub.y ) < kEpsilonF )
+    if( std::abs( sub.x ) < kEpsilonF && std::abs( sub.y ) < kEpsilonF )
         return  true;
 
     return  false;

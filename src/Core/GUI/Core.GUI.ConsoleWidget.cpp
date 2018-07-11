@@ -761,7 +761,7 @@ cConsoleWidget::TextEntered( const sf::Event& iEvent )
     CHECK_COLLAPSED
     // Handle ASCII characters only
     auto  unicode = iEvent.text.unicode;
-    bool  unicodeInput = unicode > 0X0020 && unicode < 0X007E || unicode == 32;
+    bool  unicodeInput = (unicode > 0X0020 && unicode < 0X007E) || unicode == 32;
 
     if( !unicodeInput )
         return;
@@ -1011,7 +1011,7 @@ cConsoleWidget::ProcessCTRLVPressed()
 
     // Append clipboard text content to input content
     std::string clipboardStr = ::nBase::GetClipboardText();
-    int end = int( clipboardStr.find( char( '\r\n' ) ) );
+    int end = int( clipboardStr.find( "\r\n" ) );
     clipboardStr = clipboardStr.substr( 0, end );
 
     std::string inputStr = mInputText.getString();

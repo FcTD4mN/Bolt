@@ -222,7 +222,7 @@ cEntity::RemoveComponentAtIndex( int iIndex )
 unsigned int
 cEntity::GetComponentCount() const
 {
-    return  unsigned int( mComponents.size() );
+    return  (unsigned int)( mComponents.size() );
 }
 
 
@@ -275,7 +275,7 @@ cEntity::GetTagAtIndex( int iIndex )
 unsigned int
 cEntity::GetTagCount() const
 {
-    return  unsigned int( mTags.size() );
+    return  (unsigned int)( mTags.size() );
 }
 
 

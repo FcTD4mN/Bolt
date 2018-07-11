@@ -2,9 +2,10 @@
 
 
 #include <GL/glew.h>
-#include <gl/GLU.h>
+#include <GL/glu.h>
 #include "SFML/OpenGL.hpp"
 
+#include <cmath>
 
 namespace  nVolumetric {
 namespace  nStatic {
@@ -46,9 +47,9 @@ cSparseStaticLodChunk64Map::cSparseStaticLodChunk64Map() :
 cHashable3DKey
 cSparseStaticLodChunk64Map::KeyForIndices( tGlobalDataIndex iX, tGlobalDataIndex iY, tGlobalDataIndex iZ )  const
 {
-    tKeyComponent keyX = tKeyComponent( floor( double(iX) / 64. ) );
-    tKeyComponent keyY = tKeyComponent( floor( double(iY) / 64. ) );
-    tKeyComponent keyZ = tKeyComponent( floor( double(iZ) / 64. ) );
+    tKeyComponent keyX = tKeyComponent( std::floor( double(iX) / 64. ) );
+    tKeyComponent keyY = tKeyComponent( std::floor( double(iY) / 64. ) );
+    tKeyComponent keyZ = tKeyComponent( std::floor( double(iZ) / 64. ) );
     return  cHashable3DKey( keyX, keyY, keyZ );
 }
 

@@ -3,7 +3,13 @@
 
 #include "SFML/Graphics.hpp"
 #include <string>
+#ifdef WINDOWS
 #include <filesystem>
+namespace nFileSystem = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace nFileSystem = std::experimental::filesystem;
+#endif
 
 
 namespace nShaders {
@@ -14,8 +20,8 @@ class cShaderFileLibrary
 public:
     struct stFileShaderPair
     {
-        sf::Shader*             mShader;
-        std::filesystem::path   mFilePath;
+        sf::Shader*         mShader;
+        nFileSystem::path   mFilePath;
     };
 
 private:

@@ -183,8 +183,7 @@ cBehaviourTreeV2::SetOnLeavingFunction( std::function< void( ::nECS::cEntity* ) 
 void
 cBehaviourTreeV2::DebugPRINT() const
 {
-    printf( mNodeID.c_str() );
-    printf( "\n" );
+    printf( "%s\n", mNodeID.c_str() );
 }
 
 

@@ -27,7 +27,7 @@ public:
 
 public:
     // Type
-    virtual std::string Type() const;
+    virtual std::string Type() const override;
 
 public:
     // Access/Get

@@ -1,7 +1,4 @@
-﻿#pragma once
-
-
-#include "Core.Volumetric.SparseOctree.Utils.h"
+﻿#include "Core.Volumetric.SparseOctree.Utils.h"
 
 
 namespace  nVolumetric {

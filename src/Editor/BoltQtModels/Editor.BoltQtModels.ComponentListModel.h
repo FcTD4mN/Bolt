@@ -26,7 +26,7 @@ public:
     virtual  QVariant headerData( int iSection, Qt::Orientation iOrientation, int iRole = Qt::DisplayRole ) const override;
 
     QModelIndex  AddNewComponent();
-    void         RemoveComponent( QModelIndex& iIndex );
+    void         RemoveComponent( const QModelIndex& iIndex );
     QModelIndex  GetComponentIndex( ::nECS::cComponent* iPrototype );
 
 private:

@@ -75,7 +75,7 @@ cComponentRegistry::Initialize( const std::string& iProjectDir )
     std::wstring path( mComponentDir.begin(), mComponentDir.end() );
 
     std::vector< std::wstring > fileNames;
-    ::nBase::ParseDirWindows( &fileNames, path );
+    ::nBase::ParseDir( &fileNames, path );
     tinyxml2::XMLDocument doc;
 
     for( int i = 0; i < fileNames.size(); ++i )

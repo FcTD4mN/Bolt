@@ -304,13 +304,13 @@ cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::set<::nECS::cEntit
     float dX = P2.x - P1.x;
     float dY = P2.y - P1.y;
 
-    if( abs( dX ) < kEpsilonF )
+    if( std::abs( dX ) < kEpsilonF )
     {
         GetEntitiesFollowingVLineFromEntity( oEntities, iEntitySrc, iEntityDst, int(P1.y), int(P2.y), int(P2.x) );
         return;
     }
 
-    if( abs( dY ) < kEpsilonF )
+    if( std::abs( dY ) < kEpsilonF )
     {
         GetEntitiesFollowingHLineFromEntity( oEntities, iEntitySrc, iEntityDst, int( P1.x ), int( P2.x ), int( P2.y ) );
         return;
@@ -319,7 +319,7 @@ cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::set<::nECS::cEntit
     float slope = dY / dX;
     float constant = P2.y - ( slope * P2.x );
 
-    if( abs( slope ) <= 1 )
+    if( std::abs( slope ) <= 1 )
     {
         for(  int i = int(std::min( P1.x, P2.x )); i < int(std::max( P1.x, P2.x )); ++i )
         {

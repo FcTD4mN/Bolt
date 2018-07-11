@@ -70,7 +70,7 @@ cEntityListModel::AddNewPrototype()
 
 
 void
-cEntityListModel::RemovePrototype( QModelIndex & iIndex )
+cEntityListModel::RemovePrototype( const QModelIndex& iIndex )
 {
     // Removing the file
     std::string entityName = data( iIndex, Qt::DisplayRole ).toString().toStdString();

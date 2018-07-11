@@ -20,9 +20,11 @@
 #include <unordered_map>
 #include <map>
 #include <string>
+#include <thread>
 
-
+#ifdef WINDOWS
 #include <windows.h>
+#endif // WINDOWS
 
 
 namespace  nBenchmark {
@@ -53,7 +55,11 @@ void VectorVsHMapvsMapBenchmark( int iSize, long long* oVecResult, long long* oH
         map[ std::to_string( i ) ] = i;
     }
 
+#ifdef WINDOWS
     Sleep( 2 );
+#else
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+#endif // WINDOWS
 
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -69,8 +75,11 @@ void VectorVsHMapvsMapBenchmark( int iSize, long long* oVecResult, long long* oH
 
     *oVecResult = end.count();
 
+#ifdef WINDOWS
     Sleep( 2 );
-
+#else
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+#endif // WINDOWS
 
     start = std::chrono::high_resolution_clock::now();
     auto temp = hMap.find( LAST_STR );
@@ -79,7 +88,11 @@ void VectorVsHMapvsMapBenchmark( int iSize, long long* oVecResult, long long* oH
 
     *oHMapResult = end.count();
 
+#ifdef WINDOWS
     Sleep( 2 );
+#else
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+#endif // WINDOWS
 
     start = std::chrono::high_resolution_clock::now();
     auto temp2 = map.find( LAST_STR );

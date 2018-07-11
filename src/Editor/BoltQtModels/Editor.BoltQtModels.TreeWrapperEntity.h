@@ -25,7 +25,7 @@ public:
 
 public:
     // Type
-    virtual std::string Type() const;
+    virtual std::string Type() const override;
 
 public:
     ::nECS::cEntity* Entity();
@@ -79,7 +79,7 @@ public:
 
 public:
     // Type
-    virtual std::string Type() const;
+    virtual std::string Type() const override;
 
 public:
     // Data

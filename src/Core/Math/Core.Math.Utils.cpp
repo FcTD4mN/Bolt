@@ -170,7 +170,7 @@ CCWWindedPolygonContainsPoint( const sf::VertexArray & iPolygon, const sf::Vecto
             cEdgeF::Intersect( &parameterA, &parameterB, iEdge, orthogonalite );
 
             // This means the point is ON the edge, so it's considered IN the polygon
-            if( abs( parameterB ) < kEpsilonF )
+            if( std::abs( parameterB ) < kEpsilonF )
                 return;
 
             sf::Vector2f projection = iEdge.mPoint + parameterA * iEdge.mDirection;
@@ -232,7 +232,7 @@ GetPolygonExtremesByAngle( sf::Vector2f* oMinVertex, sf::Vector2f* oMaxVertex, c
     for( int i = int(sortedVertexes.getVertexCount() - 1); i >= 0; --i )
     {
         double angle = GetAngleBetweenVectors2( gXAxisVector, sortedVertexes[ i ].position );
-        if( abs( angle - angleMax ) > kEpsilonF )
+        if( std::abs( angle - angleMax ) > kEpsilonF )
             break;
         ( *oMaxVertex ) = sortedVertexes[ i ].position;
     }
@@ -549,10 +549,10 @@ SortVertexesByAngle( const sf::VertexArray& iPolygon )
         bool equal = false;
         bool closer = false;
 
-        while( ( ( index < angleSort.size() ) && ( abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF ) )
+        while( ( ( index < angleSort.size() ) && ( std::abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF ) )
                || ( ( index < angleSort.size() ) && ( pair.angle > angleSort[ index ].angle ) ) )
         {
-            equal = abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF;
+            equal = std::abs( pair.angle - angleSort[ index ].angle ) < kEpsilonF;
             closer = pair.position.x < angleSort[ index ].position.x;
 
             if( equal && closer )
@@ -639,7 +639,7 @@ AddElementToVertexArrayUnique( sf::Vector2f & iElement, sf::VertexArray * oVArra
     {
         *oIndexOfExisting += 1;
         sf::Vector2f diff = (*oVArray)[ i ].position - iElement;
-        if( abs( diff.x ) < kEpsilonPixelF && abs( diff.y ) < kEpsilonPixelF ) // vertexes are supposed to represent pixel points in the end, so 0.01 difference = same point
+        if( std::abs( diff.x ) < kEpsilonPixelF && std::abs( diff.y ) < kEpsilonPixelF ) // vertexes are supposed to represent pixel points in the end, so 0.01 difference = same point
             return  false;
     }
 
@@ -658,7 +658,7 @@ AddElementToVectorUnique( sf::Vector2f& iElement, std::vector< sf::Vector2f >* o
     {
         *oIndexOfExisting += 1;
         sf::Vector2f diff = elm - iElement;
-        if( abs(diff.x) < kEpsilonPixelF && abs(diff.y) < kEpsilonPixelF ) // sfVector2f are supposed to represent pixel points in the end, so 0.01 difference = same point
+        if( std::abs(diff.x) < kEpsilonPixelF && std::abs(diff.y) < kEpsilonPixelF ) // sfVector2f are supposed to represent pixel points in the end, so 0.01 difference = same point
             return  false;
     }
 
