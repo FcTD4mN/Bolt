@@ -62,9 +62,11 @@ cEntity::cEntity( const cEntity& iEntity ) :
     mTags.reserve( iEntity.mTags.size() );
     for( auto it = iEntity.mComponents.begin(); it != iEntity.mComponents.end(); ++it )
     {
+        auto clonedComponent = it->value->Clone();
+        clonedComponent->mEntityOwner = this;
         sPair pair;
         pair.key = it->key;
-        pair.value = it->value->Clone();
+        pair.value = clonedComponent;
         mComponents.push_back( pair );
     }
     ++sgEntityCount;
@@ -105,6 +107,8 @@ cEntity::LeaveAllSystems()
 void
 cEntity::AddComponent( ::nCore::nECS::nCore::cComponent * iComponent )
 {
+    iComponent->mEntityOwner = this;
+
     sPair pair;
     pair.key = iComponent->Name();
     pair.value = iComponent;

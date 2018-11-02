@@ -9,12 +9,12 @@
 #include <vector>
 
 
-namespace nCore { namespace nRegistries { class cEntityRegistry; } }
-namespace nCore { namespace nRender     { class cLayer; } }
-namespace nCore { namespace nECS        { namespace nCore { class cComponent; } } }
-namespace nCore { namespace nECS        { namespace nCore { class cSystem; } } }
-namespace nCore { namespace nECS        { namespace nCore { class cWorld; } } }
-namespace nCore { namespace nECS        { namespace nCore { class cEntityHandle; } } }
+namespace nCore::nRegistries { class cEntityRegistry; }
+namespace nCore::nRender     { class cLayer; }
+namespace nCore::nECS::nCore { class cComponent; }
+namespace nCore::nECS::nCore { class cSystem; }
+namespace nCore::nECS::nCore { class cWorld; }
+namespace nCore::nECS::nCore { class cEntityHandle; }
 
 
 namespace nCore {

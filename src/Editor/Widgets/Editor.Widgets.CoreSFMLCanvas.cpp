@@ -566,7 +566,6 @@ CoreSFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
     for( auto hud : mEntityHUDs )
     {
         ::nCore::nECS::nCore::cEntity* entity = hud->Entity();
-        auto layer = entity->Layer();
 
         if( mNeedDuplication )
             mProjectModel->CloneEntity( entity );
@@ -589,19 +588,8 @@ CoreSFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
             newY = int( newY / mSnapGrid->Height() ) * mSnapGrid->Height();
         }
 
-        // Ugly as fuck, but for now it's the only correct approach
-        // changing X will set the previous values for the whole transformation component
-        // but then whan changing Y, it will do the same, and thus, we lose the previous previous X
-        // So if we call update once after both calls, we can't erase some old values, as we lost one step of x
-
-        // So this, is cost heavy, but it ensure correctness in data
-        // to resolve this, we need compressed variables, like a type Position and a type Size in Variant so that it's edited as one piece
-        // and not two numbers : X and Y
         transformation->X( newX );
-        layer->EntityGrid()->UpdateEntity( entity );
         transformation->Y( newY );
-        layer->EntityGrid()->UpdateEntity( entity );
-
 
         ++indexSync;
     }
@@ -648,23 +636,8 @@ CoreSFMLCanvas::EntityScaled( float iDeltaW, float iDeltaH )
             newH = int( newH / mSnapGrid->Height() ) * mSnapGrid->Height();
         }
 
-        ::nCore::nECS::nCore::cEntity* entity = hud->Entity();
-        auto layer = hud->Entity()->Layer();
-
-        // Ugly as fuck, but for now it's the only correct approach
-        // changing W will set the previous values for the whole transformation component
-        // but then whan changing H, it will do the same, and thus, we lose the previous previous Width
-        // So if we call update once after both calls, we can't erase some old values, as we lost one step of width
-
-        // So this, is cost heavy, but it ensure correctness in data
-        // to resolve this, we need compressed variables, like a type Position and a type Size in Variant so that it's edited as one piece
-        // and not two numbers : W and H
         transformation->W( newW );
-        layer->EntityGrid()->UpdateEntity( entity );
         transformation->H( newH );
-        layer->EntityGrid()->UpdateEntity( entity );
-
-
     }
 
     for( auto hud : mEntityHUDs )

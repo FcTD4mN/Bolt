@@ -166,13 +166,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             ::nCore::nBase::cVariant* positionY = transformation->GetVar( "y" );
 
             positionX->SetValueNumber( positionX->GetValueNumber() + simplephysic->mVelocity.x );
-            entityMap->UpdateEntity( entity ); // Doing it twice because changing a single value updates the previous rect*
             positionY->SetValueNumber( positionY->GetValueNumber() + simplephysic->mVelocity.y );
-            entityMap->UpdateEntity( entity ); // Doing it twice because changing a single value updates the previous rect*
-
-            //* TODO:
-            // This needs to be seen again, i can't understand why it doesn't work if i read explanation @src/Editor/Widgets/Editor.Widgets.CoreSFMLCanvas.cpp :: EntityMoved
-
 
             // Add it back at its new position
             simplephysic->InvalidCache();

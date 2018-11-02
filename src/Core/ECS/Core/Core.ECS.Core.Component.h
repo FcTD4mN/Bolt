@@ -17,8 +17,14 @@ namespace nECS {
 namespace nCore {
 
 
+class cEntity;
+
+
 class cComponent
 {
+
+    friend  cEntity; // So it can access the mEntityOwner var, and is the only class able to modify it
+
 
 public:
     // Contruction/Destruction
@@ -44,6 +50,7 @@ public:
 
 protected:
     std::string  mName;
+    cEntity*     mEntityOwner;
 };
 
 

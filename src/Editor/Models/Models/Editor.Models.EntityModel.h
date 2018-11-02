@@ -51,7 +51,7 @@ public:
 
 public:
     // ItemDelegate
-    virtual  QStyledItemDelegate *   CreateModelDelegate() override;
+    virtual  QStyledItemDelegate*  CreateModelDelegate() override;
 
 public:
     virtual  void  BuildData() override;

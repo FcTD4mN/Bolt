@@ -152,8 +152,10 @@ cEntityGrid::UpdateEntity( ::nCore::nECS::nCore::cEntity* iEntity )
         }
     }
 
+#ifdef _DEBUG // Quick debugging spot, if dealing with one single entity in the map, you should never break on BP = 0, if you do, there is a leak in the map
     if( mEntityMap.size() > 0 )
         int BP = 0;
+#endif
 
     SetEntityInGrid( iEntity );
 }

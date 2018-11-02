@@ -1,6 +1,11 @@
 #include "Core.ECS.Component.Transformation.h"
 
 
+#include "Core.ECS.Core.Entity.h"
+#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Render.Layer.h"
+
+
 namespace nCore {
 namespace nECS {
 namespace nComponent {
@@ -44,6 +49,9 @@ cTransformation::cTransformation( const cTransformation & iRHS ) :
     tSuperClass( iRHS )
 {
     BuildCallbacks();
+
+    mPreviousRect = iRHS.mPreviousRect;
+    mPreviousRotation = iRHS.mPreviousRotation;
 }
 
 
@@ -66,7 +74,27 @@ void
 cTransformation::BuildCallbacks()
 {
     // The function stores values of the whole transformation component as it was one step before
-    auto function = [ this ]( ::nCore::nBase::eVariableState iState ){
+    /*
+        Why do we set All variables instead of just : if x changed, we set previous.left only ? :
+        Let's say i have a rect at 0,10 coordinates.
+        Previous rect was 0, 0
+        I change its X coord to now 10, 10
+        -- > Then, according to a single value change callback approach, it would do:
+        previous rect.left == old value of X,
+        which was 0 before it changes( we went from 0, 10 to 10, 10 )
+
+        So by the end of it, we had a rect at 0, 10, now a rect at 10, 10,
+        BUT the previous rect is still 0, 0 right, because we didn't change previous.TOP value, as we only changed X --> PROBLEM.
+        That's why, when we change any value, the previous rect has to be changed entirely.
+
+
+        //OPTIMIZE:
+        This could potentially be cost heavy if we change X, Y, as we'll do double update, when we could only do one update after both value changed
+        If this ever happen to be laggy, just add a  bool disengageUpdate in this transformation component, so that when disengaged, it won't update at all
+        Then reengage it after changes on coordinates are done, and do one single update.
+    */
+
+        auto function = [ this ]( ::nCore::nBase::eVariableState iState ){
 
         if( iState == ::nCore::nBase::eVariableState::kBeforeChange )
         {
@@ -76,7 +104,14 @@ cTransformation::BuildCallbacks()
             mPreviousRect.height = float( H() );
             mPreviousRotation = float( Rotation() );
         }
+        else if( iState == ::nCore::nBase::eVariableState::kAfterChange )
+        {
+            auto layer = mEntityOwner->Layer();
+            if( layer ) // We can change entity transform before adding it into world, thus before having a layer associated
+                mEntityOwner->Layer()->EntityGrid()->UpdateEntity( mEntityOwner );
+        }
     };
+
 
     SetVarValueChangeCallback( "x", function );
     SetVarValueChangeCallback( "y", function );
