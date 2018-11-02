@@ -343,13 +343,7 @@
     <ClCompile Include="..\..\src\Core\AI\Core.AI.BehaviourTree.cpp">
       <Filter>src\Core\AI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaption.cpp">
-      <Filter>src\Editor\Widgets</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaptionMenuBar.cpp">
-      <Filter>src\Editor\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainContent.cpp">
       <Filter>src\Editor\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Core\Registries\Core.Registries.ComponentRegistry.cpp">
@@ -360,9 +354,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Core\Registries\Core.Registries.SystemRegistry.cpp">
       <Filter>src\Core\Registries</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainTools.cpp">
-      <Filter>src\Editor\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Animations.cpp">
       <Filter>src\Core\ECS\Component</Filter>
@@ -446,9 +437,6 @@
       <Filter>src\Editor\Widgets\Editors</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Editor\MainWindows\Editor.MainWindows.BoltEditor.cpp">
-      <Filter>src\Editor\MainWindows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Editor\MainWindows\Editor.MainWindows.MainWindow.cpp">
       <Filter>src\Editor\MainWindows</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.DrawingAreaItem.cpp">
@@ -809,16 +797,7 @@
     <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.CoreSFMLCanvas.h">
       <Filter>src\Editor\Widgets</Filter>
     </QtMoc>
-    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaption.h">
-      <Filter>src\Editor\Widgets</Filter>
-    </QtMoc>
     <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaptionMenuBar.h">
-      <Filter>src\Editor\Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainContent.h">
-      <Filter>src\Editor\Widgets</Filter>
-    </QtMoc>
-    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainTools.h">
       <Filter>src\Editor\Widgets</Filter>
     </QtMoc>
     <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.AnimationsComponentEditor.h">
@@ -861,9 +840,6 @@
       <Filter>src\Editor\Widgets\Editors</Filter>
     </QtMoc>
     <QtMoc Include="..\..\src\Editor\MainWindows\Editor.MainWindows.BoltEditor.h">
-      <Filter>src\Editor\MainWindows</Filter>
-    </QtMoc>
-    <QtMoc Include="..\..\src\Editor\MainWindows\Editor.MainWindows.MainWindow.h">
       <Filter>src\Editor\MainWindows</Filter>
     </QtMoc>
     <QtMoc Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.Canvas.h">
