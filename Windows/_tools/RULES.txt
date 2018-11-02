@@ -1,0 +1,359 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::                            RULES.TXT                             ::
+::                                                                  ::
+:: Last Update: 15/07/2018 04:13 GMT+1                              ::
+:: Author(s): Layl                                                  ::
+:: COPYRIGHT: BOLT 2018                                             ::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                          _           _ _   
+                         | |         | | |  
+                         | |__   ___ | | |_ 
+                         | '_ \ / _ \| | __|
+                         | |_) | (_) | | |_ 
+                         |_.__/ \___/|_|\__|
+                        C++ GAME ENGINE TOOLS            
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+        Bolt Internal Script Utilities Documentation For Windows
+
+    Summary:
+        Assumptions
+        Hierarchy
+        Naming Rules
+        Organisation Rules
+        Batch Rules: Headers, Dependencies & Error Handling
+        Bolt Environment Variables
+        Color and Debugging
+        Building External Libraries
+        Installing External Libraries
+        Template / Sample
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Assumptions
+
+
+
+    Each script was built with a number of assumptions and future scripts should rely on it
+        - They rely on Specific Environment Variables for paths instead of relative paths ( see Bolt Environment Variables )
+        - They should never change the user Current Directory at the end of execution ( see SETLOCAL, PUSHD / POPD, and temporary variables )
+        - They should all be usable standalone ( even the ones starting with an underscore '_' )
+        - They should all do the minimum amount of work in order to accomplish their task, they should rely on sub scripts for specific tasks or implement batch pseudo functions for repeated subtasks that are specific to the current task ( see _initboltenv.bat for implementation example )
+        - They should all include dependencies to _initboltshell AND _initboltenv if they need environment variable, never rely on the fact that it is already initialized by parent script as it would break the standalone rule
+        - They should never mess with any git repository related stuff without warning the user, unless explicitely stated by the user with parameter -s ( "silent" )
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Hierarchy
+
+
+
+    Legend:
+        [>]:        Collapsed Folder Entry
+        [v]:        Deployed Folder Entry
+        [-]:        File Entry
+        // ...:     Comment
+        /* ... */:  Comment
+
+
+
+[v] BOLT // Repository Root
+    [v] Windows // Windows Tools
+        [-] README.txt // User Instructions
+        /* Standalone Batch Files, Allowed for Client Use, here are sample scripts names */
+        [-] setup.bat
+        [-] build_extlibs.bat
+        [-] build_extlibs_s.bat
+        [-] build_core.bat
+        [-] build_editor.bat
+        [-] install.bat
+        [-] init.bat
+        [-] fixsubmodules.bat
+        [-] deploycore.bat
+        [-] deployeditor.bat
+        [-] deployall.bat
+        ...
+
+        /* PROJECTS DIRECTORIES */
+        [-] BoltCore    // Bolt Core Engine Project
+        [-] BoltEditor  // Bolt Editor Project
+
+        [v] _tools // Internal Tools, Forbidden for Client Use
+            /* General Script Utilities, work as standalone but do-nothing as is */
+            [-] _initshell.bat // Inits Shell Color and Debugging Utilities, and temporarily add _tools to PATH
+            [-] _initenv.bat // Inits BOLT Environment variable such as tools paths for ease of use and maintainability
+            [-] _ask_confirm.bat // Delegate Script, Prompts the User if he wants to proceed with the execution
+
+            /* Executable Utilities */
+            [-] vswhere.exe // Distributed by Microsoft, allows to find the Visual Studio Install Directory in order to initialise the build environment 
+            // see https://github.com/Microsoft/vswhere
+
+            [-] chgcolor.exe // Distributed by Jim Lawless, allows us to use colors for debugging in the terminal
+            // see http://www.mailsend-online.com/blog/setting-text-color-in-a-batch-file.html
+
+            /* Task Specific Sub-Directories, should work as standalone but should never be called directly */
+            [v] _git // Git Specific Scripted Tasks
+                [-] _init.bat // Initializes the BOLT git repository and all submodules recursively
+                [-] _check_status.bat // Checks the status of the repository and prompts the user before continuing if there are unstaged changes
+            [v] _setup // Setup Tools
+                [-] _build.bat // Delegates the build to the build scripts in Extlibs
+                [-] _install.bat // Install all dependencies after a build from Extlibs to the Project Directories ( Core & Editor )
+
+
+
+    We could keep going like that for a long time but i guess you should have an idea of how the scripted tasks hierarchy is organised by now.
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Naming Rules
+
+
+
+    • Folders starting with an underscore '_' are forbidden for users to explore, they contain important internal toolkits.
+    • Files starting with an underscore '_' are forbidden for users to use or launch if they don't know what they are doing, they suggest an important internal tool.
+    • Files who are not starting with an underscore '_' are safe and allowed for the users to use or launch in any way they want.
+    • All files and folders should be written in lowercase letters, e.g: name.bat, not NAME.bat.
+    • Files ending with an '_s' such as in "setup_s.bat" means they will always be silent and never prompt anything to the user, they are useful for automated builds.
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Organisation Rules
+
+
+
+    • Batch Scripts directly located under the _tools directory ( having the _tools directory has direct first parent ) are dedicated to general utilities, if you want to add a new general utility that is the place to go.
+    • Batch Scripts located under the other sub-directories are dedicated to specific tasks. For example, if you want to add a new git scripted task utility such as updating the submodules pointers, you might want to add it under the _git directory.
+    • "Front-End" Scripts are located direclty under the Windows directory
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Batch Rules: Headers, Dependencies & Error Handling
+
+
+    #1 ================================================== FILE HEADER
+
+    • All Batch Files must display this header format:
+
+            :::::::::::::::
+            :: $FILENAME.BAT
+            :::::::::::::::
+
+        Where $FILENAME should be replaced with the actual name of the batch file in uppercase letters, although the file name itself should be spelled in lowercase.
+
+
+    #2 ================================================== _INITSHELL MUST-HAVE DEPENDENCY
+
+    • All Batch Files must include a dependencie to _initboltshell.bat, calling it with an absolute path starting from current Batch file location thanks to [%~dp0] and include comments like the following:
+
+            :::::::::::::::
+            :: Init Shell
+            CALL "%~dp0_initboltshell.bat"
+
+        Where %~dp0 stands for the location of the currently Batch context full path, including a terminating backslash '\', e.g: If we call the batch file C:\Users\Desktop\work\Bolt\Windows\setup.bat from anywhere, %~dp0 will expand to C:\Users\Desktop\work\Bolt\Windows
+
+        The _initshell.bat script initializes the shell context which allows us to use colors for debugging and cosmetic purposes; it also sets the _tools directory to the PATH environment variable for us to use the general utility tools from anywhere during subscript execution.
+
+
+    #3 ================================================== BOLT ENVIRONMENT VARIABLE DEPENDENCY
+
+    • If the Batch script plans to use environment variables from the Bolt environment, it should have a dependency to the _initenv.bat script. Since all scripts must have a dependency to the _initshell.bat script, it is easy to call the _initboltenv.bat script since it is located in the _tools directory and this location was added to the path by the _initshell.bat script.
+
+
+    #4 ================================================== BASIC ERROR HANDLING WITH COLOURED OUTPUT
+
+    • All Scripts MUST implement basic error handling with coloured output for debugging at the end of the file the following way:
+        
+            :::::::::::::::
+            :: Reaching End of the Script
+            GOTO :success
+
+            :::::::::::::::
+            :error
+            chgcolor %CERROR%
+            ECHO %0: ERROR
+            ECHO //////////
+            chgcolor %CRESET%
+            EXIT /B 1
+
+            :::::::::::::::
+            :success
+            chgcolor %CSUCCESS%
+            ECHO %0: SUCCESS
+            ECHO //////////
+            chgcolor %CRESET%
+            EXIT /B 0
+
+        *Note: The actual error outputs might depend on the script, and they could be replaced in the future by simpler calls to delegate utilities, but the labels and EXIT statements must always stay there
+
+
+    #5 ================================================== SELF GUARD SAFETY
+
+    • Dependencies that may be called more than once ( which we should avoid ) should define an unique variable and set it to the integer value '1', and make use of an header include guard at the beginning of the file that way it will not be executed many times.
+
+            :::::::::::::::
+            :: GUARD
+            IF DEFINED $UNIQUEVAR goto :EOF
+
+
+    #6 ================================================== IMPLICIT EXTERNAL DEPENDENCY GUARD
+
+    • Files using implicit environment dependencies should make an explicit statement about it using and exclusive header include guard like so:
+
+            :::::::::::::::
+            :: GUARD
+            IF NOT DEFINED _INITBOLTENV_BAT_HH goto :error
+
+        Please note that it costs no more, is safer, and generaly better pratice, to explicitely rely on the REAL included dependencie anyway though with:
+            
+            :::::::::::::::
+            :: Init Bolt Dev Env Variables
+            CALL _initboltenv.bat || goto :error
+
+
+    #7 ================================================== _INITENV INCLUDE POLICY
+
+    • _initboltenv.bat must be included the following way:
+
+            :::::::::::::::
+            :: Init Bolt Dev Env Variables
+            CALL _initboltenv.bat || goto :error
+
+        This works from anywhere since _initboltenv.bat is in _root; and _root is in PATH. Note this assumes error handling is implemented the proper way.
+        There is no harm to call it several times because _initboltenv.bat has its own Self Guard Safety.
+
+
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Bolt Environment Variables
+
+
+
+    The _initboltenv.bat script defines some temporary environment variables for the scripts to use within the Bolt and Extlibs repository.
+    Most of them represent paths to different places of the repository.
+    They allow us to rely on them without having to care about relative paths.
+    They have several benefits:
+        - Repository hierarchy and organisation can change without having to modify all the scripts, only the variable definitions must be updated.
+        - Safety mechanisms allow us to check whereas the path defined actually exist or not
+        - They prevent us to mess with relative path issues and go outside of the repository or in the wrong directory
+        - They allows us not to care about where is the Current Directory in the Shell Context by always using absolute path instead of relying on %CD% which can break everything if not set properly or if the standalone public script is launched from an unusual unpredicted location rather than from the direct parent directory.
+        - They take less space and are less error prone while reading a batch script
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Color and Debugging
+
+
+
+    After including its dependencies to _initshell.bat, all batch scripts should start the following way:
+
+            :::::::::::::::
+            chgcolor %CHEADER%
+            ECHO //////////
+            ECHO %0: START
+            :::::::::::::::
+
+        This displays a nice header with a small separator and the name of the script. The chgcolor command calls chgcolor.exe found in the PATH, with parameter %CHEADER% which stands for "COLOR HEADER" in short, and is a variable defined in _initboltshell.bat which stands for "White text on blue background". This makes for a nice visual header allowing us to identify the starting point of the execution of a subscript durring the batch processing in the shell, which is a nice help considering how hard it can be to debug large batch infrastructures.
+
+        The _initshell.bat script also defines some other values for coloured outputs:
+            SET CHEADER=1F      for headers
+            SET CFOOTER=1F      for footers ( same as headers, unused )
+            SET CERROR=4F       for errors on exit
+            SET CSUCCESS=2F     for success on exit
+            SET CTEXT=06        for text display
+            SET CRESET=07       reset to default colors
+
+            SET CBOLT=0B        for Bolt related info
+            SET CEXTLIB=03      for Extlibs related info
+            SET CGIT=09         for Git related info
+            SET CMSVC=0D        for MSVC related info
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Building External Libraries
+
+
+
+    The build of external libraries is delegated to Extlibs build Scripts located under BoltExtlibs/_build/Windows/.
+    Extlibs Scripts are separated from this and should be able to run standalone.
+    Even then it could seem like Extlibs rely onto some of the tools we use here:
+        vswhere.exe
+        chgcolor.exe
+        _initboltshell.bat
+        _initboltenv.bat
+    But Extlib is actually provided with its own supply for these tools, in order to remain usable standalone.
+    It also defines its own _initextenv.bat in order for it to initialize its own environment variables; they won't conflict in any way with bolt's environment variables.
+
+    If you want to add a new library to the project, please refer to the Extlibs README and RULES under BoltExtlibs/_build/Windows/ for the build part first.
+    Note: Only x64 Builds are handled. We never supported 32 bits and never will.
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Installing External Libraries
+
+
+
+    Once Extlibs are built properly, the final step is installing all dependencies in the Bolt Core And Bolt Editor Projects. That means copying DLLS to the various bin folders in the projects respective hierarchies.
+    All builds of extlibs should be located under the BoltExtlibs/_install directory for the target architecture and build ( e.g: Debug x64 ).
+    Install scripts should be handled separately for each library, under Bolt/Windows/_tools/_install/$LIBRARY
+    Where $LIBRARY stands for the library name ( without underscore '_' for once because it is a library name )
+    These scripts should take care of the dependencies for this particular library and copy the specified dlls into the bin directory of the project executables, creating them first if necessary. The includes .h header files should not be moved at all since the Bolt Core And Bolt Editor Projects will rely on them being at the _install location in the Extlibs directory, so no need to handle these at all. Some libraries are header only so they won't appear here in the Bolt _install scripts hierarchy, that is perfectly fine.
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: Template / Sample
+
+
+
+    Here is a typical batch script example, if you need to understand them or to expand the framework with a new utility:
+
+        :::::::::::::::
+        :: ($FILENAME).BAT // UPPERCASE
+        :::::::::::::::
+        @ECHO OFF
+        :::::::::::::::
+        :: Init Shell
+        CALL "%~dp0($RELATIVE_PATH)\_initboltshell.bat" // Relative path from script directory to _inithsell.bat directory, starting from %~dp0
+        :::::::::::::::
+        :: HEADER
+        chgcolor %CHEADER%
+        ECHO //////////
+        ECHO %0: START
+        :::::::::::::::
+        :: Init Bolt Dev Env Variables
+        CALL _initboltenv.bat || goto :error // Found from PATH
+        :::::::::::::::
+
+        :::::::::::::::
+        :: ACTUAL SCRIPT CONTENTS
+        // Here you can rely on Bolt Env Variables and Shell Env Variables and _tools general utilities in order to accomplish your task.
+
+        :::::::::::::::
+        :: Reaching End of the Script
+        GOTO :success
+
+        :::::::::::::::
+        :error
+        chgcolor %CERROR%
+        ECHO %0: ERROR
+        ECHO //////////
+        chgcolor %CRESET%
+        EXIT /B 1
+
+        :::::::::::::::
+        :success
+        chgcolor %CSUCCESS%
+        ECHO %0: SUCCESS
+        ECHO //////////
+        chgcolor %CRESET%
+        EXIT /B 0
+

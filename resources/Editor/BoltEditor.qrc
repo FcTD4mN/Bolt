@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/entity.png</file>
+        <file>icons/folder.png</file>
+        <file>icons/screen.png</file>
+        <file>icons/system.png</file>
+        <file>icons/layer.png</file>
+    </qresource>
+</RCC>

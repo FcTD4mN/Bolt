@@ -1,0 +1,10 @@
+<project name="ProjectTest" currentscreen="0">
+    <config>
+        <resolution width="1024" height="768"/>
+        <limitframerate value="144"/>
+    </config>
+    <screens>
+        <screen name="GameScreen" file="GameScreen.screen"/>
+        <screen name="ScreenDeux" file="ScreenDeux.screen"/>
+    </screens>
+</project>

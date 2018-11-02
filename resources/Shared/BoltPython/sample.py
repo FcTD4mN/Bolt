@@ -1,0 +1,3 @@
+import PyBolt
+
+print( "sample" )

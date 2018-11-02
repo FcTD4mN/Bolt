@@ -1,0 +1,16 @@
+<entity id="Demo">
+    <components>
+        <component name="spriteanimated">
+            <variables>
+                <variable name="currentframe" type="1" value="1"/>
+                <variable name="filename" type="2" value="empty"/>
+                <variable name="flip" type="3" value="false"/>
+                <variable name="framerate" type="1" value="24"/>
+                <variable name="paused" type="3" value="false"/>
+                <variable name="spriteheight" type="1" value="1"/>
+                <variable name="spritewidth" type="1" value="1"/>
+            </variables>
+        </component>
+    </components>
+    <tags/>
+</entity>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PrototypeEditor</class>
+ <widget class="QWidget" name="PrototypeEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>757</width>
+    <height>417</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_4">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QGraphicsView" name="graphicsViewPreview">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>60</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="cPropertyEditor" name="treeViewPrototype" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="buttonSavePrototype">
+           <property name="text">
+            <string>Save Prototype</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonSaveAs">
+           <property name="text">
+            <string>Save As</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>PrototypeList</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListView" name="listViewAllPrototypes">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="buttonAddPrototype">
+           <property name="text">
+            <string>New Prototype</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonRemovePrototype">
+           <property name="text">
+            <string>Remove Prototype</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>cPropertyEditor</class>
+   <extends>QWidget</extends>
+   <header>Editor.Widgets.Editors.PropertyEditor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>listViewAllPrototypes</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>PrototypeEditionAsked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>582</x>
+     <y>327</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>466</x>
+     <y>24</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSavePrototype</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>SavePrototype()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>189</x>
+     <y>404</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>613</x>
+     <y>4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonAddPrototype</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>AddNewPrototype()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>439</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>420</x>
+     <y>412</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonRemovePrototype</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>RemovePrototype()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>648</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>615</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSaveAs</sender>
+   <signal>clicked()</signal>
+   <receiver>PrototypeEditor</receiver>
+   <slot>SavePrototypeAs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>235</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>210</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>PrototypeEditionAsked(QModelIndex)</slot>
+  <slot>EntityNameEdited(QString)</slot>
+  <slot>SavePrototype()</slot>
+  <slot>AddNewPrototype()</slot>
+  <slot>RemovePrototype()</slot>
+  <slot>PrototypeNameChanged(QString,QString)</slot>
+  <slot>SavePrototypeAs()</slot>
+ </slots>
+</ui>

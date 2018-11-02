@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EntityProperty</class>
+ <widget class="QWidget" name="EntityProperty">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>471</width>
+    <height>481</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="labelEntityName">
+         <property name="text">
+          <string>EntityID :</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="editEntityName"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelComponents">
+       <property name="text">
+        <string>Entity's components</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTreeView" name="treeView">
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectItems</enum>
+       </property>
+       <property name="allColumnsShowFocus">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonAddComponent">
+         <property name="text">
+          <string>AddComponent</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonRemoveComponent">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>RemoveComponent</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonAddComponent</sender>
+   <signal>clicked()</signal>
+   <receiver>EntityProperty</receiver>
+   <slot>addEmptyComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>306</x>
+     <y>407</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonRemoveComponent</sender>
+   <signal>clicked()</signal>
+   <receiver>EntityProperty</receiver>
+   <slot>removeComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>397</x>
+     <y>406</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>366</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editEntityName</sender>
+   <signal>editingFinished()</signal>
+   <receiver>EntityProperty</receiver>
+   <slot>EntityIDChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addEmptyComponent()</slot>
+  <slot>removeComponent()</slot>
+  <slot>EntityIDChanged()</slot>
+ </slots>
+</ui>

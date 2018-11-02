@@ -1,0 +1,5 @@
+This is a minimal redistribution of the monaco-editor-samples.
+Applied licenses are shipped within the original folders.
+Main changes from the original distribution are:
+- Some folders have been deleted in order to keep a small size.
+- The file ./browser-script-editor/index.html has been modified in order to customize behaviour when embedded in browser.

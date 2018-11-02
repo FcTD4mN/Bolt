@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ComponentEditor</class>
+ <widget class="QWidget" name="ComponentEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>621</width>
+    <height>395</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="midLineWidth">
+      <number>5</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Component Name </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="editComponentName"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Component's Variables</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTreeView" name="treeViewComponent"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonAddVariable">
+           <property name="text">
+            <string>AddVariable</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonRemoveVariable">
+           <property name="text">
+            <string>RemoveVariable</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>Save Component</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Save Component As</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget1">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Component List</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListView" name="listViewAllComponents">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>AddComponent</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="text">
+            <string>RemoveComponent</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>listViewAllComponents</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>ComponentEditionAsked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>411</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonAddVariable</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>AddNewVariable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>337</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>45</x>
+     <y>6</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonRemoveVariable</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>RemoveVariable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>246</x>
+     <y>343</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>60</x>
+     <y>1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>AddNewComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>377</x>
+     <y>369</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>339</x>
+     <y>390</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>RemoveComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>523</x>
+     <y>372</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>532</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editComponentName</sender>
+   <signal>editingFinished()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>ComponentNameChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>461</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>SaveComponent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>107</x>
+     <y>389</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>ComponentEditor</receiver>
+   <slot>SaveComponentAs()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>229</x>
+     <y>377</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>ComponentEditionAsked(QModelIndex)</slot>
+  <slot>AddNewVariable()</slot>
+  <slot>RemoveVariable()</slot>
+  <slot>AddNewComponent()</slot>
+  <slot>RemoveComponent()</slot>
+  <slot>ComponentNameChanged()</slot>
+  <slot>SaveComponent()</slot>
+  <slot>SaveComponentAs()</slot>
+ </slots>
+</ui>

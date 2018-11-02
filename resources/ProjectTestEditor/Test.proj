@@ -1,0 +1,9 @@
+<project name="ProjectTestEditor" currentscreen="0">
+    <config>
+        <resolution width="1024" height="768"/>
+        <limitframerate value="144"/>
+    </config>
+    <screens>
+        <screen name="Premier" file="Premier.screen"/>
+    </screens>
+</project>

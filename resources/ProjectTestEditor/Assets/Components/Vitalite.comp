@@ -1,0 +1,6 @@
+<component name="Vitalite">
+    <variables>
+        <variable name="Armor" type="1" value="0"/>
+        <variable name="Life" type="1" value="0"/>
+    </variables>
+</component>

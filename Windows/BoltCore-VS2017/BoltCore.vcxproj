@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BehaviourNode.cpp" />
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BehaviourService.cpp" />
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BehaviourTree.cpp" />
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BlackBoard.cpp" />
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BlackBoardVariable.cpp" />
+    <ClCompile Include="..\..\src\Core\Animation\Core.Animation.Animation.cpp" />
+    <ClCompile Include="..\..\src\Core\Application\Core.Application.Application.cpp" />
+    <ClCompile Include="..\..\src\Core\Application\Core.Application.GlobalAccess.cpp" />
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.Clipboard.cpp" />
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.ClipboardWin32.cpp" />
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.Utilities.cpp" />
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.Variant.cpp" />
+    <ClCompile Include="..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.cpp" />
+    <ClCompile Include="..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.cpp" />
+    <ClCompile Include="..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.cpp" />
+    <ClCompile Include="..\..\src\Core\Core.main.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Animations.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Color.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Text.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Transformation.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Component.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.System.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.World.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.cpp" />
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp" />
+    <ClCompile Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp" />
+    <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.cpp" />
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Edge.cpp" />
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Ray.cpp" />
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Triangle.cpp" />
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Utils.cpp" />
+    <ClCompile Include="..\..\src\Core\Project\Core.Project.Project.cpp" />
+    <ClCompile Include="..\..\src\Core\PyBoltECSAPI\command.cpp" />
+    <ClCompile Include="..\..\src\Core\PyBoltECSAPI\mod.cpp" />
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.ComponentRegistry.cpp" />
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.EntityRegistry.cpp" />
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.ShaderRegistry.cpp" />
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.SystemRegistry.cpp" />
+    <ClCompile Include="..\..\src\Core\Render\Core.Render.Layer.cpp" />
+    <ClCompile Include="..\..\src\Core\Render\Core.Render.LayerEngine.cpp" />
+    <ClCompile Include="..\..\src\Core\Screen\Core.Screen.Screen.cpp" />
+    <ClCompile Include="..\..\src\Core\Screen\Core.Screen.ScreenNoProject.cpp" />
+    <ClCompile Include="..\..\src\Core\Shader\Core.Shader.Shader2D.cpp" />
+    <ClCompile Include="..\..\src\Core\Shader\Core.Shader.Shader3D.cpp" />
+    <ClCompile Include="..\..\src\Core\Shader\Core.Shader.ShaderFileLibrary.cpp" />
+    <ClCompile Include="..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp" />
+    <ClCompile Include="..\..\src\Core\Sound\Core.Sound.FX.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.AnimationTestScreen.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.EntityGridDebug.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.GameScreen.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.InfiltratorScreen.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.PremierScreen.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourNode.h" />
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourService.h" />
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourTree.h" />
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BlackBoard.h" />
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BlackBoardVariable.h" />
+    <ClInclude Include="..\..\src\Core\Animation\Core.Animation.Animation.h" />
+    <ClInclude Include="..\..\src\Core\Application\Core.Application.Application.h" />
+    <ClInclude Include="..\..\src\Core\Application\Core.Application.GlobalAccess.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.Clipboard.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.FileSystem.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralEnums.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.ResourceManager.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.Utilities.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.Variant.h" />
+    <ClInclude Include="..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.h" />
+    <ClInclude Include="..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.h" />
+    <ClInclude Include="..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Animations.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Color.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Text.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Transformation.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Component.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.System.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.World.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.h" />
+    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.h" />
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h" />
+    <ClInclude Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h" />
+    <ClInclude Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.h" />
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Edge.h" />
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Ray.h" />
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Triangle.h" />
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Utils.h" />
+    <ClInclude Include="..\..\src\Core\Project\Core.Project.Project.h" />
+    <ClInclude Include="..\..\src\Core\PyBoltECSAPI\command.h" />
+    <ClInclude Include="..\..\src\Core\PyBoltECSAPI\mod.h" />
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.ComponentRegistry.h" />
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.EntityRegistry.h" />
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.ItemFileRelatedRegistry.h" />
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.ShaderRegistry.h" />
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.SystemRegistry.h" />
+    <ClInclude Include="..\..\src\Core\Render\Core.Render.Layer.h" />
+    <ClInclude Include="..\..\src\Core\Render\Core.Render.LayerEngine.h" />
+    <ClInclude Include="..\..\src\Core\Screen\Core.Screen.Screen.h" />
+    <ClInclude Include="..\..\src\Core\Screen\Core.Screen.ScreenNoProject.h" />
+    <ClInclude Include="..\..\src\Core\Shader\Core.Shader.Shader2D.h" />
+    <ClInclude Include="..\..\src\Core\Shader\Core.Shader.Shader3D.h" />
+    <ClInclude Include="..\..\src\Core\Shader\Core.Shader.ShaderFileLibrary.h" />
+    <ClInclude Include="..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h" />
+    <ClInclude Include="..\..\src\Core\Sound\Core.Sound.FX.h" />
+    <ClInclude Include="..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.h" />
+    <ClInclude Include="..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.h" />
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.AnimationTestScreen.h" />
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.h" />
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.EntityGridDebug.h" />
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.GameScreen.h" />
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.InfiltratorScreen.h" />
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.PremierScreen.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{B99BA808-5022-4AB4-A22B-5A7DDC3A8781}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BoltCore</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SFML_STATIC;Py_NO_ENABLE_SHARED;GLEW_STATIC;WINDOWS;OVERRIDE_APPLICATION;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\;$(ProjectDir)..\..\src\Core\;$(ProjectDir)..\..\src\Core\AI\;$(ProjectDir)..\..\src\Core\AI\BehaviourTreeV2\;$(ProjectDir)..\..\src\Core\Base\;$(ProjectDir)..\..\src\Core\Animation\;$(ProjectDir)..\..\src\Core\Application\;$(ProjectDir)..\..\src\Core\Base\Thread\;$(ProjectDir)..\..\src\Core\BoltScript\;$(ProjectDir)..\..\src\Core\ECS\;$(ProjectDir)..\..\src\Core\ECS\Component\;$(ProjectDir)..\..\src\Core\ECS\Core\;$(ProjectDir)..\..\src\Core\ECS\Mapping\;$(ProjectDir)..\..\src\Core\ECS\System\;$(ProjectDir)..\..\src\Core\GUI\;$(ProjectDir)..\..\src\Core\Mapping\;$(ProjectDir)..\..\src\Core\Math\;$(ProjectDir)..\..\src\Core\Project\;$(ProjectDir)..\..\src\Core\PyBoltECSAPI\;$(ProjectDir)..\..\src\Core\Registries\;$(ProjectDir)..\..\src\Core\Render\;$(ProjectDir)..\..\src\Core\Screen\;$(ProjectDir)..\..\src\Core\Shader\;$(ProjectDir)..\..\src\Core\Shortcuts\;$(ProjectDir)..\..\src\Core\Sound\;&gt;&gt;;$(ProjectDir)..\..\BoltExtlibs\_install\include\;$(ProjectDir)..\..\src\GameMockup\;$(ProjectDir)..\..\src\GameMockup\Application\;$(ProjectDir)..\..\src\GameMockup\Screen\;$(ProjectDir)..\..\src\GameMockup\ECS\;$(ProjectDir)..\..\src\GameMockup\ECS\System\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\BoltExtlibs\_install\debug_x64\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;gdi32.lib;shlwapi.lib;version.lib;Ws2_32.lib;opengl32.lib;glu32.lib;glew32s.lib;python37_d.lib;sfml-audio-s-d.lib;sfml-graphics-s-d.lib;sfml-main-d.lib;sfml-network-s-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>CALL "$(SolutionDir)..\prebuild_core.bat"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SFML_STATIC;Py_NO_ENABLE_SHARED;GLEW_STATIC;WINDOWS;OVERRIDE_APPLICATION;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\;$(ProjectDir)..\..\src\Core\;$(ProjectDir)..\..\src\Core\AI\;$(ProjectDir)..\..\src\Core\AI\BehaviourTreeV2\;$(ProjectDir)..\..\src\Core\Base\;$(ProjectDir)..\..\src\Core\Animation\;$(ProjectDir)..\..\src\Core\Application\;$(ProjectDir)..\..\src\Core\Base\Thread\;$(ProjectDir)..\..\src\Core\BoltScript\;$(ProjectDir)..\..\src\Core\ECS\;$(ProjectDir)..\..\src\Core\ECS\Component\;$(ProjectDir)..\..\src\Core\ECS\Core\;$(ProjectDir)..\..\src\Core\ECS\Mapping\;$(ProjectDir)..\..\src\Core\ECS\System\;$(ProjectDir)..\..\src\Core\GUI\;$(ProjectDir)..\..\src\Core\Mapping\;$(ProjectDir)..\..\src\Core\Math\;$(ProjectDir)..\..\src\Core\Project\;$(ProjectDir)..\..\src\Core\PyBoltECSAPI\;$(ProjectDir)..\..\src\Core\Registries\;$(ProjectDir)..\..\src\Core\Render\;$(ProjectDir)..\..\src\Core\Screen\;$(ProjectDir)..\..\src\Core\Shader\;$(ProjectDir)..\..\src\Core\Shortcuts\;$(ProjectDir)..\..\src\Core\Sound\;&gt;&gt;;$(ProjectDir)..\..\BoltExtlibs\_install\include\;$(ProjectDir)..\..\src\GameMockup\;$(ProjectDir)..\..\src\GameMockup\Application\;$(ProjectDir)..\..\src\GameMockup\Screen\;$(ProjectDir)..\..\src\GameMockup\ECS\;$(ProjectDir)..\..\src\GameMockup\ECS\System\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\BoltExtlibs\_install\release_x64\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;gdi32.lib;shlwapi.lib;version.lib;Ws2_32.lib;opengl32.lib;glu32.lib;glew32s.lib;python37.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-main.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreBuildEvent>
+      <Command>CALL "$(SolutionDir)..\prebuild_core.bat"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

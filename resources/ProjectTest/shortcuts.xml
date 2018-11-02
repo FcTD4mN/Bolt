@@ -1,0 +1,12 @@
+<shortcuts>
+	<entry key="16" action="moveleft"/>
+	<entry key="3" action="moveright"/>
+	<entry key="25" action="moveup"/>
+	<entry key="18" action="movedown"/>
+	<entry key="5" action="moveleftslow"/>
+	<entry key="7" action="moverightslow"/>
+	<entry key="19" action="moveupslow"/>
+	<entry key="6" action="movedownslow"/>
+	<entry key="37" action="attack"/>
+	<entry key="57" action="jump"/>
+</shortcuts> 

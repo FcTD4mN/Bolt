@@ -1,0 +1,25 @@
+<screen name="GameScreen" viewCenterX="119.1944" viewCenterY="157.04691" viewWidth="529" viewHeight="510" viewZoom="1">
+    <world uselayer="true">
+        <entityMap width="100" height="100" cellsize="32"/>
+        <layers>
+            <layer name="Premier" viewwidth="529" viewheight="510" zlayer="1">
+                <entityMap width="100" height="100" cellsize="32"/>
+                <shaders/>
+                <entities> 
+                </entities>
+            </layer>
+            <layer name="LayerSecond" viewwidth="529" viewheight="510" zlayer="0.5">
+                <entityMap width="100" height="100" cellsize="32"/>
+                <shaders/>
+                <entities/>
+            </layer>
+        </layers>
+        <systems>
+            <system name="SimpleRenderer" eventconnected="false"/>
+            <system name="AnimationRenderer" eventconnected="false"/>
+            <system name="InputConverter" eventconnected="true"/>
+            <system name="SimplePhysics" eventconnected="false"/>
+            <system name="SightSystem" eventconnected="false"/>
+        </systems>
+    </world>
+</screen>

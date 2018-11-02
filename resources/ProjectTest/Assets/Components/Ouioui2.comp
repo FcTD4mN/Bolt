@@ -1,0 +1,6 @@
+<component name="OuiOui2">
+    <variables>
+        <variable name="A" type="1" value="0"/>
+        <variable name="B" type="1" value="0"/>
+    </variables>
+</component>

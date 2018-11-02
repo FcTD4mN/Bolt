@@ -1,0 +1,24 @@
+<entity id="idontknow0">
+    <components>
+        <component name="transformation">
+            <variables>
+                <variable name="height" type="1" value="40"/>
+                <variable name="rotation" type="1" value="0"/>
+                <variable name="width" type="1" value="40"/>
+                <variable name="x" type="1" value="0"/>
+                <variable name="y" type="1" value="0"/>
+            </variables>
+        </component>
+        <component name="animations">
+            <animations>
+                <animation name="min">
+                    <sprites>
+                        <sprite fileName="resources/Editor/icons/AnimationEmptyImage.png"/>
+                        <sprite fileName="resources/Editor/icons/AnimationEmptyImage.png"/>
+                    </sprites>
+                </animation>
+            </animations>
+        </component>
+    </components>
+    <tags/>
+</entity>

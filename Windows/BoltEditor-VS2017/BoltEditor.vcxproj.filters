@@ -1,0 +1,929 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\Core">
+      <UniqueIdentifier>{63934854-c016-429a-923f-aa75fd2e24e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\AI">
+      <UniqueIdentifier>{2f868dd7-c7e5-4031-8afd-185ef39493d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Application">
+      <UniqueIdentifier>{e83ca846-5075-41f3-977b-46d2291b3696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Base">
+      <UniqueIdentifier>{dd0ca24d-5a98-439a-94fc-aebe9b469c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\BoltScript">
+      <UniqueIdentifier>{5351ca67-cdfd-4bd7-96d2-f2443e0d476b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\ECS">
+      <UniqueIdentifier>{538719b6-a25b-4a4b-9856-74b89b6d3b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\GUI">
+      <UniqueIdentifier>{12c1c9f4-41f3-4281-a9e3-39ddb6263c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Mapping">
+      <UniqueIdentifier>{89fe500b-a312-482c-96a0-1eba16f7c9d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Math">
+      <UniqueIdentifier>{d4772c8e-435c-4261-923a-a4c5ea1be77e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Project">
+      <UniqueIdentifier>{800fb849-9de8-420a-b472-e0edc6d4cc2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Render">
+      <UniqueIdentifier>{66ecbcfd-ecbe-4e98-9a60-377f45b8cd17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Screen">
+      <UniqueIdentifier>{ef3a7b74-5ab3-4f2e-8aa6-7658b1eece9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Shader">
+      <UniqueIdentifier>{cddaa67f-ca5e-4882-b776-de7c9023cb23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Shortcuts">
+      <UniqueIdentifier>{e3bcc3b2-e8ae-48d6-9f76-4ea282647289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Sound">
+      <UniqueIdentifier>{24f544b4-feb1-4a05-9458-f8bb994e027e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Base\Thread">
+      <UniqueIdentifier>{4b9f3e85-5404-4291-b51b-b8bcc4643e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\ECS\Component">
+      <UniqueIdentifier>{436055ef-6636-403a-8358-d2834618c18b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\ECS\Core">
+      <UniqueIdentifier>{891cebbd-0cb2-4fbf-8d00-c405f1d10692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\ECS\Mapping">
+      <UniqueIdentifier>{6f7e85db-a2b1-4e44-afe5-59aa7eb65dff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\ECS\System">
+      <UniqueIdentifier>{5b0767cb-e1bb-457d-a1b1-be6e3b2abf9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Registries">
+      <UniqueIdentifier>{e521259b-8be0-4799-8dbb-1acf1db766a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor">
+      <UniqueIdentifier>{610a0c24-d18a-49cd-ac82-aba2f6c68821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Dialogs">
+      <UniqueIdentifier>{a587ce02-0d3b-4428-a542-8c36ffcd4bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\HUD">
+      <UniqueIdentifier>{09853366-a9f4-4348-bac5-478ba5221dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Models">
+      <UniqueIdentifier>{4a7abe8e-6148-412b-a3bf-7e437a95bb8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Widgets">
+      <UniqueIdentifier>{846d6a1e-3cad-490f-8a97-ce12d6712236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Widgets\Editors">
+      <UniqueIdentifier>{b96f4bc6-7884-4e6a-9f2e-aef4e0ac1927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Delegates">
+      <UniqueIdentifier>{787c0023-2590-4b53-8eee-4eec852bbabb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\PyBoltECSAPI">
+      <UniqueIdentifier>{597b9b80-6dc0-4d69-8d50-7a517282877b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Core\Animation">
+      <UniqueIdentifier>{7913e657-5b8e-4b87-8ba2-68bd24de7bf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Models\DataWrapper">
+      <UniqueIdentifier>{9f24c274-0028-43f3-93cb-c58899fd9312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Models\Models">
+      <UniqueIdentifier>{569c8017-1719-4c29-b679-27b5f644a1f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Widgets\Animation">
+      <UniqueIdentifier>{4308607a-1d74-42f0-8fb1-2ff3844fb15a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\MainWindows">
+      <UniqueIdentifier>{4de8c69c-3c17-4e19-a7bc-e2082cd43ae7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\Shortcuts">
+      <UniqueIdentifier>{f83538b7-0c37-4f6b-9c3e-803cbc6c2234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Editor\DrawingTools">
+      <UniqueIdentifier>{9d8156c7-8c1d-4220-925d-e7587d039cd8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Editor\Editor.main.cpp">
+      <Filter>src\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\HUD\Editor.HUD.HudTransformation.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\HUD\Editor.HUD.SnapGrid.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\HUD\Editor.HUD.HudBase.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\HUD\Editor.HUD.HudHandle.cpp">
+      <Filter>src\Editor\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BehaviourNode.cpp">
+      <Filter>src\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BehaviourService.cpp">
+      <Filter>src\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BlackBoard.cpp">
+      <Filter>src\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BlackBoardVariable.cpp">
+      <Filter>src\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Application\Core.Application.Application.cpp">
+      <Filter>src\Core\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Application\Core.Application.GlobalAccess.cpp">
+      <Filter>src\Core\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.Clipboard.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.ClipboardWin32.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.ResourceManager.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.Utilities.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.Variant.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.cpp">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.cpp">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.cpp">
+      <Filter>src\Core\BoltScript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Text.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Color.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.System.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.World.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Component.cpp">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.cpp">
+      <Filter>src\Core\ECS\Mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.cpp">
+      <Filter>src\Core\ECS\Mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp">
+      <Filter>src\Core\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.cpp">
+      <Filter>src\Core\Mapping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Triangle.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Utils.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Edge.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Math\Core.Math.Ray.cpp">
+      <Filter>src\Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Project\Core.Project.Project.cpp">
+      <Filter>src\Core\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.ShaderRegistry.cpp">
+      <Filter>src\Core\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Render\Core.Render.LayerEngine.cpp">
+      <Filter>src\Core\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Render\Core.Render.Layer.cpp">
+      <Filter>src\Core\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Screen\Core.Screen.Screen.cpp">
+      <Filter>src\Core\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Shader\Core.Shader.ShaderFileLibrary.cpp">
+      <Filter>src\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Shader\Core.Shader.Shader2D.cpp">
+      <Filter>src\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Shader\Core.Shader.Shader3D.cpp">
+      <Filter>src\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.cpp">
+      <Filter>src\Core\Shortcuts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Sound\Core.Sound.FX.cpp">
+      <Filter>src\Core\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Delegates\Editor.Delegates.EntityProperties.cpp">
+      <Filter>src\Editor\Delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Dialogs\Editor.Dialogs.SnapGridSettings.cpp">
+      <Filter>src\Editor\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.PropertyEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.PrototypeEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.ComponentEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.ProjectEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.EntityProperty.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.ProjectHierarchyViewer.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.TreeViewDebug.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Delegates\Editor.Delegates.ComponentProperties.cpp">
+      <Filter>src\Editor\Delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.ScreenEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Screen\Core.Screen.ScreenNoProject.cpp">
+      <Filter>src\Core\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.QSFMLWidget.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.CoreSFMLCanvas.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Transformation.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\PyBoltECSAPI\mod.cpp">
+      <Filter>src\Core\PyBoltECSAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\PyBoltECSAPI\command.cpp">
+      <Filter>src\Core\PyBoltECSAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\AI\Core.AI.BehaviourTree.cpp">
+      <Filter>src\Core\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaption.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaptionMenuBar.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainContent.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.ComponentRegistry.cpp">
+      <Filter>src\Core\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.EntityRegistry.cpp">
+      <Filter>src\Core\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Registries\Core.Registries.SystemRegistry.cpp">
+      <Filter>src\Core\Registries</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.MainTools.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Animations.cpp">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.cpp">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Animation\Core.Animation.Animation.cpp">
+      <Filter>src\Core\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.AnimationsComponentEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.ComponentListModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.ComponentModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.EntityListModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.EntityModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.LayerModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.ModelBase.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.ProjectHierarchyModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.ProjectPropertiesModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.SystemModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapper.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperComponent.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperEntity.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperLayer.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperProject.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperProjectProperties.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperSystem.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.AnimationsModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.DataWrapperAnimations.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.AddImageItem.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.CurrentFrameItem.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.ImageItem.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.Timeline.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.AnimationEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\MainWindows\Editor.MainWindows.BoltEditor.cpp">
+      <Filter>src\Editor\MainWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\MainWindows\Editor.MainWindows.MainWindow.cpp">
+      <Filter>src\Editor\MainWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.DrawingAreaItem.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.Canvas.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.GridItem.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.ColorSwatch.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.DrawingToolEditor.cpp">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Shortcuts\Editor.Shortcuts.ShortcutManager.cpp">
+      <Filter>src\Editor\Shortcuts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.DrawingToolModelBase.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.BasicPencilToolModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.ColorPicker.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Editor.Widgets.DialogBasicPencilTool.cpp">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.DataWrapperPencilTool.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\DrawingTools\Editor.DrawingTools.PencilTool.cpp">
+      <Filter>src\Editor\DrawingTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Delegates\Editor.Delegates.BasicPencilTool.cpp">
+      <Filter>src\Editor\Delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\DrawingTools\Editor.DrawingTools.EraserTool.cpp">
+      <Filter>src\Editor\DrawingTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.DataWrapperEraserTool.cpp">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Models\Models\Editor.Models.EraserToolModel.cpp">
+      <Filter>src\Editor\Models\Models</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Editor\HUD\Editor.HUD.HudTransformation.h">
+      <Filter>src\Editor\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\HUD\Editor.HUD.SnapGrid.h">
+      <Filter>src\Editor\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\HUD\Editor.HUD.HudHandle.h">
+      <Filter>src\Editor\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourNode.h">
+      <Filter>src\Core\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourService.h">
+      <Filter>src\Core\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BlackBoard.h">
+      <Filter>src\Core\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BlackBoardVariable.h">
+      <Filter>src\Core\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Application\Core.Application.Application.h">
+      <Filter>src\Core\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Application\Core.Application.GlobalAccess.h">
+      <Filter>src\Core\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.Clipboard.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralEnums.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.ResourceManager.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.Utilities.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.Variant.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Thread\Core.Base.Thread.Thread.h">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.h">
+      <Filter>src\Core\Base\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\BoltScript\Core.BoltScript.BoltScriptEnvironment.h">
+      <Filter>src\Core\BoltScript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Direction.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.FieldOfView.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.OcclusionFactor.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.SimplePhysic.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Sound.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Text.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.UserInput.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.ZDepth.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.BehaviourTree.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Color.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.System.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.World.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Component.h">
+      <Filter>src\Core\ECS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.h">
+      <Filter>src\Core\ECS\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.h">
+      <Filter>src\Core\ECS\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SightSystem.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplePhysics.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SimplerRenderer.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h">
+      <Filter>src\Core\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.h">
+      <Filter>src\Core\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Ray.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Triangle.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Utils.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Math\Core.Math.Edge.h">
+      <Filter>src\Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Project\Core.Project.Project.h">
+      <Filter>src\Core\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.ShaderRegistry.h">
+      <Filter>src\Core\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Render\Core.Render.Layer.h">
+      <Filter>src\Core\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Render\Core.Render.LayerEngine.h">
+      <Filter>src\Core\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Screen\Core.Screen.Screen.h">
+      <Filter>src\Core\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Shader\Core.Shader.Shader3D.h">
+      <Filter>src\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Shader\Core.Shader.ShaderFileLibrary.h">
+      <Filter>src\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Shader\Core.Shader.Shader2D.h">
+      <Filter>src\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Shortcuts\Core.Shortcuts.Shortcuts.h">
+      <Filter>src\Core\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Sound\Core.Sound.FX.h">
+      <Filter>src\Core\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Delegates\Editor.Delegates.EntityProperties.h">
+      <Filter>src\Editor\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Widgets\Editor.Widgets.EntityProperty.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Delegates\Editor.Delegates.ComponentProperties.h">
+      <Filter>src\Editor\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Screen\Core.Screen.ScreenNoProject.h">
+      <Filter>src\Core\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Transformation.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\PyBoltECSAPI\mod.h">
+      <Filter>src\Core\PyBoltECSAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\PyBoltECSAPI\command.h">
+      <Filter>src\Core\PyBoltECSAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourTree.h">
+      <Filter>src\Core\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.ComponentRegistry.h">
+      <Filter>src\Core\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.EntityRegistry.h">
+      <Filter>src\Core\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.SystemRegistry.h">
+      <Filter>src\Core\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Registries\Core.Registries.ItemFileRelatedRegistry.h">
+      <Filter>src\Core\Registries</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\Component\Core.ECS.Component.Animations.h">
+      <Filter>src\Core\ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.h">
+      <Filter>src\Core\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Animation\Core.Animation.Animation.h">
+      <Filter>src\Core\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapper.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperComponent.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperEntity.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperLayer.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperProject.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperProjectProperties.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.TreeWrapperSystem.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.DataWrapperAnimations.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.AddImageItem.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.CurrentFrameItem.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.ImageItem.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.DrawingAreaItem.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.FileSystem.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.GridItem.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Shortcuts\Editor.Shortcuts.ShortcutManager.h">
+      <Filter>src\Editor\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.DataWrapperPencilTool.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\DrawingTools\Editor.DrawingTools.PencilTool.h">
+      <Filter>src\Editor\DrawingTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Delegates\Editor.Delegates.BasicPencilTool.h">
+      <Filter>src\Editor\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\DrawingTools\Editor.DrawingTools.EraserTool.h">
+      <Filter>src\Editor\DrawingTools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Editor\Models\DataWrapper\Editor.Models.DataWrapperEraserTool.h">
+      <Filter>src\Editor\Models\DataWrapper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="..\..\src\Editor\HUD\Editor.HUD.HudBase.h">
+      <Filter>src\Editor\HUD</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Dialogs\Editor.Dialogs.SnapGridSettings.h">
+      <Filter>src\Editor\Dialogs</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.PropertyEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.PrototypeEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.ComponentEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.ProjectEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.ProjectHierarchyViewer.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.TreeViewDebug.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.ScreenEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.QSFMLWidget.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.CoreSFMLCanvas.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaption.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainCaptionMenuBar.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainContent.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.MainTools.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.AnimationsComponentEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.SystemModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.ComponentListModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.ComponentModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.EntityListModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.EntityModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.LayerModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.ModelBase.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.ProjectHierarchyModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.ProjectPropertiesModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.AnimationsModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.Timeline.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.AnimationEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\MainWindows\Editor.MainWindows.BoltEditor.h">
+      <Filter>src\Editor\MainWindows</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\MainWindows\Editor.MainWindows.MainWindow.h">
+      <Filter>src\Editor\MainWindows</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.Canvas.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.ColorSwatch.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editors\Editor.Widgets.Editors.DrawingToolEditor.h">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.DrawingToolModelBase.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.BasicPencilToolModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.ColorPicker.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Editor.Widgets.DialogBasicPencilTool.h">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.EraserToolModel.h">
+      <Filter>src\Editor\Models\Models</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="..\..\src\Editor\Dialogs\SnapGridSettings.ui">
+      <Filter>src\Editor\Dialogs</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\Editors\ProjectEditor.ui">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\Editors\PropertyEditor.ui">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\Editors\PrototypeEditor.ui">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\Editors\ComponentEditor.ui">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\EntityPropertyWidget.ui">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\ProjectHierarchyViewer.ui">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\Editors\ScreenEditor.ui">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\Editors\AnimationEditor.ui">
+      <Filter>src\Editor\Widgets\Editors</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\MainWindows\BoltEditor.ui">
+      <Filter>src\Editor\MainWindows</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\DialogBasicPencilTool.ui">
+      <Filter>src\Editor\Widgets</Filter>
+    </QtUic>
+  </ItemGroup>
+</Project>
