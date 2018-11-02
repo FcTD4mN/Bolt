@@ -6,11 +6,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#ifdef WINDOWS
-#include <cpython/Python.h>
-#else
-#include <Python.h>
-#endif //WINDOWS
+//#ifdef WINDOWS
+//#include <cpython/Python.h>
+//#else
+//#include <Python.h>
+//#endif //WINDOWS
 
 
 #include <chrono>
@@ -48,17 +48,17 @@ BoltMain( int argc, char *argv[] )
 #endif //  CONSOLEDEBUG
 
     // PYTHON TEST
-    wchar_t *program = Py_DecodeLocale( argv[ 0 ], NULL );
-    if( program == NULL )
-    {
-        fprintf( stderr, "Fatal error: cannot decode argv[0]\n" );
-        exit( 1 );
-    }
+    //wchar_t *program = Py_DecodeLocale( argv[ 0 ], NULL );
+    //if( program == NULL )
+    //{
+    //    fprintf( stderr, "Fatal error: cannot decode argv[0]\n" );
+    //    exit( 1 );
+    //}
 
-    PyImport_AppendInittab( "PyBolt", &::nCore::nBoltScript::PyInit_PyBolt );
+    //PyImport_AppendInittab( "PyBolt", &::nCore::nBoltScript::PyInit_PyBolt );
 
-    Py_SetProgramName( program );
-    Py_Initialize();
+    //Py_SetProgramName( program );
+    //Py_Initialize();
     /*
     PyRun_SimpleString( "import PyBolt\n" );
     PyRun_SimpleString( "PyBolt.PyBoltPrint(\"\")\n" );
@@ -82,7 +82,7 @@ BoltMain( int argc, char *argv[] )
 
     printf( "\n" );
     */
-    PyRun_SimpleString( "print( 'yo' )" );
+    //PyRun_SimpleString( "print( 'yo' )" );
 
     // ================================================================================================================== PYTHON TESTS
 
@@ -184,11 +184,11 @@ BoltMain( int argc, char *argv[] )
 
     app->Finalize();
 
-    if( Py_FinalizeEx() < 0 )
-    {
-        exit( 120 );
-    }
-    PyMem_RawFree( program );
+    //if( Py_FinalizeEx() < 0 )
+    //{
+    //    exit( 120 );
+    //}
+    //PyMem_RawFree( program );
 
     return  0;
 }

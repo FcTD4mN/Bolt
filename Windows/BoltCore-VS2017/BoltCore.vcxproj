@@ -222,7 +222,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\BoltExtlibs\_install\debug_x64\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;gdi32.lib;shlwapi.lib;version.lib;Ws2_32.lib;opengl32.lib;glu32.lib;glew32s.lib;python37_d.lib;sfml-audio-s-d.lib;sfml-graphics-s-d.lib;sfml-main-d.lib;sfml-network-s-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;gdi32.lib;shlwapi.lib;version.lib;Ws2_32.lib;opengl32.lib;glu32.lib;glew32s.lib;sfml-audio-s-d.lib;sfml-graphics-s-d.lib;sfml-main-d.lib;sfml-network-s-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>CALL "$(SolutionDir)..\prebuild_core.bat"</Command>
@@ -250,7 +250,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\BoltExtlibs\_install\release_x64\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;gdi32.lib;shlwapi.lib;version.lib;Ws2_32.lib;opengl32.lib;glu32.lib;glew32s.lib;python37.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-main.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>flac.lib;freetype.lib;ogg.lib;openal32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;gdi32.lib;shlwapi.lib;version.lib;Ws2_32.lib;opengl32.lib;glu32.lib;glew32s.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-main.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>CALL "$(SolutionDir)..\prebuild_core.bat"</Command>

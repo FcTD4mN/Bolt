@@ -7,7 +7,7 @@
 #include <Windows.h>
 #endif //WINDOWS
 
-//#include "Editor.MainWindows.BoltEditor.h"
+#include "Editor.MainWindows.BoltEditor.h"
 //#include "Editor.MainWindows.MainWindow.h"
 
 
@@ -27,14 +27,14 @@ MainFunction( int argc, char *argv[] )
     }
 
     // Create the main window
-    /*
+
     ::nEditor::nMainWindows::cBoltEditor* MainWindow = new ::nEditor::nMainWindows::cBoltEditor();
     MainWindow->setObjectName( "MainWindow" );
     MainWindow->setWindowTitle( "Bolt Editor" );
     MainWindow->resize( 800, 600 );
     MainWindow->Setup();
     MainWindow->show();
-    */
+
 
     // Just for now, as it takes a lot of time to load both windows
     //auto w = new ::nEditor::nWidgets::cMainWindow();
