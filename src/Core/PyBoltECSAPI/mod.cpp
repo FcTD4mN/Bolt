@@ -9,7 +9,7 @@
 namespace  nCore {
 namespace  nPyBoltECSAPI {
 
-
+/*
 PyObject*
 PyBoltECSAPIMethod_GetComponentByName( PyObject *self, PyObject *args )
 {
@@ -47,6 +47,7 @@ PyInit_PyBoltECSAPI( void )
 {
     return PyModule_Create( &PyBoltECSAPIModule );
 }
+*/
 
 
 } // namespace nPyBoltECSAPI

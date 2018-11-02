@@ -15,7 +15,7 @@ namespace nPyBoltECSAPI {
 void
 Init()
 {
-    PyImport_AppendInittab( "PyBoltECSAPI", &PyInit_PyBoltECSAPI );
+    //PyImport_AppendInittab( "PyBoltECSAPI", &PyInit_PyBoltECSAPI );
 }
 
 
@@ -45,7 +45,7 @@ ParseFile( const  std::string& iStr )
     // Closing file
     file.close();
 
-    PyRun_SimpleString( codeSource.c_str() );
+    //PyRun_SimpleString( codeSource.c_str() );
 }
 
 

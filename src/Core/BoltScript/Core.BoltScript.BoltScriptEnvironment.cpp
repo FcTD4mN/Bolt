@@ -37,7 +37,7 @@ cBoltScriptEnvironment::BoltScriptEnvironment()
     {
         gBoltScriptEnvironment = new cBoltScriptEnvironment( DefaultOutputRedirectionFunction );
         gBoltScriptEnvironment->RegisterFunction("output:native", ResetOutputRedirectionFunction);
-        gBoltScriptEnvironment->RegisterFunction("python", [=](void) { PyRun_SimpleString( "print (sys.version)\r\n" ); });
+        //gBoltScriptEnvironment->RegisterFunction("python", [=](void) { PyRun_SimpleString( "print (sys.version)\r\n" ); });
     }
 
     return  gBoltScriptEnvironment;
@@ -84,7 +84,7 @@ cBoltScriptEnvironment::ProcessRawString( const  std::string&  iStr )
     }
     catch(const std::exception&)
     {
-        PyRun_SimpleString( iStr.c_str() );
+        //PyRun_SimpleString( iStr.c_str() );
         //Print( "ERROR: Couldn't Process Raw String \r\n" );
     }
 }

@@ -17,12 +17,13 @@
 #include "command.h"
 #include "Core.Application.GlobalAccess.h"
 
+/*
 #ifdef WINDOWS
 #include <cpython/Python.h>
 #else
 #include <Python.h>
 #endif //WINDOWS
-
+*/
 
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Construction
@@ -114,7 +115,7 @@ void
 cScreen::Update( unsigned int iDeltaTime )
 {
     mWorld->Update( iDeltaTime );
-    PyRun_SimpleString( "update()" );
+    //PyRun_SimpleString( "update()" );
 }
 
 

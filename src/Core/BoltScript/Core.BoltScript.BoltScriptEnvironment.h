@@ -1,11 +1,13 @@
 #pragma once
 
 
+/*
 #ifdef WINDOWS
 #include <cpython/Python.h>
 #else
 #include <Python.h>
 #endif //WINDOWS
+*/
 
 #include <functional>
 #include <string>
@@ -56,6 +58,7 @@ cBoltScriptEnvironment*  Env();
 
 
 /* Python wrapper for BoltScriptEnvironment redirected print */
+/*
 static PyObject*
 PyBoltPrint(PyObject *self, PyObject *args)
 {
@@ -86,6 +89,7 @@ PyInit_PyBolt(void)
 {
     return PyModule_Create(&PyBoltModule);
 }
+*/
 
 
 }  // namespace  nBoltScript

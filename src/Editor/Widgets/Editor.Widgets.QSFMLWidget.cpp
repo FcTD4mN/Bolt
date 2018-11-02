@@ -1,9 +1,11 @@
 #include "Editor.Widgets.QSFMLWidget.h"
 
 
+/*
 #ifdef USE_RIVET
 #include <RivetCustomMainWindow>
 #endif // USE_RIVET
+*/
 
 #ifdef WINDOWS
 #include <QtWinExtras>
