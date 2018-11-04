@@ -109,7 +109,6 @@ cGameScreen::Finalize()
 void
 cGameScreen::AdditionnalBuildScreen()
 {
-    mWorld->SetUseLayerEngine( true );  // 114 FPS average without layers ; 103 with layers
     mWorld->AddLayer( sf::Vector2f( 800.F, 600.F ), 1.0 );
     mWorld->AddLayer( sf::Vector2f( 800.F, 600.F ), 3.0 );
 

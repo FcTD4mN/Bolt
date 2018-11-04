@@ -51,6 +51,7 @@ public:
     cEntity*    GetEntityByID( const  std::string& iID );
     cEntity*    GetEntityAtIndex( int iIndex );
     void        DestroyAllEntities();
+    void        PurgeEntities();                                                                // Actual deletion of destroyed entities
 
     void        EntityEnumerator( std::function< void( cEntity* ) > iEnumeratorFunction );
     bool        IsIDUnique( const std::string& iID ) const;
@@ -108,7 +109,6 @@ public:
 
 private:
     // Private
-    void        _PurgeEntities();
     void        _AddEntityToWorld( cEntity* iEntity );
     void        _RemoveEntity( cEntity* iEntity );
 

@@ -75,7 +75,7 @@ cWorld::Draw( sf::RenderTarget* iRenderTarget )
 void
 cWorld::Update( unsigned int iDeltaTime )
 {
-    _PurgeEntities();
+    PurgeEntities();
     for( int i = 0; i < mSystems.size(); ++i )
     {
         mSystems[ i ]->Update( iDeltaTime );
@@ -184,7 +184,20 @@ cWorld::DestroyAllEntities()
     for( auto it : mEntities )
         it.second->Destroy();
 
-    _PurgeEntities();
+    PurgeEntities();
+}
+
+
+void
+cWorld::PurgeEntities()
+{
+    while( mEntitiesToDestroy.size() > 0 )
+    {
+        cEntity* ent = mEntitiesToDestroy.back();
+        _RemoveEntity( ent );
+        delete  ent;
+        mEntitiesToDestroy.pop_back();
+    }
 }
 
 
@@ -671,19 +684,6 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
 // -------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------- Private
 // -------------------------------------------------------------------------------------
-
-
-void
-cWorld::_PurgeEntities()
-{
-    while( mEntitiesToDestroy.size() > 0 )
-    {
-        cEntity* ent = mEntitiesToDestroy.back();
-        _RemoveEntity( ent );
-        delete  ent;
-        mEntitiesToDestroy.pop_back();
-    }
-}
 
 
 void

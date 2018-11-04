@@ -132,13 +132,6 @@ cScreen::PutEntityInLayer( ::nCore::nECS::nCore::cEntity * iEntity, int iLayerIn
 
 
 void
-cScreen::SetUseLayerEngine( bool iValue )
-{
-    mWorld->SetUseLayerEngine( iValue );
-}
-
-
-void
 cScreen::LayersEnumerator( std::function< void( ::nCore::nRender::cLayer* ) > iFunction )
 {
     mWorld->LayersEnumerator( iFunction );
