@@ -37,7 +37,7 @@ public:
     cThreadHandle  AffectFunctionToThreadAndStartAtIndex( std::function< void( int ) > iFunction,  int iIndex, bool iBlockant );
 
 private:
-    cThreadHandle SetThreadToWork( int iThreadIndex, std::function< void( int ) > iFunction, int iIndex );
+    cThreadHandle _SetThreadToWork( int iThreadIndex, std::function< void( int ) > iFunction, int iIndex );
 
 protected:
     std::vector< cThread* >  mThreads;

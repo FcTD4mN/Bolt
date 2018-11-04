@@ -118,9 +118,6 @@
     <ClCompile Include="..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.cpp">
       <Filter>src\Core\Base\Thread</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Core\Base\Core.Base.Clipboard.cpp">
-      <Filter>src\Core\Base</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Core\Base\Core.Base.ClipboardWin32.cpp">
       <Filter>src\Core\Base</Filter>
     </ClCompile>
@@ -310,6 +307,9 @@
     <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.EntityGridDebug.cpp">
       <Filter>src\GameMockup\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Core\Base\Core.Base.Clipboard.cpp">
+      <Filter>src\Core\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourNode.h">
@@ -338,9 +338,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.h">
       <Filter>src\Core\Base\Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\Base\Core.Base.Clipboard.h">
-      <Filter>src\Core\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralEnums.h">
       <Filter>src\Core\Base</Filter>
@@ -533,6 +530,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.EntityGridDebug.h">
       <Filter>src\GameMockup\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.Clipboard.h">
+      <Filter>src\Core\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

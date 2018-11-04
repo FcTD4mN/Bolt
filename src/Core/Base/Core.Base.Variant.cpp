@@ -19,7 +19,7 @@ cVariant::cVariant()
 
 
 cVariant::cVariant( const cVariant & iRHS )
-    //mValueChangeCallback( iRHS.mValueChangeCallback ) Don't copy CB
+    //mValueChangeCallback( iRHS.mValueChangeCallback ) Don't copy CB, because std function can relate/use pointers specific to iRHS
 {
     // Not much to do here
 }

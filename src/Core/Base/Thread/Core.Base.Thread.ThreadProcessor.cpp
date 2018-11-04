@@ -122,7 +122,7 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
     for( int i = 0; i < mThreads.size(); ++i )
     {
         if( mThreads[ i ]->Locked() )
-            return  SetThreadToWork( i, iFunction, iIndex );
+            return  _SetThreadToWork( i, iFunction, iIndex );
     }
 
     // From here, all thread are busy, we can either be non blocant, and return
@@ -132,7 +132,7 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
         for( int i = 0; i < mThreads.size(); ++i )
         {
             if( mThreads[ i ]->Locked() )
-                return  SetThreadToWork( i, iFunction, iIndex );
+                return  _SetThreadToWork( i, iFunction, iIndex );
         }
     }
 
@@ -141,7 +141,7 @@ cThreadProcessor::AffectFunctionToThreadAndStartAtIndex( std::function<void( int
 
 
 cThreadHandle
-cThreadProcessor::SetThreadToWork( int iThreadIndex, std::function<void( int )> iFunction, int iIndex )
+cThreadProcessor::_SetThreadToWork( int iThreadIndex, std::function<void( int )> iFunction, int iIndex )
 {
     cThread* thread = mThreads[ iThreadIndex ];
     std::unique_lock< std::mutex > lock( thread->IdleMutex() );

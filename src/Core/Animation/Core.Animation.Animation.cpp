@@ -20,10 +20,9 @@ cAnimation::cAnimation( const std::string& iName ) :
     mFrameRate( 24 ),
     mPaused( false ),
     mFlipped( false ),
-    mIsAnimationLooping( true )
+    mIsAnimationLooping( true ),
+    mTime( 0 )
 {
-    // DEBUG TMPS
-    //AddSpriteSheet( "resources/Core/Images/SpriteSheets/communiste_spritesheet.png", 12 );
 }
 
 
@@ -33,7 +32,8 @@ cAnimation::cAnimation( const cAnimation& iRHS ) :
     mFrameRate( iRHS.mFrameRate ),
     mPaused( iRHS.mPaused ),
     mFlipped( iRHS.mFlipped ),
-    mIsAnimationLooping( iRHS.mIsAnimationLooping )
+    mIsAnimationLooping( iRHS.mIsAnimationLooping ),
+    mTime( 0 )
 {
     for( auto& data : iRHS.mSprites )
         AddImage( data.mFile );
@@ -58,10 +58,18 @@ cAnimation::Update( unsigned int iDeltaTime )
     if( Paused() )
         return;
 
-    if( _mClock.getElapsedTime().asSeconds() > 1 / mFrameRate )
+    mTime += iDeltaTime;
+
+    // We have 1 frame per second -> 1 per 1E6 microseconds
+    // So we keep track of the delta time climbing up, and then we get how many times we need to next
+    // Most of the time, it's gonna be 1, but if there is lag spike, it might be more
+    // This encures that the animation keeps being synced up with the clock
+    unsigned int howManyNextFrame = mTime / int( 1E6 / mFrameRate );
+    mTime = mTime % (int( 1E6 /mFrameRate));
+
+    while( howManyNextFrame > 0 )
     {
         NextFrame();
-        _mClock.restart();
 
         // If we did a NextFrame that ends on the 0 frame, it means we just played the last frame and ended a cycle of animation
         if( mCurrentFrame == 0 )
@@ -72,6 +80,7 @@ cAnimation::Update( unsigned int iDeltaTime )
             if( mEndOfAnimationCB )
                 mEndOfAnimationCB();
         }
+        --howManyNextFrame;
     }
 }
 
@@ -218,7 +227,7 @@ cAnimation::SpriteWidth() const
     int width =  mSprites[ mCurrentFrame ].mSprite->getTextureRect().width;
 
     // We don't wanna send a -40 width here, so we need to cancel the minus due to the flip
-    // This function returns the actual width, being a positibe value.
+    // This function returns the actual width, being a positive value.
     if( mFlipped )
         width *= -1;
 
@@ -255,7 +264,7 @@ cAnimation::SpriteScale( const sf::Vector2f & iScale )
 
 
 void
-cAnimation::SetEndOfAnimationCB( std::function<void()> iCB )
+cAnimation::EndOfAnimationCB( std::function<void()> iCB )
 {
     mEndOfAnimationCB = iCB;
 }
@@ -408,11 +417,11 @@ cAnimation::LoadXML( tinyxml2::XMLElement* iNode )
 int
 cAnimation::SpriteCount() const
 {
-    return  mSprites.size();
+    return  int(mSprites.size());
 }
 
 
-sf::Sprite *
+sf::Sprite*
 cAnimation::SpriteAtIndex( int iIndex )
 {
     return  mSprites[ iIndex ].mSprite;

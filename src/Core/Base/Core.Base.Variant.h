@@ -21,8 +21,8 @@ enum eType
 
 enum eVariableState
 {
-	kBeforeChange,
-	kAfterChange
+    kBeforeChange,
+    kAfterChange
 };
 
 
@@ -44,8 +44,8 @@ public:
 
 public:
     // Access
-    virtual  eType  Type();
-    virtual  std::string TypeAsString() const;
+    virtual  eType                  Type();
+    virtual  std::string            TypeAsString() const;
 
     virtual  double                 GetValueNumber() const;
     virtual  const std::string&     GetValueString() const;

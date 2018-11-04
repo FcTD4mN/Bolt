@@ -38,29 +38,22 @@ cResourceManager::Instance()
 
 
 sf::Texture*
-cResourceManager::GetTexture( const std::string& iFileName )
+cResourceManager::GetTexture( const nStdFileSystem::path & iFileName )
 {
-    auto finder = mTextures.find( iFileName );
+    auto finder = mTextures.find( iFileName.string() );
 
-    stTexture& result = mTextures[ iFileName ];
+    stTexture& result = mTextures[ iFileName.string() ];
 
     if( !result.mTexture )
     {
         result.mTexture = new sf::Texture();
-        bool loaded = result.mTexture->loadFromFile( iFileName );
+        bool loaded = result.mTexture->loadFromFile( iFileName.string() );
         if( !loaded )
-            printf( "Failed loading image %s \n", iFileName.c_str() );
+            printf( "Failed loading image %s \n", iFileName.string().c_str() );
     }
 
-    ++(result.mCounter);
+    ++( result.mCounter );
     return  result.mTexture;
-}
-
-
-sf::Texture*
-cResourceManager::GetTexture( const nStdFileSystem::path & iFileName )
-{
-    return  GetTexture( iFileName.string() );
 }
 
 

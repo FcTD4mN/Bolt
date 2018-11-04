@@ -1,5 +1,13 @@
 #pragma once
 
+/*
+
+    The purpose of this whole file is to avoid dependencies from low level api to cApplication, in order to get basic informations such as windows' properties
+    ( size essentially ), or resource dir etc...
+
+*/
+
+
 
 #include <SFML/Graphics.hpp>
 

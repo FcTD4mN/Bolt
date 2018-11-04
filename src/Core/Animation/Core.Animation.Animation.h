@@ -45,23 +45,23 @@ public:
     void    FrameRate( float iFrameRate );
     float   FrameRate() const;
 
-    void  Paused( bool iPaused );
-    bool  Paused() const;
+    void    Paused( bool iPaused );
+    bool    Paused() const;
 
-    void  Flipped( bool iFlipped );
-    bool  Flipped() const;
+    void    Flipped( bool iFlipped );
+    bool    Flipped() const;
 
-    void  IsAnimationLooping( bool iIsAnimationLooping );
-    bool  IsAnimationLooping() const;
+    void    IsAnimationLooping( bool iIsAnimationLooping );
+    bool    IsAnimationLooping() const;
 
-    int  SpriteWidth() const;
-    int  SpriteHeight() const;
+    int     SpriteWidth() const;
+    int     SpriteHeight() const;
 
-    void  SpritePosition( const sf::Vector2f& iPosition );
-    void  SpriteOrigin( const sf::Vector2f& iOrigin );
-    void  SpriteScale( const sf::Vector2f& iScale );
+    void    SpritePosition( const sf::Vector2f& iPosition );
+    void    SpriteOrigin( const sf::Vector2f& iOrigin );
+    void    SpriteScale( const sf::Vector2f& iScale );
 
-    void  SetEndOfAnimationCB( std::function< void() > iCB );
+    void    EndOfAnimationCB( std::function< void() > iCB );
 
 public:
     // Images management
@@ -83,8 +83,12 @@ public:
     int                             SpriteCount() const;
     sf::Sprite*                     SpriteAtIndex( int iIndex );
     const ::nStdFileSystem::path&   SpriteFileAtIndex( int iIndex );
+    // =========================================================
 
-protected:
+
+
+    // Members
+private:
     std::string                 mName;
 
     int                         mCurrentFrame;
@@ -94,24 +98,20 @@ protected:
     bool                        mFlipped;
     bool                        mIsAnimationLooping;
 
-
-private:
-    // TEXTURES
-    // Animation clock
-    sf::Clock                           _mClock;
+    unsigned int                mTime;
 
     // The callback for when the animation is over
-    std::function< void() >             mEndOfAnimationCB;
+    std::function< void() >     mEndOfAnimationCB;
 
-private:
-    // Data, being a sprite, its file
+    // Data, being a sprite and its file. Used to do the association between the two, so we can handle loading new files for a given frame
+    // Also, we can handle saving images into their corresponding files
     struct sData
     {
         sf::Sprite*             mSprite;
         nStdFileSystem::path    mFile;
     };
 
-    std::vector< sData >  mSprites;
+    std::vector< sData >        mSprites;
 
 };
 

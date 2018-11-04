@@ -5,14 +5,12 @@
 
 #include "Core.Base.FileSystem.h"
 
-namespace nScreen { class cScreen; }
-namespace nCore { namespace nProject { class cProject; } }
+namespace nCore::nApplication   { class cApplication; }
+namespace nCore::nProject       { class cProject; }
+namespace nScreen               { class cScreen; }
 
-
-namespace nCore { namespace nApplication { class cApplication; } }
 
 ::nCore::nApplication::cApplication* CreateApplication();
-
 
 namespace nCore {
 namespace nApplication {
@@ -36,15 +34,16 @@ public:
     ::nCore::nProject::cProject*    Project();
     void                            NewProject( const  std::string&  iProjectFile );
     bool                            LoadProject( const  nStdFileSystem::path&  iProjectFolder );
-    void                            SetDefaultNoProjectScreen();
+    void                            SetDefaultNoProjectScreen(); // Setup a project, whose purpose is to present itself to user if no project is loaded
 
 public:
+    // Init/Finalize
     virtual  void  Initialize();
     virtual  void  Finalize();
-
     virtual  void  BuildProject();
 
 public:
+    // Update/Draw
     virtual  void  Update( unsigned int iDeltaTime );
     virtual  void  Draw( sf::RenderTarget*  iRenderTarget );
 

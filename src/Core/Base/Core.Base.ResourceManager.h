@@ -34,7 +34,6 @@ public:
     static  cResourceManager* Instance();
 
 public:
-    sf::Texture*    GetTexture( const std::string& iFileName );
     sf::Texture*    GetTexture( const nStdFileSystem::path& iFileName );
     void            InvalidateTexture( const nStdFileSystem::path& iFileName );
 
