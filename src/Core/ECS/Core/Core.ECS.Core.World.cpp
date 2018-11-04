@@ -39,7 +39,7 @@ cWorld::~cWorld()
 
 
 cWorld::cWorld() :
-    mLayerEngine( 0 ),
+    mLayerEngine( new ::nCore::nRender::cLayerEngine() ),
     mEntityMap( new ::nCore::nMapping::cPhysicEntityGrid( 100, 100, 32 ) )
 {
 }

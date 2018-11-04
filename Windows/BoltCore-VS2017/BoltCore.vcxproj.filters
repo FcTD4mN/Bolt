@@ -196,9 +196,6 @@
     <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp">
       <Filter>src\Core\ECS\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.cpp">
-      <Filter>src\Core\ECS\Mapping</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.cpp">
       <Filter>src\Core\ECS\Mapping</Filter>
     </ClCompile>
@@ -416,9 +413,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h">
       <Filter>src\Core\ECS\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.h">
-      <Filter>src\Core\ECS\Mapping</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.h">
       <Filter>src\Core\ECS\Mapping</Filter>
