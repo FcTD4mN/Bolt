@@ -93,10 +93,10 @@ cSquareController::Update( unsigned int iDeltaTime )
     {
         ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
 
-        auto userinput          = dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( entity->GetComponentByName( "userinput" ) );
-        auto simplephysic       = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( entity->GetComponentByName( "simplephysic" ) );
-        auto animations         = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( entity->GetComponentByName( "animations" ) );
-        auto transformation     = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( entity->GetComponentByName( "transformation" ) );
+        auto userinput          = dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( entity->GetComponentByID( "userinput" ) );
+        auto simplephysic       = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( entity->GetComponentByID( "simplephysic" ) );
+        auto animations         = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( entity->GetComponentByID( "animations" ) );
+        auto transformation     = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( entity->GetComponentByID( "transformation" ) );
 
         sf::Listener::setPosition( float( transformation->X()), float( transformation->Y()), 0.0F );
 
@@ -177,8 +177,8 @@ cSquareController::Update( unsigned int iDeltaTime )
 void
 cSquareController::IncomingEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto userinput = iEntity->GetComponentByName( "userinput" );
-    auto simplephysic = iEntity->GetComponentByName( "simplephysic" );
+    auto userinput = iEntity->GetComponentByID( "userinput" );
+    auto simplephysic = iEntity->GetComponentByID( "simplephysic" );
 
     if( userinput && simplephysic )
         AcceptEntity( iEntity );

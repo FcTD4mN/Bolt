@@ -97,7 +97,7 @@ cBehaviourTree::SyncNode()
     {
         auto comp = mComponentsSnapShots[ i ];
 
-        if( mEntityHandle.GetEntity()->GetComponentByName( comp->Name() ) == nullptr )
+        if( mEntityHandle.GetEntity()->GetComponentByID( comp->ID() ) == nullptr )
         {
             mComponentsSnapShots.erase( mComponentsSnapShots.begin() + i );
             delete  comp;
@@ -133,7 +133,7 @@ cBehaviourTree::Update( unsigned int iDeltaTime )
 
 
 void
-cBehaviourTree::AddComponentSnapShot( const  std::string&  iComponentName )
+cBehaviourTree::AddComponentSnapShot( const  std::string&  iComponentID )
 {
     if( !mEntityHandle.IsHandleValid() )
         SyncNode();
@@ -141,23 +141,23 @@ cBehaviourTree::AddComponentSnapShot( const  std::string&  iComponentName )
     // If already snapshot, we delete the snap and put the new one
     for( auto comp : mComponentsSnapShots )
     {
-        if( comp->Name() == iComponentName )
+        if( comp->ID() == iComponentID )
         {
             delete  comp;
             break;
         }
     }
 
-    mComponentsSnapShots.push_back( mEntityHandle.GetEntity()->GetComponentByName( iComponentName )->Clone() );
+    mComponentsSnapShots.push_back( mEntityHandle.GetEntity()->GetComponentByID( iComponentID )->Clone() );
 }
 
 
 ::nCore::nECS::nCore::cComponent*
-cBehaviourTree::GetSnapShotByName( const  std::string&  iComponentName )
+cBehaviourTree::GetSnapShotByName( const  std::string&  iComponentID )
 {
     for( auto comp : mComponentsSnapShots )
     {
-        if( comp->Name() == iComponentName )
+        if( comp->ID() == iComponentID )
             return  comp;
     }
 

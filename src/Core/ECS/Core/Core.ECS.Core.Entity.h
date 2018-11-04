@@ -58,13 +58,13 @@ public:
 
 public:
     // Components
-    void  AddComponent( cComponent* iComponent );
-    void  SetComponent( cComponent* iComponent );
-    void  RemoveComponent( cComponent* iComponent );
-    void  RemoveComponentByName( const std::string& iComponentName );
-    cComponent*  GetComponentByName( const std::string& iComponentName );
+    void            AddComponent( cComponent* iComponent );
+    void            SetComponent( cComponent* iComponent );
+    void            RemoveComponent( cComponent* iComponent );
+    void            RemoveComponentByID( const std::string& iComponentID );
+    cComponent*     GetComponentByID( const std::string& iComponentID );
 
-    template< class T > T  GetComponentByNameAs( const std::string& iComponentName );
+    template< class T > T  GetComponentByIDAs( const std::string& iComponentID );
 
     // EDITOR
     cComponent*  GetComponentAtIndex( int iIndex );
@@ -92,12 +92,13 @@ public:
     const std::string&  ID() const;
     bool                SetID( const std::string& iID );
     void                Destroy();
-    void                AddSystemObserver( cSystem* iSystem );
     cEntityHandle       GetHandle();
     unsigned int        GetIDForHandle() const;
 
 public:
-    void  DrawUsingObserverSystems( sf::RenderTarget* iRenderTarget );
+    // System
+    void    AddSystemObserver( cSystem* iSystem );
+    void    DrawUsingObserverSystems( sf::RenderTarget* iRenderTarget );
 
 private:
     void IncIDForHandles();
@@ -116,7 +117,7 @@ private:
     cWorld *                    mWorld;             // To call for updates if entity changes
     ::nCore::nRender::cLayer*   mContainerLayer;    // The layer this entity is in : to allow getting entityGrid fast.
 
-    std::string                 mID;
+    std::string                 mID;                // An ID that allows finding component in hash map easily
     std::vector< sPair >        mComponents;
     std::vector< std::string >  mTags;              // Tags are "boolean" components, to avoid creating objects with no data.Gives a property such as lootable, or killable
     std::vector< cSystem* >     mObserverSystems;   // Entity knows which systems are observing, when destroyed, an entity can remove itself from system directly->fast
@@ -129,9 +130,9 @@ private:
 
 template< class T >
 T
-cEntity::GetComponentByNameAs( const std::string& iComponentName )
+cEntity::GetComponentByIDAs( const std::string& iComponentID )
 {
-    return  dynamic_cast<T>( GetComponentByName( iComponentName ) );
+    return  dynamic_cast<T>( GetComponentByID( iComponentID ) );
 }
 
 

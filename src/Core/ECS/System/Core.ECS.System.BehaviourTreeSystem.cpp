@@ -51,7 +51,7 @@ cBehaviourTreeSystem::Update( unsigned int iDeltaTime )
     {
         ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
 
-        auto behaviourTree = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cBehaviourTree* >( "behaviourtree" );
+        auto behaviourTree = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cBehaviourTree* >( "behaviourtree" );
         behaviourTree->mBehaviourTree = behaviourTree->mBehaviourTree->Update( iDeltaTime );
     }
 }
@@ -65,7 +65,7 @@ cBehaviourTreeSystem::Update( unsigned int iDeltaTime )
 void
 cBehaviourTreeSystem::IncomingEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto behaviourTree = iEntity->GetComponentByName( "behaviourtree" );
+    auto behaviourTree = iEntity->GetComponentByID( "behaviourtree" );
 
     if( behaviourTree )
         AcceptEntity( iEntity );

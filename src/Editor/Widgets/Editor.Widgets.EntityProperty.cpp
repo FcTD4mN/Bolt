@@ -180,7 +180,7 @@
 //                auto component = ::nCore::nECS::nUtilities::cComponentRegistry::Instance()->GetItemAtIndex( i );
 //                std::string compName = component->Name();
 //
-//                if( mEntity->GetComponentByName( compName ) == nullptr ) // We can only see components that are not already in the entity
+//                if( mEntity->GetComponentByID( compName ) == nullptr ) // We can only see components that are not already in the entity
 //                {
 //                    if( component->Name() != currentComponentName.toStdString() )
 //                    {

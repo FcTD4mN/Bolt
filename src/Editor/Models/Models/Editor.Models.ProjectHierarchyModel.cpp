@@ -731,12 +731,12 @@ cProjectHierarchyModel::ExecuteActionOnIndex( const QString& iAction, const QMod
             beginInsertRows( iIndex, rowCount( iIndex ), rowCount( iIndex ) );
 
             // Registering the component
-            ::nCore::nRegistries::cComponentRegistry::Instance()->RegisterItem( newComp->Name(), newComp );
+            ::nCore::nRegistries::cComponentRegistry::Instance()->RegisterItem( newComp->ID(), newComp );
 
             // Already associating a file
             nStdFileSystem::path newCompFile( ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder() + "/Assets/Components/" );
-            newCompFile += newComp->Name() + ".comp";
-            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( newComp->Name(), newCompFile );
+            newCompFile += newComp->ID() + ".comp";
+            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( newComp->ID(), newCompFile );
 
             // Creating the node
             auto newComponentNode = new cTreeWrapperNodeHierarchyComponent( treeNode, newComp );
@@ -869,18 +869,18 @@ cProjectHierarchyModel::SaveComponent( const ::nCore::nECS::nCore::cComponent* i
 {
     if( iComponent )
     {
-        std::string compName = iComponent->Name();
+        std::string compID = iComponent->ID();
 
         QMessageBox msg;
         msg.setIcon( QMessageBox::Critical );
-        if( compName == "" )
+        if( compID == "" )
         {
             msg.setText( "Component name is empty" );
             msg.exec();
             return;
         }
 
-        nStdFileSystem::path filePath = ::nCore::nRegistries::cComponentRegistry::Instance()->GetItemFileByItemName( iComponent->Name() );
+        nStdFileSystem::path filePath = ::nCore::nRegistries::cComponentRegistry::Instance()->GetItemFileByItemName( iComponent->ID() );
         nStdFileSystem::path newFilePath;
 
         if( filePath == "void" ) // This allows to skip the c++ integrated components
@@ -890,7 +890,7 @@ cProjectHierarchyModel::SaveComponent( const ::nCore::nECS::nCore::cComponent* i
         else if( filePath.empty() )
         {
             nStdFileSystem::path pathAndFile( ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder() + "/Assets/Components/" );
-            pathAndFile += compName.c_str();
+            pathAndFile += compID.c_str();
 
             QFileDialog fileAsking( 0, tr( "Save your component" ), pathAndFile.string().c_str(), tr( "Component (*.comp)" ) );
             fileAsking.setDefaultSuffix( "comp" );
@@ -900,7 +900,7 @@ cProjectHierarchyModel::SaveComponent( const ::nCore::nECS::nCore::cComponent* i
             else
                 return;
 
-            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( iComponent->Name(), newFilePath );
+            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( iComponent->ID(), newFilePath );
         }
         else
         {
@@ -911,10 +911,10 @@ cProjectHierarchyModel::SaveComponent( const ::nCore::nECS::nCore::cComponent* i
                 printf( "Delete success\n" );
 
             newFilePath = ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder() + "/Assets/Components/";
-            newFilePath += compName.c_str();
+            newFilePath += compID.c_str();
             newFilePath += ".comp";
 
-            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( iComponent->Name(), newFilePath );
+            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( iComponent->ID(), newFilePath );
         }
 
         // Creating the new file
@@ -945,7 +945,7 @@ cProjectHierarchyModel::SaveComponentAs( const ::nCore::nECS::nCore::cComponent*
         return;
 
     nStdFileSystem::path pathAndFile( ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder() + "/Assets/Components/" );
-    pathAndFile += iComponent->Name().c_str();
+    pathAndFile += iComponent->ID().c_str();
 
     QFileDialog fileAsking( 0, tr( "Save your component" ), pathAndFile.string().c_str(), tr( "Component (*.comp)" ) );
     fileAsking.setDefaultSuffix( "comp" );
@@ -958,7 +958,7 @@ cProjectHierarchyModel::SaveComponentAs( const ::nCore::nECS::nCore::cComponent*
         return;
 
     auto registry = ::nCore::nRegistries::cComponentRegistry::Instance();
-    nStdFileSystem::path  entityCurrentFile = registry->GetItemFileByItemName( iComponent->Name() );
+    nStdFileSystem::path  entityCurrentFile = registry->GetItemFileByItemName( iComponent->ID() );
 
     // Creating the new file
     tinyxml2::XMLDocument doc;
@@ -970,29 +970,29 @@ cProjectHierarchyModel::SaveComponentAs( const ::nCore::nECS::nCore::cComponent*
         ::nCore::nECS::nCore::cComponent*  componentAssociatedToRequiredFilename = registry->GetItemAssociatedToFile( fullFilePath );
 
         if( componentAssociatedToRequiredFilename )
-            registry->UnregisterItemByName( componentAssociatedToRequiredFilename->Name() );
+            registry->UnregisterItemByName( componentAssociatedToRequiredFilename->ID() );
 
         ::nCore::nECS::nCore::cComponent* clone = iComponent->Clone();
-        std::string newCompName = fullFilePath.stem().string();
+        std::string newCompID = fullFilePath.stem().string();
 
         // We compute a unique name
         int i = 2;
-        while( registry->IsItemNameAlreadyInRegistry( newCompName ) )
+        while( registry->IsItemNameAlreadyInRegistry( newCompID ) )
         {
-            newCompName = fullFilePath.stem().string() + std::to_string( i );
+            newCompID = fullFilePath.stem().string() + std::to_string( i );
             ++i;
         }
-        clone->Name( newCompName );
+        clone->ID( newCompID );
 
-        registry->RegisterItem( newCompName, clone );
+        registry->RegisterItem( newCompID, clone );
         clone->SaveXML( elm, &doc );
-        registry->SetItemFileUsingItemName( clone->Name(), entityCurrentFile );
+        registry->SetItemFileUsingItemName( clone->ID(), entityCurrentFile );
     }
     // Otherwise we simply save it
     else
     {
         iComponent->SaveXML( elm, &doc );
-        registry->SetItemFileUsingItemName( iComponent->Name(), fullFilePath );
+        registry->SetItemFileUsingItemName( iComponent->ID(), fullFilePath );
     }
 
     doc.InsertFirstChild( elm );

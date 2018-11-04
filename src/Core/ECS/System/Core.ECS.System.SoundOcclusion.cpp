@@ -72,8 +72,8 @@ cSoundOcclusion::Update( unsigned int iDeltaTime )
         else
             entityMap = mWorld->EntityMap();
 
-        auto transformation = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
-        auto sound = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cSound* >( "sound" );
+        auto transformation = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+        auto sound = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSound* >( "sound" );
 
         double finalOcclusion = 1.0F;
 
@@ -81,7 +81,7 @@ cSoundOcclusion::Update( unsigned int iDeltaTime )
         entityMap->GetEntitiesFollowingLineFromEntityToEntity( &entitiesInBetween, mListener, entity,::nCore::nMath::cEdgeF::MakePointPoint( transformation->PositionAsVector2F(), mListenerPosition->PositionAsVector2F() ) );
         for( auto ent : entitiesInBetween )
         {
-            auto occlusionfactor = dynamic_cast< ::nCore::nECS::nComponent::cOcclusionFactor* >( ent->GetComponentByName( "occlusionfactor" ) );
+            auto occlusionfactor = dynamic_cast< ::nCore::nECS::nComponent::cOcclusionFactor* >( ent->GetComponentByID( "occlusionfactor" ) );
             if( occlusionfactor )
             {
                 finalOcclusion *= occlusionfactor->OcclusionFactor();
@@ -103,10 +103,10 @@ cSoundOcclusion::Update( unsigned int iDeltaTime )
 void
 cSoundOcclusion::IncomingEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto transformation = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
-    auto simplephysic = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
-    auto occlusionfactor = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cOcclusionFactor* >( "occlusionfactor" );
-    auto sound = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cSound* >( "sound" );
+    auto transformation = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+    auto simplephysic = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
+    auto occlusionfactor = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cOcclusionFactor* >( "occlusionfactor" );
+    auto sound = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSound* >( "sound" );
 
     if( transformation && simplephysic && ( occlusionfactor || sound ) )
     {
@@ -123,7 +123,7 @@ cSoundOcclusion::IncomingEntity( ::nCore::nECS::nCore::cEntity * iEntity )
     if( transformation && simplephysic && iEntity->HasTag( "listener" ) )
     {
         mListener = iEntity;
-        mListenerPosition = mListener->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+        mListenerPosition = mListener->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
     }
 }
 

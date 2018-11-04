@@ -62,9 +62,9 @@ cSimplerRenderer::DrawEntity( sf::RenderTarget * iRenderTarget, ::nCore::nECS::n
     sf::CircleShape triangle( 80.0F, 3 ); // 3 sides circle = triangle
     sf::Vector2f origin;
 
-    auto transformation = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
-    auto color = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cColor* >( "color" );
-    auto text = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cText* >( "text" );
+    auto transformation = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+    auto color = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cColor* >( "color" );
+    auto text = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cText* >( "text" );
 
     if( color )
     {
@@ -97,9 +97,9 @@ cSimplerRenderer::Update( unsigned int iDeltaTime )
 void
 cSimplerRenderer::IncomingEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto transformation = iEntity->GetComponentByName( "transformation" );
-    auto color          = iEntity->GetComponentByName( "color" );
-    auto text           = iEntity->GetComponentByName( "text" );
+    auto transformation = iEntity->GetComponentByID( "transformation" );
+    auto color          = iEntity->GetComponentByID( "color" );
+    auto text           = iEntity->GetComponentByID( "text" );
 
     if( transformation && ( color || text ) )
         AcceptEntity( iEntity );

@@ -56,7 +56,7 @@ cInputConverter::Update( unsigned int iDeltaTime )
     {
         ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
 
-        auto userinput = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cUserInput* >( "userinput" );
+        auto userinput = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cUserInput* >( "userinput" );
     }
 }
 
@@ -69,7 +69,7 @@ cInputConverter::Update( unsigned int iDeltaTime )
 void
 cInputConverter::IncomingEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto userinput = iEntity->GetComponentByName( "userinput" );
+    auto userinput = iEntity->GetComponentByID( "userinput" );
 
     if( userinput )
         AcceptEntity( iEntity );
@@ -88,7 +88,7 @@ cInputConverter::KeyPressed( const sf::Event & iEvent )
     {
         ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
 
-        auto userinput = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cUserInput* >( "userinput" );
+        auto userinput = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cUserInput* >( "userinput" );
         userinput->mActions.push_back( ::nCore::nShortcuts::cShortcuts::Instance()->GetActionForKey( iEvent.key.code ) );
     }
 }
@@ -101,7 +101,7 @@ cInputConverter::KeyReleased( const sf::Event & iEvent )
     {
         ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
 
-        auto userinput = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cUserInput* >( "userinput" );
+        auto userinput = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cUserInput* >( "userinput" );
 
         for( int i = 0; i < userinput->mActions.size(); ++i )
         {

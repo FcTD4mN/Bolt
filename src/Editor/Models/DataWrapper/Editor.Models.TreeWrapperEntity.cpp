@@ -109,7 +109,7 @@ cTreeWrapperNodeComponent::~cTreeWrapperNodeComponent()
      mComponent( iComponent )
 {
      if( mComponent )
-        AppendData( mComponent->Name().c_str() );
+        AppendData( mComponent->ID().c_str() );
      else
         AppendData( "New Component" );
 

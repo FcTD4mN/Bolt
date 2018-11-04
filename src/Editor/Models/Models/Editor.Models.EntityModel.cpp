@@ -111,7 +111,7 @@ cEntityModel::setData( const QModelIndex & index, const QVariant & value, int ro
         else
         {
             // Here, we need to address specific cases
-            if( component->Name() == "animations" )
+            if( component->ID() == "animations" )
             {
                 auto animationNode = new cTreeWrapperNode( item );
                 animationNode->AppendData( "EditAnimations" );
@@ -401,7 +401,7 @@ cEntityModel::BuildData()
         else
         {
             // Here, we need to address specific cases
-            auto animationComp = mEntity->GetComponentByName( "animations" );
+            auto animationComp = mEntity->GetComponentByID( "animations" );
             if( animationComp )
             {
                 auto animationNode = new cTreeWrapperNode( compNode );

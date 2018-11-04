@@ -188,7 +188,7 @@ CoreSFMLCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oS
 {
     float expansionSize = 2.0;
 
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByName( "transformation" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
     if( !transformation )
     {
         *oPosition  = sf::Vector2f( 0.0F, 0.0F );
@@ -213,8 +213,8 @@ CoreSFMLCanvas::GetEntitySelectionBox( sf::Vector2f* oPosition, sf::Vector2f* oS
 sf::Vector2f
 CoreSFMLCanvas::GetSizeFromEntity( ::nCore::nECS::nCore::cEntity* iEntity ) const
 {
-    auto transformation = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
-    auto animations = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
+    auto transformation = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+    auto animations = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
 
     sf::Vector2f entitySize( 1, 1 );
     if( transformation )
@@ -456,7 +456,7 @@ CoreSFMLCanvas::mouseDoubleClickEvent( QMouseEvent * iEvent )
 
     sf::Vector2f convert = sf::RenderWindow::mapPixelToCoords( sf::Vector2i( iEvent->localPos().x() , iEvent->localPos().y() ) );
 
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( theEnti->GetComponentByName( "transformation" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( theEnti->GetComponentByID( "transformation" ) );
     if( transformation )
     {
         transformation->X( convert.x );
@@ -543,7 +543,7 @@ CoreSFMLCanvas::StartingEntityEdition()
 
     for( auto hud : mEntityHUDs )
     {
-        auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( hud->Entity()->GetComponentByName( "transformation" ) );
+        auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( hud->Entity()->GetComponentByID( "transformation" ) );
         if( transformation )
             mEntitiesOriginalPositions.push_back( transformation->PositionAsVector2F() );
 
@@ -570,7 +570,7 @@ CoreSFMLCanvas::EntityMoved( float iDeltaX, float iDeltaY )
         if( mNeedDuplication )
             mProjectModel->CloneEntity( entity );
 
-        auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( entity->GetComponentByName( "transformation" ) );
+        auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( entity->GetComponentByID( "transformation" ) );
         double newX = mEntitiesOriginalPositions[ indexSync ].x + iDeltaX;
         double newY = mEntitiesOriginalPositions[ indexSync ].y + iDeltaY;
 
@@ -615,7 +615,7 @@ CoreSFMLCanvas::EntityScaled( float iDeltaW, float iDeltaH )
     for( auto hud : mEntityHUDs )
     {
         ++indexSync;
-        auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( hud->Entity()->GetComponentByName( "transformation" ) );
+        auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( hud->Entity()->GetComponentByID( "transformation" ) );
         if( !transformation )
             continue;
 

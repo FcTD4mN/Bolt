@@ -57,7 +57,7 @@ cSimplePhysics::DrawEntity( sf::RenderTarget* iRenderTarget, ::nCore::nECS::nCor
     {
         sf::RectangleShape rect( sf::Vector2f( 10, 10 ) );
 
-        //auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+        //auto simplephysic = dynamic_cast< cSimplePhysic* >( iEntity->GetComponentByID( "simplephysic" ) );
         sf::FloatRect entityHitbox = GetEntityHitBoxAndCenter( 0, iEntity );
 
         // DEBUG Hitbox Drawing
@@ -72,7 +72,7 @@ cSimplePhysics::DrawEntity( sf::RenderTarget* iRenderTarget, ::nCore::nECS::nCor
         //for( int j = 0; j < surrounding.size(); ++j )
         //{
         //    cEntity* surroundingEntity = surrounding[ j ];
-        //    auto simplephysicSurr = dynamic_cast< cSimplePhysic* >( surroundingEntity->GetComponentByName( "simplephysic" ) );
+        //    auto simplephysicSurr = dynamic_cast< cSimplePhysic* >( surroundingEntity->GetComponentByID( "simplephysic" ) );
 
         //    sf::VertexArray lines( sf::LinesStrip, 2 );
         //    lines[ 0 ].position = sf::Vector2f( simplephysic->mHitBox.left + simplephysic->mHitBox.width / 2, simplephysic->mHitBox.top + simplephysic->mHitBox.height / 2 );
@@ -106,7 +106,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
         ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
-        auto simplephysic = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
+        auto simplephysic = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
 
         if( simplephysic->PhysicType() == ::nCore::nECS::nComponent::cSimplePhysic::kStatic )
             continue;
@@ -139,7 +139,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 
             if( projection.intersects( surrENtHitBox ) )
             {
-                auto colliderPhysics = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
+                auto colliderPhysics = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
                 if( !colliderPhysics )
                     break;
 
@@ -161,7 +161,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 
         if( !blockingCollision && ( simplephysic->mVelocity.x != 0.0F || simplephysic->mVelocity.y != 0.0F ) )
         {
-            auto transformation = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+            auto transformation = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
             ::nCore::nBase::cVariant* positionX = transformation->GetVar( "x" );
             ::nCore::nBase::cVariant* positionY = transformation->GetVar( "y" );
 
@@ -185,8 +185,8 @@ cSimplePhysics::SetGravity( float iGravity )
 sf::FloatRect
 cSimplePhysics::GetEntityHitBoxAndCenter( sf::Vector2f* oCenter, ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto simplephysic = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
-    auto transformation = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+    auto simplephysic = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
+    auto transformation = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
 
     sf::Vector2f entityCenter = transformation->PositionAsVector2F() + transformation->SizeAsVector2F() / 2.0F;
 
@@ -205,7 +205,7 @@ cSimplePhysics::GetEntityHitBoxAndCenter( sf::Vector2f* oCenter, ::nCore::nECS::
 void
 cSimplePhysics::IncomingEntity( ::nCore::nECS::nCore::cEntity*  iEntity )
 {
-    auto simplephysic = iEntity->GetComponentByName( "simplephysic" );
+    auto simplephysic = iEntity->GetComponentByID( "simplephysic" );
 
     if( simplephysic )
     {

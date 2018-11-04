@@ -105,7 +105,7 @@ cLayer::AddEntity( ::nCore::nECS::nCore::cEntity * iEntity )
     if( layer )
         layer->RemoveEntity( iEntity );
 
-    auto zdepth = dynamic_cast< ::nCore::nECS::nComponent::cZDepth*>( iEntity->GetComponentByName( "zdepth" ) );
+    auto zdepth = dynamic_cast< ::nCore::nECS::nComponent::cZDepth*>( iEntity->GetComponentByID( "zdepth" ) );
     double zEnteringEntityDepth = 1.0;
     if( zdepth )
         zEnteringEntityDepth = zdepth->ZDepth();
@@ -115,7 +115,7 @@ cLayer::AddEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 
     while( it != mEntities.end() )
     {
-        auto zdepthEnt = dynamic_cast< ::nCore::nECS::nComponent::cZDepth* >( (*it)->GetComponentByName( "zdepth" ) );
+        auto zdepthEnt = dynamic_cast< ::nCore::nECS::nComponent::cZDepth* >( (*it)->GetComponentByID( "zdepth" ) );
         double entityZDepth = 1.0;
         if( zdepthEnt )
             entityZDepth = zdepthEnt->ZDepth();

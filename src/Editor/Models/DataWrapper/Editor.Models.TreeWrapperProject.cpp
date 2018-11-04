@@ -420,7 +420,7 @@ cTreeWrapperNodeHierarchyComponent::DataCount() const
 QVariant
 cTreeWrapperNodeHierarchyComponent::DataAtColumn( int iColumn )
 {
-    return  mComponent->Name().c_str();
+    return  mComponent->ID().c_str();
 }
 
 

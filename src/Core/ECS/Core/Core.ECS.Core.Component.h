@@ -23,7 +23,7 @@ class cEntity;
 class cComponent
 {
 
-    friend  cEntity; // So it can access the mEntityOwner var, and is the only class able to modify it
+    friend  cEntity; // So entity can access the mEntityOwner var, and is the only class able to modify it
 
 
 public:
@@ -38,10 +38,10 @@ public:
 
 public:
     // Access/Get
-    const  std::string&  Name() const;
+    const  std::string&  ID() const;
 
     //EDITOR
-    void  Name( const std::string& iNewName );
+    void  ID( const std::string& iNewID );
 
 public:
     // Input/Output
@@ -49,7 +49,7 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
 protected:
-    std::string  mName;
+    std::string  mID;
     cEntity*     mEntityOwner;
 };
 
@@ -72,20 +72,18 @@ public:
 
 public:
     // Access/Get
-        // Yes we can get the variant, and modify it on the stop, so it's faster
-    ::nCore::nBase::cVariant*          GetVar( const std::string& iVarName );
-        // Simple setter
-    void                AddNewVariable( const std::string& iVarName, ::nCore::nBase::cVariant* iValue );
-    void                SetVarValueChangeCallback( const std::string& iVarName, std::function< void( ::nCore::nBase::eVariableState ) > iFunction );
-
-    void                VariableEnumerator( std::function< void( const std::string&, ::nCore::nBase::cVariant* )> iMethod );
+        // Yes we can get the variant, and modify it on the spot, so it's faster
+    ::nCore::nBase::cVariant*       GetVar( const std::string& iVarName );
+    void                            AddNewVariable( const std::string& iVarName, ::nCore::nBase::cVariant* iValue );
+    void                            SetVarValueChangeCallback( const std::string& iVarName, std::function< void( ::nCore::nBase::eVariableState ) > iFunction );
+    void                            VariableEnumerator( std::function< void( const std::string&, ::nCore::nBase::cVariant* )> iMethod );
 
     // EDITOR USED methods
-    int                 VarCount() const;
-    ::nCore::nBase::cVariant*  GetVarAtIndex( int iIndex );
-    const std::string&  GetVarNameAtIndex( int iIndex ) const;
-    void                RenameVar( const std::string& iCurrentName, const std::string& iNewName );
-    void                RemoveVar( const std::string& iVarName );
+    int                         VarCount() const;
+    ::nCore::nBase::cVariant*   GetVarAtIndex( int iIndex );
+    const std::string&          GetVarNameAtIndex( int iIndex ) const;
+    void                        RenameVar( const std::string& iCurrentName, const std::string& iNewName );
+    void                        RemoveVar( const std::string& iVarName );
 
 public:
     // Input/Output

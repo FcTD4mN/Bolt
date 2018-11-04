@@ -75,9 +75,9 @@ QVariant
 cTreeWrapperNodeComponentEditor::DataAtColumn( int iColumn )
 {
     if( iColumn == 0 )
-        return  "Name";
+        return  "Id";
     else
-        return  mComponent->Name().c_str();
+        return  mComponent->ID().c_str();
 }
 
 
@@ -87,14 +87,14 @@ cTreeWrapperNodeComponentEditor::SetData( int iIndex, const QVariant & iData )
     if( iIndex == 1 )
     {
         auto componentReg = ::nCore::nRegistries::cComponentRegistry::Instance();
-        auto filename = componentReg->GetItemFileByItemName( mComponent->Name() );
+        auto filename = componentReg->GetItemFileByItemName( mComponent->ID() );
 
         // We update index id
-        componentReg->UnregisterItemByName( mComponent->Name() );
-        mComponent->Name( iData.toString().toStdString() );
-        componentReg->RegisterItem( mComponent->Name(), mComponent );
+        componentReg->UnregisterItemByName( mComponent->ID() );
+        mComponent->ID( iData.toString().toStdString() );
+        componentReg->RegisterItem( mComponent->ID(), mComponent );
 
-        componentReg->SetItemFileUsingItemName( mComponent->Name(), filename );
+        componentReg->SetItemFileUsingItemName( mComponent->ID(), filename );
     }
 
     return  true;

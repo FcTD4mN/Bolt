@@ -9,9 +9,9 @@
 #include <functional>
 
 
-namespace nCore { namespace nRender { class cLayer; } }
-namespace nCore { namespace nRender { class cLayerEngine; } }
-namespace nCore { namespace nMapping { class cEntityGrid; } }
+namespace nCore::nRender    { class cLayer; }
+namespace nCore::nRender    { class cLayerEngine; }
+namespace nCore::nMapping   { class cEntityGrid; }
 
 
 namespace nCore {
@@ -36,34 +36,27 @@ public:
     void  Update( unsigned int iDeltaTime );
 
 public:
-    // Config
-    void  SetUseLayerEngine( bool iValue );
-
-public:
     // Layers
     ::nCore::nRender::cLayerEngine* LayerEngine();
-    void  AddLayer( const sf::Vector2f& iViewSize, float iDistance );
-
-    void  LayersEnumerator( std::function< void( ::nCore::nRender::cLayer* ) > iFunction );
+    void                            AddLayer( const sf::Vector2f& iViewSize, float iDistance );
+    void                            LayersEnumerator( std::function< void( ::nCore::nRender::cLayer* ) > iFunction );
 
 public:
     // Entity
-    int   AddEntityAndPutInLayer( cEntity* iEntity, ::nCore::nRender::cLayer* iLayer );    // returns the index of the entity in its layer
-    int   AddEntityAndPutInLayer( cEntity* iEntity, int iLayerIndex );              // returns the index of the entity in its layer
-    void  UpdateWorldWithEntity( cEntity* iEntity );
-    void  DestroyEntity( cEntity* iEntity );
-    void  DestroyEntityByID( const  std::string& iID );
-    cEntity*  GetEntityByID( const  std::string& iID );
-    cEntity*  GetEntityAtIndex( int iIndex );
-    void  DestroyAllEntities();
-    void  PurgeEntities();
+    int         AddEntityAndPutInLayer( cEntity* iEntity, ::nCore::nRender::cLayer* iLayer );   // returns the index of the entity in its layer
+    int         AddEntityAndPutInLayer( cEntity* iEntity, int iLayerIndex );                    // returns the index of the entity in its layer
+    void        UpdateWorldWithEntity( cEntity* iEntity );                                      // Called if an entity changed component or tag wise, meaning systems will have to undergo incomingEntityAgain etc
+    void        DestroyEntity( cEntity* iEntity );
+    void        DestroyEntityByID( const  std::string& iID );
+    cEntity*    GetEntityByID( const  std::string& iID );
+    cEntity*    GetEntityAtIndex( int iIndex );
+    void        DestroyAllEntities();
 
-    void  EntityEnumerator( std::function< void( cEntity* ) > iEnumeratorFunction );
-
-    bool IsIDUnique( const std::string& iID ) const;
+    void        EntityEnumerator( std::function< void( cEntity* ) > iEnumeratorFunction );
+    bool        IsIDUnique( const std::string& iID ) const;
+    int         EntityCount() const;
 
 private:
-    void _AddEntityToWorld( cEntity* iEntity );
 
 public:
     // Systems
@@ -73,24 +66,18 @@ public:
     void        RemoveSystemByName( const std::string& iSysName );
     void        ConnectSystemToEvents( cSystem* iSystem );
     void        DisconnectSystemToEvents( cSystem* iSystem );
+    int         SystemCount() const;
+
+    // EDITOR
     cSystem*    GetSystemAtIndex( int iIndex );
     cSystem*    GetSystemByName( const std::string& iName );
     bool        HasSystem( const std::string& iSysName ) const;
 
 public:
-    // Access
-    int EntityCount() const;
-    int SystemCount() const;
-
-private:
-    // Private
-    void  RemoveEntity( cEntity* iEntity );
-
-public:
     // EntityMap
-    void                        SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize );
-    ::nCore::nMapping::cEntityGrid*    EntityMap();
-    void                        EntityMapEnumerator( std::function< void( ::nCore::nMapping::cEntityGrid* iEntityGrid ) > iFunction );
+    void                                SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize );
+    ::nCore::nMapping::cEntityGrid*     EntityMap();
+    void                                EntityMapEnumerator( std::function< void( ::nCore::nMapping::cEntityGrid* iEntityGrid ) > iFunction );
 
 public:
     // Events
@@ -119,6 +106,12 @@ public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) const;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
 
+private:
+    // Private
+    void        _PurgeEntities();
+    void        _AddEntityToWorld( cEntity* iEntity );
+    void        _RemoveEntity( cEntity* iEntity );
+
 protected:
     std::unordered_map< std::string, cEntity* > mEntities;
     std::vector< cEntity* >                     mEntitiesToDestroy;
@@ -130,7 +123,6 @@ protected:
 
 public:
     ::nCore::nRender::cLayerEngine*             mLayerEngine;
-    bool                                        mUseLayerEngine;
 };
 
 

@@ -53,7 +53,7 @@ cPremierScreen::AdditionnalBuildScreen()
 
     auto hero = mWorld->GetEntityByID( "Heroc8" );
     hero->AddComponent( new  ::nCore::nECS::nComponent::cUserInput() );
-    auto physics = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( hero->GetComponentByName( "simplephysic" ) );
+    auto physics = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( hero->GetComponentByID( "simplephysic" ) );
     physics->PhysicType( ::nCore::nECS::nComponent::cSimplePhysic::kDynamic );
 
     tSuperClass::AdditionnalBuildScreen();

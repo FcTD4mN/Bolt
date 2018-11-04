@@ -131,9 +131,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
         mAllPolygonsInFOV.clear();
         mOutputTriangles->clear();
 
-        auto transformation = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
-        auto direction      = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cDirection* >( "direction" );
-        auto fieldofview    = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cFieldOfView* >( "fieldofview" );
+        auto transformation = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+        auto direction      = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cDirection* >( "direction" );
+        auto fieldofview    = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cFieldOfView* >( "fieldofview" );
 
         std::vector< sf::VertexArray > trianglesToComputeVector;    // Needed to extract bbox
         sf::VertexArray subFov;
@@ -185,7 +185,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
             if( v == entity )
                 continue;
 
-            auto transformationENT = v->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+            auto transformationENT = v->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
             sf::Vector2f entPosVec( float( transformationENT->X()), float( transformationENT->Y()) );
 
             sf::VertexArray analysisVisibleBox( sf::Points, 4 );
@@ -308,10 +308,10 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //    //mTransformationAngleSort = mTransformationAngleSort.Identity;
     //    mTriangles.clear();
 
-    //    auto position = dynamic_cast< cPosition* >( entity->GetComponentByName( "position" ) );
-    //    auto size = dynamic_cast< cSize* >( entity->GetComponentByName( "size" ) );
-    //    auto direction = dynamic_cast< cDirection* >( entity->GetComponentByName( "direction" ) );
-    //    auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByName( "fieldofview" ) );
+    //    auto position = dynamic_cast< cPosition* >( entity->GetComponentByID( "position" ) );
+    //    auto size = dynamic_cast< cSize* >( entity->GetComponentByID( "size" ) );
+    //    auto direction = dynamic_cast< cDirection* >( entity->GetComponentByID( "direction" ) );
+    //    auto fieldofview = dynamic_cast< cFieldOfView* >( entity->GetComponentByID( "fieldofview" ) );
 
     //    // This is the transformation that allows to go in the watcher's referential
     //    //mTransformationAngleSort.rotate( float( RadToDeg( GetAngleBetweenVectors( gXAxisVector, direction->mDirection ) ) ) );
@@ -361,8 +361,8 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //        if( v == entity )
     //            continue;
 
-    //        auto positionENT = dynamic_cast< cPosition* >( v->GetComponentByName( "position" ) );
-    //        auto sizeENT = dynamic_cast< cSize* >( v->GetComponentByName( "size" ) );
+    //        auto positionENT = dynamic_cast< cPosition* >( v->GetComponentByID( "position" ) );
+    //        auto sizeENT = dynamic_cast< cSize* >( v->GetComponentByID( "size" ) );
 
     //        sf::VertexArray analysisVisibleBox( sf::Points, 4 );
     //        sf::Vector2f posEntVector = positionENT->AsVector2F();
@@ -403,9 +403,9 @@ cSightSystem::Update( unsigned int iDeltaTime )
 void
 cSightSystem::IncomingEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 {
-    auto transformation = iEntity->GetComponentByName( "transformation" );
-    auto direction      = iEntity->GetComponentByName( "direction" );
-    auto fieldofview    = iEntity->GetComponentByName( "fieldofview" );
+    auto transformation = iEntity->GetComponentByID( "transformation" );
+    auto direction      = iEntity->GetComponentByID( "direction" );
+    auto fieldofview    = iEntity->GetComponentByID( "fieldofview" );
 
     if( iEntity->HasTag( "hero" ) )
         mPointsOfInterest.push_back( iEntity );
@@ -419,9 +419,9 @@ cSightSystem::IncomingEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 void
 cSightSystem::EntityLost( ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto transformation = iEntity->GetComponentByName( "transformation " );
-    auto direction = iEntity->GetComponentByName( "direction" );
-    auto fieldofview = iEntity->GetComponentByName( "fieldofview" );
+    auto transformation = iEntity->GetComponentByID( "transformation " );
+    auto direction = iEntity->GetComponentByID( "direction" );
+    auto fieldofview = iEntity->GetComponentByID( "fieldofview" );
 
     if( iEntity->HasTag( "hero" ) )
     {

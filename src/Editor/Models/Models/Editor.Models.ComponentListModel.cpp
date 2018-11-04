@@ -63,7 +63,7 @@ cComponentListModel::AddNewComponent()
     QModelIndex baseNode = QModelIndex();
 
     beginInsertRows( baseNode, rowCount( baseNode ), rowCount( baseNode ) );
-    mComponentRegistryInstance->RegisterItem( newComp->Name(), newComp );
+    mComponentRegistryInstance->RegisterItem( newComp->ID(), newComp );
     endInsertRows();
 
     return  GetComponentIndex( newComp );
@@ -74,9 +74,9 @@ void
 cComponentListModel::RemoveComponent( const QModelIndex& iIndex )
 {
     // Removing the file
-    std::string compName = data( iIndex, Qt::DisplayRole ).toString().toStdString();
+    std::string compID = data( iIndex, Qt::DisplayRole ).toString().toStdString();
 
-    nStdFileSystem::path filename = mComponentRegistryInstance->GetItemFileByItemName( compName );
+    nStdFileSystem::path filename = mComponentRegistryInstance->GetItemFileByItemName( compID );
 
     if( remove( filename.string().c_str() ) != 0 )
         perror( "Delete failed\n" );
@@ -85,7 +85,7 @@ cComponentListModel::RemoveComponent( const QModelIndex& iIndex )
 
     beginRemoveRows( iIndex.parent(), iIndex.row(), iIndex.row() );
 
-    mComponentRegistryInstance->UnregisterItemByName( compName );
+    mComponentRegistryInstance->UnregisterItemByName( compID );
 
     endRemoveRows();
 }
@@ -98,7 +98,7 @@ cComponentListModel::GetComponentIndex( ::nCore::nECS::nCore::cComponent * iProt
 
     for( int i = 0; i < sortedNames.size(); ++i )
     {
-        if( sortedNames[ i ] == iPrototype->Name() )
+        if( sortedNames[ i ] == iPrototype->ID() )
             return  index( i, 0 );
     }
 

@@ -32,7 +32,7 @@ cHudTransformation::cHudTransformation( ::nCore::nECS::nCore::cEntity * iEntity 
 void
 cHudTransformation::BuildHUD()
 {
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByName( "transformation" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByID( "transformation" ) );
 
     if( !transformation )
         return;
@@ -108,7 +108,7 @@ cHudTransformation::ContainsPoint( const  sf::Vector2f& iPoint ) const
             return  true;
     }
 
-    auto transformation     = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByName( "transformation" ) );
+    auto transformation     = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByID( "transformation" ) );
 	auto layer		        = mEntity->Layer();
 
     sf::FloatRect rect( layer->MapVectToLayer( transformation->PositionAsVector2F() ), GetSizeFromEntity() );
@@ -225,8 +225,8 @@ cHudTransformation::mouseReleaseEvent( QMouseEvent *iEvent, const sf::RenderWind
 sf::Vector2f
 cHudTransformation::GetSizeFromEntity() const
 {
-    auto transformation = mEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
-    auto animations     = mEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
+    auto transformation = mEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+    auto animations     = mEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
 
     sf::Vector2f sizeOfTheHud( 1, 1 );
     if( transformation )

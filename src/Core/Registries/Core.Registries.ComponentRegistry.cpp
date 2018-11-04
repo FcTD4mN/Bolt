@@ -100,7 +100,7 @@ cComponentRegistry::Initialize()
                 auto component = new ::nCore::nECS::nCore::cComponentGeneric( it->path().filename().string().c_str() );
                 component->LoadXML( doc.FirstChildElement( "component" ) );
 
-                RegisterItem( component->Name(), component, it->path() );
+                RegisterItem( component->ID(), component, it->path() );
                 doc.Clear();
             }
         }

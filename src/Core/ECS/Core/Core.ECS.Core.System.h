@@ -33,10 +33,10 @@ public:
 
 public:
     // Access/Get
-    const std::string& Name() const;
-    void        ConnectToEvents();
-    void        DisconnectFromEvents();
-    bool        IsEventConnected() const;
+    const std::string&  Name() const;
+    void                ConnectToEvents();
+    void                DisconnectFromEvents();
+    bool                IsEventConnected() const;
 
 public:
     // Update/Draw
@@ -46,9 +46,9 @@ public:
 
 public:
     // Entity
-    virtual  void  IncomingEntity( cEntity* iEntity );
-    virtual  void  EntityLost( cEntity* iEntity );
-    void  AcceptEntity( cEntity* iEntity );
+    virtual  void   IncomingEntity( cEntity* iEntity );
+    virtual  void   EntityLost( cEntity* iEntity );
+    virtual  void   AcceptEntity( cEntity* iEntity );
 
 public:
     // Events

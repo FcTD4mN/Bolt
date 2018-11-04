@@ -1,6 +1,6 @@
 <entity id="idontknow0">
     <components>
-        <component name="transformation">
+        <component id="transformation">
             <variables>
                 <variable name="height" type="1" value="40"/>
                 <variable name="rotation" type="1" value="0"/>
@@ -9,7 +9,7 @@
                 <variable name="y" type="1" value="0"/>
             </variables>
         </component>
-        <component name="animations">
+        <component id="animations">
             <animations>
                 <animation name="min">
                     <sprites>

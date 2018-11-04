@@ -18,7 +18,7 @@ cHudBase::cHudBase( ::nCore::nECS::nCore::cEntity * iEntity ) :
     mEntity( iEntity ),
     mIsHUDValid( false )
 {
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByName( "transformation" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByID( "transformation" ) );
 
     if( !transformation )
         return;
@@ -44,7 +44,7 @@ cHudBase::GetYPosition()
 sf::Vector2f
 cHudBase::GetPosition()
 {
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByName( "transformation" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( mEntity->GetComponentByID( "transformation" ) );
 	if( !transformation )
 	{
 		mIsHUDValid = false;

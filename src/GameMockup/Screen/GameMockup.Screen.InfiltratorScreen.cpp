@@ -218,9 +218,9 @@ cInfiltratorScreen::BuildBehaviourTree( ::nCore::nECS::nCore::cEntity* iEntity )
     ::nCore::nAI::cBehaviourTree* moveState = new ::nCore::nAI::cBehaviourTree( "move", iEntity->GetHandle() );
     moveState->SetOnUpdateFunction( []( ::nCore::nECS::nCore::cEntity* iEntity, unsigned int iDeltaTime )
     {
-        auto physic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
-        auto animations = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( iEntity->GetComponentByName( "animations" ) );
-        auto userinput= dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( iEntity->GetComponentByName( "userinput" ) );
+        auto physic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByID( "simplephysic" ) );
+        auto animations = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( iEntity->GetComponentByID( "animations" ) );
+        auto userinput= dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( iEntity->GetComponentByID( "userinput" ) );
 
         bool rightMotion    = userinput->ContainsAction( "moveright" );
         bool leftMotion     = userinput->ContainsAction( "moveleft" );
@@ -250,7 +250,7 @@ cInfiltratorScreen::BuildBehaviourTree( ::nCore::nECS::nCore::cEntity* iEntity )
 
     idleNode->SetOnEnterFunction( [ idleNode ]( ::nCore::nECS::nCore::cEntity* iEntity )
     {
-        auto animation = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( iEntity->GetComponentByName( "animations" ) );
+        auto animation = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( iEntity->GetComponentByID( "animations" ) );
         auto ssanimation = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( idleNode->GetSnapShotByName( "animations" ) );
         ssanimation->CurrentAnimationIsFlipped( animation->CurrentAnimationIsFlipped() );
     } );
@@ -258,7 +258,7 @@ cInfiltratorScreen::BuildBehaviourTree( ::nCore::nECS::nCore::cEntity* iEntity )
 
     idleNode->AddNodeConditionnal( moveState, "move", []( ::nCore::nECS::nCore::cEntity* iEntity )
     {
-        auto userInput = dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( iEntity->GetComponentByName( "userinput" ) );
+        auto userInput = dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( iEntity->GetComponentByID( "userinput" ) );
         if( userInput )
         {
             bool rightMotion = userInput->ContainsAction( "moveright" );
@@ -275,7 +275,7 @@ cInfiltratorScreen::BuildBehaviourTree( ::nCore::nECS::nCore::cEntity* iEntity )
 
     moveState->AddNodeConditionnal( idleNode, "idle", []( ::nCore::nECS::nCore::cEntity* iEntity )
     {
-        auto userInput = dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( iEntity->GetComponentByName( "userinput" ) );
+        auto userInput = dynamic_cast< ::nCore::nECS::nComponent::cUserInput* >( iEntity->GetComponentByID( "userinput" ) );
         if( userInput )
         {
             bool rightMotion = userInput->ContainsAction( "moveright" );
@@ -303,12 +303,12 @@ cInfiltratorScreen::KeyPressed( const sf::Event& iEvent )
 {
     if( iEvent.key.code == sf::Keyboard::Key::X )
     {
-        auto direction = dynamic_cast< ::nCore::nECS::nComponent::cDirection* >( mMechant->GetComponentByName( "direction" ) );
+        auto direction = dynamic_cast< ::nCore::nECS::nComponent::cDirection* >( mMechant->GetComponentByID( "direction" ) );
         direction->SetUsingVector( mRotationFOV.transformPoint( direction->AsVector2F() ) );
     }
     else if( iEvent.key.code == sf::Keyboard::Key::C )
     {
-        auto direction = dynamic_cast< ::nCore::nECS::nComponent::cDirection* >( mMechant->GetComponentByName( "direction" ) );
+        auto direction = dynamic_cast< ::nCore::nECS::nComponent::cDirection* >( mMechant->GetComponentByID( "direction" ) );
         mRotationFOV = mRotationFOV.getInverse();
         direction->SetUsingVector( mRotationFOV.transformPoint( direction->AsVector2F() ) );
         mRotationFOV = mRotationFOV.getInverse();

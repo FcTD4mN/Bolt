@@ -52,7 +52,7 @@ cSoundMixer::Update( unsigned int iDeltaTime )
     {
         ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
 
-        auto sound = entity->GetComponentByNameAs< ::nCore::nECS::nComponent::cSound* >( "sound" );
+        auto sound = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSound* >( "sound" );
 
         if( sound->mNeedSwap )
         {
@@ -82,7 +82,7 @@ cSoundMixer::Update( unsigned int iDeltaTime )
 void
 cSoundMixer::IncomingEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto sound = iEntity->GetComponentByName( "sound" );
+    auto sound = iEntity->GetComponentByID( "sound" );
     if( sound )
         AcceptEntity( iEntity );
 }

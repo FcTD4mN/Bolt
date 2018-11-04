@@ -50,14 +50,14 @@ cComponentEditor::ComponentNameChanged()
     if( !mComponent )
         return;
 
-    nStdFileSystem::path filename = registryInstance->GetItemFileByItemName( mComponent->Name() );
-    registryInstance->UnregisterItemByName( mComponent->Name() );
+    nStdFileSystem::path filename = registryInstance->GetItemFileByItemName( mComponent->ID() );
+    registryInstance->UnregisterItemByName( mComponent->ID() );
 
-    QString newName = ui.editComponentName->text();
-    mComponent->Name( newName.toStdString() );
+    QString newID = ui.editComponentName->text();
+    mComponent->ID( newID.toStdString() );
 
-    registryInstance->RegisterItem( mComponent->Name(), mComponent );
-    registryInstance->SetItemFileUsingItemName( mComponent->Name(), filename );
+    registryInstance->RegisterItem( mComponent->ID(), mComponent );
+    registryInstance->SetItemFileUsingItemName( mComponent->ID(), filename );
 
     mComponentListModel->dataChanged( mComponentListModel->index( 0, 0 ), mComponentListModel->index( registryInstance->ItemCount(), 0 ) );
 }
@@ -68,24 +68,24 @@ cComponentEditor::SaveComponent()
 {
     if( mComponent )
     {
-        std::string compName = mComponent->Name();
+        std::string compID = mComponent->ID();
 
         QMessageBox msg;
         msg.setIcon( QMessageBox::Critical );
-        if( compName == "" )
+        if( compID == "" )
         {
             msg.setText( "Component name is empty" );
             msg.exec();
             return;
         }
 
-        nStdFileSystem::path filePath = ::nCore::nRegistries::cComponentRegistry::Instance()->GetItemFileByItemName( compName );
+        nStdFileSystem::path filePath = ::nCore::nRegistries::cComponentRegistry::Instance()->GetItemFileByItemName( compID );
         nStdFileSystem::path newFilePath;
 
         if( filePath.empty() )
         {
             nStdFileSystem::path pathAndFile( ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder() + "/Assets/Components/" );
-            pathAndFile += compName.c_str();
+            pathAndFile += compID.c_str();
 
             QFileDialog fileAsking( this, tr( "Save your component" ), pathAndFile.string().c_str(), tr( "Component (*.comp)" ) );
             fileAsking.setDefaultSuffix( "comp" );
@@ -95,7 +95,7 @@ cComponentEditor::SaveComponent()
             else
                 return;
 
-            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( compName, newFilePath );
+            ::nCore::nRegistries::cComponentRegistry::Instance()->SetItemFileUsingItemName( compID, newFilePath );
         }
         else
         {
@@ -133,7 +133,7 @@ cComponentEditor::SaveComponentAs()
         return;
 
     nStdFileSystem::path pathAndFile( ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder() + "/Assets/Components/" );
-    pathAndFile += mComponent->Name().c_str();
+    pathAndFile += mComponent->ID().c_str();
 
     QFileDialog fileAsking( this, tr( "Save your component" ), pathAndFile.string().c_str(), tr( "Component (*.comp)" ) );
     fileAsking.setDefaultSuffix( "comp" );
@@ -146,7 +146,7 @@ cComponentEditor::SaveComponentAs()
         return;
 
     auto registry = ::nCore::nRegistries::cComponentRegistry::Instance();
-    nStdFileSystem::path  entityCurrentFile = registry->GetItemFileByItemName( mComponent->Name() );
+    nStdFileSystem::path  entityCurrentFile = registry->GetItemFileByItemName( mComponent->ID() );
 
     // Creating the new file
     tinyxml2::XMLDocument doc;
@@ -157,26 +157,26 @@ cComponentEditor::SaveComponentAs()
         ::nCore::nECS::nCore::cComponent*  entityAssociatedToRequiredFilename = registry->GetItemAssociatedToFile( fullFilePath );
 
         if( entityAssociatedToRequiredFilename )
-            registry->UnregisterItemByName( entityAssociatedToRequiredFilename->Name() );
+            registry->UnregisterItemByName( entityAssociatedToRequiredFilename->ID() );
 
         ::nCore::nECS::nCore::cComponent* clone = mComponent->Clone();
-        std::string newCompName = fullFilePath.stem().string();
+        std::string newCompID = fullFilePath.stem().string();
         int i = 2;
-        while( registry->IsItemNameAlreadyInRegistry( newCompName ) )
+        while( registry->IsItemNameAlreadyInRegistry( newCompID ) )
         {
-            newCompName = fullFilePath.stem().string() + std::to_string( i );
+            newCompID = fullFilePath.stem().string() + std::to_string( i );
             ++i;
         }
-        clone->Name( newCompName );
+        clone->ID( newCompID );
 
-        registry->RegisterItem( newCompName, clone );
+        registry->RegisterItem( newCompID, clone );
         clone->SaveXML( elm, &doc );
-        registry->SetItemFileUsingItemName( clone->Name(), entityCurrentFile );
+        registry->SetItemFileUsingItemName( clone->ID(), entityCurrentFile );
     }
     else
     {
         mComponent->SaveXML( elm, &doc );
-        registry->SetItemFileUsingItemName( mComponent->Name(), fullFilePath );
+        registry->SetItemFileUsingItemName( mComponent->ID(), fullFilePath );
     }
 
     doc.InsertFirstChild( elm );

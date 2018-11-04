@@ -1,4 +1,4 @@
-<screen name="GameScreen" viewCenterX="500" viewCenterY="500" viewWidth="499" viewHeight="507" viewZoom="1">
+<screen name="ScreenDeux" viewCenterX="500" viewCenterY="500" viewWidth="1000" viewHeight="1000" viewZoom="1">
     <world uselayer="true">
         <entityMap width="100" height="100" cellsize="32"/>
         <layers/>

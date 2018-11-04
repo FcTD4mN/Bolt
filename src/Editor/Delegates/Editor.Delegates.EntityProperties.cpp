@@ -57,19 +57,19 @@ cEntityPropertiesDelegate::setEditorData( QWidget * iEditor, const QModelIndex &
         auto combo = dynamic_cast< QComboBox* >( iEditor );
         if( combo )
         {
-            QString currentComponentName = iIndex.data( Qt::DisplayRole ).toString();
-            combo->addItem( currentComponentName );
+            QString currentComponentID = iIndex.data( Qt::DisplayRole ).toString();
+            combo->addItem( currentComponentID );
 
             for( int i = 0; i < ::nCore::nRegistries::cComponentRegistry::Instance()->ItemCount(); ++i )
             {
                 auto component = ::nCore::nRegistries::cComponentRegistry::Instance()->GetItemAtIndex( i );
-                std::string compName = component->Name();
+                std::string compName = component->ID();
 
-                if( mEntity->GetComponentByName( compName ) == nullptr ) // We can only see components that are not already in the entity
+                if( mEntity->GetComponentByID( compName ) == nullptr ) // We can only see components that are not already in the entity
                 {
-                    if( component->Name() != currentComponentName.toStdString() )
+                    if( component->ID() != currentComponentID.toStdString() )
                     {
-                        combo->addItem( component->Name().c_str() );
+                        combo->addItem( component->ID().c_str() );
                     }
                 }
             }

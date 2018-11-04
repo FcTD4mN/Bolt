@@ -11,7 +11,7 @@ namespace  nPyBoltECSAPI {
 
 /*
 PyObject*
-PyBoltECSAPIMethod_GetComponentByName( PyObject *self, PyObject *args )
+PyBoltECSAPIMethod_GetComponentByID( PyObject *self, PyObject *args )
 {
     char* ent;
     char* comp;

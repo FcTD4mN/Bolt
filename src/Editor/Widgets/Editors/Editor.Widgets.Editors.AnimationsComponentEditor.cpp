@@ -105,7 +105,7 @@ cAnimationsComponentEditor::AnimationSelected( const QModelIndex & iCurrent, con
 void
 cAnimationsComponentEditor::ShowAnimationsComponentFromEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 {
-    auto animations = iEntity->GetComponentByNameAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
+    auto animations = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
     if( animations )
     {
         disconnect( mAllAnimationsList->selectionModel(), &QItemSelectionModel::currentChanged, this, &cAnimationsComponentEditor::AnimationSelected );

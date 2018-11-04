@@ -18,13 +18,13 @@ cComponent::~cComponent()
 
 
 cComponent::cComponent( const std::string& iName ) :
-    mName( iName )
+    mID( iName )
 {
 }
 
 
 cComponent::cComponent( const cComponent & iComponent ) :
-    mName( iComponent.mName )
+    mID( iComponent.mID )
 {
 }
 
@@ -35,36 +35,37 @@ cComponent::cComponent( const cComponent & iComponent ) :
 
 
 const std::string&
-cComponent::Name() const
+cComponent::ID() const
 {
-    return  mName;
+    return  mID;
 }
 
 
 void
-cComponent::Name( const std::string & iNewName )
+cComponent::ID( const std::string & iNewID )
 {
-    mName = iNewName;
+    mID = iNewID;
 }
 
 
 // -------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------- Access/Get
+// ------------------------------------------------------------------------ Input/Output
 // -------------------------------------------------------------------------------------
 
 
 void
 cComponent::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument ) const
 {
-    iNode->SetAttribute( "name", mName.c_str() );
+    iNode->SetAttribute( "id", mID.c_str() );
 }
 
 
 void
 cComponent::LoadXML( tinyxml2::XMLElement * iNode )
 {
-    mName = iNode->Attribute( "name" );
+    mID = iNode->Attribute( "id" );
 }
+
 
 // ------------------------------------------------------------------------------------ -
 // ------------------------------------------------------------------------------------ -
@@ -97,7 +98,7 @@ cComponentGeneric::cComponentGeneric( const std::string& iName ) :
 
 
 cComponentGeneric::cComponentGeneric( const cComponentGeneric & iComponent ) :
-    tSuperClass( iComponent.mName )
+    tSuperClass( iComponent.mID )
 {
     for( auto& var : iComponent.mVars )
         mVars[ var.first ] = var.second->Clone();
@@ -174,6 +175,7 @@ cComponentGeneric::GetVarNameAtIndex( int iIndex ) const
     return  it->first;
 }
 
+
 void
 cComponentGeneric::RenameVar( const std::string& iCurrentName, const std::string& iNewName )
 {
@@ -223,9 +225,9 @@ cComponentGeneric::LoadXML( tinyxml2::XMLElement * iNode )
     for( tinyxml2::XMLElement* variable = variables->FirstChildElement( "variable" ); variable; variable = variable->NextSiblingElement() )
     {
         ::nCore::nBase::cVariant* var = ::nCore::nBase::cVariant::MakeFromXML( variable );
-        std::string varName = variable->Attribute( "name" );
-        delete  mVars[ varName ];
-        mVars[ varName ] = var;
+        std::string varID = variable->Attribute( "name" );
+        delete  mVars[ varID ];
+        mVars[ varID ] = var;
     }
 }
 

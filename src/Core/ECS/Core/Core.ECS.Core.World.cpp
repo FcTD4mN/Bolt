@@ -40,15 +40,13 @@ cWorld::~cWorld()
 
 cWorld::cWorld() :
     mLayerEngine( 0 ),
-    mUseLayerEngine( false ),
     mEntityMap( new ::nCore::nMapping::cPhysicEntityGrid( 100, 100, 32 ) )
 {
-    SetUseLayerEngine( true ); // This will probably be the only possible thing
 }
 
 
 // -------------------------------------------------------------------------------------
-// -------------------------------------------------------------- Main Running functions
+// ------------------------------------------------------------------------- Update/Draw
 // -------------------------------------------------------------------------------------
 
 
@@ -77,7 +75,7 @@ cWorld::Draw( sf::RenderTarget* iRenderTarget )
 void
 cWorld::Update( unsigned int iDeltaTime )
 {
-    PurgeEntities();
+    _PurgeEntities();
     for( int i = 0; i < mSystems.size(); ++i )
     {
         mSystems[ i ]->Update( iDeltaTime );
@@ -85,13 +83,9 @@ cWorld::Update( unsigned int iDeltaTime )
 }
 
 
-void
-cWorld::SetUseLayerEngine( bool iValue )
-{
-    mUseLayerEngine = iValue;
-    if( !mLayerEngine )
-        mLayerEngine = new ::nCore::nRender::cLayerEngine();
-}
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------- Layer
+// -------------------------------------------------------------------------------------
 
 
 ::nCore::nRender::cLayerEngine*
@@ -188,22 +182,9 @@ void
 cWorld::DestroyAllEntities()
 {
     for( auto it : mEntities )
-    {
         it.second->Destroy();
-    }
-    PurgeEntities();
-}
 
-
-void cWorld::PurgeEntities()
-{
-    while( mEntitiesToDestroy.size() > 0 )
-    {
-        cEntity* ent = mEntitiesToDestroy.back();
-        RemoveEntity( ent );
-        delete  ent;
-        mEntitiesToDestroy.pop_back();
-    }
+    _PurgeEntities();
 }
 
 
@@ -228,19 +209,10 @@ cWorld::IsIDUnique( const std::string& iID ) const
 }
 
 
-void
-cWorld::_AddEntityToWorld( cEntity* iEntity )
+int
+cWorld::EntityCount() const
 {
-    if( mEntities[ iEntity->ID() ] == iEntity )
-        return;
-
-    if( iEntity->mWorld != NULL && iEntity->mWorld != this )
-        iEntity->mWorld->RemoveEntity( iEntity );
-
-    mEntities[ iEntity->ID() ] = iEntity;
-    UpdateWorldWithEntity( iEntity );
-    iEntity->SetWorld( this );
-    iEntity->SetLoaded();
+    return  int( mEntities.size() );
 }
 
 
@@ -305,24 +277,7 @@ cWorld::RemoveSystem( cSystem* iSystem )
 void
 cWorld::RemoveSystemByName( const std::string& iSysName )
 {
-    auto it = mSystems.begin();
-    for( auto sys : mSystems )
-    {
-        if( sys->Name() == iSysName )
-            break;
-        ++it;
-    }
-
-    if( it == mSystems.end() )
-        return;
-
-    (*it)->mWorld = 0;
-    (*it)->Finalize();
-
-    for( auto it2 : mEntities )
-        ::nCore::nBase::EraseElementFromVector( &it2.second->mObserverSystems, *it );
-
-    mSystems.erase( it );
+    RemoveSystem( GetSystemByName( iSysName ) );
 }
 
 
@@ -331,6 +286,8 @@ cWorld::ConnectSystemToEvents( cSystem* iSystem )
 {
     if( std::find( mEventRelatedSystems.begin(), mEventRelatedSystems.end(), iSystem ) == mEventRelatedSystems.end() )
         mEventRelatedSystems.push_back( iSystem );
+
+    iSystem->mEventConnected = true;
 }
 
 
@@ -338,6 +295,7 @@ void
 cWorld::DisconnectSystemToEvents( cSystem* iSystem )
 {
     ::nCore::nBase::EraseElementFromVector( &mEventRelatedSystems, iSystem );
+    iSystem->mEventConnected = false;
 }
 
 
@@ -373,34 +331,10 @@ cWorld::HasSystem( const std::string& iSysName ) const
 }
 
 
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------ Access
-// -------------------------------------------------------------------------------------
-
-
-int
-cWorld::EntityCount() const
-{
-    return  int(mEntities.size());
-}
-
-
 int
 cWorld::SystemCount() const
 {
     return  int(mSystems.size());
-}
-
-
-// -------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------- Private
-// -------------------------------------------------------------------------------------
-
-
-void
-cWorld::RemoveEntity( cEntity* iEntity )
-{
-    mEntities.erase( iEntity->ID() );
 }
 
 
@@ -426,17 +360,10 @@ cWorld::EntityMap()
 void
 cWorld::EntityMapEnumerator( std::function< void( ::nCore::nMapping::cEntityGrid* iEntityGrid ) > iFunction )
 {
-    if ( !mUseLayerEngine )
+    for ( int i = 0; i < mLayerEngine->LayerCount(); ++i )
     {
-        iFunction( mEntityMap );
-    }
-    else
-    {
-        for ( int i = 0; i < mLayerEngine->LayerCount(); ++i )
-        {
-            ::nCore::nRender::cLayer* layer = mLayerEngine->LayerAtIndex( i );
-            iFunction( layer->EntityGrid() );
-        }
+        ::nCore::nRender::cLayer* layer = mLayerEngine->LayerAtIndex( i );
+        iFunction( layer->EntityGrid() );
     }
 }
 
@@ -652,7 +579,6 @@ cWorld::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
     iNode->LinkEndChild( entityMap );
 
     // LAYERS + ENTITIES
-    iNode->SetAttribute( "uselayer", mUseLayerEngine );
     tinyxml2::XMLElement* layersNode = iDocument->NewElement( "layers" );
     mLayerEngine->SaveXML( layersNode, iDocument );
     iNode->LinkEndChild( layersNode );
@@ -689,7 +615,6 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
     mEntityMap = new ::nCore::nMapping::cPhysicEntityGrid( eMapWidth, eMapHeight, eMapCellSize );
 
     // ====================== Layers
-    mUseLayerEngine = iNode->BoolAttribute( "uselayer" );
     mLayerEngine = new ::nCore::nRender::cLayerEngine();
 
     tinyxml2::XMLElement* layers = iNode->FirstChildElement( "layers" );
@@ -740,6 +665,47 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
                 ConnectSystemToEvents( sys );
         }
     }
+}
+
+
+// -------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------- Private
+// -------------------------------------------------------------------------------------
+
+
+void
+cWorld::_PurgeEntities()
+{
+    while( mEntitiesToDestroy.size() > 0 )
+    {
+        cEntity* ent = mEntitiesToDestroy.back();
+        _RemoveEntity( ent );
+        delete  ent;
+        mEntitiesToDestroy.pop_back();
+    }
+}
+
+
+void
+cWorld::_AddEntityToWorld( cEntity* iEntity )
+{
+    if( mEntities[ iEntity->ID() ] == iEntity )
+        return;
+
+    if( iEntity->mWorld != NULL && iEntity->mWorld != this )
+        iEntity->mWorld->_RemoveEntity( iEntity );
+
+    mEntities[ iEntity->ID() ] = iEntity;
+    UpdateWorldWithEntity( iEntity );
+    iEntity->SetWorld( this );
+    iEntity->SetLoaded();
+}
+
+
+void
+cWorld::_RemoveEntity( cEntity* iEntity )
+{
+    mEntities.erase( iEntity->ID() );
 }
 
 

@@ -488,8 +488,8 @@ cPhysicEntityGrid::cPhysicEntityGrid( int iWidth, int iHeight, int iCellSize ) :
 void
 cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nCore::nECS::nCore::cEntity * iEntity, eRelative iRelative )
 {
-    auto simplephysic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByName( "transformation" ) );
+    auto simplephysic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByID( "simplephysic" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
 
     if( !transformation || !simplephysic )
     {
@@ -516,8 +516,8 @@ cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nC
 
 bool cPhysicEntityGrid::IsEntityValid( ::nCore::nECS::nCore::cEntity * iEntity ) const
 {
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByName( "transformation" ) );
-    auto simplephysic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByName( "simplephysic" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
+    auto simplephysic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByID( "simplephysic" ) );
     if( !transformation || ! simplephysic )
         return  false;
 
@@ -544,7 +544,7 @@ cPositionSizeGrid::cPositionSizeGrid( int iWidth, int iHeight, int iCellSize ) :
 void
 cPositionSizeGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nCore::nECS::nCore::cEntity * iEntity, eRelative iRelative )
 {
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByName( "transformation" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
 
     if( !transformation )
     {
@@ -572,7 +572,7 @@ cPositionSizeGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nC
 bool
 cPositionSizeGrid::IsEntityValid( ::nCore::nECS::nCore::cEntity * iEntity ) const
 {
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByName( "transformation" ) );
+    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
     if( !transformation )
         return  false;
 

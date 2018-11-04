@@ -110,7 +110,7 @@ cEntity::AddComponent( ::nCore::nECS::nCore::cComponent * iComponent )
     iComponent->mEntityOwner = this;
 
     sPair pair;
-    pair.key = iComponent->Name();
+    pair.key = iComponent->ID();
     pair.value = iComponent;
     mComponents.push_back( pair );
 
@@ -129,7 +129,7 @@ cEntity::SetComponent( cComponent * iComponent )
 {
     for( int i = 0; i < mComponents.size(); ++i )
     {
-        if( mComponents[ i ].key == iComponent->Name() )
+        if( mComponents[ i ].key == iComponent->ID() )
         {
             delete  mComponents[ i ].value;
             mComponents[ i ].value = iComponent;
@@ -145,7 +145,7 @@ cEntity::RemoveComponent( cComponent * iComponent )
 {
     for( int i = 0; i < mComponents.size(); ++i )
     {
-        if( mComponents[ i ].key == iComponent->Name() && mComponents[ i ].value == iComponent )
+        if( mComponents[ i ].key == iComponent->ID() && mComponents[ i ].value == iComponent )
             mComponents.erase( mComponents.begin() + i );
     }
 
@@ -162,12 +162,12 @@ cEntity::RemoveComponent( cComponent * iComponent )
 
 
 void
-cEntity::RemoveComponentByName( const std::string & iComponentName )
+cEntity::RemoveComponentByID( const std::string & iComponentID )
 {
     ::nCore::nECS::nCore::cComponent* component = 0;
     for( int i = 0; i < mComponents.size(); ++i )
     {
-        if( mComponents[i].key == iComponentName )
+        if( mComponents[i].key == iComponentID )
         {
             component = mComponents[i].value;
             mComponents.erase( mComponents.begin() + i );
@@ -187,11 +187,11 @@ cEntity::RemoveComponentByName( const std::string & iComponentName )
 
 
 cComponent*
-cEntity::GetComponentByName( const std::string & iComponentName )
+cEntity::GetComponentByID( const std::string & iComponentID )
 {
     for( int i = 0; i < mComponents.size(); ++i )
     {
-        if( mComponents[ i ].key == iComponentName )
+        if( mComponents[ i ].key == iComponentID )
             return  mComponents[ i ].value;
     }
 
@@ -371,13 +371,6 @@ cEntity::Destroy()
 }
 
 
-void
-cEntity::AddSystemObserver( cSystem * iSystem )
-{
-    mObserverSystems.push_back( iSystem );
-}
-
-
 cEntityHandle
 cEntity::GetHandle()
 {
@@ -389,6 +382,18 @@ unsigned int
 cEntity::GetIDForHandle() const
 {
     return  mIDForHandles;
+}
+
+
+// -------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------ System
+// -------------------------------------------------------------------------------------
+
+
+void
+cEntity::AddSystemObserver( cSystem * iSystem )
+{
+    mObserverSystems.push_back( iSystem );
 }
 
 
@@ -455,7 +460,7 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
 
     for( tinyxml2::XMLElement* component = components->FirstChildElement( "component" ); component; component = component->NextSiblingElement() )
     {
-        cComponent* comp = ::nCore::nRegistries::cComponentRegistry::Instance()->CreateComponentFromName( component->Attribute( "name" ) );
+        cComponent* comp = ::nCore::nRegistries::cComponentRegistry::Instance()->CreateComponentFromName( component->Attribute( "id" ) );
         if( comp )
         {
             comp->LoadXML( component );
@@ -463,7 +468,7 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
         }
         else
         {
-            cComponentGeneric* genComp = new cComponentGeneric( component->Attribute( "name" ) );
+            cComponentGeneric* genComp = new cComponentGeneric( component->Attribute( "id" ) );
             genComp->LoadXML( component );
             AddComponent( genComp );
         }
