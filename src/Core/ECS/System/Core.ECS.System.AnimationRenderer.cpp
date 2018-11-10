@@ -51,8 +51,8 @@ cAnimationRenderer::DrawEntity( sf::RenderTarget * iRenderTarget, ::nCore::nECS:
 {
     sf::RectangleShape rect;
 
-    auto animations     = dynamic_cast<::nCore::nECS::nComponent::cAnimations*>( iEntity->GetComponentByID( "animations" ) );
-    auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
+    auto animations     = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
+    auto transformation = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
 
     // Because sprite's origin is set to be the very center of the image, we need to
     // reposition it so it matches top left format given by position
@@ -68,9 +68,7 @@ cAnimationRenderer::Update( unsigned int iDeltaTime )
 {
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
-        ::nCore::nECS::nCore::cEntity* entity = mEntityGroup[ i ];
-
-        auto animations = dynamic_cast< ::nCore::nECS::nComponent::cAnimations* >( entity->GetComponentByID( "animations" ) );
+        auto animations = mEntityGroup[ i ]->GetComponentByIDAs< ::nCore::nECS::nComponent::cAnimations* >( "animations" );
 
         animations->Update( iDeltaTime );
     }
@@ -85,8 +83,8 @@ cAnimationRenderer::Update( unsigned int iDeltaTime )
 void
 cAnimationRenderer::IncomingEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 {
-    auto animations = iEntity->GetComponentByID( "animations" );
-    auto transformation = iEntity->GetComponentByID( "transformation" );
+    auto animations         = iEntity->GetComponentByID( "animations" );
+    auto transformation     = iEntity->GetComponentByID( "transformation" );
 
     if( animations && transformation )
         AcceptEntity( iEntity );

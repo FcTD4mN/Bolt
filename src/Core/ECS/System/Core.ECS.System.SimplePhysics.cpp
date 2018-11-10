@@ -9,6 +9,8 @@
 #include "Core.Math.Edge.h"
 #include "Core.Math.Utils.h"
 
+#include <cassert>
+
 namespace nCore {
 namespace nECS {
 namespace nSystem {
@@ -112,11 +114,13 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
             continue;
 
         auto layer = entity->Layer();
+        assert( layer );
         if( layer )
             entityMap = layer->EntityGrid();
+        else
+            return;
 
         sf::Vector2f entityCenterPoint;
-
         entityHitBox = GetEntityHitBoxAndCenter( &entityCenterPoint, entity );
 
         bool blockingCollision = false;
@@ -185,7 +189,7 @@ cSimplePhysics::SetGravity( float iGravity )
 sf::FloatRect
 cSimplePhysics::GetEntityHitBoxAndCenter( sf::Vector2f* oCenter, ::nCore::nECS::nCore::cEntity * iEntity )
 {
-    auto simplephysic = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
+    auto simplephysic   = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSimplePhysic* >( "simplephysic" );
     auto transformation = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
 
     sf::Vector2f entityCenter = transformation->PositionAsVector2F() + transformation->SizeAsVector2F() / 2.0F;
@@ -211,13 +215,6 @@ cSimplePhysics::IncomingEntity( ::nCore::nECS::nCore::cEntity*  iEntity )
     {
         AcceptEntity( iEntity );
     }
-}
-
-
-void
-cSimplePhysics::EntityLost( ::nCore::nECS::nCore::cEntity * iEntity )
-{
-    tSuperClass::EntityLost( iEntity );
 }
 
 

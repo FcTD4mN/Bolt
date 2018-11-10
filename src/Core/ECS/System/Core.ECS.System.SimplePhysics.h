@@ -43,7 +43,6 @@ private:
 public:
     // Entity
     virtual  void  IncomingEntity( ::nCore::nECS::nCore::cEntity* iEntity ) override;
-    virtual  void  EntityLost( ::nCore::nECS::nCore::cEntity* iEntity ) override;
 
 private:
     float  mGlobalGravity;

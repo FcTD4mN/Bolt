@@ -31,7 +31,6 @@ public:
 public:
     // Update/Draw
     virtual  void  DrawEntity( sf::RenderTarget* iRenderTarget, ::nCore::nECS::nCore::cEntity* iEntity ) override;
-    virtual  void  Update( unsigned int iDeltaTime ) override;
 
 public:
     // Entity

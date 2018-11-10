@@ -12,11 +12,6 @@ namespace nECS {
 namespace nSystem {
 
 
-    // Number 2 is the one based one the cAnimations component, the number one is based on spriteAnimated
-    // this one will replace the old one basically
-    // TODO: replace cAnimationRenderer with this one as soon as it's fully operationnal
-
-
 class cAnimationRenderer :
     public ::nCore::nECS::nCore::cSystem
 {

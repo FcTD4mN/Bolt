@@ -8,7 +8,6 @@
 #include "Core.ECS.Component.Transformation.h"
 #include "Core.ECS.Component.FieldOfView.h"
 #include "Core.ECS.Component.Direction.h"
-#include "Core.ECS.Mapping.ScreenEntityMap.h"
 #include "Core.Mapping.PhysicEntityGrid.h"
 #include "Core.Render.Layer.h"
 #include "Core.Math.Utils.h"
@@ -17,6 +16,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cassert>
 
 
 namespace nCore {
@@ -120,10 +120,12 @@ cSightSystem::Update( unsigned int iDeltaTime )
         ::nCore::nECS::nCore::cEntity* entity = mWatchers[ i ];
 
         auto layer = entity->Layer();
+        assert( layer );
+
         if( layer )
             entityMap = layer->EntityGrid();
         else
-            entityMap = mWorld->EntityMap();
+            return;
 
         // MutliThread sync variables
         mWorkingThreadCount.store( 0 );
@@ -135,7 +137,6 @@ cSightSystem::Update( unsigned int iDeltaTime )
         auto direction      = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cDirection* >( "direction" );
         auto fieldofview    = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cFieldOfView* >( "fieldofview" );
 
-        std::vector< sf::VertexArray > trianglesToComputeVector;    // Needed to extract bbox
         sf::VertexArray subFov;
 
         // Important points of main FOV
@@ -420,8 +421,8 @@ void
 cSightSystem::EntityLost( ::nCore::nECS::nCore::cEntity * iEntity )
 {
     auto transformation = iEntity->GetComponentByID( "transformation " );
-    auto direction = iEntity->GetComponentByID( "direction" );
-    auto fieldofview = iEntity->GetComponentByID( "fieldofview" );
+    auto direction      = iEntity->GetComponentByID( "direction" );
+    auto fieldofview    = iEntity->GetComponentByID( "fieldofview" );
 
     if( iEntity->HasTag( "hero" ) )
     {

@@ -39,7 +39,6 @@ void
 cSimplerRenderer::Initialize()
 {
     mFont = sf::Font();
-
     mFont.loadFromFile( "resources/Shared/Fonts/arial.ttf" );
 }
 
@@ -59,12 +58,10 @@ void
 cSimplerRenderer::DrawEntity( sf::RenderTarget * iRenderTarget, ::nCore::nECS::nCore::cEntity * iEntity )
 {
     sf::RectangleShape rect( sf::Vector2f( 10, 10 ) );
-    sf::CircleShape triangle( 80.0F, 3 ); // 3 sides circle = triangle
-    sf::Vector2f origin;
 
     auto transformation = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
-    auto color = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cColor* >( "color" );
-    auto text = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cText* >( "text" );
+    auto color          = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cColor* >( "color" );
+    auto text           = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cText* >( "text" );
 
     if( color )
     {
@@ -80,12 +77,6 @@ cSimplerRenderer::DrawEntity( sf::RenderTarget * iRenderTarget, ::nCore::nECS::n
         textToDraw.setPosition( transformation->PositionAsVector2F() );
         iRenderTarget->draw( textToDraw );
     }
-}
-
-
-void
-cSimplerRenderer::Update( unsigned int iDeltaTime )
-{
 }
 
 

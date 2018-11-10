@@ -28,10 +28,6 @@ public:
     virtual  cSystem* Clone() const override;
 
 public:
-    // Update/Draw
-    virtual  void  Update( unsigned int iDeltaTime ) override;
-
-public:
     // Entity
     virtual  void  IncomingEntity( ::nCore::nECS::nCore::cEntity* iEntity ) override;
 

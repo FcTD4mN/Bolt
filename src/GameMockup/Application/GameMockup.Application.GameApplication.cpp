@@ -88,20 +88,20 @@ cApplication::Finalize()
 void
 cApplication::BuildProject()
 {
-    //auto infiltratorScreen = new ::nScreen::cInfiltratorScreen();
-    //mProject->AddScreen( infiltratorScreen );
+    auto infiltratorScreen = new ::nScreen::cInfiltratorScreen();
+    mProject->AddScreen( infiltratorScreen );
 
-    //auto gameScreen = new ::nScreen::cGameScreen();
-    //mProject->AddScreen( gameScreen );
+    auto gameScreen = new ::nScreen::cGameScreen();
+    mProject->AddScreen( gameScreen );
 
     auto animationTestScreen = new ::nScreen::cAnimationTest();
     mProject->AddScreen( animationTestScreen );
 
-    //auto premierScreen = new ::nScreen::cPremierScreen();
-    //mProject->AddScreen( premierScreen );
+    auto premierScreen = new ::nScreen::cPremierScreen();
+    mProject->AddScreen( premierScreen );
 
-    //auto egriddebug = new ::nScreen::cEGridDebug();
-    //mProject->AddScreen( egriddebug );
+    auto egriddebug = new ::nScreen::cEGridDebug();
+    mProject->AddScreen( egriddebug );
 
     mProject->SetCurrentScreen( "animationtest" );
 }
