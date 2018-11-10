@@ -43,8 +43,6 @@
     <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.cpp" />
     <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.System.cpp" />
     <ClCompile Include="..\..\src\Core\ECS\Core\Core.ECS.Core.World.cpp" />
-    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.cpp" />
-    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.cpp" />
     <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.cpp" />
     <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp" />
     <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.cpp" />
@@ -170,8 +168,6 @@
     <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.Entity.h" />
     <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.System.h" />
     <ClInclude Include="..\..\src\Core\ECS\Core\Core.ECS.Core.World.h" />
-    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.GlobalEntityMap.h" />
-    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.h" />
     <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.AnimationRenderer.h" />
     <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.h" />
     <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.InputConverter.h" />

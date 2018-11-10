@@ -74,9 +74,6 @@
     <Filter Include="src\Core\ECS\Core">
       <UniqueIdentifier>{891cebbd-0cb2-4fbf-8d00-c405f1d10692}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Core\ECS\Mapping">
-      <UniqueIdentifier>{6f7e85db-a2b1-4e44-afe5-59aa7eb65dff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Core\ECS\System">
       <UniqueIdentifier>{5b0767cb-e1bb-457d-a1b1-be6e3b2abf9f}</UniqueIdentifier>
     </Filter>
@@ -195,9 +192,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.BehaviourTreeSystem.cpp">
       <Filter>src\Core\ECS\System</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.cpp">
-      <Filter>src\Core\ECS\Mapping</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp">
       <Filter>src\Core\GUI</Filter>
@@ -413,9 +407,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h">
       <Filter>src\Core\ECS\System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Core\ECS\Mapping\Core.ECS.Mapping.ScreenEntityMap.h">
-      <Filter>src\Core\ECS\Mapping</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h">
       <Filter>src\Core\GUI</Filter>
