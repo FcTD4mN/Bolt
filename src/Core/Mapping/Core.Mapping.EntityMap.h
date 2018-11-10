@@ -40,7 +40,7 @@ std::hash< std::pair< S, T > >
 namespace nCore {
 namespace nMapping {
 
-class cEntityGrid
+class cEntityMap
 {
 protected:
     enum eRelative
@@ -51,8 +51,8 @@ protected:
 
 public:
     // Contruction/Destruction
-    virtual ~cEntityGrid();
-    cEntityGrid( int iWidth, int iHeight, int iCellSize );
+    virtual ~cEntityMap();
+    cEntityMap( int iWidth, int iHeight, int iCellSize );
 
 public:
     // Grid management
@@ -109,16 +109,16 @@ private:
 //========================
 
 
-class cPhysicEntityGrid :
-    public cEntityGrid
+class cPhysicEntityMap :
+    public cEntityMap
 {
 public:
-    typedef  cEntityGrid  tSuperClass;
+    typedef  cEntityMap  tSuperClass;
 
 public:
     // Contruction/Destruction
-    ~cPhysicEntityGrid();
-    cPhysicEntityGrid( int iWidth, int iHeight, int iCellSize );
+    ~cPhysicEntityMap();
+    cPhysicEntityMap( int iWidth, int iHeight, int iCellSize );
 
 protected:
     // Private computing methods
@@ -134,10 +134,10 @@ protected:
 
 
 class cPositionSizeGrid :
-    public cEntityGrid
+    public cEntityMap
 {
 public:
-    typedef  cEntityGrid  tSuperClass;
+    typedef  cEntityMap  tSuperClass;
 
 public:
     // Contruction/Destruction

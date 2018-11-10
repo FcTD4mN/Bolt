@@ -1,4 +1,4 @@
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 
 
 #include "Core.ECS.Component.SimplePhysic.h"
@@ -16,12 +16,12 @@ namespace nMapping {
 // -------------------------------------------------------------------------------------
 
 
-cEntityGrid::~cEntityGrid()
+cEntityMap::~cEntityMap()
 {
 }
 
 
-cEntityGrid::cEntityGrid( int iWidth, int iHeight, int iCellSize ) :
+cEntityMap::cEntityMap( int iWidth, int iHeight, int iCellSize ) :
     mEntityMap(),
     mWidth( iWidth ),
     mHeight( iHeight ),
@@ -36,7 +36,7 @@ cEntityGrid::cEntityGrid( int iWidth, int iHeight, int iCellSize ) :
 
 
 void
-cEntityGrid::AddEntity( ::nCore::nECS::nCore::cEntity* iEntity )
+cEntityMap::AddEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 {
     SetEntityInGrid( iEntity );
 
@@ -45,7 +45,7 @@ cEntityGrid::AddEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 
 
 void
-cEntityGrid::RemoveEntity( ::nCore::nECS::nCore::cEntity * iEntity )
+cEntityMap::RemoveEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity, kCurrentValue );
@@ -84,7 +84,7 @@ cEntityGrid::RemoveEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 
 
 void
-cEntityGrid::ClearEntityMap()
+cEntityMap::ClearEntityMap()
 {
     ClearGrid();
     mAllEntities.clear();
@@ -92,7 +92,7 @@ cEntityGrid::ClearEntityMap()
 
 
 void
-cEntityGrid::SetGridDimensions( int iWidth, int iHeight, int iCellSize )
+cEntityMap::SetGridDimensions( int iWidth, int iHeight, int iCellSize )
 {
     mWidth = iWidth;
     mHeight = iHeight;
@@ -109,7 +109,7 @@ cEntityGrid::SetGridDimensions( int iWidth, int iHeight, int iCellSize )
 
 
 bool
-cEntityGrid::IsEntityInGrid( const::nCore::nECS::nCore::cEntity * iEntity ) const
+cEntityMap::IsEntityInGrid( const::nCore::nECS::nCore::cEntity * iEntity ) const
 {
     for( auto entity : mAllEntities )
     {
@@ -122,7 +122,7 @@ cEntityGrid::IsEntityInGrid( const::nCore::nECS::nCore::cEntity * iEntity ) cons
 
 
 void
-cEntityGrid::UpdateEntity( ::nCore::nECS::nCore::cEntity* iEntity )
+cEntityMap::UpdateEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity, kOldValue );
@@ -162,7 +162,7 @@ cEntityGrid::UpdateEntity( ::nCore::nECS::nCore::cEntity* iEntity )
 
 
 void
-cEntityGrid::RemoveEntityHard( ::nCore::nECS::nCore::cEntity * iEntity )
+cEntityMap::RemoveEntityHard( ::nCore::nECS::nCore::cEntity * iEntity )
 {
     for( auto& cell : mEntityMap )
     {
@@ -188,7 +188,7 @@ cEntityGrid::RemoveEntityHard( ::nCore::nECS::nCore::cEntity * iEntity )
 
 
 void
-cEntityGrid::SetEntityInGrid( ::nCore::nECS::nCore::cEntity* iEntity )
+cEntityMap::SetEntityInGrid( ::nCore::nECS::nCore::cEntity* iEntity )
 {
     if( !IsEntityValid( iEntity ) )
         return;
@@ -209,7 +209,7 @@ cEntityGrid::SetEntityInGrid( ::nCore::nECS::nCore::cEntity* iEntity )
 
 
 void
-cEntityGrid::ClearGrid()
+cEntityMap::ClearGrid()
 {
     for( int i = 0; i <= mWidth; ++i )
     {
@@ -227,28 +227,28 @@ cEntityGrid::ClearGrid()
 
 
 int
-cEntityGrid::Width() const
+cEntityMap::Width() const
 {
     return  mWidth;
 }
 
 
 int
-cEntityGrid::Height() const
+cEntityMap::Height() const
 {
     return  mHeight;
 }
 
 
 int
-cEntityGrid::CellSize() const
+cEntityMap::CellSize() const
 {
     return  mCellSize;
 }
 
 
 void
-cEntityGrid::GetSurroundingEntitiesOf( std::set< ::nCore::nECS::nCore::cEntity* >* oEntities, ::nCore::nECS::nCore::cEntity* iEntity, int iSurroundingSize )
+cEntityMap::GetSurroundingEntitiesOf( std::set< ::nCore::nECS::nCore::cEntity* >* oEntities, ::nCore::nECS::nCore::cEntity* iEntity, int iSurroundingSize )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity, kCurrentValue );
@@ -277,7 +277,7 @@ cEntityGrid::GetSurroundingEntitiesOf( std::set< ::nCore::nECS::nCore::cEntity* 
 
 
 void
-cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::set< ::nCore::nECS::nCore::cEntity* >* oEntities, ::nCore::nECS::nCore::cEntity* iEntity, const sf::Vector2f & iVector )
+cEntityMap::GetEntitiesFollwingVectorFromEntity( std::set< ::nCore::nECS::nCore::cEntity* >* oEntities, ::nCore::nECS::nCore::cEntity* iEntity, const sf::Vector2f & iVector )
 {
     int x, y, x2, y2;
     GetEntityArea( &x, &y, &x2, &y2, iEntity, kCurrentValue );
@@ -313,7 +313,7 @@ cEntityGrid::GetEntitiesFollwingVectorFromEntity( std::set< ::nCore::nECS::nCore
 
 
 void
-cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::set<::nCore::nECS::nCore::cEntity*>* oEntities, ::nCore::nECS::nCore::cEntity * iEntitySrc, ::nCore::nECS::nCore::cEntity * iEntityDst, const::nCore::nMath::cEdgeF & iLine )
+cEntityMap::GetEntitiesFollowingLineFromEntityToEntity( std::set<::nCore::nECS::nCore::cEntity*>* oEntities, ::nCore::nECS::nCore::cEntity * iEntitySrc, ::nCore::nECS::nCore::cEntity * iEntityDst, const::nCore::nMath::cEdgeF & iLine )
 {
     sf::Vector2f P1 = iLine.mPoint                      / float(mCellSize);
     sf::Vector2f P2 = (iLine.mPoint + iLine.mDirection) / float(mCellSize);
@@ -384,7 +384,7 @@ cEntityGrid::GetEntitiesFollowingLineFromEntityToEntity( std::set<::nCore::nECS:
 
 
 void
-cEntityGrid::GetEntitiesFollowingHLineFromEntity( std::set<::nCore::nECS::nCore::cEntity*>* oEntities, ::nCore::nECS::nCore::cEntity * iEntitySrc, ::nCore::nECS::nCore::cEntity * iEntityDst, int iP1X, int iP2X, int iPY )
+cEntityMap::GetEntitiesFollowingHLineFromEntity( std::set<::nCore::nECS::nCore::cEntity*>* oEntities, ::nCore::nECS::nCore::cEntity * iEntitySrc, ::nCore::nECS::nCore::cEntity * iEntityDst, int iP1X, int iP2X, int iPY )
 {
    // for( int i = iP1X; i < iP2X; ++i )
    // {
@@ -402,7 +402,7 @@ cEntityGrid::GetEntitiesFollowingHLineFromEntity( std::set<::nCore::nECS::nCore:
 
 
 void
-cEntityGrid::GetEntitiesFollowingVLineFromEntity( std::set<::nCore::nECS::nCore::cEntity*>* oEntities, ::nCore::nECS::nCore::cEntity * iEntitySrc, ::nCore::nECS::nCore::cEntity * iEntityDst, int  iP1Y, int  iP2Y, int  iPX )
+cEntityMap::GetEntitiesFollowingVLineFromEntity( std::set<::nCore::nECS::nCore::cEntity*>* oEntities, ::nCore::nECS::nCore::cEntity * iEntitySrc, ::nCore::nECS::nCore::cEntity * iEntityDst, int  iP1Y, int  iP2Y, int  iPX )
 {
    // for( int i = iP1Y; i < iP2Y; ++i )
    // {
@@ -420,7 +420,7 @@ cEntityGrid::GetEntitiesFollowingVLineFromEntity( std::set<::nCore::nECS::nCore:
 
 
 void
-cEntityGrid::GetEntitiesInBoundingBox( std::set< ::nCore::nECS::nCore::cEntity*>* oEntities, const sf::Rect<float>& iBBox )
+cEntityMap::GetEntitiesInBoundingBox( std::set< ::nCore::nECS::nCore::cEntity*>* oEntities, const sf::Rect<float>& iBBox )
 {
     int x, y, x2, y2;
     GetBBoxArea( &x, &y, &x2, &y2, iBBox );
@@ -453,13 +453,13 @@ cEntityGrid::GetEntitiesInBoundingBox( std::set< ::nCore::nECS::nCore::cEntity*>
 
 
 void
-cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, const sf::Rect<float>& iBBox )
+cEntityMap::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, const sf::Rect<float>& iBBox )
 {
     GetBBoxArea( oX, oY, oX2, oY2, iBBox.left, iBBox.top, iBBox.left + iBBox.width, iBBox.top + iBBox.height );
 }
 
 
-void cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float iX, float iY, float iX2, float iY2 )
+void cEntityMap::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float iX, float iY, float iX2, float iY2 )
 {
     *oX = int( iX ) / mCellSize;
     *oY = int( iY ) / mCellSize;
@@ -474,19 +474,19 @@ void cEntityGrid::GetBBoxArea( int * oX, int * oY, int * oX2, int * oY2, float i
 // ====================================================================================
 
 
-cPhysicEntityGrid::~cPhysicEntityGrid()
+cPhysicEntityMap::~cPhysicEntityMap()
 {
 }
 
 
-cPhysicEntityGrid::cPhysicEntityGrid( int iWidth, int iHeight, int iCellSize ) :
+cPhysicEntityMap::cPhysicEntityMap( int iWidth, int iHeight, int iCellSize ) :
     tSuperClass( iWidth, iHeight, iCellSize )
 {
 }
 
 
 void
-cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nCore::nECS::nCore::cEntity * iEntity, eRelative iRelative )
+cPhysicEntityMap::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nCore::nECS::nCore::cEntity * iEntity, eRelative iRelative )
 {
     auto simplephysic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByID( "simplephysic" ) );
     auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
@@ -514,7 +514,7 @@ cPhysicEntityGrid::GetEntityArea( int * oX, int * oY, int * oX2, int * oY2, ::nC
 }
 
 
-bool cPhysicEntityGrid::IsEntityValid( ::nCore::nECS::nCore::cEntity * iEntity ) const
+bool cPhysicEntityMap::IsEntityValid( ::nCore::nECS::nCore::cEntity * iEntity ) const
 {
     auto transformation = dynamic_cast< ::nCore::nECS::nComponent::cTransformation* >( iEntity->GetComponentByID( "transformation" ) );
     auto simplephysic = dynamic_cast< ::nCore::nECS::nComponent::cSimplePhysic* >( iEntity->GetComponentByID( "simplephysic" ) );

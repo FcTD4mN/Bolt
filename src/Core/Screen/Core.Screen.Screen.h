@@ -9,7 +9,7 @@
 
 namespace nCore { namespace nECS { namespace nCore { class cWorld; } } }
 namespace nCore { namespace nECS { namespace nCore { class cEntity; } } }
-namespace nMapping  { class cEntityGrid; }
+namespace nMapping  { class cEntityMap; }
 namespace nCore { namespace nRender   { class cLayer; } }
 namespace nCore { namespace nRender   { class cLayerEngine; } }
 

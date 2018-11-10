@@ -115,7 +115,7 @@ public:
 
 private:
     cWorld *                    mWorld;             // To call for updates if entity changes
-    ::nCore::nRender::cLayer*   mContainerLayer;    // The layer this entity is in : to allow getting entityGrid fast.
+    ::nCore::nRender::cLayer*   mContainerLayer;    // The layer this entity is in : to allow getting EntityMap fast.
 
     std::string                 mID;                // An ID that allows finding component in hash map easily
     std::vector< sPair >        mComponents;

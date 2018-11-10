@@ -8,7 +8,7 @@
 #include "Core.ECS.Component.Transformation.h"
 #include "Core.ECS.Component.FieldOfView.h"
 #include "Core.ECS.Component.Direction.h"
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 #include "Core.Render.Layer.h"
 #include "Core.Math.Utils.h"
 #include "Core.Math.Ray.h"
@@ -110,7 +110,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     //// ============== MULTI THREAD ============
     //// ========================================
 
-    ::nCore::nMapping::cEntityGrid* entityMap = 0;
+    ::nCore::nMapping::cEntityMap* entityMap = 0;
 
     // Draw container
     mFOVDrawer.clear();
@@ -123,7 +123,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
         assert( layer );
 
         if( layer )
-            entityMap = layer->EntityGrid();
+            entityMap = layer->EntityMap();
         else
             return;
 
@@ -298,7 +298,7 @@ cSightSystem::Update( unsigned int iDeltaTime )
     // ============= SINGLE THREAD ============
     // ========================================
 
-    //::nCore::nMapping::cEntityGrid* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityGrid;
+    //::nCore::nMapping::cEntityMap* entityMap = ::nECS::cScreenEntityMap::Instance()->mEntityMap;
 
     //mFOVDrawer.clear();
 

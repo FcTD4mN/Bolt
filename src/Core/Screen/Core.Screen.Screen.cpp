@@ -8,7 +8,7 @@
 #include "Core.ECS.Core.World.h"
 #include "Core.ECS.Core.System.h"
 
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 
 #include "Core.Render.LayerEngine.h"
 

@@ -2,7 +2,7 @@
 
 
 #include "Core.ECS.Core.Entity.h"
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 #include "Core.Render.Layer.h"
 
 
@@ -108,7 +108,7 @@ cTransformation::BuildCallbacks()
         {
             auto layer = mEntityOwner->Layer();
             if( layer ) // We can change entity transform before adding it into world, thus before having a layer associated
-                mEntityOwner->Layer()->EntityGrid()->UpdateEntity( mEntityOwner );
+                mEntityOwner->Layer()->EntityMap()->UpdateEntity( mEntityOwner );
         }
     };
 

@@ -11,7 +11,7 @@
 
 namespace nCore::nRender    { class cLayer; }
 namespace nCore::nRender    { class cLayerEngine; }
-namespace nCore::nMapping   { class cEntityGrid; }
+namespace nCore::nMapping   { class cEntityMap; }
 
 
 namespace nCore {
@@ -77,8 +77,8 @@ public:
 public:
     // EntityMap
     void                                SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize );
-    ::nCore::nMapping::cEntityGrid*     EntityMap();
-    void                                EntityMapEnumerator( std::function< void( ::nCore::nMapping::cEntityGrid* iEntityGrid ) > iFunction );
+    ::nCore::nMapping::cEntityMap*     EntityMap();
+    void                                EntityMapEnumerator( std::function< void( ::nCore::nMapping::cEntityMap* iEntityMap ) > iFunction );
 
 public:
     // Events
@@ -119,7 +119,7 @@ protected:
     std::vector< cSystem* >                     mSystems;
     std::vector< cSystem* >                     mEventRelatedSystems;
 
-    ::nCore::nMapping::cEntityGrid*             mEntityMap;
+    ::nCore::nMapping::cEntityMap*             mEntityMap;
 
 public:
     ::nCore::nRender::cLayerEngine*             mLayerEngine;

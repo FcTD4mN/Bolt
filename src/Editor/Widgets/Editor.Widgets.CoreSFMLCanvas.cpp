@@ -10,7 +10,7 @@
 #include "Core.ECS.Component.Transformation.h"
 #include "Core.ECS.Component.Animations.h"
 
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 
 #include "Core.Project.Project.h"
 
@@ -359,7 +359,7 @@ CoreSFMLCanvas::mouseReleaseEvent( QMouseEvent* iEvent )
 
         _Project()->CurrentScreen()->LayersEnumerator( [ &entitiesInEMap, this ]( ::nCore::nRender::cLayer* iLayer ) {
 
-            iLayer->EntityGrid()->GetEntitiesInBoundingBox( &entitiesInEMap,  iLayer->MapRectFromLayer( mSelectionBox ) );
+            iLayer->EntityMap()->GetEntitiesInBoundingBox( &entitiesInEMap,  iLayer->MapRectFromLayer( mSelectionBox ) );
 
         });
 

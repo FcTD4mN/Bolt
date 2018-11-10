@@ -4,7 +4,7 @@
 #include "Core.Application.GlobalAccess.h"
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Component.ZDepth.h"
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 #include "Core.Render.LayerEngine.h"
 #include "Core.Shader.Shader2D.h"
 
@@ -18,7 +18,7 @@ cLayer::~cLayer()
     while( mEntities.size() > 0 )
         mEntities.back()->Destroy();
 
-    delete  mEntityGrid;
+    delete  mEntityMap;
 
     delete  mShaderRenderTextureInput;
     delete  mShaderRenderTextureOutput;
@@ -34,7 +34,7 @@ cLayer::cLayer( cLayerEngine* iParentLayerEngine, const sf::Vector2f& iViewSize,
     mOffset( sf::Vector2f( 0, 0 ) ),
     mZoomFactor( 1.0 ),
     mZLayer( 1.0F ),
-    mEntityGrid( 0 ),
+    mEntityMap( 0 ),
     mMappingType( iType ),
     mFixedLayer( false ),
     mVisible( true ),
@@ -49,9 +49,9 @@ cLayer::cLayer( cLayerEngine* iParentLayerEngine, const sf::Vector2f& iViewSize,
         mZLayer = 1.0F;
 
     if( mMappingType == kPositionSize )
-        mEntityGrid = new ::nCore::nMapping::cPositionSizeGrid( 100, 100, 32 );
+        mEntityMap = new ::nCore::nMapping::cPositionSizeGrid( 100, 100, 32 );
     else if( mMappingType == kPhysics )
-        mEntityGrid = new ::nCore::nMapping::cPhysicEntityGrid( 100, 100, 32 );
+        mEntityMap = new ::nCore::nMapping::cPhysicEntityMap( 100, 100, 32 );
 }
 
 
@@ -127,7 +127,7 @@ cLayer::AddEntity( ::nCore::nECS::nCore::cEntity * iEntity )
         ++index;
     }
 
-    mEntityGrid->AddEntity( iEntity );
+    mEntityMap->AddEntity( iEntity );
     mEntities.insert( it, iEntity );
 
     iEntity->mContainerLayer = this;
@@ -148,7 +148,7 @@ cLayer::RemoveEntity( ::nCore::nECS::nCore::cEntity * iEntity )
         }
     }
 
-    mEntityGrid->RemoveEntity( iEntity );
+    mEntityMap->RemoveEntity( iEntity );
     iEntity->mContainerLayer = 0;
 }
 
@@ -255,10 +255,10 @@ cLayer::Index() const
 }
 
 
-::nCore::nMapping::cEntityGrid*
-cLayer::EntityGrid()
+::nCore::nMapping::cEntityMap*
+cLayer::EntityMap()
 {
-    return  mEntityGrid;
+    return  mEntityMap;
 }
 
 
@@ -390,9 +390,9 @@ cLayer::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
 
     // ENTITY MAP
     tinyxml2::XMLElement* entityMap = iDocument->NewElement( "entityMap" );
-    entityMap->SetAttribute( "width", mEntityGrid->Width() );
-    entityMap->SetAttribute( "height", mEntityGrid->Height() );
-    entityMap->SetAttribute( "cellsize", mEntityGrid->CellSize() );
+    entityMap->SetAttribute( "width", mEntityMap->Width() );
+    entityMap->SetAttribute( "height", mEntityMap->Height() );
+    entityMap->SetAttribute( "cellsize", mEntityMap->CellSize() );
     iNode->LinkEndChild( entityMap );
 
     // SHADERS
@@ -442,13 +442,13 @@ cLayer::LoadXML( tinyxml2::XMLElement* iNode )
     int eMapCellSize = entityMap->IntAttribute( "cellsize" );
 
     // Loading means we want a fresh entity map and a fresh world, so if they already exist, we diss them for brand new ones
-    if( mEntityGrid )
-        delete  mEntityGrid;
+    if( mEntityMap )
+        delete  mEntityMap;
 
     if( mMappingType == kPositionSize )
-        mEntityGrid = new ::nCore::nMapping::cPositionSizeGrid( 100, 100, 32 );
+        mEntityMap = new ::nCore::nMapping::cPositionSizeGrid( 100, 100, 32 );
     else if( mMappingType == kPhysics )
-        mEntityGrid = new ::nCore::nMapping::cPhysicEntityGrid( 100, 100, 32 );
+        mEntityMap = new ::nCore::nMapping::cPhysicEntityMap( 100, 100, 32 );
 }
 
 

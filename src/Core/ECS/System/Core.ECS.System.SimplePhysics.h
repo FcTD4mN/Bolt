@@ -2,7 +2,7 @@
 
 
 #include "Core.ECS.Core.System.h"
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 
 
 #include <SFML/Graphics.hpp>

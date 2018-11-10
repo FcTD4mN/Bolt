@@ -5,9 +5,8 @@
 #include "Core.ECS.Core.Component.h"
 #include "Core.ECS.Core.Entity.h"
 #include "Core.ECS.Core.World.h"
-#include "Core.ECS.Mapping.GlobalEntityMap.h"
 
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 
 #include "Core.Project.Project.h"
 

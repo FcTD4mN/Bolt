@@ -13,6 +13,8 @@
 #include "Core.Math.Utils.h"
 
 
+#include <cassert>
+
 namespace nCore {
 namespace nECS {
 namespace nSystem {
@@ -56,7 +58,7 @@ cSoundOcclusion::Clone() const
 void
 cSoundOcclusion::Update( unsigned int iDeltaTime )
 {
-    ::nCore::nMapping::cEntityGrid* entityMap = 0;
+    ::nCore::nMapping::cEntityMap* entityMap = 0;
     bool applyOcclusion = false;
 
     for( int i = 0; i < mSoundEmitters.size(); ++i )
@@ -67,10 +69,11 @@ cSoundOcclusion::Update( unsigned int iDeltaTime )
             continue;
 
         auto layer = entity->Layer();
+        assert( layer );
         if( layer )
-            entityMap = layer->EntityGrid();
+            entityMap = layer->EntityMap();
         else
-            entityMap = mWorld->EntityMap();
+            return;
 
         auto transformation = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
         auto sound = entity->GetComponentByIDAs< ::nCore::nECS::nComponent::cSound* >( "sound" );

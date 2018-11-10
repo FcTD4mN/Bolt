@@ -196,9 +196,6 @@
     <ClCompile Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp">
       <Filter>src\Core\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.cpp">
-      <Filter>src\Core\Mapping</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Core\Math\Core.Math.Utils.cpp">
       <Filter>src\Core\Math</Filter>
     </ClCompile>
@@ -300,6 +297,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Core\Base\Core.Base.Clipboard.cpp">
       <Filter>src\Core\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.EntityMap.cpp">
+      <Filter>src\Core\Mapping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -411,9 +411,6 @@
     <ClInclude Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h">
       <Filter>src\Core\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.h">
-      <Filter>src\Core\Mapping</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Core\Math\Core.Math.Triangle.h">
       <Filter>src\Core\Math</Filter>
     </ClInclude>
@@ -518,6 +515,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Core\Base\Core.Base.Clipboard.h">
       <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Mapping\Core.Mapping.EntityMap.h">
+      <Filter>src\Core\Mapping</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,12 +7,10 @@
 #include <list>
 
 
-namespace nCore { namespace nECS { namespace nCore { class cEntity; } } }
-namespace nCore { namespace nMapping { class cEntityGrid; } }
-namespace nCore { namespace nShader { class cShader2D; } }
-
-
-namespace nCore { namespace nRender { class cLayerEngine; } }
+namespace nCore::nECS::nCore    { class cEntity; }
+namespace nCore::nMapping       { class cEntityMap; }
+namespace nCore::nShader        { class cShader2D; }
+namespace nCore::nRender        { class cLayerEngine; }
 
 
 namespace nCore {
@@ -63,17 +61,17 @@ public:
 
     int                 Index() const;
 
-    // EntityGrid
-    ::nCore::nMapping::cEntityGrid* EntityGrid();
+    // EntityMap
+    ::nCore::nMapping::cEntityMap* EntityMap();
 
     //EDITOR
-    int                 EntityCount() const;
-    ::nCore::nECS::nCore::cEntity*    EntityAtIndex( int iIndex );
-    int                 EntityIndex( ::nCore::nECS::nCore::cEntity* iEntity );
-    int                 LayerIndex() const;
+    int                                 EntityCount() const;
+    ::nCore::nECS::nCore::cEntity*      EntityAtIndex( int iIndex );
+    int                                 EntityIndex( ::nCore::nECS::nCore::cEntity* iEntity );
+    int                                 LayerIndex() const;
 
 public:
-    void  AddShader( ::nCore::nShader::cShader2D* iShader );
+    void            AddShader( ::nCore::nShader::cShader2D* iShader );
 
 public:
     // Coordinates
@@ -103,7 +101,7 @@ protected:
     float                                       mZoomFactor;    // The zoom of this specific layer
     float                                       mZLayer;
 
-    ::nCore::nMapping::cEntityGrid*             mEntityGrid;
+    ::nCore::nMapping::cEntityMap*             mEntityMap;
     eLayerMappingType                           mMappingType;
 
     bool                                        mFixedLayer;    // Means that this layer is completely fixed : not affected by zoom or camera movement

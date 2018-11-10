@@ -7,7 +7,7 @@
 #include "Core.ECS.Core.System.h"
 #include "Core.Registries.SystemRegistry.h"
 
-#include "Core.Mapping.PhysicEntityGrid.h"
+#include "Core.Mapping.EntityMap.h"
 
 #include "Core.Render.Layer.h"
 #include "Core.Render.LayerEngine.h"
@@ -40,7 +40,7 @@ cWorld::~cWorld()
 
 cWorld::cWorld() :
     mLayerEngine( new ::nCore::nRender::cLayerEngine() ),
-    mEntityMap( new ::nCore::nMapping::cPhysicEntityGrid( 100, 100, 32 ) )
+    mEntityMap( new ::nCore::nMapping::cPhysicEntityMap( 100, 100, 32 ) )
 {
 }
 
@@ -363,7 +363,7 @@ cWorld::SetEntityMapDimensions( int iWidth, int iHeight, int iCellSize )
 }
 
 
-::nCore::nMapping::cEntityGrid*
+::nCore::nMapping::cEntityMap*
 cWorld::EntityMap()
 {
     return  mEntityMap;
@@ -371,12 +371,12 @@ cWorld::EntityMap()
 
 
 void
-cWorld::EntityMapEnumerator( std::function< void( ::nCore::nMapping::cEntityGrid* iEntityGrid ) > iFunction )
+cWorld::EntityMapEnumerator( std::function< void( ::nCore::nMapping::cEntityMap* iEntityMap ) > iFunction )
 {
     for ( int i = 0; i < mLayerEngine->LayerCount(); ++i )
     {
         ::nCore::nRender::cLayer* layer = mLayerEngine->LayerAtIndex( i );
-        iFunction( layer->EntityGrid() );
+        iFunction( layer->EntityMap() );
     }
 }
 
@@ -625,7 +625,7 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
     // Loading means we want a fresh entity map and a fresh world, so if they already exist, we diss them for brand new ones
     if( mEntityMap )
         delete  mEntityMap;
-    mEntityMap = new ::nCore::nMapping::cPhysicEntityGrid( eMapWidth, eMapHeight, eMapCellSize );
+    mEntityMap = new ::nCore::nMapping::cPhysicEntityMap( eMapWidth, eMapHeight, eMapCellSize );
 
     // ====================== Layers
     mLayerEngine = new ::nCore::nRender::cLayerEngine();

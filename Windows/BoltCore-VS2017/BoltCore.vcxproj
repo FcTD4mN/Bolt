@@ -53,7 +53,7 @@
     <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.cpp" />
     <ClCompile Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.cpp" />
     <ClCompile Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.cpp" />
-    <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.cpp" />
+    <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.EntityMap.cpp" />
     <ClCompile Include="..\..\src\Core\Math\Core.Math.Edge.cpp" />
     <ClCompile Include="..\..\src\Core\Math\Core.Math.Ray.cpp" />
     <ClCompile Include="..\..\src\Core\Math\Core.Math.Triangle.cpp" />
@@ -126,7 +126,7 @@
     <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundMixer.h" />
     <ClInclude Include="..\..\src\Core\ECS\System\Core.ECS.System.SoundOcclusion.h" />
     <ClInclude Include="..\..\src\Core\GUI\Core.GUI.ConsoleWidget.h" />
-    <ClInclude Include="..\..\src\Core\Mapping\Core.Mapping.PhysicEntityGrid.h" />
+    <ClInclude Include="..\..\src\Core\Mapping\Core.Mapping.EntityMap.h" />
     <ClInclude Include="..\..\src\Core\Math\Core.Math.Edge.h" />
     <ClInclude Include="..\..\src\Core\Math\Core.Math.Ray.h" />
     <ClInclude Include="..\..\src\Core\Math\Core.Math.Triangle.h" />

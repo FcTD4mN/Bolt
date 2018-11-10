@@ -103,7 +103,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 {
     sf::Rect< float > entityHitBox;
     sf::Rect< float > projection;
-    ::nCore::nMapping::cEntityGrid* entityMap = 0;
+    ::nCore::nMapping::cEntityMap* entityMap = 0;
 
     for( int i = 0; i < mEntityGroup.size(); ++i )
     {
@@ -116,7 +116,7 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
         auto layer = entity->Layer();
         assert( layer );
         if( layer )
-            entityMap = layer->EntityGrid();
+            entityMap = layer->EntityMap();
         else
             return;
 
