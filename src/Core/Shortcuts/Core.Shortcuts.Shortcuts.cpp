@@ -64,10 +64,10 @@ cShortcuts::Finalize()
 sf::Keyboard::Key
 cShortcuts::GetKeyForAction( const std::string & iAction )
 {
-    for( std::unordered_map< sf::Keyboard::Key, std::string >::const_iterator it = mShortcuts.begin(); it != mShortcuts.end(); ++it )
+    for( auto pair : mShortcuts )
     {
-        if( it->second == iAction )
-            return it->first;
+        if( pair.second == iAction )
+            return pair.first;
     }
 
     return  sf::Keyboard::Key::Unknown;

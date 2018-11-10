@@ -190,7 +190,7 @@ cScreen::View( sf::View& iView )
 {
     mView = iView;
 
-    auto mainWindow = ::nCore::nApplication::cGlobalAccess::Instance()->TheMainWindow();
+    auto mainWindow = MAINWIN;
     if( !mainWindow )
         return;
 
@@ -203,8 +203,7 @@ cScreen::View( sf::View& iView )
 void
 cScreen::ApplyScreenView()
 {
-    auto mainWindow = ::nCore::nApplication::cGlobalAccess::Instance()->TheMainWindow();
-    mainWindow->setView( mView );
+    MAINWIN->setView( mView );
 }
 
 
@@ -489,6 +488,15 @@ cScreen::ImportFromFile( const nStdFileSystem::path& iFilePath )
     // Things like minimap, split screen etc, are not the screen view, but additionnal views that are set programmatically.
     // So let's say, until it's provent wrong, that we set the projectSize as default for SCREEN VIEWS.
     // We'll need a camera, that'll be positionned somewhere as the user wants
+
+    /*
+        If view in screen stands as the camera, it should work, zoom is stored and save, as well as X Y position
+        It indeed must fill the entire screen, so no width/height manipulation.
+        But user should be able to set view(camera)'s position in editor, save it, and then get this position when starting the game
+        The only thing right now, is the fact editor doesn't have a camera, so saving project will save/load the view as it was in editor
+        Meaning it will keep the zoom level and everything
+        So the main goal here is to set an independant camera for editor
+    */
 
     //float viewWidth = root->FloatAttribute( "viewWidth" );
     //float viewHeight = root->FloatAttribute( "viewHeight" );

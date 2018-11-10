@@ -105,7 +105,8 @@ cLayer::AddEntity( ::nCore::nECS::nCore::cEntity * iEntity )
     if( layer )
         layer->RemoveEntity( iEntity );
 
-    auto zdepth = dynamic_cast< ::nCore::nECS::nComponent::cZDepth*>( iEntity->GetComponentByID( "zdepth" ) );
+    auto zdepth = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cZDepth* >( "zdepth" );
+
     double zEnteringEntityDepth = 1.0;
     if( zdepth )
         zEnteringEntityDepth = zdepth->ZDepth();
@@ -115,7 +116,7 @@ cLayer::AddEntity( ::nCore::nECS::nCore::cEntity * iEntity )
 
     while( it != mEntities.end() )
     {
-        auto zdepthEnt = dynamic_cast< ::nCore::nECS::nComponent::cZDepth* >( (*it)->GetComponentByID( "zdepth" ) );
+        auto zdepthEnt = iEntity->GetComponentByIDAs< ::nCore::nECS::nComponent::cZDepth* >( "zdepth" );
         double entityZDepth = 1.0;
         if( zdepthEnt )
             entityZDepth = zdepthEnt->ZDepth();
@@ -227,7 +228,7 @@ cLayer::Fixed( bool iFixed )
     if( mFixedLayer )
     {
         mView = sf::View();
-        mView.setSize( sf::Vector2f(::nCore::nApplication::cGlobalAccess::Instance()->TheMainWindow()->getSize()) );
+        mView.setSize( sf::Vector2f( MAINWIN->getSize() ) );
         mView.setCenter( mView.getSize().x / 2, mView.getSize().y/2 );
         mOffset = sf::Vector2f( 0, 0 );
     }
@@ -387,6 +388,7 @@ cLayer::SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument )
     iNode->SetAttribute( "viewheight",  view.y );
     iNode->SetAttribute( "zlayer",      mZLayer );
     iNode->SetAttribute( "fixed",       mFixedLayer );
+    iNode->SetAttribute( "zoom",        mZoomFactor );
 
     // ENTITY MAP
     tinyxml2::XMLElement* entityMap = iDocument->NewElement( "entityMap" );
@@ -425,13 +427,15 @@ cLayer::LoadXML( tinyxml2::XMLElement* iNode )
 {
     mName = iNode->Attribute( "name" );
 
-    int viewWidth = iNode->IntAttribute( "viewwidth" );
-    int viewHeight = iNode->IntAttribute( "viewheight" );
+    int viewWidth   = iNode->IntAttribute( "viewwidth" );
+    int viewHeight  = iNode->IntAttribute( "viewheight" );
+    float zoom      = iNode->FloatAttribute( "zoom" );
 
     sf::View view = sf::View();
     view.setSize( sf::Vector2f( float(viewWidth), float(viewHeight) ) );
 
     SetView( view );
+    ApplyZoom( zoom );
     Fixed( iNode->BoolAttribute( "fixed" ) );
     ZLayer( iNode->FloatAttribute( "zlayer" ) );
 

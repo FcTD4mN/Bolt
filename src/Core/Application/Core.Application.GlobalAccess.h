@@ -11,9 +11,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#define  PROJECTSIZE    ::nCore::nApplication::cGlobalAccess::Instance()->ProjectSize()
-#define  PROJECTDIR     ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder()
-#define  MAINWIN        ::nCore::nApplication::cGlobalAccess::Instance()->TheMainWindow()
+#define  PROJECTVIEWSIZE    ::nCore::nApplication::cGlobalAccess::Instance()->ProjectSize()
+#define  PROJECTDIR         ::nCore::nApplication::cGlobalAccess::Instance()->ProjectFolder()
+#define  MAINWIN            ::nCore::nApplication::cGlobalAccess::Instance()->TheMainWindow()
 
 
 namespace nCore {

@@ -102,7 +102,7 @@ protected:
     float                                       mZLayer;
 
     ::nCore::nMapping::cEntityMap*              mEntityMap;
-    eLayerMappingType                           mMappingType;
+    eLayerMappingType                           mMappingType;   // Physic or transformation based
 
     bool                                        mFixedLayer;    // Means that this layer is completely fixed : not affected by zoom or camera movement
     bool                                        mVisible;

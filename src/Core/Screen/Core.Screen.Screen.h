@@ -7,11 +7,11 @@
 
 #include "Core.Base.FileSystem.h"
 
-namespace nCore { namespace nECS { namespace nCore { class cWorld; } } }
-namespace nCore { namespace nECS { namespace nCore { class cEntity; } } }
-namespace nMapping  { class cEntityMap; }
-namespace nCore { namespace nRender   { class cLayer; } }
-namespace nCore { namespace nRender   { class cLayerEngine; } }
+namespace nCore::nECS::nCore    { class cWorld; }
+namespace nCore::nECS::nCore    { class cEntity; }
+namespace nMapping              { class cEntityMap; }
+namespace nCore::nRender        { class cLayer; }
+namespace nCore::nRender        { class cLayerEngine; }
 
 namespace nScreen {
 
@@ -42,7 +42,6 @@ public:
 public:
     // Layers
     void  PutEntityInLayer( ::nCore::nECS::nCore::cEntity* iEntity, int iLayerIndex );
-    void  SetUseLayerEngine( bool iValue );
 
     void  LayersEnumerator( std::function< void( ::nCore::nRender::cLayer* ) > iFunction );
 
@@ -104,20 +103,20 @@ public:
     virtual  void ImportFromFile( const nStdFileSystem::path& iFilePath );
 
 protected:
-    std::string                 mName;
-    nStdFileSystem::path        mFilePath;
-    sf::View                    mView;
-    float                       mZoomFactor;
+    std::string                     mName;
+    nStdFileSystem::path            mFilePath;
+    sf::View                        mView;          // This is actually the Core's camera
+    float                           mZoomFactor;    // This is stored as the camera's zoom because sf::View doesn't store zoom, it does direct resizing when calling zoom(x)
 
-    ::nCore::nECS::nCore::cWorld*             mWorld;
+    ::nCore::nECS::nCore::cWorld*   mWorld;
 
-    bool                        mLoaded;
-    bool                        mInitialized;
-    bool                        mAdditionalBuildComplete;
+    bool                            mLoaded;
+    bool                            mInitialized;
+    bool                            mAdditionalBuildComplete;
 
     // EDITOR ONLY <-- Might have to find another place for them, as it takes up memory space for nothing when playing the game
     // Maybe just a ifdef EDITOR ? <-- BetterTODO : Do an editor camera and a Core camera, and get rid of BOTH views
-    sf::View                    mEditorView;
+    sf::View                        mEditorView;
 };
 
 

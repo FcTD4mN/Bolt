@@ -71,8 +71,8 @@ cAnimationTest::Finalize()
 void
 cAnimationTest::AdditionnalBuildScreen()
 {
-    mWorld->AddLayer( sf::Vector2f( 800.F, 600.F ), 1.0 );
-    mWorld->AddLayer( sf::Vector2f( 800.F, 600.F ), 3.0 );
+    mWorld->AddLayer( PROJECTVIEWSIZE, 1.0 );
+    mWorld->AddLayer( PROJECTVIEWSIZE, 3.0 );
 
     mWorld->AddSystem( ::nCore::nRegistries::cSystemRegistry::Instance()->CreateSystemFromName( "AnimationRenderer" ) );
     mWorld->AddSystem( ::nCore::nRegistries::cSystemRegistry::Instance()->CreateSystemFromName( "SimpleRenderer" ) );

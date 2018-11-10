@@ -29,8 +29,8 @@ public:
 
 public:
     // Shortcut access
-    sf::Keyboard::Key GetKeyForAction( const std::string& iAction );
-    const std::string& GetActionForKey( sf::Keyboard::Key iKey );
+    sf::Keyboard::Key   GetKeyForAction( const std::string& iAction );
+    const std::string&  GetActionForKey( sf::Keyboard::Key iKey );
 
 private:
     // Input/Output
