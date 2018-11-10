@@ -9,9 +9,9 @@
 #include <unordered_map>
 #include <list>
 
-namespace nCore  { namespace nECS { namespace nCore { class cEntity; } } }
-namespace nCore { namespace nShader { class cShader2D; } }
-namespace nCore { namespace nRender { class cLayer; } }
+namespace nCore::nECS::nCore { class cEntity; }
+namespace nCore::nShader { class cShader2D; }
+namespace nCore::nRender { class cLayer; }
 
 
 namespace nCore {

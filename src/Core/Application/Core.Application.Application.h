@@ -50,7 +50,7 @@ public:
 public:
     // Screen
     void                ChangeScreenASAP( const  std::string&  iScreenName );
-    void                PushScreen( ::nScreen::cScreen*  iScreen );
+    void                AddScreen( ::nScreen::cScreen*  iScreen );
     void                RemoveScreen( const  std::string&  iScreenName );
     ::nScreen::cScreen* CurrentScreen();
 

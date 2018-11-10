@@ -19,7 +19,7 @@ class cShaderRegistry :
 {
 private:
     // Contruction/Destruction
-    ~cShaderRegistry();
+    virtual  ~cShaderRegistry();
     cShaderRegistry();
 
 public:

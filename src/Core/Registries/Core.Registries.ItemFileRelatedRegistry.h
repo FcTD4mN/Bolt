@@ -31,7 +31,7 @@ public:
 
 public:
     // Contruction/Destruction
-    ~cItemFileRelatedRegistry();
+    virtual  ~cItemFileRelatedRegistry();
     cItemFileRelatedRegistry();
 
 public:
@@ -140,7 +140,6 @@ cItemFileRelatedRegistry< T >::UnregisterItem( T iItem )
     for( int i = 0; i < mItems.size(); ++i )
         if( mItems[ i ].second.mItem == iItem )
             mItems.erase( mItems.begin() + i );
-    // delete or not ?
 }
 
 
@@ -149,7 +148,6 @@ void
 cItemFileRelatedRegistry< T >::UnregisterItemByName( const std::string& iName )
 {
     mItems.erase( iName );
-    // delete or not ?
 }
 
 
@@ -182,7 +180,6 @@ cItemFileRelatedRegistry< T >::GetItemAssociatedToFile( const nStdFileSystem::pa
 {
     for( auto item : mItems )
     {
-        // Going 2 ifs to simplify the reading
         if( item.second.mFile.empty() )
             continue;
 

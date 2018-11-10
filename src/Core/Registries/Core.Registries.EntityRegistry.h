@@ -19,7 +19,7 @@ class cEntityRegistry :
 {
 private:
     // Contruction/Destruction
-    ~cEntityRegistry();
+    virtual  ~cEntityRegistry();
     cEntityRegistry();
 
 public:
@@ -30,9 +30,9 @@ private:
     void  ParseFolder();
 
 public:
-    ::nCore::nECS::nCore::cEntity*    CreateEntityFromFile( const std::string& iFile, ::nCore::nECS::nCore::cWorld* iWorld );
-    ::nCore::nECS::nCore::cEntity*    CreateEntityFromPrototypeMap( const std::string& iEntityName );
-    bool        IsIDAvailable( const std::string& iID );
+    ::nCore::nECS::nCore::cEntity*  CreateEntityFromFile( const std::string& iFile, ::nCore::nECS::nCore::cWorld* iWorld );
+    ::nCore::nECS::nCore::cEntity*  CreateEntityFromPrototypeMap( const std::string& iEntityName );
+    bool                            IsIDAvailable( const std::string& iID );
 
 public:
     // Init/Finalize

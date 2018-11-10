@@ -119,15 +119,11 @@ cEntityRegistry::CreateEntityFromFile( const std::string& iFile, ::nCore::nECS::
 ::nCore::nECS::nCore::cEntity*
 cEntityRegistry::CreateEntityFromPrototypeMap( const std::string& iEntityName )
 {
-    if( !IsItemNameAlreadyInRegistry( iEntityName ) )
-        return  0;
-
-    // Safety approach
     ::nCore::nECS::nCore::cEntity* proto = mItems[ iEntityName ].mItem;
     if( proto )
         return  proto->Clone();
-    else
-        return  0;
+
+    return  0;
 }
 
 

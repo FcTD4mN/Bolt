@@ -130,6 +130,8 @@ cLayerEngine::MoveLayerToIndex( cLayer * iLayer, int iIndex )
 {
     int layerIndex = 0;
     auto it = mLayers.begin();
+
+    // We get iLayer's original index
     while( it != mLayers.end() )
     {
         if( *it == iLayer )
@@ -137,15 +139,16 @@ cLayerEngine::MoveLayerToIndex( cLayer * iLayer, int iIndex )
         ++it; ++layerIndex;
     }
 
+    // We compute the new index
     int insertionIndex = iIndex;
-    if( iIndex > layerIndex )
+    if( iIndex > layerIndex ) // Shift by one as iLayer will be removed,
         --insertionIndex;
 
+    // Remove old position
     if( it != mLayers.end() )
         mLayers.erase( it );
 
     AddLayerAtIndex( iLayer, insertionIndex );
-
 }
 
 

@@ -17,7 +17,7 @@ class cSystemRegistry :
 {
 private:
     // Contruction/Destruction
-    ~cSystemRegistry();
+    virtual  ~cSystemRegistry();
     cSystemRegistry();
 
 public:

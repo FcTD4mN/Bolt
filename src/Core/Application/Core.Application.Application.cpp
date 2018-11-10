@@ -224,7 +224,7 @@ cApplication::ChangeScreenASAP( const  std::string&  iScreenName )
 
 
 void
-cApplication::PushScreen( ::nScreen::cScreen*  iScreen )
+cApplication::AddScreen( ::nScreen::cScreen*  iScreen )
 {
     mProject->AddScreen( iScreen );
 }

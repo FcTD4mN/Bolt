@@ -27,10 +27,10 @@ public:
 
 public:
     // Screen
-    void AddScreen( ::nScreen::cScreen* iScreen );
-    void SetCurrentScreen( const std::string& iScreenName );
-    void LoadScreen( const std::string& iScreenName );
-    void RemoveScreen( const std::string& iScreenName );
+    void                    AddScreen( ::nScreen::cScreen* iScreen );
+    void                    SetCurrentScreen( const std::string& iScreenName );
+    void                    LoadScreenInMemory( const std::string& iScreenName );
+    void                    RemoveScreen( const std::string& iScreenName );
     ::nScreen::cScreen*     CurrentScreen();
     ::nScreen::cScreen*     GetScreenByName( const std::string& iScreenName );
 
@@ -57,10 +57,6 @@ public:
     int                     CurrentScreenIndex() const;
     void                    MakeProjectDirectories() const;
 
-//public:
-//    void Update( unsigned int iDeltaTime );
-//    void Draw( sf::RenderTarget* iRenderTarget );
-
 public:
     // Input/Output
     virtual  void SaveXML() const;
@@ -69,7 +65,7 @@ public:
 protected:
     std::string                         mProjectName;
     nStdFileSystem::path                mProjectFilePath; //For now, this path has to be coherent with the project folder, if we don't want this, we'll have to store project main folder in the proj file
-    std::vector< ::nScreen::cScreen* >  mScreens; // Set because we can only have a screen once
+    std::vector< ::nScreen::cScreen* >  mScreens;
     int                                 mCurrentScreenIndex;
 
     int                                 mResolutionWidth;

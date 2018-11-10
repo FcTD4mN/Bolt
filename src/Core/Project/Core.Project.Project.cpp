@@ -35,6 +35,7 @@ cProject::cProject( const std::string& iProjectName, const std::string& iProject
     mResolutionHeight( 768 ),
     mLimitFramerate ( 144 )
 {
+    // _UnnamedProject is used to know this project has been made using editor, and still requires the user to input a name
     if( iProjectName != "" && iProjectName != "_UnnamedProject" ) // Maybe go triple variable : mProjectName  /  mProjectDirectory  /  mProjectFileName, to allow maximum freedom in file/projectnamning OR just always use the projectfile as projectName
         mProjectFilePath = iProjectFolder + "/" + iProjectName + ".proj";
     else
@@ -122,8 +123,7 @@ cProject::SetCurrentScreen( const std::string & iScreenName )
         {
             mCurrentScreenIndex = i;
 
-            // I'm not liking that, but editor already has everything loaded and initialized, plus it
-            // won't like any code generated thing as it's a core thing. Do we want maint.py to be executed in the editor ? ATM python crashes.
+            // I'm not liking that, but editor already has everything loaded and initialized.
 #ifndef EDITOR
             if( !screen->Initialized() )
                 screen->Initialize();
@@ -141,7 +141,7 @@ cProject::SetCurrentScreen( const std::string & iScreenName )
 
 
 void
-cProject::LoadScreen( const std::string & iScreenName )
+cProject::LoadScreenInMemory( const std::string & iScreenName )
 {
     auto screen = GetScreenByName( iScreenName );
     if( screen )
@@ -324,23 +324,6 @@ cProject::MakeProjectDirectories() const
         nStdFileSystem::create_directory( ProjectDirectory().string() + "/Screens" );
     }
 }
-
-
-// -------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------- Update/Draw
-// -------------------------------------------------------------------------------------
-
-// Useful ?
-//void
-//cProject::Update( unsigned int iDeltaTime )
-//{
-//}
-//
-//
-//void
-// cProject::Draw( sf::RenderTarget* iRenderTarget )
-//{
-//}
 
 
 // -------------------------------------------------------------------------------------

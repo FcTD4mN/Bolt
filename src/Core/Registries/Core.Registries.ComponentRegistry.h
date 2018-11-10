@@ -17,7 +17,7 @@ class cComponentRegistry :
 {
 private:
     // Contruction/Destruction
-    ~cComponentRegistry();
+    virtual  ~cComponentRegistry();
     cComponentRegistry();
 
 public:

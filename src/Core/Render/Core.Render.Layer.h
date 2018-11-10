@@ -101,7 +101,7 @@ protected:
     float                                       mZoomFactor;    // The zoom of this specific layer
     float                                       mZLayer;
 
-    ::nCore::nMapping::cEntityMap*             mEntityMap;
+    ::nCore::nMapping::cEntityMap*              mEntityMap;
     eLayerMappingType                           mMappingType;
 
     bool                                        mFixedLayer;    // Means that this layer is completely fixed : not affected by zoom or camera movement
