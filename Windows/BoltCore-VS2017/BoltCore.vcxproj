@@ -94,6 +94,7 @@
     <ClInclude Include="..\..\src\Core\Application\Core.Application.Application.h" />
     <ClInclude Include="..\..\src\Core\Application\Core.Application.GlobalAccess.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.Clipboard.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.CommonIncludes.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.FileSystem.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralEnums.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.ResourceManager.h" />

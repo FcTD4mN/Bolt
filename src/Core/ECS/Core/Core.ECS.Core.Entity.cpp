@@ -1,5 +1,6 @@
 #include "Core.ECS.Core.Entity.h"
 
+#include "Core.Base.CommonIncludes.h"
 
 #include "Core.ECS.Core.Component.h"
 #include "Core.ECS.Core.World.h"
@@ -9,7 +10,6 @@
 
 #include "Core.Registries.ComponentRegistry.h"
 
-#include <cassert>
 
 
 namespace nCore {
@@ -78,8 +78,15 @@ cEntity::cEntity( const cEntity& iEntity ) :
         mWorld->AddEntityAndPutInLayer( this, mContainerLayer );
 
     // We recreate all internal connections
-    for( auto tuple : iEntity.mAllComponentsConnections )
+    for( auto tuple : iEntity.mAllInternalComponentsConnections )
         ConnectComponentsVariables( std::get< 0 >( tuple ), std::get< 1 >( tuple ), std::get< 2 >( tuple ), std::get< 3 >( tuple ) );
+
+    if( mWorld )
+    {
+        // We recreate all external connections
+        for( auto tuple : iEntity.mAllExternalComponentsConnections )
+            ConnectComponentsVariablesFromEntity( std::get< 0 >( tuple ), std::get< 1 >( tuple ), std::get< 2 >( tuple ), std::get< 3 >( tuple ), std::get< 4 >( tuple ) );
+    }
 }
 
 
@@ -213,7 +220,32 @@ cEntity::ConnectComponentsVariables( const std::string & iComponentAName, const 
     assert( componentA && componentB );
     componentA->ConnectVariable( iVariableAName, componentB, iVariableBName );
 
-    mAllComponentsConnections.push_back( std::make_tuple( iComponentAName, iVariableAName, iComponentBName, iVariableBName ) );
+    mAllInternalComponentsConnections.push_back( std::make_tuple( iComponentAName, iVariableAName, iComponentBName, iVariableBName ) );
+}
+
+
+void
+cEntity::ConnectComponentsVariablesFromEntity( const std::string & iComponentAName, const std::string & iVariableAName, const std::string & iEntityBID, const std::string & iComponentBName, const std::string & iVariableBName )
+{
+    assert( mWorld && "A world is needed to connect to entity" );
+    auto  componentA = GetComponentByIDAs< cComponentGeneric* >( iComponentAName );
+
+    auto entityB = mWorld->GetEntityByID( iEntityBID );
+    assert( entityB );
+    if( !entityB )
+        return;
+
+    auto  componentB = entityB->GetComponentByIDAs< cComponentGeneric* >( iComponentBName );
+    assert( componentA && componentB );
+    componentA->ConnectVariable( iVariableAName, componentB, iVariableBName );
+
+    mAllExternalComponentsConnections.push_back( std::make_tuple( iComponentAName, iVariableAName, iEntityBID, iComponentBName, iVariableBName ) );
+}
+
+void
+cEntity::ConnectComponentsVariablesFromEntity( const std::string & iComponentAName, const std::string & iVariableAName, const cEntity * iEntityB, const std::string & iComponentBName, const std::string & iVariableBName )
+{
+    ConnectComponentsVariablesFromEntity( iComponentAName, iVariableAName, iEntityB->ID(), iComponentBName, iVariableBName );
 }
 
 
@@ -470,7 +502,7 @@ cEntity::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument
 
 
     tinyxml2::XMLElement* internConnections = iDocument->NewElement( "internalConnections" );
-    for( auto tuple : mAllComponentsConnections )
+    for( auto tuple : mAllInternalComponentsConnections )
     {
         tinyxml2::XMLElement* connection = iDocument->NewElement( "connection" );
         connection->SetAttribute( "compA", std::get< 0 >( tuple ).c_str() );
@@ -481,6 +513,21 @@ cEntity::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument
     }
 
     iNode->LinkEndChild( internConnections );
+
+
+    tinyxml2::XMLElement* externConnections = iDocument->NewElement( "externalConnections" );
+    for( auto tuple : mAllExternalComponentsConnections )
+    {
+        tinyxml2::XMLElement* connection = iDocument->NewElement( "connection" );
+        connection->SetAttribute( "compA", std::get< 0 >( tuple ).c_str() );
+        connection->SetAttribute( "varA", std::get< 1 >( tuple ).c_str() );
+        connection->SetAttribute( "entityB", std::get< 2 >( tuple ).c_str() );
+        connection->SetAttribute( "compB", std::get< 3 >( tuple ).c_str() );
+        connection->SetAttribute( "varB", std::get< 4 >( tuple ).c_str() );
+        externConnections->LinkEndChild( connection );
+    }
+
+    iNode->LinkEndChild( externConnections );
 }
 
 

@@ -1,6 +1,6 @@
 #include "Core.ECS.Core.Component.h"
 
-#include <cassert>
+#include "Core.Base.CommonIncludes.h"
 
 namespace nCore {
 namespace nECS {

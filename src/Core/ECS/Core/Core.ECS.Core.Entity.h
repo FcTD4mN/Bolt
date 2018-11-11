@@ -58,17 +58,26 @@ public:
 
 public:
     // Components
-    void            AddComponent( cComponent* iComponent );
-    void            SetComponent( cComponent* iComponent );
-    void            RemoveComponent( cComponent* iComponent );
-    void            RemoveComponentByID( const std::string& iComponentID );
-    cComponent*     GetComponentByID( const std::string& iComponentID );
+    void                    AddComponent( cComponent* iComponent );
+    void                    SetComponent( cComponent* iComponent );
+    void                    RemoveComponent( cComponent* iComponent );
+    void                    RemoveComponentByID( const std::string& iComponentID );
+    cComponent*             GetComponentByID( const std::string& iComponentID );
+    template< class T > T   GetComponentByIDAs( const std::string& iComponentID );
 
-    // Allows to connect the variable from components within this entity.
-    // For example, we want the hitbox's size to be equal to the transformation's size, or X value, or whatever.
-    void            ConnectComponentsVariables( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iComponentBName, const std::string& iVariableBName );
+    /*
+        Allows to connect the variable from components within this entity.
+        For example, we want the hitbox's size to be equal to the transformation's size, or X value, or whatever.
+    */
+    void  ConnectComponentsVariables( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iComponentBName, const std::string& iVariableBName );
 
-    template< class T > T  GetComponentByIDAs( const std::string& iComponentID );
+    /*
+        Allows to connect the variable from this entity's componentA, to a variable from a component of an external entity.
+        For example, we want the position of this entity, to match another entity's position
+    */
+    void  ConnectComponentsVariablesFromEntity( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iEntityBID, const std::string& iComponentBName, const std::string& iVariableBName );
+    void  ConnectComponentsVariablesFromEntity( const std::string& iComponentAName, const std::string& iVariableAName, const cEntity* iEntityB, const std::string& iComponentBName, const std::string& iVariableBName );
+
 
     // EDITOR
     cComponent*  GetComponentAtIndex( int iIndex );
@@ -131,7 +140,11 @@ private:
     unsigned int                mIDForHandles;
 
     // All internal connections are stored here, so whenever the entity is cloned, we can recreate all connections
-    std::vector< std::tuple< std::string, std::string, std::string, std::string > >  mAllComponentsConnections;
+    std::vector< std::tuple< std::string, std::string, std::string, std::string > >  mAllInternalComponentsConnections;
+
+    // External connections are connections between this entity's component variable and another entity's component variable.
+    // These are different as when cloning this entity, the local component reference will be the cloned comp, but the external entity won't change
+    std::vector< std::tuple< std::string, std::string, std::string, std::string, std::string > >  mAllExternalComponentsConnections;
 };
 
 

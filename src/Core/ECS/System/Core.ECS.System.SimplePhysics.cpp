@@ -171,9 +171,6 @@ cSimplePhysics::Update( unsigned int iDeltaTime )
 
             positionX->SetValueNumber( positionX->GetValueNumber() + simplephysic->mVelocity.x );
             positionY->SetValueNumber( positionY->GetValueNumber() + simplephysic->mVelocity.y );
-
-            // Add it back at its new position
-            simplephysic->InvalidCache();
         }
     }
 }

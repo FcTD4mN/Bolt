@@ -69,10 +69,9 @@ cSimplePhysic::BuildComponent( double iCenterX, double iCenterY, double iSizeW, 
 void
 cSimplePhysic::BuildCallbacks()
 {
-
     // If any variable defining the hitbox changes, we invalid the cache, obviously
     auto cacheInvalidator = [ this ]( ::nCore::nBase::eVariableState iState ){
-        if( iState == ::nCore::nBase::eVariableState::kBeforeChange )
+        if( iState == ::nCore::nBase::eVariableState::kAfterChange )
             mIsCacheValid = false;
     };
 
@@ -238,13 +237,6 @@ cSimplePhysic::GetAbsoluteHitBoxUsingCenterPosition( const sf::Vector2f & iCente
 }
 
 
-void
-cSimplePhysic::InvalidCache()
-{
-    mIsCacheValid = false;
-}
-
-
 // -------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------ Input/Output
 // -------------------------------------------------------------------------------------
@@ -271,6 +263,8 @@ cSimplePhysic::LoadXML( tinyxml2::XMLElement* iNode )
     mVelocity.y     = iNode->FloatAttribute( "veloY", 0.0F );
 
     mType = eType( iNode->IntAttribute( "type", 0 ) );
+
+    BuildCallbacks();
 }
 
 

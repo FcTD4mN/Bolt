@@ -1,6 +1,6 @@
 #include "Core.ECS.Core.World.h"
 
-
+#include "Core.Base.CommonIncludes.h"
 #include "Core.Base.Utilities.h"
 
 #include "Core.ECS.Core.Entity.h"
@@ -13,6 +13,7 @@
 #include "Core.Render.LayerEngine.h"
 
 #include "Core.Shader.Shader2D.h"
+
 
 
 namespace nCore {
@@ -661,6 +662,28 @@ cWorld::LoadXML( tinyxml2::XMLElement* iNode )
             loadedEntity->LoadXML( entity );
             AddEntityAndPutInLayer( loadedEntity, layerIndex );
             loadedEntity->mContainerLayer = mLayerEngine->LayerAtIndex( layerIndex );
+        }
+
+        // We need to reiterate through all entities after they are ALL loaded,
+        // because recreating connections require entities to exist, so we first create them all, then here, we do the connections
+        for( tinyxml2::XMLElement* entity = entities->FirstChildElement( "entity" ); entity; entity = entity->NextSiblingElement() )
+        {
+            auto entityByID = GetEntityByID( entity->Attribute( "id" ) );
+            assert( entityByID );
+            tinyxml2::XMLElement* externalConnections = entity->FirstChildElement( "externalConnections" );
+            if( externalConnections )
+            {
+                for( tinyxml2::XMLElement* connection = externalConnections->FirstChildElement( "connection" ); connection; connection = connection->NextSiblingElement() )
+                {
+                    std::string compA = connection->Attribute( "compA" );
+                    std::string varA = connection->Attribute( "varA" );
+                    std::string enityB = connection->Attribute( "entityB" );
+                    std::string compB = connection->Attribute( "compB" );
+                    std::string varB = connection->Attribute( "varB" );
+
+                    entityByID->ConnectComponentsVariablesFromEntity( compA, varA, enityB, compB, varB );
+                }
+            }
         }
 
         ++layerIndex;

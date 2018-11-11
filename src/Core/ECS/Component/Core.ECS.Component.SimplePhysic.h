@@ -68,7 +68,6 @@ public:
     sf::FloatRect RelativeHitBox();
 
     sf::FloatRect GetAbsoluteHitBoxUsingCenterPosition( const sf::Vector2f& iCenterPosition );
-    void  InvalidCache();
 
 public:
     // Input/Output

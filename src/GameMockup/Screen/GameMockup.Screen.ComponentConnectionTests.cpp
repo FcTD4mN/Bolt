@@ -91,16 +91,16 @@ cComponentConnectionTests::AdditionnalBuildScreen()
     wall->ConnectComponentsVariables( "simplephysic", "SizeW", "transformation", "width" );
     wall->ConnectComponentsVariables( "simplephysic", "SizeH", "transformation", "height" );
     wall->AddTag( "wall" );
+    mWorld->AddEntityAndPutInLayer( wall, 0 );
+    wall->ConnectComponentsVariablesFromEntity( "transformation", "width", ent, "transformation", "x" );
 
     auto wall2 = wall->Clone();
     auto transWall2 = wall2->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
     transWall2->X( 200.0F );
     transWall2->Y( 200.0F );
-    transWall2->W( 200.0F );
+    //transWall2->W( 200.0F );
     transWall2->H( 20.0F );
 
-    mWorld->AddEntityAndPutInLayer( wall, 0 );
-    mWorld->AddEntityAndPutInLayer( wall2, 0 );
 
     tSuperClass::AdditionnalBuildScreen();
 }
