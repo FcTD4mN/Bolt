@@ -79,6 +79,12 @@ public:
     void                            SetNewVariable( const std::string& iVarName, ::nCore::nBase::cVariant* iValue );
     void                            SetVarValueChangeCallback( const std::string& iVarName, std::function< void( ::nCore::nBase::eVariableState ) > iFunction );
     void                            VariableEnumerator( std::function< void( const std::string&, ::nCore::nBase::cVariant* )> iMethod );
+
+    /*
+        This connection isn't persistent, as we can't save pointer here.
+        This is a low level connection feature, that allows any form of connections between any components from any entities.
+        For persistent connections, use the Connect methods in entity
+     */
     void                            ConnectVariable( const std::string& iOwnVariable, cComponentGeneric* iOtherComponent, const std::string& iOtherVariable );
 
 

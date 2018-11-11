@@ -9,6 +9,8 @@
 
 #include "Core.Registries.ComponentRegistry.h"
 
+#include <cassert>
+
 
 namespace nCore {
 namespace nECS {
@@ -74,6 +76,10 @@ cEntity::cEntity( const cEntity& iEntity ) :
     // We add the clone to the world and layer of the original
     if( mWorld )
         mWorld->AddEntityAndPutInLayer( this, mContainerLayer );
+
+    // We recreate all internal connections
+    for( auto tuple : iEntity.mAllComponentsConnections )
+        ConnectComponentsVariables( std::get< 0 >( tuple ), std::get< 1 >( tuple ), std::get< 2 >( tuple ), std::get< 3 >( tuple ) );
 }
 
 
@@ -196,6 +202,18 @@ cEntity::GetComponentByID( const std::string & iComponentID )
     }
 
     return  0;
+}
+
+
+void
+cEntity::ConnectComponentsVariables( const std::string & iComponentAName, const std::string & iVariableAName, const std::string & iComponentBName, const std::string & iVariableBName )
+{
+    auto  componentA = GetComponentByIDAs< cComponentGeneric* >( iComponentAName );
+    auto  componentB = GetComponentByIDAs< cComponentGeneric* >( iComponentBName );
+    assert( componentA && componentB );
+    componentA->ConnectVariable( iVariableAName, componentB, iVariableBName );
+
+    mAllComponentsConnections.push_back( std::make_tuple( iComponentAName, iVariableAName, iComponentBName, iVariableBName ) );
 }
 
 
@@ -449,6 +467,20 @@ cEntity::SaveXML( tinyxml2::XMLElement * iNode, tinyxml2::XMLDocument* iDocument
     }
 
     iNode->LinkEndChild( tags );
+
+
+    tinyxml2::XMLElement* internConnections = iDocument->NewElement( "internalConnections" );
+    for( auto tuple : mAllComponentsConnections )
+    {
+        tinyxml2::XMLElement* connection = iDocument->NewElement( "connection" );
+        connection->SetAttribute( "compA", std::get< 0 >( tuple ).c_str() );
+        connection->SetAttribute( "varA",  std::get< 1 >( tuple ).c_str() );
+        connection->SetAttribute( "compB", std::get< 2 >( tuple ).c_str() );
+        connection->SetAttribute( "varB",  std::get< 3 >( tuple ).c_str() );
+        internConnections->LinkEndChild( connection );
+    }
+
+    iNode->LinkEndChild( internConnections );
 }
 
 
@@ -479,6 +511,20 @@ cEntity::LoadXML( tinyxml2::XMLElement * iNode )
     for( tinyxml2::XMLElement* tag = tags->FirstChildElement( "tag" ); tag; tag = tag->NextSiblingElement() )
     {
         AddTag( tag->Attribute( "name" ) );
+    }
+
+    tinyxml2::XMLElement* internalConnections = iNode->FirstChildElement( "internalConnections" );
+    if( internalConnections )
+    {
+        for( tinyxml2::XMLElement* connection = internalConnections->FirstChildElement( "connection" ); connection; connection = connection->NextSiblingElement() )
+        {
+            std::string compA = connection->Attribute( "compA" );
+            std::string varA = connection->Attribute( "varA" );
+            std::string compB = connection->Attribute( "compB" );
+            std::string varB = connection->Attribute( "varB" );
+
+            ConnectComponentsVariables( compA, varA, compB, varB );
+        }
     }
 }
 

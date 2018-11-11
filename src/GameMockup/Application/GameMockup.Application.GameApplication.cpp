@@ -13,6 +13,7 @@
 #include "GameMockup.ECS.System.SquareController.h"
 
 #include "GameMockup.Screen.AnimationTestScreen.h"
+#include "GameMockup.Screen.ComponentConnectionTests.h"
 #include "GameMockup.Screen.GameScreen.h"
 #include "GameMockup.Screen.InfiltratorScreen.h"
 #include "GameMockup.Screen.PremierScreen.h"
@@ -103,7 +104,10 @@ cApplication::BuildProject()
     auto egriddebug = new ::nScreen::cEGridDebug();
     mProject->AddScreen( egriddebug );
 
-    mProject->SetCurrentScreen( "animationtest" );
+    auto connectionTest = new ::nScreen::cComponentConnectionTests();
+    mProject->AddScreen( connectionTest );
+
+    mProject->SetCurrentScreen( "componentconnection" );
 }
 
 

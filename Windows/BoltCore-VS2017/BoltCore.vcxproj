@@ -77,6 +77,7 @@
     <ClCompile Include="..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.cpp" />
     <ClCompile Include="..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.AnimationTestScreen.cpp" />
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ComponentConnectionTests.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.EntityGridDebug.cpp" />
     <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.GameScreen.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="..\..\src\GameMockup\Application\GameMockup.Application.GameApplication.h" />
     <ClInclude Include="..\..\src\GameMockup\ECS\System\GameMockup.ECS.System.SquareController.h" />
     <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.AnimationTestScreen.h" />
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ComponentConnectionTests.h" />
     <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ConsoleScreen.h" />
     <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.EntityGridDebug.h" />
     <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.GameScreen.h" />

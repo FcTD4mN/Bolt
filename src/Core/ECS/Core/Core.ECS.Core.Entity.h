@@ -64,6 +64,10 @@ public:
     void            RemoveComponentByID( const std::string& iComponentID );
     cComponent*     GetComponentByID( const std::string& iComponentID );
 
+    // Allows to connect the variable from components within this entity.
+    // For example, we want the hitbox's size to be equal to the transformation's size, or X value, or whatever.
+    void            ConnectComponentsVariables( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iComponentBName, const std::string& iVariableBName );
+
     template< class T > T  GetComponentByIDAs( const std::string& iComponentID );
 
     // EDITOR
@@ -125,6 +129,9 @@ private:
     bool                        mDead;              // The entity is dead and shall be removed from world
 
     unsigned int                mIDForHandles;
+
+    // All internal connections are stored here, so whenever the entity is cloned, we can recreate all connections
+    std::vector< std::tuple< std::string, std::string, std::string, std::string > >  mAllComponentsConnections;
 };
 
 

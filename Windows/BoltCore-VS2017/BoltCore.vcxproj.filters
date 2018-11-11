@@ -301,6 +301,9 @@
     <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.EntityMap.cpp">
       <Filter>src\Core\Mapping</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ComponentConnectionTests.cpp">
+      <Filter>src\GameMockup\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Core\AI\Core.AI.BehaviourNode.h">
@@ -518,6 +521,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Core\Mapping\Core.Mapping.EntityMap.h">
       <Filter>src\Core\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameMockup\Screen\GameMockup.Screen.ComponentConnectionTests.h">
+      <Filter>src\GameMockup\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

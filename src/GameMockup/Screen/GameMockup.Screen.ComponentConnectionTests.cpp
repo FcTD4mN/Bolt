@@ -1,6 +1,4 @@
-#include "GameMockup.Screen.AnimationTestScreen.h"
-
-#include "Core.Animation.Animation.h"
+#include "GameMockup.Screen.ComponentConnectionTests.h"
 
 #include "Core.Application.GlobalAccess.h"
 
@@ -9,13 +7,9 @@
 #include "Core.Registries.SystemRegistry.h"
 
 #include "Core.ECS.Component.Color.h"
-#include "Core.ECS.Component.OcclusionFactor.h"
 #include "Core.ECS.Component.Transformation.h"
 #include "Core.ECS.Component.SimplePhysic.h"
-#include "Core.ECS.Component.Sound.h"
 #include "Core.ECS.Component.UserInput.h"
-#include "Core.ECS.Component.ZDepth.h"
-#include "Core.ECS.Component.Animations.h"
 
 #include "Core.Render.LayerEngine.h"
 
@@ -38,13 +32,13 @@ namespace nScreen {
 // -------------------------------------------------------------------------------------
 
 
-    cAnimationTest::~cAnimationTest()
+cComponentConnectionTests::~cComponentConnectionTests()
 {
 }
 
 
-    cAnimationTest::cAnimationTest() :
-    tSuperClass( "animationtest" )
+cComponentConnectionTests::cComponentConnectionTests() :
+    tSuperClass( "componentconnection" )
 {
 }
 
@@ -55,21 +49,21 @@ namespace nScreen {
 
 
 void
-cAnimationTest::Initialize()
+cComponentConnectionTests::Initialize()
 {
     tSuperClass::Initialize();
 }
 
 
 void
-cAnimationTest::Finalize()
+cComponentConnectionTests::Finalize()
 {
     tSuperClass::Finalize();
 }
 
 
 void
-cAnimationTest::AdditionnalBuildScreen()
+cComponentConnectionTests::AdditionnalBuildScreen()
 {
     mWorld->AddLayer( PROJECTVIEWSIZE, 1.0 );
 
@@ -80,42 +74,33 @@ cAnimationTest::AdditionnalBuildScreen()
     mWorld->AddSystem( ::nCore::nRegistries::cSystemRegistry::Instance()->CreateSystemFromName( "InputConverter" ) );
 
     ::nCore::nECS::nCore::cEntity* ent = new ::nCore::nECS::nCore::cEntity();
-    ent->AddComponent( new ::nCore::nECS::nComponent::cTransformation( sf::Vector2f( 500.0F, 320.0F ), sf::Vector2f( 40.0F, 64.0F ), 0.0F ) );
+    ent->AddComponent( new ::nCore::nECS::nComponent::cColor( 20, 200, 20 ) );
+    ent->AddComponent( new ::nCore::nECS::nComponent::cTransformation( sf::Vector2f( 500.0F, 320.0F ), sf::Vector2f( 40.0F, 40.0F ), 0.0F ) );
     ent->AddComponent( new ::nCore::nECS::nComponent::cUserInput() );
-    ent->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 40.0F, 64.0F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kDynamic, false ) );
-
-    auto animations = new ::nCore::nECS::nComponent::cAnimations();
-    animations->AddSpriteSheetBasedAnimation( "mainAnimation", PROJECTDIR + "/Assets/Images/communiste_spritesheet.png", 12 );
-
-    ::nCore::nAnimation::cAnimation*  theAnimation = animations->AddMultiFilesBasedAnimation( "second" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_1.png" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_2.png" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_3.png" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_4.png" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_5.png" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_6.png" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_7.png" );
-    theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_8.png" );
-    theAnimation->IsAnimationLooping( false );
-
-    //theAnimation->SetEndOfAnimationCB( [ theAnimation ]()
-    //    {
-    //        theAnimation->Play();
-    //    }
-    //);
-
-    ent->AddComponent( animations );
-    ent->AddTag( "listener" );
+    ent->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 0.F, 0.F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kDynamic, false ) );
+    ent->ConnectComponentsVariables( "simplephysic", "SizeW", "transformation", "x" );
+    ent->ConnectComponentsVariables( "simplephysic", "SizeH", "transformation", "height" );
 
     mWorld->AddEntityAndPutInLayer( ent, 0 );
+
 
     ::nCore::nECS::nCore::cEntity* wall = new ::nCore::nECS::nCore::cEntity();
     wall->AddComponent( new ::nCore::nECS::nComponent::cTransformation( sf::Vector2f( 500.0F, 500.0F ), sf::Vector2f( 40.0F, 400.0F ), 0.0F ) );
     wall->AddComponent( new ::nCore::nECS::nComponent::cColor( 255, 255, 0 ) );
-    wall->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 40.0F, 400.0F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kStatic, false ) );
+    wall->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 0.F, 0.F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kStatic, false ) );
+    wall->ConnectComponentsVariables( "simplephysic", "SizeW", "transformation", "width" );
+    wall->ConnectComponentsVariables( "simplephysic", "SizeH", "transformation", "height" );
     wall->AddTag( "wall" );
 
+    auto wall2 = wall->Clone();
+    auto transWall2 = wall2->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );
+    transWall2->X( 200.0F );
+    transWall2->Y( 200.0F );
+    transWall2->W( 200.0F );
+    transWall2->H( 20.0F );
+
     mWorld->AddEntityAndPutInLayer( wall, 0 );
+    mWorld->AddEntityAndPutInLayer( wall2, 0 );
 
     tSuperClass::AdditionnalBuildScreen();
 }
@@ -127,14 +112,14 @@ cAnimationTest::AdditionnalBuildScreen()
 
 
 void
-cAnimationTest::Draw( sf::RenderTarget* iRenderTarget )
+cComponentConnectionTests::Draw( sf::RenderTarget* iRenderTarget )
 {
     tSuperClass::Draw( iRenderTarget );
 }
 
 
 void
-cAnimationTest::Update( unsigned int iDeltaTime )
+cComponentConnectionTests::Update( unsigned int iDeltaTime )
 {
     tSuperClass::Update( iDeltaTime );
 }
@@ -146,21 +131,21 @@ cAnimationTest::Update( unsigned int iDeltaTime )
 
 
 void
-cAnimationTest::TextEntered( const sf::Event& iEvent )
+cComponentConnectionTests::TextEntered( const sf::Event& iEvent )
 {
     tSuperClass::TextEntered( iEvent );
 }
 
 
 void
-cAnimationTest::KeyPressed( const sf::Event& iEvent )
+cComponentConnectionTests::KeyPressed( const sf::Event& iEvent )
 {
     tSuperClass::KeyPressed( iEvent );
 }
 
 
 void
-cAnimationTest::KeyReleased( const sf::Event& iEvent )
+cComponentConnectionTests::KeyReleased( const sf::Event& iEvent )
 {
     if( iEvent.key.code == sf::Keyboard::Key::K )
     {
