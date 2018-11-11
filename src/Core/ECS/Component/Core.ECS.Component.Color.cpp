@@ -47,10 +47,10 @@ cColor::cColor( const cColor & iRHS ) :
 void
 cColor::Build( int iR, int iG, int iB, int iA )
 {
-    AddNewVariable( "r", ::nCore::nBase::cVariant::MakeVariant( iR ) );
-    AddNewVariable( "g", ::nCore::nBase::cVariant::MakeVariant( iG ) );
-    AddNewVariable( "b", ::nCore::nBase::cVariant::MakeVariant( iB ) );
-    AddNewVariable( "a", ::nCore::nBase::cVariant::MakeVariant( iA ) );
+    SetNewVariable( "r", ::nCore::nBase::cVariant::MakeVariant( iR ) );
+    SetNewVariable( "g", ::nCore::nBase::cVariant::MakeVariant( iG ) );
+    SetNewVariable( "b", ::nCore::nBase::cVariant::MakeVariant( iB ) );
+    SetNewVariable( "a", ::nCore::nBase::cVariant::MakeVariant( iA ) );
 }
 
 

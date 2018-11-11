@@ -25,6 +25,7 @@ cSimplePhysic::cSimplePhysic() :
     mType( kStatic )
 {
     BuildComponent( 0.0, 0.0, 0.0, 0.0, kStatic, false );
+    BuildCallbacks();
 }
 
 
@@ -34,6 +35,7 @@ cSimplePhysic::cSimplePhysic( double iW, double iH, eType iType, bool iIsTrigger
     mType( iType )
 {
     BuildComponent( 0.0, 0.0, iW, iH, iType, iIsTrigger );
+    BuildCallbacks();
 }
 
 
@@ -42,8 +44,9 @@ cSimplePhysic::cSimplePhysic( const cSimplePhysic & iSimplePhysic ) :
     mVelocity( iSimplePhysic.mVelocity ),
     mType( iSimplePhysic.mType ),
     mCollisionCB( 0 ), // Don't copy a function pointer
-	mIsCacheValid( false )
+    mIsCacheValid( false )
 {
+    BuildCallbacks();
 }
 
 
@@ -52,14 +55,31 @@ cSimplePhysic::BuildComponent( double iCenterX, double iCenterY, double iSizeW, 
 {
     mCollisionCB = 0;
 
-    AddNewVariable( "CenterX", ::nCore::nBase::cVariant::MakeVariant( iCenterX ) );
-    AddNewVariable( "CenterY", ::nCore::nBase::cVariant::MakeVariant( iCenterY ) );
-    AddNewVariable( "SizeW", ::nCore::nBase::cVariant::MakeVariant( iSizeW ) );
-    AddNewVariable( "SizeH", ::nCore::nBase::cVariant::MakeVariant( iSizeH ) );
-    AddNewVariable( "GravityFactor", ::nCore::nBase::cVariant::MakeVariant( 1.0 ) );
-    AddNewVariable( "IsTrigger", ::nCore::nBase::cVariant::MakeVariant( iIsTrigger ) );
+    SetNewVariable( "CenterX", ::nCore::nBase::cVariant::MakeVariant( iCenterX ) );
+    SetNewVariable( "CenterY", ::nCore::nBase::cVariant::MakeVariant( iCenterY ) );
+    SetNewVariable( "SizeW", ::nCore::nBase::cVariant::MakeVariant( iSizeW ) );
+    SetNewVariable( "SizeH", ::nCore::nBase::cVariant::MakeVariant( iSizeH ) );
+    SetNewVariable( "GravityFactor", ::nCore::nBase::cVariant::MakeVariant( 1.0 ) );
+    SetNewVariable( "IsTrigger", ::nCore::nBase::cVariant::MakeVariant( iIsTrigger ) );
 
     mIsCacheValid = false;
+}
+
+
+void
+cSimplePhysic::BuildCallbacks()
+{
+
+    // If any variable defining the hitbox changes, we invalid the cache, obviously
+    auto cacheInvalidator = [ this ]( ::nCore::nBase::eVariableState iState ){
+        if( iState == ::nCore::nBase::eVariableState::kBeforeChange )
+            mIsCacheValid = false;
+    };
+
+    SetVarValueChangeCallback( "CenterX", cacheInvalidator );
+    SetVarValueChangeCallback( "CenterY", cacheInvalidator );
+    SetVarValueChangeCallback( "SizeW", cacheInvalidator );
+    SetVarValueChangeCallback( "SizeH", cacheInvalidator );
 }
 
 
@@ -115,7 +135,6 @@ cSimplePhysic::SetCenter( const sf::Vector2f & iCenter )
 {
     GetVar( "CenterX" )->SetValueNumber( iCenter.x );
     GetVar( "CenterY" )->SetValueNumber( iCenter.y );
-    mIsCacheValid = false;
 }
 
 
@@ -145,7 +164,6 @@ cSimplePhysic::SetSize( const sf::Vector2f & iSize )
 {
     GetVar( "SizeW" )->SetValueNumber( iSize.x );
     GetVar( "SizeH" )->SetValueNumber( iSize.y );
-    mIsCacheValid = false;
 }
 
 
@@ -214,7 +232,7 @@ cSimplePhysic::GetAbsoluteHitBoxUsingCenterPosition( const sf::Vector2f & iCente
 
     mCachedHitBox = entityHitBox;
     mIsCacheValid = true;
-	mCachedHitBoxCenter = iCenterPosition;
+    mCachedHitBoxCenter = iCenterPosition;
 
     return  entityHitBox;
 }

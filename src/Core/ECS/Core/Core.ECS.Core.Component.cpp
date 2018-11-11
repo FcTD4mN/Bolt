@@ -1,6 +1,6 @@
 #include "Core.ECS.Core.Component.h"
 
-
+#include <cassert>
 
 namespace nCore {
 namespace nECS {
@@ -125,7 +125,7 @@ cComponentGeneric::GetVar( const std::string& iVarName )
 
 
 void
-cComponentGeneric::AddNewVariable( const std::string& iVarName, ::nCore::nBase::cVariant* iValue )
+cComponentGeneric::SetNewVariable( const std::string& iVarName, ::nCore::nBase::cVariant* iValue )
 {
     delete  mVars[ iVarName ];
     mVars[ iVarName ] = iValue;
@@ -144,6 +144,33 @@ cComponentGeneric::VariableEnumerator( std::function<void( const std::string&, :
 {
     for( auto variable : mVars )
         iMethod( variable.first, variable.second );
+}
+
+
+void
+cComponentGeneric::ConnectVariable( const std::string & iOwnVariable, cComponentGeneric* iOtherComponent, const std::string & iOtherVariable )
+{
+    auto myVar = mVars[ iOwnVariable ];
+    auto otherVar = iOtherComponent->mVars[ iOtherVariable ];
+    assert( myVar && otherVar );
+
+    if( !myVar || !otherVar )
+        return;
+
+    // This one is not vital, but makes sense
+    assert( myVar->Type() == otherVar->Type() );
+    if( myVar->Type() != otherVar->Type() )
+        return;
+
+    *myVar = *otherVar;
+
+    iOtherComponent->SetVarValueChangeCallback( iOtherVariable, [ this, iOwnVariable, iOtherVariable, iOtherComponent ]( ::nCore::nBase::eVariableState iState ){
+
+        if( iState == ::nCore::nBase::kAfterChange )
+        {
+            *mVars[ iOwnVariable ] = *iOtherComponent->mVars[ iOtherVariable ];
+        }
+    } );
 }
 
 

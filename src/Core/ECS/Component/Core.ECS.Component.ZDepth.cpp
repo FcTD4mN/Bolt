@@ -33,7 +33,7 @@ cZDepth::cZDepth( const cZDepth & iRHS ) :
 void
 cZDepth::Build( float iZDepth )
 {
-    AddNewVariable( "zdepth", ::nCore::nBase::cVariant::MakeVariant( iZDepth ) );
+    SetNewVariable( "zdepth", ::nCore::nBase::cVariant::MakeVariant( iZDepth ) );
 }
 
 

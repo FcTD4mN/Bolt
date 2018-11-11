@@ -42,7 +42,7 @@ cOcclusionFactor::cOcclusionFactor( const cOcclusionFactor & iRHS ) :
 void
 cOcclusionFactor::Build( double iValue )
 {
-    AddNewVariable( "occlusionfactor", ::nCore::nBase::cVariant::MakeVariant( iValue ) );
+    SetNewVariable( "occlusionfactor", ::nCore::nBase::cVariant::MakeVariant( iValue ) );
 }
 
 

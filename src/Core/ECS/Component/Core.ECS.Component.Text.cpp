@@ -40,7 +40,7 @@ cText::cText( const cText & iText ) :
 void
 cText::Build( const std::string & iString )
 {
-    AddNewVariable( "text", ::nCore::nBase::cVariant::MakeVariant( iString ) );
+    SetNewVariable( "text", ::nCore::nBase::cVariant::MakeVariant( iString ) );
 }
 
 

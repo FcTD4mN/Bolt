@@ -42,15 +42,15 @@ cSound::cSound( const cSound & iRHS ) :
 void
 cSound::Build( const std::string & iFile )
 {
-    AddNewVariable( "filename", ::nCore::nBase::cVariant::MakeVariant( iFile ) );
+    SetNewVariable( "filename", ::nCore::nBase::cVariant::MakeVariant( iFile ) );
     SetSoundFromFile( iFile );
 
-    AddNewVariable( "volume", ::nCore::nBase::cVariant::MakeVariant( 100.0 ) );
-    AddNewVariable( "attenuation", ::nCore::nBase::cVariant::MakeVariant( 1.0 ) );
-    AddNewVariable( "loop", ::nCore::nBase::cVariant::MakeVariant( false ) );
-    AddNewVariable( "positionX", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
-    AddNewVariable( "positionY", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
-    AddNewVariable( "positionZ", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetNewVariable( "volume", ::nCore::nBase::cVariant::MakeVariant( 100.0 ) );
+    SetNewVariable( "attenuation", ::nCore::nBase::cVariant::MakeVariant( 1.0 ) );
+    SetNewVariable( "loop", ::nCore::nBase::cVariant::MakeVariant( false ) );
+    SetNewVariable( "positionX", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetNewVariable( "positionY", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetNewVariable( "positionZ", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
 
     mCurrentSound = 0;
     mLastOcclusion = 1.0;

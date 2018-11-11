@@ -36,6 +36,7 @@ public:
 
 private:
     void BuildComponent( double iCenterX, double iCenterY, double iSizeW, double iSizeH, eType iType, bool iIsTrigger );
+    void BuildCallbacks();
 
 public:
     // Copy

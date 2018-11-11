@@ -58,11 +58,11 @@ cTransformation::cTransformation( const cTransformation & iRHS ) :
 void
 cTransformation::BuildVariables( const sf::FloatRect& iRect, float iRotation )
 {
-    AddNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( iRect.left ) );
-    AddNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( iRect.top ) );
-    AddNewVariable( "width", ::nCore::nBase::cVariant::MakeVariant( iRect.width ) );
-    AddNewVariable( "height", ::nCore::nBase::cVariant::MakeVariant( iRect.height ) );
-    AddNewVariable( "rotation", ::nCore::nBase::cVariant::MakeVariant( iRotation ) );
+    SetNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( iRect.left ) );
+    SetNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( iRect.top ) );
+    SetNewVariable( "width", ::nCore::nBase::cVariant::MakeVariant( iRect.width ) );
+    SetNewVariable( "height", ::nCore::nBase::cVariant::MakeVariant( iRect.height ) );
+    SetNewVariable( "rotation", ::nCore::nBase::cVariant::MakeVariant( iRotation ) );
 
     mPreviousRect = iRect;
     mPreviousRotation = iRotation;

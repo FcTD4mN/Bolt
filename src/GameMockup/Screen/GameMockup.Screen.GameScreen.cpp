@@ -124,8 +124,8 @@ cGameScreen::AdditionnalBuildScreen()
     ::nCore::nShader::cShader2D* Hblur = new ::nCore::nShader::cShader2D( "BoxBlurHorizontal.frag", "HBlur" );
     ::nCore::nShader::cShader2D* Vblur = new ::nCore::nShader::cShader2D( "BoxBlurVertical.frag", "VBlur" );
 
-    Hblur->AddNewVariable( "blur_radius", ::nCore::nBase::cVariant::MakeVariant( 2.0F ) );
-    Vblur->AddNewVariable( "blur_radius", ::nCore::nBase::cVariant::MakeVariant( 2.0F ) );
+    Hblur->SetNewVariable( "blur_radius", ::nCore::nBase::cVariant::MakeVariant( 2.0F ) );
+    Vblur->SetNewVariable( "blur_radius", ::nCore::nBase::cVariant::MakeVariant( 2.0F ) );
 
     Hblur->ApplyUniforms();
     Vblur->ApplyUniforms();

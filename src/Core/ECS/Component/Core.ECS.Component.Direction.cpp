@@ -19,24 +19,24 @@ cDirection::~cDirection()
 cDirection::cDirection() :
     tSuperClass( "direction" )
 {
-    AddNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
-    AddNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
 }
 
 
 cDirection::cDirection( float iX, float iY ) :
     tSuperClass( "direction" )
 {
-    AddNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( iX ) );
-    AddNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( iY ) );
+    SetNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( iX ) );
+    SetNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( iY ) );
 }
 
 
 cDirection::cDirection( const sf::Vector2f& iPosition ) :
     tSuperClass( "direction" )
 {
-    AddNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( iPosition.x ) );
-    AddNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( iPosition.y ) );
+    SetNewVariable( "x", ::nCore::nBase::cVariant::MakeVariant( iPosition.x ) );
+    SetNewVariable( "y", ::nCore::nBase::cVariant::MakeVariant( iPosition.y ) );
 }
 
 

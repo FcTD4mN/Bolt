@@ -193,7 +193,7 @@ cComponentModel::AddNewVariable()
             ++i;
         }
 
-        compAsGen->AddNewVariable( varName, new ::nCore::nBase::cNumber( 0.0 ) );
+        compAsGen->SetNewVariable( varName, new ::nCore::nBase::cNumber( 0.0 ) );
         new cTreeWrapperNodeComponentEditorVariable( mVariableParentNode, compAsGen, varName );
 
         endInsertRows();

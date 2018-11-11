@@ -19,16 +19,16 @@ cFieldOfView::~cFieldOfView()
 cFieldOfView::cFieldOfView() :
     tSuperClass( "fieldofview" )
 {
-    AddNewVariable( "angle", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
-    AddNewVariable( "distance", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetNewVariable( "angle", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
+    SetNewVariable( "distance", ::nCore::nBase::cVariant::MakeVariant( 0.0 ) );
 }
 
 
 cFieldOfView::cFieldOfView( double iAngle, double iDistance ) :
     tSuperClass( "fieldofview" )
 {
-    AddNewVariable( "angle", ::nCore::nBase::cVariant::MakeVariant( iAngle ) );
-    AddNewVariable( "distance", ::nCore::nBase::cVariant::MakeVariant( iDistance ) );
+    SetNewVariable( "angle", ::nCore::nBase::cVariant::MakeVariant( iAngle ) );
+    SetNewVariable( "distance", ::nCore::nBase::cVariant::MakeVariant( iDistance ) );
 }
 
 

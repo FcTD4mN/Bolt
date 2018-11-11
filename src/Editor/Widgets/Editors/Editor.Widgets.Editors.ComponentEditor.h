@@ -52,9 +52,9 @@ signals:
 	void  showComponentProperties( const std::shared_ptr< ::nQt::nModels::cModelBase >& iModel );
 
 private:
-    Ui::ComponentEditor         ui;
-    ::nCore::nECS::nCore::cComponent*         mComponent;
-    cComponentEditorDelegate*   mDelegate;
-    ::nQt::nModels::cComponentListModel*  mComponentListModel;
+    Ui::ComponentEditor                     ui;
+    ::nCore::nECS::nCore::cComponent*       mComponent;
+    cComponentEditorDelegate*               mDelegate;
+    ::nQt::nModels::cComponentListModel*    mComponentListModel;
 };
 

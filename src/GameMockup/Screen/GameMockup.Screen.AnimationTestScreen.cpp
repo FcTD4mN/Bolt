@@ -72,7 +72,6 @@ void
 cAnimationTest::AdditionnalBuildScreen()
 {
     mWorld->AddLayer( PROJECTVIEWSIZE, 1.0 );
-    mWorld->AddLayer( PROJECTVIEWSIZE, 3.0 );
 
     mWorld->AddSystem( ::nCore::nRegistries::cSystemRegistry::Instance()->CreateSystemFromName( "AnimationRenderer" ) );
     mWorld->AddSystem( ::nCore::nRegistries::cSystemRegistry::Instance()->CreateSystemFromName( "SimpleRenderer" ) );
@@ -80,10 +79,10 @@ cAnimationTest::AdditionnalBuildScreen()
     mWorld->AddSystem( ::nCore::nRegistries::cSystemRegistry::Instance()->CreateSystemFromName( "SimplePhysics" ) );
     mWorld->AddSystem( ::nCore::nRegistries::cSystemRegistry::Instance()->CreateSystemFromName( "InputConverter" ) );
 
-    mWorld->mLayerEngine->LayerDistanceAtIndex( 2, 0 );
-
     ::nCore::nECS::nCore::cEntity* ent = new ::nCore::nECS::nCore::cEntity();
-    ent->AddComponent( new ::nCore::nECS::nComponent::cTransformation( sf::Vector2f( 500.0F, 320.0F ), sf::Vector2f( 40.0F, 64.0F ), 0.0F ) );
+    auto transent = new ::nCore::nECS::nComponent::cTransformation( sf::Vector2f( 500.0F, 320.0F ), sf::Vector2f( 40.0F, 64.0F ), 0.0F );
+
+    ent->AddComponent( transent );
     ent->AddComponent( new ::nCore::nECS::nComponent::cUserInput() );
     ent->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 40.0F, 64.0F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kDynamic, false ) );
 
@@ -115,7 +114,10 @@ cAnimationTest::AdditionnalBuildScreen()
     ::nCore::nECS::nCore::cEntity* wall = new ::nCore::nECS::nCore::cEntity();
     wall->AddComponent( new ::nCore::nECS::nComponent::cTransformation( sf::Vector2f( 500.0F, 500.0F ), sf::Vector2f( 40.0F, 400.0F ), 0.0F ) );
     wall->AddComponent( new ::nCore::nECS::nComponent::cColor( 255, 255, 0 ) );
-    wall->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 40.0F, 400.0F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kStatic, false ) );
+
+    auto phy = new ::nCore::nECS::nComponent::cSimplePhysic( 40.0F, 400.0F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kStatic, false );
+    phy->ConnectVariable( "SizeW", transent, "x" );
+    wall->AddComponent( phy );
     wall->AddTag( "wall" );
 
     mWorld->AddEntityAndPutInLayer( wall, 0 );

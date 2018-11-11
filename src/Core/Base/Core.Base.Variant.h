@@ -44,7 +44,7 @@ public:
 
 public:
     // Access
-    virtual  eType                  Type();
+    virtual  eType                  Type() const;
     virtual  std::string            TypeAsString() const;
 
     virtual  double                 GetValueNumber() const;
@@ -63,8 +63,11 @@ public:
     virtual  void LoadXML( tinyxml2::XMLElement* iNode );
     static  cVariant* MakeFromXML( tinyxml2::XMLElement* iNode );
 
+public:
+    virtual  cVariant& operator= ( const cVariant& iRHS ) = 0;
+
 protected:
-    std::function< void( eVariableState ) > mValueChangeCallback;
+    std::vector< std::function< void( eVariableState ) > > mValueChangeCallback;
 };
 
 
@@ -95,7 +98,7 @@ public:
     double Value() const;
     void Value( double iValue );
 
-    virtual  eType  Type() override;
+    virtual  eType  Type() const override;
     virtual  std::string TypeAsString() const override;
 
 public:
@@ -104,6 +107,9 @@ public:
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
+
+public:
+    virtual  cVariant& operator= ( const cVariant& iRHS ) override;
 
 protected:
     double  mValue;
@@ -136,7 +142,7 @@ public:
     const std::string& Value() const;
     void Value( const std::string& iValue );
 
-    virtual  eType  Type() override;
+    virtual  eType  Type() const override;
     virtual  std::string TypeAsString() const override;
 
 public:
@@ -145,6 +151,9 @@ public:
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
+
+public:
+    virtual  cVariant& operator= ( const cVariant& iRHS ) override;
 
 protected:
     std::string  mValue;
@@ -177,7 +186,7 @@ public:
     bool Value() const;
     void Value( bool iValue );
 
-    virtual  eType  Type() override;
+    virtual  eType  Type() const override;
     virtual  std::string TypeAsString() const override;
 
 public:
@@ -186,6 +195,9 @@ public:
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument ) override;
     virtual  void LoadXML( tinyxml2::XMLElement* iNode ) override;
+
+public:
+    virtual  cVariant& operator= ( const cVariant& iRHS ) override;
 
 protected:
     bool  mValue;

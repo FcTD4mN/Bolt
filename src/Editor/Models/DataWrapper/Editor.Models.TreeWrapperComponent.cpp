@@ -41,7 +41,7 @@ cTreeWrapperNodeComponentEditor::AddChild()
             ++i;
         }
 
-        componentGen->AddNewVariable( varName, new ::nCore::nBase::cNumber( 0.0 ) );
+        componentGen->SetNewVariable( varName, new ::nCore::nBase::cNumber( 0.0 ) );
         new cTreeWrapperNodeComponentEditorVariable( this, componentGen, varName );
     }
 }
@@ -169,15 +169,15 @@ cTreeWrapperNodeComponentEditorVariable::SetData( int iIndex, const QVariant & i
         }
         else if( newType == "Number" )
         {
-            mComponent->AddNewVariable( mVarName, new ::nCore::nBase::cNumber( 0.0 ) );
+            mComponent->SetNewVariable( mVarName, new ::nCore::nBase::cNumber( 0.0 ) );
         }
         else if( newType == "String" )
         {
-            mComponent->AddNewVariable( mVarName, new ::nCore::nBase::cString( "" ) );
+            mComponent->SetNewVariable( mVarName, new ::nCore::nBase::cString( "" ) );
         }
         else if( newType == "Boolean" )
         {
-            mComponent->AddNewVariable( mVarName, new ::nCore::nBase::cBoolean( true ) );
+            mComponent->SetNewVariable( mVarName, new ::nCore::nBase::cBoolean( true ) );
         }
 
         tSuperClass::SetData( 1, iData );

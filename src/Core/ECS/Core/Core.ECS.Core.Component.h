@@ -74,9 +74,13 @@ public:
     // Access/Get
         // Yes we can get the variant, and modify it on the spot, so it's faster
     ::nCore::nBase::cVariant*       GetVar( const std::string& iVarName );
-    void                            AddNewVariable( const std::string& iVarName, ::nCore::nBase::cVariant* iValue );
+
+    // Sets given var name to a new variable. The new variable won't have callbacks ported from the old one if setting an already existing var
+    void                            SetNewVariable( const std::string& iVarName, ::nCore::nBase::cVariant* iValue );
     void                            SetVarValueChangeCallback( const std::string& iVarName, std::function< void( ::nCore::nBase::eVariableState ) > iFunction );
     void                            VariableEnumerator( std::function< void( const std::string&, ::nCore::nBase::cVariant* )> iMethod );
+    void                            ConnectVariable( const std::string& iOwnVariable, cComponentGeneric* iOtherComponent, const std::string& iOtherVariable );
+
 
     // EDITOR USED methods
     int                         VarCount() const;

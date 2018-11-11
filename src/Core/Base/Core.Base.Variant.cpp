@@ -83,7 +83,7 @@ cVariant::MakeVariant( bool iBoolean )
 
 
 eType
-cVariant::Type()
+cVariant::Type() const
 {
     return  kInvalid;
 }
@@ -145,7 +145,7 @@ cVariant::SetValueBool( bool iValue )
 
 void cVariant::SetValueChangeCallback( std::function< void( eVariableState ) > iFunction )
 {
-    mValueChangeCallback = iFunction;
+    mValueChangeCallback.push_back( iFunction );
 }
 
 
@@ -252,18 +252,18 @@ cNumber::Value() const
 void
 cNumber::Value( double iValue )
 {
-    if( mValueChangeCallback )
-        mValueChangeCallback( eVariableState::kBeforeChange );
+    for( auto cb : mValueChangeCallback )
+        cb( eVariableState::kBeforeChange );
 
     mValue = iValue;
 
-    if( mValueChangeCallback )
-        mValueChangeCallback( eVariableState::kAfterChange );
+    for( auto cb : mValueChangeCallback )
+        cb( eVariableState::kAfterChange );
 }
 
 
 eType
-cNumber::Type()
+cNumber::Type() const
 {
     return  kNumber;
 }
@@ -301,6 +301,20 @@ cNumber::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mValue = iNode->DoubleAttribute( "value", 0.0 );
+}
+
+
+cVariant&
+cNumber::operator=( const cVariant & iRHS )
+{
+    if( iRHS.Type() == kNumber )
+        Value( iRHS.GetValueNumber() );
+    else if( iRHS.Type() == kString )
+        Value( std::stoi( iRHS.GetValueString() ) );
+    else if( iRHS.Type() == kBoolean )
+        Value( iRHS.GetValueBool() );
+
+    return  *this;
 }
 
 
@@ -356,18 +370,18 @@ cString::Value() const
 void
 cString::Value( const std::string & iValue )
 {
-	if( mValueChangeCallback )
-		mValueChangeCallback( eVariableState::kBeforeChange );
+    for( auto cb : mValueChangeCallback )
+        cb( eVariableState::kBeforeChange );
 
-	mValue = iValue;
+    mValue = iValue;
 
-	if( mValueChangeCallback )
-		mValueChangeCallback( eVariableState::kAfterChange );
+    for( auto cb : mValueChangeCallback )
+        cb( eVariableState::kAfterChange );
 }
 
 
 eType
-cString::Type()
+cString::Type() const
 {
     return  kString;
 }
@@ -405,6 +419,20 @@ cString::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mValue = iNode->Attribute( "value" );
+}
+
+
+cVariant&
+cString::operator=( const cVariant & iRHS )
+{
+    if( iRHS.Type() == kNumber )
+        Value( std::to_string( iRHS.GetValueNumber() ) );
+    else if( iRHS.Type() == kString )
+        Value( iRHS.GetValueString() );
+    else if( iRHS.Type() == kBoolean )
+        Value( std::to_string( iRHS.GetValueBool() ) );
+
+    return  *this;
 }
 
 
@@ -460,18 +488,18 @@ cBoolean::Value() const
 void
 cBoolean::Value( bool iValue )
 {
-	if( mValueChangeCallback )
-		mValueChangeCallback( eVariableState::kBeforeChange );
+    for( auto cb : mValueChangeCallback )
+        cb( eVariableState::kBeforeChange );
 
-	mValue = iValue;
+    mValue = iValue;
 
-	if( mValueChangeCallback )
-		mValueChangeCallback( eVariableState::kAfterChange );
+    for( auto cb : mValueChangeCallback )
+        cb( eVariableState::kAfterChange );
 }
 
 
 eType
-cBoolean::Type()
+cBoolean::Type() const
 {
     return  kBoolean;
 }
@@ -509,6 +537,20 @@ cBoolean::LoadXML( tinyxml2::XMLElement* iNode )
 {
     tSuperClass::LoadXML( iNode );
     mValue = iNode->BoolAttribute( "value", false );
+}
+
+
+cVariant&
+cBoolean::operator=( const cVariant & iRHS )
+{
+    if( iRHS.Type() == kNumber )
+        Value( iRHS.GetValueNumber() );
+    else if( iRHS.Type() == kString )
+        Value( false );
+    else if( iRHS.Type() == kBoolean )
+        Value( iRHS.GetValueBool() );
+
+    return  *this;
 }
 
 
