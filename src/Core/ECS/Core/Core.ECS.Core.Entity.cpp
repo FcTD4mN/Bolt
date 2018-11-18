@@ -237,6 +237,9 @@ cEntity::ConnectComponentsVariablesFromEntity( const std::string & iComponentANa
 
     auto  componentB = entityB->GetComponentByIDAs< cComponentGeneric* >( iComponentBName );
     assert( componentA && componentB );
+    if( !componentA || !componentB )
+        return;
+
     componentA->ConnectVariable( iVariableAName, componentB, iVariableBName );
 
     mAllExternalComponentsConnections.push_back( std::make_tuple( iComponentAName, iVariableAName, iEntityBID, iComponentBName, iVariableBName ) );

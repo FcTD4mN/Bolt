@@ -39,7 +39,7 @@ public:
 public:
     // Animation list management
         // We return  the animation so edition is possible in c++ context
-    ::nCore::nAnimation::cAnimation*     AddSpriteSheetBasedAnimation( const std::string& iAnimationName, const nStdFileSystem::path& iFullFilePath, int iNumberOfImages );
+    ::nCore::nAnimation::cAnimation*     AddSpriteSheetBasedAnimation( const std::string& iAnimationName, const nStdFileSystem::path& iFullFilePath, int iNumberOfImagesX, int iNumberOfImagesY );
     ::nCore::nAnimation::cAnimation*     AddMultiFilesBasedAnimation( const std::string& iAnimationName );
 
     // Set/Gets

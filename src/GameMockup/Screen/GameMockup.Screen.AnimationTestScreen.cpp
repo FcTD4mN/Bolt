@@ -85,7 +85,8 @@ cAnimationTest::AdditionnalBuildScreen()
     ent->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 40.0F, 64.0F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kDynamic, false ) );
 
     auto animations = new ::nCore::nECS::nComponent::cAnimations();
-    animations->AddSpriteSheetBasedAnimation( "mainAnimation", PROJECTDIR + "/Assets/Images/communiste_spritesheet.png", 12 );
+    animations->AddSpriteSheetBasedAnimation( "mainAnimation", PROJECTDIR + "/Assets/Images/communiste_spritesheet.png", 12, 1 );
+    animations->AddSpriteSheetBasedAnimation( "tworows", PROJECTDIR + "/Assets/Images/communiste_spritesheettworows.png", 12, 2 );
 
     ::nCore::nAnimation::cAnimation*  theAnimation = animations->AddMultiFilesBasedAnimation( "second" );
     theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_1.png" );
@@ -97,6 +98,8 @@ cAnimationTest::AdditionnalBuildScreen()
     theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_7.png" );
     theAnimation->AddImage( PROJECTDIR + "/Assets/Images/sun_8.png" );
     theAnimation->IsAnimationLooping( false );
+
+    animations->CurrentAnimation( "tworows" );
 
     //theAnimation->SetEndOfAnimationCB( [ theAnimation ]()
     //    {

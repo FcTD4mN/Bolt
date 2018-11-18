@@ -293,7 +293,7 @@ cAnimation::AddImage( const nStdFileSystem::path & iFullFile )
 
 
 void
-cAnimation::AddSpriteSheet( const nStdFileSystem::path & iFullFile, int iNumberOfImages )
+cAnimation::AddSpriteSheet( const nStdFileSystem::path & iFullFile, int iNumberOfImagesX, int iNumberOfImagesY )
 {
     if( !nStdFileSystem::exists( iFullFile ) )
         return;
@@ -303,8 +303,8 @@ cAnimation::AddSpriteSheet( const nStdFileSystem::path & iFullFile, int iNumberO
     renderSprite.setTexture( *sheet );
 
     sf::Vector2i oneSpriteSize;
-    oneSpriteSize.x = sheet->getSize().x / iNumberOfImages;
-    oneSpriteSize.y = sheet->getSize().y;
+    oneSpriteSize.x = sheet->getSize().x / iNumberOfImagesX;
+    oneSpriteSize.y = sheet->getSize().y / iNumberOfImagesY;
 
     sf::Sprite* newSprite = 0;
 
@@ -313,36 +313,42 @@ cAnimation::AddSpriteSheet( const nStdFileSystem::path & iFullFile, int iNumberO
     sheetRect.width = oneSpriteSize.x;
     sheetRect.height = oneSpriteSize.y;
 
-    for( int i = 0; i < iNumberOfImages; ++i )
-    {
-        // We check if subfiles for the sprite sheet already exists or not, if they do, no need to rerender it
-        nStdFileSystem::path newSubFile =   iFullFile.parent_path().string() + "/" +
-                                            iFullFile.stem().string() + "_" + std::to_string( i ) +
-                                            iFullFile.extension().string();
+    nStdFileSystem::path spriteSheetFolder = iFullFile.parent_path().string() + "/" + iFullFile.stem().string();
+    if( !nStdFileSystem::exists( spriteSheetFolder ) )
+        nStdFileSystem::create_directory( spriteSheetFolder );
 
-        // If not, we render each frame of the sheet into a separate image, and load them as any other image
-        if( !nStdFileSystem::exists( newSubFile ) )
+    for( int i = 0; i < iNumberOfImagesY; ++i )
+        for( int j = 0; j < iNumberOfImagesX; ++j )
         {
-            // Set texture on the renderSprite
-            sheetRect.left = i * oneSpriteSize.x;
-            renderSprite.setTextureRect( sheetRect );
+            // We check if subfiles for the sprite sheet already exists or not, if they do, no need to rerender it
+            nStdFileSystem::path newSubFile =   spriteSheetFolder.string() + "/" +
+                                                iFullFile.stem().string() + "_" + std::to_string( i*iNumberOfImagesX +j ) +
+                                                iFullFile.extension().string();
 
-            // Create a render texture to print the sprite on
-            sf::RenderTexture* renderTexture = new sf::RenderTexture();
-            renderTexture->create( sheetRect.width, sheetRect.height );
+            // If not, we render each frame of the sheet into a separate image, and load them as any other image
+            if( !nStdFileSystem::exists( newSubFile ) )
+            {
+                // Set texture on the renderSprite
+                sheetRect.left = j * oneSpriteSize.x;
+                sheetRect.top = i * oneSpriteSize.y;
+                renderSprite.setTextureRect( sheetRect );
 
-            // Draw on the renderTexture
-            renderTexture->clear( sf::Color::Transparent );
-            renderTexture->draw( renderSprite );
-            renderTexture->display();
+                // Create a render texture to print the sprite on
+                sf::RenderTexture* renderTexture = new sf::RenderTexture();
+                renderTexture->create( sheetRect.width, sheetRect.height );
 
-            auto splitTexture = renderTexture->getTexture();
-            sf::Image textureImage = splitTexture.copyToImage();
-            textureImage.saveToFile( newSubFile.string() );
+                // Draw on the renderTexture
+                renderTexture->clear( sf::Color::Transparent );
+                renderTexture->draw( renderSprite );
+                renderTexture->display();
+
+                auto splitTexture = renderTexture->getTexture();
+                sf::Image textureImage = splitTexture.copyToImage();
+                textureImage.saveToFile( newSubFile.string() );
+            }
+
+            AddImage( newSubFile );
         }
-
-        AddImage( newSubFile );
-    }
 }
 
 

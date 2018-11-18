@@ -175,7 +175,8 @@ cAnimationImageItem::contextMenuEvent( QGraphicsSceneContextMenuEvent * iEvent )
 {
     QMenu menu;
     menu.addAction( "Remove Image" );
-    menu.addAction( "Select Image" );
+    menu.addAction( "Load Image" );
+    menu.addAction( "Split spritesheet" );
     QAction* action = menu.exec( iEvent->screenPos() );
     if( !action )
         return;
@@ -185,9 +186,14 @@ cAnimationImageItem::contextMenuEvent( QGraphicsSceneContextMenuEvent * iEvent )
         mParentTimeline->RemoveImage( this ); // THIS ITEM WILL BE DELETED AFTER THIS CALL, SO DON'T DO ANYTHING ELSE
         return;
     }
-    else if( action->text() == "Select Image" )
+    else if( action->text() == "Load Image" )
     {
         _SelectNewFile();
+    }
+    else if( action->text() == "Split spritesheet" )
+    {
+        mParentTimeline->SplitSpriteSheet( this ); // THIS ITEM WILL BE DELETED AFTER THIS CALL, SO DON'T DO ANYTHING ELSE
+        return;
     }
 }
 

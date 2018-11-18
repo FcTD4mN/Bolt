@@ -78,10 +78,10 @@ cAnimations::Draw( sf::RenderTarget * iRenderTarget )
 
 
 ::nCore::nAnimation::cAnimation*
-cAnimations::AddSpriteSheetBasedAnimation( const std::string & iAnimationName, const nStdFileSystem::path & iFullFilePath, int iNumberOfImages )
+cAnimations::AddSpriteSheetBasedAnimation( const std::string & iAnimationName, const nStdFileSystem::path & iFullFilePath, int iNumberOfImagesX, int iNumberOfImagesY )
 {
     auto newAnimation = new ::nCore::nAnimation::cAnimation( iAnimationName );
-    newAnimation->AddSpriteSheet( iFullFilePath, iNumberOfImages );
+    newAnimation->AddSpriteSheet( iFullFilePath, iNumberOfImagesX, iNumberOfImagesY );
     mAnimations.push_back( newAnimation );
     if( mCurrentAnimation == 0 )
         mCurrentAnimation = newAnimation;

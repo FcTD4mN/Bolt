@@ -478,6 +478,9 @@
     <ClCompile Include="..\..\src\Core\Mapping\Core.Mapping.EntityMap.cpp">
       <Filter>src\Core\Mapping</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.DialogSpriteSheet.cpp">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Editor\HUD\Editor.HUD.HudTransformation.h">
@@ -851,6 +854,9 @@
     <QtMoc Include="..\..\src\Editor\Models\Models\Editor.Models.EraserToolModel.h">
       <Filter>src\Editor\Models\Models</Filter>
     </QtMoc>
+    <QtMoc Include="..\..\src\Editor\Widgets\Animation\Editor.Widgets.Animation.DialogSpriteSheet.h">
+      <Filter>src\Editor\Widgets\Animation</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="..\..\src\Editor\Dialogs\SnapGridSettings.ui">
@@ -885,6 +891,9 @@
     </QtUic>
     <QtUic Include="..\..\src\Editor\Widgets\DialogBasicPencilTool.ui">
       <Filter>src\Editor\Widgets</Filter>
+    </QtUic>
+    <QtUic Include="..\..\src\Editor\Widgets\Animation\DialogSpriteSheet.ui">
+      <Filter>src\Editor\Widgets\Animation</Filter>
     </QtUic>
   </ItemGroup>
 </Project>

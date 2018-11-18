@@ -54,6 +54,7 @@ public:
     // Items interface
     void    AddEmptyImage();
     void    RemoveImage( cAnimationImageItem* iItem );
+    void    SplitSpriteSheet( cAnimationImageItem* iItem );
 
     void    ItemStartedMoving(); // Needed because deleting an item whil moving it, will cause mouseRelease to never being called on the delete item, causing bugs
     void    ImageIsMoving();

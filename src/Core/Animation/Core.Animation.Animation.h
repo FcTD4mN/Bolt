@@ -66,7 +66,7 @@ public:
 public:
     // Images management
     void  AddImage( const nStdFileSystem::path& iFullFile );
-    void  AddSpriteSheet( const nStdFileSystem::path& iFullFile, int iNumberOfImages );
+    void  AddSpriteSheet( const nStdFileSystem::path& iFullFile, int iNumberOfImagesX, int iNumberOfImagesY );
     void  ChangeImageAtIndex( int iIndex, const nStdFileSystem::path& iFullFile );
     void  RemoveImageByIndex( int iIndex );
     void  SwapImagesAtIndexes( int iIndexA, int iIndexB );

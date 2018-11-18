@@ -123,7 +123,7 @@ cInfiltratorScreen::AdditionnalBuildScreen()
     auto animations = new ::nCore::nECS::nComponent::cAnimations();
     hero->AddComponent( animations );
 
-    animations->AddSpriteSheetBasedAnimation( "main", PROJECTDIR + "/Assets/Images/communiste_spritesheet.png", 12 );
+    animations->AddSpriteSheetBasedAnimation( "main", PROJECTDIR + "/Assets/Images/communiste_spritesheet.png", 12, 1 );
 
 
     hero->AddComponent( new ::nCore::nECS::nComponent::cUserInput() );

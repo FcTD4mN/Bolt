@@ -79,7 +79,7 @@ cGameScreen::Initialize()
     std::function< void( void )> f = [=]( void ) {
         ::nCore::nECS::nCore::cEntity* ent = new ::nCore::nECS::nCore::cEntity();
         auto animation = new ::nCore::nECS::nComponent::cAnimations();
-        animation->AddSpriteSheetBasedAnimation( "main", "resources/Core/Images/SpriteSheets/communiste_spritesheet.png", 12 );
+        animation->AddSpriteSheetBasedAnimation( "main", "resources/Core/Images/SpriteSheets/communiste_spritesheet.png", 12, 1 );
         animation->CurrentAnimationFrameRate( 24.0 );
         animation->CurrentAnimationIsPaused( false );
 

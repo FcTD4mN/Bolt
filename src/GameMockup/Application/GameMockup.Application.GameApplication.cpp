@@ -107,7 +107,8 @@ cApplication::BuildProject()
     auto connectionTest = new ::nScreen::cComponentConnectionTests();
     mProject->AddScreen( connectionTest );
 
-    mProject->SetCurrentScreen( "componentconnection" );
+    //mProject->SetCurrentScreen( "componentconnection" );
+    mProject->SetCurrentScreen( "animationtest" );
 }
 
 

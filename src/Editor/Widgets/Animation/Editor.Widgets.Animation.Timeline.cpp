@@ -11,6 +11,7 @@
 #include "Editor.Widgets.Animation.ImageItem.h"
 #include "Editor.Widgets.Animation.AddImageItem.h"
 #include "Editor.Widgets.Animation.CurrentFrameItem.h"
+#include "Editor.Widgets.Animation.DialogSpriteSheet.h"
 
 
 #include <QDragEnterEvent>
@@ -311,6 +312,46 @@ cAnimationTimeline::RemoveImage( cAnimationImageItem * iItem )
 
     CurrentFrameChanged( ::nCore::nBase::Clamp( mCurrentFrame, 0, int(mAnimation->SpriteCount()) - 1 ) );
     emit numberOfFrameChanged();
+}
+
+
+void
+cAnimationTimeline::SplitSpriteSheet( cAnimationImageItem * iItem )
+{
+    if( !mAnimation )
+        return;
+
+    auto dialog = new cDialogSpriteSheet( this );
+    if( dialog->exec() )
+    {
+        int x, y;
+        x = dialog->GetNumberOfRows();
+        y = dialog->GetNumberOfColumns();
+
+        int imageIndex = _GetItemIndex( iItem );
+        auto file = mAnimation->SpriteFileAtIndex( imageIndex );
+        mAnimation->RemoveImageByIndex( imageIndex );
+
+        scene()->removeItem( iItem );
+        delete  iItem;
+        _SortImageItems();
+
+        mAnimation->AddSpriteSheet( file, x, y );
+        for( int i = mAnimation->SpriteCount() - x * y; i < mAnimation->SpriteCount(); ++i )
+        {
+            _AddImageItem();
+            LoadSpriteAtIndex( i );
+        }
+
+        _SortImageItems();
+        _UpdateAllItemsPositions();
+        _UpdateSceneRect();
+
+        CurrentFrameChanged( ::nCore::nBase::Clamp( mCurrentFrame, 0, int( mAnimation->SpriteCount() ) - 1 ) );
+        emit numberOfFrameChanged();
+    }
+
+    delete  dialog;
 }
 
 
