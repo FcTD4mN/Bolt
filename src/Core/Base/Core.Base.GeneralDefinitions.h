@@ -1,8 +1,13 @@
 #pragma once
 
+#include "Core.Base.Utilities.h"
+
 
 namespace nCore {
 namespace nBase {
+
+
+typedef     size_t  tHash;
 
 
 enum eFormat

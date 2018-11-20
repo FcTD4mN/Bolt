@@ -1,7 +1,7 @@
 #include "Core.Base.Variant.h"
 
-
 #include <string>
+
 
 
 namespace nCore {
@@ -143,9 +143,50 @@ cVariant::SetValueBool( bool iValue )
 // ==============================================================================================================
 
 
-void cVariant::SetValueChangeCallback( std::function< void( eVariableState ) > iFunction )
+void
+cVariant::AddValueChangeCallback( std::function< void( eVariableState ) > iFunction )
 {
-    mValueChangeCallback.push_back( iFunction );
+    mValueChangeCallback.push_back( std::pair< tHash, std::function< void( eVariableState ) > >( std::hash< std::string >{}( "__NONE__" ), iFunction ) );
+}
+
+
+void
+cVariant::AddValueChangeCallbackAndAssociateID( std::function< void( eVariableState ) > iFunction, const std::string& iID )
+{
+    mValueChangeCallback.push_back( std::pair< tHash, std::function< void( eVariableState ) > >( std::hash< std::string >{}( iID ), iFunction ) );
+}
+
+
+void
+cVariant::RemoveCallbackByID( const std::string & iID )
+{
+    tHash hashedID = std::hash< std::string >{}( iID );
+
+    for( int i = 0; i < mValueChangeCallback.size(); ++i )
+    {
+        auto pair = mValueChangeCallback[ i ];
+        if( pair.first == hashedID )
+        {
+            mValueChangeCallback.erase( mValueChangeCallback.begin() + i );
+            break;
+        }
+    }
+}
+
+
+bool
+cVariant::CallbackByIDExist( const std::string & iID )
+{
+    tHash hashedID = std::hash< std::string >{}( iID );
+
+    for( int i = 0; i < mValueChangeCallback.size(); ++i )
+    {
+        auto pair = mValueChangeCallback[ i ];
+        if( pair.first == hashedID )
+            return  true;
+    }
+
+    return  false;
 }
 
 
@@ -252,13 +293,13 @@ cNumber::Value() const
 void
 cNumber::Value( double iValue )
 {
-    for( auto cb : mValueChangeCallback )
-        cb( eVariableState::kBeforeChange );
+    for( auto& pair : mValueChangeCallback )
+        pair.second( eVariableState::kBeforeChange );
 
     mValue = iValue;
 
-    for( auto cb : mValueChangeCallback )
-        cb( eVariableState::kAfterChange );
+    for( auto& pair : mValueChangeCallback )
+        pair.second( eVariableState::kAfterChange );
 }
 
 
@@ -370,13 +411,13 @@ cString::Value() const
 void
 cString::Value( const std::string & iValue )
 {
-    for( auto cb : mValueChangeCallback )
-        cb( eVariableState::kBeforeChange );
+    for( auto& pair : mValueChangeCallback )
+        pair.second( eVariableState::kBeforeChange );
 
     mValue = iValue;
 
-    for( auto cb : mValueChangeCallback )
-        cb( eVariableState::kAfterChange );
+    for( auto& pair : mValueChangeCallback )
+        pair.second( eVariableState::kAfterChange );
 }
 
 
@@ -488,13 +529,13 @@ cBoolean::Value() const
 void
 cBoolean::Value( bool iValue )
 {
-    for( auto cb : mValueChangeCallback )
-        cb( eVariableState::kBeforeChange );
+    for( auto& pair : mValueChangeCallback )
+        pair.second( eVariableState::kBeforeChange );
 
     mValue = iValue;
 
-    for( auto cb : mValueChangeCallback )
-        cb( eVariableState::kAfterChange );
+    for( auto& pair : mValueChangeCallback )
+        pair.second( eVariableState::kAfterChange );
 }
 
 

@@ -96,7 +96,7 @@
     <ClInclude Include="..\..\src\Core\Base\Core.Base.Clipboard.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.CommonIncludes.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.FileSystem.h" />
-    <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralEnums.h" />
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralDefinitions.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.ResourceManager.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.Utilities.h" />
     <ClInclude Include="..\..\src\Core\Base\Core.Base.Variant.h" />

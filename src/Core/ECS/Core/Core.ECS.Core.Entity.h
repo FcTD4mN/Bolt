@@ -70,20 +70,23 @@ public:
         For example, we want the hitbox's size to be equal to the transformation's size, or X value, or whatever.
     */
     void  ConnectComponentsVariables( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iComponentBName, const std::string& iVariableBName );
+    void  DisconnectComponentsVariables( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iComponentBName, const std::string& iVariableBName );
 
     /*
         Allows to connect the variable from this entity's componentA, to a variable from a component of an external entity.
         For example, we want the position of this entity, to match another entity's position
     */
     void  ConnectComponentsVariablesFromEntity( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iEntityBID, const std::string& iComponentBName, const std::string& iVariableBName );
-    void  ConnectComponentsVariablesFromEntity( const std::string& iComponentAName, const std::string& iVariableAName, const cEntity* iEntityB, const std::string& iComponentBName, const std::string& iVariableBName );
+    void  ConnectComponentsVariablesFromEntity( const std::string& iComponentAName, const std::string& iVariableAName, cEntity* iEntityB, const std::string& iComponentBName, const std::string& iVariableBName );
+    void  DisconnectComponentsVariablesFromEntity( const std::string& iComponentAName, const std::string& iVariableAName, const std::string& iEntityBID, const std::string& iComponentBName, const std::string& iVariableBName );
+    void  DisconnectComponentsVariablesFromEntity( const std::string& iComponentAName, const std::string& iVariableAName, cEntity* iEntityB, const std::string& iComponentBName, const std::string& iVariableBName );
 
 
     // EDITOR
-    cComponent*  GetComponentAtIndex( int iIndex );
-    void RemoveComponentAtIndex( int iIndex );
+    cComponent*     GetComponentAtIndex( int iIndex );
+    void            RemoveComponentAtIndex( int iIndex );
 
-    unsigned int GetComponentCount() const;
+    unsigned int    GetComponentCount() const;
 
 public:
     // Tags
@@ -140,11 +143,13 @@ private:
     unsigned int                mIDForHandles;
 
     // All internal connections are stored here, so whenever the entity is cloned, we can recreate all connections
-    std::vector< std::tuple< std::string, std::string, std::string, std::string > >  mAllInternalComponentsConnections;
+    //                         CompA         VarA        CompB          VarB
+    std::vector< std::tuple< std::string, std::string, std::string, std::string > >                 mAllInternalComponentsConnections;
 
     // External connections are connections between this entity's component variable and another entity's component variable.
     // These are different as when cloning this entity, the local component reference will be the cloned comp, but the external entity won't change
-    std::vector< std::tuple< std::string, std::string, std::string, std::string, std::string > >  mAllExternalComponentsConnections;
+    //                         CompA         VarA        EntityB      CompB          VarB
+    std::vector< std::tuple< std::string, std::string, std::string, std::string, std::string > >    mAllExternalComponentsConnections;
 };
 
 

@@ -86,6 +86,7 @@ public:
         For persistent connections, use the Connect methods in entity
      */
     void                            ConnectVariable( const std::string& iOwnVariable, cComponentGeneric* iOtherComponent, const std::string& iOtherVariable );
+    void                            DisconnectVariable( const std::string& iOwnVariable, cComponentGeneric* iOtherComponent, const std::string& iOtherVariable );
 
 
     // EDITOR USED methods

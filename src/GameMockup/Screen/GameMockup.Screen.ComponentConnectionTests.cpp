@@ -90,9 +90,12 @@ cComponentConnectionTests::AdditionnalBuildScreen()
     wall->AddComponent( new ::nCore::nECS::nComponent::cSimplePhysic( 0.F, 0.F, ::nCore::nECS::nComponent::cSimplePhysic::eType::kStatic, false ) );
     wall->ConnectComponentsVariables( "simplephysic", "SizeW", "transformation", "width" );
     wall->ConnectComponentsVariables( "simplephysic", "SizeH", "transformation", "height" );
+    wall->ConnectComponentsVariables( "simplephysic", "SizeH", "transformation", "height" ); // Tests for no duplicates
     wall->AddTag( "wall" );
     mWorld->AddEntityAndPutInLayer( wall, 0 );
     wall->ConnectComponentsVariablesFromEntity( "transformation", "width", ent, "transformation", "x" );
+    wall->ConnectComponentsVariablesFromEntity( "transformation", "height", ent, "transformation", "x" );
+    wall->DisconnectComponentsVariablesFromEntity( "transformation", "height", ent, "transformation", "x" );
 
     auto wall2 = wall->Clone();
     auto transWall2 = wall2->GetComponentByIDAs< ::nCore::nECS::nComponent::cTransformation* >( "transformation" );

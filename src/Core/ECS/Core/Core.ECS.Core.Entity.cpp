@@ -225,30 +225,79 @@ cEntity::ConnectComponentsVariables( const std::string & iComponentAName, const 
 
 
 void
+cEntity::DisconnectComponentsVariables( const std::string & iComponentAName, const std::string & iVariableAName, const std::string & iComponentBName, const std::string & iVariableBName )
+{
+    auto  componentA = GetComponentByIDAs< cComponentGeneric* >( iComponentAName );
+    auto  componentB = GetComponentByIDAs< cComponentGeneric* >( iComponentBName );
+    assert( componentA && componentB );
+    componentA->DisconnectVariable( iVariableAName, componentB, iVariableBName );
+
+    auto tuple = std::make_tuple( iComponentAName, iVariableAName, iComponentBName, iVariableBName );
+    ::nCore::nBase::EraseElementFromVector( &mAllInternalComponentsConnections, tuple );
+}
+
+
+void
 cEntity::ConnectComponentsVariablesFromEntity( const std::string & iComponentAName, const std::string & iVariableAName, const std::string & iEntityBID, const std::string & iComponentBName, const std::string & iVariableBName )
 {
-    assert( mWorld && "A world is needed to connect to entity" );
-    auto  componentA = GetComponentByIDAs< cComponentGeneric* >( iComponentAName );
+    assert( mWorld && "A world is needed to get the entity ID" );
 
     auto entityB = mWorld->GetEntityByID( iEntityBID );
     assert( entityB );
     if( !entityB )
         return;
 
-    auto  componentB = entityB->GetComponentByIDAs< cComponentGeneric* >( iComponentBName );
+    ConnectComponentsVariablesFromEntity( iComponentAName, iVariableAName, entityB, iComponentBName, iVariableBName );
+}
+
+void
+cEntity::ConnectComponentsVariablesFromEntity( const std::string & iComponentAName, const std::string & iVariableAName, cEntity * iEntityB, const std::string & iComponentBName, const std::string & iVariableBName )
+{
+    assert( iEntityB );
+
+    auto  componentA = GetComponentByIDAs< cComponentGeneric* >( iComponentAName );
+    auto  componentB = iEntityB->GetComponentByIDAs< cComponentGeneric* >( iComponentBName );
+
     assert( componentA && componentB );
     if( !componentA || !componentB )
         return;
 
     componentA->ConnectVariable( iVariableAName, componentB, iVariableBName );
 
-    mAllExternalComponentsConnections.push_back( std::make_tuple( iComponentAName, iVariableAName, iEntityBID, iComponentBName, iVariableBName ) );
+    mAllExternalComponentsConnections.push_back( std::make_tuple( iComponentAName, iVariableAName, iEntityB->ID(), iComponentBName, iVariableBName ) );
 }
 
+
 void
-cEntity::ConnectComponentsVariablesFromEntity( const std::string & iComponentAName, const std::string & iVariableAName, const cEntity * iEntityB, const std::string & iComponentBName, const std::string & iVariableBName )
+cEntity::DisconnectComponentsVariablesFromEntity( const std::string & iComponentAName, const std::string & iVariableAName, const std::string & iEntityBID, const std::string & iComponentBName, const std::string & iVariableBName )
 {
-    ConnectComponentsVariablesFromEntity( iComponentAName, iVariableAName, iEntityB->ID(), iComponentBName, iVariableBName );
+    assert( mWorld && "A world is needed to get the entity ID" );
+
+    auto entityB = mWorld->GetEntityByID( iEntityBID );
+    assert( entityB );
+    if( !entityB )
+        return;
+
+    DisconnectComponentsVariablesFromEntity( iComponentAName, iVariableAName, entityB, iComponentBName, iVariableBName );
+}
+
+
+void
+cEntity::DisconnectComponentsVariablesFromEntity( const std::string & iComponentAName, const std::string & iVariableAName, cEntity * iEntityB, const std::string & iComponentBName, const std::string & iVariableBName )
+{
+    assert( iEntityB );
+
+    auto  componentA = GetComponentByIDAs< cComponentGeneric* >( iComponentAName );
+    auto  componentB = iEntityB->GetComponentByIDAs< cComponentGeneric* >( iComponentBName );
+
+    assert( componentA && componentB );
+    if( !componentA || !componentB )
+        return;
+
+    componentA->DisconnectVariable( iVariableAName, componentB, iVariableBName );
+    auto tuple = std::make_tuple( iComponentAName, iVariableAName, iEntityB->ID(), iComponentBName, iVariableBName );
+
+    ::nCore::nBase::EraseElementFromVector( &mAllExternalComponentsConnections, tuple );
 }
 
 

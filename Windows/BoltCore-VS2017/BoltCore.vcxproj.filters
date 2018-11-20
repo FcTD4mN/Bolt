@@ -333,9 +333,6 @@
     <ClInclude Include="..\..\src\Core\Base\Thread\Core.Base.Thread.ThreadProcessor.h">
       <Filter>src\Core\Base\Thread</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralEnums.h">
-      <Filter>src\Core\Base</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Core\Base\Core.Base.ResourceManager.h">
       <Filter>src\Core\Base</Filter>
     </ClInclude>
@@ -526,6 +523,9 @@
       <Filter>src\GameMockup\Screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Core\Base\Core.Base.CommonIncludes.h">
+      <Filter>src\Core\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Core\Base\Core.Base.GeneralDefinitions.h">
       <Filter>src\Core\Base</Filter>
     </ClInclude>
   </ItemGroup>

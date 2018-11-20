@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Core.Base.GeneralDefinitions.h"
+
+
 #include <tinyxml2.h>
 
 
@@ -56,7 +59,10 @@ public:
 
     virtual  std::string            ToString() const = 0;
 
-    void                            SetValueChangeCallback( std::function< void( eVariableState ) > iFunction );
+    void                            AddValueChangeCallback( std::function< void( eVariableState ) > iFunction );
+    void                            AddValueChangeCallbackAndAssociateID( std::function< void( eVariableState ) > iFunction, const std::string& iID );
+    void                            RemoveCallbackByID( const std::string& iID );
+    bool                            CallbackByIDExist( const std::string& iID );
 
 public:
     virtual  void SaveXML( tinyxml2::XMLElement* iNode, tinyxml2::XMLDocument* iDocument );
@@ -67,7 +73,8 @@ public:
     virtual  cVariant& operator= ( const cVariant& iRHS ) = 0;
 
 protected:
-    std::vector< std::function< void( eVariableState ) > > mValueChangeCallback;
+    // Pair is to allow string ID association, so we can further disconnect by ID, otherwise we couldn't find the function back, as lambda can't be compared later on
+    std::vector< std::pair< tHash, std::function< void( eVariableState ) > > > mValueChangeCallback;
 };
 
 

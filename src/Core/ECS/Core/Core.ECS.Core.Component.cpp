@@ -1,6 +1,9 @@
 #include "Core.ECS.Core.Component.h"
 
+
 #include "Core.Base.CommonIncludes.h"
+#include "Core.ECS.Core.Entity.h"
+
 
 namespace nCore {
 namespace nECS {
@@ -135,7 +138,7 @@ cComponentGeneric::SetNewVariable( const std::string& iVarName, ::nCore::nBase::
 void
 cComponentGeneric::SetVarValueChangeCallback( const std::string & iVarName, std::function< void( ::nCore::nBase::eVariableState ) > iFunction )
 {
-    mVars[ iVarName ]->SetValueChangeCallback( iFunction );
+    mVars[ iVarName ]->AddValueChangeCallback( iFunction );
 }
 
 
@@ -162,15 +165,29 @@ cComponentGeneric::ConnectVariable( const std::string & iOwnVariable, cComponent
     if( myVar->Type() != otherVar->Type() )
         return;
 
-    *myVar = *otherVar;
+    std::string connectionID = mEntityOwner->ID() + mID + iOwnVariable + iOtherComponent->mEntityOwner->ID() + iOtherComponent->mID + iOtherVariable;
 
-    iOtherComponent->SetVarValueChangeCallback( iOtherVariable, [ this, iOwnVariable, iOtherVariable, iOtherComponent ]( ::nCore::nBase::eVariableState iState ){
+    // No need to stack the same connection
+    if( otherVar->CallbackByIDExist( connectionID ) )
+        return;
+
+    *myVar = *otherVar;
+    otherVar->AddValueChangeCallbackAndAssociateID( [ this, iOwnVariable, iOtherVariable, iOtherComponent ]( ::nCore::nBase::eVariableState iState ){
 
         if( iState == ::nCore::nBase::kAfterChange )
         {
             *mVars[ iOwnVariable ] = *iOtherComponent->mVars[ iOtherVariable ];
         }
-    } );
+    }, connectionID );
+}
+
+
+void
+cComponentGeneric::DisconnectVariable( const std::string & iOwnVariable, cComponentGeneric * iOtherComponent, const std::string & iOtherVariable )
+{
+    std::string connectionID = mEntityOwner->ID() + mID + iOwnVariable + iOtherComponent->mEntityOwner->ID() + iOtherComponent->mID + iOtherVariable;
+    auto otherVar = iOtherComponent->mVars[ iOtherVariable ];
+    otherVar->RemoveCallbackByID( connectionID );
 }
 
 
