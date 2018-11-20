@@ -417,6 +417,9 @@ cScreen::SaveXML() const
 void
 cScreen::LoadXML()
 {
+    if( mFilePath.string().empty() ) // C++ screen has no xml related file
+        return;
+
     ImportFromFile( mFilePath );
     mLoaded = true;
 }
